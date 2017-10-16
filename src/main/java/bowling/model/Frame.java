@@ -1,5 +1,7 @@
 package bowling.model;
 
+import java.util.List;
+
 public class Frame {
 	Frame nextFrame;
 	Score score;
@@ -23,18 +25,25 @@ public class Frame {
 		nextFrame.addFrame(frame);
 	}
 
-	public void setScore(String strScore) {
+	public void setScore(String knockedPins) {
 		if (score.isNotSetting()) {
-			score.settingScore(strScore);
+			score.setScore(knockedPins);
 			return;
 		}
-		nextFrame.setScore(strScore);
+		nextFrame.setScore(knockedPins);
 	}
 
 	public int getSumScore() {
 		if (score.isNotSetting()) {
 			return 0;
 		}
-		return score.getIntScore() + nextFrame.getSumScore();
+		return score.getScore() + nextFrame.getSumScore();
+	}
+
+	public void getKnockedPins(List<String> knockedPins, List<Integer> intScores) {
+		score.getKnockedPins(knockedPins, intScores);
+		if (nextFrame != null) {
+			nextFrame.getKnockedPins(knockedPins, intScores);
+		}
 	}
 }
