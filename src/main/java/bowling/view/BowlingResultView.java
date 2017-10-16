@@ -25,7 +25,7 @@ public class BowlingResultView {
 
 		sb.append("| ").append(player.getName()).append("  |");
 		for (String knockedPin : knockedPins) {
-			sb.append("  ").append(knockedPin).append(" |");
+			sb.append("  ").append(knockedPin).append("  |");
 		}
 		sb.append("\n").append("|       |");
 		for (int score : scores) {

@@ -10,7 +10,7 @@ public class ScoreTest {
 	public void 입력받은_값으로_생성해보자() {
 		Score score1 = new Score();
 		score1.setScore("10");
-		assertEquals("X", score1.getKnockedPins());
+		assertEquals("X ", score1.getKnockedPins());
 		assertEquals(10, score1.getScore());
 
 		Score score2 = new Score();

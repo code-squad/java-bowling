@@ -19,7 +19,7 @@ public class Score {
 	private String makeStrScore(String knockedPins) {
 		if (knockedPins.equals("10")) {
 			score = 10;
-			return "X";
+			return "X ";
 		}
 		if (knockedPins.equals("|")) {
 			return "|";

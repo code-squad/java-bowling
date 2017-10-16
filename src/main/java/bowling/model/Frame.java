@@ -31,20 +31,36 @@ public class Frame {
 		nextFrame.addFrame(frame);
 	}
 
-	public void setScore(String knockedPins) {
-		checkRound();
-		if (isEndFrame()) {
-			nextFrame.setScore(knockedPins);
-			return;
+	public int setScore(String knockedPins) {
+		if (isEndFrame() | isStrike()) {
+			return nextFrame.setScore(knockedPins);
 		}
 		score.setScore(knockedPins);
+		checkStrike(knockedPins);
+		return checkEndFrame();
 	}
 
-	private void checkRound() {
-		if (round == 2) {
-			endFrame = true;
+	private void checkStrike(String knockedPins) {
+		if (knockedPins.equals("10")) {
+			isStrike = true;
+		}
+	}
+
+	private boolean isStrike() {
+		return isStrike;
+	}
+
+	private int checkEndFrame() {
+		if (round == 2 || isStrike()) {
+			endThisFrame();
+			return 1;
 		}
 		round++;
+		return 0;
+	}
+
+	private void endThisFrame() {
+		endFrame = true;
 	}
 
 	private boolean isEndFrame() {

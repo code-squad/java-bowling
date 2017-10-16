@@ -19,8 +19,8 @@ public class Player {
 		return frame;
 	}
 
-	public void setScore(String knockedPins) {
-		frame.setScore(knockedPins);
+	public int setScore(String knockedPins) {
+		return frame.setScore(knockedPins);
 	}
 
 	public int getScore() {
