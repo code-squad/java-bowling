@@ -3,8 +3,8 @@ package bowling.model;
 import java.util.List;
 
 public class Player {
-	String name;
-	Frame frame;
+	private String name;
+	private Frame frame;
 
 	public Player(String name, Frame frame) {
 		this.name = name;

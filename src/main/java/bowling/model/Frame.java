@@ -3,11 +3,17 @@ package bowling.model;
 import java.util.List;
 
 public class Frame {
-	Frame nextFrame;
-	Score score;
+	private Frame nextFrame;
+	private Score score;
+	private int round;
+	private boolean isStrike;
+	private boolean endFrame;
 
 	public Frame() {
-		this.score = new Score();
+		score = new Score();
+		round = 1;
+		isStrike = false;
+		endFrame = false;
 	}
 
 	public int size() {
@@ -26,11 +32,23 @@ public class Frame {
 	}
 
 	public void setScore(String knockedPins) {
-		if (score.isNotSetting()) {
-			score.setScore(knockedPins);
+		checkRound();
+		if (isEndFrame()) {
+			nextFrame.setScore(knockedPins);
 			return;
 		}
-		nextFrame.setScore(knockedPins);
+		score.setScore(knockedPins);
+	}
+
+	private void checkRound() {
+		if (round == 2) {
+			endFrame = true;
+		}
+		round++;
+	}
+
+	private boolean isEndFrame() {
+		return endFrame;
 	}
 
 	public int getSumScore() {

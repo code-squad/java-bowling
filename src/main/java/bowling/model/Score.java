@@ -8,11 +8,12 @@ public class Score {
 	private String sumScore;
 
 	public Score() {
-		knockedPins = null;
+		knockedPins = "";
+		score = 0;
 	}
 
 	public void setScore(String knockedPins) {
-		this.knockedPins = makeStrScore(knockedPins);
+		this.knockedPins += makeStrScore(knockedPins);
 	}
 
 	private String makeStrScore(String knockedPins) {
@@ -20,20 +21,22 @@ public class Score {
 			score = 10;
 			return "X";
 		}
+		if (knockedPins.equals("|")) {
+			return "|";
+		}
 		return calStrScore(knockedPins);
 	}
 
 	private String calStrScore(String knockedPins) {
-		String[] strArr = knockedPins.split("|");
-		score = Integer.parseInt(strArr[0]) + Integer.parseInt(strArr[2]);
+		score += Integer.parseInt(knockedPins);
 		if (score == 10) {
-			return strArr[0] + "|/";
+			return "/";
 		}
 		return knockedPins;
 	}
 
 	public boolean isNotSetting() {
-		return knockedPins == null;
+		return knockedPins.equals("");
 	}
 
 	public int getScore() {

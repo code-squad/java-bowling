@@ -35,6 +35,7 @@ public class BowlingResultView {
 	}
 }
 
+// 결과 폼 예제
 // 플레이어 이름은(3 english letters)?: PJS
 // | NAME | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 |
 // | PJS | | | | | | | | | | |
