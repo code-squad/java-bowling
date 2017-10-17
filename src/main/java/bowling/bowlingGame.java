@@ -15,7 +15,7 @@ public class bowlingGame {
 			String name = BowlingFormView.inputName(scanner);
 			bm.initPlayer(name);
 		}
-		while (true) {
+		while (!bm.isEndGame()) {
 			String KnockedPins = BowlingFormView.inputKnockedPins(scanner);
 			bm.inputKnockedPins(KnockedPins);
 			bm.showResult();

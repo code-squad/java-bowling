@@ -8,10 +8,14 @@ import bowling.view.BowlingResultView;
 public class BowlingManager {
 	private List<Player> players;
 	private int index;
+	private int round;
+	private boolean endGame;
 
 	public BowlingManager() {
 		players = new ArrayList<>();
 		index = 0;
+		round = 1;
+		endGame = false;
 	}
 
 	public void initPlayer(String name) {
@@ -23,12 +27,27 @@ public class BowlingManager {
 	}
 
 	public void inputKnockedPins(String knockedPins) {
-		if (index == players.size()) {
-			index = 0;
-			//여기에 총 몇 프레임 했는지 카운트 하는 변수 넣고 그게 10 혹은 11이 되면 while문에 false를 리턴하여 종료하게 하자
-		}
 		Player player = players.get(index);
 		int temp = player.setScore(knockedPins);
 		index += temp;
+		adjustPlayer();
+	}
+
+	private void adjustPlayer() {
+		if (index == players.size()) {
+			index = 0;
+			round++;
+			exitGame();
+		}
+	}
+
+	private void exitGame() {
+		if (round == 11) {
+			endGame = true;
+		}
+	}
+
+	public boolean isEndGame() {
+		return endGame;
 	}
 }
