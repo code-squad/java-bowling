@@ -67,17 +67,34 @@ public class Frame {
 		return endFrame;
 	}
 
-	public int getSumScore() {
-		if (score.isNotSetting()) {
-			return 0;
+	public String getSumScore() {
+		if (!nextFrame.isEndFrame()) {
+			return score.getSumScore();
 		}
-		return score.getScore() + nextFrame.getSumScore();
+		return nextFrame.getSumScore();
 	}
 
-	public void getKnockedPins(List<String> knockedPins, List<Integer> intScores) {
+	public void getKnockedPins(List<String> knockedPins, List<String> intScores) {
 		score.getKnockedPins(knockedPins, intScores);
-		if (nextFrame != null) {
+		if (isNotNextFrame()) {
 			nextFrame.getKnockedPins(knockedPins, intScores);
 		}
+	}
+
+	public void calculateSumScore() {
+		calculateSumScore(score.calculateSumScore("first"));
+	}
+
+	private void calculateSumScore(String sumScore) {
+		if (isEndFrame()) {
+			score.calculateSumScore(sumScore);
+		}
+		if (isNotNextFrame()) {
+			nextFrame.calculateSumScore(score.getSumScore());
+		}
+	}
+	
+	private boolean isNotNextFrame() {
+		return nextFrame != null;
 	}
 }

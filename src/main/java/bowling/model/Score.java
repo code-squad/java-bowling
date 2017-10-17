@@ -10,6 +10,7 @@ public class Score {
 	public Score() {
 		knockedPins = "";
 		score = 0;
+		sumScore = "   ";
 	}
 
 	public void setScore(String knockedPins) {
@@ -47,12 +48,39 @@ public class Score {
 		return knockedPins;
 	}
 
-	public void getKnockedPins(List<String> knockedPins, List<Integer> intScores) {
+	public void getKnockedPins(List<String> knockedPins, List<String> intScores) {
 		if (!isNotSetting()) {
 			knockedPins.add(this.knockedPins);
-			intScores.add(this.score);
+			intScores.add(this.sumScore);
 			return;
 		}
 		knockedPins.add(" ");
+		intScores.add(" ");
 	}
+
+	public String getSumScore() {
+		return sumScore;
+	}
+
+	public String calculateSumScore(String sumScore) {
+		if (sumScore.equals("first")) {
+			return firstSumScore(sumScore);
+		}
+		if (this.sumScore.equals("   ")) {
+			return normalSumScore(sumScore);
+		}
+		return sumScore;
+	}
+
+	private String firstSumScore(String sumScore) {
+		this.sumScore = Integer.toString(score);
+		return this.sumScore;
+	}
+
+	private String normalSumScore(String sumScore) {
+		int tempScore = score + Integer.parseInt(sumScore);
+		this.sumScore = Integer.toString(tempScore);
+		return sumScore;
+	}
+
 }

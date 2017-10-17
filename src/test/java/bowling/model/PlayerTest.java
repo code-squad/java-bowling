@@ -22,20 +22,20 @@ public class PlayerTest {
 	@Test
 	public void 유저를_만들고_점수를_입력() {
 		player.setScore("2");
-		assertEquals(2, player.getScore());
 		player.setScore("4");
-		assertEquals(6, player.getScore());
+		player.calculateSumScore();
+		assertEquals("6", player.getSumScore());
 		player.setScore("5");
-		assertEquals(11, player.getScore());
 		player.setScore("2");
-		assertEquals(13, player.getScore());
+		player.calculateSumScore();
+		assertEquals("13", player.getSumScore());
 		player.setScore("7");
-		assertEquals(20, player.getScore());
 		player.setScore("1");
-		assertEquals(21, player.getScore());
+		player.calculateSumScore();
+		assertEquals("21", player.getSumScore());
 		player.setScore("2");
-		assertEquals(23, player.getScore());
 		player.setScore("0");
-		assertEquals(23, player.getScore());
+		player.calculateSumScore();
+		assertEquals("23", player.getSumScore());
 	}
 }

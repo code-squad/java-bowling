@@ -23,11 +23,19 @@ public class Player {
 		return frame.setScore(knockedPins);
 	}
 
-	public int getScore() {
+	public String getScore() {
 		return frame.getSumScore();
 	}
 
-	public void getKnockedPins(List<String> knockedPins, List<Integer> intScores) {
+	public void getKnockedPins(List<String> knockedPins, List<String> intScores) {
 		frame.getKnockedPins(knockedPins, intScores);
+	}
+
+	public String getSumScore() {
+		return frame.getSumScore();
+	}
+	
+	public void calculateSumScore() {
+		frame.calculateSumScore();
 	}
 }

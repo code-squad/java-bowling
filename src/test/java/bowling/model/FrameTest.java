@@ -21,7 +21,7 @@ public class FrameTest {
 	}
 
 	@Test
-	public void 점수를_세팅하자() {
+	public void 누적_점수_구하기() {
 		Frame frame = FrameFactory.initFrames();
 		frame.setScore("1");
 		frame.setScore("0");
@@ -31,6 +31,18 @@ public class FrameTest {
 		frame.setScore("6");
 		frame.setScore("3");
 		frame.setScore("4");
-		assertEquals(22, frame.getSumScore());
+		frame.calculateSumScore();
+		assertEquals("22", frame.getSumScore());
+
+		frame = FrameFactory.initFrames();
+		frame.setScore("1");
+		frame.setScore("0");
+		frame.setScore("2");
+		frame.setScore("5");
+		frame.setScore("1");
+		frame.setScore("6");
+		frame.setScore("3");
+		frame.calculateSumScore();
+		assertEquals("15", frame.getSumScore());
 	}
 }

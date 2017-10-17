@@ -25,4 +25,18 @@ public class ScoreTest {
 		assertEquals("3/", score3.getKnockedPins());
 		assertEquals(10, score3.getScore());
 	}
+	
+	@Test
+	public void 누적_점수_구하기() {
+		Score score = new Score();
+		score.setScore("10");
+		score.calculateSumScore("first");
+		assertEquals("10", score.getSumScore());
+		
+		score = new Score();
+		score.setScore("2");
+		score.setScore("3");
+		score.calculateSumScore("10");
+		assertEquals("15", score.getSumScore());
+	}
 }
