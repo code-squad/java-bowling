@@ -34,7 +34,6 @@ public class Manager {
 			scores.add(calculateScore(tempScores));
 			board.scoresReceiveToManager(scores);
 			System.out.println(board.create());
-
 		}
 
 	}
