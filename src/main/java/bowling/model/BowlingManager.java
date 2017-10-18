@@ -50,4 +50,8 @@ public class BowlingManager {
 	public boolean isEndGame() {
 		return endGame;
 	}
+
+	public String playerName() {
+		return players.get(index).getName();
+	}
 }

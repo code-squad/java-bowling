@@ -15,8 +15,9 @@ public class BowlingFormView {
 		return name;
 	}
 	
-	public static String inputKnockedPins(Scanner scanner) {
-		System.out.println("당신의 턴 입니다.");
+	public static String inputKnockedPins(Scanner scanner, String name) {
+		System.out.print(name);
+		System.out.println("의 턴 입니다.");
 		String knockedPins = scanner.nextLine();
 		return knockedPins;
 	}
