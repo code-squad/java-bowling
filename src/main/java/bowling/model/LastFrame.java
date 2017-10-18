@@ -15,16 +15,6 @@ public class LastFrame extends Frame {
 	}
 
 	@Override
-	protected int checkEndFrame() {
-		if (round == 2) {
-			endThisFrame();
-			return 1;
-		}
-		round++;
-		return 0;
-	}
-
-	@Override
 	public String getSumScore() {
 		return score.getSumScore();
 	}

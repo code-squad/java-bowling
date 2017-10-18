@@ -103,36 +103,27 @@ public class Frame {
 			calculateSumScore(score.calculateSumScore("first"));
 			return;
 		}
-		if (isEndFrame() && nextFrame.isEndFrame()) {
+		if (isEndFrame()) {
 			calculateSumScore(score.calculateSumScore(score.getSumScore()));
-			return;
 		}
-		calculateSumScore(score.calculateSumScore(score.getSumScore()));
-
 	}
 
 	protected void calculateSumScore(String sumScore) {
 		if (isEndFrame()) {
 			if (isSpare()) {
 				if (nextFrame.round == 2 || nextFrame.isStrike()) {
-					score.calculateSumScore(sumScore);
-					score.calculateSpecial(nextFrame.score.firstRoundScore());
-					isSpare = false;
+					calculateSpecial(sumScore, nextFrame.firstRoundScore());
 				}
 				return;
 			}
 			if (isStrike()) {
 				if (nextFrame.isEndFrame() && !nextFrame.isStrike()) {
-					score.calculateSumScore(sumScore);
-					score.calculateSpecial(nextFrame.getScore());
-					isStrike = false;
+					calculateSpecial(sumScore, nextFrame.getScore());
 					nextFrame.calculateSumScore(score.getSumScore());
 					return;
 				}
 				if (nextFrame.isEndFrame() && nextFrame.nextFrame != null && nextFrame.nextFrame.isEndFrame()) {
-					score.calculateSumScore(sumScore);
-					score.calculateSpecial(nextFrame.nextFrame.score.firstRoundScore() + 10);
-					isStrike = false;
+					calculateSpecial(sumScore, nextFrame.nextFrame.firstRoundScore() + 10);
 					nextFrame.calculateSumScore(score.getSumScore());
 					return;
 				}
@@ -142,11 +133,19 @@ public class Frame {
 		}
 		if (isNextFrame()) {
 			nextFrame.calculateSumScore(score.getSumScore());
+			return;
 		}
 	}
+	
+	protected int firstRoundScore() {
+		return score.firstRoundScore();
+	}
 
-	protected void calculateStrike() {
-
+	private void calculateSpecial(String sumScore, int nextFrameScore) {
+		score.calculateSumScore(sumScore);
+		score.calculateSpecial(nextFrameScore);
+		isStrike = false;
+		isSpare = false;
 	}
 
 	protected boolean isNextFrame() {

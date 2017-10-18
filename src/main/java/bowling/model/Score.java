@@ -48,14 +48,14 @@ public class Score {
 		return knockedPins;
 	}
 
-	public void getKnockedPins(List<String> knockedPins, List<String> intScores) {
+	public void getKnockedPins(List<String> knockedPins, List<String> sumScores) {
 		if (!isNotSetting()) {
 			knockedPins.add(this.knockedPins);
-			intScores.add(this.sumScore);
+			sumScores.add(this.sumScore);
 			return;
 		}
 		knockedPins.add(" ");
-		intScores.add(" ");
+		sumScores.add(" ");
 	}
 
 	public String getSumScore() {
