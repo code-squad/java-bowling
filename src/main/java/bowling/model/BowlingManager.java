@@ -29,15 +29,8 @@ public class BowlingManager {
 	public void inputKnockedPins(String knockedPins) {
 		Player player = players.get(index);
 		int indexCounter = player.setScore(knockedPins);
-		calculateSumScore(indexCounter, player);
 		index += indexCounter;
 		adjustPlayer();
-	}
-	
-	private void calculateSumScore(int indexCounter,Player player) {
-		if(indexCounter == 1) {
-			player.calculateSumScore();
-		}
 	}
 
 	private void adjustPlayer() {

@@ -3,16 +3,18 @@ package bowling.model;
 import java.util.List;
 
 public class Frame {
-	private Frame nextFrame;
-	private Score score;
-	private int round;
-	private boolean isStrike;
-	private boolean endFrame;
+	protected Frame nextFrame;
+	protected Score score;
+	protected int round;
+	protected boolean isStrike;
+	protected boolean isSpare;
+	protected boolean endFrame;
 
 	public Frame() {
 		score = new Score();
 		round = 1;
 		isStrike = false;
+		isSpare = false;
 		endFrame = false;
 	}
 
@@ -32,25 +34,36 @@ public class Frame {
 	}
 
 	public int setScore(String knockedPins) {
-		if (isEndFrame() | isStrike()) {
+		if (isEndFrame() || isStrike()) {
 			return nextFrame.setScore(knockedPins);
 		}
 		score.setScore(knockedPins);
 		checkStrike(knockedPins);
+		checkSpare();
 		return checkEndFrame();
 	}
 
-	private void checkStrike(String knockedPins) {
+	protected void checkSpare() {
+		if (score.getScore() == 10 && round == 2) {
+			isSpare = true;
+		}
+	}
+
+	protected boolean isSpare() {
+		return isSpare;
+	}
+
+	protected void checkStrike(String knockedPins) {
 		if (knockedPins.equals("10")) {
 			isStrike = true;
 		}
 	}
 
-	private boolean isStrike() {
+	protected boolean isStrike() {
 		return isStrike;
 	}
 
-	private int checkEndFrame() {
+	protected int checkEndFrame() {
 		if (round == 2 || isStrike()) {
 			endThisFrame();
 			return 1;
@@ -59,11 +72,11 @@ public class Frame {
 		return 0;
 	}
 
-	private void endThisFrame() {
+	protected void endThisFrame() {
 		endFrame = true;
 	}
 
-	private boolean isEndFrame() {
+	protected boolean isEndFrame() {
 		return endFrame;
 	}
 
@@ -74,27 +87,69 @@ public class Frame {
 		return nextFrame.getSumScore();
 	}
 
+	protected int getScore() {
+		return score.getScore();
+	}
+
 	public void getKnockedPins(List<String> knockedPins, List<String> intScores) {
 		score.getKnockedPins(knockedPins, intScores);
-		if (isNotNextFrame()) {
+		if (isNextFrame()) {
 			nextFrame.getKnockedPins(knockedPins, intScores);
 		}
 	}
 
 	public void calculateSumScore() {
-		calculateSumScore(score.calculateSumScore("first"));
+		if (!nextFrame.isEndFrame()) {
+			calculateSumScore(score.calculateSumScore("first"));
+			return;
+		}
+		if (isEndFrame() && nextFrame.isEndFrame()) {
+			calculateSumScore(score.calculateSumScore(score.getSumScore()));
+			return;
+		}
+		calculateSumScore(score.calculateSumScore(score.getSumScore()));
+
 	}
 
-	private void calculateSumScore(String sumScore) {
+	protected void calculateSumScore(String sumScore) {
 		if (isEndFrame()) {
+			if (isSpare()) {
+				if (nextFrame.round == 2 || nextFrame.isStrike()) {
+					score.calculateSumScore(sumScore);
+					score.calculateSpecial(nextFrame.score.firstRoundScore());
+					isSpare = false;
+				}
+				return;
+			}
+			if (isStrike()) {
+				if (nextFrame.isEndFrame() && !nextFrame.isStrike()) {
+					score.calculateSumScore(sumScore);
+					score.calculateSpecial(nextFrame.getScore());
+					isStrike = false;
+					nextFrame.calculateSumScore(score.getSumScore());
+					return;
+				}
+				if (nextFrame.isEndFrame() && nextFrame.nextFrame != null && nextFrame.nextFrame.isEndFrame()) {
+					score.calculateSumScore(sumScore);
+					score.calculateSpecial(nextFrame.nextFrame.score.firstRoundScore() + 10);
+					isStrike = false;
+					nextFrame.calculateSumScore(score.getSumScore());
+					return;
+				}
+				return;
+			}
 			score.calculateSumScore(sumScore);
 		}
-		if (isNotNextFrame()) {
+		if (isNextFrame()) {
 			nextFrame.calculateSumScore(score.getSumScore());
 		}
 	}
-	
-	private boolean isNotNextFrame() {
+
+	protected void calculateStrike() {
+
+	}
+
+	protected boolean isNextFrame() {
 		return nextFrame != null;
 	}
 }

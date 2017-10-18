@@ -14,21 +14,21 @@ public class Score {
 	}
 
 	public void setScore(String knockedPins) {
-		this.knockedPins += makeStrScore(knockedPins);
+		this.knockedPins += makeKnockedPins(knockedPins);
 	}
 
-	private String makeStrScore(String knockedPins) {
+	private String makeKnockedPins(String knockedPins) {
 		if (knockedPins.equals("10")) {
-			score = 10;
+			score += 10;
 			return "X ";
 		}
 		if (knockedPins.equals("|")) {
 			return "|";
 		}
-		return calStrScore(knockedPins);
+		return calKnockedPins(knockedPins);
 	}
 
-	private String calStrScore(String knockedPins) {
+	private String calKnockedPins(String knockedPins) {
 		score += Integer.parseInt(knockedPins);
 		if (score == 10) {
 			return "/";
@@ -83,4 +83,24 @@ public class Score {
 		return sumScore;
 	}
 
+	public int firstRoundScore() {
+		if (knockedPins.startsWith("X")) {
+			return 10;
+		}
+		return Integer.parseInt(knockedPins.substring(0, 1));
+	}
+
+	public int secondRoundScore() {
+		if (knockedPins.startsWith("X")) {
+			return 10;
+		}
+		if (knockedPins.startsWith("/")) {
+			return 10 - firstRoundScore();
+		}
+		return Integer.parseInt(knockedPins.substring(1, 2));
+	}
+
+	public void calculateSpecial(int score) {
+		this.sumScore = Integer.toString(Integer.parseInt(sumScore) + score);
+	}
 }

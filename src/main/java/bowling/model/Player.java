@@ -28,6 +28,7 @@ public class Player {
 	}
 
 	public void getKnockedPins(List<String> knockedPins, List<String> intScores) {
+		calculateSumScore();
 		frame.getKnockedPins(knockedPins, intScores);
 	}
 

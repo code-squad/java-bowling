@@ -29,7 +29,7 @@ public class BowlingResultView {
 		}
 		sb.append("\n").append("|       |");
 		for (String score : scores) {
-			sb.append("   ").append(score).append("   |");
+			sb.append("   ").append(score).append("  |");
 		}
 		sb.append("\n");
 	}

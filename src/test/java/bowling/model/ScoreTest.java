@@ -39,4 +39,12 @@ public class ScoreTest {
 		score.calculateSumScore("10");
 		assertEquals("15", score.getSumScore());
 	}
+	
+	@Test
+	public void 프레임에_첫번째_투구_점수_구하기() {
+		Score score = new Score();
+		score.setScore("3");
+		score.setScore("7");
+		assertEquals(3, score.firstRoundScore());
+	}
 }
