@@ -1,4 +1,4 @@
-package bowling.frame;
+package bowling.frame.state;
 
 class Miss extends EndState {
 	private int first;

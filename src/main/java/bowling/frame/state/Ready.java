@@ -1,6 +1,6 @@
-package bowling.frame;
+package bowling.frame.state;
 
-class Ready implements State {
+public class Ready implements State {
 	public State bowl(int countOfPin) {
 		if (countOfPin == 10) {
 			return new Strike();

@@ -1,13 +1,13 @@
-package bowling.frame;
+package bowling.frame.state;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import bowling.frame.FirstBowl;
-import bowling.frame.Ready;
-import bowling.frame.State;
-import bowling.frame.Strike;
+import bowling.frame.state.FirstBowl;
+import bowling.frame.state.Ready;
+import bowling.frame.state.State;
+import bowling.frame.state.Strike;
 
 public class ReadyTest {
 	@Test

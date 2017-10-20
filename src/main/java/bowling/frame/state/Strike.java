@@ -1,4 +1,4 @@
-package bowling.frame;
+package bowling.frame.state;
 
 class Strike extends EndState {
 }

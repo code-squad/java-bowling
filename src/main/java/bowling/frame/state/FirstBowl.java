@@ -1,4 +1,4 @@
-package bowling.frame;
+package bowling.frame.state;
 
 class FirstBowl implements State {
 	private int countOfPin;

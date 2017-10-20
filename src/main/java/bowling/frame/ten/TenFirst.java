@@ -1,6 +1,6 @@
 package bowling.frame.ten;
 
-import bowling.frame.State;
+import bowling.frame.state.State;
 
 public class TenFirst implements State {
 	private int first;

@@ -1,8 +1,8 @@
-package bowling.frame;
+package bowling.frame.state;
 
 import org.junit.Test;
 
-import bowling.frame.Strike;
+import bowling.frame.state.Strike;
 
 public class StrikeTest {
 	@Test (expected = UnsupportedOperationException.class)

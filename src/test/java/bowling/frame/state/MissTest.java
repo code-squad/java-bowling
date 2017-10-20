@@ -1,4 +1,4 @@
-package bowling.frame;
+package bowling.frame.state;
 
 import static org.junit.Assert.*;
 

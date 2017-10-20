@@ -1,6 +1,6 @@
 package bowling.frame.ten;
 
-import bowling.frame.EndState;
+import bowling.frame.state.EndState;
 
 public class TenThird extends EndState {
 	private int first;

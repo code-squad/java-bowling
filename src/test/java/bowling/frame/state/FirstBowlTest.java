@@ -1,13 +1,13 @@
-package bowling.frame;
+package bowling.frame.state;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import bowling.frame.FirstBowl;
-import bowling.frame.Miss;
-import bowling.frame.Spare;
-import bowling.frame.State;
+import bowling.frame.state.FirstBowl;
+import bowling.frame.state.Miss;
+import bowling.frame.state.Spare;
+import bowling.frame.state.State;
 
 public class FirstBowlTest {
 

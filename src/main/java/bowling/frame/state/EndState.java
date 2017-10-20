@@ -1,4 +1,4 @@
-package bowling.frame;
+package bowling.frame.state;
 
 public abstract class EndState implements State {
 	@Override

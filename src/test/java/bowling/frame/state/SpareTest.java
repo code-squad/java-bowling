@@ -1,8 +1,8 @@
-package bowling.frame;
+package bowling.frame.state;
 
 import org.junit.Test;
 
-import bowling.frame.Spare;
+import bowling.frame.state.Spare;
 
 public class SpareTest {
 	@Test(expected = IllegalArgumentException.class)

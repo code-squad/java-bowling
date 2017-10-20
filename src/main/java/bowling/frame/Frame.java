@@ -1,5 +1,8 @@
 package bowling.frame;
 
+import bowling.frame.state.Ready;
+import bowling.frame.state.State;
+
 public class Frame {
 	private Frame next;
 	private State state;
