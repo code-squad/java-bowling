@@ -1,10 +1,10 @@
 package bowling.model.state;
 
 public class Ready implements State {
-	
+
 	@Override
 	public State bowl(int knockedPins) {
-		if(knockedPins == 10) {
+		if (knockedPins == 10) {
 			return new Strike();
 		}
 		return new FirstBowl(knockedPins);
@@ -14,5 +14,4 @@ public class Ready implements State {
 	public boolean isEnd() {
 		return false;
 	}
-
 }

@@ -19,5 +19,4 @@ public class LastFirst implements State {
 	public boolean isEnd() {
 		return false;
 	}
-
 }

@@ -23,11 +23,4 @@ public class ReadyTest {
 		State state = ready.bowl(4);
 		assertTrue(state instanceof FirstBowl);
 	}
-
-	@Test
-	public void 스트라이크를_만들어_보자() {
-		State ready = new Ready();
-		State state = ready.bowl(10);
-		assertTrue(state instanceof Strike);
-	}
 }

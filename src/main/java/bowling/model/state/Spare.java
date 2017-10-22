@@ -11,5 +11,4 @@ public class Spare extends EndState {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
 	}
-
 }

@@ -4,8 +4,8 @@ import bowling.model.state.Ready;
 import bowling.model.state.State;
 
 public class Frame {
-	Frame nextFrame;
-	State state;
+	private Frame nextFrame;
+	private State state;
 	int no;
 
 	public Frame(int no) {

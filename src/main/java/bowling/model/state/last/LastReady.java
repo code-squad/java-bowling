@@ -13,5 +13,4 @@ public class LastReady implements State {
 	public boolean isEnd() {
 		return false;
 	}
-
 }

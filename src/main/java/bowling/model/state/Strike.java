@@ -6,5 +6,4 @@ public class Strike extends EndState {
 	public Strike() {
 		score = 10;
 	}
-
 }

@@ -23,5 +23,4 @@ public class LastSecond implements State {
 	public boolean isEnd() {
 		return firstScore + secondScore < 10;
 	}
-
 }
