@@ -1,4 +1,4 @@
-package bowling.model;
+package bowling.model.state;
 
 public class Ready implements State {
 	

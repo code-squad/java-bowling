@@ -9,7 +9,7 @@ public class FrameTest {
 	@Test
 	public void 다음_프레임을_추가하자() {
 		Frame frame = new Frame(1);
-		Frame next = frame.bowl(10);
-//		assertEquals(2, nextFrame.getNo());
+		Frame nextFrame = frame.bowl(10);
+		assertEquals(2, nextFrame.getNo());
 	}
 }

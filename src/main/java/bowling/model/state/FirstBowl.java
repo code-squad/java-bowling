@@ -1,4 +1,4 @@
-package bowling.model;
+package bowling.model.state;
 
 public class FirstBowl implements State{
 	private int knockedPins;
@@ -9,10 +9,10 @@ public class FirstBowl implements State{
 	
 	@Override
 	public State bowl(int knockedPins) {
-		if(knockedPins == 10) {
-			return new Strike();
+		if(this.knockedPins + knockedPins == 10) {
+			return new Spare(this.knockedPins, knockedPins);
 		}
-		return null;
+		return new Normal(this.knockedPins, knockedPins);
 	}
 
 	@Override
