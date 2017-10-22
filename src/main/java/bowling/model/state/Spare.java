@@ -1,8 +1,8 @@
 package bowling.model.state;
 
 public class Spare extends EndState {
-	int firstScore;
-	int secondScore;
+	private int firstScore;
+	private int secondScore;
 
 	public Spare(int firstScore, int secondScore) {
 		if (firstScore + secondScore != 10) {

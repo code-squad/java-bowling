@@ -1,8 +1,8 @@
 package bowling.model.state;
 
 public class Normal extends EndState {
-	int firstScore;
-	int secondScore;
+	private int firstScore;
+	private int secondScore;
 
 	public Normal(int firstScore, int secondScore) {
 		if (firstScore + secondScore >= 10) {
