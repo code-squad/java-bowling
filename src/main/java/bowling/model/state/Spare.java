@@ -11,4 +11,9 @@ public class Spare extends EndState {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
 	}
+	
+	@Override
+	public String getScore() {
+		return Integer.toString(firstScore) + "|/";
+	}
 }

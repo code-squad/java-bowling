@@ -11,4 +11,10 @@ public class Normal extends EndState {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
 	}
+	
+	@Override
+	public String getScore() {
+		return Integer.toString(firstScore) + "|" + Integer.toString(secondScore);
+	}
+	
 }

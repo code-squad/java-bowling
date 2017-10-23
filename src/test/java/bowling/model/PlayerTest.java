@@ -12,4 +12,9 @@ public class PlayerTest {
 		assertEquals("lhs", player.getName());
 	}
 
+	@Test
+	public void bowl() {
+		Player player = new Player("lhs");
+//		assertEquals("", player.bowl(10));
+	}
 }

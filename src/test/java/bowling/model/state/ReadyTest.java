@@ -23,4 +23,10 @@ public class ReadyTest {
 		State state = ready.bowl(4);
 		assertTrue(state instanceof FirstBowl);
 	}
+	
+	@Test
+	public void getScoreTest() {
+		State ready = new Ready();
+		assertEquals("  ",ready.getScore());
+	}
 }

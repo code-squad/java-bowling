@@ -19,5 +19,11 @@ public class LastThirdTest {
 		State third = new LastThird(4, 3, 2);
 		third.bowl(3);
 	}
+	
+	@Test
+	public void getScoreTest() {
+		State state = new LastThird(3,7,3);
+		assertEquals("3|/|3", state.getScore());
+	}
 
 }

@@ -15,4 +15,30 @@ public class LastThird extends EndState {
 		this.secondScore = secondScore;
 		this.thirdScore = thirdScore;
 	}
+
+	@Override
+	public String getScore() {
+		return checkStrike(firstScore) + "|" + checkSecond() + "|" + checkThird();
+	}
+
+	private String checkSecond() {
+		if (firstScore + secondScore == 10) {
+			return "/";
+		}
+		return checkStrike(secondScore);
+	}
+
+	private String checkThird() {
+		if (firstScore + secondScore != 10 && secondScore + thirdScore== 10) {
+			return "/";
+		}
+		return checkStrike(thirdScore);
+	}
+
+	private String checkStrike(int score) {
+		if (score == 10) {
+			return "X";
+		}
+		return Integer.toString(score);
+	}
 }

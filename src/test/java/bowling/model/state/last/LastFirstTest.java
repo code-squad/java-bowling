@@ -14,5 +14,10 @@ public class LastFirstTest {
 		State state = first.bowl(4);
 		assertTrue(state instanceof LastSecond);
 	}
-
+	
+	@Test
+	public void getScoreTest() {
+		State state = new LastFirst(3);
+		assertEquals("3" ,state.getScore());
+	}
 }

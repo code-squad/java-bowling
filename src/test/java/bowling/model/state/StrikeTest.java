@@ -11,4 +11,10 @@ public class StrikeTest {
 		State state = new Strike();
 		state.bowl(3);
 	}
+	
+	@Test
+	public void getScoreTest() {
+		State state = new Strike();
+		assertEquals("X", state.getScore());
+	}
 }

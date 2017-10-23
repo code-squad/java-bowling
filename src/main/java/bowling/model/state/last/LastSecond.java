@@ -23,4 +23,9 @@ public class LastSecond implements State {
 	public boolean isEnd() {
 		return firstScore + secondScore < 10;
 	}
+	
+	@Override
+	public String getScore() {
+		return Integer.toString(firstScore) + "|" + Integer.toString(secondScore);
+	}
 }

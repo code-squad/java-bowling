@@ -14,4 +14,9 @@ public class Ready implements State {
 	public boolean isEnd() {
 		return false;
 	}
+	
+	@Override
+	public String getScore() {
+		return "  ";
+	}
 }

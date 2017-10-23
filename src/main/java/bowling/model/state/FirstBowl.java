@@ -19,4 +19,9 @@ public class FirstBowl implements State {
 	public boolean isEnd() {
 		return false;
 	}
+
+	@Override
+	public String getScore() {
+		return Integer.toString(score);
+	}
 }

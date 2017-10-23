@@ -13,4 +13,9 @@ public class LastReady implements State {
 	public boolean isEnd() {
 		return false;
 	}
+	
+	@Override
+	public String getScore() {
+		return "  ";
+	}
 }

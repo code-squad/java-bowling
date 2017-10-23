@@ -21,5 +21,11 @@ public class LastReadyTest {
 		State state = ready.bowl(10);
 		assertTrue(state instanceof LastFirst);
 	}
+	
+	@Test
+	public void getScoreTest() {
+		State ready = new LastReady();
+		assertEquals("  ", ready.getScore());
+	}
 
 }

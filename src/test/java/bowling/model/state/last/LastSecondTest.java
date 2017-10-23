@@ -27,5 +27,11 @@ public class LastSecondTest {
 		State state = second.bowl(5);
 		assertTrue(state instanceof LastThird);
 	}
+	
+	@Test
+	public void getScoreTest() {
+		State state = new LastSecond(3,6);
+		assertEquals("3|6", state.getScore());
+	}
 
 }

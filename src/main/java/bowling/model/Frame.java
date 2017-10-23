@@ -25,4 +25,9 @@ public class Frame {
 	public int getNo() {
 		return no;
 	}
+	
+	public String getScore() {
+		
+		return null;
+	}
 }
