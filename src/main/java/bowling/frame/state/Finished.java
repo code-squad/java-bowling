@@ -11,5 +11,12 @@ public abstract class Finished implements State {
 		return true;
 	}
 	
-	abstract Score getScore();
+	@Override
+	public Score getScore() {
+		return new Score(countOfFramePins(), noOfNextSum());
+	}
+	
+	abstract int countOfFramePins();
+	
+	abstract int noOfNextSum();
 }

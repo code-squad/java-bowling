@@ -1,10 +1,8 @@
 package bowling.frame.state;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import bowling.frame.state.Strike;
 
 public class StrikeTest {
 	@Test (expected = UnsupportedOperationException.class)
@@ -14,10 +12,13 @@ public class StrikeTest {
 	
 	@Test
 	public void getScore() throws Exception {
+		Score score = new Score(10, 2);
 		Strike strike = new Strike();
-		Score score = strike.getScore();
-		Spare spare = new Spare(8, 2);
-		score = spare.getScore(score);
-		assertEquals(20, score.getScore());
+		score = strike.cacluateAdditionalScore(score);
+		assertEquals(new Score(20, 1), score);
+		
+		strike = new Strike();
+		score = strike.cacluateAdditionalScore(score);
+		assertEquals(new Score(30, 0), score);
 	}
 }

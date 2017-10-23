@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import bowling.frame.CannotCalculateException;
+
 public class ScoreTest {
 	@Test(expected = CannotCalculateException.class)
 	public void getScore_UnReady() throws Exception {
@@ -13,23 +15,18 @@ public class ScoreTest {
 	@Test
 	public void getScore_XX9() {
 		Score score = new Score(10, 2);
-		score.bowl(10);
-		score.bowl(9);
-		assertEquals(29, score.getScore());
+		assertEquals(29, score.bowl(10).bowl(9).getScore());
 	}
 
 	@Test
 	public void getScore_X81() {
 		Score score = new Score(10, 2);
-		score.bowl(8);
-		score.bowl(1);
-		assertEquals(19, score.getScore());
+		assertEquals(19, score.bowl(8).bowl(1).getScore());
 	}
 	
 	@Test
 	public void getScore_Spare8() throws Exception {
 		Score score = new Score(10, 1);
-		score.bowl(8);
-		assertEquals(18, score.getScore());
+		assertEquals(18, score.bowl(8).getScore());
 	}
 }

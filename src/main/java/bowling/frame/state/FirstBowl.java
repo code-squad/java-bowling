@@ -1,5 +1,7 @@
 package bowling.frame.state;
 
+import bowling.frame.CannotCalculateException;
+
 class FirstBowl extends Running {
 	private int countOfPin;
 
@@ -14,5 +16,13 @@ class FirstBowl extends Running {
 		}
 		
 		return new Miss(this.countOfPin, countOfPin);
+	}
+
+	public Score cacluateAdditionalScore(Score score) {
+		score = score.bowl(this.countOfPin);
+		if (score.isReady()) {
+			return score;
+		}
+		throw new CannotCalculateException();
 	}
 }

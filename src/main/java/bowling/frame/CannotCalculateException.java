@@ -1,4 +1,4 @@
-package bowling.frame.state;
+package bowling.frame;
 
 public class CannotCalculateException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

@@ -10,7 +10,21 @@ class Miss extends Finished {
 	}
 
 	@Override
-	Score getScore() {
-		return new Score(this.first + this.second, 0);
+	int countOfFramePins() {
+		return this.first + this.second;
+	}
+
+	@Override
+	int noOfNextSum() {
+		return 0;
+	}
+	
+	public Score cacluateAdditionalScore(Score score) {
+		score = score.bowl(this.first);
+		if (score.isReady()) {
+			return score;
+		}
+		score = score.bowl(this.second);
+		return score;
 	}
 }

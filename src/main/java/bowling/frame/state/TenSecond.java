@@ -21,4 +21,22 @@ public class TenSecond implements State {
 	public boolean isFinish() {
 		return first + second < 10;
 	}
+
+	@Override
+	public Score getScore() {
+		if (isFinish()) {
+			return new Score(this.first + this.second, 0);
+		}
+		
+		return new Score(this.first + this.second, 1);
+	}
+	
+	public Score cacluateAdditionalScore(Score score) {
+		score = score.bowl(this.first);
+		if (score.isReady()) {
+			return score;
+		}
+		score = score.bowl(this.second);
+		return score;
+	}
 }

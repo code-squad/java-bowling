@@ -1,5 +1,7 @@
 package bowling.frame.state;
 
+import bowling.frame.CannotCalculateException;
+
 public class TenThird extends Finished {
 	private int first;
 	private int second;
@@ -12,7 +14,16 @@ public class TenThird extends Finished {
 	}
 
 	@Override
-	Score getScore() {
-		return new Score(this.first + this.second + this.third, 0);
+	int countOfFramePins() {
+		return this.first + this.second + this.third;
+	}
+
+	@Override
+	int noOfNextSum() {
+		return 0;
+	}
+
+	public Score cacluateAdditionalScore(Score score) {
+		throw new CannotCalculateException();
 	}
 }

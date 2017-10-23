@@ -2,7 +2,19 @@ package bowling.frame.state;
 
 class Strike extends Finished {
 	@Override
-	Score getScore() {
-		return new Score(10, 2);
+	int countOfFramePins() {
+		return 10;
+	}
+
+	@Override
+	int noOfNextSum() {
+		return 2;
+	}
+
+	public Score cacluateAdditionalScore(Score score) {
+		if (score.isReady()) {
+			return score;
+		}
+		return score.bowl(10);
 	}
 }
