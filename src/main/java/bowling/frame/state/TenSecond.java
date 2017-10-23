@@ -1,6 +1,4 @@
-package bowling.frame.ten;
-
-import bowling.frame.state.State;
+package bowling.frame.state;
 
 public class TenSecond implements State {
 	private int first;
@@ -13,14 +11,14 @@ public class TenSecond implements State {
 
 	@Override
 	public State bowl(int countOfPin) {
-		if (isEnd()) {
+		if (isFinish()) {
 			throw new UnsupportedOperationException();
 		}
 		return new TenThird(this.first, this.second, countOfPin);
 	}
 
 	@Override
-	public boolean isEnd() {
+	public boolean isFinish() {
 		return first + second < 10;
 	}
 }

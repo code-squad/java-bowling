@@ -1,6 +1,6 @@
 package bowling.frame.state;
 
-class FirstBowl implements State {
+class FirstBowl extends Running {
 	private int countOfPin;
 
 	FirstBowl(int countOfPin) {
@@ -15,10 +15,4 @@ class FirstBowl implements State {
 		
 		return new Miss(this.countOfPin, countOfPin);
 	}
-
-	@Override
-	public boolean isEnd() {
-		return false;
-	}
-
 }

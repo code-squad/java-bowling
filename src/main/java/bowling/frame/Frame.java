@@ -15,7 +15,7 @@ public class Frame {
 
 	public Frame bowl(int countOfPin) {
 		state = state.bowl(countOfPin);
-		if (state.isEnd()) {
+		if (state.isFinish()) {
 			next = new Frame(no + 1);
 			return next;
 		}

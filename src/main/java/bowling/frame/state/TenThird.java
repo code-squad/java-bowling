@@ -1,8 +1,6 @@
-package bowling.frame.ten;
+package bowling.frame.state;
 
-import bowling.frame.state.EndState;
-
-public class TenThird extends EndState {
+public class TenThird extends Finished {
 	private int first;
 	private int second;
 	private int third;
@@ -11,5 +9,10 @@ public class TenThird extends EndState {
 		this.first = first;
 		this.second = second;
 		this.third = third;
+	}
+
+	@Override
+	Score getScore() {
+		return new Score(this.first + this.second + this.third, 0);
 	}
 }

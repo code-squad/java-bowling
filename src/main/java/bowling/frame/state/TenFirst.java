@@ -1,8 +1,6 @@
-package bowling.frame.ten;
+package bowling.frame.state;
 
-import bowling.frame.state.State;
-
-public class TenFirst implements State {
+public class TenFirst extends Running {
 	private int first;
 
 	public TenFirst(int countOfPin) {
@@ -13,10 +11,4 @@ public class TenFirst implements State {
 	public State bowl(int countOfPin) {
 		return new TenSecond(this.first, countOfPin);
 	}
-
-	@Override
-	public boolean isEnd() {
-		return false;
-	}
-
 }
