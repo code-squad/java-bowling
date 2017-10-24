@@ -12,5 +12,10 @@ public abstract class EndState implements State {
 		return true;
 	}
 	
-	public abstract int getScore();
+	abstract public int getScore();
+	
+	abstract public boolean calculateSumScore(int beforeSum);
+	
+	abstract public int getSumScore();
+	
 }

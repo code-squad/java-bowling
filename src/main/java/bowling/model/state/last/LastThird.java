@@ -6,6 +6,7 @@ public class LastThird extends EndState {
 	private int firstScore;
 	private int secondScore;
 	private int thirdScore;
+	private int sumScore;
 
 	public LastThird(int firstScore, int secondScore, int thirdScore) {
 		if (firstScore + secondScore < 10) {
@@ -14,6 +15,7 @@ public class LastThird extends EndState {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
 		this.thirdScore = thirdScore;
+		this.sumScore = firstScore + secondScore + thirdScore;
 	}
 
 	@Override
@@ -50,5 +52,16 @@ public class LastThird extends EndState {
 	@Override
 	public int getFirstScore() {
 		return firstScore;
+	}
+
+	@Override
+	public boolean calculateSumScore(int beforeSum) {
+		sumScore += beforeSum;
+		return true;
+	}
+
+	@Override
+	public int getSumScore() {
+		return sumScore;
 	}
 }

@@ -3,14 +3,17 @@ package bowling.model;
 import bowling.model.state.EndState;
 import bowling.model.state.State;
 import bowling.model.state.last.LastReady;
+import bowling.model.state.last.LastSecond;
 
 public class LastFrame extends Frame {
 	State state;
 	int no;
+	boolean isDone;
 
 	public LastFrame() {
 		this.no = 10;
-		state = new LastReady();
+		this.state = new LastReady();
+		this.isDone = false;
 	}
 
 	@Override
@@ -20,14 +23,6 @@ public class LastFrame extends Frame {
 			return this;
 		}
 		return this;
-	}
-
-	@Override
-	public int getScore() {
-		if (state.isEnd()) {
-			return ((EndState) state).getScore();
-		}
-		return 0;
 	}
 
 	@Override
@@ -46,5 +41,54 @@ public class LastFrame extends Frame {
 			return state.getFirstScore();
 		}
 		return 0;
+	}
+
+	@Override
+	public int getScore() {
+		if (state.isEnd()) {
+			return ((EndState) state).getSumScore();
+		}
+		return 0;
+	}
+
+	@Override
+	public String getSumScore() {
+		if (isDone) {
+			return Integer.toString(((EndState) state).getSumScore());
+		}
+		return "   ";
+	}
+
+	@Override
+	public boolean isDone() {
+		return isDone;
+	}
+
+	@Override
+	public void calculate(int beforeSum) {
+		if (isDone()) {
+			return;
+		}
+		if (state.isEnd()) {
+			isDone = ((EndState) state).calculateSumScore(beforeSum);
+		}
+	}
+
+	@Override
+	boolean calSpare(State beforeState, int beforeSum) {
+		if (!(state instanceof LastReady)) {
+			beforeSum += state.getFirstScore();
+			return ((EndState) beforeState).calculateSumScore(beforeSum);
+		}
+		return false;
+	}
+
+	@Override
+	boolean calStrike(State beforeState, int beforeSum) {
+		if (state instanceof LastSecond) {
+			beforeSum += ((EndState) state).getScore();
+			return ((EndState) beforeState).calculateSumScore(beforeSum);
+		}
+		return false;
 	}
 }

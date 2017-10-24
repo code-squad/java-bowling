@@ -1,8 +1,12 @@
 package bowling.model.state;
 
 public class Strike extends EndState {
+	int sumScore;
+	int count;
 
 	public Strike() {
+		sumScore = 10;
+		count = 2;
 	}
 
 	@Override
@@ -18,5 +22,16 @@ public class Strike extends EndState {
 	@Override
 	public int getFirstScore() {
 		return 10;
+	}
+
+	@Override
+	public boolean calculateSumScore(int beforeSum) {
+		sumScore += beforeSum;
+		return true;
+	}
+
+	@Override
+	public int getSumScore() {
+		return sumScore;
 	}
 }

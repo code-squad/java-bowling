@@ -6,10 +6,12 @@ import bowling.model.state.State;
 public class LastSecond extends EndState {
 	private int firstScore;
 	private int secondScore;
+	private int sumScore;
 
 	public LastSecond(int firstScore, int secondScore) {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
+		this.sumScore = firstScore + secondScore;
 	}
 
 	@Override
@@ -38,5 +40,16 @@ public class LastSecond extends EndState {
 	@Override
 	public int getFirstScore() {
 		return firstScore;
+	}
+
+	@Override
+	public boolean calculateSumScore(int beforeSum) {
+		sumScore += beforeSum;
+		return true;
+	}
+
+	@Override
+	public int getSumScore() {
+		return sumScore;
 	}
 }
