@@ -19,9 +19,16 @@ public class LastFirst implements State {
 	public boolean isEnd() {
 		return false;
 	}
-	
+
 	@Override
 	public String getKnockedPins() {
+		return checkStrike(score);
+	}
+
+	private String checkStrike(int score) {
+		if (score == 10) {
+			return "X";
+		}
 		return Integer.toString(score);
 	}
 

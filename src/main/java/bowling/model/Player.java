@@ -1,33 +1,65 @@
 package bowling.model;
 
+import bowling.model.frame.Frame;
+import bowling.model.frame.NormalFrame;
+
 public class Player {
 	private String name;
 	private Frame first;
 	private Frame now;
 	private Frame before;
+	private Result result;
+
 	public Player(String name) {
 		this.name = name;
 		this.first = new NormalFrame(1);
 		this.now = first;
+		this.result = new Result();
 	}
+
 	public String getName() {
 		return name;
 	}
-	
-	public void bowl(int knockedPins) {
+
+	public int bowl(int knockedPins) {
 		before = now;
 		now = now.bowl(knockedPins);
+		calculate();
+		updateResult();
+		return checkEndState();
 	}
-	
+
+	private int checkEndState() {
+		if (before.isEndState()) {
+			return 1;
+		}
+		return 0;
+	}
+
+	public void updateResult() {
+		result.updateKnockedPins(before.getNo(), before.getKnockedPins());
+	}
+
 	public int getNowNo() {
 		return now.getNo();
 	}
-	
+
 	public String getKnockedPins() {
 		return before.getKnockedPins();
 	}
-	public int getScore() {
-		return first.getScore();
+
+	public String getScore() {
+		return first.getSumScore();
+	}
+
+	public void calculate() {
+		while (first.calculate(0)) {
+			result.updateSumScores(first.getSumScore());
+		}
+	}
+
+	public Result getResult() {
+		return result;
 	}
 
 }

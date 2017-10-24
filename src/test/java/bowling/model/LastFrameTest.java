@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import bowling.model.frame.Frame;
+import bowling.model.frame.LastFrame;
+
 public class LastFrameTest {
 
 	@Test

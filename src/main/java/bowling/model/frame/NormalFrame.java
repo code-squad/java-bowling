@@ -1,4 +1,4 @@
-package bowling.model;
+package bowling.model.frame;
 
 import bowling.model.state.EndState;
 import bowling.model.state.Normal;
@@ -10,18 +10,11 @@ import bowling.model.state.Strike;
 public class NormalFrame extends Frame {
 	Frame nextFrame;
 	State state;
-	int no;
-	boolean isDone;
 
 	public NormalFrame(int number) {
 		this.state = new Ready();
-		this.no = number;
-		this.isDone = false;
-	}
-
-	@Override
-	public int getNo() {
-		return no;
+		no = number;
+		isDone = false;
 	}
 
 	@Override
@@ -71,22 +64,15 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	public boolean isDone() {
-		return isDone;
-	}
-
-	@Override
-	public void calculate(int beforeSum) {
+	public boolean calculate(int beforeSum) {
 		if (isDone()) {
 			int nowSumScore = ((EndState) state).getSumScore();
-			nextFrame.calculate(nowSumScore);
-			return;
+			return nextFrame.calculate(nowSumScore);
 		}
 		if (state.isEnd()) {
 			isDone = checkState(beforeSum);
-			int nowSumScore = ((EndState) state).getSumScore();
-			nextFrame.calculate(nowSumScore);
 		}
+		return isDone();
 	}
 
 	private boolean checkState(int beforeSum) {
@@ -122,5 +108,10 @@ public class NormalFrame extends Frame {
 			return ((EndState) beforeState).calculateSumScore(beforeSum);
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isEndState() {
+		return state.isEnd();
 	}
 }

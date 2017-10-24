@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import bowling.model.frame.Frame;
+import bowling.model.frame.NormalFrame;
 import bowling.model.state.Normal;
 import bowling.model.state.last.LastReady;
 

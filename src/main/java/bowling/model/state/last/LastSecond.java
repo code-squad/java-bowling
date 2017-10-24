@@ -26,10 +26,24 @@ public class LastSecond extends EndState {
 	public boolean isEnd() {
 		return firstScore + secondScore < 10;
 	}
-	
+
 	@Override
 	public String getKnockedPins() {
-		return Integer.toString(firstScore) + "|" + Integer.toString(secondScore);
+		return checkStrike(firstScore) + "|" + checkSecond();
+	}
+
+	private String checkSecond() {
+		if (firstScore + secondScore == 10) {
+			return "/";
+		}
+		return checkStrike(secondScore);
+	}
+
+	private String checkStrike(int score) {
+		if (score == 10) {
+			return "X";
+		}
+		return Integer.toString(score);
 	}
 
 	@Override

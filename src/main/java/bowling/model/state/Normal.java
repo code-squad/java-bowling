@@ -13,12 +13,12 @@ public class Normal extends EndState {
 		this.secondScore = secondScore;
 		this.sumScore = firstScore + secondScore;
 	}
-	
+
 	@Override
 	public String getKnockedPins() {
 		return Integer.toString(firstScore) + "|" + Integer.toString(secondScore);
 	}
-	
+
 	@Override
 	public int getScore() {
 		return firstScore + secondScore;
