@@ -15,6 +15,6 @@ public class StrikeTest {
 	@Test
 	public void getScoreTest() {
 		State state = new Strike();
-		assertEquals("X", state.getScore());
+		assertEquals("X", state.getKnockedPins());
 	}
 }

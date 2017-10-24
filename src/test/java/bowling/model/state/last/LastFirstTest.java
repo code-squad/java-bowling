@@ -18,6 +18,6 @@ public class LastFirstTest {
 	@Test
 	public void getScoreTest() {
 		State state = new LastFirst(3);
-		assertEquals("3" ,state.getScore());
+		assertEquals("3" ,state.getKnockedPins());
 	}
 }

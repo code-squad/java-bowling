@@ -21,7 +21,12 @@ public class LastFirst implements State {
 	}
 	
 	@Override
-	public String getScore() {
+	public String getKnockedPins() {
 		return Integer.toString(score);
+	}
+
+	@Override
+	public int getFirstScore() {
+		return score;
 	}
 }

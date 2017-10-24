@@ -1,8 +1,9 @@
 package bowling.model.state.last;
 
+import bowling.model.state.EndState;
 import bowling.model.state.State;
 
-public class LastSecond implements State {
+public class LastSecond extends EndState {
 	private int firstScore;
 	private int secondScore;
 
@@ -25,7 +26,17 @@ public class LastSecond implements State {
 	}
 	
 	@Override
-	public String getScore() {
+	public String getKnockedPins() {
 		return Integer.toString(firstScore) + "|" + Integer.toString(secondScore);
+	}
+
+	@Override
+	public int getScore() {
+		return firstScore + secondScore;
+	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
 	}
 }

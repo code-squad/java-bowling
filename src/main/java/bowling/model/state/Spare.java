@@ -13,7 +13,17 @@ public class Spare extends EndState {
 	}
 	
 	@Override
-	public String getScore() {
+	public String getKnockedPins() {
 		return Integer.toString(firstScore) + "|/";
+	}
+	
+	@Override
+	public int getScore() {
+		return 10;
+	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
 	}
 }

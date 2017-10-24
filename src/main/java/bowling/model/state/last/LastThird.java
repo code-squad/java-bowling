@@ -17,7 +17,7 @@ public class LastThird extends EndState {
 	}
 
 	@Override
-	public String getScore() {
+	public String getKnockedPins() {
 		return checkStrike(firstScore) + "|" + checkSecond() + "|" + checkThird();
 	}
 
@@ -40,5 +40,15 @@ public class LastThird extends EndState {
 			return "X";
 		}
 		return Integer.toString(score);
+	}
+	
+	@Override
+	public int getScore() {
+		return firstScore + secondScore + thirdScore;
+	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
 	}
 }

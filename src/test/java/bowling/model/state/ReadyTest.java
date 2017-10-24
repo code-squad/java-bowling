@@ -27,6 +27,6 @@ public class ReadyTest {
 	@Test
 	public void getScoreTest() {
 		State ready = new Ready();
-		assertEquals("  ",ready.getScore());
+		assertEquals("  ",ready.getKnockedPins());
 	}
 }

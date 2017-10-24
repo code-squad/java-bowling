@@ -23,7 +23,7 @@ public class LastThirdTest {
 	@Test
 	public void getScoreTest() {
 		State state = new LastThird(3,7,3);
-		assertEquals("3|/|3", state.getScore());
+		assertEquals("3|/|3", state.getKnockedPins());
 	}
 
 }

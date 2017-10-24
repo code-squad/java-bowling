@@ -29,6 +29,6 @@ public class FirstBowlTest {
 	@Test
 	public void getScoreTest() {
 		State firstBowl = new FirstBowl(5);
-		assertEquals("5", firstBowl.getScore());
+		assertEquals("5", firstBowl.getKnockedPins());
 	}
 }

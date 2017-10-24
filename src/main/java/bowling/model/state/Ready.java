@@ -14,9 +14,14 @@ public class Ready implements State {
 	public boolean isEnd() {
 		return false;
 	}
-	
+
 	@Override
-	public String getScore() {
+	public String getKnockedPins() {
 		return "  ";
+	}
+
+	@Override
+	public int getFirstScore() {
+		throw new UnsupportedOperationException();
 	}
 }

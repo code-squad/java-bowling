@@ -13,8 +13,17 @@ public class Normal extends EndState {
 	}
 	
 	@Override
-	public String getScore() {
+	public String getKnockedPins() {
 		return Integer.toString(firstScore) + "|" + Integer.toString(secondScore);
 	}
 	
+	@Override
+	public int getScore() {
+		return firstScore + secondScore;
+	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
 }

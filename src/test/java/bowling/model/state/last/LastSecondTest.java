@@ -31,7 +31,7 @@ public class LastSecondTest {
 	@Test
 	public void getScoreTest() {
 		State state = new LastSecond(3,6);
-		assertEquals("3|6", state.getScore());
+		assertEquals("3|6", state.getKnockedPins());
 	}
 
 }

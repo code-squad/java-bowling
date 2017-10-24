@@ -11,4 +11,6 @@ public abstract class EndState implements State {
 	public boolean isEnd() {
 		return true;
 	}
+	
+	public abstract int getScore();
 }

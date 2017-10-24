@@ -5,5 +5,7 @@ public interface State {
 
 	boolean isEnd();
 	
-	String getScore();
+	String getKnockedPins();
+
+	int getFirstScore();
 }

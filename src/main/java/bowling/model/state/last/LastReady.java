@@ -15,7 +15,12 @@ public class LastReady implements State {
 	}
 	
 	@Override
-	public String getScore() {
+	public String getKnockedPins() {
 		return "  ";
+	}
+
+	@Override
+	public int getFirstScore() {
+		throw new UnsupportedOperationException();
 	}
 }

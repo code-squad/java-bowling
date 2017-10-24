@@ -19,6 +19,6 @@ public class NormalTest {
 	@Test
 	public void getScoreTest() {
 		State state = new Normal(4,4);
-		assertEquals("4|4", state.getScore());
+		assertEquals("4|4", state.getKnockedPins());
 	}
 }

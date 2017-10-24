@@ -19,7 +19,7 @@ public class SpareTest {
 	@Test
 	public void getScoreTest() {
 		State state = new Spare(3,7);
-		assertEquals("3|/", state.getScore());
+		assertEquals("3|/", state.getKnockedPins());
 		
 	}
 }
