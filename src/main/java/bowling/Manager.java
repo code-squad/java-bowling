@@ -38,11 +38,13 @@ public class Manager {
 			return;
 		}
 		BowlingResultView.show(name, result);
+		System.out.println(frame.getState());
 		second(frame);
 	}
 
 	private void second(Frame frame) {
 		frame.bowl(BowlingFormView.inputScore(name, scanner));
+		System.out.println(frame.getState());
 		score += frame.getEndScore();
 	}
 

@@ -12,6 +12,8 @@ public abstract class Frame {
 		state = state.bowl(score);
 		firstScore = state.getFristScore();
 		secondScore = state.getSecondScore();
+		System.out.println(firstScore);
+		System.out.println(secondScore);
 		return state;
 	}
 
