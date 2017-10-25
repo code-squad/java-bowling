@@ -7,11 +7,12 @@ public class Players {
 	private List<Player> players;
 	private int index;
 	private int round;
+	private boolean isEnd;
 
 	public Players() {
 		players = new ArrayList<>();
 		index = 0;
-		round = 1;
+		isEnd = false;
 	}
 
 	public void add(String name) {
@@ -20,14 +21,13 @@ public class Players {
 
 	public void bowl(int knockedPins) {
 		Player player = findPlayer();
-//		index += player.bowl(knockedPins);
-		countIndex(player.bowl(knockedPins));
+		round = player.getNowNo();
+		manageIndex(player.bowl(knockedPins));
 		player.calculate();
-//		checkIndex();
 	}
-	
-	private void countIndex(boolean endFrame) {
-		if(endFrame) {
+
+	private void manageIndex(boolean endFrame) {
+		if (endFrame) {
 			index++;
 		}
 		checkIndex();
@@ -36,12 +36,18 @@ public class Players {
 	private void checkIndex() {
 		if (index == players.size()) {
 			index = 0;
-			round++;
+			checkEnd();
+		}
+	}
+
+	private void checkEnd() {
+		if (round == 10) {
+			isEnd = true;
 		}
 	}
 
 	public boolean isEnd() {
-		return round == 11;
+		return isEnd;
 	}
 
 	public Result getResult(int no) {
