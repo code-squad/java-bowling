@@ -6,12 +6,11 @@ import bowling.model.state.last.LastReady;
 import bowling.model.state.last.LastSecond;
 
 public class LastFrame extends Frame {
-	State state;
+	private State state;
 
 	public LastFrame() {
-		no = 10;
+		super(10);
 		this.state = new LastReady();
-		isDone = false;
 	}
 
 	@Override
@@ -65,19 +64,19 @@ public class LastFrame extends Frame {
 	}
 
 	@Override
-	boolean calSpare(State beforeState, int beforeSum) {
+	protected boolean calSpare(State beforeState, int sumScore) {
 		if (!(state instanceof LastReady)) {
-			beforeSum += state.getFirstScore();
-			return ((EndState) beforeState).calculateSumScore(beforeSum);
+			sumScore += state.getFirstScore();
+			return ((EndState) beforeState).calculateSumScore(sumScore);
 		}
 		return false;
 	}
 
 	@Override
-	boolean calStrike(State beforeState, int beforeSum) {
+	protected boolean calStrike(State beforeState, int sumScore) {
 		if (state instanceof LastSecond) {
-			beforeSum += ((EndState) state).getScore();
-			return ((EndState) beforeState).calculateSumScore(beforeSum);
+			sumScore += ((EndState) state).getScore();
+			return ((EndState) beforeState).calculateSumScore(sumScore);
 		}
 		return false;
 	}

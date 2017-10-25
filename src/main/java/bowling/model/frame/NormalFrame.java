@@ -8,13 +8,12 @@ import bowling.model.state.State;
 import bowling.model.state.Strike;
 
 public class NormalFrame extends Frame {
-	Frame nextFrame;
-	State state;
+	private Frame nextFrame;
+	private State state;
 
-	public NormalFrame(int number) {
+	public NormalFrame(int no) {
+		super(no);
 		this.state = new Ready();
-		no = number;
-		isDone = false;
 	}
 
 	@Override
@@ -89,20 +88,20 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	boolean calStrike(State beforeState, int beforeSum) {
+	protected boolean calStrike(State beforeState, int sumScore) {
 		if (state instanceof Strike) {
-			beforeSum += ((EndState) state).getScore();
-			return nextFrame.calSpare(beforeState, beforeSum);
+			sumScore += ((EndState) state).getScore();
+			return nextFrame.calSpare(beforeState, sumScore);
 		}
 		if (state.isEnd()) {
-			beforeSum += ((EndState) state).getScore();
-			return ((EndState) beforeState).calculateSumScore(beforeSum);
+			sumScore += ((EndState) state).getScore();
+			return ((EndState) beforeState).calculateSumScore(sumScore);
 		}
 		return false;
 	}
 
 	@Override
-	boolean calSpare(State beforeState, int beforeSum) {
+	protected boolean calSpare(State beforeState, int beforeSum) {
 		if (!(state instanceof Ready)) {
 			beforeSum += state.getFirstScore();
 			return ((EndState) beforeState).calculateSumScore(beforeSum);

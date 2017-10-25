@@ -3,8 +3,13 @@ package bowling.model.frame;
 import bowling.model.state.State;
 
 public abstract class Frame {
-	int no;
-	boolean isDone;
+	protected int no;
+	protected boolean isDone;
+
+	public Frame(int no) {
+		this.no = no;
+		this.isDone = false;
+	}
 
 	public int getNo() {
 		return no;
@@ -26,9 +31,9 @@ public abstract class Frame {
 
 	abstract public boolean calculate(int beforeSum);
 
-	abstract boolean calSpare(State beforeState, int beforeSum);
+	abstract protected boolean calSpare(State beforeState, int beforeSum);
 
-	abstract boolean calStrike(State beforeState, int beforeSum);
+	abstract protected boolean calStrike(State beforeState, int beforeSum);
 
 	abstract public boolean isEndState();
 
