@@ -57,13 +57,7 @@ public class NomalFrameTest {
 	public void 프레임_점수_계산() throws Exception {
 		Frame frame = new NomalFrame();
 		frame.bowl(3);
-		System.out.println(frame.getState());
-		System.out.println(frame.getFirstScore());
-		System.out.println(frame.getSecondScore());
 		frame.bowl(4);
-		System.out.println(frame.getState());
-		System.out.println(frame.getFirstScore());
-		System.out.println(frame.getSecondScore());
 		assertEquals(7, frame.getEndScore());
 	}
 
