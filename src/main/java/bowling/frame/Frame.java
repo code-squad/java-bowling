@@ -31,7 +31,7 @@ public class Frame {
 	
 	private int getScore() {
 	    Score score = state.getScore();
-	    if (score.isReady()) {
+	    if (score.canCalucateScore()) {
 	        return score.getScore();
 	    }
 	    
@@ -40,7 +40,7 @@ public class Frame {
 	
 	private int cacluateAdditionalScore(Score beforeScore) {
 	    Score score = state.cacluateAdditionalScore(beforeScore);
-	    if (score.isReady()) {
+	    if (score.canCalucateScore()) {
             return score.getScore();
         }
 	    return next.cacluateAdditionalScore(score);

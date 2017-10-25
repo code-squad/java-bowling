@@ -13,6 +13,7 @@ public class FrameResult {
 	public int addTotalScore(int beforeTotalScore) {
 	    if (isUnScore()) {
 	        this.totalScore = this.score;
+	        return this.totalScore;
 	    }
 	    
 	    this.totalScore = this.score + beforeTotalScore;

@@ -15,22 +15,17 @@ class Spare extends Finished {
 
 	public Score cacluateAdditionalScore(Score score) {
 		score = score.bowl(this.first);
-		if (score.isReady()) {
+		if (score.canCalucateScore()) {
 			return score;
 		}
 		score = score.bowl(this.second);
 		return score;
 	}
 
-	@Override
-	int countOfFramePins() {
-		return 10;
-	}
-
-	@Override
-	int noOfNextSum() {
-		return 1;
-	}
+    @Override
+    public Score getScore() {
+        return new Score(10, 1);
+    }
 	
 	@Override
 	public String getDesc() {

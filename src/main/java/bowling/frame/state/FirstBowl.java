@@ -20,7 +20,7 @@ class FirstBowl extends Running {
 
 	public Score cacluateAdditionalScore(Score score) {
 		score = score.bowl(this.countOfPin);
-		if (score.isReady()) {
+		if (score.canCalucateScore()) {
 			return score;
 		}
 		throw new CannotCalculateException();

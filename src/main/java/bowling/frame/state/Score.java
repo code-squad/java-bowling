@@ -16,13 +16,13 @@ public class Score {
 	}
 
 	public int getScore() {
-		if (!isReady()) {
+		if (!canCalucateScore()) {
 			throw new CannotCalculateException();
 		}
 		return this.score;
 	}
 
-	public boolean isReady() {
+	public boolean canCalucateScore() {
 		return left == 0;
 	}
 	

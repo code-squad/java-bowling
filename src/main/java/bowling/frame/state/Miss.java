@@ -5,23 +5,22 @@ class Miss extends Finished {
 	private int second;
 
 	Miss(int first, int second) {
+	    if (first + second > 10) {
+	        throw new IllegalArgumentException();
+	    }
+	    
 		this.first = first;
 		this.second = second;
 	}
-
-	@Override
-	int countOfFramePins() {
-		return this.first + this.second;
-	}
-
-	@Override
-	int noOfNextSum() {
-		return 0;
-	}
 	
+	@Override
+	public Score getScore() {
+	    return new Score(this.first + this.second, 0);
+	}
+
 	public Score cacluateAdditionalScore(Score score) {
 		score = score.bowl(this.first);
-		if (score.isReady()) {
+		if (score.canCalucateScore()) {
 			return score;
 		}
 		score = score.bowl(this.second);

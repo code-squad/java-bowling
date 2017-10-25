@@ -10,13 +10,4 @@ public abstract class Finished implements State {
 	public boolean isFinish() {
 		return true;
 	}
-	
-	@Override
-	public Score getScore() {
-		return new Score(countOfFramePins(), noOfNextSum());
-	}
-	
-	abstract int countOfFramePins();
-	
-	abstract int noOfNextSum();
 }
