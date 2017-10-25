@@ -31,10 +31,10 @@ public class FrameTest {
 	}
 	
 	@Test
-	public void getFrameResult() throws Exception {
-		Frame frame = new Frame(1);
-		frame.bowl(8).bowl(1);
-		FrameResult result = frame.getFrameResult();
-		assertEquals(new FrameResult("8 | 1", "9"), result);
-	}
+    public void createBoard() throws Exception {
+	    Frame frame = new Frame(1);
+        frame.bowl(8).bowl(2).bowl(9).bowl(1).bowl(10).bowl(5);
+        Board board = frame.createBoard();
+        System.out.println(board);
+    }
 }
