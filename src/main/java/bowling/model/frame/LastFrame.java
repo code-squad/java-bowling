@@ -52,12 +52,12 @@ public class LastFrame extends Frame {
 	}
 
 	@Override
-	public boolean calculate(int beforeSum) {
+	public boolean calculate(int sumScore) {
 		if (isDone()) {
 			return false;
 		}
 		if (state.isEnd()) {
-			isDone = ((EndState) state).calculateSumScore(beforeSum);
+			isDone = ((EndState) state).calculateSumScore(sumScore);
 			return true;
 		}
 		return false;

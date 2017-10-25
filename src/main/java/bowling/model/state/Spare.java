@@ -2,7 +2,6 @@ package bowling.model.state;
 
 public class Spare extends EndState {
 	private int firstScore;
-	private int secondScore;
 	private int sumScore;
 
 	public Spare(int firstScore, int secondScore) {
@@ -10,7 +9,6 @@ public class Spare extends EndState {
 			throw new IllegalArgumentException();
 		}
 		this.firstScore = firstScore;
-		this.secondScore = secondScore;
 		this.sumScore = firstScore + secondScore;
 	}
 

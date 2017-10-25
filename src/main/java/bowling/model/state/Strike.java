@@ -1,8 +1,8 @@
 package bowling.model.state;
 
 public class Strike extends EndState {
-	int sumScore;
-	int count;
+	private int sumScore;
+	private int count;
 
 	public Strike() {
 		sumScore = 10;

@@ -63,26 +63,26 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	public boolean calculate(int beforeSum) {
+	public boolean calculate(int sumScore) {
 		if (isDone()) {
 			int nowSumScore = ((EndState) state).getSumScore();
 			return nextFrame.calculate(nowSumScore);
 		}
 		if (state.isEnd()) {
-			isDone = checkState(beforeSum);
+			isDone = checkState(sumScore);
 		}
 		return isDone();
 	}
 
-	private boolean checkState(int beforeSum) {
+	private boolean checkState(int sumScore) {
 		if (state instanceof Normal) {
-			return ((Normal) state).calculateSumScore(beforeSum);
+			return ((Normal) state).calculateSumScore(sumScore);
 		}
 		if (state instanceof Spare) {
-			return nextFrame.calSpare(state, beforeSum);
+			return nextFrame.calSpare(state, sumScore);
 		}
 		if (state instanceof Strike) {
-			return nextFrame.calStrike(state, beforeSum);
+			return nextFrame.calStrike(state, sumScore);
 		}
 		return false;
 	}
@@ -101,10 +101,10 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	protected boolean calSpare(State beforeState, int beforeSum) {
+	protected boolean calSpare(State beforeState, int sumScore) {
 		if (!(state instanceof Ready)) {
-			beforeSum += state.getFirstScore();
-			return ((EndState) beforeState).calculateSumScore(beforeSum);
+			sumScore += state.getFirstScore();
+			return ((EndState) beforeState).calculateSumScore(sumScore);
 		}
 		return false;
 	}

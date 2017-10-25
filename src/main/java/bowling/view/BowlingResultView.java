@@ -30,14 +30,6 @@ public class BowlingResultView {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < 10; i++) {
 			sb.append("  ").append(scores.get(i)).append("   |");
-			// makeBlankSpace(sb).append("|");
-		}
-		return sb;
-	}
-
-	private static StringBuilder makeBlankSpace(StringBuilder sb) {
-		while (sb.length() % 8 != 0) {
-			sb.append(" ");
 		}
 		return sb;
 	}

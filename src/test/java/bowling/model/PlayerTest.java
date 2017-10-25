@@ -22,17 +22,6 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void 점수입력이_잘되고_결과가_잘_나오나_보자() {
-		Player player = new Player("lhs");
-		player.bowl(4);
-		assertEquals("4", player.getKnockedPins());
-		player.bowl(6);
-		assertEquals("4|/", player.getKnockedPins());
-		player.bowl(10);
-		assertEquals("X", player.getKnockedPins());
-	}
-
-	@Test
 	public void 누적_점수를_확인해_보자() {
 		Player player = new Player("lhs");
 		player.bowl(10);

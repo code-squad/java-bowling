@@ -1,4 +1,4 @@
-package bowling.model;
+package bowling.model.frame;
 
 import static org.junit.Assert.*;
 

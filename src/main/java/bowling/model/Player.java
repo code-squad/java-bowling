@@ -41,10 +41,6 @@ public class Player {
 		return now.getNo();
 	}
 
-	public String getKnockedPins() {
-		return before.getKnockedPins();
-	}
-
 	public String getScore() {
 		return first.getSumScore();
 	}

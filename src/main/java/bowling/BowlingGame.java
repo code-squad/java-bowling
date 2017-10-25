@@ -23,7 +23,6 @@ public class BowlingGame {
 			players.bowl(knockedPins);
 			BowlingResultView.showResult(players);
 		}
-
 		scanner.close();
 	}
 }
