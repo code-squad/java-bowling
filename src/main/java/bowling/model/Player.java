@@ -21,7 +21,7 @@ public class Player {
 		return name;
 	}
 
-	public int bowl(int knockedPins) {
+	public boolean bowl(int knockedPins) {
 		before = now;
 		now = now.bowl(knockedPins);
 		calculate();
@@ -29,11 +29,8 @@ public class Player {
 		return checkEndState();
 	}
 
-	private int checkEndState() {
-		if (before.isEndState()) {
-			return 1;
-		}
-		return 0;
+	private boolean checkEndState() {
+		return before.isEndState();
 	}
 
 	public void updateResult() {

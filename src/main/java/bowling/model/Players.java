@@ -20,8 +20,16 @@ public class Players {
 
 	public void bowl(int knockedPins) {
 		Player player = findPlayer();
-		index += player.bowl(knockedPins);
+//		index += player.bowl(knockedPins);
+		countIndex(player.bowl(knockedPins));
 		player.calculate();
+//		checkIndex();
+	}
+	
+	private void countIndex(boolean endFrame) {
+		if(endFrame) {
+			index++;
+		}
 		checkIndex();
 	}
 
