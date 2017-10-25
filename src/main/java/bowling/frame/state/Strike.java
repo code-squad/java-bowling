@@ -17,4 +17,9 @@ class Strike extends Finished {
 		}
 		return score.bowl(10);
 	}
+	
+	@Override
+	public String getDesc() {
+		return "X";
+	}
 }

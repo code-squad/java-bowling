@@ -25,4 +25,12 @@ public class Frame {
 	public int getNo() {
 		return no;
 	}
+
+	public FrameResult getFrameResult() {
+		if (!state.isFinish()) {
+			return new FrameResult(state.getDesc(), "");
+		}
+		
+		return new FrameResult(state.getDesc(), state.getScore().getScore() + "");
+	}
 }

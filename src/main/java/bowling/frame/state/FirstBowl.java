@@ -25,4 +25,9 @@ class FirstBowl extends Running {
 		}
 		throw new CannotCalculateException();
 	}
+
+	@Override
+	public String getDesc() {
+		return this.countOfPin + " | ";
+	}
 }

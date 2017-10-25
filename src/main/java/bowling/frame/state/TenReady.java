@@ -11,4 +11,9 @@ public class TenReady extends Running {
 	public Score cacluateAdditionalScore(Score score) {
 		throw new CannotCalculateException();
 	}
+	
+	@Override
+	public String getDesc() {
+		return "";
+	}
 }

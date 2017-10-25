@@ -31,4 +31,9 @@ class Spare extends Finished {
 	int noOfNextSum() {
 		return 1;
 	}
+	
+	@Override
+	public String getDesc() {
+		return this.first + " | /";
+	}
 }

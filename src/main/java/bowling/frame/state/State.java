@@ -8,4 +8,6 @@ public interface State {
 	Score getScore();
 	
 	Score cacluateAdditionalScore(Score score);
+
+	String getDesc();
 }

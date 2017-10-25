@@ -39,4 +39,9 @@ public class TenSecond implements State {
 		score = score.bowl(this.second);
 		return score;
 	}
+	
+	@Override
+	public String getDesc() {
+		return this.first + " | " + this.second;
+	}
 }

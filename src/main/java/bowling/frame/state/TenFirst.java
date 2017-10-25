@@ -21,4 +21,9 @@ public class TenFirst extends Running {
 		}
 		throw new CannotCalculateException();
 	}
+	
+	@Override
+	public String getDesc() {
+		return this.first + " | ";
+	}
 }

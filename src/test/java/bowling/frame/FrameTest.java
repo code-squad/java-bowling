@@ -29,4 +29,12 @@ public class FrameTest {
 		next = frame.bowl(1);
 		assertEquals(2, next.getNo());
 	}
+	
+	@Test
+	public void getFrameResult() throws Exception {
+		Frame frame = new Frame(1);
+		frame.bowl(8).bowl(1);
+		FrameResult result = frame.getFrameResult();
+		assertEquals(new FrameResult("8 | 1", "9"), result);
+	}
 }

@@ -27,4 +27,9 @@ class Miss extends Finished {
 		score = score.bowl(this.second);
 		return score;
 	}
+
+	@Override
+	public String getDesc() {
+		return this.first + " | " + this.second;
+	}
 }
