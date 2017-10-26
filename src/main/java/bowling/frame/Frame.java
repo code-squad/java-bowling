@@ -10,8 +10,8 @@ public abstract class Frame {
 
 	public State bowl(int score) {
 		state = state.bowl(score);
-		firstScore = state.getFristScore();
-		secondScore = state.getSecondScore();
+		this.firstScore = state.getFristScore();
+		this.secondScore = state.getSecondScore();
 		return state;
 	}
 
@@ -28,6 +28,14 @@ public abstract class Frame {
 	}
 
 	public int getEndScore() {
-		return firstScore + secondScore;
+		return this.firstScore + this.secondScore;
+	}
+
+	public boolean isEnd() {
+		return state.isEnd();
+	}
+
+	public static Frame create(int size) {
+		return size != 9 ? new NomalFrame() : new LastFrame();
 	}
 }

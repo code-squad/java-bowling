@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 import bowling.frame.Frame;
 import bowling.frame.LastFrame;
-import bowling.frame.NomalFrame;
+import bowling.frame.state.Second;
+import bowling.frame.state.Spare;
 import bowling.frame.state.Strike;
 import bowling.result.Result;
 import bowling.view.BowlingFormView;
@@ -18,38 +19,77 @@ public class Manager {
 	Scanner scanner = new Scanner(System.in);
 	Result result = new Result(frames, scores);
 	String name = BowlingFormView.inputName(scanner);
+	Frame frame;
 	int score;
 
 	public void run() {
+		boolean gameFlag = true;
+		boolean frameFlag = true;
 		BowlingResultView.show(name, result);
-		while (frames.size() < 10) {
-			Frame frame = Manager.frameGenarator(frames.size());
+		while (gameFlag) {
+			FrameFlagCheck(frameFlag, frames.size());
 			frame.bowl(BowlingFormView.inputScore(name, scanner));
-			frames.add(frame);
-			endFrameCheck(frame);
-			scores.add(score);
+			gameFlag = isLastFrame(frame);
+			frameFlag = stateCheck(frame);
+			// scoreCalculate(frameFlag, frame);
 			BowlingResultView.show(name, result);
 		}
 	}
 
-	private void endFrameCheck(Frame frame) {
-		if (frame.getState() instanceof Strike) {
-			score += frame.getEndScore();
-			return;
-		}
-		BowlingResultView.show(name, result);
-		second(frame);
-	}
-
-	private void second(Frame frame) {
-		frame.bowl(BowlingFormView.inputScore(name, scanner));
+	private void scoreCalculate(Frame frame) {
 		score += frame.getEndScore();
 	}
 
-	private static Frame frameGenarator(int size) {
-		if (size < 9) {
-			return new NomalFrame();
+	private boolean isLastFrame(Frame frame) {
+		if (frame instanceof LastFrame) {
+			return false;
 		}
-		return new LastFrame();
+		return true;
 	}
+
+	private boolean stateCheck(Frame frame) {
+		if (frame.isEnd()) {
+			frames.add(frame);
+			scoreCalculate(frame);
+			scores.add(score);
+			return true;
+		}
+		return false;
+	}
+
+	private void FrameFlagCheck(boolean frameFlag, int size) {
+		if (frameFlag) {
+			frame = Frame.create(frames.size());
+			frameFlag = false;
+		}
+	}
+
+	// private void endFrameCheck(Frame frame) {
+	// if (frames.size() == 10) {
+	// stateCheck(frame);
+	// return;
+	// }
+	// stateCheck(frame);
+	// }
+
+	// private void stateCheck(Frame frame) {
+	// if (frame.getState() instanceof Strike) {
+	// score += frame.getEndScore();
+	// return;
+	// }
+	// BowlingResultView.show(name, result);
+	// second(frame);
+	// }
+
+	// private void second(Frame frame) {
+	// frame.bowl(BowlingFormView.inputScore(name, scanner));
+	// score += frame.getEndScore();
+	// }
+	//
+	// private static Frame frameGenarator(int size) {
+	// if (size < 9) {
+	// return new NomalFrame();
+	// }
+	// return new LastFrame();
+	// }
 }
