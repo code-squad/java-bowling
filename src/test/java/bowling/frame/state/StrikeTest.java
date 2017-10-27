@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import bowling.frame.pin.Pins;
+
 public class StrikeTest {
     @Test(expected = UnsupportedOperationException.class)
     public void bowl() {
-        new Strike().bowl(8);
+        new Strike().bowl(Pins.bowl(8));
     }
 
     @Test

@@ -1,7 +1,9 @@
 package bowling.frame.state;
 
+import bowling.frame.pin.Pins;
+
 public interface State {
-    State bowl(int countOfPin);
+    State bowl(Pins falledPins);
 
     boolean isFinish();
 

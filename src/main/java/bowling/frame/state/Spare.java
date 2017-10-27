@@ -1,25 +1,26 @@
 package bowling.frame.state;
 
+import bowling.frame.pin.Pins;
+
 class Spare extends Finished {
-    private int first;
-    private int second;
+    private Pins firstPins;
+    private Pins secondPins;
 
-    Spare(int first, int second) {
-
-        if (first + second != 10) {
+    public Spare(Pins firstPins, Pins secondPins) {
+        if (!firstPins.isSpare(secondPins)) {
             throw new IllegalArgumentException();
         }
-
-        this.first = first;
-        this.second = second;
+        
+        this.firstPins = firstPins;
+        this.secondPins = secondPins;
     }
 
     public Score cacluateAdditionalScore(Score score) {
-        score = score.bowl(this.first);
+        score = score.bowl(this.firstPins.getFalledPins());
         if (score.canCalucateScore()) {
             return score;
         }
-        score = score.bowl(this.second);
+        score = score.bowl(this.secondPins.getFalledPins());
         return score;
     }
 
@@ -30,6 +31,6 @@ class Spare extends Finished {
 
     @Override
     public String getDesc() {
-        return this.first + " | /";
+        return this.firstPins.getFalledPins() + " | /";
     }
 }

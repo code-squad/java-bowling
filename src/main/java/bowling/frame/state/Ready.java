@@ -1,14 +1,15 @@
 package bowling.frame.state;
 
 import bowling.frame.CannotCalculateException;
+import bowling.frame.pin.Pins;
 
-public class Ready extends Running {
-    public State bowl(int countOfPin) {
-        if (countOfPin == 10) {
+public class Ready extends Running {   
+    @Override
+    public State bowl(Pins falledPins) {
+        if (falledPins.isStrike()) {
             return new Strike();
         }
-
-        return new FirstBowl(countOfPin);
+        return new FirstBowl(falledPins);
     }
 
     public Score cacluateAdditionalScore(Score score) {

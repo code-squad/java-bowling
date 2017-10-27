@@ -1,5 +1,6 @@
 package bowling.frame;
 
+import bowling.frame.pin.Pins;
 import bowling.frame.state.Ready;
 import bowling.frame.state.Score;
 import bowling.frame.state.State;
@@ -17,7 +18,7 @@ public class Frame {
     }
 
     public Frame bowl(int countOfPin) {
-        state = state.bowl(countOfPin);
+        state = state.bowl(Pins.bowl(countOfPin));
         if (state.isFinish()) {
             next = new Frame(no + 1);
             return next;

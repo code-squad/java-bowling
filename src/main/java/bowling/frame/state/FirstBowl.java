@@ -1,25 +1,26 @@
 package bowling.frame.state;
 
 import bowling.frame.CannotCalculateException;
+import bowling.frame.pin.Pins;
 
 class FirstBowl extends Running {
-    private int countOfPin;
+    private Pins firstPins;
 
-    FirstBowl(int countOfPin) {
-        this.countOfPin = countOfPin;
+    FirstBowl(Pins falledPins) {
+        this.firstPins = falledPins;
     }
 
     @Override
-    public State bowl(int countOfPin) {
-        if (this.countOfPin + countOfPin == 10) {
-            return new Spare(this.countOfPin, countOfPin);
+    public State bowl(Pins falledPins) {
+        if (firstPins.isSpare(falledPins)) {
+            return new Spare(firstPins, falledPins);
         }
 
-        return new Miss(this.countOfPin, countOfPin);
+        return new Miss(firstPins, falledPins);
     }
-
+    
     public Score cacluateAdditionalScore(Score score) {
-        score = score.bowl(this.countOfPin);
+        score = score.bowl(this.firstPins.getFalledPins());
         if (score.canCalucateScore()) {
             return score;
         }
@@ -28,6 +29,6 @@ class FirstBowl extends Running {
 
     @Override
     public String getDesc() {
-        return this.countOfPin + " | ";
+        return this.firstPins.getFalledPins() + " | ";
     }
 }
