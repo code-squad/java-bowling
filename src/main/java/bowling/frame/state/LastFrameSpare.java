@@ -1,5 +1,7 @@
 package bowling.frame.state;
 
+import bowling.exception.BowlingException;
+
 public class LastFrameSpare extends EndState {
 
 	public LastFrameSpare(int firstScore, int secondScore) {
@@ -14,7 +16,10 @@ public class LastFrameSpare extends EndState {
 
 	@Override
 	public State bowl(int score) {
-		return new BonuceChance(firstScore, secondScore, score);
+		if (firstScore + secondScore >= 10) {
+			return new BonuceChance(firstScore, secondScore, score);
+		}
+		throw new BowlingException();
 	}
 
 	@Override

@@ -8,4 +8,9 @@ public class LastFrame extends Frame {
 		state = new LastFrameReady();
 	}
 
+	@Override
+	public int getEndScore() {
+		return state.getEndScore();
+	}
+
 }

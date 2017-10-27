@@ -36,4 +36,10 @@ public class LastFrameFirst implements State {
 		return " " + firstScore + "   |";
 	}
 
+	@Override
+	public int getEndScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

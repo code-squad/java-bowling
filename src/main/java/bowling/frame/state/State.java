@@ -10,4 +10,6 @@ public interface State {
 	State bowl(int score);
 
 	String getChar();
+
+	int getEndScore();
 }

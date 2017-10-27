@@ -5,14 +5,19 @@ import java.util.List;
 import bowling.frame.Frame;
 
 public class Result {
+	private String newLine = System.getProperty("line.separator");
 
 	private List<Frame> frames;
-	private String newLine = System.getProperty("line.separator");
 	private List<Integer> scores;
+	private String name;
 
 	public Result(List<Frame> frames, List<Integer> scores) {
 		this.frames = frames;
 		this.scores = scores;
+	}
+
+	public Result(String name) {
+		this.name = name;
 	}
 
 	public String show(String name) {

@@ -31,4 +31,10 @@ public class LastFrameReady implements State {
 		return "      |";
 	}
 
+	@Override
+	public int getEndScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

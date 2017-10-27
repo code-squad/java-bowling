@@ -5,6 +5,7 @@ import bowling.exception.BowlingException;
 public abstract class EndState implements State {
 	int firstScore;
 	int secondScore;
+	int thirdScore;
 
 	@Override
 	public boolean isEnd() {
@@ -24,6 +25,11 @@ public abstract class EndState implements State {
 
 	public int getSecondScore() {
 		return secondScore;
+	}
+
+	@Override
+	public int getEndScore() {
+		return firstScore + secondScore + thirdScore;
 	}
 
 }

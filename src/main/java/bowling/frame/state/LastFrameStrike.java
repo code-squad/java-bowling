@@ -10,7 +10,7 @@ public class LastFrameStrike extends EndState {
 
 	@Override
 	public boolean isEnd() {
-		return !super.isEnd();
+		return false;
 	}
 
 	@Override

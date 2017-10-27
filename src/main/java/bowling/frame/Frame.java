@@ -1,14 +1,19 @@
 package bowling.frame;
 
+import bowling.exception.BowlingException;
 import bowling.frame.state.State;
 
 public abstract class Frame {
 
-	State state;
+	protected int no;
+	protected State state;
 	private int firstScore;
 	private int secondScore;
 
 	public State bowl(int score) {
+		if (score > 10) {
+			throw new BowlingException();
+		}
 		state = state.bowl(score);
 		this.firstScore = state.getFristScore();
 		this.secondScore = state.getSecondScore();

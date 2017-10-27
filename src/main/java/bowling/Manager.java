@@ -1,12 +1,14 @@
 package bowling;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 import bowling.frame.Frame;
 import bowling.frame.LastFrame;
-import bowling.frame.state.Second;
+import bowling.frame.NomalFrame;
+import bowling.frame.state.First;
+import bowling.frame.state.LastFrameFirst;
 import bowling.frame.state.Spare;
 import bowling.frame.state.Strike;
 import bowling.result.Result;
@@ -15,81 +17,68 @@ import bowling.view.BowlingResultView;
 
 public class Manager {
 	List<Frame> frames = new ArrayList<>();
-	List<Integer> scores = new ArrayList<>();
-	Scanner scanner = new Scanner(System.in);
+	String name = BowlingFormView.inputName();
+	List<Integer> scores = new LinkedList<>();
+	List<Integer> strikeScore = new ArrayList<>();
+	List<Integer> spareScore = new ArrayList<>();
 	Result result = new Result(frames, scores);
-	String name = BowlingFormView.inputName(scanner);
-	Frame frame;
 	int score;
 
 	public void run() {
 		boolean gameFlag = true;
 		boolean frameFlag = true;
+		Frame frame = new NomalFrame(1);
 		BowlingResultView.show(name, result);
 		while (gameFlag) {
-			FrameFlagCheck(frameFlag, frames.size());
-			frame.bowl(BowlingFormView.inputScore(name, scanner));
-			gameFlag = isLastFrame(frame);
+			frame = FrameFlagCheck(frameFlag, frame);
+			frame.bowl(BowlingFormView.inputScore(name));
 			frameFlag = stateCheck(frame);
-			// scoreCalculate(frameFlag, frame);
+			gameFlag = isLastFrame(frame);
 			BowlingResultView.show(name, result);
 		}
 	}
 
-	private void scoreCalculate(Frame frame) {
-		score += frame.getEndScore();
-	}
-
 	private boolean isLastFrame(Frame frame) {
 		if (frame instanceof LastFrame) {
-			return false;
+			return !frame.isEnd();
 		}
 		return true;
 	}
 
 	private boolean stateCheck(Frame frame) {
 		if (frame.isEnd()) {
-			frames.add(frame);
-			scoreCalculate(frame);
-			scores.add(score);
+			if (frame.getState() instanceof Strike) {
+				frames.add(frame);
+				scores.add(frames.indexOf(frame), 10);
+				return true;
+			}
+			if (frame.getState() instanceof Spare) {
+				return true;
+			}
+			scores.add(nomalFrameCalcu(frames.indexOf(frame), frame.getEndScore()));
 			return true;
+		}
+		if ((frame.getState() instanceof First) || (frame.getState() instanceof LastFrameFirst)) {
+			frames.add(frame);
+			return false;
 		}
 		return false;
 	}
 
-	private void FrameFlagCheck(boolean frameFlag, int size) {
-		if (frameFlag) {
-			frame = Frame.create(frames.size());
-			frameFlag = false;
+	private Integer nomalFrameCalcu(int index, int endScore) {
+		if (index == 0) {
+			return endScore;
 		}
+		endScore += scores.get(index - 1);
+		return endScore;
 	}
 
-	// private void endFrameCheck(Frame frame) {
-	// if (frames.size() == 10) {
-	// stateCheck(frame);
-	// return;
-	// }
-	// stateCheck(frame);
-	// }
+	private Frame FrameFlagCheck(boolean frameFlag, Frame frame) {
+		if (frameFlag) {
+			frameFlag = false;
+			return Frame.create(frames.size());
+		}
+		return frame;
+	}
 
-	// private void stateCheck(Frame frame) {
-	// if (frame.getState() instanceof Strike) {
-	// score += frame.getEndScore();
-	// return;
-	// }
-	// BowlingResultView.show(name, result);
-	// second(frame);
-	// }
-
-	// private void second(Frame frame) {
-	// frame.bowl(BowlingFormView.inputScore(name, scanner));
-	// score += frame.getEndScore();
-	// }
-	//
-	// private static Frame frameGenarator(int size) {
-	// if (size < 9) {
-	// return new NomalFrame();
-	// }
-	// return new LastFrame();
-	// }
 }
