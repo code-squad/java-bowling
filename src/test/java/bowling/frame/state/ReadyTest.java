@@ -12,14 +12,14 @@ import bowling.frame.state.Strike;
 
 public class ReadyTest {
     @Test
-    public void bowl_strike() throws Exception {
+    public void bowlWhenStrike() throws Exception {
         Ready ready = new Ready();
         State state = ready.bowl(Pins.bowl(10));
         assertTrue(state instanceof Strike);
     }
 
     @Test
-    public void bowl_first() throws Exception {
+    public void bowlWhenFirst() throws Exception {
         Ready ready = new Ready();
         State state = ready.bowl(Pins.bowl(9));
         assertTrue(state instanceof FirstBowl);

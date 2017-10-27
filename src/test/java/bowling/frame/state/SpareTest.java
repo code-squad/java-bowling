@@ -10,7 +10,7 @@ import bowling.frame.state.Spare;
 
 public class SpareTest {
     @Test(expected = IllegalArgumentException.class)
-    public void create_illegal() throws Exception {
+    public void createWhenillegal() throws Exception {
         new Spare(Pins.bowl(7), Pins.bowl(2));
     }
 
