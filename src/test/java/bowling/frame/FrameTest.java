@@ -6,14 +6,14 @@ import org.junit.Test;
 
 public class FrameTest {
     @Test
-    public void bowl_strike() throws Exception {
+    public void bowlWhenStrike() throws Exception {
         Frame frame = new Frame(1);
         Frame next = frame.bowl(10);
         assertEquals(2, next.getNo());
     }
 
     @Test
-    public void bowl_spare() throws Exception {
+    public void bowlWhenSpare() throws Exception {
         Frame frame = new Frame(1);
         Frame next = frame.bowl(8);
         assertEquals(1, next.getNo());
@@ -22,7 +22,7 @@ public class FrameTest {
     }
 
     @Test
-    public void bowl_miss() throws Exception {
+    public void bowlWhenMiss() throws Exception {
         Frame frame = new Frame(1);
         Frame next = frame.bowl(8);
         assertEquals(1, next.getNo());
