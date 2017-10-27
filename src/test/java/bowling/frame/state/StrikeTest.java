@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import bowling.frame.pin.Pins;
+import bowling.frame.pin.Score;
 
 public class StrikeTest {
     @Test(expected = UnsupportedOperationException.class)

@@ -2,6 +2,7 @@ package bowling.frame.state;
 
 import bowling.frame.CannotCalculateException;
 import bowling.frame.pin.Pins;
+import bowling.frame.pin.Score;
 
 class FirstBowl extends Running {
     private Pins firstPins;
@@ -20,7 +21,7 @@ class FirstBowl extends Running {
     }
     
     public Score cacluateAdditionalScore(Score score) {
-        score = score.bowl(this.firstPins.getFalledPins());
+        score = firstPins.sumScore(score);
         if (score.canCalucateScore()) {
             return score;
         }
@@ -29,6 +30,6 @@ class FirstBowl extends Running {
 
     @Override
     public String getDesc() {
-        return this.firstPins.getFalledPins() + " | ";
+        return firstPins.getDesc();
     }
 }

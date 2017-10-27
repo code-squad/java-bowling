@@ -1,6 +1,7 @@
 package bowling.frame.state;
 
 import bowling.frame.pin.Pins;
+import bowling.frame.pin.Score;
 
 class Miss extends Finished {
     private Pins firstPins;
@@ -13,20 +14,20 @@ class Miss extends Finished {
 
     @Override
     public Score getScore() {
-        return new Score(this.firstPins.getFalledPins() + this.secondPins.getFalledPins(), 0);
+        return new Score(firstPins.totalPins(secondPins), 0);
     }
 
     public Score cacluateAdditionalScore(Score score) {
-        score = score.bowl(this.firstPins.getFalledPins());
+        score = firstPins.sumScore(score);
         if (score.canCalucateScore()) {
             return score;
         }
-        score = score.bowl(this.secondPins.getFalledPins());
+        score = secondPins.sumScore(score);
         return score;
     }
 
     @Override
     public String getDesc() {
-        return this.firstPins.getFalledPins() + " | " + this.secondPins.getFalledPins();
+        return firstPins.getDesc(secondPins);
     }
 }

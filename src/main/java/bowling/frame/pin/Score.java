@@ -1,4 +1,4 @@
-package bowling.frame.state;
+package bowling.frame.pin;
 
 import bowling.frame.CannotCalculateException;
 

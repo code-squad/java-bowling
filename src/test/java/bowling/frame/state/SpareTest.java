@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import bowling.frame.pin.Pins;
+import bowling.frame.pin.Score;
 import bowling.frame.state.Spare;
 
 public class SpareTest {

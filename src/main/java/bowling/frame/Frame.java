@@ -1,8 +1,8 @@
 package bowling.frame;
 
 import bowling.frame.pin.Pins;
+import bowling.frame.pin.Score;
 import bowling.frame.state.Ready;
-import bowling.frame.state.Score;
 import bowling.frame.state.State;
 
 public class Frame {

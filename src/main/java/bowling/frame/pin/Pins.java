@@ -2,7 +2,7 @@ package bowling.frame.pin;
 
 public class Pins {
     private static final int MIN_PINS = 0;
-    private static final int MAX_PINS = 10;
+    public static final int MAX_PINS = 10;
     
     private int falledPins;
 
@@ -27,16 +27,12 @@ public class Pins {
         
         return new Pins(falledPins);
     }
-    
-    public int getFalledPins() {
-        return falledPins;
-    }
-    
+      
     public boolean isStrike() {
         return this.falledPins == MAX_PINS;
     }
     
-    private int totalPins(Pins secondPins) {
+    public int totalPins(Pins secondPins) {
         int totalPins = this.falledPins + secondPins.falledPins;
         validPins(totalPins);
         return totalPins;
@@ -48,5 +44,25 @@ public class Pins {
 
     public boolean isMiss(Pins secondPins) {
         return totalPins(secondPins) < MAX_PINS;
+    }
+
+    public Score sumScore(Score score) {
+        return score.bowl(this.falledPins);
+    }
+
+    public String getDesc() {
+        if (isStrike()) {
+            return "X";
+        }
+        
+        return falledPins + " | ";
+    }
+
+    public String getDesc(Pins secondPins) {
+        if (isSpare(secondPins)) {
+            return falledPins + " | /";
+        }
+        
+        return falledPins + " | " + secondPins.falledPins;
     }
 }
