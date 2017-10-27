@@ -10,13 +10,13 @@ public class FrameResultTest {
         FrameResult result = new FrameResult("8 | 1", 9);
         assertEquals(19, result.addTotalScore(10));
     }
-    
+
     @Test
     public void addTotalScoreWhenUnScore() throws Exception {
         FrameResult result = new FrameResult("8 | ", Frame.UN_SCORE_STATE);
         assertEquals(Frame.UN_SCORE_STATE, result.addTotalScore(10));
     }
-    
+
     @Test
     public void getFrameResultWhenMiss() throws Exception {
         Frame frame = new Frame(1);
@@ -24,7 +24,7 @@ public class FrameResultTest {
         FrameResult result = frame.getFrameResult();
         assertEquals(new FrameResult("8 | 1", 9), result);
     }
-    
+
     @Test
     public void getFrameResultWhenNotReady() throws Exception {
         Frame frame = new Frame(1);
@@ -32,7 +32,7 @@ public class FrameResultTest {
         FrameResult result = frame.getFrameResult();
         assertEquals(new FrameResult("8 | ", Frame.UN_SCORE_STATE), result);
     }
-    
+
     @Test
     public void getFrameResultWhenSpare() throws Exception {
         Frame frame = new Frame(1);
@@ -40,7 +40,7 @@ public class FrameResultTest {
         FrameResult result = frame.getFrameResult();
         assertEquals(new FrameResult("8 | /", 19), result);
     }
-    
+
     @Test
     public void getFrameResultWhenNotSpareNotReady() throws Exception {
         Frame frame = new Frame(1);
@@ -48,7 +48,7 @@ public class FrameResultTest {
         FrameResult result = frame.getFrameResult();
         assertEquals(new FrameResult("8 | /", Frame.UN_SCORE_STATE), result);
     }
-    
+
     @Test
     public void getFrameResultWhenStrike() throws Exception {
         Frame frame = new Frame(1);
@@ -56,7 +56,7 @@ public class FrameResultTest {
         FrameResult result = frame.getFrameResult();
         assertEquals(new FrameResult("X", 28), result);
     }
-    
+
     @Test
     public void getFrameResultWhenNotStrikeNotReady() throws Exception {
         Frame frame = new Frame(1);

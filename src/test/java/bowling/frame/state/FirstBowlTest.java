@@ -11,18 +11,18 @@ import bowling.frame.state.State;
 
 public class FirstBowlTest {
 
-	@Test
-	public void bowl_spare() {
-		FirstBowl firstBowl = new FirstBowl(9);
-		State state = firstBowl.bowl(1);
-		assertTrue(state instanceof Spare);
-	}
-	
-	@Test
-	public void bowl_miss() throws Exception {
-		FirstBowl firstBowl = new FirstBowl(9);
-		State state = firstBowl.bowl(0);
-		assertTrue(state instanceof Miss);
-	}
+    @Test
+    public void bowl_spare() {
+        FirstBowl firstBowl = new FirstBowl(9);
+        State state = firstBowl.bowl(1);
+        assertTrue(state instanceof Spare);
+    }
+
+    @Test
+    public void bowl_miss() throws Exception {
+        FirstBowl firstBowl = new FirstBowl(9);
+        State state = firstBowl.bowl(0);
+        assertTrue(state instanceof Miss);
+    }
 
 }

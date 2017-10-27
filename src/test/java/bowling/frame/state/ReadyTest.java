@@ -10,17 +10,17 @@ import bowling.frame.state.State;
 import bowling.frame.state.Strike;
 
 public class ReadyTest {
-	@Test
-	public void bowl_strike() throws Exception {
-		Ready ready = new Ready();
-		State state = ready.bowl(10);
-		assertTrue(state instanceof Strike);
-	}
-	
-	@Test
-	public void bowl_first() throws Exception {
-		Ready ready = new Ready();
-		State state = ready.bowl(9);
-		assertTrue(state instanceof FirstBowl);
-	}
+    @Test
+    public void bowl_strike() throws Exception {
+        Ready ready = new Ready();
+        State state = ready.bowl(10);
+        assertTrue(state instanceof Strike);
+    }
+
+    @Test
+    public void bowl_first() throws Exception {
+        Ready ready = new Ready();
+        State state = ready.bowl(9);
+        assertTrue(state instanceof FirstBowl);
+    }
 }

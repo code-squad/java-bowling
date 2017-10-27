@@ -1,33 +1,33 @@
 package bowling.frame;
 
 public class FrameResult {
-	private String desc;
-	private int score;
-	private int totalScore = -1;
+    private String desc;
+    private int score;
+    private int totalScore = -1;
 
-	public FrameResult(String desc, int score) {
-		this.desc = desc;
-		this.score = score;
-	}
-	
-	public int addTotalScore(int beforeTotalScore) {
-	    if (isUnScore()) {
-	        this.totalScore = this.score;
-	        return this.totalScore;
-	    }
-	    
-	    this.totalScore = this.score + beforeTotalScore;
-	    return this.totalScore;
-	}
+    public FrameResult(String desc, int score) {
+        this.desc = desc;
+        this.score = score;
+    }
+
+    public int addTotalScore(int beforeTotalScore) {
+        if (isUnScore()) {
+            this.totalScore = this.score;
+            return this.totalScore;
+        }
+
+        this.totalScore = this.score + beforeTotalScore;
+        return this.totalScore;
+    }
 
     boolean isUnScore() {
         return this.score == Frame.UN_SCORE_STATE;
     }
-	
-	public int getTotalScore() {
+
+    public int getTotalScore() {
         return totalScore;
     }
-	
+
     @Override
     public int hashCode() {
         final int prime = 31;
