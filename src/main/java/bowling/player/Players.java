@@ -7,8 +7,7 @@ public class Players {
 	private List<Player> players;
 
 	public Players() {
-		List<Player> players = new ArrayList<>();
-		this.players = players;
+		players = new ArrayList<>();
 	}
 
 	public int size() {
@@ -23,4 +22,7 @@ public class Players {
 		return players;
 	}
 
+	public Player getPlayer(int no) {
+		return players.get(no);
+	}
 }

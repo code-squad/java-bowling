@@ -11,7 +11,7 @@ public abstract class Running extends 아뭘로하지 implements State {
 
 	@Override
 	public int getScore() {
-		return firstBowlScore;
+		return this.firstBowlScore;
 	}
 
 }

@@ -1,22 +1,35 @@
 package bowling.player;
 
 import bowling.frame.Frame;
+import bowling.state.State;
 
 public class Player {
 
-	private int no;
 	private Frame frame;
+	private String name;
+	private State state;
 
-	public Player(int no) {
-		this.no = no;
-		this.frame = new Frame(1);
+	public Player(String name) {
+		this.name = name;
+		frame = new Frame(1);
+		state = frame.getState();
 	}
 
-	public int getNo() {
-		return no;
+	public Frame bowl(int score) {
+		frame = frame.bowl(score);
+		state = frame.getState();
+		return frame;
 	}
 
-	public int bowl(int i) {
-		return i;
+	public String getName() {
+		return name;
+	}
+
+	public Frame getFrame() {
+		return frame;
+	}
+
+	public boolean isEnd() {
+		return state.isEnd();
 	}
 }

@@ -11,4 +11,6 @@ public interface State {
 	State bowl(int score);
 
 	int getScore();
+
+	String getChar();
 }

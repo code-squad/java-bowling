@@ -11,4 +11,9 @@ public class Second extends End {
 	public int getScore() {
 		return firstBowlScore + secondBowlScore;
 	}
+
+	@Override
+	public String getChar() {
+		return "  " + firstBowlScore + "|" + secondBowlScore + " |";
+	}
 }

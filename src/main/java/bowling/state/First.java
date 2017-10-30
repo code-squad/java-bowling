@@ -13,7 +13,10 @@ public class First extends Running {
 		}
 		return new Second(this.firstBowlScore, secondBowlScore);
 	}
-	
-	
+
+	@Override
+	public String getChar() {
+		return "  " + firstBowlScore + "  |";
+	}
 
 }

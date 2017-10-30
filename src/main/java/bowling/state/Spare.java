@@ -12,4 +12,9 @@ public class Spare extends End {
 		return 10;
 	}
 
+	@Override
+	public String getChar() {
+		return "  " + firstBowlScore + "/  |";
+	}
+
 }

@@ -9,4 +9,9 @@ public class Ready extends Running {
 		return new First(firstBowlScore);
 	}
 
+	@Override
+	public String getChar() {
+		return "      |";
+	}
+
 }

@@ -35,8 +35,8 @@ public class ScoreTest {
 		Frame next = frame;
 		Score score = new Score();
 		next = next.bowl(10);
-		next = next.bowl(10);
-		next = next.bowl(10);
-		assertThat(score.calc(frame, 2), is(30));
+		next = next.bowl(2);
+		next = next.bowl(5);
+		assertThat(score.calc(frame, 2), is(17));
 	}
 }
