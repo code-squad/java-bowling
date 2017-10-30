@@ -1,8 +1,12 @@
 package bowling;
 
+import bowling.player.Players;
+import bowling.utils.Utils;
+import bowling.view.BowlingFormView;
+
 public class Bowling {
 	public static void main(String[] args) {
-		Manager manager = new Manager();
-		manager.run();
+		Players players = Utils.playerCreate(Utils.inputPlayerCount(BowlingFormView.inputPlayerCount()));
+		
 	}
 }
