@@ -1,42 +1,24 @@
 package bowling.score;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import bowling.frame.Frame;
+import bowling.frame.state.Bonuce;
+import bowling.frame.state.Second;
 
 public class ScoreTest {
-	@Test
-	public void 노말_점수_계산() {
-		Frame frame = new Frame(1);
-		Frame next = frame;
-		Score score = new Score();
-		next.bowl(1);
-		next.bowl(2);
-		assertThat(score.calc(frame, 0), is(3));
-	}
 
 	@Test
-	public void 스페어_점수_계산() throws Exception {
-		Frame frame = new Frame(1);
-		Frame next = frame;
-		Score score = new Score();
-		next = next.bowl(1);
-		next = next.bowl(9);
-		next = next.bowl(4);
-		assertThat(score.calc(frame, 1), is(14));
+	public void 스코어계산기() {
+		Score score = Score.calculate(new Second(2, 3));
+		assertEquals(new Score(new Second(2, 3)), score);
 	}
 
-	@Test
-	public void 스트라이크_점수_계산() throws Exception {
-		Frame frame = new Frame(1);
-		Frame next = frame;
-		Score score = new Score();
-		next = next.bowl(10);
-		next = next.bowl(2);
-		next = next.bowl(5);
-		assertThat(score.calc(frame, 2), is(17));
+	@Test(expected = IllegalArgumentException.class)
+	public void 스코어계산기_예외_case1() {
+		Score score = Score.calculate(new Bonuce(2, 3));
+		assertEquals(new Score(new Bonuce(2, 3)), score);
 	}
+
 }

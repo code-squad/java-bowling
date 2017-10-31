@@ -1,40 +1,39 @@
 package bowling.score;
 
-import bowling.frame.Frame;
+import bowling.frame.state.State;
 
 public class Score {
 
-	public int calc(Frame frame, int count) {
-		if (frame == null) {
-			try {
-				throw new NullPointerException();
-			} catch (NullPointerException e) {
-				// e.printStackTrace();
-			}
-			return 0;
-		}
-		int n = frame.getScore();
-		if (count == 0) {
-			return n;
-		}
-		Frame next = frame.getNext();
-		return n += calc(next, count - 1);
+	private int score;
+
+	public Score(State state) {
+		this.score = state.getEachFinalFrameScore();
 	}
 
-	public int calc(int continueScore, Frame frame, int count) {
-		if (frame == null) {
-			try {
-				throw new NullPointerException();
-			} catch (NullPointerException e) {
-				// e.printStackTrace();
-			}
-			return 0;
-		}
-		if (count == 0) {
-			return frame.getScore();
-		}
-		Frame next = frame.getNext();
-		return continueScore += calc(next, count - 1);
+	public static Score calculate(State state) {
+		return new Score(state);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + score;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Score other = (Score) obj;
+		if (score != other.score)
+			return false;
+		return true;
 	}
 
 }

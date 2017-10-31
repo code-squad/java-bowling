@@ -1,24 +1,20 @@
 package bowling.frame;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import bowling.frame.state.LastReady;
 
 public class LastFrameTest {
 
 	@Test
-	public void 프레임_생성() {
+	public void 마지막프레임_생성() {
 		Frame frame = Frame.create(10);
-		assertEquals(frame, new LastFrame(10));
-	}
-
-	@Test
-	public void 프레임_상태_체크() throws Exception {
-		Frame frame = Frame.create(10);
-		frame = frame.bowl(10);
-		assertEquals(frame, new LastFrame(10));
-		System.out.println(frame.getState());
-
+		assertEquals(new LastFrame(), frame);
+		// assertEquals(new LastReady(), frame);
+		assertTrue(frame.state instanceof LastReady);
 	}
 
 }
