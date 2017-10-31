@@ -13,12 +13,27 @@ public class Score {
 			}
 			return 0;
 		}
-		int n = frame.getScore();
 		if (count == 0) {
 			return frame.getScore();
 		}
 		Frame next = frame.getNext();
-		return n += calc(next, count - 1);
+		return calc(next, count - 1);
+	}
+
+	public int calc(int continueScore, Frame frame, int count) {
+		if (frame == null) {
+			try {
+				throw new NullPointerException();
+			} catch (NullPointerException e) {
+				// e.printStackTrace();
+			}
+			return 0;
+		}
+		if (count == 0) {
+			return frame.getScore();
+		}
+		Frame next = frame.getNext();
+		return continueScore += calc(next, count - 1);
 	}
 
 }

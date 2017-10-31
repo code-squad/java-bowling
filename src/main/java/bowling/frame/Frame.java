@@ -12,6 +12,7 @@ public class Frame {
 	private int no;
 	private State state;
 	private Frame next;
+	private int continueScore;
 
 	public Frame(int no) {
 		this.no = no;
@@ -25,24 +26,17 @@ public class Frame {
 	public Frame bowl(int score) {
 		this.state = state.bowl(score);
 		if (state instanceof End) {
-			return next = new Frame(no + 1);
+			no += 1;
+			if (no < 10) {
+				return next = new NomalFrame(no);
+			}
+			return next = new LastFrame(no);
 		}
 		return this;
 	}
 
 	public Frame getNext() {
 		return next;
-	}
-
-	public int calc(Frame frame, int count) {
-		Score score = new Score();
-		if (frame.getState() instanceof Strike) {
-			return score.calc(frame, 2);
-		}
-		if (frame.getState() instanceof Spare) {
-			return score.calc(frame, 1);
-		}
-		return score.calc(frame, 0);
 	}
 
 	public int getScore() {
@@ -69,14 +63,19 @@ public class Frame {
 		return state.getChar();
 	}
 
+	// public List<FrameResult> createFrameResults() {
+	// List<FrameResult> result = new ArrayList<>();
+	// return result.add(FrameResult.add(calc()));
+	// }
+
 	public int calc() {
-		Score score = new Score();
+		Score scores = new Score();
 		if (state instanceof Strike) {
-			return score.calc(this, 2);
+			return scores.calc(continueScore, this, 2);
 		}
 		if (state instanceof Spare) {
-			return score.calc(this, 1);
+			return scores.calc(continueScore, this, 1);
 		}
-		return score.calc(this, 0);
+		return scores.calc(continueScore, this, 0);
 	}
 }

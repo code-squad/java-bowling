@@ -22,10 +22,15 @@ public class Board {
 
 	private String frame(Frame frame) {
 		Frame next = frame;
+		int no = 0;
 		StringBuilder stringBuilder = new StringBuilder();
 		while (next.getNext() != null) {
 			stringBuilder.append(next.getChar());
 			next = next.getNext();
+			no = next.getNo() - 1;
+		}
+		for (int i = no; i < 10; i++) {
+			stringBuilder.append("      |");
 		}
 		stringBuilder.append(newLine);
 		return stringBuilder.toString();
@@ -35,11 +40,16 @@ public class Board {
 		Frame next = frame;
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("|      |");
+		int no = 0;
 		while (next.getNext() != null) {
 			stringBuilder.append("  ");
 			stringBuilder.append(next.calc());
-			stringBuilder.append("   |");
+			stringBuilder.append("  |");
 			next = next.getNext();
+			no = next.getNo() - 1;
+		}
+		for (int i = no; i < 10; i++) {
+			stringBuilder.append("      |");
 		}
 		return stringBuilder.toString();
 	}

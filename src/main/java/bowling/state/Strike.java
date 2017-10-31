@@ -1,7 +1,5 @@
 package bowling.state;
 
-import bowling.frame.Frame;
-
 public class Strike extends End {
 
 	@Override

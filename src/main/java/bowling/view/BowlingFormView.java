@@ -16,7 +16,7 @@ public class BowlingFormView {
 	}
 
 	public static int inputScore(String name) {
-		System.out.print(name + "'의 점수를 입력하세 :");
+		System.out.print(name + "'의 점수를 입력하세요 :");
 		return Integer.parseInt(scanner.nextLine());
 	}
 
