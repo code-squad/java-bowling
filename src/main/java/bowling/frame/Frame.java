@@ -1,5 +1,8 @@
 package bowling.frame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bowling.score.Score;
 import bowling.state.End;
 import bowling.state.LastRunning;
@@ -12,7 +15,7 @@ public abstract class Frame {
 	private int no;
 	private State state;
 	private Frame next;
-	private int continueScore;
+	private List<FrameResult> result = new ArrayList<>();
 
 	public Frame(int no) {
 		this.no = no;
@@ -31,11 +34,8 @@ public abstract class Frame {
 	public Frame bowl(int score) {
 		this.state = state.bowl(score);
 		if (state instanceof End) {
-			no += 1;
-			if (no < 10) {
-				return next = new NomalFrame(no);
-			}
-			return next = new LastFrame(no);
+			result.add(new FrameResult(state.getScore()));
+			return next = new NomalFrame(no + 1);
 		}
 		return this;
 	}
@@ -68,20 +68,15 @@ public abstract class Frame {
 		return state.getChar();
 	}
 
-	// public List<FrameResult> createFrameResults() {
-	// List<FrameResult> result = new ArrayList<>();
-	// return result.add(FrameResult.add(calc()));
-	// }
-
 	public int calc() {
 		Score scores = new Score();
 		if (state instanceof Strike) {
-			return scores.calc(continueScore, this, 2);
+			return scores.calc(this, 2);
 		}
 		if (state instanceof Spare) {
-			return scores.calc(continueScore, this, 1);
+			return scores.calc(this, 1);
 		}
-		return scores.calc(continueScore, this, 0);
+		return scores.calc(this, 0);
 	}
 
 	public static Frame create(int no) {
@@ -111,6 +106,10 @@ public abstract class Frame {
 		if (no != other.no)
 			return false;
 		return true;
+	}
+
+	public List<FrameResult> getResult() {
+		return result;
 	}
 
 }

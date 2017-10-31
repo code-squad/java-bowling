@@ -13,11 +13,12 @@ public class Score {
 			}
 			return 0;
 		}
+		int n = frame.getScore();
 		if (count == 0) {
-			return frame.getScore();
+			return n;
 		}
 		Frame next = frame.getNext();
-		return calc(next, count - 1);
+		return n += calc(next, count - 1);
 	}
 
 	public int calc(int continueScore, Frame frame, int count) {

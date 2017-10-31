@@ -1,6 +1,9 @@
 package bowling;
 
+import java.util.List;
+
 import bowling.frame.Frame;
+import bowling.frame.FrameResult;
 
 public class Board {
 
@@ -11,12 +14,28 @@ public class Board {
 		this.name = name;
 	}
 
-	public String show(Frame frame) {
+	public String show(Frame frame, List<FrameResult> result) {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(frontLine());
 		stringBuilder.append(name());
 		stringBuilder.append(frame(frame));
-		stringBuilder.append(frameScore(frame));
+		stringBuilder.append(frameScore(result));
+		return stringBuilder.toString();
+	}
+
+	private Object frameScore(List<FrameResult> result) {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("|      |");
+		int no = result.size();
+		for (int i = 0; i < result.size(); i++) {
+			stringBuilder.append("  ");
+			stringBuilder.append(result.get(i).getScore());
+			stringBuilder.append("  |");
+
+		}
+		for (int i = no; i < 10; i++) {
+			stringBuilder.append("      |");
+		}
 		return stringBuilder.toString();
 	}
 
