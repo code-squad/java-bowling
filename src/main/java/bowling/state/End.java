@@ -1,6 +1,6 @@
 package bowling.state;
 
-public abstract class End extends 아뭘로하지 implements State {
+public abstract class End extends NomalUtil implements State {
 	@Override
 	public boolean isEnd() {
 		return true;

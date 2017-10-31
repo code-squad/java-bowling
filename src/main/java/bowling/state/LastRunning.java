@@ -1,6 +1,6 @@
 package bowling.state;
 
-public abstract class Running extends NomalUtil implements State {
+public abstract class LastRunning extends LastUtil implements State {
 	@Override
 	public boolean isEnd() {
 		return false;

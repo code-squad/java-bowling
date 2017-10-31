@@ -2,13 +2,13 @@ package bowling.frame;
 
 import bowling.score.Score;
 import bowling.state.End;
+import bowling.state.LastRunning;
 import bowling.state.Ready;
 import bowling.state.Spare;
 import bowling.state.State;
 import bowling.state.Strike;
 
-public class Frame {
-
+public abstract class Frame {
 	private int no;
 	private State state;
 	private Frame next;
@@ -17,6 +17,11 @@ public class Frame {
 	public Frame(int no) {
 		this.no = no;
 		state = new Ready();
+	}
+
+	public Frame(int no, LastRunning lastRunning) {
+		this.no = no;
+		state = lastRunning;
 	}
 
 	public int getNo() {
@@ -78,4 +83,34 @@ public class Frame {
 		}
 		return scores.calc(continueScore, this, 0);
 	}
+
+	public static Frame create(int no) {
+		if (no < 10) {
+			return new NomalFrame(no);
+		}
+		return new LastFrame(no);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + no;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Frame other = (Frame) obj;
+		if (no != other.no)
+			return false;
+		return true;
+	}
+
 }
