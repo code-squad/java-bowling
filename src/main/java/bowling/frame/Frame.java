@@ -5,15 +5,15 @@ import bowling.frame.state.State;
 
 public abstract class Frame {
 
-	State state;
-	int no;
-
 	public static Frame create(int no) {
 		if (no == 10) {
 			return new LastFrame();
 		}
 		return new NomalFrame(no);
 	}
+
+	protected int no;
+	protected State state;
 
 	public int getNo() {
 		return this.no;

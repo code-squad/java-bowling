@@ -11,15 +11,11 @@ import bowling.frame.state.Strike;
 public class Score {
 	private List<Integer> scores;
 
-	public Score(State state) {
-		// this.score = state.getEachFinalFrameScore();
-	}
-
 	public Score(List<Frame> frames) {
-		scores = Create(frames);
+		scores = create(frames);
 	}
 
-	private List<Integer> Create(List<Frame> frames) {
+	private List<Integer> create(List<Frame> frames) {
 		int score = 0;
 		scores = new ArrayList<>();
 		for (int i = 0; i < frames.size(); i++) {
@@ -48,10 +44,6 @@ public class Score {
 					+ frames.get(i + 1).getState().getFirstScore();
 		}
 		return score += frames.get(i).getState().getEachFinalFrameScore();
-	}
-
-	public static Score calculate(State state) {
-		return new Score(state);
 	}
 
 	public static Score calculate(List<Frame> frames) {
