@@ -5,4 +5,14 @@ public class Strike extends Finish {
 	public String getChar() {
 		return "  X   |";
 	}
+
+	@Override
+	public int getEachFinalFrameScore() {
+		return 10;
+	}
+
+	@Override
+	public int getFirstScore() {
+		return 10;
+	}
 }

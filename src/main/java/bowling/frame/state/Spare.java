@@ -15,4 +15,14 @@ public class Spare extends Finish {
 		return "  " + firstScore + "|/  |";
 	}
 
+	@Override
+	public int getEachFinalFrameScore() {
+		return 10;
+	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
 }

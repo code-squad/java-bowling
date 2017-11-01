@@ -21,4 +21,9 @@ public class First extends Running {
 		return "  " + firstScore + "|   |";
 	}
 
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
 }

@@ -3,6 +3,7 @@ package bowling.board;
 import java.util.List;
 
 import bowling.frame.Frame;
+import bowling.score.Score;
 
 public class Board {
 
@@ -14,12 +15,27 @@ public class Board {
 		this.frames = frames;
 	}
 
-	public String show() {
+	public String show(Score scores) {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(frontLine());
 		stringBuilder.append(nameSection());
 		stringBuilder.append(frame());
+		stringBuilder.append(frameScore(scores.getScores()));
 		return stringBuilder.toString();
+	}
+
+	private StringBuilder frameScore(List<Integer> list) {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("|      |");
+		for (int i = 0; i < list.size(); i++) {
+			stringBuilder.append("  ");
+			stringBuilder.append(list.get(i));
+			stringBuilder.append("  |");
+		}
+		for (int i = list.size(); i < 10; i++) {
+			stringBuilder.append("      |");
+		}
+		return stringBuilder;
 	}
 
 	private StringBuilder frame() {

@@ -21,4 +21,9 @@ public class LastEnd extends Finish {
 	public int getEachFinalFrameScore() {
 		return super.getEachFinalFrameScore() + this.thirdScore;
 	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
 }

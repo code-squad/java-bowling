@@ -21,4 +21,9 @@ public class ScoreTest {
 		assertEquals(new Score(new Bonuce(2, 3)), score);
 	}
 
+	@Test
+	public void 평범할때_스코어_구하기() throws Exception {
+
+	}
+
 }

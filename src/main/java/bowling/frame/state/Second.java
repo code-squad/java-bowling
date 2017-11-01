@@ -18,4 +18,14 @@ public class Second extends Finish {
 		return "  " + firstScore + "|" + secondScore + "  |";
 	}
 
+	@Override
+	public int getEachFinalFrameScore() {
+		return this.firstScore + this.secondScore;
+	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
 }

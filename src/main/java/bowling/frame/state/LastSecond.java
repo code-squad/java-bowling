@@ -14,4 +14,9 @@ public class LastSecond extends Finish {
 	public String getChar() {
 		return "  " + firstScore + "|" + secondScore + "  |";
 	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
 }

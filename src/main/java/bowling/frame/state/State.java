@@ -9,4 +9,6 @@ public interface State {
 	String getChar();
 
 	int getEachFinalFrameScore();
+
+	int getFirstScore();
 }

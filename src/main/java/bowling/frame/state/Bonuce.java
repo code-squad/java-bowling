@@ -19,4 +19,9 @@ public class Bonuce extends Running {
 	public String getChar() {
 		return "  " + firstScore + "|" + secondScore + " |";
 	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
 }

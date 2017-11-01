@@ -25,4 +25,9 @@ public class LastFirst extends Running {
 		return "  " + firstScore + "|   |";
 	}
 
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
 }
