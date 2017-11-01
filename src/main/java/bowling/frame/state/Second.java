@@ -7,7 +7,7 @@ public class Second extends Finish {
 
 	public Second(int firstScore, int bowls) {
 		this.firstScore = firstScore;
-		secondScore = bowls;
+		this.secondScore = bowls;
 	}
 
 	@Override

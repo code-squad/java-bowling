@@ -1,9 +1,11 @@
 package bowling.frame;
 
-import bowling.frame.state.Finish;
 import bowling.frame.state.State;
 
 public abstract class Frame {
+
+	protected int no;
+	protected State state;
 
 	public static Frame create(int no) {
 		if (no == 10) {
@@ -12,9 +14,6 @@ public abstract class Frame {
 		return new NomalFrame(no);
 	}
 
-	protected int no;
-	protected State state;
-
 	public int getNo() {
 		return this.no;
 	}
@@ -22,6 +21,19 @@ public abstract class Frame {
 	public State getState() {
 		return this.state;
 	}
+
+	public State bowl(int score) {
+		return state = state.bowl(score);
+	}
+
+	public static Frame create(int i, Frame frame) {
+		if (frame.isEnd()) {
+			return create(i);
+		}
+		return frame;
+	}
+
+	abstract public boolean isEnd();
 
 	@Override
 	public int hashCode() {
@@ -44,16 +56,4 @@ public abstract class Frame {
 			return false;
 		return true;
 	}
-
-	public State bowl(int score) {
-		return state = this.state.bowl(score);
-	}
-
-	public static Frame create(int i, Frame frame) {
-		if (frame.getState() instanceof Finish) {
-			return create(i);
-		}
-		return frame;
-	}
-
 }

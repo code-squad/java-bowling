@@ -7,7 +7,7 @@ public class Spare extends Finish {
 
 	public Spare(int firstScore, int bowls) {
 		this.firstScore = firstScore;
-		secondScore = bowls;
+		this.secondScore = bowls;
 	}
 
 	@Override

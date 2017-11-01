@@ -7,7 +7,7 @@ public class LastSecond extends Finish {
 
 	public LastSecond(int firstScore, int bowls) {
 		this.firstScore = firstScore;
-		secondScore = bowls;
+		this.secondScore = bowls;
 	}
 
 	@Override

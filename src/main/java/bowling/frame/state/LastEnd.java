@@ -9,7 +9,7 @@ public class LastEnd extends Finish {
 	public LastEnd(int firstScore, int secondScore, int bowls) {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
-		thirdScore = bowls;
+		this.thirdScore = bowls;
 	}
 
 	@Override

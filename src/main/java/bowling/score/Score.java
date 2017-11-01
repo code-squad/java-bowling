@@ -5,7 +5,6 @@ import java.util.List;
 
 import bowling.frame.Frame;
 import bowling.frame.state.Spare;
-import bowling.frame.state.State;
 import bowling.frame.state.Strike;
 
 public class Score {

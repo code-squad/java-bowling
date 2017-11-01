@@ -14,7 +14,7 @@ public class LastFrameTest {
 		Frame frame = Frame.create(10);
 		assertEquals(new LastFrame(), frame);
 		// assertEquals(new LastReady(), frame);
-		assertTrue(frame.state instanceof LastReady);
+		assertTrue(frame.getState() instanceof LastReady);
 	}
 
 }

@@ -6,6 +6,11 @@ public class NomalFrame extends Frame {
 
 	public NomalFrame(int no) {
 		this.no = no;
-		state = new Ready();
+		this.state = new Ready();
+	}
+
+	@Override
+	public boolean isEnd() {
+		return state.isEnd();
 	}
 }

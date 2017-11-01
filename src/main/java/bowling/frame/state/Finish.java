@@ -16,6 +16,6 @@ public abstract class Finish implements State {
 
 	@Override
 	public int getEachFinalFrameScore() {
-		return this.firstScore + this.secondScore;
+		return firstScore + secondScore;
 	}
 }

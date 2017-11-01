@@ -7,7 +7,7 @@ public class Bonuce extends Running {
 
 	public Bonuce(int firstScore, int bowls) {
 		this.firstScore = firstScore;
-		secondScore = bowls;
+		this.secondScore = bowls;
 	}
 
 	@Override
