@@ -1,5 +1,7 @@
 package bowling.frame;
 
+import java.util.List;
+
 import bowling.frame.state.State;
 
 public abstract class Frame {
@@ -32,8 +34,6 @@ public abstract class Frame {
 		}
 		return frame;
 	}
-
-	abstract public int[] getScore();
 
 	abstract public boolean isEnd();
 

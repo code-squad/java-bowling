@@ -1,5 +1,7 @@
 package bowling.frame.state;
 
+import java.util.List;
+
 public class Ready implements State {
 
 	@Override
@@ -28,10 +30,5 @@ public class Ready implements State {
 	@Override
 	public int getFirstScore() {
 		return 0;
-	}
-
-	@Override
-	public int[] getScore() {
-		throw new NullPointerException("Finish 상태가 아닌 프레임은 점수를 반환 할 수 없습니다.");
 	}
 }

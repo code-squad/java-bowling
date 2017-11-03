@@ -28,12 +28,4 @@ public class Second extends Finish {
 		return firstScore;
 	}
 
-	@Override
-	public int[] getScore() {
-		int[] results = new int[2];
-		results[0] = firstScore;
-		results[1] = secondScore;
-		return results;
-	}
-
 }

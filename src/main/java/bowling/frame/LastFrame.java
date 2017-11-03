@@ -12,9 +12,4 @@ public class LastFrame extends Frame {
 	public boolean isEnd() {
 		return state.isEnd();
 	}
-
-	@Override
-	public int[] getScore() {
-		return state.getScore();
-	}
 }

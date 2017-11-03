@@ -1,5 +1,7 @@
 package bowling.frame;
 
+import java.util.List;
+
 import bowling.frame.state.Ready;
 
 public class NomalFrame extends Frame {
@@ -14,8 +16,4 @@ public class NomalFrame extends Frame {
 		return state.isEnd();
 	}
 
-	@Override
-	public int[] getScore() {
-		return state.getScore();
-	}
 }

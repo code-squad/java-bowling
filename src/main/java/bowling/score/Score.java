@@ -28,33 +28,23 @@ public class Score {
 		return scores;
 	}
 
-	// private Integer scoreCalculate(int score, int i, List<Frame> frames) throws
-	// IndexOutOfBoundsException {
-	// if (findFrmae(i, frames).getState() instanceof Strike) {
-	// if (findFrmae(i, frames).getState() instanceof Strike) {
-	// return score += frames.get(i).getState().getEachFinalFrameScore()
-	// + findFrmae(i, frames).getState().getEachFinalFrameScore()
-	// + frames.get(i + 2).getState().getEachFinalFrameScore();
-	// }
-	// return score += frames.get(i).getState().getEachFinalFrameScore()
-	// + findFrmae(i, frames).getState().getEachFinalFrameScore();
-	// }
-	// if (frames.get(i).getState() instanceof Spare) {
-	// return score += frames.get(i).getState().getEachFinalFrameScore()
-	// + findFrmae(i, frames).getState().getFirstScore();
-	// }
-	// return score += frames.get(i).getState().getEachFinalFrameScore();
-	// }
-
-	private int scoreCalculate(int score, int i, List<Frame> frames) throws IndexOutOfBoundsException {
+	private Integer scoreCalculate(int score, int i, List<Frame> frames) throws IndexOutOfBoundsException {
 		if (findFrmae(i, frames).getState() instanceof Strike) {
-			return 0;
+			if (findFrmae(i, frames).getState() instanceof Strike) {
+				return score += frames.get(i).getState().getEachFinalFrameScore()
+						+ findFrmae(i, frames).getState().getEachFinalFrameScore()
+						+ frames.get(i + 2).getState().getEachFinalFrameScore();
+			}
+			return score += frames.get(i).getState().getEachFinalFrameScore()
+					+ findFrmae(i, frames).getState().getEachFinalFrameScore();
 		}
-		if (findFrmae(i, frames).getState() instanceof Spare) {
-			return 0;
+		if (frames.get(i).getState() instanceof Spare) {
+			return score += frames.get(i).getState().getEachFinalFrameScore()
+					+ findFrmae(i, frames).getState().getFirstScore();
 		}
-		return score += findFrmae(i, frames).getState().getEachFinalFrameScore();
+		return score += frames.get(i).getState().getEachFinalFrameScore();
 	}
+
 
 	private Frame findFrmae(int index, List<Frame> frames) {
 		return frames.get(index);

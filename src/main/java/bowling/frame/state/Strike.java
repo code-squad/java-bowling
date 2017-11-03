@@ -1,5 +1,7 @@
 package bowling.frame.state;
 
+import java.util.List;
+
 public class Strike extends Finish {
 	@Override
 	public String getChar() {
@@ -15,12 +17,4 @@ public class Strike extends Finish {
 	public int getFirstScore() {
 		return 10;
 	}
-
-	@Override
-	public int[] getScore() {
-		int[] results = new int[1];
-		results[0] = 10;
-		return results;
-	}
-
 }

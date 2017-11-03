@@ -12,5 +12,4 @@ public interface State {
 
 	int getFirstScore();
 
-	int[] getScore();
 }

@@ -18,7 +18,4 @@ public abstract class Finish implements State {
 	public int getEachFinalFrameScore() {
 		return firstScore + secondScore;
 	}
-
-	@Override
-	abstract public int[] getScore();
 }
