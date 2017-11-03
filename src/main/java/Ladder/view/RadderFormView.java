@@ -1,4 +1,4 @@
-package radder.view;
+package Ladder.view;
 
 import java.util.Scanner;
 

@@ -1,10 +1,10 @@
-package radder;
+package Ladder;
 
-import radder.player.Players;
-import radder.result.Result;
-import radder.view.RadderFormView;
+import Ladder.player.Players;
+import Ladder.result.Result;
+import Ladder.view.RadderFormView;
 
-public class RadderGame {
+public class LadderGame {
 	public static void main(String[] args) {
 		Players players = Players.create(RadderFormView.playersInput());
 		Result result = new Result(players, RadderFormView.radderHeight());

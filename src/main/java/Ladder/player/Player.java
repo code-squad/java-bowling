@@ -1,17 +1,17 @@
-package radder.player;
+package Ladder.player;
 
-import radder.Radder;
+import Ladder.Ladder;
 
 public class Player {
 
 	private int no;
 	private String name;
-	private Radder radder;
+	private Ladder radder;
 
 	public Player(int no, String name) {
 		this.no = no;
 		this.name = name;
-		this.radder = new Radder(no, name);
+		this.radder = new Ladder(no, name);
 
 	}
 
@@ -19,7 +19,7 @@ public class Player {
 		this.name = name;
 	}
 
-	public Radder getRadder() {
+	public Ladder getRadder() {
 		return radder;
 	}
 

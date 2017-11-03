@@ -1,10 +1,10 @@
-package radder.result;
+package Ladder.result;
 
 import java.util.List;
 import java.util.Random;
 
-import radder.player.Player;
-import radder.player.Players;
+import Ladder.player.Player;
+import Ladder.player.Players;
 
 public class Result {
 
