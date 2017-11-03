@@ -1,20 +1,36 @@
 package bowling.frame.state;
 
-public class Spare extends EndState {
+public class Spare extends Finish {
 
-	public Spare(int firstScore, int secondScore) {
+	private int firstScore;
+	private int secondScore;
+
+	public Spare(int firstScore, int bowls) {
 		this.firstScore = firstScore;
-		this.secondScore = secondScore;
+		this.secondScore = bowls;
 	}
 
 	@Override
 	public String getChar() {
-		return "  " + firstScore + "|/ |";
+		return "  " + firstScore + "|/  |";
 	}
 
 	@Override
-	public int getFristScore() {
+	public int getEachFinalFrameScore() {
+		return 10;
+	}
+
+	@Override
+	public int getFirstScore() {
 		return firstScore;
+	}
+
+	@Override
+	public int[] getScore() {
+		int[] results = new int[2];
+		results[0] = firstScore;
+		results[1] = secondScore;
+		return results;
 	}
 
 }

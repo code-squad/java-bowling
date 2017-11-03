@@ -1,11 +1,20 @@
 package bowling.frame;
 
-import bowling.frame.state.LastFrameReady;
+import bowling.frame.state.LastReady;
 
 public class LastFrame extends Frame {
-
 	public LastFrame() {
-		state = new LastFrameReady();
+		this.no = 10;
+		this.state = new LastReady();
 	}
 
+	@Override
+	public boolean isEnd() {
+		return state.isEnd();
+	}
+
+	@Override
+	public int[] getScore() {
+		return state.getScore();
+	}
 }

@@ -1,26 +1,25 @@
 package bowling.frame.state;
 
-public class Second extends Finish {
+public class LastEnd extends Finish {
 
 	private int firstScore;
 	private int secondScore;
+	private int thirdScore;
 
-	public Second(int firstScore, int bowls) {
+	public LastEnd(int firstScore, int secondScore, int bowls) {
 		this.firstScore = firstScore;
-		this.secondScore = bowls;
+		this.secondScore = secondScore;
+		this.thirdScore = bowls;
 	}
 
 	@Override
 	public String getChar() {
-		if (secondScore == 0) {
-			return "  " + firstScore + "|-  |";
-		}
-		return "  " + firstScore + "|" + secondScore + "  |";
+		return " " + firstScore + "|" + secondScore + "|" + thirdScore + " |";
 	}
 
 	@Override
 	public int getEachFinalFrameScore() {
-		return this.firstScore + this.secondScore;
+		return super.getEachFinalFrameScore() + this.thirdScore;
 	}
 
 	@Override
@@ -35,5 +34,4 @@ public class Second extends Finish {
 		results[1] = secondScore;
 		return results;
 	}
-
 }

@@ -4,38 +4,59 @@ import bowling.frame.state.State;
 
 public abstract class Frame {
 
-	State state;
-	private int firstScore;
-	private int secondScore;
+	protected int no;
+	protected State state;
 
-	public State bowl(int score) {
-		state = state.bowl(score);
-		this.firstScore = state.getFristScore();
-		this.secondScore = state.getSecondScore();
-		return state;
+	public static Frame create(int no) {
+		if (no == 10) {
+			return new LastFrame();
+		}
+		return new NomalFrame(no);
+	}
+
+	public int getNo() {
+		return this.no;
 	}
 
 	public State getState() {
-		return state;
+		return this.state;
 	}
 
-	public int getFirstScore() {
-		return firstScore;
+	public State bowl(int score) {
+		return state = state.bowl(score);
 	}
 
-	public int getSecondScore() {
-		return secondScore;
+	public static Frame create(int i, Frame frame) {
+		if (frame.isEnd()) {
+			return create(i);
+		}
+		return frame;
 	}
 
-	public int getEndScore() {
-		return this.firstScore + this.secondScore;
+	abstract public int[] getScore();
+
+	abstract public boolean isEnd();
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + no;
+		return result;
 	}
 
-	public boolean isEnd() {
-		return state.isEnd();
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Frame other = (Frame) obj;
+		if (no != other.no)
+			return false;
+		return true;
 	}
 
-	public static Frame create(int size) {
-		return size != 9 ? new NomalFrame() : new LastFrame();
-	}
 }

@@ -1,13 +1,16 @@
 package bowling.frame.state;
 
 public interface State {
+
+	State bowl(int bowls);
+
 	boolean isEnd();
 
-	int getFristScore();
-
-	int getSecondScore();
-
-	State bowl(int score);
-
 	String getChar();
+
+	int getEachFinalFrameScore();
+
+	int getFirstScore();
+
+	int[] getScore();
 }

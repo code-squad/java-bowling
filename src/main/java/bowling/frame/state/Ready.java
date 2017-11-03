@@ -1,19 +1,13 @@
 package bowling.frame.state;
 
 public class Ready implements State {
-	final private int strikeScore = 10;
 
 	@Override
-	public boolean isEnd() {
-		return false;
-	}
-
-	@Override
-	public State bowl(int score) {
-		if (score == strikeScore) {
+	public State bowl(int bowls) {
+		if (bowls == 10) {
 			return new Strike();
 		}
-		return new First(score);
+		return new First(bowls);
 	}
 
 	@Override
@@ -22,13 +16,22 @@ public class Ready implements State {
 	}
 
 	@Override
-	public int getFristScore() {
+	public boolean isEnd() {
+		return false;
+	}
+
+	@Override
+	public int getEachFinalFrameScore() {
+		throw new RuntimeException();
+	}
+
+	@Override
+	public int getFirstScore() {
 		return 0;
 	}
 
 	@Override
-	public int getSecondScore() {
-		return 0;
+	public int[] getScore() {
+		throw new NullPointerException("Finish 상태가 아닌 프레임은 점수를 반환 할 수 없습니다.");
 	}
-
 }

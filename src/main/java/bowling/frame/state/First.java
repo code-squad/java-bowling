@@ -1,39 +1,29 @@
 package bowling.frame.state;
 
-public class First implements State {
+public class First extends Running {
 
 	private int firstScore;
 
-	public First(int score) {
-		firstScore = score;
+	public First(int bowls) {
+		firstScore = bowls;
 	}
 
 	@Override
-	public boolean isEnd() {
-		return false;
-	}
-
-	@Override
-	public State bowl(int score) {
-		if (firstScore + score == 10) {
-			return new Spare(firstScore, score);
+	public State bowl(int bowls) {
+		if (firstScore + bowls == 10) {
+			return new Spare(firstScore, bowls);
 		}
-		return new Second(firstScore, score);
+		return new Second(firstScore, bowls);
 	}
 
 	@Override
 	public String getChar() {
-		return "  " + firstScore + "   |";
+		return "  " + firstScore + "|   |";
 	}
 
 	@Override
-	public int getFristScore() {
+	public int getFirstScore() {
 		return firstScore;
-	}
-
-	@Override
-	public int getSecondScore() {
-		return 0;
 	}
 
 }
