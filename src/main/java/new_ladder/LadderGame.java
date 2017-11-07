@@ -41,10 +41,7 @@ public class LadderGame {
 	}
 
 	private static boolean makeRoute(int x) {
-		if (x % 2 == 0) {
-			return true;
-		}
-		return false;
+		return x % 2 == 0;
 	}
 
 	private boolean[][] checkRoute(int userCount, int height, boolean[][] ladder) {
