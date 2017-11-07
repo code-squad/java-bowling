@@ -4,8 +4,13 @@ public class Width {
 
 	private String width;
 
-	public Width() {
-		this.width = "-----";
+	public Width(int condition) {
+		if (condition != 0) {
+			this.width = "-----";
+			return;
+		}
+		this.width = "     ";
+		return;
 	}
 
 	@Override

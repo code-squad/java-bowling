@@ -6,12 +6,15 @@ import org.junit.Test;
 
 public class LadderTest {
 
+	final private String newLine = System.getProperty("line.separator");
+
 	@Test
 	public void 사다리생성() {
 		Ladder ladder = new Ladder(0, "wsh");
-		assertEquals(ladder.getLeft(), new Width());
-
-		System.out.println(ladder.getLeft());
+		Ladders ladders = new Ladders();
+		ladders.create(4);
+		assertEquals(ladder, new Ladder(0, "wsh"));
+		assertEquals("|-----" + newLine + "|" + newLine + "|-----" + newLine + "|" + newLine + "wsh", ladders.show());
 	}
 
 }

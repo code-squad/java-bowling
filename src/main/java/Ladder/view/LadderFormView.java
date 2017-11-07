@@ -2,7 +2,7 @@ package Ladder.view;
 
 import java.util.Scanner;
 
-public class RadderFormView {
+public class LadderFormView {
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static String playersInput() {
@@ -10,7 +10,7 @@ public class RadderFormView {
 		return scanner.nextLine();
 	}
 
-	public static int radderHeight() {
+	public static int ladderHeight() {
 		System.out.println("최대 사다리 높이는 몇 개인가요? : ");
 		return Integer.parseInt(scanner.nextLine());
 	}

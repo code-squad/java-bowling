@@ -8,8 +8,8 @@ public class WidthTest {
 
 	@Test
 	public void 옆칸_생성() {
-		Width width = new Width();
-		assertEquals(width, new Width());
+		Width width = new Width(0);
+		assertEquals(width, new Width(0));
 	}
 
 }
