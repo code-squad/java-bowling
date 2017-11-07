@@ -9,56 +9,105 @@ public class LadderGame {
 		LadderGame ladderGame = new LadderGame();
 		String[] names = LadderFormView.playersInput().split(",");
 		int height = LadderFormView.ladderHeight();
-		boolean[][] ladder = ladderGame.makeLadder(names, height);
-
+		int userCount = names.length;
+		boolean[][] ladder = ladderGame.initializeLadder(names, height);
 		Random random = new Random();
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < names.length; i++) {
-				int x = random.nextInt();
-				ladder[i][j] = makeRoute(x);
-			}
-		}
 
-		for (int j = 0; j < height; j++) {
-			int check = 0;
-			for (int i = 0; i < names.length; i++) {
-				if (ladder[i][j] == true) {
-					check++;
-				}
-				if (check == 2) {
-					ladder[i][j] = false;
-					check = 0;
-				}
-			}
-		}
+		ladder = ladderGame.makeLadder(userCount, height, ladder, random);
+		ladder = ladderGame.checkRoute(userCount, height, ladder);
 
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < names.length; i++) {
-				System.out.print("|");
-				if (i + 1 == names.length) {
-					break;
-				}
-				if (ladder[i][j] == true) {
-					System.out.print("-----");
-				} else {
-					System.out.print("     ");
-				}
-			}
-			System.out.println();
-			if (j + 1 == height) {
-				printName(names);
-			}
-		}
-
-		// Players players = Players.create(LadderFormView.playersInput());
-		// Result result = new Result(players, LadderFormView.ladderHeight());
-		// System.out.println(result.show().toString());
+		StringBuilder stringBuilder = ladderGame.print(names, height, ladder);
+		System.out.println(stringBuilder.toString());
 	}
 
-	private static void printName(String[] names) {
-		for (int i = 0; i < names.length; i++) {
-			System.out.print(names[i] + "     ");
+	private StringBuilder print(String[] names, int height, boolean[][] ladder) {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (int j = 0; j < height; j++) {
+			stringBuilder = printLadder(names, ladder, j, stringBuilder);
+			stringBuilder = isLastLine(names, height, j, stringBuilder);
 		}
+		return stringBuilder;
+	}
+
+	private StringBuilder isLastLine(String[] names, int height, int j, StringBuilder stringBuilder) {
+		if (j + 1 == height) {
+			stringBuilder = printName(names, stringBuilder);
+		}
+		return stringBuilder;
+	}
+
+	private StringBuilder printLadder(String[] names, boolean[][] ladder, int j, StringBuilder stringBuilder) {
+		int userCount = names.length;
+		for (int i = 0; i < userCount; i++) {
+			stringBuilder.append("|");
+			stringBuilder.append(printRoute(ladder, j, i, userCount));
+		}
+		stringBuilder.append("\n");
+		return stringBuilder;
+	}
+
+	private String printRoute(boolean[][] ladder, int j, int i, int userCount) {
+		if (i + 1 == userCount) {
+			return "";
+		}
+		if (ladder[i][j] == true) {
+			return "=====";
+		}
+		return "     ";
+	}
+
+	private boolean[][] checkRoute(int userCount, int height, boolean[][] ladder) {
+		for (int j = 0; j < height; j++) {
+			int check = 0;
+			ladder = checkRow(userCount, ladder, j, check);
+		}
+		return ladder;
+	}
+
+	private boolean[][] checkRow(int userCount, boolean[][] ladder, int j, int check) {
+		for (int i = 0; i < userCount; i++) {
+			check = isContinuousRoute(ladder, j, check, i);
+			check = brokenRoute(ladder, j, check, i);
+		}
+		return ladder;
+	}
+
+	private int brokenRoute(boolean[][] ladder, int j, int check, int i) {
+		if (check == 2) {
+			ladder[i][j] = false;
+			check = 0;
+		}
+		return check;
+	}
+
+	private int isContinuousRoute(boolean[][] ladder, int j, int check, int i) {
+		if (ladder[i][j] == true) {
+			check++;
+		}
+		return check;
+	}
+
+	private boolean[][] makeLadder(int userCount, int height, boolean[][] ladder, Random random) {
+		for (int j = 0; j < height; j++) {
+			ladder = makeLow(userCount, ladder, random, j);
+		}
+		return ladder;
+	}
+
+	private boolean[][] makeLow(int userCount, boolean[][] ladder, Random random, int height) {
+		for (int i = 0; i < userCount; i++) {
+			int x = random.nextInt();
+			ladder[i][height] = makeRoute(x);
+		}
+		return ladder;
+	}
+
+	private StringBuilder printName(String[] names, StringBuilder stringBuilder) {
+		for (int i = 0; i < names.length; i++) {
+			stringBuilder.append(names[i]);
+			stringBuilder.append("     ");
+		}
+		return stringBuilder;
 	}
 
 	private static boolean makeRoute(int x) {
@@ -68,7 +117,7 @@ public class LadderGame {
 		return false;
 	}
 
-	private boolean[][] makeLadder(String[] names, int ladderHeight) {
+	private boolean[][] initializeLadder(String[] names, int ladderHeight) {
 		boolean[][] ladder = new boolean[names.length][ladderHeight];
 		return ladder;
 	}
