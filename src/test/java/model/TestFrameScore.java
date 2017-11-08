@@ -25,6 +25,7 @@ public class TestFrameScore {
 		NomalFrame frame = new NomalFrame();
 		frame.shot(5);
 		frame.shot(6);
+		System.out.println(frame.getCurrentScoreBoard());
 	}
 	
 	@Test(expected = FrameScoreException.class)
