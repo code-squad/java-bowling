@@ -15,7 +15,6 @@ public class Column {
 		for (int i = 0; i < column; i++) {
 			columns.add(new Low(low));
 		}
-
 	}
 
 	public int size() {

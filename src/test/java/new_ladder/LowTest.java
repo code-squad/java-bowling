@@ -27,11 +27,10 @@ public class LowTest {
 
 	@Test
 	public void check2_연속으로_true가_나온다면_하나는_false로() throws Exception {
-		Low low = new Low(5);
+		Low low = new Low(10);
 		List<Route> temp = low.getLow();
-		low.checkLow();
-		int trueCount = low.getTrueCount();
-		assertFalse(trueCount <= 1);
+		int trueCount2 = Low.checkLow(temp);
+		assertTrue(trueCount2 <= 5);
 	}
 
 }

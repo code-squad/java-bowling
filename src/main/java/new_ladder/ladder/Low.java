@@ -9,6 +9,9 @@ public class Low {
 
 	private List<Route> lows;
 
+	private static int trueCount;
+	// private int falseCount;
+
 	public Low(int low) {
 		createLow(low);
 	}
@@ -30,22 +33,43 @@ public class Low {
 	}
 
 	public int checkLow(int lastIndex) {
-		boolean check = lows.get(lastIndex).getRoute();
+		Route route = lows.get(lastIndex);
+		boolean check = route.getRoute();
 		if (check) {
 			lows.set(lastIndex, new Route(FALSE));
 		}
-		System.out.println(check);
 		return 1;
 	}
 
-	public int getTrueCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public static int checkLow(List<Route> temp) {
+		Route route;
+		// int trueCount = 0;
+		int falseCount = 0;
+		final int FALSE = 1;
+		for (int i = 0; i < temp.size(); i++) {
+			route = temp.get(i);
+			if (route.getRoute()) {
+				++trueCount;
+			} else {
+				++falseCount;
+			}
+			if (trueCount == 2) {
+				temp.set(i, new Route(FALSE));
+				trueCount = 0;
+			}
+			if (falseCount == 2) {
+				--trueCount;
+				falseCount = 0;
+			}
+		}
+		for (int i = 0; i < temp.size(); i++) {
+			route = temp.get(i);
+			if (route.getRoute()) {
+				++trueCount;
+			}
+		}
 
-	public void checkLow() {
-		// TODO Auto-generated method stub
-
+		return trueCount;
 	}
 
 }
