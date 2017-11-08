@@ -21,16 +21,16 @@ public class LowTest {
 	public void check1_맨_마지막은_무조건_false로() throws Exception {
 		Low low = new Low(5);
 		List<Route> temp = low.getLow();
-		low.checkLow(temp.size() - 1);
+		temp = Low.checkLow(temp);
 		assertFalse(temp.get(4).getRoute());
 	}
 
 	@Test
 	public void check2_연속으로_true가_나온다면_하나는_false로() throws Exception {
-		Low low = new Low(10);
+		Low low = new Low(4);
 		List<Route> temp = low.getLow();
-		int trueCount2 = Low.checkLow(temp);
-		assertTrue(trueCount2 <= 5);
+		temp = Low.checkLow(temp);
+		assertTrue(low.getTrueCount() <= 2);
 	}
 
 }

@@ -1,7 +1,8 @@
 package new_ladder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -22,11 +23,18 @@ public class LadderTest {
 	public void 사다리_출력하기() throws Exception {
 		Ladder ladder = new Ladder(5, 5);
 		List<Low> temp = ladder.getLadder();
+		List<Route> routes = new ArrayList<>();
+		for (Low low : temp) {
+			List<Route> lows = low.getLow();
+			Low.checkLow(lows);
+		}
 		for (Low low : temp) {
 			for (Route route : low.getLow()) {
 				System.out.print("|");
 				if (route.getRoute()) {
 					System.out.print(route);
+				} else {
+					System.out.print("     ");
 				}
 			}
 			System.out.println();
