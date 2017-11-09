@@ -20,5 +20,4 @@ public class Ladder {
 	public List<Row> getLadder() {
 		return ladder;
 	}
-
 }
