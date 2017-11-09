@@ -25,6 +25,7 @@ public class Result {
 					System.out.print("     ");
 				}
 			}
+			System.out.print("|");
 			System.out.println();
 		}
 	}

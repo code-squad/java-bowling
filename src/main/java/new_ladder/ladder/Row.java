@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Row {
-
 	private List<Route> row;
-	private int userCount;
 
 	public Row(int row) {
-		this.userCount = row;
 		this.row = new ArrayList<>();
 		createRow(row);
 	}
@@ -20,9 +17,9 @@ public class Row {
 	}
 
 	private void createRow(int row) {
-		for (int index = 0; index < row; index++) {
+		for (int index = 0; index < row - 1; index++) {
 			Random random = new Random();
-			addRoute(Route.of(random.nextInt()), index);
+			addRoute(Route.of(random.nextInt()));
 		}
 	}
 
@@ -40,21 +37,6 @@ public class Row {
 			return;
 		}
 		row.add(route);
-	}
-
-	private void addRoute(Route route, int index) {
-		if (isBeforeRoute() || isLastUser(index)) {
-			row.add(Route.FALSE_ROUTE);
-			return;
-		}
-		row.add(route);
-	}
-
-	private boolean isLastUser(int index) {
-		if (index + 1 == userCount) {
-			return true;
-		}
-		return false;
 	}
 
 	private boolean isBeforeRoute() {
