@@ -1,11 +1,9 @@
 package new_ladder;
 
-import java.util.List;
-
 import new_ladder.ladder.Ladder;
-import new_ladder.ladder.Route;
-import new_ladder.ladder.Row;
+import new_ladder.result.Result;
 import new_ladder.view.LadderFormView;
+import new_ladder.view.LadderResultView;
 
 public class LadderGame {
 	public static void main(String[] args) {
@@ -13,19 +11,8 @@ public class LadderGame {
 		int height = LadderFormView.ladderHeight();
 		int userCount = names.length;
 		Ladder ladder = new Ladder(userCount, height);
-		
-		List<Row> temp = ladder.getLadder();
-		for (Row row : temp) {
-			for (Route route : row.getLow()) {
-				System.out.print("|");
-				if (route.getRoute()) {
-					System.out.print(route);
-				} else {
-					System.out.print("     ");
-				}
-			}
-			System.out.println();
-		}
+		Result result = LadderResultView.create(ladder);
+		result.show();
 		for (int i = 0; i < userCount; i++) {
 			System.out.print(names[i] + "     ");
 		}
