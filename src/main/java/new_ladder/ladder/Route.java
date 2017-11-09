@@ -39,9 +39,7 @@ public class Route {
 		if (getClass() != obj.getClass())
 			return false;
 		Route other = (Route) obj;
-		if (route != other.route)
-			return false;
-		return true;
+		return route == other.route;
 	}
 
 	@Override
