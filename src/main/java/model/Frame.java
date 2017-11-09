@@ -1,12 +1,14 @@
 package model;
 
-public abstract class Frame {
-	FrameScore frameScore;
+import exception.InvalidFrameScoreException;
 
-	public Frame() {
-		frameScore = new NomalFrameScore();
+public abstract class Frame {
+	private FrameScore frameScore;
+
+	public Frame(FrameScore frameScore) {
+		this.frameScore = frameScore;
 	}
-	
+
 	public String getCurrentScoreBoard() {
 		return frameScore.getCurrentScoreBoard();
 	}
@@ -15,5 +17,7 @@ public abstract class Frame {
 		return frameScore.totalScore();
 	}
 
-	abstract void shot(int score);
+	public void shot(int score) throws InvalidFrameScoreException {
+		frameScore.shot(score);
+	}
 }

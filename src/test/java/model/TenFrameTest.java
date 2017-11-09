@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import Exception.FrameScoreException;
+import exception.InvalidFrameScoreException;
 
-public class TestTenFrame {
+public class TenFrameTest {
 
 	@Test
 	public void tenFrameTest() {
@@ -44,14 +44,14 @@ public class TestTenFrame {
 		assertEquals("5|/|6", frame10.getCurrentScoreBoard());
 	}
 
-	@Test(expected = FrameScoreException.class)
+	@Test(expected = InvalidFrameScoreException.class)
 	public void tenFrameShotScoreExceptionTest() {
 		Frame frame10 = new TenFrame();
 		frame10.shot(5);
 		frame10.shot(6);
 	}
 
-	@Test(expected = FrameScoreException.class)
+	@Test(expected = InvalidFrameScoreException.class)
 	public void tenFrameShotScoreExceptionTest_3번째() {
 		Frame frame10 = new TenFrame();
 		frame10.shot(10);
@@ -59,7 +59,7 @@ public class TestTenFrame {
 		frame10.shot(6);
 	}
 
-	@Test(expected = FrameScoreException.class)
+	@Test(expected = InvalidFrameScoreException.class)
 	public void tenFrameShotScoreExceptionTest_4번째() {
 		Frame frame10 = new TenFrame();
 		frame10.shot(5);
@@ -69,42 +69,18 @@ public class TestTenFrame {
 	}
 
 	@Test
-	public void NomalFrameScoreTest() {
-		NomalFrameScore nomalFrameScore = new NomalFrameScore();
-		nomalFrameScore.firstShot(5);
-		nomalFrameScore.secondShot(5);
-		assertEquals("5", nomalFrameScore.getFirstString());
-		assertEquals("/", nomalFrameScore.getSecondString());
-		
-		NomalFrameScore nomalFrameScore2 = new NomalFrameScore();
-		nomalFrameScore2.firstShot(5);
-		nomalFrameScore2.secondShot(4);
-		assertEquals("5", nomalFrameScore2.getFirstString());
-		assertEquals("4", nomalFrameScore2.getSecondString());
-		
-		
-	}
-	
-	@Test(expected = FrameScoreException.class)
-	public void NomalFrameScoreExceptionTest() {
-		NomalFrameScore nomalFrameScore3 = new NomalFrameScore();
-		nomalFrameScore3.firstShot(10);
-		nomalFrameScore3.secondShot(4);
-	}
-
-	@Test
 	public void tenFrameScoreTest() {
 		TenFrameScore tenFrameScore = new TenFrameScore();
 		tenFrameScore.firstShot(10);
 		tenFrameScore.secondShot(5);
 		tenFrameScore.lastShot(3);
-		assertEquals("X", tenFrameScore.getFirstString());
-		assertEquals("5", tenFrameScore.getSecondString());
-		assertEquals("3", tenFrameScore.getLastString());
+		assertEquals("X", tenFrameScore.getFirstValue());
+		assertEquals("5", tenFrameScore.getSecondValue());
+		assertEquals("3", tenFrameScore.getLastValue());
 	}
 	
-	@Test(expected = FrameScoreException.class)
-	public void TenFrameScoreExceptionTest() {
+	@Test(expected = InvalidFrameScoreException.class)
+	public void tenFrameScoreExceptionTest() {
 		TenFrameScore tenFrameScore = new TenFrameScore();
 		tenFrameScore.firstShot(2);
 		tenFrameScore.secondShot(3);

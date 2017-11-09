@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import Exception.PlayerNameException;
+import exception.InvalidPlayerNameException;
 
-public class TestPlayer {
+public class PlayerTest {
 
 	@Test
 	public void createPlayerTest() {
@@ -14,12 +14,12 @@ public class TestPlayer {
 		assertEquals("SHC", player.getName());
 	}
 
-	@Test(expected = PlayerNameException.class)
+	@Test(expected = InvalidPlayerNameException.class)
 	public void createPlayerExceptionTest() {
 		Player player = new Player("SDFG");
 	}
 
-	@Test(expected = PlayerNameException.class)
+	@Test(expected = InvalidPlayerNameException.class)
 	public void createPlayerExceptionTest_한글() {
 		Player player = new Player("한글");
 	}
