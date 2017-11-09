@@ -7,9 +7,8 @@ public class Route {
 	private boolean route;
 
 	public static Route of(int value) {
-		return new Route(InitializeRoute(value));
+		return new Route(initializeRoute(value));
 	}
-
 
 	public boolean getRoute() {
 		return route;
@@ -19,7 +18,7 @@ public class Route {
 		this.route = route;
 	}
 
-	private static boolean InitializeRoute(int value) {
+	private static boolean initializeRoute(int value) {
 		return value % 2 == 0;
 	}
 

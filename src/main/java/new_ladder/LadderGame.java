@@ -13,7 +13,7 @@ public class LadderGame {
 		int height = LadderFormView.ladderHeight();
 		int userCount = names.length;
 		Ladder ladder = new Ladder(userCount, height);
-
+		
 		List<Row> temp = ladder.getLadder();
 		for (Row row : temp) {
 			for (Route route : row.getLow()) {

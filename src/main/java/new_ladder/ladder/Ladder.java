@@ -3,14 +3,14 @@ package new_ladder.ladder;
 import java.util.List;
 
 public class Ladder {
-	List<Row> ladder;
+	private Column ladder;
 
-	public Ladder(int low, int column) {
-		createLadder(low, column);
+	public Ladder(int row, int column) {
+		this.ladder = createLadder(row, column);
 	}
 
-	private void createLadder(int low, int column) {
-		ladder = new Column(low, column).getColumn();
+	private static Column createLadder(int row, int column) {
+		return new Column(row, column);
 	}
 
 	public int getSize() {
@@ -18,6 +18,6 @@ public class Ladder {
 	}
 
 	public List<Row> getLadder() {
-		return ladder;
+		return ladder.getColumn();
 	}
 }
