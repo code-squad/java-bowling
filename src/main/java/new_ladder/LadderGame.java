@@ -25,5 +25,8 @@ public class LadderGame {
 			}
 			System.out.println();
 		}
+		for (int i = 0; i < userCount; i++) {
+			System.out.print(names[i] + "     ");
+		}
 	}
 }
