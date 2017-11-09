@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import exception.InvalidFinFalledException;
 import exception.InvalidFrameScoreException;
 
 public class TenFrameTest {
@@ -44,14 +45,14 @@ public class TenFrameTest {
 		assertEquals("5|/|6", frame10.getCurrentScoreBoard());
 	}
 
-	@Test(expected = InvalidFrameScoreException.class)
+	@Test(expected = InvalidFinFalledException.class)
 	public void tenFrameShotScoreExceptionTest() {
 		Frame frame10 = new TenFrame();
 		frame10.shot(5);
 		frame10.shot(6);
 	}
 
-	@Test(expected = InvalidFrameScoreException.class)
+	@Test(expected = InvalidFinFalledException.class)
 	public void tenFrameShotScoreExceptionTest_3번째() {
 		Frame frame10 = new TenFrame();
 		frame10.shot(10);
@@ -59,7 +60,7 @@ public class TenFrameTest {
 		frame10.shot(6);
 	}
 
-	@Test(expected = InvalidFrameScoreException.class)
+	@Test(expected = InvalidFinFalledException.class)
 	public void tenFrameShotScoreExceptionTest_4번째() {
 		Frame frame10 = new TenFrame();
 		frame10.shot(5);
@@ -70,20 +71,20 @@ public class TenFrameTest {
 
 	@Test
 	public void tenFrameScoreTest() {
-		TenFrameScore tenFrameScore = new TenFrameScore();
-		tenFrameScore.firstShot(10);
-		tenFrameScore.secondShot(5);
-		tenFrameScore.lastShot(3);
-		assertEquals("X", tenFrameScore.getFirstValue());
-		assertEquals("5", tenFrameScore.getSecondValue());
-		assertEquals("3", tenFrameScore.getLastValue());
+		TenFrame tenFrame = new TenFrame();
+		tenFrame.firstShot(10);
+		tenFrame.secondShot(5);
+		tenFrame.lastShot(3);
+		assertEquals("X", tenFrame.getFirstValue());
+		assertEquals("5", tenFrame.getSecondValue());
+		assertEquals("3", tenFrame.getLastValue());
 	}
-	
+
 	@Test(expected = InvalidFrameScoreException.class)
 	public void tenFrameScoreExceptionTest() {
-		TenFrameScore tenFrameScore = new TenFrameScore();
-		tenFrameScore.firstShot(2);
-		tenFrameScore.secondShot(3);
-		tenFrameScore.lastShot(4);
+		TenFrame tenFrame = new TenFrame();
+		tenFrame.firstShot(2);
+		tenFrame.secondShot(3);
+		tenFrame.lastShot(4);
 	}
 }
