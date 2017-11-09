@@ -3,7 +3,7 @@ package new_ladder.ladder;
 import java.util.List;
 
 public class Ladder {
-	List<Low> ladder;
+	List<Row> ladder;
 
 	public Ladder(int low, int column) {
 		createLadder(low, column);
@@ -17,7 +17,7 @@ public class Ladder {
 		return ladder.size();
 	}
 
-	public List<Low> getLadder() {
+	public List<Row> getLadder() {
 		return ladder;
 	}
 

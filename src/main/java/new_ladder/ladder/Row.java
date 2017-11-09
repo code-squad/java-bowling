@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Low {
+public class Row {
 	private static int trueCount;
 
 	private List<Route> lows;
 
-	public Low(int low) {
+	public Row(int low) {
 		createLow(low);
 	}
 

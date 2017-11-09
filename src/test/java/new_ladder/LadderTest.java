@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import new_ladder.ladder.Ladder;
-import new_ladder.ladder.Low;
+import new_ladder.ladder.Row;
 import new_ladder.ladder.Route;
 
 public class LadderTest {
@@ -22,13 +22,13 @@ public class LadderTest {
 	@Test
 	public void 사다리_출력하기() throws Exception {
 		Ladder ladder = new Ladder(5, 5);
-		List<Low> temp = ladder.getLadder();
+		List<Row> temp = ladder.getLadder();
 		List<Route> routes = new ArrayList<>();
-		for (Low low : temp) {
+		for (Row low : temp) {
 			List<Route> lows = low.getLow();
-			Low.checkLow(lows);
+			Row.checkLow(lows);
 		}
-		for (Low low : temp) {
+		for (Row low : temp) {
 			for (Route route : low.getLow()) {
 				System.out.print("|");
 				if (route.getRoute()) {

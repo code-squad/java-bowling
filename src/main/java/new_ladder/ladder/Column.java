@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Column {
-	private List<Low> columns;
+	private List<Row> columns;
 
 	public Column(int low, int column) {
 		createColumn(low, column);
@@ -13,7 +13,7 @@ public class Column {
 	private void createColumn(int low, int column) {
 		columns = new ArrayList<>();
 		for (int i = 0; i < column; i++) {
-			columns.add(new Low(low));
+			columns.add(new Row(low));
 		}
 	}
 
@@ -21,7 +21,7 @@ public class Column {
 		return columns.size();
 	}
 
-	public List<Low> getColumn() {
+	public List<Row> getColumn() {
 		return columns;
 	}
 }
