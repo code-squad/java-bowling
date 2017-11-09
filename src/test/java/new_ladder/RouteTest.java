@@ -10,8 +10,7 @@ public class RouteTest {
 
 	@Test
 	public void 초기화() {
-		Route route = new Route(1);
-		assertEquals(route, new Route(1));
+		assertEquals(Route.FALSE_ROUTE, Route.of(1));
 	}
 
 }

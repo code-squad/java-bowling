@@ -6,14 +6,14 @@ import java.util.List;
 public class Column {
 	private List<Row> columns;
 
-	public Column(int low, int column) {
-		createColumn(low, column);
+	public Column(int row, int column) {
+		createColumn(row, column);
 	}
 
-	private void createColumn(int low, int column) {
+	private void createColumn(int row, int column) {
 		columns = new ArrayList<>();
 		for (int i = 0; i < column; i++) {
-			columns.add(new Row(low));
+			columns.add(new Row(row));
 		}
 	}
 

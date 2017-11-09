@@ -13,7 +13,7 @@ public class Ladder {
 		ladder = new Column(low, column).getColumn();
 	}
 
-	public int size() {
+	public int getSize() {
 		return ladder.size();
 	}
 

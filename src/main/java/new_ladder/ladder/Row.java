@@ -5,59 +5,65 @@ import java.util.List;
 import java.util.Random;
 
 public class Row {
-	private static int trueCount;
 
-	private List<Route> lows;
+	private List<Route> row;
+	private int userCount;
 
-	public Row(int low) {
-		createLow(low);
+	public Row(int row) {
+		this.userCount = row;
+		this.row = new ArrayList<>();
+		createRow(row);
 	}
 
-	private void createLow(int low) {
-		lows = new ArrayList<>();
-		for (int i = 0; i < low; i++) {
+	public Row() {
+		row = new ArrayList<>();
+	}
+
+	private void createRow(int row) {
+		for (int index = 0; index < row; index++) {
 			Random random = new Random();
-			lows.add(new Route(random.nextInt()));
+			addRoute(Route.of(random.nextInt()), index);
 		}
 	}
 
-	public int size() {
-		return lows.size();
+	public int getSize() {
+		return row.size();
 	}
 
 	public List<Route> getLow() {
-		return lows;
+		return row;
 	}
 
-	public static List<Route> checkLow(List<Route> temp) {
-		Route route;
-		final int FALSE = 1;
-		for (int i = 0; i < temp.size(); i++) {
-			route = temp.get(i);
-			checkRoute(temp, route, FALSE, i);
+	public void addRoute(Route route) {
+		if (isBeforeRoute()) {
+			row.add(Route.FALSE_ROUTE);
+			return;
 		}
-		return temp;
+		row.add(route);
 	}
 
-	private static void checkRoute(List<Route> temp, Route route, final int FALSE, int i) {
-		if (route.getRoute()) {
-			++trueCount;
-		} else {
-			if (trueCount > 0) {
-				--trueCount;
-			}
+	private void addRoute(Route route, int index) {
+		if (isBeforeRoute() || isLastUser(index)) {
+			row.add(Route.FALSE_ROUTE);
+			return;
 		}
-		if (trueCount == 2) {
-			temp.set(i, new Route(FALSE));
-			trueCount = 0;
-		}
-		if (i + 1 == temp.size()) {
-			temp.set(i, new Route(FALSE));
-		}
+		row.add(route);
 	}
 
-	public int getTrueCount() {
-		return trueCount;
+	private boolean isLastUser(int index) {
+		if (index + 1 == userCount) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isBeforeRoute() {
+		int size = row.size();
+		if (row.isEmpty()) {
+			return false;
+		}
+		Route route = row.get(size - 1);
+		return route.getRoute();
 	}
 
 }

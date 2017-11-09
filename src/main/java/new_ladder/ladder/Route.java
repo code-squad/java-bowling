@@ -1,17 +1,25 @@
 package new_ladder.ladder;
 
 public class Route {
+	public static final Route TRUE_ROUTE = new Route(true);
+	public static final Route FALSE_ROUTE = new Route(false);
+
 	private boolean route;
 
-	public Route(int value) {
-		route = InitializeRoute(value);
+	public static Route of(int value) {
+		return new Route(InitializeRoute(value));
 	}
+
 
 	public boolean getRoute() {
 		return route;
 	}
 
-	private boolean InitializeRoute(int value) {
+	private Route(boolean route) {
+		this.route = route;
+	}
+
+	private static boolean InitializeRoute(int value) {
 		return value % 2 == 0;
 	}
 
@@ -41,4 +49,5 @@ public class Route {
 	public String toString() {
 		return "-----";
 	}
+
 }
