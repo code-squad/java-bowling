@@ -8,6 +8,8 @@ public class Frame {
 
 	protected Pins pins;
 	protected FrameScoreBoard frameScoreBoard = new FrameScoreBoard();
+	
+	private int bonusScoreCount = 0;
 
 	public Frame() {
 		pins = new Pins();
@@ -23,11 +25,20 @@ public class Frame {
 		shotCount++;
 	}
 
-	public int totalScore() {
-		return frameScoreBoard.currentScore();
+	public int getSumScore() {
+		return frameScoreBoard.getSumScore();
 	}
 
 	public String getCurrentScoreBoard() {
 		return frameScoreBoard.currentScoreValue();
+	}
+	
+	public void bonusScoreCount() {
+		if("X".equals(frameScoreBoard.getCurrentScoreValue())) {
+			bonusScoreCount = 2;
+		}
+		if("/".equals(frameScoreBoard.getCurrentScoreValue())) {
+			bonusScoreCount = 1;
+		}
 	}
 }

@@ -6,8 +6,11 @@ import java.util.List;
 public class FrameScoreBoard {
 	private List<Score> scores = new ArrayList<Score>();
 
+	private int currentIndex = 0;
+
 	public void addScore(Score score) {
 		scores.add(score);
+		currentIndex++;
 	}
 
 	public String currentScoreValue() {
@@ -16,11 +19,15 @@ public class FrameScoreBoard {
 			currentScoreValue += getScoreValue(index);
 			currentScoreValue += "|";
 		}
-		return currentScoreValue.substring(0, currentScoreValue.length()-1);
+		return currentScoreValue.substring(0, currentScoreValue.length() - 1);
 	}
 
-	public int currentScore() {
+	public int getSumScore() {
 		return scores.stream().mapToInt(Score::getScore).sum();
+	}
+
+	public String getCurrentScoreValue() {
+		return getScoreValue(currentIndex);
 	}
 
 	private String getScoreValue(int index) {

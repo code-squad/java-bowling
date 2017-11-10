@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import exception.InvalidFinFalledException;
 
-public class TenFrameTest {
+public class LastFrameTest {
 
 	@Test
 	public void tenFrameTest() {
-		Frame frame10 = new TenFrame();
+		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(10);
 		frame10.shot(10);
@@ -19,7 +19,7 @@ public class TenFrameTest {
 
 	@Test
 	public void tenFrameTest2() {
-		Frame frame10 = new TenFrame();
+		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(5);
 		frame10.shot(10);
@@ -28,7 +28,7 @@ public class TenFrameTest {
 
 	@Test
 	public void tenFrameTest3() {
-		Frame frame10 = new TenFrame();
+		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(5);
 		frame10.shot(5);
@@ -37,7 +37,7 @@ public class TenFrameTest {
 
 	@Test
 	public void tenFrameTest4() {
-		Frame frame10 = new TenFrame();
+		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(5);
 		frame10.shot(6);
@@ -46,14 +46,14 @@ public class TenFrameTest {
 
 	@Test(expected = InvalidFinFalledException.class)
 	public void tenFrameShotScoreExceptionTest() {
-		Frame frame10 = new TenFrame();
+		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(6);
 	}
 
 	@Test(expected = InvalidFinFalledException.class)
 	public void tenFrameShotScoreExceptionTest_3번째() {
-		Frame frame10 = new TenFrame();
+		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(5);
 		frame10.shot(6);
@@ -61,7 +61,7 @@ public class TenFrameTest {
 
 	@Test(expected = InvalidFinFalledException.class)
 	public void tenFrameShotScoreExceptionTest_4번째() {
-		Frame frame10 = new TenFrame();
+		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(6);
 		frame10.shot(10);

@@ -2,9 +2,9 @@ package model;
 
 import exception.InvalidFrameScoreException;
 
-public class TenFrame extends Frame {
+public class LastFrame extends Frame {
 
-	public TenFrame() {
+	public LastFrame() {
 		pins = new Pins();
 	}
 
