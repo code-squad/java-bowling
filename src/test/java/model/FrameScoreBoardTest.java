@@ -8,8 +8,8 @@ import org.junit.Test;
 import exception.InvalidFinFalledException;
 
 public class FrameScoreBoardTest {
-	FrameScoreBoard frameScoreBoard;
-	Pins pins;
+	private FrameScoreBoard frameScoreBoard;
+	private Pins pins;
 	
 	@Before
 	public void beforeTest() {

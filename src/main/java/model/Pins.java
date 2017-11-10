@@ -6,13 +6,13 @@ public class Pins {
 	private static final int MAX_PINS = 10;
 
 	private int currentPins;
-	
+
 	private boolean isSecondBall = false;
 
 	public Pins() {
 		currentPins = MAX_PINS;
 	}
-	
+
 	public boolean isSecondBall() {
 		return isSecondBall;
 	}
@@ -25,15 +25,12 @@ public class Pins {
 		isSecondBall = true;
 		return score;
 	}
-	
+
 	public int getScore() {
 		return MAX_PINS - currentPins;
 	}
 
 	public boolean checkInvalidFalled() {
-		if (currentPins == 0) {
-			return true;
-		}
-		return false;
+		return currentPins == 0;
 	}
 }
