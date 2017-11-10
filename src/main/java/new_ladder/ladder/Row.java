@@ -40,10 +40,10 @@ public class Row {
 	}
 
 	private boolean isBeforeRoute() {
-		int size = row.size();
 		if (row.isEmpty()) {
 			return false;
 		}
+		int size = row.size();
 		Route route = row.get(size - 1);
 		return route.getRoute();
 	}

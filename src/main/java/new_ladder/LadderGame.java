@@ -13,9 +13,6 @@ public class LadderGame {
 		Ladder ladder = new Ladder(userCount, height);
 		Result result = ladder.result();
 		LadderResultView.show(result);
-		result.show();
-		for (int i = 0; i < userCount; i++) {
-			System.out.print(names[i] + "     ");
-		}
+		LadderResultView.showName(names);
 	}
 }
