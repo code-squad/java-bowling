@@ -1,8 +1,13 @@
 package bowling;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bowling.score.Score;
+import bowling.user.User;
 import bowling.view.BowlingFormView;
 
 public class BowlingGame {
@@ -10,17 +15,17 @@ public class BowlingGame {
 
 	public static void main(String[] args) {
 		BowlingGame bowlingGame = new BowlingGame();
-		String user = BowlingFormView.inputName();
+		User user = User.of(BowlingFormView.inputName());
 		int[] frames = new int[23];
-		int[] scores = new int[10];
+		List<Score> scores = new ArrayList<>();
 		int endCondition = 10;
 		int totalScore = 0;
 		int count = 0;
 
 		// 입력
 		for (int i = 0; i != endCondition;) {
-			int score = 0;
-			frames[i] = score = BowlingFormView.inputScore(user);
+			int score = BowlingFormView.inputScore(user.printName());
+			frames[i] = score;
 			count++;
 			if (score == 10) {
 				count = 2;
@@ -34,7 +39,7 @@ public class BowlingGame {
 		// 계산
 		for (int index = 0; index < endCondition; index++) {
 			totalScore += bowlingGame.calcutateScore(frames, index);
-			scores[index] = totalScore;
+			scores.add(Score.inputScore(totalScore));
 
 		}
 
@@ -44,8 +49,8 @@ public class BowlingGame {
 		}
 
 		// 프레임 결과 출력
-		for (int i = 0; i < scores.length; i++) {
-			log.debug("{} 번째 값 : {}", i, scores[i]);
+		for (int i = 0; i < scores.size(); i++) {
+			log.debug("{} 번째 값 : {}", i, scores.get(i));
 		}
 	}
 

@@ -13,5 +13,4 @@ public class FrameTest {
 		assertEquals(nomalFrame, NomalFrame.create(1));
 		assertEquals(lastFrame, LastFrame.create(10));
 	}
-
 }
