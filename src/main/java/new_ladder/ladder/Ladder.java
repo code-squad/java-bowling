@@ -2,6 +2,8 @@ package new_ladder.ladder;
 
 import java.util.List;
 
+import new_ladder.result.Result;
+
 public class Ladder {
 	private Column ladder;
 
@@ -19,5 +21,9 @@ public class Ladder {
 
 	public List<Row> getLadder() {
 		return ladder.getColumn();
+	}
+
+	public Result result() {
+		return new Result(this);
 	}
 }

@@ -11,7 +11,8 @@ public class LadderGame {
 		int height = LadderFormView.ladderHeight();
 		int userCount = names.length;
 		Ladder ladder = new Ladder(userCount, height);
-		Result result = LadderResultView.create(ladder);
+		Result result = ladder.result();
+		LadderResultView.show(result);
 		result.show();
 		for (int i = 0; i < userCount; i++) {
 			System.out.print(names[i] + "     ");
