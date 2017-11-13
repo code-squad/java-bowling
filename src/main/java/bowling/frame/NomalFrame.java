@@ -1,9 +1,13 @@
 package bowling.frame;
 
+import bowling.frame.state.End;
+import bowling.frame.state.Ready;
+
 public class NomalFrame extends Frame {
 
 	private NomalFrame(int no) {
 		this.no = no;
+		this.state = new Ready();
 	}
 
 	public static Frame create(int no) {
@@ -12,8 +16,10 @@ public class NomalFrame extends Frame {
 
 	@Override
 	public Frame bowl(int score) {
-		if (score == 10) {
-			return new NomalFrame(no + 1);
+		this.state = this.state.bowl(score);
+		if (this.state instanceof End) {
+			this.next = new NomalFrame(no + 1);
+			return next;
 		}
 		return this;
 	}

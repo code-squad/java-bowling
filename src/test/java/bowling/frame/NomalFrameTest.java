@@ -15,9 +15,4 @@ public class NomalFrameTest {
 		frame = frame.bowl(10);
 		assertEquals(2, frame.getNo());
 	}
-
-	@Test
-	public void 프레임에_점수가_들어오면_상태가변한다() {
-
-	}
 }

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bowling.frame.Frame;
+import bowling.result.Result;
 import bowling.user.User;
 import bowling.view.BowlingFormView;
 
@@ -16,9 +17,13 @@ public class BowlingGame {
 		int start = 1;
 		int end = 10;
 		Frame frame = Frame.createFrame(start);
+		Result result;
 
 		// 입력
 		while (end != 0) {
+			frame = frame.bowl(BowlingFormView.bowling(user.printName()));
+			result = frame.result();
+			System.out.println(result.show(user.printName()));
 		}
 
 		// for (int i = 0; i != endCondition;) {

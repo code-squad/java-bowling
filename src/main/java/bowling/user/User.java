@@ -1,7 +1,5 @@
 package bowling.user;
 
-import bowling.pin.Pin;
-
 public class User {
 
 	private String name;
@@ -16,10 +14,6 @@ public class User {
 
 	public String printName() {
 		return name;
-	}
-
-	public Pin bowl(int bowling) {
-		return new Pin(bowling);
 	}
 
 	@Override
