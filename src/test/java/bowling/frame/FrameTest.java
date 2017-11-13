@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import bowling.score.Score;
+
 public class FrameTest {
 
 	@Test

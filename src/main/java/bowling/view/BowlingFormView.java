@@ -5,6 +5,9 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bowling.pin.Pin;
+import bowling.score.Score;
+
 public class BowlingFormView {
 	private static final Logger log = LoggerFactory.getLogger(BowlingFormView.class);
 
@@ -15,7 +18,7 @@ public class BowlingFormView {
 		return scanner.nextLine();
 	}
 
-	public static int inputScore(String user) {
+	public static int bowling(String user) {
 		log.debug("{}'의 점수를 입력하세요 : ", user);
 		return Integer.parseInt(scanner.nextLine());
 	}

@@ -10,4 +10,9 @@ public class LastFrame extends Frame {
 		return new LastFrame(no);
 	}
 
+	@Override
+	public Frame bowl(int score) {
+		return super.bowl(score);
+	}
+
 }

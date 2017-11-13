@@ -9,4 +9,12 @@ public class NomalFrame extends Frame {
 	public static Frame create(int no) {
 		return new NomalFrame(no);
 	}
+
+	@Override
+	public Frame bowl(int score) {
+		if (score == 10) {
+			return new NomalFrame(no + 1);
+		}
+		return this;
+	}
 }

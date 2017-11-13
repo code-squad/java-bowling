@@ -15,6 +15,17 @@ public abstract class Frame {
 		return NomalFrame.create(no);
 	}
 
+	public Frame bowl(int score) {
+		if (no == 10) {
+			return ((LastFrame) this).bowl(score);
+		}
+		return ((NomalFrame) this).bowl(score);
+	}
+
+	public int getNo() {
+		return this.no;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,4 +45,5 @@ public abstract class Frame {
 		Frame other = (Frame) obj;
 		return no == other.no;
 	}
+
 }
