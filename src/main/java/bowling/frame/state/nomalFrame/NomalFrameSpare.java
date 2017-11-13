@@ -20,4 +20,9 @@ public class NomalFrameSpare extends End {
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public int getFinalScore() {
+		return 10;
+	}
+
 }

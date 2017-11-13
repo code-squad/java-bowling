@@ -17,4 +17,9 @@ public class LastFrameReady implements State {
 		return "      |";
 	}
 
+	@Override
+	public int getFinalScore() {
+		return 0;
+	}
+
 }

@@ -6,5 +6,7 @@ public abstract class End implements State {
 	public State bowl(int score) {
 		throw new IllegalArgumentException("");
 	}
+	
+	
 
 }

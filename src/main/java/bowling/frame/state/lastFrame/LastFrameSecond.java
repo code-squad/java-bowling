@@ -21,4 +21,9 @@ public class LastFrameSecond extends BowlingEnd {
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public int getFinalScore() {
+		return firstScore + secondScore;
+	}
+
 }

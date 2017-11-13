@@ -6,4 +6,9 @@ public abstract class Running implements State {
 
 	public abstract String getPresentScore();
 
+	@Override
+	public int getFinalScore() {
+		return 0;
+	}
+
 }

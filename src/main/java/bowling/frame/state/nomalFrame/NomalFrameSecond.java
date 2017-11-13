@@ -26,4 +26,9 @@ public class NomalFrameSecond extends End {
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public int getFinalScore() {
+		return firstScore + secondScore;
+	}
+
 }

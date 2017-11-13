@@ -16,4 +16,9 @@ public class NomalFrameReady implements State {
 	public String getPresentScore() {
 		return "     | ";
 	}
+
+	@Override
+	public int getFinalScore() {
+		return 0;
+	}
 }

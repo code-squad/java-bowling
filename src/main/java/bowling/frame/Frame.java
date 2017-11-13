@@ -12,10 +12,10 @@ public abstract class Frame {
 	protected int no;
 	protected State state;
 	protected Frame next;
-	protected String Endscore;
+	protected int Endscore;
 
 	public static Frame createFrame(int no) {
-		if (no == 9) {
+		if (no == 10) {
 			return LastFrame.create(no);
 		}
 		return NomalFrame.create(no);
@@ -33,6 +33,10 @@ public abstract class Frame {
 
 	public Frame getNext() {
 		return this.next;
+	}
+
+	public int getFrameEndScore() {
+		return Endscore;
 	}
 
 	public Result result() {
@@ -57,10 +61,5 @@ public abstract class Frame {
 			return false;
 		Frame other = (Frame) obj;
 		return no == other.no;
-	}
-
-	public Object getFrameScore() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

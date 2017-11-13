@@ -4,4 +4,6 @@ public interface State {
 	public State bowl(int score);
 
 	public String getPresentScore();
+
+	public int getFinalScore();
 }

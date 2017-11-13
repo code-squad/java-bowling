@@ -30,6 +30,9 @@ public class Result {
 		Frame frame = this.frame;
 		stringBuilder.append("|      |");
 		while (frame != null) {
+			stringBuilder.append("  ");
+			stringBuilder.append(frame.getFrameEndScore());
+			stringBuilder.append("  |");
 			frame = frame.getNext();
 		}
 		return stringBuilder;

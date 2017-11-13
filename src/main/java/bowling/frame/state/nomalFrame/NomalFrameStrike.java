@@ -9,4 +9,9 @@ public class NomalFrameStrike extends End {
 		return "X";
 	}
 
+	@Override
+	public int getFinalScore() {
+		return 10;
+	}
+
 }

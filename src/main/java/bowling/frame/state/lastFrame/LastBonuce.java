@@ -1,7 +1,6 @@
 package bowling.frame.state.lastFrame;
 
 import bowling.frame.state.BowlingEnd;
-import bowling.frame.state.End;
 
 public class LastBonuce extends BowlingEnd {
 
@@ -24,6 +23,11 @@ public class LastBonuce extends BowlingEnd {
 		stringBuilder.append("|");
 		stringBuilder.append(thirdScore);
 		return stringBuilder.toString();
+	}
+
+	@Override
+	public int getFinalScore() {
+		return firstScore + secondScore + thirdScore;
 	}
 
 }

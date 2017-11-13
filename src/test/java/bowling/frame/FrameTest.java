@@ -31,12 +31,4 @@ public class FrameTest {
 		Result result = frame.result();
 		log.debug(result.show("wsh"));
 	}
-
-	@Test
-	public void 프레임이_종료됐을때_해당_프레임_점수도출() throws Exception {
-		Frame frame = Frame.createFrame(1);
-		Frame next;
-		next = frame.bowl(2);
-		next = next.bowl(3);
-	}
 }
