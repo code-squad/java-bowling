@@ -9,4 +9,19 @@ public class Second extends End {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
 	}
+
+	@Override
+	public String getPresentScore() {
+		StringBuilder stringBuilder = new StringBuilder();
+		if (secondScore == 0) {
+			stringBuilder.append(firstScore);
+			stringBuilder.append("|-");
+			return stringBuilder.toString();
+		}
+		stringBuilder.append(firstScore);
+		stringBuilder.append("|");
+		stringBuilder.append(secondScore);
+		return stringBuilder.toString();
+	}
+
 }

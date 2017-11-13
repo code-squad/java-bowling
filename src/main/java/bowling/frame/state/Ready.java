@@ -10,4 +10,8 @@ public class Ready implements State {
 		return new First(score);
 	}
 
+	@Override
+	public String getPresentScore() {
+		throw new IllegalArgumentException("Ready 상태는 값이 없습니다. ");
+	}
 }

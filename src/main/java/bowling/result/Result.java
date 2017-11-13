@@ -26,31 +26,36 @@ public class Result {
 
 	private StringBuilder scoreLine() {
 		StringBuilder stringBuilder = new StringBuilder();
-
+		Frame frame = this.frame;
+		stringBuilder.append("|      |");
+		while (frame != null) {
+			frame = frame.getNext();
+		}
 		return stringBuilder;
 	}
 
 	private StringBuilder frameLine(String name) {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(nameSection(name, stringBuilder));
-		stringBuilder.append(frameSection(stringBuilder));
+		stringBuilder.append(nameSection(name));
+		stringBuilder.append(frameSection());
 		return stringBuilder;
 	}
 
-	private StringBuilder frameSection(StringBuilder stringBuilder) {
+	private StringBuilder frameSection() {
+		StringBuilder stringBuilder = new StringBuilder();
+		Frame frame = this.frame;
 		while (frame != null) {
-			stringBuilder.append("| hello world | ");
-			log.debug("{} : ", frame.getNext());
 			frame = frame.getNext();
 		}
 		stringBuilder.append(newLine);
 		return stringBuilder;
 	}
 
-	private StringBuilder nameSection(String name, StringBuilder stringBuilder) {
+	private StringBuilder nameSection(String name) {
+		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("| ");
 		stringBuilder.append(name);
-		stringBuilder.append(" |");
+		stringBuilder.append("  |");
 		return stringBuilder;
 	}
 

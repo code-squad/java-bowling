@@ -18,7 +18,7 @@ public class NomalFrame extends Frame {
 	public Frame bowl(int score) {
 		this.state = this.state.bowl(score);
 		if (this.state instanceof End) {
-			this.next = new NomalFrame(no + 1);
+			this.next = Frame.createFrame(no + 1);
 			return next;
 		}
 		return this;

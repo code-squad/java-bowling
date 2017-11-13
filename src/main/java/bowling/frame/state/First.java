@@ -11,9 +11,15 @@ public class First implements State {
 	@Override
 	public State bowl(int score) {
 		if (firstScore + score == 10) {
-			return new Spare();
+			return new Spare(firstScore, score);
 		}
 		return new Second(firstScore, score);
 	}
 
+	@Override
+	public String getPresentScore() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(firstScore);
+		return stringBuilder.toString();
+	}
 }

@@ -12,7 +12,7 @@ public class LastFrame extends Frame {
 
 	@Override
 	public Frame bowl(int score) {
-		return super.bowl(score);
+		return this;
 	}
 
 }
