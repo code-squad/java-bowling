@@ -1,6 +1,5 @@
 package bowling.frame;
 
-import bowling.frame.state.End;
 import bowling.frame.state.lastFrame.LastFrameReady;
 
 public class LastFrame extends Frame {
@@ -18,9 +17,6 @@ public class LastFrame extends Frame {
 	@Override
 	public Frame bowl(int score) {
 		this.state = this.state.bowl(score);
-		if (this.state instanceof End) {
-			return this;
-		}
 		return this;
 	}
 

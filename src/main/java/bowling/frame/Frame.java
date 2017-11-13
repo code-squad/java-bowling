@@ -15,7 +15,7 @@ public abstract class Frame {
 	protected String Endscore;
 
 	public static Frame createFrame(int no) {
-		if (no == 10) {
+		if (no == 9) {
 			return LastFrame.create(no);
 		}
 		return NomalFrame.create(no);

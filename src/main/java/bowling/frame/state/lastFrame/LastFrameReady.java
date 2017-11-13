@@ -14,7 +14,7 @@ public class LastFrameReady implements State {
 
 	@Override
 	public String getPresentScore() {
-		return "     | ";
+		return "      |";
 	}
 
 }

@@ -20,8 +20,8 @@ public class BowlingGame {
 		do {
 			next = next.bowl(BowlingFormView.bowling(user.printName()));
 			Result result = frame.result();
-			System.out.println(result.show(user.printName()));
-		} while (!(frame.getState() instanceof BowlingEnd));
+			log.debug(result.show(user.printName()));
+		} while (!(next.getState() instanceof BowlingEnd));
 
 		// 계산
 		// for (int index = 0; index < endCondition; index++) {
