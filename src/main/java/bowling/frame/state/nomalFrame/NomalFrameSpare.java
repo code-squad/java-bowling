@@ -1,11 +1,13 @@
-package bowling.frame.state;
+package bowling.frame.state.nomalFrame;
 
-public class Spare extends End {
+import bowling.frame.state.End;
+
+public class NomalFrameSpare extends End {
 
 	private int firstScore;
 	private int secondScore;
 
-	public Spare(int firstScore, int secondScore) {
+	public NomalFrameSpare(int firstScore, int secondScore) {
 		this.firstScore = firstScore;
 		this.secondScore = secondScore;
 	}

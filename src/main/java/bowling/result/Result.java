@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bowling.frame.Frame;
+import bowling.frame.state.State;
 
 public class Result {
 	private static final Logger log = LoggerFactory.getLogger(Result.class);
@@ -45,6 +46,11 @@ public class Result {
 		StringBuilder stringBuilder = new StringBuilder();
 		Frame frame = this.frame;
 		while (frame != null) {
+			stringBuilder.append("  ");
+			State state = frame.getState();
+			log.debug("{}", frame.getNo());
+			stringBuilder.append(state.getPresentScore());
+			stringBuilder.append("  |");
 			frame = frame.getNext();
 		}
 		stringBuilder.append(newLine);

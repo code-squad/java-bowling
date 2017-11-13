@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bowling.frame.Frame;
+import bowling.frame.state.BowlingEnd;
 import bowling.result.Result;
 import bowling.user.User;
 import bowling.view.BowlingFormView;
@@ -13,42 +14,20 @@ public class BowlingGame {
 
 	public static void main(String[] args) {
 		User user = User.create(BowlingFormView.inputName());
-		// List<Frame> frames = new ArrayList<>();
 		int start = 1;
-		int end = 10;
 		Frame frame = Frame.createFrame(start);
-		Result result;
-
-		// 입력
-		while (end != 0) {
-			frame = frame.bowl(BowlingFormView.bowling(user.printName()));
-			result = frame.result();
+		Frame next = frame.bowl(BowlingFormView.bowling(user.printName()));
+		do {
+			next = next.bowl(BowlingFormView.bowling(user.printName()));
+			Result result = frame.result();
 			System.out.println(result.show(user.printName()));
-		}
-
-		// for (int i = 0; i != endCondition;) {
-		// int score = BowlingFormView.inputScore(user.printName());
-		// frames[i] = score;
-		// count++;
-		// if (score == 10) {
-		// count = 2;
-		// }
-		// if (count == 2) {
-		// count = 0;
-		// i++;
-		// }
-		// }
+		} while (!(frame.getState() instanceof BowlingEnd));
 
 		// 계산
 		// for (int index = 0; index < endCondition; index++) {
 		// totalScore += bowlingGame.calcutateScore(frames, index);
 		// scores.add(Score.inputScore(totalScore));
 		//
-		// }
-
-		// 프레임 출력
-		// for (int index : frames) {
-		// log.debug("{} 번째 값 : {}", index, frames[index]);
 		// }
 
 		// 프레임 결과 출력

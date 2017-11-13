@@ -1,19 +1,22 @@
-package bowling.frame.state;
+package bowling.frame.state.lastFrame;
 
-public class First implements State {
+import bowling.frame.state.Running;
+import bowling.frame.state.State;
+
+public class LastFrameFirst extends Running {
 
 	private int firstScore;
 
-	public First(int score) {
+	public LastFrameFirst(int score) {
 		this.firstScore = score;
 	}
 
 	@Override
 	public State bowl(int score) {
 		if (firstScore + score == 10) {
-			return new Spare(firstScore, score);
+			return new LastFrameSpare(firstScore, score);
 		}
-		return new Second(firstScore, score);
+		return new LastFrameSecond(firstScore, score);
 	}
 
 	@Override
@@ -22,4 +25,5 @@ public class First implements State {
 		stringBuilder.append(firstScore);
 		return stringBuilder.toString();
 	}
+
 }

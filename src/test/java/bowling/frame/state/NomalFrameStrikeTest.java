@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import bowling.frame.Frame;
 
-public class StrikeTest {
+public class NomalFrameStrikeTest {
 
 	@Test
 	public void 삼연속_스트라이크() {
