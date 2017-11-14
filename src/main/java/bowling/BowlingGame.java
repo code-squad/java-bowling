@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bowling.frame.Frame;
+import bowling.frame.NormalFrame;
 import bowling.frame.state.BowlingEnd;
 import bowling.result.Result;
 import bowling.user.User;
@@ -15,7 +16,7 @@ public class BowlingGame {
 	public static void main(String[] args) {
 		User user = User.create(BowlingFormView.inputName());
 		int start = 1;
-		Frame frame = Frame.createFrame(start);
+		Frame frame = NormalFrame.create(start);
 		Frame next = frame.bowl(BowlingFormView.bowling(user.printName()));
 		do {
 			next = next.bowl(BowlingFormView.bowling(user.printName()));

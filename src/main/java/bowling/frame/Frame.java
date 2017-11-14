@@ -4,35 +4,30 @@ import bowling.frame.state.State;
 import bowling.result.Result;
 
 public abstract class Frame {
-	protected int no;
-	protected State state;
-	protected Frame next;
-	protected int frameEndScore;
+	private int no;
 
-	public static Frame createFrame(int no) {
-		if (no == 10) {
-			return LastFrame.create(no);
-		}
-		return NomalFrame.create(no);
-	}
-
-	abstract public Frame bowl(int score);
-
-	public State getState() {
-		return state;
+	protected Frame(int no) {
+		this.no = no;
 	}
 
 	public int getNo() {
 		return this.no;
 	}
 
-	public Frame getNext() {
-		return this.next;
+	protected Frame nextFrame() {
+		if (no == 10) {
+			return LastFrame.create(no);
+		}
+		return NormalFrame.create(no);
 	}
 
-	public int getFrameEndScore() {
-		return frameEndScore;
-	}
+	abstract public Frame bowl(int score);
+
+	abstract public State getState();
+
+	abstract public Frame getNext();
+
+	abstract public int getFrameEndScore();
 
 	public Result result() {
 		return new Result(this);
@@ -57,4 +52,5 @@ public abstract class Frame {
 		Frame other = (Frame) obj;
 		return no == other.no;
 	}
+
 }

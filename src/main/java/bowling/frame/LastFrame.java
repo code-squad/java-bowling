@@ -1,13 +1,17 @@
 package bowling.frame;
 
 import bowling.frame.state.BowlingEnd;
-import bowling.frame.state.lastFrame.LastFrameReady;
+import bowling.frame.state.State;
+import bowling.frame.state.lastframe.LastFrameReady;
 
 public class LastFrame extends Frame {
 
+	private State state;
+	private int frameEndScore;
+
 	private LastFrame(int no) {
-		this.no = no;
-		this.state = new LastFrameReady();
+		super(no);
+		state = new LastFrameReady();
 
 	}
 
@@ -19,9 +23,24 @@ public class LastFrame extends Frame {
 	public Frame bowl(int score) {
 		this.state = this.state.bowl(score);
 		if (state instanceof BowlingEnd) {
-			this.frameEndScore += state.getFinalScore();
+			frameEndScore += state.getFinalScore();
 		}
 		return this;
+	}
+
+	@Override
+	public State getState() {
+		return state;
+	}
+
+	@Override
+	public Frame getNext() {
+		return null;
+	}
+
+	@Override
+	public int getFrameEndScore() {
+		return frameEndScore;
 	}
 
 }

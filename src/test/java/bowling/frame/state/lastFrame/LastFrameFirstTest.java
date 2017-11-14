@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import bowling.frame.state.State;
+import bowling.frame.state.lastframe.LastFrameReady;
 
 public class LastFrameFirstTest {
 
