@@ -8,7 +8,7 @@ import org.junit.Test;
 public class FramesOfPlayerTest {
 
 	@Test
-	public void FramesOfPlayerTest1() {
+	public void framesOfPlayerTest1() {
 		FramesOfPlayer framesOfPlayer = new FramesOfPlayer("ABC", 1);
 		framesOfPlayer.shot(3);
 		framesOfPlayer.shot(7);
