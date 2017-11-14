@@ -25,6 +25,7 @@ public class FrameTest {
 		assertEquals("X", frame3.getCurrentScoreBoard());
 	}
 
+
 	@Test(expected = InvalidFrameScoreException.class)
 	public void nomalFrameScoreExceptionTest() {
 		Frame frame3 = new Frame();
@@ -39,7 +40,7 @@ public class FrameTest {
 		frame3.shot(4);
 		frame3.shot(4);
 	}
-
+	
 	@Test
 	public void frameScoreTest() {
 		Frame frame = new Frame();

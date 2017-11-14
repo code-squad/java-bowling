@@ -23,6 +23,7 @@ public class FrameScoreBoardTest {
 		frameScoreBoard.addScore(pins.fallPins(3));
 		assertEquals("5|3", frameScoreBoard.currentScoreValue());
 		assertEquals(8, frameScoreBoard.getSumScore());
+
 		
 	}
 	

@@ -81,4 +81,5 @@ public class Frame {
 	public int getFrameScore() {
 		return frameScore.get();
 	}
+
 }

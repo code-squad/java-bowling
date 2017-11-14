@@ -19,6 +19,7 @@ public class FrameScoreBoard {
 			currentScoreValue += getScoreValue(index);
 			currentScoreValue += "|";
 		}
+
 		return currentScoreValue.substring(0, currentScoreValue.length() - 1);
 	}
 
