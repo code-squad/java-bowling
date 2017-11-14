@@ -15,15 +15,24 @@ public class LastFrame extends Frame {
 
 	}
 
+	public LastFrame(int no, int frameScore) {
+		super(no);
+		state = new LastFrameReady();
+	}
+
 	public static Frame create(int no) {
 		return new LastFrame(no);
+	}
+
+	public static Frame lastCreate(int no, int frameScore) {
+		return new LastFrame(no, frameScore);
 	}
 
 	@Override
 	public Frame bowl(int score) {
 		this.state = this.state.bowl(score);
 		if (state instanceof BowlingEnd) {
-			frameEndScore += state.getFinalScore();
+			frameEndScore = getFrameScore() + state.getFinalScore();
 		}
 		return this;
 	}
@@ -39,8 +48,13 @@ public class LastFrame extends Frame {
 	}
 
 	@Override
-	public int getFrameEndScore() {
+	public int getFrameScore() {
 		return frameEndScore;
+	}
+
+	public static Frame create(int i, int frameScore) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

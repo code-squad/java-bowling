@@ -10,10 +10,14 @@ public class NormalFrame extends Frame {
 
 	private State state;
 	private Frame next;
-	private int frameEndScore;
 
 	private NormalFrame(int no) {
 		super(no);
+		state = new NormalFrameReady();
+	}
+
+	public NormalFrame(int no, int frameScore) {
+		super(no, frameScore);
 		state = new NormalFrameReady();
 	}
 
@@ -21,12 +25,16 @@ public class NormalFrame extends Frame {
 		return new NormalFrame(no);
 	}
 
+	public static Frame create(int no, int frameScore) {
+		return new NormalFrame(no, frameScore);
+	}
+
 	@Override
 	public Frame bowl(int score) {
 		state = this.state.bowl(score);
 		if (state instanceof End) {
-			frameEndScore += calculateScore(this, state);
-			next = nextFrame();
+			int frameScore = getFrameScore() + calculateScore(this, state);
+			next = nextFrame(frameScore);
 			// next.frameEndScore = this.frameEndScore;
 			return next;
 		}
@@ -59,10 +67,5 @@ public class NormalFrame extends Frame {
 	@Override
 	public Frame getNext() {
 		return next;
-	}
-
-	@Override
-	public int getFrameEndScore() {
-		return frameEndScore;
 	}
 }

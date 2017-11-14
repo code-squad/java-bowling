@@ -31,7 +31,7 @@ public class Result {
 		stringBuilder.append("|      |");
 		while (frame != null) {
 			stringBuilder.append("  ");
-			stringBuilder.append(frame.getFrameEndScore());
+			stringBuilder.append(frame.getFrameScore());
 			stringBuilder.append("  |");
 			frame = frame.getNext();
 		}

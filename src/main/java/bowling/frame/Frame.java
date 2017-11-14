@@ -5,20 +5,37 @@ import bowling.result.Result;
 
 public abstract class Frame {
 	private int no;
+	private int frameScore;
 
 	protected Frame(int no) {
 		this.no = no;
+	}
+
+	public Frame(int no, int frameScore) {
+		this.no = no;
+		this.frameScore = frameScore;
 	}
 
 	public int getNo() {
 		return this.no;
 	}
 
+	public int getFrameScore() {
+		return frameScore;
+	}
+
 	protected Frame nextFrame() {
-		if (no == 10) {
-			return LastFrame.create(no);
+		if (no == 9) {
+			return LastFrame.create(no + 1);
 		}
-		return NormalFrame.create(no);
+		return NormalFrame.create(no + 1);
+	}
+
+	protected Frame nextFrame(int frameScore) {
+		if (no == 9) {
+			return LastFrame.lastCreate(no + 1, frameScore);
+		}
+		return NormalFrame.create(no + 1, frameScore);
 	}
 
 	abstract public Frame bowl(int score);
@@ -26,8 +43,6 @@ public abstract class Frame {
 	abstract public State getState();
 
 	abstract public Frame getNext();
-
-	abstract public int getFrameEndScore();
 
 	public Result result() {
 		return new Result(this);
