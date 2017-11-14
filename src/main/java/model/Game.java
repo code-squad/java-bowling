@@ -16,10 +16,22 @@ public class Game {
 	private int currentPlayerNum = 0;
 
 	private static final Logger logger = LoggerFactory.getLogger(Game.class);
-
+	
 	public Game(int numFrame) {
 		this.numFrame = numFrame;
 		players = new ArrayList<FramesOfPlayer>();
+	}
+	
+	public String getIndexPlayerName(int index) {
+		return players.get(index).getPlayerName();
+	}
+	
+	public int getNumFrame() {
+		return numFrame;
+	}
+	
+	public String getCurrentPlayerName() {
+		return players.get(currentPlayerNum).getPlayerName();
 	}
 
 	public void addPlayer(String name) throws InvalidGameSetException {
