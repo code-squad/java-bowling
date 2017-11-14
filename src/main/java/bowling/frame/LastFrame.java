@@ -9,22 +9,12 @@ public class LastFrame extends Frame {
 	private State state;
 	private int frameEndScore;
 
-	private LastFrame(int no) {
-		super(no);
-		state = new LastFrameReady();
-
-	}
-
 	public LastFrame(int no, int frameScore) {
-		super(no);
+		super(no, frameScore);
 		state = new LastFrameReady();
 	}
 
-	public static Frame create(int no) {
-		return new LastFrame(no);
-	}
-
-	public static Frame lastCreate(int no, int frameScore) {
+	public static Frame create(int no, int frameScore) {
 		return new LastFrame(no, frameScore);
 	}
 
@@ -32,7 +22,7 @@ public class LastFrame extends Frame {
 	public Frame bowl(int score) {
 		this.state = this.state.bowl(score);
 		if (state instanceof BowlingEnd) {
-			frameEndScore = getFrameScore() + state.getFinalScore();
+			frameEndScore = getBeforeFrameScore() + state.getFinalScore();
 		}
 		return this;
 	}
@@ -48,13 +38,7 @@ public class LastFrame extends Frame {
 	}
 
 	@Override
-	public int getFrameScore() {
+	public int getFrameEndScore() {
 		return frameEndScore;
 	}
-
-	public static Frame create(int i, int frameScore) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

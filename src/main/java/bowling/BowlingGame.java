@@ -15,8 +15,8 @@ public class BowlingGame {
 
 	public static void main(String[] args) {
 		User user = User.create(BowlingFormView.inputName());
-		int start = 1;
-		Frame frame = NormalFrame.create(start);
+		int start = 1, initialFrameScoe = 0;
+		Frame frame = NormalFrame.create(start, initialFrameScoe);
 		Frame next = frame.bowl(BowlingFormView.bowling(user.printName()));
 		do {
 			next = next.bowl(BowlingFormView.bowling(user.printName()));

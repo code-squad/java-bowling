@@ -20,10 +20,12 @@ public class NormalFrameSecondTest {
 
 	@Test
 	public void 누적점수_출력() throws Exception {
-		Frame frame = NormalFrame.create(1);
+		Frame frame = NormalFrame.create(1, 0);
 		Frame next = frame.bowl(2);
 		next = next.bowl(3);
-		assertEquals(5, frame.getFrameEndScore());
+		next = next.bowl(2);
+		next = next.bowl(1);
+		assertEquals(8, next.getBeforeFrameScore());
 	}
 
 }

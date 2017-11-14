@@ -13,15 +13,15 @@ public class FrameTest {
 
 	@Test
 	public void 프레임생성() {
-		Frame nomalFrame = NormalFrame.create(1);
-		Frame lastFrame = LastFrame.create(10);
-		assertEquals(nomalFrame, NormalFrame.create(1));
-		assertEquals(lastFrame, LastFrame.create(10));
+		Frame nomalFrame = NormalFrame.create(1, 0);
+		Frame lastFrame = LastFrame.create(10, 30);
+		assertEquals(nomalFrame, NormalFrame.create(1, 0));
+		assertEquals(lastFrame, LastFrame.create(10, 29));
 	}
 
 	@Test
 	public void 출력해보기() {
-		Frame frame = NormalFrame.create(1);
+		Frame frame = NormalFrame.create(1, 0);
 		Frame next;
 		next = frame.bowl(2);
 		next = next.bowl(3);

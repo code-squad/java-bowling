@@ -5,35 +5,24 @@ import bowling.result.Result;
 
 public abstract class Frame {
 	private int no;
-	private int frameScore;
-
-	protected Frame(int no) {
-		this.no = no;
-	}
+	private int beforeFrameScore;
 
 	public Frame(int no, int frameScore) {
 		this.no = no;
-		this.frameScore = frameScore;
+		this.beforeFrameScore = frameScore;
 	}
 
 	public int getNo() {
 		return this.no;
 	}
 
-	public int getFrameScore() {
-		return frameScore;
-	}
-
-	protected Frame nextFrame() {
-		if (no == 9) {
-			return LastFrame.create(no + 1);
-		}
-		return NormalFrame.create(no + 1);
+	public int getBeforeFrameScore() {
+		return beforeFrameScore;
 	}
 
 	protected Frame nextFrame(int frameScore) {
 		if (no == 9) {
-			return LastFrame.lastCreate(no + 1, frameScore);
+			return LastFrame.create(no + 1, frameScore);
 		}
 		return NormalFrame.create(no + 1, frameScore);
 	}
@@ -43,6 +32,8 @@ public abstract class Frame {
 	abstract public State getState();
 
 	abstract public Frame getNext();
+
+	abstract public int getFrameEndScore();
 
 	public Result result() {
 		return new Result(this);
