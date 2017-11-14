@@ -9,7 +9,7 @@
 
   <!-- 자바 패키지별 log level을 설정한다. -->
 
-  <logger name="model2" level="DEBUG" />
+  <logger name="FrameOfPlayer" level="DEBUG" />
 
 <!-- 기본 log level을 설정한다. -->
   <root level="DEBUG">

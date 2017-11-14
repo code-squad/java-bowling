@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import exception.InvalidFinFalledException;
 import exception.InvalidFrameScoreException;
 
 public class FrameTest {
@@ -26,7 +25,7 @@ public class FrameTest {
 		assertEquals("X", frame3.getCurrentScoreBoard());
 	}
 
-	@Test(expected = InvalidFinFalledException.class)
+	@Test(expected = InvalidFrameScoreException.class)
 	public void nomalFrameScoreExceptionTest() {
 		Frame frame3 = new Frame();
 		frame3.shot(10);
@@ -39,5 +38,22 @@ public class FrameTest {
 		frame3.shot(3);
 		frame3.shot(4);
 		frame3.shot(4);
+	}
+
+	@Test
+	public void frameScoreTest() {
+		Frame frame = new Frame();
+		frame.shot(3);
+		frame.shot(7);
+		assertEquals(10, frame.getFrameScore());
+	}
+	
+	@Test
+	public void frameScoreTest2() {
+		Frame frame = new Frame();
+		frame.shot(3);
+		frame.shot(7);
+		frame.addBonusScore(10);
+		assertEquals(20, frame.getFrameScore());
 	}
 }

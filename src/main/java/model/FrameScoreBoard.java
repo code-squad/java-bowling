@@ -6,7 +6,7 @@ import java.util.List;
 public class FrameScoreBoard {
 	private List<Score> scores = new ArrayList<Score>();
 
-	private int currentIndex = 0;
+	private int currentIndex = -1;
 
 	public void addScore(Score score) {
 		scores.add(score);
