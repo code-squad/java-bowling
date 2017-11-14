@@ -19,7 +19,7 @@ public class LastFrame extends Frame {
 	public Frame bowl(int score) {
 		this.state = this.state.bowl(score);
 		if (state instanceof BowlingEnd) {
-			this.Endscore += state.getFinalScore();
+			this.frameEndScore += state.getFinalScore();
 		}
 		return this;
 	}

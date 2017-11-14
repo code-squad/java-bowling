@@ -22,41 +22,5 @@ public class BowlingGame {
 			Result result = frame.result();
 			log.debug(result.show(user.printName()));
 		} while (!(next.getState() instanceof BowlingEnd));
-
-		// 계산
-		// for (int index = 0; index < endCondition; index++) {
-		// totalScore += bowlingGame.calcutateScore(frames, index);
-		// scores.add(Score.inputScore(totalScore));
-		//
-		// }
-
-		// 프레임 결과 출력
-		// for (int i = 0; i < scores.size(); i++) {
-		// log.debug("{} 번째 값 : {}", i, scores.get(i));
-		// }
 	}
-
-	// private int calcutateScore(int[] frames, int index) {
-	// if (frames[index] == 10) {
-	// int i = index;
-	// int score = 0;
-	// try {
-	// score = frames[index] + frames[index + 1] + frames[index + 2];
-	// } catch (ArrayIndexOutOfBoundsException e) {
-	// return frames[i];
-	// }
-	// return score;
-	// }
-	// if (frames[index] + frames[index + 1] == 10) {
-	// int i = index;
-	// int score = 0;
-	// try {
-	// score = frames[index] + frames[index + 1] + frames[index + 2];
-	// } catch (ArrayIndexOutOfBoundsException e) {
-	// return frames[i];
-	// }
-	// return score;
-	// }
-	// return frames[index] + frames[index + 1];
-	// }
 }

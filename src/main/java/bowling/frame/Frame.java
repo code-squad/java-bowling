@@ -1,18 +1,13 @@
 package bowling.frame;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import bowling.frame.state.State;
 import bowling.result.Result;
 
 public abstract class Frame {
-	private static final Logger log = LoggerFactory.getLogger(Frame.class);
-
 	protected int no;
 	protected State state;
 	protected Frame next;
-	protected int Endscore;
+	protected int frameEndScore;
 
 	public static Frame createFrame(int no) {
 		if (no == 10) {
@@ -36,7 +31,7 @@ public abstract class Frame {
 	}
 
 	public int getFrameEndScore() {
-		return Endscore;
+		return frameEndScore;
 	}
 
 	public Result result() {
