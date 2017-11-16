@@ -30,4 +30,14 @@ public class LastBonuce extends BowlingEnd {
 		return firstScore + secondScore + thirdScore;
 	}
 
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return secondScore;
+	}
+
 }

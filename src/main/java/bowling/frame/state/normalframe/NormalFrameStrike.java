@@ -14,4 +14,14 @@ public class NormalFrameStrike extends End {
 		return 10;
 	}
 
+	@Override
+	public int getFirstScore() {
+		return 10;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return 0;
+	}
+
 }

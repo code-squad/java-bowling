@@ -21,4 +21,14 @@ public class NormalFrameReady implements State {
 	public int getFinalScore() {
 		return 0;
 	}
+
+	@Override
+	public int getFirstScore() {
+		return 0;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return 0;
+	}
 }

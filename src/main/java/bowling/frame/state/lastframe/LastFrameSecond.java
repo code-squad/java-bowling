@@ -26,4 +26,14 @@ public class LastFrameSecond extends BowlingEnd {
 		return firstScore + secondScore;
 	}
 
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return secondScore;
+	}
+
 }

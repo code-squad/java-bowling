@@ -10,5 +10,4 @@ public abstract class Running implements State {
 	public int getFinalScore() {
 		return 0;
 	}
-
 }

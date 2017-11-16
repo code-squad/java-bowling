@@ -25,4 +25,14 @@ public class NormalFrameFirst extends Running {
 		stringBuilder.append(firstScore);
 		return stringBuilder.toString();
 	}
+
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return 0;
+	}
 }

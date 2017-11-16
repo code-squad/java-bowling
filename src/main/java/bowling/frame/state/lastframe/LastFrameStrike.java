@@ -17,4 +17,14 @@ public class LastFrameStrike extends Running {
 		return "X";
 	}
 
+	@Override
+	public int getFirstScore() {
+		return 10;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return 0;
+	}
+
 }

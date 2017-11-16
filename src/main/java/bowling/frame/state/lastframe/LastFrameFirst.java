@@ -26,4 +26,14 @@ public class LastFrameFirst extends Running {
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return 0;
+	}
+
 }

@@ -22,4 +22,14 @@ public class LastFrameReady implements State {
 		return 0;
 	}
 
+	@Override
+	public int getFirstScore() {
+		return 0;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return 0;
+	}
+
 }

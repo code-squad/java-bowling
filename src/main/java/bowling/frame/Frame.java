@@ -1,30 +1,39 @@
 package bowling.frame;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bowling.frame.state.State;
 import bowling.result.Result;
+import bowling.score.Score;
 
 public abstract class Frame {
-	private int no;
-	private int beforeFrameScore;
 
-	public Frame(int no, int frameScore) {
+	private static final Logger log = LoggerFactory.getLogger(Frame.class);
+
+	private int no;
+	private List<Integer> scores = new ArrayList<>();
+
+	public Frame(int no) {
 		this.no = no;
-		this.beforeFrameScore = frameScore;
 	}
 
 	public int getNo() {
 		return this.no;
 	}
 
-	public int getBeforeFrameScore() {
-		return beforeFrameScore;
+	public void addScore(int score) {
+		scores.add(score);
 	}
 
-	protected Frame nextFrame(int frameScore) {
+	protected Frame nextFrame() {
 		if (no == 9) {
-			return LastFrame.create(no + 1, frameScore);
+			return LastFrame.create(no + 1);
 		}
-		return NormalFrame.create(no + 1, frameScore);
+		return NormalFrame.create(no + 1);
 	}
 
 	abstract public Frame bowl(int score);
@@ -35,8 +44,8 @@ public abstract class Frame {
 
 	abstract public int getFrameEndScore();
 
-	public Result result() {
-		return new Result(this);
+	public Result result(Score score) {
+		return new Result(this, score);
 	}
 
 	@Override
@@ -59,4 +68,11 @@ public abstract class Frame {
 		return no == other.no;
 	}
 
+	public List<Integer> getScore() {
+		return scores;
+	}
+
+	public Score frameToScore(Frame frame) {
+		return new Score(frame);
+	}
 }

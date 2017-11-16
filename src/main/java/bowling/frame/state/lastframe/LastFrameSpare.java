@@ -26,4 +26,14 @@ public class LastFrameSpare extends Running {
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return secondScore;
+	}
+
 }

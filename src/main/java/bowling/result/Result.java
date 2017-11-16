@@ -1,10 +1,13 @@
 package bowling.result;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bowling.frame.Frame;
 import bowling.frame.state.State;
+import bowling.score.Score;
 
 public class Result {
 	private static final Logger log = LoggerFactory.getLogger(Result.class);
@@ -13,8 +16,11 @@ public class Result {
 
 	private Frame frame;
 
-	public Result(Frame frame) {
+	private Score frameScore;
+
+	public Result(Frame frame, Score score) {
 		this.frame = frame;
+		this.frameScore = score;
 	}
 
 	public String show(String name) {
@@ -27,13 +33,15 @@ public class Result {
 
 	private StringBuilder scoreLine() {
 		StringBuilder stringBuilder = new StringBuilder();
-		Frame frame = this.frame;
 		stringBuilder.append("|      |");
-		while (frame != null) {
+		if (frameScore == null) {
+			return stringBuilder;
+		}
+		List<Integer> scores = frameScore.get();
+		for (Integer index : scores) {
 			stringBuilder.append("  ");
-			stringBuilder.append(frame.getFrameEndScore());
+			stringBuilder.append(index);
 			stringBuilder.append("  |");
-			frame = frame.getNext();
 		}
 		return stringBuilder;
 	}
@@ -51,7 +59,6 @@ public class Result {
 		while (frame != null) {
 			stringBuilder.append("  ");
 			State state = frame.getState();
-			log.debug("{}", frame.getNo());
 			stringBuilder.append(state.getPresentScore());
 			stringBuilder.append("  |");
 			frame = frame.getNext();

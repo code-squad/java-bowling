@@ -6,4 +6,8 @@ public interface State {
 	public String getPresentScore();
 
 	public int getFinalScore();
+
+	public int getFirstScore();
+
+	public int getSecondScore();
 }

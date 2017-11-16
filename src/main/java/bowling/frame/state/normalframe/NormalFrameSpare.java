@@ -25,4 +25,14 @@ public class NormalFrameSpare extends End {
 		return 10;
 	}
 
+	@Override
+	public int getFirstScore() {
+		return firstScore;
+	}
+
+	@Override
+	public int getSecondScore() {
+		return secondScore;
+	}
+
 }

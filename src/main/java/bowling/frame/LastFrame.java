@@ -1,29 +1,26 @@
 package bowling.frame;
 
-import bowling.frame.state.BowlingEnd;
 import bowling.frame.state.State;
 import bowling.frame.state.lastframe.LastFrameReady;
+import bowling.score.Score;
 
 public class LastFrame extends Frame {
 
 	private State state;
 	private int frameEndScore;
 
-	public LastFrame(int no, int frameScore) {
-		super(no, frameScore);
+	public LastFrame(int no) {
+		super(no);
 		state = new LastFrameReady();
 	}
 
-	public static Frame create(int no, int frameScore) {
-		return new LastFrame(no, frameScore);
+	public static Frame create(int no) {
+		return new LastFrame(no);
 	}
 
 	@Override
 	public Frame bowl(int score) {
 		this.state = this.state.bowl(score);
-		if (state instanceof BowlingEnd) {
-			frameEndScore = getBeforeFrameScore() + state.getFinalScore();
-		}
 		return this;
 	}
 
