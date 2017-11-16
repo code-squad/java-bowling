@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import exception.InvalidGameSetException;
 
 public class Game {
+	private static final Logger logger = LoggerFactory.getLogger(Game.class);
+	
 	private boolean endSetGame = false;
 	private List<FramesOfPlayer> players;
 	private int numFrame;
 	private int numPlayer;
 	private int currentPlayerNum = 0;
-
-	private static final Logger logger = LoggerFactory.getLogger(Game.class);
 	
 	public Game(int numFrame) {
 		this.numFrame = numFrame;

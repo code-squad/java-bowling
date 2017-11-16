@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FramesOfPlayer {
+	private static final Logger logger = LoggerFactory.getLogger(FramesOfPlayer.class);
+	
 	private SetOfFrame setOfFrame;
 	private Player player;
-
-	private static final Logger logger = LoggerFactory.getLogger(FramesOfPlayer.class);
 
 	public FramesOfPlayer(String name, int numFrame) {
 		setOfFrame = new SetOfFrame(numFrame);

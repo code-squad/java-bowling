@@ -10,7 +10,7 @@ import exception.InvalidFrameScoreException;
 public class LastFrameTest {
 
 	@Test
-	public void tenFrameTest() {
+	public void lastFrameTest() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(10);
@@ -19,7 +19,7 @@ public class LastFrameTest {
 	}
 	
 	@Test
-	public void tenFrameTest_1() {
+	public void lastFrameTest_1() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(10);
@@ -28,7 +28,7 @@ public class LastFrameTest {
 	}
 
 	@Test
-	public void tenFrameTest2() {
+	public void lastFrameTest2() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(5);
@@ -37,7 +37,7 @@ public class LastFrameTest {
 	}
 
 	@Test
-	public void tenFrameTest3_1() {
+	public void lastFrameTest3_1() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(5);
@@ -46,7 +46,7 @@ public class LastFrameTest {
 	}
 	
 	@Test
-	public void tenFrameTest3() {
+	public void lastFrameTest3() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(5);
@@ -55,7 +55,7 @@ public class LastFrameTest {
 	}
 
 	@Test
-	public void tenFrameTest4() {
+	public void lastFrameTest4() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(5);
@@ -64,7 +64,7 @@ public class LastFrameTest {
 	}
 	
 	@Test(expected = InvalidFrameScoreException.class)
-	public void tenFrameOverScoreExceptionTest() {
+	public void lastFrameOverScoreExceptionTest() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(3);
 		frame10.shot(2);
@@ -72,14 +72,14 @@ public class LastFrameTest {
 	}
 
 	@Test(expected = InvalidFinFalledException.class)
-	public void tenFrameShotScoreExceptionTest() {
+	public void lastFrameShotScoreExceptionTest() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(6);
 	}
 
 	@Test(expected = InvalidFinFalledException.class)
-	public void tenFrameShotScoreExceptionTest_3번째() {
+	public void lastFrameShotScoreExceptionTest_3번째() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(10);
 		frame10.shot(5);
@@ -87,7 +87,7 @@ public class LastFrameTest {
 	}
 
 	@Test(expected = InvalidFinFalledException.class)
-	public void tenFrameShotScoreExceptionTest_4번째() {
+	public void lastFrameShotScoreExceptionTest_4번째() {
 		Frame frame10 = new LastFrame();
 		frame10.shot(5);
 		frame10.shot(6);

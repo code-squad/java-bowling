@@ -18,7 +18,6 @@ public class LastFrame extends Frame {
 			throw new InvalidFrameScoreException("프레임이 종료 되었습니다.");
 		Score shotScore = pins.fallPins(score);
 		frameScoreBoard.addScore(shotScore);
-		frameScore.addScore(score);
 		shotCount++;
 		checkNewPins();
 	}

@@ -5,14 +5,9 @@ import exception.InvalidFrameScoreException;
 public class Frame {
 
 	protected int shotCount = 0;
-
 	protected Pins pins;
 	protected FrameScoreBoard frameScoreBoard = new FrameScoreBoard();
-
-	protected FrameScore frameScore = new FrameScore();
-
-	private int scoreAddCount = 0;
-	protected boolean isEndFrame = false;
+	private int bonusScoreAddCount = 0;
 
 	public Frame() {
 		pins = new Pins();
@@ -22,22 +17,37 @@ public class Frame {
 		checkInvalidException(score);
 		addScore(score);
 		shotCount++;
-		isEndFrame();
-		if (isEndFrame) {
+		if (isEndFrame()) {
 			bonusScoreCount();
 		}
 	}
-
-	public void addScore(int score) {
-		Score shotScore = pins.fallPins(score);
-		frameScoreBoard.addScore(shotScore);
-		frameScore.addScore(score);
-		if (score == 10) {
-			isEndFrame = true;
+	
+	private boolean isBonusAddCount() {
+		return !(bonusScoreAddCount == 0 || bonusScoreAddCount > 3);
+	}
+	
+	private void bonusScoreCount() {
+		if (isStrike()) {
+			bonusScoreAddCount = 2;
+		}
+		if (isSpare()) {
+			bonusScoreAddCount = 1;
 		}
 	}
+	
+	private boolean isStrike() {
+		return "X".equals(frameScoreBoard.getCurrentScoreValue());
+	}
+	
+	private boolean isSpare() {
+		return "/".equals(frameScoreBoard.getCurrentScoreValue());
+	}
 
-	public void checkInvalidException(int score) {
+	public void addScore(int score) {
+		frameScoreBoard.addScore(pins.fallPins(score));
+	}
+
+	private void checkInvalidException(int score) {
 		if (score > 10)
 			throw new InvalidFrameScoreException("점수 입력이 잘 못 되었습니다.");
 		if (isEndFrame())
@@ -45,41 +55,23 @@ public class Frame {
 	}
 
 	public void addBonusScore(int bonusScore) {
-		if (isAddCount()) {
-			frameScore.addScore(bonusScore);
-			scoreAddCount--;
+		if (isBonusAddCount()) {
+			frameScoreBoard.addBonusScore(bonusScore);
+			bonusScoreAddCount--;
 		}
 	}
-
-	private boolean isAddCount() {
-		return !(scoreAddCount == 0 || scoreAddCount > 3);
-	}
-
+	
 	public boolean isEndFrame() {
-		if (shotCount > 1)
-			isEndFrame = true;
-		return isEndFrame;
-	}
-
-	public int getSumScore() {
-		return frameScoreBoard.getSumScore();
+		if (shotCount > 1 || isStrike())
+			return true;
+		return false;
 	}
 
 	public String getCurrentScoreBoard() {
 		return frameScoreBoard.currentScoreValue();
 	}
 
-	private void bonusScoreCount() {
-		if ("X".equals(frameScoreBoard.getCurrentScoreValue())) {
-			scoreAddCount = 2;
-		}
-		if ("/".equals(frameScoreBoard.getCurrentScoreValue())) {
-			scoreAddCount = 1;
-		}
-	}
-
 	public int getFrameScore() {
-		return frameScore.get();
+		return frameScoreBoard.getSumScore();
 	}
-
 }
