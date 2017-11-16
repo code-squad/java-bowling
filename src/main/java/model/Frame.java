@@ -4,9 +4,9 @@ import exception.InvalidFrameScoreException;
 
 public class Frame {
 
-	protected int shotCount = 0;
-	protected Pins pins;
-	protected FrameScoreBoard frameScoreBoard = new FrameScoreBoard();
+	private int shotCount = 0;
+	private Pins pins;
+	private FrameScoreBoard frameScoreBoard = new FrameScoreBoard();
 	private int bonusScoreAddCount = 0;
 
 	public Frame() {

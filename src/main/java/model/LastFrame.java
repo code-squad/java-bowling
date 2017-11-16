@@ -3,7 +3,10 @@ package model;
 import exception.InvalidFrameScoreException;
 
 public class LastFrame extends Frame {
-	
+
+	private int shotCount = 0;
+	private Pins pins;
+	private FrameScoreBoard frameScoreBoard = new FrameScoreBoard();
 	private boolean isNewPins = false;
 
 	public LastFrame() {
@@ -26,6 +29,18 @@ public class LastFrame extends Frame {
 	public boolean isEndFrame() {
 		return endSetScore() || shotCount > 2;
 	}
+	
+// 이 두개 메서드가 문제 frameScoreBoard들 못찾아옴. frame걸로 사용하게 되는 듯함.
+	@Override
+	public int getFrameScore() {
+		return frameScoreBoard.getSumScore();
+	}
+	
+	@Override
+	public String getCurrentScoreBoard() {
+		return frameScoreBoard.currentScoreValue();
+	}
+//
 
 	private boolean endSetScore() {
 		return shotCount > 1 && !isNewPins;
