@@ -2,15 +2,11 @@ package bowling.result;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import bowling.frame.Frame;
 import bowling.frame.state.State;
 import bowling.score.Score;
 
 public class Result {
-	private static final Logger log = LoggerFactory.getLogger(Result.class);
 
 	private final String newLine = System.getProperty("line.separator");
 

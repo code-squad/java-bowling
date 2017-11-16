@@ -19,12 +19,12 @@ public class BowlingGame {
 		int start = 1;
 		Frame frame = NormalFrame.create(start);
 		Frame next = frame.bowl(BowlingFormView.bowling(user.printName()));
-		Score score = frame.frameToScore(frame);
+		Score score = frame.score(frame);
 		Result result = frame.result(score);
 		log.debug(result.show(user.printName()));
 		do {
 			next = next.bowl(BowlingFormView.bowling(user.printName()));
-			score = frame.frameToScore(frame);
+			score = frame.score(frame);
 			result = frame.result(score);
 			log.debug(result.show(user.printName()));
 		} while (!(next.getState() instanceof BowlingEnd));

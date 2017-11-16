@@ -8,7 +8,6 @@ public class NormalFrame extends Frame {
 
 	private State state;
 	private Frame next;
-	private int frameEndScore;
 
 	public NormalFrame(int no) {
 		super(no);
@@ -37,10 +36,5 @@ public class NormalFrame extends Frame {
 	@Override
 	public Frame getNext() {
 		return next;
-	}
-
-	@Override
-	public int getFrameEndScore() {
-		return frameEndScore;
 	}
 }

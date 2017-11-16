@@ -3,16 +3,11 @@ package bowling.frame;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import bowling.frame.state.State;
 import bowling.result.Result;
 import bowling.score.Score;
 
 public abstract class Frame {
-
-	private static final Logger log = LoggerFactory.getLogger(Frame.class);
 
 	private int no;
 	private List<Integer> scores = new ArrayList<>();
@@ -42,10 +37,16 @@ public abstract class Frame {
 
 	abstract public Frame getNext();
 
-	abstract public int getFrameEndScore();
-
 	public Result result(Score score) {
 		return new Result(this, score);
+	}
+
+	public List<Integer> getScore() {
+		return scores;
+	}
+
+	public Score score(Frame frame) {
+		return new Score(frame);
 	}
 
 	@Override
@@ -66,13 +67,5 @@ public abstract class Frame {
 			return false;
 		Frame other = (Frame) obj;
 		return no == other.no;
-	}
-
-	public List<Integer> getScore() {
-		return scores;
-	}
-
-	public Score frameToScore(Frame frame) {
-		return new Score(frame);
 	}
 }
