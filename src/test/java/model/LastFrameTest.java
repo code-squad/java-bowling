@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import exception.InvalidFinFalledException;
 import exception.InvalidFrameScoreException;
+import model.frame.Frame;
 
 public class LastFrameTest {
 

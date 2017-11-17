@@ -1,10 +1,12 @@
 package model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import exception.InvalidFrameException;
+import model.frame.Frame;
 
 public class SetOfFrame {
 

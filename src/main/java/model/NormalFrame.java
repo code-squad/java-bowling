@@ -1,12 +1,12 @@
 package model;
 
 import exception.InvalidFrameScoreException;
+import model.frame.Frame;
 
-public class NormalFrame implements Frame{
+public class NormalFrame extends Frame{
 
 	private int shotCount = 0;
 	private Pins pins = new Pins();
-	private FrameScoreBoard frameScoreBoard = new FrameScoreBoard();
 	private int bonusScoreAddCount = 0;
 
 	@Override
@@ -22,16 +22,6 @@ public class NormalFrame implements Frame{
 	@Override
 	public boolean isEndFrame() {
 		return shotCount > 1 || isStrike();
-	}
-	
-	@Override
-	public int getFrameScore() {
-		return frameScoreBoard.getSumScore();
-	}
-
-	@Override
-	public String getCurrentScoreBoard() {
-		return frameScoreBoard.currentScoreValue();
 	}
 
 	@Override

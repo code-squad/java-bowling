@@ -1,14 +1,13 @@
 package model;
 
 import exception.InvalidFrameScoreException;
+import model.frame.Frame;
 
-public class LastFrame implements Frame {
+public class LastFrame extends Frame {
 
 	private int shotCount = 0;
 	private Pins pins = new Pins();
 	private boolean isNewPins = false;
-	private FrameScoreBoard frameScoreBoard = new FrameScoreBoard();
-	private int bonusScoreAddCount = 0;
 
 	@Override
 	public void shot(int score) {
@@ -28,26 +27,14 @@ public class LastFrame implements Frame {
 	}
 
 	@Override
-	public int getFrameScore() {
-		return frameScoreBoard.getSumScore();
-	}
-
-	@Override
-	public String getCurrentScoreBoard() {
-		return frameScoreBoard.currentScoreValue();
-	}
-
-	@Override
 	public boolean isBonusAddCount() {
-		return !(bonusScoreAddCount == 0 || bonusScoreAddCount > 3);
+		//보너스점수가 들어갈리 없음 무조건 false
+		return false;
 	}
 
 	@Override
 	public void addBonusScore(int bonusScore) {
-		if (isBonusAddCount()) {
-			frameScoreBoard.addBonusScore(bonusScore);
-			bonusScoreAddCount--;
-		}
+		//없어도 됨 NormalFrame에만 쓰지만 SetOfFrame에서 사용하는 List<Frame>에 사용하기 위해서 존재.
 	}
 
 	private boolean endSetScore() {

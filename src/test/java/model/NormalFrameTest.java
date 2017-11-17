@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import exception.InvalidFrameScoreException;
+import model.frame.Frame;
 
 public class NormalFrameTest {
 
