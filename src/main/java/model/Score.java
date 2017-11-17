@@ -1,19 +1,20 @@
 package model;
 
 public class Score {
+	
 	private int score;
-	private boolean isSecondBall;
+	private boolean isNextBall;
 
-	public Score(int score, boolean isSecondBall) {
+	public Score(int score, boolean isNextBall) {
 		this.score = score;
-		this.isSecondBall = isSecondBall;
+		this.isNextBall = isNextBall;
 	}
 
 	public int getScore() {
 		return score;
 	}
 
-	public boolean isSecondBall() {
-		return isSecondBall;
+	public boolean isNextBall() {
+		return isNextBall;
 	}
 }

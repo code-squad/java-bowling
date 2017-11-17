@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FramesOfPlayer {
+	
 	private static final Logger logger = LoggerFactory.getLogger(FramesOfPlayer.class);
 	
 	private SetOfFrame setOfFrame;
@@ -31,5 +32,12 @@ public class FramesOfPlayer {
 	public int getTotalScore() {
 		return setOfFrame.getTotalScore();
 	}
-
+	
+	public String getCurrentScoreBoard() {
+		return setOfFrame.getCurrentScoreBoard();
+	}
+	
+	public String getEachCurrentFrameScore() {
+		return setOfFrame.getCurrentFrameScoreBoard();
+	}
 }

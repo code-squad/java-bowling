@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 import exception.InvalidGameSetException;
 
 public class Game {
-	private static final Logger logger = LoggerFactory.getLogger(Game.class);
 	
+	private static final Logger logger = LoggerFactory.getLogger(Game.class);
+
 	private boolean endSetGame = false;
 	private List<FramesOfPlayer> players;
 	private int numFrame;
@@ -21,15 +22,15 @@ public class Game {
 		this.numFrame = numFrame;
 		players = new ArrayList<FramesOfPlayer>();
 	}
-	
+
 	public String getIndexPlayerName(int index) {
 		return players.get(index).getPlayerName();
 	}
-	
+
 	public int getNumFrame() {
 		return numFrame;
 	}
-	
+
 	public String getCurrentPlayerName() {
 		return players.get(currentPlayerNum).getPlayerName();
 	}
@@ -47,9 +48,13 @@ public class Game {
 
 	private void nextPlayer() {
 		int checkPlayer = currentPlayerNum + 1;
-		if (currentPlayerNum > numPlayer)
+		if (currentPlayerNum > numPlayer - 2)
 			checkPlayer = 0;
 		currentPlayerNum = checkPlayer;
+	}
+
+	public int getNumPlayer() {
+		return numPlayer;
 	}
 
 	private FramesOfPlayer currentPlayer() {
@@ -63,9 +68,16 @@ public class Game {
 		}
 		currentPlayer().shot(score);
 	}
-	
+
 	public int getTotalScore(int index) {
 		return players.get(index).getTotalScore();
 	}
 
+	public String getCurrentScoreBoard(int index) {
+		return players.get(index).getCurrentScoreBoard() + "|";
+	}
+
+	public String getCurrentFrameScore(int index) {
+		return players.get(index).getEachCurrentFrameScore();
+	}
 }

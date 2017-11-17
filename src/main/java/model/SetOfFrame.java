@@ -2,10 +2,12 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import exception.InvalidFrameException;
 
 public class SetOfFrame {
+
 	private List<Frame> fullFrame = new ArrayList<Frame>();
 	private int currentFrameIndex = 0;
 	private int maxFrame;
@@ -14,26 +16,25 @@ public class SetOfFrame {
 	public void shot(int score) {
 		isNextFrame = false;
 		currentFrame().shot(score);
-		addBonusScore(score);	
+		addBonusScore(score);
 		if (isEndCurrentFrame()) {
 			isNextFrame = true;
 			currentFrameIndex++;
-		}	
+		}
 	}
 
 	public SetOfFrame(int numFrame) {
 		maxFrame = numFrame;
 		for (int i = 0; i < numFrame - 1; i++) {
-			fullFrame.add(new Frame());
+			fullFrame.add(new NormalFrame());
 		}
 		fullFrame.add(new LastFrame());
 	}
-	
+
 	public boolean isNextFrame() {
 		return isNextFrame;
 	}
 
-	// 첫번째 두번째 프레임에서는 존재하지 않은 인덱스를 선택하지 않도록 한다.
 	private void addBonusScore(int score) {
 		if (currentFrameIndex > 1)
 			checkAddBonusScore(get(currentFrameIndex - 2), score);
@@ -65,5 +66,33 @@ public class SetOfFrame {
 
 	public int getTotalScore() {
 		return fullFrame.stream().mapToInt(Frame::getFrameScore).sum();
+	}
+
+	public String getCurrentScoreBoard() {
+		return fullFrame.stream().map(Frame::getCurrentScoreBoard).map(s -> String.format("%6s", s + " "))
+				.collect(Collectors.joining("|"));
+	}
+
+	public String getCurrentFrameScoreBoard() {
+		String currentFrameScoreBoard = "";
+		for (int i = 0; i < maxFrame; i++) {
+			currentFrameScoreBoard += getEndFrameScoreBoard(i);
+		}
+		return currentFrameScoreBoard;
+	}
+
+	public String getEndFrameScoreBoard(int index) {
+		if (!get(index).isEndFrame() || get(index).isBonusAddCount()) {
+			return String.format("%6s", " ") + "|";
+		}
+		return String.format("%6s", getCurrentFrameScore(index + 1) + " ") + "|";
+	}
+
+	private String getCurrentFrameScore(int index) {
+		int currentFrameScore = 0;
+		for (int i = 0; i < index; i++) {
+			currentFrameScore += fullFrame.get(i).getFrameScore();
+		}
+		return Integer.toString(currentFrameScore);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import exception.InvalidPlayerNameException;
 
 public class Player {
+	
 	private String name;
 
 	public Player(String name) throws InvalidPlayerNameException {

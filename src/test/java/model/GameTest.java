@@ -11,6 +11,8 @@ public class GameTest {
 		Game game = new Game(10);
 		game.addPlayer("ABC");
 		game.addPlayer("SHC");
+		
+		game.gameStart();
 
 		game.shot(5);
 		game.shot(4);

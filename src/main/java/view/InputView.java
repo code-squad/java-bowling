@@ -5,7 +5,7 @@ import java.util.Scanner;
 import model.Game;
 
 public class InputView {
-	Scanner scan;
+	private Scanner scan;
 
 	public Game newGame() {
 		scan = new Scanner(System.in);
