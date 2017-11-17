@@ -13,18 +13,18 @@ public class Game {
 	private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
 	private boolean endSetGame = false;
-	private List<FramesOfPlayer> players;
+	private List<Player> players;
 	private int numFrame;
 	private int numPlayer;
 	private int currentPlayerNum = 0;
 	
 	public Game(int numFrame) {
 		this.numFrame = numFrame;
-		players = new ArrayList<FramesOfPlayer>();
+		players = new ArrayList<Player>();
 	}
 
 	public String getIndexPlayerName(int index) {
-		return players.get(index).getPlayerName();
+		return players.get(index).getName();
 	}
 
 	public int getNumFrame() {
@@ -32,13 +32,13 @@ public class Game {
 	}
 
 	public String getCurrentPlayerName() {
-		return players.get(currentPlayerNum).getPlayerName();
+		return players.get(currentPlayerNum).getName();
 	}
 
 	public void addPlayer(String name) throws InvalidGameSetException {
 		if (endSetGame)
 			throw new InvalidGameSetException("게임 설정이 완료되어 플레이어를 추가 할 수 없습니다.");
-		players.add(new FramesOfPlayer(name, numFrame));
+		players.add(new Player(name, numFrame));
 	}
 
 	public void gameStart() {
@@ -57,7 +57,7 @@ public class Game {
 		return numPlayer;
 	}
 
-	private FramesOfPlayer currentPlayer() {
+	private Player currentPlayer() {
 		return players.get(currentPlayerNum);
 	}
 
