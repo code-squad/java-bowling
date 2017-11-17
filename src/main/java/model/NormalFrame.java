@@ -5,10 +5,6 @@ import model.frame.Frame;
 
 public class NormalFrame extends Frame{
 
-	private int shotCount = 0;
-	private Pins pins = new Pins();
-	private int bonusScoreAddCount = 0;
-
 	@Override
 	public void shot(int score) throws InvalidFrameScoreException {
 		checkInvalidException(score);
@@ -22,19 +18,6 @@ public class NormalFrame extends Frame{
 	@Override
 	public boolean isEndFrame() {
 		return shotCount > 1 || isStrike();
-	}
-
-	@Override
-	public boolean isBonusAddCount() {
-		return !(bonusScoreAddCount == 0 || bonusScoreAddCount > 3);
-	}
-
-	@Override
-	public void addBonusScore(int bonusScore) {
-		if (isBonusAddCount()) {
-			frameScoreBoard.addBonusScore(bonusScore);
-			bonusScoreAddCount--;
-		}
 	}
 	
 	private void bonusScoreCount() {

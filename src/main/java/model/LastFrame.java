@@ -5,8 +5,6 @@ import model.frame.Frame;
 
 public class LastFrame extends Frame {
 
-	private int shotCount = 0;
-	private Pins pins = new Pins();
 	private boolean isNewPins = false;
 
 	@Override
@@ -24,17 +22,6 @@ public class LastFrame extends Frame {
 	@Override
 	public boolean isEndFrame() {
 		return endSetScore() || shotCount > 2;
-	}
-
-	@Override
-	public boolean isBonusAddCount() {
-		//보너스점수가 들어갈리 없음 무조건 false
-		return false;
-	}
-
-	@Override
-	public void addBonusScore(int bonusScore) {
-		//없어도 됨 NormalFrame에만 쓰지만 SetOfFrame에서 사용하는 List<Frame>에 사용하기 위해서 존재.
 	}
 
 	private boolean endSetScore() {
