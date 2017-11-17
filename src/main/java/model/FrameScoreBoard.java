@@ -4,23 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FrameScoreBoard {
+
 	private List<Score> scores = new ArrayList<Score>();
+	private int currentIndex = -1;
+	private int bonusScore = 0;
 
 	public void addScore(Score score) {
 		scores.add(score);
+		currentIndex++;
+	}
+
+	public void addBonusScore(int bonusScore) {
+		this.bonusScore += bonusScore;
 	}
 
 	public String currentScoreValue() {
 		String currentScoreValue = "";
 		for (int index = 0; index < scores.size(); index++) {
-			currentScoreValue += getScoreValue(index);
-			currentScoreValue += "|";
+			currentScoreValue += getScoreValue(index) + "|";
 		}
-		return currentScoreValue.substring(0, currentScoreValue.length()-1);
+		int length = currentScoreValue.length();
+		if(currentScoreValue.length() > 1)
+			length--;
+		currentScoreValue = currentScoreValue.substring(0, length);
+		return currentScoreValue;
 	}
 
-	public int currentScore() {
-		return scores.stream().mapToInt(Score::getScore).sum();
+	public int getSumScore() {
+		return scores.stream().mapToInt(Score::getScore).sum() + bonusScore;
+	}
+
+	public String getCurrentScoreValue() {
+		if (currentIndex < 0) {
+			return " ";
+		}
+		return getScoreValue(currentIndex);
 	}
 
 	private String getScoreValue(int index) {
@@ -52,6 +70,6 @@ public class FrameScoreBoard {
 	}
 
 	private boolean isSecondBall(int index) {
-		return scores.get(index).isSecondBall();
+		return scores.get(index).isNextBall();
 	}
 }

@@ -3,10 +3,9 @@ package model;
 import exception.InvalidFinFalledException;
 
 public class Pins {
+	
 	private static final int MAX_PINS = 10;
-
 	private int currentPins;
-
 	private boolean isSecondBall = false;
 
 	public Pins() {

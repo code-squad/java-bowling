@@ -22,7 +22,8 @@ public class FrameScoreBoardTest {
 		frameScoreBoard.addScore(pins.fallPins(5));
 		frameScoreBoard.addScore(pins.fallPins(3));
 		assertEquals("5|3", frameScoreBoard.currentScoreValue());
-		assertEquals(8, frameScoreBoard.currentScore());
+		assertEquals(8, frameScoreBoard.getSumScore());
+
 		
 	}
 	
@@ -31,14 +32,14 @@ public class FrameScoreBoardTest {
 		frameScoreBoard.addScore(pins.fallPins(5));
 		frameScoreBoard.addScore(pins.fallPins(5));
 		assertEquals("5|/", frameScoreBoard.currentScoreValue());
-		assertEquals(10, frameScoreBoard.currentScore());
+		assertEquals(10, frameScoreBoard.getSumScore());
 	}
 	
 	@Test
 	public void testAddScore3() {
 		frameScoreBoard.addScore(pins.fallPins(10));
 		assertEquals("X", frameScoreBoard.currentScoreValue());
-		assertEquals(10, frameScoreBoard.currentScore());
+		assertEquals(10, frameScoreBoard.getSumScore());
 	}
 	
 	@Test(expected = InvalidFinFalledException.class)
