@@ -2,7 +2,7 @@ package model;
 
 import exception.InvalidFrameScoreException;
 
-public class NormalFrame extends Frame{
+public class NormalFrame implements Frame{
 
 	private int shotCount = 0;
 	private Pins pins = new Pins();

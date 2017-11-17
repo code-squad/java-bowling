@@ -1,11 +1,11 @@
 package model;
 
-public abstract class Frame {
+public interface Frame {
 	
-	abstract void shot(int score);
-	abstract boolean isEndFrame();	
-	abstract int getFrameScore();	
-	abstract String getCurrentScoreBoard();	
-	abstract boolean isBonusAddCount();	
-	abstract void addBonusScore(int bonusScore);
+	public void shot(int score);
+	public boolean isEndFrame();	
+	public int getFrameScore();	
+	public String getCurrentScoreBoard();	
+	public boolean isBonusAddCount();	
+	public void addBonusScore(int bonusScore);
 }
