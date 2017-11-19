@@ -9,8 +9,6 @@ import bowling.print.ResultView;
 
 public class BowlingGame {
 
-	String name;
-
 //테스트용
 /*	
 	public void setThrowedPins(List<Integer> throwedPins) {
@@ -24,12 +22,12 @@ public class BowlingGame {
 		BowlingGame game = new BowlingGame();
 		InputView input = new InputView(new Scanner(System.in));
 		ResultView print = new ResultView();
-		game.name = input.getName();
 		game.play(input, print);
 		input.endConsole();
 	}
 	
 	public void play(InputView input, ResultView print) {
+		String name = input.getName();
 		Frame frame = new Frame();
 		print.throwedPin(new ArrayList<String>(), name);
 		while (frame.getFrameNum() < 10) {
