@@ -28,15 +28,37 @@ public class BowlingGame {
 		game.printFrame();
 		game.printName();
 		game.printBlank(10);
-		while (game.frameNum < 10) {
-			System.out.printf("\n%1d프레임 투구 : ", game.frameNum);
-			game.printThrowedPin(game.normalFrame(sc.nextInt()));
+		game.play(sc);
+		sc.close();
+	}
+	
+	public void play(Scanner sc) {
+		while (frameNum < 10) {
+			System.out.printf("\n%1d프레임 투구 : ", frameNum);
+			printThrowedPin(normalFrame(sc.nextInt()));
 		}
-//		for(int i=0; i<3; i++) {
-		while(game.hasNext) {
+		while(hasNext) {
 			System.out.print("\n10프레임 투구 : ");
-			game.printThrowedPin(game.tenFrame(sc.nextInt()));
+			printThrowedPin(tenFrame(sc.nextInt()));
 		}
+	}
+	
+	public List<String> normalFrame(int pin) {
+		if (ballNum == 1) {
+			return normalFrameOneBall(pin);
+		}
+		return normalFrameTwoBall(pin);
+	}
+	
+	public List<String> tenFrame(int pin) {
+		if (ballNum == 1) {
+			return tenFrameOneBall(pin);
+		} 
+		if (ballNum == 2) {
+			return tenFrameTwoBall(pin);
+		} 
+		tenFrameThreeBall(pin);
+		return marks;
 	}
 	
 	public List<String> normalFrameOneBall(int pin) {
@@ -63,8 +85,7 @@ public class BowlingGame {
 	public List<String> normalFrameTwoBall(int pin) {
 		addFrame();
 		subtractBallNum();
-		int size = throwedPins.size();
-		int lastNum = throwedPins.get(size - 1);
+		int lastNum = throwedPins.get(throwedPins.size() - 1);
 		int marksSize = marks.size() - 1;
 		throwedPins.add(pin);//위에다 두면 lastNum이 pin값이 됨..
 		if (lastNum + pin == 10) {
@@ -78,8 +99,7 @@ public class BowlingGame {
 	public List<String> tenFrameTwoBall(int pin) {
 		addBallNum();
 		int marksSize = marks.size() -1;
-		int size = throwedPins.size();
-		int lastNum = throwedPins.get(size - 1);
+		int lastNum = throwedPins.get(throwedPins.size() - 1);
 		throwedPins.add(pin);
 		if("X".equals(marks.get(marksSize))) {
 			if (pin == 10) {
@@ -92,20 +112,17 @@ public class BowlingGame {
 		if (lastNum + pin < 10) {
 			quit();
 			marks.set(marksSize, makeMiss(pin, marksSize));
-			return marks;
 		} else if (lastNum + pin == 10) {
 			marks.set(marksSize, makeSpare(marksSize));
-			return marks;
 		}
 		return marks;
 	}
 	
 	public List<String> tenFrameThreeBall(int pin) {
-		int marksSize = marks.size() -1;
-		int size = throwedPins.size();
-		int lastNum = throwedPins.get(size - 1);
-		throwedPins.add(pin);
 		quit();
+		int marksSize = marks.size() -1;
+		int lastNum = throwedPins.get(throwedPins.size() - 1);
+		throwedPins.add(pin);
 		if (pin == 10) {
 			marks.set(marksSize, marks.get(marksSize) + "|X");
 			return marks;
@@ -126,13 +143,6 @@ public class BowlingGame {
 	public void quit() {
 		hasNext = false;
 	}
-	
-	public List<String> normalFrame(int pin) {
-		if (ballNum == 1) {
-			return normalFrameOneBall(pin);
-		}
-		return normalFrameTwoBall(pin);
-	}
 
 	public List<String> strike(int pin) {
 		throwedPins.add(pin);
@@ -147,17 +157,6 @@ public class BowlingGame {
 	
 	public String makeMiss(int pin, int marksSize) {
 		return marks.get(marksSize) + "|" + makeMark(Integer.toString(pin));
-	}
-	
-	public List<String> tenFrame(int pin) {
-		if (ballNum == 1) {
-			return tenFrameOneBall(pin);
-		} 
-		if (ballNum == 2) {
-			return tenFrameTwoBall(pin);
-		} 
-		tenFrameThreeBall(pin);
-		return marks;
 	}
 
 	public void addFrame() {
