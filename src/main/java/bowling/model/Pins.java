@@ -52,9 +52,7 @@ public class Pins {
 		marks.add(makeMark(Integer.toString(pin)));
 		return marks;		
 	}
-	/**************
-	 * Frame Class에서 쪼갠 것
-	 * ********************/
+	//Frame Class에서 쪼갠 것
 	public List<String> strike(int pin) {
 		marks.add("X");
 		return marks;
