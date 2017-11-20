@@ -26,118 +26,118 @@ public class BowlingGameTest {
 	@Test
 	public void 텐프레임_XX() {
 		bg.ballNum = 2;
-		List<String> marks = new ArrayList<>();
-		marks.add("X");
+		List<String> status = new ArrayList<>();
+		status.add("X");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(10);
 		pins.add(0);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(10)).contains("X|X");
 	}
 	@Test
 	public void 텐프레임_프레임_XXX() {
 		bg.ballNum = 3;
-		List<String> marks = new ArrayList<>();
-		marks.add("X|X");
+		List<String> status = new ArrayList<>();
+		status.add("X|X");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(10);
 		pins.add(0);
 		pins.add(10);
 		pins.add(0);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(10)).contains("X|X|X");
 	}
 	@Test
 	public void 텐프레임_X_스페어() {
 		bg.ballNum = 3;
-		List<String> marks = new ArrayList<>();
-		marks.add("X|5");
+		List<String> status = new ArrayList<>();
+		status.add("X|5");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(10);
 		pins.add(5);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(5)).contains("X|5|/");
 	}
 	@Test
 	public void 텐프레임_X_미스() {
 		bg.ballNum = 3;
-		List<String> marks = new ArrayList<>();
-		marks.add("X|5");
+		List<String> status = new ArrayList<>();
+		status.add("X|5");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(10);
 		pins.add(5);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(4)).contains("X|5|4");
 	}
 	@Test
 	public void 텐프레임_스페어_X() {
 		bg.ballNum = 3;
-		List<String> marks = new ArrayList<>();
-		marks.add("2|/");
+		List<String> status = new ArrayList<>();
+		status.add("2|/");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(2);
 		pins.add(8);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(10)).contains("2|/|X");
 	}
 	@Test
 	public void 텐프레임_스페어_미스() {
 		bg.ballNum = 3;
-		List<String> marks = new ArrayList<>();
-		marks.add("5|/");
+		List<String> status = new ArrayList<>();
+		status.add("5|/");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(5);
 		pins.add(5);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(5)).contains("5|/|5");
 	}
 	@Test
 	public void 텐프레임_미스() {
 		bg.ballNum = 2;
-		List<String> marks = new ArrayList<>();
-		marks.add("2");
+		List<String> status = new ArrayList<>();
+		status.add("2");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(2);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(2)).contains("2|2");
 	}
 	@Test
 	public void 텐프레임_스페어() {
 		bg.ballNum = 2;
-		List<String> marks = new ArrayList<>();
-		marks.add("2");
+		List<String> status = new ArrayList<>();
+		status.add("2");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(2);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.ten(8)).contains("2|/");
 	}
 	@Test
 	public void 미스() {
 		bg.ballNum = 2;
-		List<String> marks = new ArrayList<>();
-		marks.add("2");
+		List<String> status = new ArrayList<>();
+		status.add("2");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(2);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.normal(2)).contains("2|2");
 	}
 	@Test
 	public void 스페어() {
 		bg.ballNum = 2;
-		List<String> marks = new ArrayList<>();
-		marks.add("2");
+		List<String> status = new ArrayList<>();
+		status.add("2");
 		List<Integer> pins = new ArrayList<>();
 		pins.add(2);
-		bg.setMarks(marks);
+		bg.setMarks(status);
 		bg.setThrowedPins(pins);
 		assertThat(bg.normal(8)).contains("2|/");
 	}

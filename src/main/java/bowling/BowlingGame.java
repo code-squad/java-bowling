@@ -14,8 +14,8 @@ public class BowlingGame {
 	public void setThrowedPins(List<Integer> throwedPins) {
 		this.throwedPins = throwedPins;
 	}
-	public void setMarks(List<String> marks) {
-		this.marks = marks;
+	public void setMarks(List<String> status) {
+		this.marks = status;
 	}
 */
 	public static void main(String[] args) {
@@ -29,12 +29,9 @@ public class BowlingGame {
 	public void play(InputView input, ResultView print) {
 		String name = input.getName();
 		Frame frame = new Frame();
-		print.throwedPin(new ArrayList<String>(), name);
-		while (frame.getFrameNum() < 10) {
-			print.throwedPin(frame.normal(input.getThrowedPin(frame.getFrameNum())), name);
-		}
+		print.status(new ArrayList<String>(), name);
 		while(frame.hasNext()) {
-			print.throwedPin(frame.ten(input.getThrowedPin(frame.getFrameNum())), name);
+			print.status(frame.play(input.getThrowedPin(frame.getFrameNo())), name);
 		}
 	}
 	

@@ -4,30 +4,35 @@ import java.util.List;
 
 public class Frame {
 	
-	boolean hasNext = true;
-	int ballNum = 1;
-	int frameNum = 1;
-	//클래스 분리
+	private boolean hasNext = true;
+	private int tryNo = 1;
+	private int frameNo = 1;
 	Pins pins = new Pins();
-
-	public List<String> normal(int pin) {
-		if (ballNum == 1) {
+	
+	public List<String> play(int pin) {
+		if(getFrameNo() < 10) {
+			return bowlNormal(pin);
+		}
+		return bowlTen(pin);
+	}
+	
+	private List<String> bowlNormal(int pin) {
+		if (tryNo == 1) {
 			return normalFrameOneBall(pin);
 		}
 		return normalFrameTwoBall(pin);
 	}
 	
-	public List<String> ten(int pin) {
-		if (ballNum == 1) {
+	private List<String> bowlTen(int pin) {
+		if (tryNo == 1) {
 			return tenFrameOneBall(pin);
-		} 
-		if (ballNum == 2) {
+		} else if (tryNo == 2) {
 			return tenFrameTwoBall(pin);
 		} 
 		return tenFrameThreeBall(pin);
 	}
 	
-	public List<String> normalFrameOneBall(int pin) {
+	private List<String> normalFrameOneBall(int pin) {
 		pins.addPin(pin);
 		if (pin == 10) {
 			addFrame();
@@ -37,7 +42,7 @@ public class Frame {
 		return pins.noStrike(pin);
 	}
 	
-	public List<String> tenFrameOneBall(int pin) {
+	private List<String> tenFrameOneBall(int pin) {
 		addBallNum();
 		pins.addPin(pin);
 		if (pin == 10) {
@@ -46,7 +51,7 @@ public class Frame {
 		return pins.noStrike(pin);
 	}
 	
-	public List<String> normalFrameTwoBall(int pin) {
+	private List<String> normalFrameTwoBall(int pin) {
 		addFrame();
 		subtractBallNum();
 		pins.addPin(pin);
@@ -56,55 +61,51 @@ public class Frame {
 		return pins.addMiss(pin);
 	}
 	
-	public List<String> tenFrameTwoBall(int pin) {
+	private List<String> tenFrameTwoBall(int pin) {
 		addBallNum();
 		pins.addPin(pin);
-		if("X".equals(pins.lastMarks()) && pin == 10) {
+		if(pins.lastThrowedPins() + pin == 20) {
 			return pins.addStrike(pin);
-		}
-		if (pins.isSpare(pin)) {
+		} else if (pins.isSpare(pin)) {
 			return pins.addSpare(pin);
-		}
-		if (pins.isMiss(pin)) {
+		} else if (pins.isMiss(pin)) {
 			quit();
 		}
 		return pins.addMiss(pin);
 	}
 	
-	public List<String> tenFrameThreeBall(int pin) {
+	private List<String> tenFrameThreeBall(int pin) {
 		quit();
 		pins.addPin(pin);
 		if (pin == 10) {
 			return pins.addStrike(pin);
-		}
-		//10프레임 1투구가 X
-		if("X".equals(pins.lastMarks().substring(0,1)) && pins.isSpare(pin)) {
+		} else if("X".equals(pins.firstStatusOfThisFrame()) && pins.isSpare(pin)) {
 			return pins.addSpare(pin);
 		}
 		return pins.addMiss(pin);
 	}
 	
-	public void quit() {
+	private void quit() {
 		hasNext = false;
 	}
-//메소드로 만들 필요가 있을까?
-	public void addFrame() {
-		frameNum++;
+
+	private void addFrame() {
+		frameNo++;
 	}
 
-	public void addBallNum() {
-		ballNum++;
+	private void addBallNum() {
+		tryNo++;
 	}
 
-	public void subtractBallNum() {
-		ballNum--;
+	private void subtractBallNum() {
+		tryNo--;
 	}
 	
 	public boolean hasNext() {
 		return hasNext;
 	}
 	
-	public int getFrameNum() {
-		return frameNum;
+	public int getFrameNo() {
+		return frameNo;
 	}
 }

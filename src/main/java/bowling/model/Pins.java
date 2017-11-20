@@ -6,10 +6,10 @@ import java.util.List;
 public class Pins {
 
 	List<Integer> throwedPins = new ArrayList<>();
-	List<String> marks = new ArrayList<>(); //이름 어떻게 바꾸지??
+	List<String> status = new ArrayList<>();
 	
-	public List<String> getMarks() {
-		return marks;
+	public List<String> getStatus() {
+		return status;
 	}
 	
 	public void addPin(int pin) {
@@ -17,22 +17,22 @@ public class Pins {
 	}
 	
 	public List<String> addSpare(int pin) {
-		marks.set(marks.size()-1, makeSpare());
-		return marks;
+		status.set(status.size()-1, makeSpare());
+		return status;
 	}
 
 	public List<String> addMiss(int pin) {
-		marks.set(marks.size()-1, makeMiss(pin));
-		return marks;
+		status.set(status.size()-1, makeMiss(pin));
+		return status;
 	}
 	
 	public List<String> addStrike(int pin) {
-		marks.set(marks.size()-1, lastMarks() + "|X");
-		return marks;
+		status.set(status.size()-1, lastStatus() + "|X");
+		return status;
 	}
 	
-	public String lastMarks() {
-		return marks.get(marks.size()-1);
+	public String lastStatus() {
+		return status.get(status.size()-1);
 	}
 	
 	public int lastThrowedPins() {
@@ -49,27 +49,31 @@ public class Pins {
 	}
 	
 	public List<String> noStrike(int pin) {
-		marks.add(makeMark(Integer.toString(pin)));
-		return marks;		
-	}
-	//Frame Class에서 쪼갠 것
-	public List<String> strike(int pin) {
-		marks.add("X");
-		return marks;
+		status.add(zeroToDash(Integer.toString(pin)));
+		return status;		
 	}
 
-	public String makeSpare() {
-		return lastMarks() + "|/";
+	public List<String> strike(int pin) {
+		status.add("X");
+		return status;
+	}
+
+	private String makeSpare() {
+		return lastStatus() + "|/";
 	}
 	
-	public String makeMiss(int pin) {
-		return lastMarks() + "|" + makeMark(Integer.toString(pin));
+	private String makeMiss(int pin) {
+		return lastStatus() + "|" + zeroToDash(Integer.toString(pin));
 	}
 	
-	public String makeMark(String pin) {
+	private String zeroToDash(String pin) {
 		if ("0".equals(pin)) {
 			return "-";
 		}
 		return pin;
+	}
+	
+	public String firstStatusOfThisFrame() {
+		return lastStatus().substring(0,1);
 	}
 }
