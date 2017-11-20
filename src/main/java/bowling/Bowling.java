@@ -11,7 +11,6 @@ public class Bowling {
         if (falledPins.size() < 19) {
             addBlankPinWhenStrike(falledPin);
         }
-        System.out.println(falledPins);
         return createResult(falledPins);
     }
 
@@ -24,7 +23,7 @@ public class Bowling {
     List<String> createResult(List<Integer> falledPins) {
         List<String> result = new ArrayList<>();
         int offsetOfFrame = 0;
-        while(offsetOfFrame < falledPins.size()) {
+        while (offsetOfFrame < falledPins.size()) {
             if (isTenFrame(offsetOfFrame)) {
                 result.add(createResultOf10(getTenFalledPins(falledPins, offsetOfFrame)));
                 offsetOfFrame += 3;
@@ -43,11 +42,11 @@ public class Bowling {
     private List<Integer> getTenFalledPins(List<Integer> falledPins, int offsetOfFrame) {
         return falledPins.subList(offsetOfFrame, falledPins.size());
     }
-    
+
     String createResultOf10(List<Integer> falledPinsOf10) {
         return createResultOf10(falledPinsOf10, 0);
     }
-    
+
     private String createResultOf10(List<Integer> falledPinsOf10, int offsetOfFrame) {
         if (falledPinsOf10.size() <= offsetOfFrame) {
             return "";
@@ -56,28 +55,28 @@ public class Bowling {
         if (offsetOfFrame == 2) {
             return status;
         }
-        
+
         if (status.equals("X")) {
             return status + createResultOf10(falledPinsOf10, offsetOfFrame + 1);
         }
-        
+
         if (falledPinsOf10.size() == 3) {
             return status + status(falledPinsOf10, 2);
         }
-        
+
         return status(falledPinsOf10, offsetOfFrame);
     }
-    
+
     private String status(List<Integer> falledPins, int offsetOfFrame) {
         if (falledPins.size() <= offsetOfFrame) {
             return "";
         }
-        
+
         int first = falledPins.get(offsetOfFrame);
         if (isStrike(first)) {
             return "X";
         }
-        
+
         int nextOffset = offsetOfFrame + 1;
         if (nextOffset < falledPins.size()) {
             int second = falledPins.get(nextOffset);
@@ -86,7 +85,7 @@ public class Bowling {
             }
             return first + "" + second;
         }
-        
+
         return first + "";
     }
 
