@@ -7,44 +7,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Frames {
-
+	List<Frame> frames = new ArrayList<>();
 	
-	private static final Logger log = LoggerFactory.getLogger(Frames.class);
-
-	List<Frame2> frames = new ArrayList<>();
 	public Frames() {
 		frames.add(new NormalFrame());
 	}
 	
 	public int getFrameNo() {
-		if(lastFrame().hasNext()) {
+		if(!lastFrame().isEnd()) {
 			return frames.size();
 		}
 		return frames.size() + 1;
 	}
 	
-	public List<Frame2> play(int pin) {
-		Frame2 frame = setUpFrame();
+	public List<Frame> play(int pin) {
+		Frame frame = setUpFrame();
 		frame.play(pin);
 		return frames;
 	}
 	
-	private Frame2 setUpFrame() {
-		Frame2 frame = lastFrame();
-		if(frames.size() < 9 && !frame.hasNext()) {
-			frames.add(new NormalFrame());
-		}else if(frames.size() == 9 && !frame.hasNext()) {
-			frames.add(new TenFrame());
+	private Frame setUpFrame() {
+		Frame frame = lastFrame();
+		if(frame.isEnd()) {
+			addFrame(frames.size());
 		}
 		return lastFrame();
 	}
 	
-	private Frame2 lastFrame() {
+	private void addFrame(int framesSize) {
+		if(framesSize < 9) {
+			frames.add(new NormalFrame());
+			return;
+		}
+		frames.add(new TenFrame());
+	}
+	
+	private Frame lastFrame() {
 		return frames.get(frames.size()-1);
 	}
 	
 	public boolean isEnd() {
-		Frame2 frame = lastFrame();
-		return frames.size() == 10 &&  !frame.hasNext(); 
+		Frame frame = lastFrame();
+		return frames.size() == 10 &&  frame.isEnd(); 
 	}
 }

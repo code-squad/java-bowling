@@ -26,7 +26,7 @@ public class TenFrameTest {
 		assertThat(frame.getStatus()).isEqualTo("X|X");
 	}
 	@Test
-	public void 텐프레임_프레임_XXX() {
+	public void 텐프레임_XXX() {
 		frame.play(10);
 		frame.play(10);
 		frame.play(10);
@@ -72,27 +72,28 @@ public class TenFrameTest {
 		frame.play(8);
 		assertThat(frame.getStatus()).isEqualTo("2|/");
 	}
+
 	@Test
 	public void 미스_끝내기() {
 		frame.play(2);
 		frame.play(3);
-		assertThat(frame.hasNext()).isEqualTo(false);
+		assertThat(frame.isEnd()).isEqualTo(true);
 	}
 	@Test
 	public void 스페어_끝내기() {
 		frame.play(2);
 		frame.play(8);
-		assertThat(frame.hasNext()).isEqualTo(true);
+		assertThat(frame.isEnd()).isEqualTo(false);
 		frame.play(8);
-		assertThat(frame.hasNext()).isEqualTo(false);
+		assertThat(frame.isEnd()).isEqualTo(true);
 	}
 	@Test
 	public void 스트라이크_끝내기() {
 		frame.play(10);
-		assertThat(frame.hasNext()).isEqualTo(true);
+		assertThat(frame.isEnd()).isEqualTo(false);
 		frame.play(2);
-		assertThat(frame.hasNext()).isEqualTo(true);
+		assertThat(frame.isEnd()).isEqualTo(false);
 		frame.play(8);
-		assertThat(frame.hasNext()).isEqualTo(false);
+		assertThat(frame.isEnd()).isEqualTo(true);
 	}
 }

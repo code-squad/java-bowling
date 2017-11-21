@@ -20,6 +20,7 @@ public class NormalFrameTest {
 	
 	@Test
 	public void 투구1() {
+		//play 한 번 돌았기 때문에 tryNo != 1 이라 그 부분을 안 탐
 		assertThat(frame.getStatus()).isEqualTo("2");
 	}
 

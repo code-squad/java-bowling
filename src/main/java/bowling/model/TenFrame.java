@@ -1,22 +1,16 @@
 package bowling.model;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TenFrame extends Frame2 {
+public class TenFrame extends Frame {
 
-	private int noOne;
-	private int noTwo;
-//	private int noThree; //아직 안 씀
+	private int noOne = -1;
+	private int noTwo = -1;
+	private int noThree = -1;
 	
 	private static final Logger log = LoggerFactory.getLogger(TenFrame.class);
-
 	
-	public String getStatus() {
-		return status;
-	}
 	public void play(int pin) {
 		if (tryNo == 1) {
 			tryOne(pin);
@@ -29,54 +23,45 @@ public class TenFrame extends Frame2 {
 	}
 	
 	private void tryOne(int pin) {
-		noOne = pin;
 		addTryNo();
-		if (isStrike(noOne)) {
-			status = "X";
-			return;
-		} 
-		status = makeStatus(noOne);
+		noOne = pin;
 	}
 	
 	private void tryTwo(int pin) {
 		addTryNo();
 		noTwo = pin;
-		if(isStrike(noOne) && isStrike(noTwo)) {
-			addStrike();
-			return;
-		} else if (!isStrike(noOne) && isSpare(noOne, noTwo)) {
-			addSpare();
-			return;
-		} else if (!isStrike(noOne) && isMiss(noOne,noTwo)) {
-			quit();
-		} 
-		addMiss(pin);
-	}
-	
-	private void quit() {
-		tryNo = 4;
 	}
 	
 	private void tryThree(int pin) {
-		quit();
-		if (isStrike(pin)) {
-			addStrike();
-			return;
-		} else if(isStrike(noOne) && isSpare(noTwo, pin)) {
-			addSpare();
-			return;
+		noThree = pin;
+	}
+	
+	private boolean isNotBlank(int no) {
+		return no >= 0;
+	}
+	
+	boolean isEnd() {
+		if(isNotBlank(noTwo) && !isNotBlank(noThree)) {
+			return noOne + noTwo < 10;
+		} else if (isNotBlank(noThree)) {
+			return true;
 		}
-		addMiss(pin);
-	}
-
-	
-	private void addStrike() {
-		status += "|X";
+		return false;
 	}
 	
-	public boolean hasNext() {
-		return tryNo < 4;
+	private String addStatus(String status) {
+		if(isStrike(noOne) && isSpare(noTwo, noThree)) {
+			return status + "|/";
+		}
+		return status + "|" + makeStatus(noThree);
 	}
 	
-
+	public String getStatus() {
+		if(isNotBlank(noTwo) && !isNotBlank(noThree)) {
+			return makeStatus(noOne, noTwo);
+		} else if(isNotBlank(noThree)) {
+			return addStatus(makeStatus(noOne, noTwo));
+		} 
+		return makeStatus(noOne);
+	}
 }

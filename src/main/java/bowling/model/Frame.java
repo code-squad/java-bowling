@@ -1,111 +1,63 @@
 package bowling.model;
 
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Frame {
+	private static final Logger log = LoggerFactory.getLogger(Frame.class);
+	int tryNo = 1;
 	
-	private boolean hasNext = true;
-	private int tryNo = 1;
-	private int frameNo = 1;
-	Pins pins = new Pins();
-	
-	public List<String> play(int pin) {
-		if(getFrameNo() < 10) {
-			return bowlNormal(pin);
-		}
-		return bowlTen(pin);
+	public String getStatus() {
+		return null;
 	}
 	
-	private List<String> bowlNormal(int pin) {
-		if (tryNo == 1) {
-			return normalFrameOneBall(pin);
-		}
-		return normalFrameTwoBall(pin);
+	public int getTryNo() {
+		return tryNo;
 	}
 	
-	private List<String> bowlTen(int pin) {
-		if (tryNo == 1) {
-			return tenFrameOneBall(pin);
-		} else if (tryNo == 2) {
-			return tenFrameTwoBall(pin);
-		} 
-		return tenFrameThreeBall(pin);
-	}
+	public void play(int pin) {}
 	
-	private List<String> normalFrameOneBall(int pin) {
-		pins.addPin(pin);
-		if (pin == 10) {
-			addFrame();
-			return pins.strike(pin);
-		} 
-		addBallNum();
-		return pins.noStrike(pin);
-	}
-	
-	private List<String> tenFrameOneBall(int pin) {
-		addBallNum();
-		pins.addPin(pin);
-		if (pin == 10) {
-			return pins.strike(pin);
-		} 
-		return pins.noStrike(pin);
-	}
-	
-	private List<String> normalFrameTwoBall(int pin) {
-		addFrame();
-		subtractBallNum();
-		pins.addPin(pin);
-		if (pins.isSpare(pin)) {
-			return pins.addSpare(pin);
-		}
-		return pins.addMiss(pin);
-	}
-	
-	private List<String> tenFrameTwoBall(int pin) {
-		addBallNum();
-		pins.addPin(pin);
-		if(pins.lastThrowedPins() + pin == 20) {
-			return pins.addStrike(pin);
-		} else if (pins.isSpare(pin)) {
-			return pins.addSpare(pin);
-		} else if (pins.isMiss(pin)) {
-			quit();
-		}
-		return pins.addMiss(pin);
-	}
-	
-	private List<String> tenFrameThreeBall(int pin) {
-		quit();
-		pins.addPin(pin);
-		if (pin == 10) {
-			return pins.addStrike(pin);
-		} else if("X".equals(pins.firstStatusOfThisFrame()) && pins.isSpare(pin)) {
-			return pins.addSpare(pin);
-		}
-		return pins.addMiss(pin);
-	}
-	
-	private void quit() {
-		hasNext = false;
+	boolean isSpare(int lastPin, int pin) {
+		return lastPin + pin == 10;
 	}
 
-	private void addFrame() {
-		frameNo++;
+	boolean isMiss(int lastPin, int pin) {
+		return lastPin + pin < 10;
 	}
-
-	private void addBallNum() {
+	
+	boolean isStrike(int pin) {
+		return pin == 10;
+	}
+	
+	String makeSpare(int noOne) {
+		 return makeStatus(noOne) + "|/";
+	}
+	
+	String makeMiss(int noOne, int noTwo) {
+		return makeStatus(noOne) + "|" + makeStatus(noTwo);
+	}
+	
+	void addTryNo() {
 		tryNo++;
 	}
 
-	private void subtractBallNum() {
-		tryNo--;
+	String makeStatus(int noOne) {
+		if (isStrike(noOne)) {
+			return "X";
+		} else if (noOne == 0) {
+			return "-";
+		}
+		return String.valueOf(noOne);
 	}
 	
-	public boolean hasNext() {
-		return hasNext;
+	String makeStatus(int noOne, int noTwo) {
+		if(isSpare(noOne, noTwo)) {
+			return makeSpare(noOne);
+		}
+		return makeMiss(noOne, noTwo);
 	}
 	
-	public int getFrameNo() {
-		return frameNo;
+	boolean isEnd() {
+		return true;
 	}
 }
