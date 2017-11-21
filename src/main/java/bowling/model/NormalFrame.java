@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NormalFrame extends Frame {
-
 	private int noOne = -1;
 	private int noTwo = -1;
 
@@ -16,11 +15,6 @@ public class NormalFrame extends Frame {
 			return;
 		}
 		tryTwo(pin);
-	}
-
-	@Override
-	public String toString() {
-		return "NormalFrame [noOne=" + noOne + ", noTwo=" + noTwo + "]";
 	}
 
 	private void tryOne(int pin) {
@@ -41,14 +35,15 @@ public class NormalFrame extends Frame {
 		return makeStatus(noOne, noTwo);
 	}
 
-	private boolean isNotBlank(int no) {
-		return no >= 0;
-	}
-
 	boolean isEnd() {
 		if (isStrike(noOne) || (isNotBlank(noOne) && isNotBlank(noTwo))) {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "NormalFrame [noOne=" + noOne + ", noTwo=" + noTwo + "]";
 	}
 }
