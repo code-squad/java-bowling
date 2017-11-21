@@ -10,7 +10,7 @@
 
 <!-- 자바 패키지별 log level을 설정한다. -->
 <!-- 패키지 설정. 그 안에 있는 걸 해당 레벨로 찍음. 개발은 debug로 하고 서버 올릴 때는 윗단계로 바꾸면 성능 이슈에 해결됨.  -->
-  <logger name="controller" level="DEBUG" />
+  <logger name="bowling.model" level="DEBUG" />
 
 <!-- 기본 log level을 설정한다. -->
   <root level="INFO">

@@ -2,6 +2,8 @@ package bowling.print;
 
 import java.util.List;
 
+import bowling.model.Frame2;
+
 public class ResultView {
 
 	//util로 빼야할까?
@@ -22,6 +24,15 @@ public class ResultView {
 			System.out.printf("%-5s|", mark);
 		}
 		blank(10 - marks.size());
+	}
+	
+	public void status2(List<Frame2> frames, String name) {
+		frame();
+		name(name);
+		for (Frame2 frame : frames) {
+			System.out.printf("%-5s|", frame.getStatus());
+		}
+		blank(10 - frames.size());
 	}
 
 	private void frame() {
