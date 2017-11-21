@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 public class TenFrame extends Frame {
 	private static final Logger log = LoggerFactory.getLogger(TenFrame.class);
-	private int noOne = -1;
-	private int noTwo = -1;
-	private int noThree = -1;
+	private int pinNo1 = -1;
+	private int pinNo2 = -1;
+	private int pinNo3 = -1;
 	
 	public void play(int pin) {
 		if (tryNo == 1) {
@@ -22,40 +22,40 @@ public class TenFrame extends Frame {
 	
 	private void tryOne(int pin) {
 		addTryNo();
-		noOne = pin;
+		pinNo1 = pin;
 	}
 	
 	private void tryTwo(int pin) {
 		addTryNo();
-		noTwo = pin;
+		pinNo2 = pin;
 	}
 	
 	private void tryThree(int pin) {
-		noThree = pin;
+		pinNo3 = pin;
 	}
 	
 	boolean isEnd() {
-		if(isNotBlank(noTwo) && !isNotBlank(noThree)) {
-			return noOne + noTwo < 10;
-		} else if (isNotBlank(noThree)) {
+		if(isNotBlank(pinNo2) && !isNotBlank(pinNo3)) {
+			return pinNo1 + pinNo2 < 10;
+		} else if (isNotBlank(pinNo3)) {
 			return true;
 		}
 		return false;
 	}
 	
 	private String addStatus(String status) {
-		if(isStrike(noOne) && isSpare(noTwo, noThree)) {
+		if(isStrike(pinNo1) && isSpare(pinNo2, pinNo3)) {
 			return status + "|/";
 		}
-		return status + "|" + makeStatus(noThree);
+		return status + "|" + makeStatus(pinNo3);
 	}
 	
 	public String getStatus() {
-		if(isNotBlank(noTwo) && !isNotBlank(noThree)) {
-			return makeStatus(noOne, noTwo);
-		} else if(isNotBlank(noThree)) {
-			return addStatus(makeStatus(noOne, noTwo));
+		if(isNotBlank(pinNo2) && !isNotBlank(pinNo3)) {
+			return makeStatus(pinNo1, pinNo2);
+		} else if(isNotBlank(pinNo3)) {
+			return addStatus(makeStatus(pinNo1, pinNo2));
 		} 
-		return makeStatus(noOne);
+		return makeStatus(pinNo1);
 	}
 }

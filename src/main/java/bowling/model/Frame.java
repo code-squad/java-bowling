@@ -26,42 +26,42 @@ public abstract class Frame {
 	static boolean isStrike(int pin) {
 		return pin == 10;
 	}
-	//리뷰: 인자명 일관성 없음
-	String makeSpare(int noOne) {
-		 return makeStatus(noOne) + "|/";
+
+	String makeSpare(int pin) {
+		 return makeStatus(pin) + "|/";
 	}
 	//리뷰: 변수명 무슨 뜻인지 모르겠음
-	String makeMiss(int noOne, int noTwo) {
-		return makeStatus(noOne) + "|" + makeStatus(noTwo);
+	String makeMiss(int lastPin, int pin) {
+		return makeStatus(lastPin) + "|" + makeStatus(pin);
 	}
 	
 	void addTryNo() {
 		tryNo++;
 	}
 
-	String makeStatus(int noOne) {
-		if (isStrike(noOne)) {
+	String makeStatus(int pin) {
+		if (isStrike(pin)) {
 			return "X";
 		}
-		return pinToStatus(noOne);
+		return pinToStatus(pin);
 	}
 	
-	String pinToStatus(int noOne) {
-		if (noOne == 0) {
+	String pinToStatus(int pin) {
+		if (pin == 0) {
 			return "-";
 		}
-		return String.valueOf(noOne);
+		return String.valueOf(pin);
 	}
 	
-	String makeStatus(int noOne, int noTwo) {
-		if(isSpare(noOne, noTwo)) {
-			return makeSpare(noOne);
+	String makeStatus(int lastPin, int pin) {
+		if(isSpare(lastPin, pin)) {
+			return makeSpare(lastPin);
 		}
-		return makeMiss(noOne, noTwo);
+		return makeMiss(lastPin, pin);
 	}
 	
-	boolean isNotBlank(int no) {
-		return no >= 0;
+	boolean isNotBlank(int pin) {
+		return pin == 0;
 	}
 	
 	abstract boolean isEnd();
