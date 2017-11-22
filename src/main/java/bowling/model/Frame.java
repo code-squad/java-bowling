@@ -15,12 +15,12 @@ public abstract class Frame {
 	
 	abstract public void play(int pin);
 	//왜 구지 static? 
-	static boolean isSpare(int lastPin, int pin) {
-		return lastPin + pin == 10;
+	static boolean isSpare(int previousPin, int pin) {
+		return previousPin + pin == 10;
 	}
 
-	static boolean isMiss(int lastPin, int pin) {
-		return lastPin + pin < 10;
+	static boolean isMiss(int previousPin, int pin) {
+		return previousPin + pin < 10;
 	}
 	
 	static boolean isStrike(int pin) {
@@ -30,9 +30,9 @@ public abstract class Frame {
 	String makeSpare(int pin) {
 		 return makeStatus(pin) + "|/";
 	}
-	//리뷰: 변수명 무슨 뜻인지 모르겠음
-	String makeMiss(int lastPin, int pin) {
-		return makeStatus(lastPin) + "|" + makeStatus(pin);
+
+	String makeMiss(int previousPin, int pin) {
+		return makeStatus(previousPin) + "|" + makeStatus(pin);
 	}
 	
 	void addTryNo() {
@@ -53,11 +53,11 @@ public abstract class Frame {
 		return String.valueOf(pin);
 	}
 	
-	String makeStatus(int lastPin, int pin) {
-		if(isSpare(lastPin, pin)) {
-			return makeSpare(lastPin);
+	String makeStatus(int previousPin, int pin) {
+		if(isSpare(previousPin, pin)) {
+			return makeSpare(previousPin);
 		}
-		return makeMiss(lastPin, pin);
+		return makeMiss(previousPin, pin);
 	}
 	
 	boolean isNotBlank(int pin) {

@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NormalFrame extends Frame {
-	private int pinNo1 = -1;
-	private int pinNo2 = -1;
+	private int pin1 = -1;
+	private int pin2 = -1;
 
 	public void play(int pin) {
 		if (tryNo == 1) {
@@ -18,25 +18,25 @@ public class NormalFrame extends Frame {
 	}
 
 	private void tryOne(int pin) {
-		pinNo1 = pin;
-		if (!isStrike(pinNo1)) {
+		pin1 = pin;
+		if (!isStrike(pin1)) {
 			addTryNo();
 		}
 	}
 
 	private void tryTwo(int pin) {
-		pinNo2 = pin;
+		pin2 = pin;
 	}
 
 	public String getStatus() {
-		if (!isNotBlank(pinNo2)) {
-			return makeStatus(pinNo1);
+		if (!isNotBlank(pin2)) {
+			return makeStatus(pin1);
 		}
-		return makeStatus(pinNo1, pinNo2);
+		return makeStatus(pin1, pin2);
 	}
 
 	boolean isEnd() {
-		if (isStrike(pinNo1) || (isNotBlank(pinNo1) && isNotBlank(pinNo2))) {
+		if (isStrike(pin1) || (isNotBlank(pin1) && isNotBlank(pin2))) {
 			return true;
 		}
 		return false;
@@ -44,6 +44,6 @@ public class NormalFrame extends Frame {
 	
 	@Override
 	public String toString() {
-		return "NormalFrame [pinNo1=" + pinNo1 + ", pinNo2=" + pinNo2 + "]";
+		return "NormalFrame [pin1=" + pin1 + ", pin2=" + pin2 + "]";
 	}
 }
