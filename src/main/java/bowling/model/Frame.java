@@ -61,7 +61,7 @@ public abstract class Frame {
 	}
 	
 	boolean isNotBlank(int pin) {
-		return pin == 0;
+		return pin >= 0;
 	}
 	
 	abstract boolean isEnd();
