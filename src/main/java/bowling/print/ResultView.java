@@ -5,7 +5,7 @@ import java.util.List;
 import bowling.model.Frame;
 
 public class ResultView {
-//util로 뺄게 있을까?
+
 	private void blank(int count) {
 		for (int i = 0; i < count; i++) {
 			System.out.printf("%5s|", "");

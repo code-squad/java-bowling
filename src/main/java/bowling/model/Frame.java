@@ -14,7 +14,7 @@ public abstract class Frame {
 	}
 	
 	abstract public void play(int pin);
-	//왜 구지 static? 
+
 	static boolean isSpare(int previousPin, int pin) {
 		return previousPin + pin == 10;
 	}

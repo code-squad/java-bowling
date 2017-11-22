@@ -3,7 +3,6 @@ package bowling.print;
 import java.util.Scanner;
 
 public class InputView {
-
 	Scanner sc = null;
 	
 	public InputView(Scanner sc) {
