@@ -3,11 +3,8 @@ package bowling.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Frames {
-	List<Frame> frames = new ArrayList<>();
+	private List<Frame> frames = new ArrayList<>();
 	
 	public Frames() {
 		frames.add(new NormalFrame());

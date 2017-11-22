@@ -1,16 +1,11 @@
 package bowling.model;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class NormalFrame extends Frame {
 	private int pin1 = -1;
 	private int pin2 = -1;
 
 	public void play(int pin) {
-		if (tryNo == 1) {
+		if (checkTryNo(1)) {
 			tryOne(pin);
 			return;
 		}
@@ -35,7 +30,7 @@ public class NormalFrame extends Frame {
 		return makeStatus(pin1, pin2);
 	}
 
-	boolean isEnd() {
+	public boolean isEnd() {
 		if (isStrike(pin1) || (isNotBlank(pin1) && isNotBlank(pin2))) {
 			return true;
 		}

@@ -1,19 +1,19 @@
 package bowling.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 public class TenFrame extends Frame {
-	private static final Logger log = LoggerFactory.getLogger(TenFrame.class);
+	//private static final Logger log = LoggerFactory.getLogger(TenFrame.class);
 	private int pin1 = -1;
 	private int pin2 = -1;
 	private int pin3 = -1;
 	
 	public void play(int pin) {
-		if (tryNo == 1) {
+		if (checkTryNo(1)) {
 			tryOne(pin);
 			return;
-		} else if (tryNo == 2) {
+		} else if (checkTryNo(2)) {
 			tryTwo(pin);
 			return;
 		} 
@@ -34,7 +34,7 @@ public class TenFrame extends Frame {
 		pin3 = pin;
 	}
 	
-	boolean isEnd() {
+	public boolean isEnd() {
 		if(isNotBlank(pin2) && !isNotBlank(pin3)) {
 			return pin1 + pin2 < 10;
 		} else if (isNotBlank(pin3)) {
