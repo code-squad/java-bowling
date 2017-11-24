@@ -14,16 +14,21 @@ public class Bowling {
 	}
 	
 	public List<Frame> roll(int falledPin) {
-		falledPins.add(falledPin);
-		int[] falledPinsArray = falledPins.stream().mapToInt(i -> i).toArray();
-		if(falledPins.size() > 2 || falledPin == 10) {
-			falledPins.removeAll(falledPins);
-		}
+		int[] falledPinsArray = createFalledPinsArray(falledPin);
 		// 맨처음 프레임 생성.
 		if(frames.size() == 0) {
 			return createFirstFrame(falledPinsArray);
 		}
 		return createFrames(falledPinsArray, count);
+	}
+
+	public int[] createFalledPinsArray(int falledPin) {
+		falledPins.add(falledPin);
+		int[] falledPinsArray = falledPins.stream().mapToInt(i -> i).toArray();
+		if(falledPins.size() >= 2 || falledPin == 10) {
+			falledPins.removeAll(falledPins);
+		}
+		return falledPinsArray;
 	}
 	public List<Frame> createFirstFrame(int[] falledPinsArray) {// 첫번째 프레임 생성.
 		// 점수 생성.
@@ -56,5 +61,10 @@ public class Bowling {
 	public List<Frame> getFrames() {
 		return frames;
 	}
+
+	public List<Integer> getFalledPins() {
+		return falledPins;
+	}
+	
 
 }

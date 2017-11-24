@@ -69,10 +69,28 @@ public class BowlingTest {
 
 	}
 	@Test
+	public void createFalledPinsArray_테스() throws Exception {
+		int falledPin = 10;
+		int[] falledPinsArray = bowling.createFalledPinsArray(falledPin);
+		assertTrue(bowling.getFalledPins().size() == 0);
+		
+		int falledPin1 = 9;
+		int[] falledPinsArray1 = bowling.createFalledPinsArray(falledPin1);
+		int falledPin2 = 1;
+		int[] falledPinsArray2 = bowling.createFalledPinsArray(falledPin2);
+		assertTrue(bowling.getFalledPins().size() == 0);
+	}
+	@Test
 	public void 프레임생성테스트() throws Exception {
 		int[] falledPinsArray = {10};
-		bowling.createFrames(falledPinsArray, Bowling.count);
-		assertEquals("X", firstFrame.getScore().getResult());
+		List<Frame> frames = bowling.createFirstFrame(falledPinsArray);
+		assertEquals("X", frames.get(0).getScore().getResult());
+		assertTrue(frames.size() == 1);
+		
+		int[] falledPinsArray = 
+		frames = bowling.createFrames(falledPinsArray, Bowling.count);
+		assertEquals("X", frames.get(0).getScore().getResult());
+		
 	}
 	
 	
