@@ -25,7 +25,7 @@ public class Main {
 			// List<Frame> to List<String>
 			List<String> scores = frames.stream().map(s -> s.getScore().getResult()).collect(Collectors.toList());
 			ResultView.printGame(frames.size(), iv.getFalledPin(), usrId, scores);
-		} while(bowling.getFrames().size() < 11);
+		} while(bowling.getFrames().size() < 9);
 	}
 }	
 	

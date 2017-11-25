@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import model.Bowling;
 import model.Frame;
+import model.Score;
 
 public class BowlingTest {
 	Bowling bowling;
@@ -87,10 +88,15 @@ public class BowlingTest {
 		assertEquals("X", frames.get(0).getScore().getResult());
 		assertTrue(frames.size() == 1);
 		
-		int[] falledPinsArray = 
-		frames = bowling.createFrames(falledPinsArray, Bowling.count);
 		assertEquals("X", frames.get(0).getScore().getResult());
 		
+	}
+	@Test
+	public void 열번째프레임테스트() throws Exception {
+	
+		int[] falledPinsArray = {10};
+		List<Frame> frames = bowling.createTenthFrame(falledPinsArray);
+		assertEquals("X", frames.get(9));
 	}
 	
 	
