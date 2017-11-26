@@ -1,33 +1,276 @@
 package controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
-import dto.InputValue;
-import model.Bowling;
-import model.Frame;
-import model.Score;
-import view.InputView;
-import view.ResultView;
 
 public class Main {
-	
+	private static Scanner sc = new Scanner(System.in);
+	private List<Integer> falledPins = new ArrayList<>();
+	private List<Integer> falledPinsFor10thFrame = new ArrayList<>();
+	public Map<Integer, String> currFrame = new HashMap<>();
+	public static int frameNum = 1;
+	List<Map<Integer, String>> frames = new ArrayList<>();
+
 	public static void main(String[] args) {
-		InputValue iv = InputView.getUserId();
-		String usrId = iv.getUsrId();
-		ResultView.printBlank(usrId);
-		Bowling bowling = new Bowling();
-		
+		String playerName = getPlayerName();
+		printBlankTable(playerName);
+		Main main = new Main();
+		while (main.getFrames().size() < 9) {
+			printFrameNum();
+			int falledPin = getFalledPin();
+			main.createNextFrameOrNot(falledPin);
+			printStatus(playerName, main);
+		}
 		do {
-			iv = InputView.getFalledPin(bowling.getFrames().size()+1);
-			List<Frame> frames = bowling.roll(iv.getFalledPin());
-			// List<Frame> to List<String>
-			List<String> scores = frames.stream().map(s -> s.getScore().getResult()).collect(Collectors.toList());
-			ResultView.printGame(frames.size(), iv.getFalledPin(), usrId, scores);
-		} while(bowling.getFrames().size() < 9);
+			printFrameNum();
+			int falledPin = getFalledPin();
+			main.createTenthFrame(falledPin);
+			printStatus(playerName, main);
+		} while(Main.frameNum < 11);
 	}
-}	
+
+	public static void printStatus(String playerName, Main main) {
+		printFirstLine();
+		String secondLine = "|   " + playerName + "  |";
+		for (int i = 1; i < main.frames.size() + 1; i++) {
+			secondLine += "   " + main.frames.get(i - 1).get(i) + "   |";
+		}
+		for (int j = main.frames.size() + 1; j < 11; j++) {
+			secondLine += "      |";
+		}
+		System.out.println(secondLine);
+	}
+
+	public static String getPlayerName() {
+		System.out.print("플레이어 이름은(3 english letters)?:");
+		return sc.next();
+	}
+
+	public static void printBlankTable(String playerName) {
+		printFirstLine();
+		printBlankSecondLine(playerName);
+	}
+
+	private static void printBlankSecondLine(String playerName) {
+		String secondLine = "|   " + playerName + "  |";
+		for (int i = 1; i < 11; i++) {
+			secondLine += "      |";
+		}
+		System.out.println(secondLine);
+	}
+
+	private static void printFirstLine() {
+		DecimalFormat twodigits = new DecimalFormat("00");
+		String firstLine = "|  NAME  |";
+		for (int i = 1; i < 11; i++) {
+			firstLine += "  " + twodigits.format(i) + "  |";
+		}
+		System.out.println(firstLine);
+	}
+
+	public static void printFrameNum() {
+		System.out.print(Main.frameNum + "프레임 투구 : ");
+	}
+
+	public static int getFalledPin() {
+		return sc.nextInt();
+	}
+
+	// 한번의 투구에 대한 status 생성하는 메소드.
+	public boolean isStrike(int falledPin) {
+		if (falledPin == 10) {
+			return true;
+		}
+		return false;
+	}
+
+	// 한 프레임에 대한 status 생성.
+	public String createStatus(int falledPin) {
+		falledPins.add(falledPin);
+		if (isFirstPitch()) {
+			return createFirstStatus(falledPin);
+		}
+		int firstPitch = falledPins.get(0);
+		int secondPitch = falledPins.get(1);
+		// falledPins reset
+		if (falledPins.size() >= 2) {
+			falledPins.clear();
+		}
+		// 두번째 투구일때. spare나 미스인경우.
+		return createSecondStatus(firstPitch, secondPitch);
+	}
+
+	private String createSecondStatus(int firstPitch, int secondPitch) {
+		if (isSpare(firstPitch, secondPitch)) {
+			return firstPitch + "|/";
+		}
+		if (secondPitch == 0) {
+			return firstPitch + "|-";
+		}
+		return firstPitch + "|" + secondPitch;
+	}
+
+	private String createFirstStatus(int falledPin) {
+		if (isStrike(falledPin)) {
+			falledPins.clear();
+			return "X";
+		}
+		return falledPin + "";
+	}
+
+	public boolean isFirstPitch() {
+		if (falledPins.size() == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isSpare(int firstPitch, int secondPitch) {
+		if (firstPitch + secondPitch == 10) {
+			return true;
+		}
+		return false;
+	}
+
+	// generalization.
+	public List<Map<Integer, String>> createNextFrameOrNot(int falledPin) {
+		if (this.falledPins.size() == 0) {// 전 프레임이 꽉 찬 경우.
+			return createNextFrame(falledPin);
+		}
+		return replaceCurrFrame(falledPin);
+	}
+
+	private List<Map<Integer, String>> replaceCurrFrame(int falledPin) {
+		String status = createStatus(falledPin);
+		Map<Integer, String> frame = setCurrFrame(falledPin, status);
+		frames.set(frames.size() - 1, frame);
+		Main.frameNum++;
+		return frames;
+	}
+
+	private List<Map<Integer, String>> createNextFrame(int falledPin) {// 전 프레임이 꽉 찬 경우.
+		String status = createStatus(falledPin);
+		Map<Integer, String> newFrame = setCurrFrame(falledPin, status);
+		frames.add(frames.size(), newFrame);
+		if (this.falledPins.size() == 0) {
+			Main.frameNum++;
+			return frames;
+		}
+		return frames;
+	}
+
+	private Map<Integer, String> setCurrFrame(int falledPin, String status) {
+		Map<Integer, String> newFrame = new HashMap<>();
+		newFrame.put(Main.frameNum, status);
+		this.currFrame = newFrame;
+		return newFrame;
+	}
+
+	public List<Map<Integer, String>> createTenthFrame(int falledPin){
+		// 점수 생성.
+		falledPinsFor10thFrame.add(falledPin);
+		int[] pins = falledPinsFor10thFrame.stream().mapToInt(s -> s).toArray();
+		String status = createStatusFor10thFrame(pins);
+		Map<Integer, String> tenthFrame = create10thFrame(status);
+		if(falledPinsFor10thFrame.size() >= 3 || status == "X" + "X") {
+			falledPinsFor10thFrame.clear();
+			Main.frameNum++;
+		}
+		if(this.getFrames().size() != 10) {
+			frames.add(this.getFrames().size(), tenthFrame);
+			return frames;
+		}
+		frames.set(this.getFrames().size()-1, tenthFrame);
+//		this.currFrame = tenthFrame;
+		return frames;	
+	}
+	
+	public Map<Integer, String> create10thFrame(String status){
+		Map<Integer, String> tenthFrame = new HashMap<>();
+		tenthFrame.put(Main.frameNum, status);
+		return tenthFrame;
+	}
 	
 
+	public String createStatusFor10thFrame(int... pins) {
+		String status = "";
+		if (pins.length == 1) {
+			return createFirstStatus(pins[0]);
+		}
+		if (pins.length == 2) {
+			if (pins[0] == 10) {
+				if (pins[1] == 10) {
+					return "X" + "X";
+				}
+				return "X" + createFirstStatus(pins[1]);
+			}
+			return createSecondStatus(pins[0], pins[1]);
+		}
+		if (pins[0] == 10) {
+			return "X" + createSecondStatus(pins[1], pins[2]);
+		}
+		status = createSecondStatus(pins[0], pins[1]) + createFirstStatus(pins[2]);
+		return status;
 
+	}
+//	public String ifIsStrike(int... pins){
+//		if(pins.length == 1) {
+//			return createFirstStatus(pins[0]);
+//		}
+//		if(!isStrike(pins[0])) {// strike 아닐때.
+//			return ifIsSpare(pins[1]);
+//		}
+//		return ifIsStrike(pins[1]);
+//	}
+//	public String ifIsStrike1(int... pins){
+//		if(isStrike(pins[0])) {
+//			return "X";
+//		}
+//		if(!isStrike(pins[0])) {// strike 아닐때.
+//			return ifIsSpare(pins[1]);
+//		}
+//		return ifIsStrike(pins[1]);
+//	}
+//	
+//	public String ifIsSpare(int... pins) {
+//		if(!isSpare(falledPins.get(0), falledPins.get(1))) { // spare 아닐때.
+//			String status = createSecondStatus(falledPins.get(0), falledPins.get(1));
+//			return status;
+//		}
+//		return ifIsStrike(pins[1]);
+//	}
+
+	public List<Map<Integer, String>> getFrames() {
+		return frames;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((currFrame == null) ? 0 : currFrame.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Main other = (Main) obj;
+		if (currFrame == null) {
+			if (other.currFrame != null)
+				return false;
+		} else if (!currFrame.equals(other.currFrame))
+			return false;
+		return true;
+	}
+
+}

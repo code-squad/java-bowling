@@ -91,14 +91,5 @@ public class BowlingTest {
 		assertEquals("X", frames.get(0).getScore().getResult());
 		
 	}
-	@Test
-	public void 열번째프레임테스트() throws Exception {
-	
-		int[] falledPinsArray = {10};
-		List<Frame> frames = bowling.createTenthFrame(falledPinsArray);
-		assertEquals("X", frames.get(9));
-	}
-	
-	
-	
+
 }
