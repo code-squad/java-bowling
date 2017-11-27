@@ -1,11 +1,13 @@
 package controller;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import view.InputView;
+import view.ResultView;
 
 public class Main {
 	private static Scanner sc = new Scanner(System.in);
@@ -16,60 +18,22 @@ public class Main {
 	List<Map<Integer, String>> frames = new ArrayList<>();
 
 	public static void main(String[] args) {
-		String playerName = getPlayerName();
-		printBlankTable(playerName);
+		String playerName = InputView.getPlayerName(sc);
+		ResultView.printBlankTable(playerName);
 		Main main = new Main();
 		while (main.getFrames().size() < 9) {
 			printFrameNum();
 			int falledPin = getFalledPin();
 			main.createNextFrameOrNot(falledPin);
-			printStatus(playerName, main);
+			ResultView.printStatus(playerName, main);
 		}
 		do {
 			printFrameNum();
 			int falledPin = getFalledPin();
 			main.createTenthFrame(falledPin);
-			printStatus(playerName, main);
+			ResultView.printStatus(playerName, main);
 		} while(Main.frameNum < 11);
-	}
-
-	public static void printStatus(String playerName, Main main) {
-		printFirstLine();
-		String secondLine = "|   " + playerName + "  |";
-		for (int i = 1; i < main.frames.size() + 1; i++) {
-			secondLine += "   " + main.frames.get(i - 1).get(i) + "   |";
-		}
-		for (int j = main.frames.size() + 1; j < 11; j++) {
-			secondLine += "      |";
-		}
-		System.out.println(secondLine);
-	}
-
-	public static String getPlayerName() {
-		System.out.print("플레이어 이름은(3 english letters)?:");
-		return sc.next();
-	}
-
-	public static void printBlankTable(String playerName) {
-		printFirstLine();
-		printBlankSecondLine(playerName);
-	}
-
-	private static void printBlankSecondLine(String playerName) {
-		String secondLine = "|   " + playerName + "  |";
-		for (int i = 1; i < 11; i++) {
-			secondLine += "      |";
-		}
-		System.out.println(secondLine);
-	}
-
-	private static void printFirstLine() {
-		DecimalFormat twodigits = new DecimalFormat("00");
-		String firstLine = "|  NAME  |";
-		for (int i = 1; i < 11; i++) {
-			firstLine += "  " + twodigits.format(i) + "  |";
-		}
-		System.out.println(firstLine);
+		System.out.println("게임이 끝났습니다.");
 	}
 
 	public static void printFrameNum() {
@@ -185,7 +149,6 @@ public class Main {
 			return frames;
 		}
 		frames.set(this.getFrames().size()-1, tenthFrame);
-//		this.currFrame = tenthFrame;
 		return frames;	
 	}
 	
@@ -248,29 +211,29 @@ public class Main {
 		return frames;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((currFrame == null) ? 0 : currFrame.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Main other = (Main) obj;
-		if (currFrame == null) {
-			if (other.currFrame != null)
-				return false;
-		} else if (!currFrame.equals(other.currFrame))
-			return false;
-		return true;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((currFrame == null) ? 0 : currFrame.hashCode());
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Main other = (Main) obj;
+//		if (currFrame == null) {
+//			if (other.currFrame != null)
+//				return false;
+//		} else if (!currFrame.equals(other.currFrame))
+//			return false;
+//		return true;
+//	}
 
 }
