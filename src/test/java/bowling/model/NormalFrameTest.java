@@ -8,6 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.InvalidPinNumberException;
+
 public class NormalFrameTest {
 
 	NormalFrame frame;
@@ -44,5 +46,10 @@ public class NormalFrameTest {
 	public void 제로() {
 		frame.play(0);
 		assertThat(frame.getStatus()).isEqualTo("2|-");
+	}
+	
+	@Test(expected = InvalidPinNumberException.class)
+	public void 익셉션() {
+		frame.play(9);
 	}
 }

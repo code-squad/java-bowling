@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.InvalidPinNumberException;
+
 public class TenFrameTest {
 
 	TenFrame frame;
@@ -95,5 +97,32 @@ public class TenFrameTest {
 		assertThat(frame.isEnd()).isEqualTo(false);
 		frame.play(8);
 		assertThat(frame.isEnd()).isEqualTo(true);
+	}
+	
+	@Test(expected = InvalidPinNumberException.class)
+	public void 투구2_익셉션() {
+		frame.play(6);
+		frame.play(6);
+	}
+	
+	@Test
+	public void 투구2_익셉션_안남() {
+		frame.play(10);
+		frame.play(6);
+		assertThat(frame.getStatus()).isEqualTo("X|6");
+	}
+	
+	@Test(expected = InvalidPinNumberException.class)
+	public void 투구3_익셉션() {
+		frame.play(10);
+		frame.play(6);
+		frame.play(6);
+	}
+	@Test
+	public void 투구3_익셉션_안남() {
+		frame.play(10);
+		frame.play(6);
+		frame.play(4);
+		assertThat(frame.getStatus()).isEqualTo("X|6|/");
 	}
 }
