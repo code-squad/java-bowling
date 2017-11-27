@@ -23,13 +23,13 @@ public class Main {
 		Main main = new Main();
 		while (main.getFrames().size() < 9) {
 			printFrameNum();
-			int falledPin = getFalledPin();
+			int falledPin = InputView.getFalledPin(sc);
 			main.createNextFrameOrNot(falledPin);
 			ResultView.printStatus(playerName, main);
 		}
 		do {
 			printFrameNum();
-			int falledPin = getFalledPin();
+			int falledPin = InputView.getFalledPin(sc);
 			main.createTenthFrame(falledPin);
 			ResultView.printStatus(playerName, main);
 		} while(Main.frameNum < 11);
@@ -38,10 +38,6 @@ public class Main {
 
 	public static void printFrameNum() {
 		System.out.print(Main.frameNum + "프레임 투구 : ");
-	}
-
-	public static int getFalledPin() {
-		return sc.nextInt();
 	}
 
 	// 한번의 투구에 대한 status 생성하는 메소드.
@@ -180,6 +176,10 @@ public class Main {
 		return status;
 
 	}
+
+	public List<Map<Integer, String>> getFrames() {
+		return frames;
+	}
 //	public String ifIsStrike(int... pins){
 //		if(pins.length == 1) {
 //			return createFirstStatus(pins[0]);
@@ -205,35 +205,6 @@ public class Main {
 //			return status;
 //		}
 //		return ifIsStrike(pins[1]);
-//	}
-
-	public List<Map<Integer, String>> getFrames() {
-		return frames;
-	}
-
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((currFrame == null) ? 0 : currFrame.hashCode());
-//		return result;
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Main other = (Main) obj;
-//		if (currFrame == null) {
-//			if (other.currFrame != null)
-//				return false;
-//		} else if (!currFrame.equals(other.currFrame))
-//			return false;
-//		return true;
 //	}
 
 }
