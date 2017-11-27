@@ -17,15 +17,14 @@ public class BowlingGame {
 		game.play(input, print);
 		input.endConsole();
 	}
-	
+
 	public void play(InputView input, ResultView print) {
 		String name = input.getName();
 		Frames frames = new Frames();
 		print.status(new ArrayList<Frame>(), name);
-		while(!frames.isEnd()) {
+		while (!frames.isEnd()) {
 			print.status(frames.play(input.getThrowedPin(frames.getFrameNo())), name);
 		}
 	}
-	
 
 }

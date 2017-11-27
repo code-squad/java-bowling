@@ -20,12 +20,7 @@ public class NormalFrame extends Frame {
 	}
 
 	private void tryTwo(int pin) {
-		try {
-			checkSumOfPinsExceedTen(pin1, pin);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return;
-		}
+		checkSumOfPinsExceedTen(pin1, pin);// exception나면 어차피 아래코드 실행 안 됨
 		pin2 = pin;
 	}
 
@@ -42,7 +37,7 @@ public class NormalFrame extends Frame {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "NormalFrame [pin1=" + pin1 + ", pin2=" + pin2 + "]";

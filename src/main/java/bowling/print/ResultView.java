@@ -15,7 +15,7 @@ public class ResultView {
 	private void name(String name) {
 		System.out.printf("\n| %4s |", name);
 	}
-	
+
 	public void status(List<Frame> frames, String name) {
 		frame();
 		name(name);

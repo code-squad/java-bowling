@@ -29,17 +29,18 @@ public class InputView {
 		}
 		return pin;
 	}
+
 	public int getThrowedPin(int frameNum) {
-			try {
-				return inputThrowedPin(frameNum);
-			} catch (InputMismatchException ime) {
-				System.out.println("정수를 입력해주세요.");
-				sc.next(); //없으면 inputMismatchException 무한루프
-				return getThrowedPin(frameNum);
-			} catch (Exception e) {
-				System.out.println(e.getMessage()); //얜 무한루프 안 탐
-				return getThrowedPin(frameNum);
-			}
+		try {
+			return inputThrowedPin(frameNum);
+		} catch (InputMismatchException ime) {
+			System.out.println("정수를 입력해주세요.");
+			sc.next(); // 없으면 inputMismatchException 무한루프
+			return getThrowedPin(frameNum);
+		} catch (Exception e) {
+			System.out.println(e.getMessage()); // 얜 무한루프 안 탐
+			return getThrowedPin(frameNum);
+		}
 	}
 
 	public int inputThrowedPin(int frameNum) throws InputMismatchException {
