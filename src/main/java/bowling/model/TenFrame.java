@@ -26,11 +26,23 @@ public class TenFrame extends Frame {
 	}
 	
 	private void tryTwo(int pin) {
+		try {
+			checkSumOfPinsExceedTen(pin1, pin);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return;
+		}
 		addTryNo();
 		pin2 = pin;
 	}
 	
 	private void tryThree(int pin) {
+		try {
+			checkSumOfPinsExceedTen(pin1, pin2, pin);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return;
+		}
 		pin3 = pin;
 	}
 	

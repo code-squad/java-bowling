@@ -20,6 +20,12 @@ public class NormalFrame extends Frame {
 	}
 
 	private void tryTwo(int pin) {
+		try {
+			checkSumOfPinsExceedTen(pin1, pin);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return;
+		}
 		pin2 = pin;
 	}
 

@@ -1,5 +1,7 @@
 package bowling.model;
 
+import exception.InvalidPinNumberException;
+
 public abstract class Frame {
 	private int tryNo = 1;
 	
@@ -61,4 +63,16 @@ public abstract class Frame {
 	}
 	
 	public abstract boolean isEnd();
+	
+	protected void checkSumOfPinsExceedTen(int previousPin, int pin) {
+		if(previousPin != 10 && previousPin + pin > 10) {
+			throw new InvalidPinNumberException("투구의 합이 10을 초과할 수 없습니다.");
+		}
+	}
+
+	protected void checkSumOfPinsExceedTen(int pin1, int pin2, int pin3) {
+		if(pin1 == 10 && pin2 + pin3 > 10) {
+			throw new InvalidPinNumberException("투구의 합이 10을 초과할 수 없습니다.");
+		}
+	}
 }
