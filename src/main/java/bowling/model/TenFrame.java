@@ -2,9 +2,6 @@ package bowling.model;
 
 import exception.InvalidPinNumberException;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-
 public class TenFrame extends Frame {
 	private int pin1 = -1;
 	private int pin2 = -1;
@@ -20,21 +17,49 @@ public class TenFrame extends Frame {
 		}
 		tryThree(pin);
 	}
+	
+	public void play(int pin, Frame previousFrame) {
+		if (checkTryNo(1)) {
+			tryOne(pin, previousFrame);
+			return;
+		} else if (checkTryNo(2)) {
+			tryTwo(pin, previousFrame);
+			return;
+		}
+		tryThree(pin);
+	}
 
 	private void tryOne(int pin) {
 		addTryNo();
 		pin1 = pin;
 	}
 
+	private void tryOne(int pin, Frame previousFrame) {
+		tryOne(pin);
+		if(previousFrame.isSpare()) {
+			previousFrame.setSum(10+pin1);
+		}
+	}
+	
 	private void tryTwo(int pin) {
 		checkSumOfPinsExceedTen(pin1, pin);
 		addTryNo();
 		pin2 = pin;
+		if(isMiss(pin1, pin2)) {
+			setSum(pin1 + pin2);
+		}
+	}
+	private void tryTwo(int pin, Frame previousFrame) {
+		tryTwo(pin);
+		if(previousFrame.isStrike()) {
+			previousFrame.setSum(10+pin1+pin2);
+		}
 	}
 
 	private void tryThree(int pin) {
 		checkSumOfPinsExceedTen(pin1, pin2, pin);
 		pin3 = pin;
+		setSum(pin1 + pin2 + pin3);
 	}
 
 	public boolean isEnd() {
@@ -66,5 +91,17 @@ public class TenFrame extends Frame {
 		if (pin1 == 10 && pin2 != 10 && pin2 + pin3 > 10) {
 			throw new InvalidPinNumberException("투구의 합이 10을 초과할 수 없습니다.");
 		}
+	}
+	/************************ 합계용 **************************/	
+	public boolean isSpare() {
+		return pin1 + pin2 == 10;
+	}
+
+	public boolean isStrike() {
+		return pin1 == 10;
+	}
+
+	public void sumTwoStrike(Frame beforePreviousFrame) {
+		beforePreviousFrame.setSum(20+pin1);
 	}
 }

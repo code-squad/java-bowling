@@ -125,4 +125,52 @@ public class TenFrameTest {
 		frame.play(4);
 		assertThat(frame.getStatus()).isEqualTo("X|6|/");
 	}
+	
+	@Test
+	public void 미스_합계() {
+		frame = new TenFrame();
+		frame.play(1);
+		frame.play(2);
+		assertThat(frame.getSum()).isEqualTo(3);
+	}
+	@Test
+	public void 스페어_합계() {
+		Frame frame2 = new TenFrame();
+		frame2.play(3);
+		frame2.play(7);
+		frame2.play(7);
+		assertThat(frame2.getSum()).isEqualTo(17);
+	}
+	@Test
+	public void 스트라이크_미스_합계() {
+		Frame frame2 = new TenFrame();
+		frame2.play(10);
+		frame2.play(2);
+		frame2.play(3);
+		assertThat(frame2.getSum()).isEqualTo(15);
+	}
+	@Test
+	public void 스트라이크_스페어_합계() {
+		Frame frame2 = new TenFrame();
+		frame2.play(10);
+		frame2.play(4);
+		frame2.play(6);
+		assertThat(frame2.getSum()).isEqualTo(20);
+	}
+	@Test
+	public void 스트라이크2_합계() {
+		Frame frame2 = new TenFrame();
+		frame2.play(10);
+		frame2.play(10);
+		frame2.play(2);
+		assertThat(frame2.getSum()).isEqualTo(22);
+	}
+	@Test
+	public void 스트라이크3_합계() {
+		Frame frame2 = new TenFrame();
+		frame2.play(10);
+		frame2.play(10);
+		frame2.play(10);
+		assertThat(frame2.getSum()).isEqualTo(30);
+	}
 }

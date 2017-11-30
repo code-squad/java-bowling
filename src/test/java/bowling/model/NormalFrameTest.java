@@ -52,4 +52,38 @@ public class NormalFrameTest {
 	public void 익셉션() {
 		frame.play(9);
 	}
+	@Test
+	public void 미스_합계() {
+		frame = new NormalFrame();
+		frame.play(1);
+		frame.play(2);
+		assertThat(frame.getSum()).isEqualTo(3);
+	}
+	@Test
+	public void 스페어_합계() {
+		Frame frame1 = new NormalFrame();
+		Frame frame2 = new NormalFrame();
+		frame1.play(3);
+		frame1.play(7);
+		frame2.play(7, frame1);
+		assertThat(frame1.getSum()).isEqualTo(17);
+	}
+	@Test
+	public void 스트라이크_미스_합계() {
+		Frame frame1 = new NormalFrame();
+		Frame frame2 = new NormalFrame();
+		frame1.play(10);
+		frame2.play(2, frame1);
+		frame2.play(3, frame1);
+		assertThat(frame1.getSum()).isEqualTo(15);
+	}
+	@Test
+	public void 스트라이크_스페어_합계() {
+		Frame frame1 = new NormalFrame();
+		Frame frame2 = new NormalFrame();
+		frame1.play(10);
+		frame2.play(4, frame1);
+		frame2.play(6, frame1);
+		assertThat(frame1.getSum()).isEqualTo(20);
+	}
 }

@@ -4,13 +4,16 @@ import exception.InvalidPinNumberException;
 
 public abstract class Frame {
 	private int tryNo = 1;
-
+	private int sum = -1;
+	
 	abstract public String getStatus();
 
 	protected boolean checkTryNo(int no) {
 		return tryNo == no;
 	}
 
+	abstract public void play(int pin, Frame frame);
+	
 	abstract public void play(int pin);
 
 	protected static boolean isSpare(int previousPin, int pin) {
@@ -69,4 +72,19 @@ public abstract class Frame {
 			throw new InvalidPinNumberException("투구의 합이 10을 초과할 수 없습니다.");
 		}
 	}
+	
+	/************************ 합계용 **************************/	
+	abstract public boolean isSpare();
+
+	abstract public boolean isStrike();
+	
+	abstract public void sumTwoStrike(Frame beforePreviousFrame);
+	
+	public int getSum() {
+		return sum;
+	}
+
+	protected void setSum(int score) {
+		sum = score;
+	}	
 }

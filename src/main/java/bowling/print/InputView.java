@@ -3,9 +3,13 @@ package bowling.print;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import exception.InvalidPinNumberException;
 
 public class InputView {
+	private static final Logger log = LoggerFactory.getLogger(InputView.class);
 	private Scanner sc = null;
 
 	public InputView(Scanner sc) {
@@ -38,7 +42,7 @@ public class InputView {
 			sc.next(); // 없으면 inputMismatchException 무한루프
 			return getThrowedPin(frameNum);
 		} catch (Exception e) {
-			System.out.println(e.getMessage()); // 얜 무한루프 안 탐
+			log.debug(e.getMessage());
 			return getThrowedPin(frameNum);
 		}
 	}

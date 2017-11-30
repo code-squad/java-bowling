@@ -3,7 +3,12 @@ package bowling.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Frames {
+	private static final Logger log = LoggerFactory.getLogger(Frames.class);
+	
 	private List<Frame> frames = new ArrayList<>();
 
 	public Frames() {
@@ -17,22 +22,27 @@ public class Frames {
 		return frames.size() + 1;
 	}
 
-	public List<Frame> play2(int pin) {
-		Frame frame = setUpFrame();
-		frame.play(pin);
-		return frames;
-	}
-
 	public List<Frame> play(int pin) {
 		Frame frame = setUpFrame();
+		//log.debug(frame.toString());
 		try {
-			frame.play(pin);
+			if (frames.size() > 2){
+				if(previousFrame().isStrike() && beforePreviousFrame().isStrike()) {
+					frame.play(pin, previousFrame());
+					frame.sumTwoStrike(beforePreviousFrame());
+					return frames;
+				} 
+			} else if (frames.size() == 1){
+				frame.play(pin);
+				return frames;
+			}
+			frame.play(pin, previousFrame());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			log.debug(e.getMessage());
 		}
 		return frames;
 	}
-
+	
 	private Frame setUpFrame() {
 		Frame frame = lastFrame();
 		if (frame.isEnd()) {
@@ -56,5 +66,13 @@ public class Frames {
 	public boolean isEnd() {
 		Frame frame = lastFrame();
 		return frames.size() == 10 && frame.isEnd();
+	}
+/***********************합계용***************************************/	
+	private Frame previousFrame() {
+		return frames.get(frames.size() - 2);
+	}
+
+	public Frame beforePreviousFrame() {
+		return frames.get(frames.size() - 3);
 	}
 }
