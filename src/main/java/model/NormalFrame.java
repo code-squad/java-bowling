@@ -1,29 +1,24 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NormalFrame extends Frame {
 	public NormalFrame(int frameNum) {
 		super(frameNum);
 	}
-	
+
 	@Override
-	public Frame returnFrame() {
-		if(isEnd()) {
-			if(this.frameNum == 9) {
-				return new TenthFrame(this.frameNum+1);
-			}
-			return new NormalFrame(this.frameNum+1);
+	public Frame addAfterDecide(int falledPin) {
+		this.addPins(falledPin);
+		if (!isEnd()) {
+			return this;
 		}
-		return this;
+		if (this.getFrameNum() == 9) {
+			return new TenthFrame(this.getFrameNum() + 1);
+		}
+		return new NormalFrame(this.getFrameNum() + 1);
 	}
-	
-	@Override
-	public void addPins(int falledPin) {
-		this.pins.add(falledPin);
-	}
-	
+
 	@Override
 	public String decideStatus() {
 		return Status.createStatusFor10thFrame(this.pins.stream().mapToInt(s -> s).toArray());
@@ -31,15 +26,14 @@ public class NormalFrame extends Frame {
 
 	@Override
 	public boolean isEnd() {
-		if(this.pins.isEmpty()) {
+		if (this.pins.isEmpty()) {
 			return false;
 		}
-		if(this.pins.size() >= 2 || this.pins.get(0) == 10) {
+		if (this.pins.size() >= 2 || Status.isStrike(this.pins.get(0))) {
 			return true;
 		}
 		return false;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -48,7 +42,6 @@ public class NormalFrame extends Frame {
 		result = prime * result + ((pins == null) ? 0 : pins.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -67,15 +60,4 @@ public class NormalFrame extends Frame {
 		return true;
 	}
 
-
-	@Override
-	public List<Integer> getPins() {
-		return this.pins;
-	}
-
-
-
-	
-	
-	
 }

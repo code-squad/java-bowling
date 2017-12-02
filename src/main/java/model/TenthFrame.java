@@ -8,19 +8,15 @@ public class TenthFrame extends Frame {
 	}
 
 	@Override
-	public void addPins(int falledPin) {
-		this.pins.add(falledPin);
-	}
-
-	@Override
 	public String decideStatus() {
 		return Status.createStatusFor10thFrame(this.pins.stream().mapToInt(s -> s).toArray());
 	}
 
 	@Override
-	public Frame returnFrame() {
+	public Frame addAfterDecide(int falledPin) {
+		this.addPins(falledPin);
 		if (this.isEnd()) {// 10 프레임이 끝나면,
-			return new TenthFrame(this.frameNum + 1);
+			return new TenthFrame(this.getFrameNum() + 1);
 		}
 		return this;
 	}
@@ -61,11 +57,6 @@ public class TenthFrame extends Frame {
 
 	private boolean oneSpareOnePin() {
 		return Status.isSpare(this.pins.get(0), this.pins.get(1)) && this.pins.size() == 3;
-	}
-
-	@Override
-	public List<Integer> getPins() {
-		return this.pins;
 	}
 
 }

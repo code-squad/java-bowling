@@ -4,26 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Frame {
-	int frameNum;
+	private int frameNum;
 	List<Integer> pins = new ArrayList<>();
 
 	public Frame(int frameNum) {
 		this.frameNum = frameNum;
 	}
-
-	public abstract List<Integer> getPins();
-
+	
 	public int getFrameNum() {
 		return frameNum;
 	}
 
-	public abstract void addPins(int falledPin);
-
+	
+	public void addPins(int falledPin) {
+		this.pins.add(falledPin);
+	}
+	
+	public List<Integer> getPins() {
+		return this.pins;
+	}
+	
 	public abstract String decideStatus();
 
 	public abstract boolean isEnd();
-
-	public abstract Frame returnFrame();
+	
+	public abstract Frame addAfterDecide(int falledPin);
 
 	@Override
 	public int hashCode() {
