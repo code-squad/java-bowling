@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 public class TenthFrame extends Frame {
 	public TenthFrame(int frameNum) {
 		super(frameNum);
