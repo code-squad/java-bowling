@@ -3,10 +3,13 @@ package model;
 import Exception.InvalidFalledPinInputException;
 
 public class Pin {
-	int pin;
+	private static final int PIN_MIN_VALUE = 0;
+	private static final int PIN_MAX_VALUE = 10;
+
+	private int pin;
 	
 	public Pin(int pin) throws InvalidFalledPinInputException {
-		if(pin < 0 || pin > 10) {
+		if(pin < PIN_MIN_VALUE || pin > PIN_MAX_VALUE) {
 			throw new InvalidFalledPinInputException();
 		}
 		this.pin = pin;
