@@ -78,4 +78,6 @@ public abstract class Frame {
 	abstract public int getSum();
 	
 	abstract public Frame makeNextFrame(int frameNum);
+	
+	abstract protected int calculate(); 
 }

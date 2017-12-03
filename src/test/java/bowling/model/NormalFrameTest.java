@@ -59,33 +59,66 @@ public class NormalFrameTest {
 		frame.play(2);
 		assertThat(frame.getSum()).isEqualTo(3);
 	}
-/*
 	@Test
 	public void 스페어_합계() {
 		Frame frame1 = new NormalFrame();
-		Frame frame2 = new NormalFrame();
 		frame1.play(3);
 		frame1.play(7);
-		frame2.play(7, frame1);
+		Frame frame2 = frame1.makeNextFrame(1);
+		frame2.play(7);
 		assertThat(frame1.getSum()).isEqualTo(17);
 	}
 	@Test
 	public void 스트라이크_미스_합계() {
 		Frame frame1 = new NormalFrame();
-		Frame frame2 = new NormalFrame();
+		Frame frame2 = frame1.makeNextFrame(1);
 		frame1.play(10);
-		frame2.play(2, frame1);
-		frame2.play(3, frame1);
+		frame2.play(2);
+		frame2.play(3);
 		assertThat(frame1.getSum()).isEqualTo(15);
+	}
+	@Test
+	public void 스트라이크_합계() {
+		Frame frame1 = new NormalFrame();
+		frame1.play(10);
+		assertThat(frame1.getSum()).isEqualTo(-1);
+	}
+	@Test
+	public void 스트라이크_0_합계() {
+		Frame frame1 = new NormalFrame();
+		Frame frame2 = frame1.makeNextFrame(1);
+		frame1.play(10);
+		frame2.play(0);
+		frame2.play(0);
+		assertThat(frame1.getSum()).isEqualTo(10);
 	}
 	@Test
 	public void 스트라이크_스페어_합계() {
 		Frame frame1 = new NormalFrame();
-		Frame frame2 = new NormalFrame();
+		Frame frame2 = frame1.makeNextFrame(1);
 		frame1.play(10);
-		frame2.play(4, frame1);
-		frame2.play(6, frame1);
+		frame2.play(4);
+		frame2.play(6);
 		assertThat(frame1.getSum()).isEqualTo(20);
 	}
-	*/
+	@Test
+	public void 스트라이크2_합계() {
+		Frame frame1 = new NormalFrame();
+		Frame frame2 = frame1.makeNextFrame(1);
+		Frame frame3 = frame2.makeNextFrame(1);
+		frame1.play(10);
+		frame2.play(10);
+		frame3.play(6);
+		assertThat(frame1.getSum()).isEqualTo(26);
+	}
+	@Test
+	public void 스트라이크3_합계() {
+		Frame frame1 = new NormalFrame();
+		Frame frame2 = frame1.makeNextFrame(1);
+		Frame frame3 = frame2.makeNextFrame(1);
+		frame1.play(10);
+		frame2.play(10);
+		frame3.play(10);
+		assertThat(frame1.getSum()).isEqualTo(30);
+	}
 }

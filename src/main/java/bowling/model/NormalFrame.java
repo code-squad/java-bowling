@@ -57,21 +57,32 @@ public class NormalFrame extends Frame {
 	
 	public int getSum() {
 		//재귀...하려면 pin 기본값이 0이어야 pin1 + pin2 + nextFrame.getSum() 이렇게 할 텐데
-		//pin이 -1이니까 if문 분기가 됨...
-		/*
-		if(isNotBlank(pin2)) {
-			if(isMiss(pin1, pin2)) {
-				return pin1 + pin2;
-			} 
+		//재귀하면 pin1만 있을 때도 return되야 됨.근데 출력 하면 안 됨..
+		if(!isNotBlank(pin2)&&!isStrike()) {
+			return -1;
 		}
-		if(isSpare() && nextFrame != null) {
-			return 10 + nextFrame.getSum(); //pin1만 받을 수 있게
-		}
-		if(isStrike() && nextFrame != null) {
-			return 10 + nextFrame.getSum(); //nextFrame이 strike면 nextFrame의 getSum();
-		} */
-		return -1;
+		return calculate();
 	}
+	
+	public int calculate() {
+		if(nextFrame != null) {
+			return calculate(nextFrame);
+		}
+		if(isNotBlank(pin2)){
+			return pin1 + pin2;
+		}
+		return pin1; //문제: 10이 안 나와야 되는데 나옴. 근데 또 (ifStrike())로 막으면 2스트라이크/스트라이크+스페어 합계가 안 됨
+	}
+	
+	public int calculate(Frame nextFrame) {
+		if(isSpare()) {
+			return 10 + nextFrame.calculate();
+		} else if(isStrike()) {
+			return 10 + nextFrame.calculate();
+		}
+		return pin1;
+	}
+	
 	@Override
 	public String toString() {
 		return "NormalFrame [pin1=" + pin1 + ", pin2=" + pin2 + "]";

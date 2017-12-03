@@ -74,17 +74,22 @@ public class TenFrame extends Frame {
 	}
 	
 	public int getSum() {
-		if(isNotBlank(pin3)) {
-			return pin1 + pin2 + pin3;
-		} else if(isNotBlank(pin2)) {
-			if(isMiss(pin1, pin2)) {
-				return pin1 + pin2;
-			} 
+		if(!isNotBlank(pin2)) {
+			return -1;
 		}
-		return -1;
+		return calculate();
 	}
 	
 	public Frame makeNextFrame(int frameNum) {
 		return null;
+	}
+
+	protected int calculate() {
+		if(isNotBlank(pin3)) {
+			return pin1 + pin2 + pin3;
+		} else if(isMiss(pin1, pin2)) {
+			return pin1 + pin2;
+		}
+		return -1;
 	}
 }
