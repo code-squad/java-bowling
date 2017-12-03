@@ -18,6 +18,15 @@ public class Pin {
 	public int getPin() {
 		return pin;
 	}
+
+	public static int getPinMinValue() {
+		return PIN_MIN_VALUE;
+	}
+
+	public static int getPinMaxValue() {
+		return PIN_MAX_VALUE;
+	}
+	
 	
 	
 }

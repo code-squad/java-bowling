@@ -38,14 +38,14 @@ public class Status {
 	}
 
 	public static boolean isStrike(Pin pin) {
-		if (pin.getPin() == 10) {
+		if (pin.getPin() == Pin.getPinMaxValue()) {
 			return true;
 		}
 		return false;
 	}
 
 	public static boolean isSpare(Pin firstPin, Pin secondPin) {
-		if (firstPin.getPin() + secondPin.getPin() == 10) {
+		if (firstPin.getPin() + secondPin.getPin() == Pin.getPinMaxValue()) {
 			return true;
 		}
 		return false;
@@ -55,6 +55,9 @@ public class Status {
 		if (isStrike(pin)) {
 			return "X";
 		}
+		if(pin.getPin() == Pin.getPinMinValue()) {
+			return "-";
+		}
 		return pin.getPin() + "";
 	}
 	
@@ -62,7 +65,7 @@ public class Status {
 		if (isSpare(firstPin, secondPin)) {
 			return firstPin.getPin() + "|/";
 		}
-		if (secondPin.getPin() == 0) {
+		if (secondPin.getPin() == Pin.getPinMinValue()) {
 			return firstPin.getPin() + "|-";
 		}
 		return firstPin.getPin() + "|" + secondPin.getPin();
