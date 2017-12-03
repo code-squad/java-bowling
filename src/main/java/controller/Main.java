@@ -2,7 +2,9 @@ package controller;
 
 import java.util.Scanner;
 
+import Exception.InvalidFalledPinInputException;
 import model.Bowling;
+import model.Pin;
 import view.InputView;
 import view.ResultView;
 
@@ -18,16 +20,18 @@ public class Main {
 	}
 	
 	public static void play(String playerName) {
-		ResultView.printFrameNum(bowling.currentFrame.getFrameNum());
-		InputView.getFalledPin();
-		bowling.bowl(InputView.falledPin);
-		ResultView.printStatus(playerName, bowling.getFrames());
-		if(bowling.currentFrame.getFrameNum() >= 11) {
-			return;
-		}
-		else {
+		try {
+			ResultView.printFrameNum(bowling.currentFrame.getFrameNum());
+			bowling.bowl(new Pin(InputView.getFalledPin(sc)));
+		} catch (InvalidFalledPinInputException e) {
+			System.out.println("볼링 핀은 0이상 10이하여야 합니다.");
+			System.out.println("다시 입력해 주세요.");
 			play(playerName);
 		}
+		ResultView.printStatus(playerName, bowling.getFrames());
+		if (bowling.currentFrame.getFrameNum() >= 11) {
+			return;
+		}
+		play(playerName);
 	}
-
 }

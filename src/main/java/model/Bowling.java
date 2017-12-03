@@ -12,11 +12,11 @@ public class Bowling {
 		frames.add(currentFrame);
 	}
 
-	public void bowl(int falledPin) {
+	public void bowl(Pin pin) {
 		if (frames.size() == 0) {
 			addFirstFrame();
 		}
-		Frame frame = currentFrame.addAfterDecide(falledPin);
+		Frame frame = currentFrame.addAfterDecide(pin);
 		if (ifIsNewFrameAndNot11th(frame)) {// 새 프레임이 반환되었으면,
 			frames.add(frame);
 			currentFrame = frame;

@@ -6,15 +6,10 @@ public class TenthFrame extends Frame {
 	public TenthFrame(int frameNum) {
 		super(frameNum);
 	}
-
+	
 	@Override
-	public String decideStatus() {
-		return Status.createStatusFor10thFrame(this.pins.stream().mapToInt(s -> s).toArray());
-	}
-
-	@Override
-	public Frame addAfterDecide(int falledPin) {
-		this.addPins(falledPin);
+	public Frame addAfterDecide(Pin pin) {
+		this.addPins(pin);
 		if (this.isEnd()) {// 10 프레임이 끝나면,
 			return new TenthFrame(this.getFrameNum() + 1);
 		}
@@ -23,11 +18,11 @@ public class TenthFrame extends Frame {
 
 	@Override
 	public boolean isEnd() {
-		if (this.pins.isEmpty() || this.pins.size() == 1) {// null check
+		if (this.getPins().isEmpty() || this.getPins().size() == 1) {// null check
 			return false;
 		}
 		// 1 strike
-		if (Status.isStrike(this.pins.get(0))) {
+		if (Status.isStrike(this.getPins().get(0))) {
 			return oneStrikeOr2Pins();
 		}
 		// 1spare + 1 pin
@@ -41,22 +36,22 @@ public class TenthFrame extends Frame {
 		return false;
 	}
 
+
 	private boolean oneStrikeOr2Pins() {
-		if (Status.isStrike(this.pins.get(1))) {
+		if (Status.isStrike(this.getPins().get(1))) {
 			return true;
 		}
-		if (this.pins.size() == 3) {
+		if (this.getPins().size() == 3) {
 			return true;
 		}
 		return false;
 	}
 
 	private boolean oneMiss() {
-		return this.pins.size() == 2 && !Status.isSpare(this.pins.get(0), this.pins.get(1));
+		return this.getPins().size() == 2 && !Status.isSpare(this.getPins().get(0), this.getPins().get(1));
 	}
 
 	private boolean oneSpareOnePin() {
-		return Status.isSpare(this.pins.get(0), this.pins.get(1)) && this.pins.size() == 3;
+		return Status.isSpare(this.getPins().get(0), this.getPins().get(1)) && this.getPins().size() == 3;
 	}
-
 }

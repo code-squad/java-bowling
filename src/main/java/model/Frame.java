@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class Frame {
 	private int frameNum;
-	List<Integer> pins = new ArrayList<>();
+	private List<Pin> pins = new ArrayList<>();
 
 	public Frame(int frameNum) {
 		this.frameNum = frameNum;
@@ -15,26 +15,28 @@ public abstract class Frame {
 		return frameNum;
 	}
 
-	
-	public void addPins(int falledPin) {
-		this.pins.add(falledPin);
+	public void addPins(Pin pin) {
+		this.pins.add(pin);
 	}
-	
-	public List<Integer> getPins() {
+	public List<Pin> getPins() {
 		return this.pins;
 	}
 	
-	public abstract String decideStatus();
+	public String decideStatus() {
+		// list to array
+		return Status.createStatusFor10thFrame(this.getPins().stream().map(s -> s).toArray(Pin[] :: new));
+	}
 
 	public abstract boolean isEnd();
 	
-	public abstract Frame addAfterDecide(int falledPin);
+	public abstract Frame addAfterDecide(Pin pin);
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + frameNum;
+		result = prime * result + ((pins == null) ? 0 : pins.hashCode());
 		return result;
 	}
 
@@ -49,7 +51,11 @@ public abstract class Frame {
 		Frame other = (Frame) obj;
 		if (frameNum != other.frameNum)
 			return false;
+		if (pins == null) {
+			if (other.pins != null)
+				return false;
+		} else if (!pins.equals(other.pins))
+			return false;
 		return true;
 	}
-
 }

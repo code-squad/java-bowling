@@ -16,8 +16,10 @@ public class NormalFrameTest {
 
 	@Test
 	public void decideStatusTest() throws Exception {
-		frame.addPins(1);
-		frame.addPins(9);
+		Pin pin1 = new Pin(1);
+		Pin pin2 = new Pin(9);
+		frame.addPins(pin1);
+		frame.addPins(pin2);
 		String status = frame.decideStatus();
 		assertEquals("1|/", status);
 	}
