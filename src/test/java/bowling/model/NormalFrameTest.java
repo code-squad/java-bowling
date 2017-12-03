@@ -59,6 +59,7 @@ public class NormalFrameTest {
 		frame.play(2);
 		assertThat(frame.getSum()).isEqualTo(3);
 	}
+/*
 	@Test
 	public void 스페어_합계() {
 		Frame frame1 = new NormalFrame();
@@ -86,4 +87,5 @@ public class NormalFrameTest {
 		frame2.play(6, frame1);
 		assertThat(frame1.getSum()).isEqualTo(20);
 	}
+	*/
 }

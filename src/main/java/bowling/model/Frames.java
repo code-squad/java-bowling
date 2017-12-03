@@ -26,7 +26,8 @@ public class Frames {
 		Frame frame = setUpFrame();
 		//log.debug(frame.toString());
 		try {
-			if (frames.size() > 2){
+			//리뷰: 재귀로 처리할 수 없을까?
+/*			if (frames.size() > 2){
 				if(previousFrame().isStrike() && beforePreviousFrame().isStrike()) {
 					frame.play(pin, previousFrame());
 					frame.sumTwoStrike(beforePreviousFrame());
@@ -35,8 +36,9 @@ public class Frames {
 			} else if (frames.size() == 1){
 				frame.play(pin);
 				return frames;
-			}
-			frame.play(pin, previousFrame());
+			} 
+			frame.play(pin, previousFrame()); */
+			frame.play(pin);
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
@@ -52,11 +54,7 @@ public class Frames {
 	}
 
 	private void addFrame(int framesSize) {
-		if (framesSize < 9) {
-			frames.add(new NormalFrame());
-			return;
-		}
-		frames.add(new TenFrame());
+		frames.add(lastFrame().makeNextFrame(framesSize));
 	}
 
 	private Frame lastFrame() {
@@ -66,13 +64,5 @@ public class Frames {
 	public boolean isEnd() {
 		Frame frame = lastFrame();
 		return frames.size() == 10 && frame.isEnd();
-	}
-/***********************합계용***************************************/	
-	private Frame previousFrame() {
-		return frames.get(frames.size() - 2);
-	}
-
-	public Frame beforePreviousFrame() {
-		return frames.get(frames.size() - 3);
 	}
 }

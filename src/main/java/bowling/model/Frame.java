@@ -4,7 +4,6 @@ import exception.InvalidPinNumberException;
 
 public abstract class Frame {
 	private int tryNo = 1;
-	private int sum = -1;
 	
 	abstract public String getStatus();
 
@@ -12,8 +11,6 @@ public abstract class Frame {
 		return tryNo == no;
 	}
 
-	abstract public void play(int pin, Frame frame);
-	
 	abstract public void play(int pin);
 
 	protected static boolean isSpare(int previousPin, int pin) {
@@ -78,13 +75,7 @@ public abstract class Frame {
 
 	abstract public boolean isStrike();
 	
-	abstract public void sumTwoStrike(Frame beforePreviousFrame);
+	abstract public int getSum();
 	
-	public int getSum() {
-		return sum;
-	}
-
-	protected void setSum(int score) {
-		sum = score;
-	}	
+	abstract public Frame makeNextFrame(int frameNum);
 }

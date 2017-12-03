@@ -17,49 +17,21 @@ public class TenFrame extends Frame {
 		}
 		tryThree(pin);
 	}
-	
-	public void play(int pin, Frame previousFrame) {
-		if (checkTryNo(1)) {
-			tryOne(pin, previousFrame);
-			return;
-		} else if (checkTryNo(2)) {
-			tryTwo(pin, previousFrame);
-			return;
-		}
-		tryThree(pin);
-	}
 
 	private void tryOne(int pin) {
 		addTryNo();
 		pin1 = pin;
 	}
 
-	private void tryOne(int pin, Frame previousFrame) {
-		tryOne(pin);
-		if(previousFrame.isSpare()) {
-			previousFrame.setSum(10+pin1);
-		}
-	}
-	
 	private void tryTwo(int pin) {
 		checkSumOfPinsExceedTen(pin1, pin);
 		addTryNo();
 		pin2 = pin;
-		if(isMiss(pin1, pin2)) {
-			setSum(pin1 + pin2);
 		}
-	}
-	private void tryTwo(int pin, Frame previousFrame) {
-		tryTwo(pin);
-		if(previousFrame.isStrike()) {
-			previousFrame.setSum(10+pin1+pin2);
-		}
-	}
-
+	
 	private void tryThree(int pin) {
 		checkSumOfPinsExceedTen(pin1, pin2, pin);
 		pin3 = pin;
-		setSum(pin1 + pin2 + pin3);
 	}
 
 	public boolean isEnd() {
@@ -100,8 +72,19 @@ public class TenFrame extends Frame {
 	public boolean isStrike() {
 		return pin1 == 10;
 	}
-
-	public void sumTwoStrike(Frame beforePreviousFrame) {
-		beforePreviousFrame.setSum(20+pin1);
+	
+	public int getSum() {
+		if(isNotBlank(pin3)) {
+			return pin1 + pin2 + pin3;
+		} else if(isNotBlank(pin2)) {
+			if(isMiss(pin1, pin2)) {
+				return pin1 + pin2;
+			} 
+		}
+		return -1;
+	}
+	
+	public Frame makeNextFrame(int frameNum) {
+		return null;
 	}
 }
