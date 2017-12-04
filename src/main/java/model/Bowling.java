@@ -17,18 +17,24 @@ public class Bowling {
 			addFirstFrame();
 		}
 		Frame frame = currentFrame.addAfterDecide(pin);
-		if (ifIsNewFrameAndNot11th(frame)) {// 새 프레임이 반환되었으면,
+		if (isNewFrame(frame) && !isFinished()) {// 새 프레임이 반환되었으면,
 			frames.add(frame);
 			currentFrame = frame;
 		}
 	}
-
-	private boolean ifIsNewFrameAndNot11th(Frame frame) {
-		return frame != currentFrame && this.currentFrame.getFrameNum() != 11;
+	
+	public boolean isFinished() {
+		if(this.currentFrame.getFrameNum() >= 11) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean isNewFrame(Frame frame) {	
+		return frame != currentFrame;
 	}
 
 	public List<Frame> getFrames() {
 		return frames;
 	}
-
 }

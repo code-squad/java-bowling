@@ -29,7 +29,7 @@ public class Main {
 			play(playerName);
 		}
 		ResultView.printStatus(playerName, bowling.getFrames());
-		if (bowling.currentFrame.getFrameNum() >= 11) {
+		if (bowling.isFinished()) {
 			return;
 		}
 		play(playerName);
