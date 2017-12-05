@@ -3,11 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exception.InvalidFrameNumberException;
+
 public abstract class Frame {
 	private int frameNum;
 	private List<Pin> pins = new ArrayList<>();
 
 	public Frame(int frameNum) {
+		if(frameNum == 11) {
+			throw new InvalidFrameNumberException();
+		}
 		this.frameNum = frameNum;
 	}
 	
@@ -22,11 +27,19 @@ public abstract class Frame {
 		return this.pins;
 	}
 	
+	public Pin findPin(int index) {
+		return this.pins.get(index);
+	}
+	
 	public String decideStatus() {
 		// list to array
-		return Status.createStatusFor10thFrame(this.getPins().stream().map(s -> s).toArray(Pin[] :: new));
+		return Status.createStatus(this.getPins().stream().map(s -> s).toArray(Pin[] :: new));
 	}
-
+	
+	public boolean isNewFrame(Frame frame) {	
+		return frame != this;
+	}
+		
 	public abstract boolean isEnd();
 	
 	public abstract Frame addAfterDecide(Pin pin);
@@ -58,4 +71,11 @@ public abstract class Frame {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Frame [frameNum=" + frameNum + ", pins=" + pins + "]";
+	}
+	
+
 }

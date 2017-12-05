@@ -21,7 +21,7 @@ public class NormalFrame extends Frame {
 		if (this.getPins().isEmpty()) {
 			return false;
 		}
-		if (this.getPins().size() >= 2 || this.getPins().get(0).isStrike()) {
+		if (this.getPins().size() >= 2 || this.findPin(0).isStrike()) {
 			return true;
 		}
 		return false;

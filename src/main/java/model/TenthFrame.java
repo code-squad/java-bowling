@@ -1,15 +1,22 @@
 package model;
 
+import Exception.InvalidFrameNumberException;
+
 public class TenthFrame extends Frame {
 	public TenthFrame(int frameNum) {
 		super(frameNum);
 	}
 	
 	@Override
-	public Frame addAfterDecide(Pin pin) {
+	public Frame addAfterDecide (Pin pin) throws InvalidFrameNumberException {
 		super.addPins(pin);
 		if (this.isEnd()) {// 10 프레임이 끝나면,
-			return new TenthFrame(this.getFrameNum() + 1);
+//			try {
+				return new TenthFrame(this.getFrameNum() + 1);
+//			} catch (InvalidFrameNumberException e) {
+////				throw new InvalidFrameNumberException();
+//				System.out.println("프레임 개수는 최대 10개입니다.");
+//			}
 		}
 		return this;
 	}
@@ -22,20 +29,13 @@ public class TenthFrame extends Frame {
 		if(this.getPins().size() == 3) {
 			return true;
 		}
-		if(isOneMiss() || isTwoStrike()) {
+		if(isOneMiss()) {
 			return true;
 		}
 		return false;
 	}
 	
-	private boolean isTwoStrike() {
-		if(this.getPins().get(0).isStrike() && this.getPins().get(1).isStrike()) {
-			return true;
-		}
-		return false;
-	}
-
 	private boolean isOneMiss() {
-		return this.getPins().size() == 2 && !Status.isSpare(this.getPins().get(0), this.getPins().get(1));
+		return this.getPins().size() == 2 && this.findPin(0).isSpare(this.findPin(1));
 	}
 }

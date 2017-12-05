@@ -19,10 +19,17 @@ public class Pin {
 		return false;
 	}
 
+	public boolean isSpare(Pin secondPin) {
+		if(this.pin + secondPin.pin == 10) {
+			return true;
+		}
+		return false;
+	}
+	
 	public int getPin() {
 		return pin;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
