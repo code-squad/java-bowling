@@ -4,6 +4,7 @@ public class NormalFrame extends Frame {
 	public NormalFrame(int frameNum) {
 		super(frameNum);
 	}
+
 	@Override
 	public Frame addAfterDecide(Pin pin) {
 		super.addPins(pin);
@@ -15,7 +16,7 @@ public class NormalFrame extends Frame {
 		}
 		return new NormalFrame(this.getFrameNum() + 1);
 	}
-	
+
 	@Override
 	public boolean isEnd() {
 		if (this.getPins().isEmpty()) {
