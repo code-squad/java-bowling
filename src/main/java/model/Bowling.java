@@ -24,6 +24,16 @@ public class Bowling {
 			currentFrame = frame;
 		}
 	}
+	
+	public List<String> makeStatus() {
+		List<String> allStatus = new ArrayList<>();
+		for (Frame frame : this.frames) {
+			if (!frame.getPins().isEmpty()) {
+				allStatus.add(frame.decideStatus());
+			}
+		}
+		return allStatus;
+	}
 
 	public List<Frame> getFrames() {
 		return frames;

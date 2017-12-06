@@ -22,5 +22,13 @@ public class BowlingTest {
 		}
 		assertEquals(4, bowling.getFrames().size());
 	}
+	@Test
+	public void status_담은_리스트가_맞게_반환되는지_확인() throws Exception {
+		for (int i = 0; i < 3; i++) {
+			bowling.bowl(pin);
+		}
+		assertEquals(3, bowling.makeStatus().size());
+		assertEquals("X", bowling.makeStatus().get(0));
+	}
 
 }

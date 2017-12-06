@@ -44,6 +44,7 @@ public abstract class Frame {
 	public abstract boolean isEnd();
 
 	public abstract Frame addAfterDecide(Pin pin);
+//	public abstract int createScore();
 
 	@Override
 	public int hashCode() {
@@ -77,5 +78,6 @@ public abstract class Frame {
 	public String toString() {
 		return "Frame [frameNum=" + frameNum + ", pins=" + pins + "]";
 	}
+
 
 }

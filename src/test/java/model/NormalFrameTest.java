@@ -54,5 +54,10 @@ public class NormalFrameTest {
 		Frame tenthFrame = ninethFrame.addAfterDecide(pin3);
 		assertTrue(tenthFrame instanceof TenthFrame);
 	}
+	@Test
+	public void 점수_생성_테스트() throws Exception {
+		Pin pin = new Pin(10);
+		int score = frame.createScore();
+	}
 
 }

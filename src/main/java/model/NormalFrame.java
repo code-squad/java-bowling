@@ -16,7 +16,14 @@ public class NormalFrame extends Frame {
 		}
 		return new NormalFrame(this.getFrameNum() + 1);
 	}
-
+//	@Override
+//	public int createScore() {
+//		if(this.isEnd()) {
+//			this.createScore(this.getPins())
+//		}
+//		return 0;
+//		
+//	}
 	@Override
 	public boolean isEnd() {
 		if (this.getPins().isEmpty()) {

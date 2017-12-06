@@ -33,19 +33,7 @@ public class ResultView {
 		}
 		System.out.println(secondLine);
 	}
-
-	public static List<String> makeStatus(List<Frame> frames) {
-		List<String> allStatus = new ArrayList<>();
-		for (Frame frame : frames) {
-			if (!frame.getPins().isEmpty()) {
-				allStatus.add(frame.decideStatus());
-			}
-		}
-		return allStatus;
-	}
-
-	public static void printStatus(String playerName, List<Frame> frames) {
-		List<String> allStatus = makeStatus(frames);
+	public static void printStatus(String playerName, List<String> allStatus) {
 		printFirstLine();
 		String secondLine = "|   " + playerName + "  |";
 		for (String status : allStatus) {
@@ -56,5 +44,4 @@ public class ResultView {
 		}
 		System.out.println(secondLine);
 	}
-
 }

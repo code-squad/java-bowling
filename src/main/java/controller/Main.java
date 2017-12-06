@@ -25,9 +25,9 @@ public class Main {
 			try {
 				ResultView.printFrameNum(bowling.currentFrame.getFrameNum());
 				bowling.bowl(new Pin(InputView.getFalledPin(sc)));
-				ResultView.printStatus(playerName, bowling.getFrames());
+				ResultView.printStatus(playerName, bowling.makeStatus());
 			} catch (InvalidFrameNumberException e) {
-				ResultView.printStatus(playerName, bowling.getFrames());
+				ResultView.printStatus(playerName, bowling.makeStatus());
 				System.out.println("프레임 개수는 최대 10개입니다.");
 				return;
 			}
