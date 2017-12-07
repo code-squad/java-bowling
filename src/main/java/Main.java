@@ -8,6 +8,4 @@ public class Main {
 			Player.play(frame, player, i);
 		}
 	}
-
-	
 }

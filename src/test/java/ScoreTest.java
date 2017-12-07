@@ -16,6 +16,10 @@ public class ScoreTest {
 		stringScore = "0";
 		score = Arrays.asList(" "," ","-"," "," "," ","|");
 		assertEquals(score, Score.getFirstScore(stringScore));
+		
+		stringScore = "5";
+		score = Arrays.asList(" "," ","5"," "," "," ","|");
+		assertEquals(score, Score.getFirstScore(stringScore));
 	}
 	
 	@Test
