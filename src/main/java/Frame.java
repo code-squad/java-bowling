@@ -2,10 +2,14 @@
 public class Frame {
 
 	private static final String name = "| name |";
-	String frame;
+	private String frame;
 	
 	Frame (String frame) {
 		this.frame = frame;
+	}
+	
+	String getFrame() {
+		return this.frame;
 	}
 	
 	static String makeWholeFrame() {

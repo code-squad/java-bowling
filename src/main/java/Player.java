@@ -3,12 +3,20 @@ import java.util.List;
 
 public class Player {
 	
-	String name;
-	List<Score> scores;
+	private String name;
+	private List<Score> scores;
 	
 	Player(String name, List<Score> scores) {
 		this.name = name;
 		this.scores = scores;
+	}
+	
+	String getName() {
+		return this.name;
+	}
+	
+	List<Score> getScores() {
+		return this.scores;
 	}
 	
 	static List<Score> initScores() {
@@ -25,5 +33,16 @@ public class Player {
 	
 	void makeSecondScore(int i, String firstScore, String secondScore) {
 		this.scores.set(i, new Score(Score.getSecondScore(firstScore, secondScore)));
+	}
+	
+	static void play(Frame frame, Player player, int i) {
+		String firstScore = Input.getScore(i);
+		player.makeFirstScore(i, firstScore);
+		View.view(frame, player);				
+		if (!firstScore.equals("10")) {
+			String secondScore = Input.getScore(i);
+			player.makeSecondScore(i, firstScore, secondScore);
+			View.view(frame, player);
+		}
 	}
 }

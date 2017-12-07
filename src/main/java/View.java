@@ -2,10 +2,10 @@
 public class View {
 
 	public static void view(Frame frame, Player player) {
-		System.out.println(frame.frame);
-		System.out.print("|  " + player.name + " |");
-		for (Score score : player.scores) {
-			for (String stringScore : score.score) {
+		System.out.println(frame.getFrame());
+		System.out.print("|  " + player.getName() + " |");
+		for (Score score : player.getScores()) {
+			for (String stringScore : score.getScore()) {
 				System.out.print(stringScore);
 			}
 		}

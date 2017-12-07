@@ -9,6 +9,10 @@ public class Score {
 		this.score = score;
 	}
 	
+	List<String> getScore() {
+		return this.score;
+	}
+	
 	static List<String> initScore() {
 		List<String> initialScore = new ArrayList<>();
 		for (int i = 0; i < 6; i++) {
@@ -18,15 +22,15 @@ public class Score {
 		return initialScore;
 	}
 	
-	static List<String> getFirstScore(String stringScore) {
+	static List<String> getFirstScore(String firstScore) {
 		List<String> score = initScore();
-		if (stringScore.equals("10")) {
-			stringScore = "X";
+		if (firstScore.equals("10")) {
+			firstScore = "X";
 		}
-		if (stringScore.equals("0")) {
-			stringScore = "-";
+		if (firstScore.equals("0")) {
+			firstScore = "-";
 		}
-		score.set(2, stringScore);
+		score.set(2, firstScore);
 		return score;
 	}
 	
