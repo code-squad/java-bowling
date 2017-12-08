@@ -1,11 +1,7 @@
 package bowling.model;
 
-import exception.InvalidPinNumberException;
-
 public class TenFrame extends Frame {
-	private int pin1 = -1;
-	private int pin2 = -1;
-	private int pin3 = -1;
+	private TenFramePins pins;
 
 	public void play(int pin) {
 		if (checkTryNo(1)) {
@@ -20,76 +16,83 @@ public class TenFrame extends Frame {
 
 	private void tryOne(int pin) {
 		addTryNo();
-		pin1 = pin;
+		pins = new TenFramePins(pin);
 	}
 
 	private void tryTwo(int pin) {
-		checkSumOfPinsExceedTen(pin1, pin);
+		pins.checkPinsExceedCount(pin);
 		addTryNo();
-		pin2 = pin;
-		}
-	
+		pins.addPin(pin);
+	}
+
 	private void tryThree(int pin) {
-		checkSumOfPinsExceedTen(pin1, pin2, pin);
-		pin3 = pin;
+		pins.checkPinsExceedCountThreeTry(pin);
+		pins.addThirdPin(pin);
 	}
 
 	public boolean isEnd() {
-		if (isNotBlank(pin2) && !isNotBlank(pin3)) {
-			return pin1 + pin2 < 10;
-		} else if (isNotBlank(pin3)) {
+		if (pins.hasSecondPin() && !pins.hasThirdPin()) {
+			return pins.isMiss();
+		} else if (pins.hasThirdPin()) {
 			return true;
 		}
 		return false;
 	}
 
-	private String addStatus(String status) {
-		if (isStrike(pin1) && isSpare(pin2, pin3)) {
-			return status + "|/";
-		}
-		return status + "|" + makeStatus(pin3);
-	}
-
 	public String getStatus() {
-		if (isNotBlank(pin2) && !isNotBlank(pin3)) {
-			return makeStatus(pin1, pin2);
-		} else if (isNotBlank(pin3)) {
-			return addStatus(makeStatus(pin1, pin2));
+		if (pins.hasSecondPin() && !pins.hasThirdPin()) {
+			return pins.makeSecondPinStatus();
+		} else if (pins.hasThirdPin()) {
+			return pins.addStatus(pins.makeSecondPinStatus());
 		}
-		return makeStatus(pin1);
+		return pins.makeFirstPinStatus();
 	}
 
-	protected void checkSumOfPinsExceedTen(int pin1, int pin2, int pin3) {
-		if (pin1 == 10 && pin2 != 10 && pin2 + pin3 > 10) {
-			throw new InvalidPinNumberException("투구의 합이 10을 초과할 수 없습니다.");
-		}
-	}
-	/************************ 합계용 **************************/	
-	public boolean isSpare() {
-		return pin1 + pin2 == 10;
-	}
-
-	public boolean isStrike() {
-		return pin1 == 10;
-	}
-	
-	public int getSum() {
-		if(!isNotBlank(pin2)) {
-			return -1;
-		}
-		return calculate();
-	}
-	
 	public Frame makeNextFrame(int frameNum) {
 		return null;
 	}
 
-	protected int calculate() {
-		if(isNotBlank(pin3)) {
-			return pin1 + pin2 + pin3;
-		} else if(isMiss(pin1, pin2)) {
-			return pin1 + pin2;
+	public int getScore() {
+		Score score = pins.getScore();
+		if (score.isFinish()) {
+			return score.getScore();
+		}
+		if (pins.hasThirdPin()) {
+			return pins.totalScore();
 		}
 		return -1;
+	}
+
+	protected int calculate(Score beforeScore) {
+		Score score = pins.calculate(beforeScore);
+		if (score.isFinish()) {
+			return score.getScore();
+		}
+		return -1;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((pins == null) ? 0 : pins.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TenFrame other = (TenFrame) obj;
+		if (pins == null) {
+			if (other.pins != null)
+				return false;
+		} else if (!pins.equals(other.pins))
+			return false;
+		return true;
 	}
 }

@@ -28,11 +28,12 @@ public class ResultView {
 
 	private void sum(List<Frame> frames) {
 		System.out.printf("\n| %4s |", "");
-		frames.stream().map(frame -> frame.getSum()).filter(sum -> sum!= -1).reduce(0, (a,b)->{
+		int blank;
+		frames.stream().map(frame -> frame.getScore()).filter(sum -> sum!= -1).reduce(0, (a,b)->{
 			System.out.printf("%-5s|", a+b);
 			return a + b;
 		});
-		frames.stream().map(frame -> frame.getSum()).filter(sum -> sum== -1).forEach(sum -> System.out.printf("%-5s|", ""));
+		frames.stream().map(frame -> frame.getScore()).filter(sum -> sum== -1).forEach(sum -> System.out.printf("%-5s|", ""));
 		//아래 코드를 메소드 분리한다는 전제 하에 어떤 코드가 더 나을까요?
 		/*int total = 0;
 		for(Frame frame : frames) {

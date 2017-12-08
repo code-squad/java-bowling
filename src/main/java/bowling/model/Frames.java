@@ -24,20 +24,7 @@ public class Frames {
 
 	public List<Frame> play(int pin) {
 		Frame frame = setUpFrame();
-		//log.debug(frame.toString());
 		try {
-			//리뷰: 재귀로 처리할 수 없을까?
-/*			if (frames.size() > 2){
-				if(previousFrame().isStrike() && beforePreviousFrame().isStrike()) {
-					frame.play(pin, previousFrame());
-					frame.sumTwoStrike(beforePreviousFrame());
-					return frames;
-				} 
-			} else if (frames.size() == 1){
-				frame.play(pin);
-				return frames;
-			} 
-			frame.play(pin, previousFrame()); */
 			frame.play(pin);
 		} catch (Exception e) {
 			log.debug(e.getMessage());
