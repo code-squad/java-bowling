@@ -1,26 +1,12 @@
+import java.util.List;
 
 public class Frame {
 
-	private static final String name = "| name |";
-	private String frame;
+	List<Integer> frame;
 	
-	Frame (String frame) {
+	Frame (List<Integer> frame) {
 		this.frame = frame;
 	}
 	
-	String getFrame() {
-		return this.frame;
-	}
 	
-	static String makeWholeFrame() {
-		String eachFrame = name;
-		for (int i = 1; i <= 10; i++) {
-			if (i == 10) {
-				eachFrame += "  " + Integer.toString(i) + "  |";
-				break;
-			}
-			eachFrame += "  0" + Integer.toString(i) + "  |";
-		}
-		return eachFrame;
-	}
 }

@@ -1,11 +1,11 @@
 
 public class Main {
 	public static void main(String[] args) {
-		Frame frame = new Frame(Frame.makeWholeFrame());
+		View view = new View(View.makeFullFrame());
 		Player player = new Player(Input.getName(), Player.initScores());
-		View.view(frame, player);
-		for (int i = 0; i <= 10; i++) {
-			Player.play(frame, player, i);
+		View.view(view, player);
+		for (int i = 0; i <= 9; i++) {
+			Player.play(view, player, i);
 		}
 	}
 }

@@ -5,6 +5,7 @@ public class Player {
 	
 	private String name;
 	private List<Score> scores;
+	private List<Frame> frames;
 	
 	Player(String name, List<Score> scores) {
 		this.name = name;
@@ -35,14 +36,14 @@ public class Player {
 		this.scores.set(i, new Score(Score.getSecondScore(firstScore, secondScore)));
 	}
 	
-	static void play(Frame frame, Player player, int i) {
+	static void play(View view, Player player, int i) {
 		String firstScore = Input.getScore(i);
 		player.makeFirstScore(i, firstScore);
-		View.view(frame, player);				
+		View.view(view, player);				
 		if (!firstScore.equals("10")) {
 			String secondScore = Input.getScore(i);
 			player.makeSecondScore(i, firstScore, secondScore);
-			View.view(frame, player);
+			View.view(view, player);
 		}
 	}
 }
