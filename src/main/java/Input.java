@@ -9,8 +9,8 @@ public class Input {
 		return sc.nextLine();
 	}
 	
-	static int getPinsPerTry() {
-		System.out.print(" 프레임 투구 : ");
+	static int getPinsPerTry(int i) {
+		System.out.print((i + 1) + " 프레임 투구 : ");
 		return Integer.parseInt(sc.nextLine());
 	}
 }
