@@ -1,11 +1,18 @@
 
 public class Main {
 	public static void main(String[] args) {
-		View view = new View(View.makeFullFrame());
-		Player player = new Player(Input.getName(), Player.initScores());
-		View.view(view, player);
-		for (int i = 0; i <= 9; i++) {
-			Player.play(view, player, i);
+		String name = Input.getName();
+		Player player = new Player(name);
+		for (int i = 0; i < 10; i++) {
+			Frame frame = new Frame();
+			int pinsPerTry = Input.getPinsPerTry();
+			player.play(i, frame.makePinsPerFrame(pinsPerTry));
+			View.showResult(player);
+			if (pinsPerTry != 10) {
+				pinsPerTry = Input.getPinsPerTry();
+				player.play(i, frame.makePinsPerFrame(pinsPerTry));
+				View.showResult(player);
+			}
 		}
 	}
 }

@@ -1,12 +1,16 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Frame {
 
-	List<Integer> frame;
+	private List<Integer> pinsPerFrame = new ArrayList<>();
 	
-	Frame (List<Integer> frame) {
-		this.frame = frame;
+	List<Integer> getPinsPerFrame () {
+		return this.pinsPerFrame;
 	}
 	
-	
+	Frame makePinsPerFrame(int pinsPerTry) {
+		this.pinsPerFrame.add(pinsPerTry);
+		return this;
+	}
 }
