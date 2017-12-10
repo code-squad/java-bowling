@@ -3,15 +3,16 @@ package bowling.model;
 public class TenFrame extends Frame {
 	private TenFramePins pins;
 
-	public void play(int pin) {
+	public Frame play(int pin) {
 		if (checkTryNo(1)) {
 			tryOne(pin);
-			return;
+			return this;
 		} else if (checkTryNo(2)) {
 			tryTwo(pin);
-			return;
+			return this;
 		}
 		tryThree(pin);
+		return this;
 	}
 
 	private void tryOne(int pin) {
@@ -48,7 +49,11 @@ public class TenFrame extends Frame {
 		return pins.makeFirstPinStatus();
 	}
 
-	public Frame makeNextFrame(int frameNum) {
+	public Frame makeNextFrame(int frameSize) {
+		return null;
+	}
+	
+	public Frame makeNextFrame2() {
 		return null;
 	}
 //포비 코드
@@ -56,11 +61,9 @@ public class TenFrame extends Frame {
 		if (!isEnd()) {
 			return -1;
 		}
-		
 		if (pins.isMiss()) {
 			return pins.getScore().getScore();
 		}
-		
 		return pins.totalScore();
 	}
 
@@ -96,4 +99,5 @@ public class TenFrame extends Frame {
 			return false;
 		return true;
 	}
+
 }

@@ -13,13 +13,15 @@ public abstract class Frame {
 
 	abstract public String getStatus();
 
-	abstract public void play(int pin);
+	abstract public Frame play(int pin);
 
 	abstract public boolean isEnd();
 
 	abstract public int getScore();
 	
-	abstract public Frame makeNextFrame(int frameNum);
+	abstract public Frame makeNextFrame2();
+
+	abstract public Frame makeNextFrame(int frameSize);
 	
 	abstract protected int calculate(Score score); 
 }

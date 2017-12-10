@@ -7,6 +7,8 @@ public class Pins {
 	protected int pin1 = -1;
 	protected int pin2 = -1;
 	
+	public Pins() {}
+	
 	public Pins(int pin1) {
 		this.pin1 = pin1;
 	}
@@ -89,5 +91,9 @@ public class Pins {
 			score = score.addScore(pin2);
 		}
 		return score;
+	}
+	
+	protected Pins makePins(int pin1) {
+		return new Pins(pin1);
 	}
 }

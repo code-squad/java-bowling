@@ -12,7 +12,7 @@ public class Frames {
 	private List<Frame> frames = new ArrayList<>();
 
 	public Frames() {
-		frames.add(new NormalFrame());
+		frames.add(new NormalFrame(1));
 	}
 
 	public int getFrameNo() {
@@ -20,6 +20,19 @@ public class Frames {
 			return frames.size();
 		}
 		return frames.size() + 1;
+	}
+	public List<Frame> play2(int pin) {
+		
+		try {
+//			Frame frame = frame.play(pin);
+			Frame frame = lastFrame().play(pin);
+			if(lastFrame() != frame) {
+				frames.add(frame);
+			}
+		} catch (Exception e) {
+			log.debug(e.getMessage());
+		}
+		return frames;
 	}
 
 	public List<Frame> play(int pin) {
