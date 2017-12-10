@@ -51,16 +51,17 @@ public class TenFrame extends Frame {
 	public Frame makeNextFrame(int frameNum) {
 		return null;
 	}
-
+//포비 코드
 	public int getScore() {
-		Score score = pins.getScore();
-		if (score.isFinish()) {
-			return score.getScore();
+		if (!isEnd()) {
+			return -1;
 		}
-		if (pins.hasThirdPin()) {
-			return pins.totalScore();
+		
+		if (pins.isMiss()) {
+			return pins.getScore().getScore();
 		}
-		return -1;
+		
+		return pins.totalScore();
 	}
 
 	protected int calculate(Score beforeScore) {

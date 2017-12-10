@@ -19,24 +19,12 @@ public class Pins {
 		return pin1 + pin2 == MAX_PINS;
 	}
 	
-	protected boolean isSpare(int pin3) {
-		return pin2 + pin3 == MAX_PINS;
-	}
-
-	protected boolean isMiss(int pin3) {
-		return pin2 + pin3 < MAX_PINS;
-	}
-	
 	protected boolean isMiss() {
 		return pin1 + pin2 < MAX_PINS;
 	}
 
 	protected boolean isStrike() {
 		return pin1 == MAX_PINS;
-	}
-
-	protected static boolean isStrike(int pin) {
-		return pin == MAX_PINS;
 	}
 
 	private String makeSpare() {
@@ -54,7 +42,7 @@ public class Pins {
 		return pinToStatus(pin1);
 	}
 
-	public String pinToStatus(int pin) {
+	private String pinToStatus(int pin) {
 		if (pin == 0) {
 			return "-";
 		}

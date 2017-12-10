@@ -17,10 +17,22 @@ public class TenFramePins extends Pins {
 		return isNotBlank(pin3);
 	}
 	
+	protected boolean isStrike(int pin) {
+		return pin == MAX_PINS;
+	}
+	
 	protected void checkPinsExceedCountThreeTry(int pin3) {
 		if (isStrike() && !isStrike(pin2) && pin2 + pin3 > 10) {
 			throw new InvalidPinNumberException("투구의 합이 10을 초과할 수 없습니다.");
 		}
+	}
+	
+	protected boolean isSpare(int pin3) {
+		return pin2 + pin3 == MAX_PINS;
+	}
+
+	protected boolean isMiss(int pin3) {
+		return pin2 + pin3 < MAX_PINS;
 	}
 	
 	protected String addStatus(String status) {
@@ -52,7 +64,7 @@ public class TenFramePins extends Pins {
 		return pinToStatus(pin);
 	}
 
-	public String pinToStatus(int pin) {
+	private String pinToStatus(int pin) {
 		if (pin == 0) {
 			return "-";
 		}
