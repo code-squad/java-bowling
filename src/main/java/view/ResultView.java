@@ -1,10 +1,9 @@
 package view;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import model.Frame;
+import model.Bowling;
 
 public class ResultView {
 
@@ -34,13 +33,14 @@ public class ResultView {
 		System.out.println(secondLine);
 	}
 
-	public static void printResults(String playerName, List<String> allStatus, List<String> totalScores) {
+	public static void printResults(String playerName, Bowling bowling) {
 		printFirstLine();
-		System.out.println(returnStatus(playerName, allStatus));
-		System.out.println(returnScores(totalScores));
+		System.out.println(returnStatus(playerName, bowling));
+		System.out.println(returnScores(bowling));
 	}
-
-	private static String returnStatus(String playerName, List<String> allStatus) {
+	
+	private static String returnStatus(String playerName, Bowling bowling) {
+		List<String> allStatus = bowling.makeStatus();
 		String secondLine = "|   " + playerName + "   |";
 		for (String status : allStatus) {
 			secondLine += "   " + status + "   |";
@@ -51,7 +51,8 @@ public class ResultView {
 		return secondLine;
 	}
 
-	private static String returnScores(List<String> totalScores) {
+	private static String returnScores(Bowling bowling) {
+		List<String> totalScores = bowling.getTotal();
 		String thirdLine = "|        |";
 		for (String score : totalScores) {
 			thirdLine += "   " + score + "   |";

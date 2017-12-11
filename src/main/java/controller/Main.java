@@ -26,11 +26,11 @@ public class Main {
 				ResultView.printFrameNum(bowling.currentFrame.getFrameNum());
 				bowling.bowl(new Pin(InputView.getFalledPin(sc)));
 			} catch (InvalidFrameNumberException e) {
-				ResultView.printResults(playerName, bowling.makeStatus(), bowling.getTotal());
+				ResultView.printResults(playerName, bowling);
 				System.out.println("프레임 개수는 최대 10개입니다.");
 				return;
 			}
-			ResultView.printResults(playerName, bowling.makeStatus(), bowling.getTotal());
+			ResultView.printResults(playerName, bowling);
 			play(playerName);
 		} catch (InvalidFalledPinInputException e) {
 			System.out.println("볼링 핀은 0이상 10이하여야 합니다. 다시 입력해 주세요.");
