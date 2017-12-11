@@ -2,11 +2,12 @@
 public class View {
 	
 	private static final String name = "| name |";
+	private static final int lastFrameNum = 10;
 	
 	private static void showFullFrameNumber() {
 		String fullFrame = name;
-		for (int i = 1; i <= 10; i++) {
-			if (i == 10) {
+		for (int i = 1; i <= lastFrameNum; i++) {
+			if (i == lastFrameNum) {
 				fullFrame += "  " + i + "  |";
 				break;
 			}
@@ -19,12 +20,10 @@ public class View {
 		showFullFrameNumber();
 		String scoreView = "|  " + player.getName() + " |";
 		for (Frame frame : player.getFrames()) {
-			if (frame != null) {
-				scoreView += frame.makeScoreMarkOnFrame(); 	
-			}
-			if (frame == null) {
-				scoreView += "      |";				
-			}
+			scoreView += frame.makeFristScoreMark();
+		}
+		for (int i = 0; i < lastFrameNum - player.getFrames().size(); i++) {
+			scoreView += "      |";
 		}
 		System.out.println(scoreView + "\n");
 	}
