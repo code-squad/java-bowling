@@ -6,31 +6,40 @@ import org.junit.Test;
 public class FrameTest {
 	
 	@Test
-	public void changeToStringMethodTest() {
+	public void changeToStringMethodTestWhenGeneralCase() {
 		Frame frame = new Frame();
 		frame.makePinsPerFrame(3);
-		assertEquals("  3   |", frame.changeToString());
-		
-		Frame frame2 = new Frame();
-		frame2.makePinsPerFrame(10);
-		assertEquals("  X   |", frame2.changeToString());
+		assertEquals("  3   |", frame.makeScoreMarkOnFrame());
 	}
 	
 	@Test
-	public void changeSecondValueTest() {
+	public void changeToStringMethodTestWhenPins10() {
+		Frame frame = new Frame();
+		frame.makePinsPerFrame(10);
+		assertEquals("  X   |", frame.makeScoreMarkOnFrame());
+	}
+	
+	@Test
+	public void changeSecondValueTestWhenGeneralCase() {
 		Frame frame = new Frame();
 		frame.makePinsPerFrame(3);
 		frame.makePinsPerFrame(4);
 		assertEquals("  3|4 |", frame.chageSecondValue("3"));
-		
-		Frame frame2 = new Frame();
-		frame2.makePinsPerFrame(1);
-		frame2.makePinsPerFrame(9);
-		assertEquals("  1|/ |", frame2.chageSecondValue("1"));
-		
-		Frame frame3 = new Frame();
-		frame3.makePinsPerFrame(0);
-		frame3.makePinsPerFrame(9);
-		assertEquals("  -|9 |", frame3.chageSecondValue("0"));
+	}
+	
+	@Test
+	public void changeSecondValueTestWhenSumOfPins10() {
+		Frame frame = new Frame();
+		frame.makePinsPerFrame(1);
+		frame.makePinsPerFrame(9);
+		assertEquals("  1|/ |", frame.chageSecondValue("1"));
+	}
+	
+	@Test
+	public void changeSecondValueTestWhenPins0() {
+		Frame frame = new Frame();
+		frame.makePinsPerFrame(0);
+		frame.makePinsPerFrame(9);
+		assertEquals("  -|9 |", frame.chageSecondValue("0"));
 	}
 }

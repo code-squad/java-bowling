@@ -7,10 +7,10 @@ public class View {
 		String fullFrame = name;
 		for (int i = 1; i <= 10; i++) {
 			if (i == 10) {
-				fullFrame += "  " + Integer.toString(i) + "  |";
+				fullFrame += "  " + i + "  |";
 				break;
 			}
-			fullFrame += "  0" + Integer.toString(i) + "  |";
+			fullFrame += "  0" + i + "  |";
 		}
 		System.out.println(fullFrame);
 	}
@@ -20,7 +20,7 @@ public class View {
 		String scoreView = "|  " + player.getName() + " |";
 		for (Frame frame : player.getFrames()) {
 			if (frame != null) {
-				scoreView += frame.changeToString(); 	
+				scoreView += frame.makeScoreMarkOnFrame(); 	
 			}
 			if (frame == null) {
 				scoreView += "      |";				

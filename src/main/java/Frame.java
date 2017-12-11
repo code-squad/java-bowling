@@ -14,13 +14,14 @@ public class Frame {
 		return this;
 	}
 	
-	String changeToString() {
+	String makeScoreMarkOnFrame() {
 		String oneFrame, firstValue;
-		firstValue = Integer.toString(getPinsPerFrame().get(0));
-		if (getPinsPerFrame().get(0) == 10) {
+		int firstPins = getPinsPerFrame().get(0);
+		firstValue = Integer.toString(firstPins);
+		if (firstPins == 10) {
 			firstValue = "X";
 		}
-		if (getPinsPerFrame().get(0) == 0) {
+		if (firstPins == 0) {
 			firstValue = "-"; 
 		}
 		oneFrame = "  " + firstValue + "   |";
@@ -32,11 +33,13 @@ public class Frame {
 
 	String chageSecondValue(String firstValue) {
 		String oneFrame, secondValue;
-		secondValue = Integer.toString(getPinsPerFrame().get(1));
-		if (getPinsPerFrame().get(0) + getPinsPerFrame().get(1) == 10) {
+		int firstPins = getPinsPerFrame().get(0);
+		int secondPins = getPinsPerFrame().get(1);
+		secondValue = Integer.toString(secondPins);
+		if (firstPins + secondPins == 10) {
 			secondValue = "/";
 		}
-		if (getPinsPerFrame().get(1) == 0) {
+		if (secondPins == 0) {
 			secondValue = "-";
 		}
 		oneFrame = "  " + firstValue + "|" + secondValue + " |";

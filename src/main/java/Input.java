@@ -6,7 +6,8 @@ public class Input {
 	
 	static String getName() {
 		System.out.print("플레이어 이름은?(3 english letters) : ");
-		return sc.nextLine();
+		String name = sc.nextLine();
+		return name;
 	}
 	
 	static int getPinsPerTry(int i) {
