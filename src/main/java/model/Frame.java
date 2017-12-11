@@ -3,11 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exception.HasNotNextFrameYetException;
 import Exception.InvalidFrameNumberException;
 
 public abstract class Frame {
 	private int frameNum;
 	private List<Pin> pins = new ArrayList<>();
+	private Frame nextFrame;
 
 	public Frame(int frameNum) {
 		if (frameNum == 11) {
@@ -29,7 +31,56 @@ public abstract class Frame {
 	}
 
 	public Pin findPin(int index) {
+		if (hasNoPins() || hasOnlyOnePin(index) || hasOnlyTwoPins(index)) {
+			return null;
+		}
 		return this.pins.get(index);
+	}
+
+	private boolean hasNoPins() {
+		return this.pins.isEmpty();
+	}
+
+	private boolean hasOnlyOnePin(int index) {
+		return this.pins.size() == 1 && index == 1;
+	}
+
+	private boolean hasOnlyTwoPins(int index) {
+		return this.pins.size() == 2 && index == 2;
+	}
+
+	public Frame addAfterDecide(Pin pin) throws InvalidFrameNumberException {
+		this.addPins(pin);
+		if (!this.isEnd()) {
+			return this;
+		}
+		if (this.getFrameNum() >= 9) {
+			Frame frame = new TenthFrame(this.getFrameNum() + 1);
+			this.nextFrame = frame;
+			return this.nextFrame;
+		}
+		this.nextFrame = new NormalFrame(this.getFrameNum() + 1);
+		return this.nextFrame;
+	}
+
+	public Frame getNextFrame() throws HasNotNextFrameYetException {
+		if (this.nextFrame == null) {
+			throw new HasNotNextFrameYetException();
+		}
+		return this.nextFrame;
+	}
+
+	public String createScore() {
+		if (this.isEnd()) {
+			if (this.findPin(0).isStrike()) {
+				return this.whenIsStrike();
+			}
+			if (this.findPin(0).isSpare(this.findPin(1))) {// 스페어 일때.
+				return this.whenIsSpare();
+			}
+			return this.whenIsMiss();
+		}
+		return "";
 	}
 
 	public String decideStatus() {
@@ -43,8 +94,11 @@ public abstract class Frame {
 
 	public abstract boolean isEnd();
 
-	public abstract Frame addAfterDecide(Pin pin);
-//	public abstract int createScore();
+	public abstract String whenIsMiss();
+
+	public abstract String whenIsSpare();
+
+	public abstract String whenIsStrike();
 
 	@Override
 	public int hashCode() {
@@ -78,6 +132,5 @@ public abstract class Frame {
 	public String toString() {
 		return "Frame [frameNum=" + frameNum + ", pins=" + pins + "]";
 	}
-
 
 }

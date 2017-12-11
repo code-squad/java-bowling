@@ -27,21 +27,38 @@ public class ResultView {
 	}
 
 	private static void printBlankSecondLine(String playerName) {
-		String secondLine = "|   " + playerName + "  |";
+		String secondLine = "|   " + playerName + "   |";
 		for (int i = 1; i < 11; i++) {
 			secondLine += "      |";
 		}
 		System.out.println(secondLine);
 	}
-	public static void printStatus(String playerName, List<String> allStatus) {
+
+	public static void printResults(String playerName, List<String> allStatus, List<String> totalScores) {
 		printFirstLine();
-		String secondLine = "|   " + playerName + "  |";
+		System.out.println(returnStatus(playerName, allStatus));
+		System.out.println(returnScores(totalScores));
+	}
+
+	private static String returnStatus(String playerName, List<String> allStatus) {
+		String secondLine = "|   " + playerName + "   |";
 		for (String status : allStatus) {
 			secondLine += "   " + status + "   |";
 		}
 		for (int j = allStatus.size() + 1; j < 11; j++) {
 			secondLine += "      |";
 		}
-		System.out.println(secondLine);
+		return secondLine;
+	}
+
+	private static String returnScores(List<String> totalScores) {
+		String thirdLine = "|        |";
+		for (String score : totalScores) {
+			thirdLine += "   " + score + "   |";
+		}
+		for (int j = totalScores.size() + 1; j < 11; j++) {
+			thirdLine += "      |";
+		}
+		return thirdLine;
 	}
 }
