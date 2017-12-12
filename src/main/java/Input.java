@@ -4,13 +4,25 @@ public class Input {
 	
 	private static Scanner sc = new Scanner(System.in);
 	
-	static String getName() {
+	static String getName() throws InputException{
 		System.out.print("플레이어 이름은?(3 english letters) : ");
-		return sc.nextLine();
+		String name = sc.nextLine();
+		if (name.length() != 3) {
+			throw new InputException("3글자로 입력해주세요");
+		}
+		if (InputException.isString(name)) {
+			throw new InputException("알파벳으로 입력해주세요");
+		}
+		return name;
 	}
 	
-	static int getPinsPerTry(int i) {
-		System.out.print((i + 1) + " 프레임 투구 : ");
-		return Integer.parseInt(sc.nextLine());
+	static int getPinsPerTry(Player player) throws InputException{
+		int frameNum = player.getFrameNum();
+		System.out.print((frameNum + 1) + " 프레임 투구 : ");
+		int pinsPerTry = Integer.parseInt(sc.nextLine());
+		if (pinsPerTry < 0 || pinsPerTry > 10) {
+			throw new InputException("0 ~ 10 숫자만 입력해주세요");
+		}
+		return pinsPerTry;
 	}
 }

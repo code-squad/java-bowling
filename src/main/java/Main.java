@@ -5,16 +5,19 @@ public class Main {
 		String name = Input.getName();
 		Player player = new Player(name);
 		
-		for (int i = 0; i < 10; i++) {
-			Frame frame = new Frame();
-			int pinsPerTry = Input.getPinsPerTry(i);
-			player.play(i, frame.makePinsPerFrame(pinsPerTry));
+		while (player.isFinished()) {
+			int pinsPerTry = Input.getPinsPerTry(player);
+			player.play(pinsPerTry);
 			View.showResult(player);
-			if (pinsPerTry != 10) {
-				pinsPerTry = Input.getPinsPerTry(i);
-				player.play(i, frame.makePinsPerFrame(pinsPerTry));
-				View.showResult(player);
-			}
+		}
+		
+		try {
+			Input.getName();
+			Input.getPinsPerTry(player);
+		} catch (InputException e){
+			String message = e.getMessage();
+			System.out.println(message);
+			e.printStackTrace();
 		}
 	}
 }

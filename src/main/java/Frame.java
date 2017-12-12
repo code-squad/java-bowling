@@ -8,38 +8,34 @@ public class Frame {
 	List<Integer> getPinsPerFrame () {
 		return this.pinsPerFrame;
 	}
-	
-	Frame makePinsPerFrame(int pinsPerTry) {
-		this.pinsPerFrame.add(pinsPerTry);
-		return this;
-	}
-	
-	String changeToString() {
-		String oneFrame, firstValue;
-		firstValue = Integer.toString(getPinsPerFrame().get(0));
-		if (getPinsPerFrame().get(0) == 10) {
+		
+	String makeFristScoreMark() {
+		int firstPins = getPinsPerFrame().get(0);
+		String firstValue = firstPins + "";
+		if (firstPins == 10) {
 			firstValue = "X";
 		}
-		if (getPinsPerFrame().get(0) == 0) {
+		if (firstPins == 0) {
 			firstValue = "-"; 
 		}
-		oneFrame = "  " + firstValue + "   |";
+		String oneFrame = "  " + firstValue + "   |";
 		if (getPinsPerFrame().size() == 2) {
-			oneFrame = chageSecondValue(firstValue);
+			oneFrame = makeSecondScroeMark(firstValue);
 		}
 		return oneFrame;
 	}
 
-	String chageSecondValue(String firstValue) {
-		String oneFrame, secondValue;
-		secondValue = Integer.toString(getPinsPerFrame().get(1));
-		if (getPinsPerFrame().get(0) + getPinsPerFrame().get(1) == 10) {
+	private String makeSecondScroeMark(String firstValue) {
+		int firstPins = getPinsPerFrame().get(0);
+		int secondPins = getPinsPerFrame().get(1);
+		String secondValue = Integer.toString(secondPins);
+		if (firstPins + secondPins == 10) {
 			secondValue = "/";
 		}
-		if (getPinsPerFrame().get(1) == 0) {
+		if (secondPins == 0) {
 			secondValue = "-";
 		}
-		oneFrame = "  " + firstValue + "|" + secondValue + " |";
+		String oneFrame = "  " + firstValue + "|" + secondValue + " |";
 		return oneFrame;
 	}
 }

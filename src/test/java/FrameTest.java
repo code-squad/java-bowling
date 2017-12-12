@@ -1,36 +1,44 @@
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class FrameTest {
-	
-	@Test
-	public void changeToStringMethodTest() {
-		Frame frame = new Frame();
-		frame.makePinsPerFrame(3);
-		assertEquals("  3   |", frame.changeToString());
 		
-		Frame frame2 = new Frame();
-		frame2.makePinsPerFrame(10);
-		assertEquals("  X   |", frame2.changeToString());
+	@Test
+	public void makeScoreFristMarkTestWhenValue10() {
+		Frame frame = new Frame();
+		frame.getPinsPerFrame().add(10);
+		assertEquals("  X   |", frame.makeFristScoreMark());
 	}
 	
 	@Test
-	public void changeSecondValueTest() {
+	public void makeScoreFristMarkTestWhenValue0() {
 		Frame frame = new Frame();
-		frame.makePinsPerFrame(3);
-		frame.makePinsPerFrame(4);
-		assertEquals("  3|4 |", frame.chageSecondValue("3"));
-		
-		Frame frame2 = new Frame();
-		frame2.makePinsPerFrame(1);
-		frame2.makePinsPerFrame(9);
-		assertEquals("  1|/ |", frame2.chageSecondValue("1"));
-		
-		Frame frame3 = new Frame();
-		frame3.makePinsPerFrame(0);
-		frame3.makePinsPerFrame(9);
-		assertEquals("  -|9 |", frame3.chageSecondValue("0"));
+		frame.getPinsPerFrame().add(0);
+		assertEquals("  -   |", frame.makeFristScoreMark());
+	}
+	
+	@Test
+	public void makeScoreFristMarkTestWhenValueNormal() {
+		Frame frame = new Frame();
+		frame.getPinsPerFrame().add(7);
+		assertEquals("  7   |", frame.makeFristScoreMark());
+	}
+	
+	
+	@Test
+	public void makeSecondScroeMarkTestWhenSum10() {
+		Frame frame = new Frame();
+		frame.getPinsPerFrame().add(7);
+		frame.getPinsPerFrame().add(3);
+		assertEquals("  7|/ |", frame.makeFristScoreMark());
+	}
+	
+	@Test
+	public void makeSecondScroeMarkTestWhenValue0() {
+		Frame frame = new Frame();
+		frame.getPinsPerFrame().add(7);
+		frame.getPinsPerFrame().add(0);
+		assertEquals("  7|- |", frame.makeFristScoreMark());
 	}
 }
