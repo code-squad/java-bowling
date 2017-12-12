@@ -1,10 +1,6 @@
 package bowling.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Score {
-	private static final Logger log = LoggerFactory.getLogger(Score.class);
 	private int score;
 	private int remainingNo;
 	
@@ -21,7 +17,6 @@ public class Score {
 	}
 
 	public Score addScore(int falledPins) {
-//		log.debug("score="+score+", falledPins="+falledPins);
 		return new Score(score + falledPins, remainingNo -1);
 	}
 

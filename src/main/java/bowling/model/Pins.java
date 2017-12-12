@@ -17,31 +17,31 @@ public class Pins {
 		this.pin2 = pin;
 	}
 	
-	protected  boolean isSpare() {
-		return pin1 + pin2 == MAX_PINS;
+	protected boolean isSpare(int previousPin, int pin) {
+		return previousPin + pin == MAX_PINS;
 	}
 	
-	protected boolean isMiss() {
-		return pin1 + pin2 < MAX_PINS;
+	protected boolean isMiss(int previousPin, int pin) {
+		return previousPin + pin < MAX_PINS;
 	}
-
-	protected boolean isStrike() {
-		return pin1 == MAX_PINS;
+	
+	protected boolean isStrike(int pin) {
+		return pin == MAX_PINS;
 	}
 
 	private String makeSpare() {
-		return pinToStatus(pin1) + "|/";
+		return makeStatus(pin1) + "|/";
 	}
 
 	private String makeMiss() {
-		return pinToStatus(pin1) + "|" + pinToStatus(pin2);
+		return makeStatus(pin1) + "|" + makeStatus(pin2);
 	}
 	
-	protected String makeFirstPinStatus() {
-		if (isStrike()) {
+	protected String makeStatus(int pin) {
+		if (isStrike(pin)) {
 			return "X";
 		}
-		return pinToStatus(pin1);
+		return pinToStatus(pin);
 	}
 
 	private String pinToStatus(int pin) {
@@ -51,8 +51,12 @@ public class Pins {
 		return String.valueOf(pin);
 	}
 
+	protected String makeFirstPinStatus() {
+		return makeStatus(pin1);
+	}
+	
 	protected String makeSecondPinStatus() {
-		if (isSpare()) {
+		if (isSpare(pin1, pin2)) {
 			return makeSpare();
 		}
 		return makeMiss();
@@ -67,22 +71,9 @@ public class Pins {
 	}
 	
 	protected void checkPinsExceedCount(int pin2) {
-		if (!isStrike() && pin1 + pin2 > MAX_PINS) {
+		if (!isStrike(pin1) && pin1 + pin2 > MAX_PINS) {
 			throw new InvalidPinNumberException("투구의 합이 10을 초과할 수 없습니다.");
 		}
-	}
-	
-	public Score getScore() {
-		if(isStrike()) {
-			return new Score(MAX_PINS, 2);
-		}
-		if(hasSecondPin() && isSpare()) {
-			return new Score(MAX_PINS, 1);
-		}
-		if(hasSecondPin() && isMiss()) {
-			return new Score(pin1 + pin2, 0);
-		}
-		return new Score(pin1, 1);
 	}
 	
 	public Score calculate(Score score) {
@@ -93,7 +84,25 @@ public class Pins {
 		return score;
 	}
 	
+	public Score getScore() {
+//이런 분기문을 다형성으로 없앨 수 있음
+		if(isStrike(pin1)) {
+			return new Score(MAX_PINS, 2);
+		}
+		if(hasSecondPin() && isSpare(pin1, pin2)) {
+			return new Score(MAX_PINS, 1);
+		}
+		if(hasSecondPin() && isMiss(pin1, pin2)) {
+			return new Score(pin1 + pin2, 0);
+		}
+		return new Score(pin1, 1);
+	}
+	
 	protected Pins makePins(int pin1) {
 		return new Pins(pin1);
+	}
+	
+	protected boolean isEnd() {
+		return isStrike(pin1) || hasSecondPin();
 	}
 }

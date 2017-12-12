@@ -21,8 +21,8 @@ public class Frames {
 		}
 		return frames.size() + 1;
 	}
-	public List<Frame> play2(int pin) {
-		
+	
+	public List<Frame> play(int pin) {
 		try {
 //			Frame frame = frame.play(pin);
 			Frame frame = lastFrame().play(pin);
@@ -33,28 +33,6 @@ public class Frames {
 			log.debug(e.getMessage());
 		}
 		return frames;
-	}
-
-	public List<Frame> play(int pin) {
-		Frame frame = setUpFrame();
-		try {
-			frame.play(pin);
-		} catch (Exception e) {
-			log.debug(e.getMessage());
-		}
-		return frames;
-	}
-	
-	private Frame setUpFrame() {
-		Frame frame = lastFrame();
-		if (frame.isEnd()) {
-			addFrame(frames.size());
-		}
-		return lastFrame();
-	}
-
-	private void addFrame(int framesSize) {
-		frames.add(lastFrame().makeNextFrame(framesSize));
 	}
 
 	private Frame lastFrame() {

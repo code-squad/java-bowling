@@ -19,9 +19,7 @@ public abstract class Frame {
 
 	abstract public int getScore();
 	
-	abstract public Frame makeNextFrame2();
+	abstract public Frame makeNextFrame();
 
-	abstract public Frame makeNextFrame(int frameSize);
-	
 	abstract protected int calculate(Score score); 
 }

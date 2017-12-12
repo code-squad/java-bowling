@@ -32,19 +32,14 @@ public class TenFrame extends Frame {
 	}
 
 	public boolean isEnd() {
-		if (pins.hasSecondPin() && !pins.hasThirdPin()) {
-			return pins.isMiss();
-		} else if (pins.hasThirdPin()) {
-			return true;
-		}
-		return false;
+		return pins.isEnd();
 	}
 
 	public String getStatus() {
 		if (pins.hasSecondPin() && !pins.hasThirdPin()) {
 			return pins.makeSecondPinStatus();
 		} else if (pins.hasThirdPin()) {
-			return pins.addStatus(pins.makeSecondPinStatus());
+			return pins.makeThirdStatus(pins.makeSecondPinStatus());
 		}
 		return pins.makeFirstPinStatus();
 	}
@@ -53,18 +48,15 @@ public class TenFrame extends Frame {
 		return null;
 	}
 	
-	public Frame makeNextFrame2() {
+	public Frame makeNextFrame() {
 		return null;
 	}
-//포비 코드
 	public int getScore() {
+		//포비 코드
 		if (!isEnd()) {
 			return -1;
 		}
-		if (pins.isMiss()) {
-			return pins.getScore().getScore();
-		}
-		return pins.totalScore();
+		return pins.getTenScore();
 	}
 
 	protected int calculate(Score beforeScore) {

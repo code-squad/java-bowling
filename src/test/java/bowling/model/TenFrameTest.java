@@ -16,6 +16,14 @@ public class TenFrameTest {
 		frame = new TenFrame();
 	}
 	@Test
+	public void 투구_전() {
+		//널 포인트
+		Frame frame = new NormalFrame(9).play(10);
+		assertThat(frame.getStatus()).isEqualTo("");
+		assertThat(frame.getScore()).isEqualTo("");
+	}
+
+	@Test
 	public void X() {
 		frame.play(10);
 		assertThat(frame.getStatus()).isEqualTo("X");
@@ -23,15 +31,12 @@ public class TenFrameTest {
 	
 	@Test
 	public void XX() {
-		frame.play(10);
-		frame.play(10);
+		frame.play(10).play(10);
 		assertThat(frame.getStatus()).isEqualTo("X|X");
 	}
 	@Test
 	public void XXX() {
-		frame.play(10);
-		frame.play(10);
-		frame.play(10);
+		frame.play(10).play(10).play(10);
 		assertThat(frame.getStatus()).isEqualTo("X|X|X");
 	}
 	@Test
@@ -175,39 +180,15 @@ public class TenFrameTest {
 		assertThat(frame2.getScore()).isEqualTo(30);
 	}
 	@Test
-	public void 전전프레임_합계() {
-		Frame frame1 = new NormalFrame();
-		frame1.play(10);
-		Frame frame2 = frame1.makeNextFrame(8);
-		frame2.play(10);
-		Frame frame3 = frame2.makeNextFrame(9);
+	public void 전전프레임_전프레임_프레임_합계() {
+		Frame frame1 = new NormalFrame(8);
+		Frame frame2 = frame1.play(10);
+		Frame frame3 = frame2.play(10);
 		frame3.play(10);
 		frame3.play(1);
 		frame3.play(1);
 		assertThat(frame1.getScore()).isEqualTo(30);
-	}
-	@Test
-	public void 전프레임_합계() {
-		Frame frame1 = new NormalFrame();
-		frame1.play(10);
-		Frame frame2 = frame1.makeNextFrame(8);
-		frame2.play(10);
-		Frame frame3 = frame2.makeNextFrame(9);
-		frame3.play(10);
-		frame3.play(1);
-		frame3.play(1);
 		assertThat(frame2.getScore()).isEqualTo(21);
-	}
-	@Test
-	public void 프레임_합계() {
-		Frame frame1 = new NormalFrame();
-		Frame frame2 = frame1.makeNextFrame(8);
-		Frame frame3 = frame2.makeNextFrame(9);
-		frame1.play(10);
-		frame2.play(10);
-		frame3.play(10);
-		frame3.play(1);
-		frame3.play(1);
 		assertThat(frame3.getScore()).isEqualTo(12);
 	}
 }
