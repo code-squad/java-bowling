@@ -17,10 +17,8 @@ public class TenFrameTest {
 	}
 	@Test
 	public void 투구_전() {
-		//널 포인트
-		Frame frame = new NormalFrame(9).play(10);
 		assertThat(frame.getStatus()).isEqualTo("");
-		assertThat(frame.getScore()).isEqualTo("");
+		assertThat(frame.getScore()).isEqualTo(-1);
 	}
 
 	@Test

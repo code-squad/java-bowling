@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import bowling.model.state.TenFramePins;
+
 public class TenFramePinsTest {
 	TenFramePins tenPins;
 	

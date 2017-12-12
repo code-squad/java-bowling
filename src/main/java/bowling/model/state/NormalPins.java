@@ -1,19 +1,21 @@
-package bowling.model;
+package bowling.model.state;
 
+import bowling.model.Score;
 import exception.InvalidPinNumberException;
 
-public class Pins {
+public class NormalPins {
 	public static final int MAX_PINS = 10;
 	protected int pin1 = -1;
 	protected int pin2 = -1;
 	
-	public Pins() {}
+	public NormalPins() {}
 	
-	public Pins(int pin1) {
+	public NormalPins(int pin1) {
 		this.pin1 = pin1;
 	}
 	
 	public void addPin(int pin) {
+		checkPinsExceedCount(pin);
 		this.pin2 = pin;
 	}
 	
@@ -51,6 +53,13 @@ public class Pins {
 		return String.valueOf(pin);
 	}
 
+	public String getStatus() {
+		if (!hasSecondPin()) {
+			return makeFirstPinStatus();
+		}
+		return makeSecondPinStatus();
+	}
+	
 	protected String makeFirstPinStatus() {
 		return makeStatus(pin1);
 	}
@@ -98,11 +107,12 @@ public class Pins {
 		return new Score(pin1, 1);
 	}
 	
-	protected Pins makePins(int pin1) {
-		return new Pins(pin1);
-	}
-	
-	protected boolean isEnd() {
+	public boolean isEnd() {
 		return isStrike(pin1) || hasSecondPin();
+	}
+
+	@Override
+	public String toString() {
+		return "NormalPins [pin1=" + pin1 + ", pin2=" + pin2 + "]";
 	}
 }

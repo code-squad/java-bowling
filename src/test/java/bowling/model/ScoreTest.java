@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import bowling.model.state.NormalPins;
+
 public class ScoreTest {
 	Score score;
 	
@@ -21,7 +23,7 @@ public class ScoreTest {
 	}
 	@Test
 	public void 스페어(){
-		Pins pins = new Pins(2);
+		NormalPins pins = new NormalPins(2);
 		pins.addPin(8);
 		score = pins.getScore();
 		assertThat(score.addScore(1).getScore()).isEqualTo(11);

@@ -24,7 +24,6 @@ public class Frames {
 	
 	public List<Frame> play(int pin) {
 		try {
-//			Frame frame = frame.play(pin);
 			Frame frame = lastFrame().play(pin);
 			if(lastFrame() != frame) {
 				frames.add(frame);

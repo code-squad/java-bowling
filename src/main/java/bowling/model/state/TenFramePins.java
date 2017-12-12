@@ -1,19 +1,25 @@
-package bowling.model;
+package bowling.model.state;
 
+import bowling.model.Score;
 import exception.InvalidPinNumberException;
 
-public class TenFramePins extends Pins {
+public class TenFramePins extends NormalPins {
 	private int pin3 = -1;
 	
 	public TenFramePins(int pin1) {
 		super(pin1);
 	}
-	protected void addThirdPin(int pin) {
+	
+	public void addPin(int pin) {
+		if(!hasSecondPin()) {
+			checkPinsExceedCount(pin);
+			pin2 = pin;
+			return;
+		}
+		checkPinsExceedCountThreeTry(pin);
 		pin3 = pin;
 	}
-//부모 클래스랑 비슷한 메소드가 많음. 파라미터 있고 없고 차이.. 이렇게 분리하는 게 의미가 있나?
-//포비: 메소드 이름을 바꾸거나 클래스 구조를 바꾸세요
-//클래스 설계가 잘 안되면 코드가 계속 지저분해짐
+
 	protected boolean hasThirdPin() {
 		return isNotBlank(pin3);
 	}
@@ -31,18 +37,18 @@ public class TenFramePins extends Pins {
 		return status + "|" + makeStatus(pin3);
 	}
 
-	public int totalScore() {
+	private int totalScore() {
 		return pin1 + pin2 + pin3;
 	}
-	@Override
-	protected boolean isEnd() {
+
+	public boolean isEnd() {
 		return hasThirdPin() || (hasSecondPin() && isMiss(pin1, pin2));
 	}
 	
-	protected int getTenScore() {
-		if (isMiss(pin1, pin2)) {
-			return getScore().getScore();
+	protected Score getTenScore() {
+		if (hasSecondPin() && isMiss(pin1, pin2)) {
+			return getScore();
 		}
-		return totalScore();
+		return new Score(totalScore(), 0);
 	}
 }

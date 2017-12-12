@@ -1,13 +1,16 @@
 package bowling.model;
 
+import bowling.model.state.Ready;
+import bowling.model.state.State;
+
 public class NormalFrame extends Frame {
-	private Pins pins = null;
+	private State state;
 	private Frame nextFrame = null;
 	private int frameNum;
 	
 	public NormalFrame(int frameNum) {
 		this.frameNum = frameNum;
-		this.pins = new Ready();
+		this.state = new Ready(frameNum);
 	}
 
 	public Frame makeNextFrame() {
@@ -18,43 +21,23 @@ public class NormalFrame extends Frame {
 	}
 
 	public Frame play(int pin) {
-		if (checkTryNo(1)) {
-			return tryOne(pin);
-		}
-		return tryTwo(pin);
-	}
-
-	private Frame tryOne(int pin) {
-		pins = pins.makePins(pin);
-		if (pin != Pins.MAX_PINS) {
-			addTryNo();
-			return this;
+		state = state.play(pin);
+		if (state.isEnd()) {
+			return makeNextFrame();
 		} 
-		return makeNextFrame();
-	}
-
-	private Frame tryTwo(int pin) {
-		pins.checkPinsExceedCount(pin);// exception나면 어차피 아래코드 실행 안 됨
-		pins.addPin(pin);
-		return makeNextFrame();
+		return this;
 	}
 	
 	public String getStatus() {
-		if (!pins.hasSecondPin()) {
-			return pins.makeFirstPinStatus();
-		}
-		return pins.makeSecondPinStatus();
+		return state.getStatus();
 	}
 
 	public boolean isEnd() {
-		if (pins != null && pins.isEnd()) {
-			return true;
-		}
-		return false;
+		return state.isEnd();
 	}
 
 	public int getScore() {
-		Score score = pins.getScore();
+		Score score = state.getScore();
 		if(score.isFinish()){
 			return score.getScore();
 		}
@@ -65,7 +48,7 @@ public class NormalFrame extends Frame {
 	}
 	
 	public int calculate(Score beforeScore) {
-		Score score = pins.calculate(beforeScore);
+		Score score = state.calculate(beforeScore);
 		if(score.isFinish()) {
 			return score.getScore();
 		}
@@ -73,10 +56,5 @@ public class NormalFrame extends Frame {
 			return nextFrame.calculate(score);
 		}
 		return -1;
-	}
-	
-	@Override
-	public String toString() {
-		return "NormalFrame [pins=" + pins + "]";
 	}
 }

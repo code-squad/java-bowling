@@ -46,7 +46,6 @@ public class NormalFrameTest {
 	}
 	@Test
 	public void 스트라이크() {
-		frame1.play(10);
 		assertThat(frame1.getStatus()).isEqualTo("X");
 	}
 	@Test
@@ -66,10 +65,9 @@ public class NormalFrameTest {
 	}
 	@Test
 	public void 스페어_합계() {
-		frame1.play(3);
-		Frame frame2 = frame1.play(7);
+		Frame frame2 = frame.play(8);
 		frame2.play(5);
-		assertThat(frame1.getScore()).isEqualTo(15);
+		assertThat(frame.getScore()).isEqualTo(15);
 	}
 	@Test
 	public void 스트라이크_미스_합계() {
