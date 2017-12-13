@@ -1,10 +1,9 @@
 package view;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import model.Frame;
+import model.Bowling;
 
 public class ResultView {
 
@@ -27,34 +26,40 @@ public class ResultView {
 	}
 
 	private static void printBlankSecondLine(String playerName) {
-		String secondLine = "|   " + playerName + "  |";
+		String secondLine = "|   " + playerName + "   |";
 		for (int i = 1; i < 11; i++) {
 			secondLine += "      |";
 		}
 		System.out.println(secondLine);
 	}
 
-	public static List<String> makeStatus(List<Frame> frames) {
-		List<String> allStatus = new ArrayList<>();
-		for (Frame frame : frames) {
-			if (!frame.getPins().isEmpty()) {
-				allStatus.add(frame.decideStatus());
-			}
-		}
-		return allStatus;
-	}
-
-	public static void printStatus(String playerName, List<Frame> frames) {
-		List<String> allStatus = makeStatus(frames);
+	public static void printResults(String playerName, Bowling bowling) {
 		printFirstLine();
-		String secondLine = "|   " + playerName + "  |";
+		System.out.println(returnStatus(playerName, bowling));
+		System.out.println(returnScores(bowling));
+	}
+	
+	private static String returnStatus(String playerName, Bowling bowling) {
+		List<String> allStatus = bowling.makeStatus();
+		String secondLine = "|   " + playerName + "   |";
 		for (String status : allStatus) {
 			secondLine += "   " + status + "   |";
 		}
 		for (int j = allStatus.size() + 1; j < 11; j++) {
 			secondLine += "      |";
 		}
-		System.out.println(secondLine);
+		return secondLine;
 	}
 
+	private static String returnScores(Bowling bowling) {
+		List<String> totalScores = bowling.getTotal();
+		String thirdLine = "|        |";
+		for (String score : totalScores) {
+			thirdLine += "   " + score + "   |";
+		}
+		for (int j = totalScores.size() + 1; j < 11; j++) {
+			thirdLine += "      |";
+		}
+		return thirdLine;
+	}
 }

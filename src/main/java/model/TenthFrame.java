@@ -1,21 +1,24 @@
 package model;
 
-import Exception.InvalidFrameNumberException;
+import Exception.HasNotValueYetException;
 
 public class TenthFrame extends Frame {
 	public TenthFrame(int frameNum) {
 		super(frameNum);
 	}
-
+	
 	@Override
-	public Frame addAfterDecide(Pin pin) throws InvalidFrameNumberException {
-		super.addPins(pin);
-		if (this.isEnd()) {// 10 프레임이 끝나면,
-			return new TenthFrame(this.getFrameNum() + 1);
+	public Score calculateScore(Score score) throws HasNotValueYetException {// 해당 프레임의 score를 계산하는 메소드.
+		if(score.isEnd()) {
+			return score;
 		}
-		return this;
+		score.add(this.findPin(0).getPin());
+		if(!score.isEnd()) {
+			score.add(this.findPin(1).getPin());
+		}
+		return calculateScore(score);
 	}
-
+	
 	@Override
 	public boolean isEnd() {
 		if (this.getPins().isEmpty() || this.getPins().size() == 1) {// null check
@@ -31,6 +34,6 @@ public class TenthFrame extends Frame {
 	}
 
 	private boolean isOneMiss() {
-		return this.getPins().size() == 2 && this.findPin(0).isSpare(this.findPin(1));
+		return this.getPins().size() == 2 && this.findPin(0).getPin() + this.findPin(1).getPin() < 10;
 	}
 }
