@@ -35,15 +35,7 @@ public class Frame {
 		int firstPins = pinsPerFrame.get(0);
 		int secondPins = pinsPerFrame.get(1);
 		String secondValue = Integer.toString(secondPins);
-		if (firstPins + secondPins == 10) {
-			secondValue = "/";
-		}
-		if (secondPins == 0) {
-			secondValue = "-";
-		}
-		if (secondPins == 10) {
-			secondValue = "X";
-		}
+		secondValue = makeLastScoreMark(firstPins, secondPins, secondValue);
 		String oneFrame = "  " + firstValue + "|" + secondValue + " |";
 		if (pinsPerFrame.size() == 3) {
 			oneFrame = makeThirdScoreMark(firstValue, secondValue);
@@ -55,17 +47,22 @@ public class Frame {
 		int secondPins = pinsPerFrame.get(1);
 		int thirdPins = pinsPerFrame.get(2);
 		String thirdValue = Integer.toString(thirdPins);
-		if (secondPins + thirdPins == 10) {
-			thirdValue = "/";
-		}
-		if (thirdPins == 0) {
-			thirdValue = "-";
-		}
-		if (thirdPins == 10) {
-			thirdValue = "X";
-		}
+		thirdValue = makeLastScoreMark(secondPins, thirdPins, thirdValue);
 		String oneFrame = " " + firstValue + "|" + secondValue + "|" + thirdValue + "|";
 		return oneFrame;
+	}
+	
+	private String makeLastScoreMark(int firstPins, int secondPins, String secondValue) {
+		if (firstPins + secondPins == 10) {
+			secondValue = "/";
+		}
+		if (secondPins == 0) {
+			secondValue = "-";
+		}
+		if (secondPins == 10) {
+			secondValue = "X";
+		}
+		return secondValue;
 	}
 	
 	void bowl(int pinsPerTry) {
