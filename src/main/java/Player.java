@@ -39,7 +39,15 @@ public class Player {
 	private void checkPinsRight(Frame currentFrame) {
 		int sum = 0;
 		if (frameNum == 9) {
-			return;
+			System.out.println(frameNum);
+			for (int i = 1; i < currentFrame.getPinsPerFrame().size(); i++) {
+				if (currentFrame.getPinsPerFrame().get(i - 1) != 10) {
+					sum += currentFrame.getPinsPerFrame().get(i - 1);
+					if (sum > 10) {
+						throw new InputException("투구의 합은 10 이하여야 합니다2");
+					}
+				}
+			}
 		}
 		
 		for (int pinsPerTry : currentFrame.getPinsPerFrame()) {
