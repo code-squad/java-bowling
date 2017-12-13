@@ -40,9 +40,9 @@ public class BowlingTest {
 	}
 
 	@Test
-	public void scores_생성_테스트1() throws Exception {
+	public void 프레임_개별_score_생성_테스트1() throws Exception {
 		bowling.bowl(pin1);
-		assertEquals(1, bowling.getScores().size());
+		assertEquals(0, bowling.getScores().size());
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class BowlingTest {
 		bowling.bowl(pin1);
 		bowling.bowl(pin2);
 		bowling.bowl(pin3);
-		assertEquals("20", bowling.getScores().get(0));
+		assertEquals(20, bowling.getScores().get(0).getScore());
 		assertEquals(1, bowling.getScores().size());
 	}
 
@@ -61,13 +61,14 @@ public class BowlingTest {
 			bowling.bowl(pin2);
 			bowling.bowl(pin3);
 		}
-		List<String> totalScores = bowling.getTotal();
-		assertEquals(5, totalScores.size());
-		assertEquals("100", totalScores.get(4));
+		assertEquals(20, bowling.getScores().get(0).getScore());
+		assertEquals(20, bowling.getScores().get(1).getScore());
+		assertEquals(20, bowling.getScores().get(2).getScore());
+		assertEquals(5, bowling.getScores().size());
 	}
 
 	@Test
-	public void 합친_score_생성_테스트() throws Exception {
+	public void 합친_score_생성_테스트1() throws Exception {
 		for (int i = 0; i < 2; i++) {
 			bowling.bowl(pin1);
 			bowling.bowl(pin2);
@@ -91,18 +92,4 @@ public class BowlingTest {
 			assertEquals("240", totalScores.get(7));
 		}
 	}
-
-	@Test
-	public void 합친_score_생성_테스트3() throws Exception {
-		try {
-			for (int i = 0; i < 9; i++) {
-				bowling.bowl(pin1);
-			}
-		} catch (InvalidFrameNumberException e) {
-			List<String> totalScores = bowling.getTotal();
-			assertEquals(8, totalScores.size());
-			assertEquals("240", totalScores.get(7));
-		}
-	}
-
 }

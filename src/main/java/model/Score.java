@@ -17,4 +17,13 @@ public class Score {
 	public boolean isEnd() {
 		return nextAddNo == 0;
 	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public int getNextAddNo() {
+		return nextAddNo;
+	}
+	
 }

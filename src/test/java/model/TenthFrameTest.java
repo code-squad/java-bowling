@@ -32,56 +32,64 @@ public class TenthFrameTest {
 	}
 
 	@Test
-	public void strike_일때_returnNull_테스트() throws Exception {
-		t.addAfterDecide(pin3);
-		String score = t.createScore();
-		assertEquals("", score);
+	public void ninethFrame_calculateScore_Strike() throws Exception {
+		Frame nine = new NormalFrame(9);
+		Frame ten = nine.addAfterDecide(pin3);
+		ten = ten.addAfterDecide(pin3);
+		ten = ten.addAfterDecide(pin3);
+		Score nineScore = nine.decide();
+		Score nineFinalScore = nine.getNextFrame().calculateScore(nineScore);
+		assertEquals(30, nineFinalScore.getScore());
+	}
+	@Test
+	public void ninethFrame_calculateScore_Spare() throws Exception {
+		Frame nine = new NormalFrame(9);
+		nine = nine.addAfterDecide(pin1);
+		Frame ten = nine.addAfterDecide(pin2);
+		ten = ten.addAfterDecide(pin3);
+		Score nineScore = nine.decide();
+		Score nineFinalScore = nine.getNextFrame().calculateScore(nineScore);
+		assertEquals(20, nineFinalScore.getScore());
 	}
 
 	@Test
-	public void twoStrike_일때_returnNull_테스트() throws Exception {
+	public void tenthFrame_calculateScore_3Strike() throws Exception {
+		Frame ten = new TenthFrame(10);
 		try {
-			t.addAfterDecide(pin3);
-			t.addAfterDecide(pin3);
+			for (int i = 0; i < 3; i++) {
+				ten = ten.addAfterDecide(pin3);
+			}
 		} catch (InvalidFrameNumberException e) {
-			String score = t.createScore();
-			assertEquals("", score);
+			Score tenScore = ten.decide();
+			Score tenFinalScore = ten.calculateTenthScore(tenScore);
+			assertEquals(30, tenFinalScore.getScore());
 		}
 	}
 
 	@Test
-	public void threeStrike_일때_returnSxtcore_테스트() throws Exception {
+	public void tenthFrame_calculateScore_1Spare() throws Exception {
+		Frame ten = new TenthFrame(10);
 		try {
-			t.addPins(pin3);
-			t.addPins(pin3);
-			t.addAfterDecide(pin3);
+			ten = ten.addAfterDecide(pin1);
+			ten = ten.addAfterDecide(pin2);
+			ten = ten.addAfterDecide(pin3);
 		} catch (InvalidFrameNumberException e) {
-			String score = t.createScore();
-			assertEquals("30", score);
+			Score tenScore = ten.decide();
+			Score tenFinalScore = ten.calculateTenthScore(tenScore);
+			assertEquals(20, tenFinalScore.getScore());
 		}
 	}
 
 	@Test
-	public void spare_일때_returnScore_테스트() throws Exception {
+	public void tenthFrame_calculateScore_1Miss() throws Exception {
+		Frame ten = new TenthFrame(10);
 		try {
-			t.addPins(pin1);
-			t.addPins(pin2);
-			t.addAfterDecide(pin3);
+			ten = ten.addAfterDecide(pin2);
+			ten = ten.addAfterDecide(pin4);
 		} catch (InvalidFrameNumberException e) {
-			String score = t.createScore();
-			assertEquals("20", score);
+			Score tenScore = ten.decide();
+			Score tenFinalScore = ten.calculateTenthScore(tenScore);
+			assertEquals(1, tenFinalScore.getScore());
 		}
 	}
-
-	@Test
-	public void miss_일때_returnScore_테스트() throws Exception {
-		try {
-			t.addAfterDecide(pin1);
-			t.addAfterDecide(pin4);
-		} catch (InvalidFrameNumberException e) {
-			String score = t.createScore();
-			assertEquals("9", score);
-		}
-	}
-
 }

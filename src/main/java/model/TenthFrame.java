@@ -1,43 +1,24 @@
 package model;
 
+import Exception.HasNotValueYetException;
+
 public class TenthFrame extends Frame {
 	public TenthFrame(int frameNum) {
 		super(frameNum);
 	}
-
+	
 	@Override
-	public String whenIsMiss() {
-		int score = this.findPin(0).getPin() + this.findPin(1).getPin();
-		return score + "";
-	}
-
-	@Override
-	public String whenIsSpare() {
-		int score = 10;
-		Pin thirdPin = this.findPin(2);
-		if (thirdPin == null) {
-			return "";
+	public Score calculateScore(Score score) throws HasNotValueYetException {// 해당 프레임의 score를 계산하는 메소드.
+		if(score.isEnd()) {
+			return score;
 		}
-		score += thirdPin.getPin();
-		return score + "";
-	}
-
-	@Override
-	public String whenIsStrike() {
-		int score = 10;
-		Pin secondPin = this.findPin(1);
-		if (secondPin == null) {
-			return "";
+		score.add(this.findPin(0).getPin());
+		if(!score.isEnd()) {
+			score.add(this.findPin(1).getPin());
 		}
-		score += secondPin.getPin();
-		Pin thirdPin = this.findPin(2);
-		if (thirdPin == null) {
-			return "";
-		}
-		score += thirdPin.getPin();
-		return score + "";
+		return calculateScore(score);
 	}
-
+	
 	@Override
 	public boolean isEnd() {
 		if (this.getPins().isEmpty() || this.getPins().size() == 1) {// null check
@@ -53,6 +34,6 @@ public class TenthFrame extends Frame {
 	}
 
 	private boolean isOneMiss() {
-		return this.getPins().size() == 2 && this.findPin(0).getPin() + this.findPin(1).getPin() <= 10;
+		return this.getPins().size() == 2 && this.findPin(0).getPin() + this.findPin(1).getPin() < 10;
 	}
 }

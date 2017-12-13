@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Exception.HasNotFinishedException;
+import Exception.HasNotValueYetException;
 import Exception.InvalidFrameNumberException;
 
 public class Bowling {
@@ -24,27 +27,41 @@ public class Bowling {
 		}
 	}
 
-	public List<String> getScores() {
-		List<String> scores = new ArrayList<>();
+	public List<Score> getScores() {
+		List<Score> scores = new ArrayList<>();
 		for (int i = 0; i < currentFrame.getFrameNum(); i++) {
-			String score = frames.get(i).createScore();
-			if (score != "") {
+			Score score = getScore(frames.get(i));
+			if(score != null) {
 				scores.add(score);
 			}
 		}
 		return scores;
 	}
+	public Score getScore(Frame frame) {// 해당 프레임의 score 구하는 메소드.
+		Score score;
+		try {
+			if(frame.isTenthFrame()) {
+				score = frame.calculateTenthScore(frame.decide());
+				return score;
+			}
+			Frame nextFrame = frame.getNextFrame();
+			score = nextFrame.calculateScore(frame.decide());
+		} catch (HasNotFinishedException | HasNotValueYetException e) {
+			score = null;
+		}
+		return score;
+	}
 
 	public List<String> getTotal() {
 		List<String> totalScores = new ArrayList<>();
-		List<String> scores = getScores();
+		List<Score> scores = getScores();
 		int total = 0;
 		for (int i = 0; i < scores.size(); i++) {
 			if (scores.isEmpty() || scores.get(i) == null) {
 				totalScores.add("  ");
 				return totalScores;
 			}
-			total += Integer.parseInt(scores.get(i));
+			total += scores.get(i).getScore();
 			totalScores.add(total + "");
 		}
 		return totalScores;
