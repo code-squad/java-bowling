@@ -3,11 +3,16 @@ package bowling.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Frames {
+	private static final Logger log = LoggerFactory.getLogger(Frames.class);
+	
 	private List<Frame> frames = new ArrayList<>();
 
 	public Frames() {
-		frames.add(new NormalFrame());
+		frames.add(new NormalFrame(1));
 	}
 
 	public int getFrameNo() {
@@ -16,37 +21,17 @@ public class Frames {
 		}
 		return frames.size() + 1;
 	}
-
-	public List<Frame> play2(int pin) {
-		Frame frame = setUpFrame();
-		frame.play(pin);
-		return frames;
-	}
-
+	
 	public List<Frame> play(int pin) {
-		Frame frame = setUpFrame();
 		try {
-			frame.play(pin);
+			Frame frame = lastFrame().play(pin);
+			if(lastFrame() != frame) {
+				frames.add(frame);
+			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			log.debug(e.getMessage());
 		}
 		return frames;
-	}
-
-	private Frame setUpFrame() {
-		Frame frame = lastFrame();
-		if (frame.isEnd()) {
-			addFrame(frames.size());
-		}
-		return lastFrame();
-	}
-
-	private void addFrame(int framesSize) {
-		if (framesSize < 9) {
-			frames.add(new NormalFrame());
-			return;
-		}
-		frames.add(new TenFrame());
 	}
 
 	private Frame lastFrame() {

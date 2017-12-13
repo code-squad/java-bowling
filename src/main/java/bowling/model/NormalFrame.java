@@ -1,45 +1,46 @@
 package bowling.model;
 
-public class NormalFrame extends Frame {
-	private int pin1 = -1;
-	private int pin2 = -1;
+import bowling.model.state.Ready;
 
-	public void play(int pin) {
-		if (checkTryNo(1)) {
-			tryOne(pin);
-			return;
+public class NormalFrame extends AbstractFrame {
+	private Frame nextFrame = null;
+	private int frameNum;
+	
+	public NormalFrame(int frameNum) {
+		super(new Ready(frameNum));
+		this.frameNum = frameNum;
+	}
+
+	public Frame makeNextFrame() {
+		if (frameNum == 9) {
+			return nextFrame = new TenFrame();
 		}
-		tryTwo(pin);
+		return nextFrame = new NormalFrame(frameNum + 1);
 	}
 
-	private void tryOne(int pin) {
-		pin1 = pin;
-		if (!isStrike(pin1)) {
-			addTryNo();
+	public Frame play(int pin) {
+		bowl(pin);
+		if (isEnd()) {
+			return makeNextFrame();
+		} 
+		return this;
+	}
+	
+	public int getScore() {
+		Score score = getStateScore();
+		if(score.isFinish()){
+			return score.getScore();
 		}
-	}
-
-	private void tryTwo(int pin) {
-		checkSumOfPinsExceedTen(pin1, pin);// exception나면 어차피 아래코드 실행 안 됨
-		pin2 = pin;
-	}
-
-	public String getStatus() {
-		if (!isNotBlank(pin2)) {
-			return makeStatus(pin1);
+		if(nextFrame != null) {
+			return nextFrame.calculate(score);
 		}
-		return makeStatus(pin1, pin2);
+		return -1;
 	}
-
-	public boolean isEnd() {
-		if (isStrike(pin1) || (isNotBlank(pin1) && isNotBlank(pin2))) {
-			return true;
+	
+	public int additionalCalculate(Score beforeScore) {
+		if(nextFrame != null) {
+			return nextFrame.calculate(beforeScore);
 		}
-		return false;
-	}
-
-	@Override
-	public String toString() {
-		return "NormalFrame [pin1=" + pin1 + ", pin2=" + pin2 + "]";
+		return -1;
 	}
 }

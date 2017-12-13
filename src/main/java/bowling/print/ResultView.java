@@ -23,8 +23,19 @@ public class ResultView {
 			System.out.printf("%-5s|", frame.getStatus());
 		}
 		blank(10 - frames.size());
+		sum(frames);
 	}
 
+	private void sum(List<Frame> frames) {
+		System.out.printf("\n| %4s |", "");
+		frames.stream().map(frame -> frame.getScore()).filter(sum -> sum!= -1).reduce(0, (a,b)->{
+			System.out.printf("%-5s|", a+b);
+			return a + b;
+		});
+		frames.stream().map(frame -> frame.getScore()).filter(sum -> sum== -1).forEach(sum -> System.out.printf("%-5s|", ""));
+		blank(10 - frames.size());
+	}
+	
 	private void frame() {
 		System.out.printf("| %4s |", "NAME");
 		for (int i = 1; i < 11; i++) {
