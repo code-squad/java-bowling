@@ -25,7 +25,7 @@ public class NormalFrameTest {
 	
 	@Test
 	public void 마지막프레임만들기() {
-		assertThat(new NormalFrame(9).makeNextFrame()).isEqualTo(new TenFrame());
+		assertThat(new NormalFrame(9).makeNextFrame() instanceof TenFrame).isEqualTo(true);
 	}
 	
 	@Test

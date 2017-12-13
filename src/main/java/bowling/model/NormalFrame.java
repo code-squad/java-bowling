@@ -1,16 +1,14 @@
 package bowling.model;
 
 import bowling.model.state.Ready;
-import bowling.model.state.State;
 
-public class NormalFrame extends Frame {
-	private State state;
+public class NormalFrame extends AbstractFrame {
 	private Frame nextFrame = null;
 	private int frameNum;
 	
 	public NormalFrame(int frameNum) {
+		super(new Ready(frameNum));
 		this.frameNum = frameNum;
-		this.state = new Ready(frameNum);
 	}
 
 	public Frame makeNextFrame() {
@@ -21,23 +19,15 @@ public class NormalFrame extends Frame {
 	}
 
 	public Frame play(int pin) {
-		state = state.play(pin);
-		if (state.isEnd()) {
+		bowl(pin);
+		if (isEnd()) {
 			return makeNextFrame();
 		} 
 		return this;
 	}
 	
-	public String getStatus() {
-		return state.getStatus();
-	}
-
-	public boolean isEnd() {
-		return state.isEnd();
-	}
-
 	public int getScore() {
-		Score score = state.getScore();
+		Score score = getStateScore();
 		if(score.isFinish()){
 			return score.getScore();
 		}
@@ -47,13 +37,9 @@ public class NormalFrame extends Frame {
 		return -1;
 	}
 	
-	public int calculate(Score beforeScore) {
-		Score score = state.calculate(beforeScore);
-		if(score.isFinish()) {
-			return score.getScore();
-		}
+	public int additionalCalculate(Score beforeScore) {
 		if(nextFrame != null) {
-			return nextFrame.calculate(score);
+			return nextFrame.calculate(beforeScore);
 		}
 		return -1;
 	}

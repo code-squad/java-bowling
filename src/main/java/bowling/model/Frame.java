@@ -1,14 +1,14 @@
 package bowling.model;
 
-public abstract class Frame {
+public interface Frame {
 
-	abstract public String getStatus();
+	String getStatus();
 
-	abstract public Frame play(int pin);
+	Frame play(int pin);
 
-	abstract public boolean isEnd();
+	boolean isEnd();
 
-	abstract public int getScore();
+	int getScore();
 	
-	abstract protected int calculate(Score score); 
+	int calculate(Score score); 
 }
