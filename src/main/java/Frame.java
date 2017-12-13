@@ -21,7 +21,6 @@ public class Frame {
 		if (firstPins == 10) {
 			firstValue = "X";
 		}
-		
 		if (firstPins == 0) {
 			firstValue = "-"; 
 		}
