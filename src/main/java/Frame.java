@@ -16,24 +16,23 @@ public class Frame {
 			}
 			return "      |";
 		}
-		
 		int firstPins = pinsPerFrame.get(0);
 		String firstValue = firstPins + "";
 		if (firstPins == 10) {
-			return "  X   |";
+			firstValue = "X";
 		}
 		
 		if (firstPins == 0) {
 			firstValue = "-"; 
 		}
 		String oneFrame = "  " + firstValue + "   |";
-		if (pinsPerFrame.size() == 2) {
-			oneFrame = makeSecondScroeMark(firstValue);
+		if (pinsPerFrame.size() >= 2) {
+			oneFrame = makeSecondScoreMark(firstValue);
 		}
 		return oneFrame;
 	}
 	
-	private String makeSecondScroeMark(String firstValue) {
+	private String makeSecondScoreMark(String firstValue) {
 		int firstPins = pinsPerFrame.get(0);
 		int secondPins = pinsPerFrame.get(1);
 		String secondValue = Integer.toString(secondPins);
@@ -43,7 +42,30 @@ public class Frame {
 		if (secondPins == 0) {
 			secondValue = "-";
 		}
+		if (secondPins == 10) {
+			secondValue = "X";
+		}
 		String oneFrame = "  " + firstValue + "|" + secondValue + " |";
+		if (pinsPerFrame.size() == 3) {
+			oneFrame = makeThirdScoreMark(firstValue, secondValue);
+		}
+		return oneFrame;
+	}
+	
+	private String makeThirdScoreMark(String firstValue, String secondValue) {
+		int secondPins = pinsPerFrame.get(1);
+		int thirdPins = pinsPerFrame.get(2);
+		String thirdValue = Integer.toString(thirdPins);
+		if (secondPins + thirdPins == 10) {
+			thirdValue = "/";
+		}
+		if (thirdPins == 0) {
+			thirdValue = "-";
+		}
+		if (thirdPins == 10) {
+			thirdValue = "X";
+		}
+		String oneFrame = " " + firstValue + "|" + secondValue + "|" + thirdValue + "|";
 		return oneFrame;
 	}
 	
@@ -51,9 +73,15 @@ public class Frame {
 		this.pinsPerFrame.add(pinsPerTry);
 	}
 	
-	boolean isEnded() {
+	boolean isEnded(Player player) {
 		if (pinsPerFrame.isEmpty()) {
 			return true;
+		}
+		if (player.getFrameNum() == 9) {
+			if (pinsPerFrame.size() == 3) {
+				return true;
+			}
+			return pinsPerFrame.size() == 2 && pinsPerFrame.get(0) + pinsPerFrame.get(1) < 10;
 		}
 		if (pinsPerFrame.size() == 2) {
 			return true;

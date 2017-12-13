@@ -56,23 +56,34 @@ public class FrameTest {
 	
 	@Test
 	public void isEndedTestWhenValueNormal() {
+		Player player = new Player("pjs");
 		Frame frame = new Frame();
 		frame.bowl(3);
-		assertEquals(false, frame.isEnded());
+		assertEquals(false, frame.isEnded(player));
+	}
+	
+	@Test
+	public void isEndedTestWhenNotEnded() {
+		Player player = new Player("pjs");
+		Frame frame = new Frame();
+		frame.bowl(7);
+		assertEquals(false, frame.isEnded(player));
 	}
 	
 	@Test
 	public void isEndedTestWhenValue10() {
+		Player player = new Player("pjs");
 		Frame frame = new Frame();
 		frame.bowl(10);
-		assertEquals(true, frame.isEnded());
+		assertEquals(true, frame.isEnded(player));
 	}
 	
 	@Test
 	public void isEndedTestWhenValueSize2() {
+		Player player = new Player("pjs");
 		Frame frame = new Frame();
 		frame.bowl(3);
 		frame.bowl(7);
-		assertEquals(true, frame.isEnded());
+		assertEquals(true, frame.isEnded(player));
 	}
 }
