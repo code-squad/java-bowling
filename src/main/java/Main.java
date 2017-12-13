@@ -5,7 +5,7 @@ public class Main {
 		String name = Input.getName();
 		Player player = new Player(name);
 		
-		while (player.isFinished()) {
+		while (!player.isFinished()) {
 			int pinsPerTry = Input.getPinsPerTry(player);
 			player.play(pinsPerTry);
 			View.showResult(player);

@@ -25,7 +25,7 @@ public class playerTest {
 		Player player = new Player("PJS");
 		int pinsPerTry = 3;
 		player.play(pinsPerTry);
-		player.getFrames().get(0).getPinsPerFrame().add(5);
-		assertEquals(0, player.getFrameNum());
+		player.play(pinsPerTry);
+		assertEquals(1, player.getFrameNum());
 	}
 }

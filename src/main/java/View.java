@@ -20,7 +20,7 @@ public class View {
 		showFullFrameNumber();
 		String scoreView = "|  " + player.getName() + " |";
 		for (Frame frame : player.getFrames()) {
-			scoreView += frame.makeFristScoreMark();
+			scoreView += frame.makeFristScoreMark(player);
 		}
 		for (int i = 0; i < lastFrameNum - player.getFrames().size(); i++) {
 			scoreView += "      |";

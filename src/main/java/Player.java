@@ -10,6 +10,7 @@ public class Player {
 
 	Player(String name) {
 		this.name = name;
+		frames.add(new Frame());
 	}
 	
 	int getFrameNum() {
@@ -25,20 +26,18 @@ public class Player {
 	}
 	
 	void play(int pinsPerTry) {
-		if (frames.size() == frameNum) {
+		Frame currentFrame = frames.get(frameNum);
+		currentFrame.bowl(pinsPerTry);
+		if (currentFrame.isEnded()) {
 			frames.add(new Frame());
-		}
-		List<Integer> pinsPerFrame = frames.get(frameNum).getPinsPerFrame();
-		pinsPerFrame.add(pinsPerTry);
-		if (pinsPerFrame.get(0) == 10 || pinsPerFrame.size() == 2) {
 			frameNum++;
 		}
 	}
 	
 	boolean isFinished() {
-		if (frameNum == 10) {
+		if (frameNum < 10) {
 			return false;
 		}
-		return true;
+		return frames.get(frameNum).isEnded();
 	}
 }
