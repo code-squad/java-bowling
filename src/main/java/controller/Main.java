@@ -1,19 +1,31 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import Exception.InvalidFalledPinInputException;
 import Exception.InvalidFrameNumberException;
-import model.Bowling;
 import model.Pin;
+import model.Player;
 import view.InputView;
 import view.ResultView;
 
 public class Main {
 	private static Scanner sc = new Scanner(System.in);
-	private static Bowling bowling = new Bowling();
-
+	
 	public static void main(String[] args) {
+		int playerNum = InputView.getNumOfPlayer(sc);
+		List<Player> players = InputView.getPlayers(playerNum, sc);
+		ResultView.printFirstLine();
+		players.forEach(player -> ResultView.printBlankTable(player.getName()));
+		Player thisTurnPlayer = player.decideTurn();
+		ResultView.printTurn(player);
+		int falledPin = InputView.getFalledPin(name, sc);
+		
+	}
+	
+	public static void main1(String[] args) {
 		String playerName = InputView.getPlayerName(sc);
 		ResultView.printBlankTable(playerName);
 		play(playerName);

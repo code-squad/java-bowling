@@ -2,22 +2,27 @@ package model;
 
 public class Status {
 	// status 생성에만 관여.
-
-	// 한 프레임에 대한 status 생성.
-	public static String createStatus(Pin... pins) {
-		if (pins[0].isStrike()) {
-			return whenFirstPinIsStrike(pins);
-		}
-		if (pins.length == 1) {
-			return createFirstStatus(pins[0]);
-		}
-		if (pins.length == 2) {
-			return createSecondStatus(pins[0], pins[1]);
-		}
-		return createSecondStatus(pins[0], pins[1]) + createFirstStatus(pins[2]);
+	private String status;
+	
+	public Status(String status) {
+		this.status = status;
 	}
 
-	public static String whenFirstPinIsStrike(Pin... pins) {
+	// 한 프레임에 대한 status 생성.
+	public static Status createStatus(Pin... pins) {
+		if (pins[0].isStrike()) {
+			return new Status(whenFirstPinIsStrike(pins));
+		}
+		if (pins.length == 1) {
+			return new Status(createFirstStatus(pins[0]));
+		}
+		if (pins.length == 2) {
+			return new Status(createSecondStatus(pins[0], pins[1]));
+		}
+		return new Status(createSecondStatus(pins[0], pins[1]) + createFirstStatus(pins[2]));
+	}
+
+	private static String whenFirstPinIsStrike(Pin... pins) {
 		String status = "X";
 		if (pins.length == 1) {
 			return status;
@@ -38,7 +43,7 @@ public class Status {
 		}
 		return pin.getPin() + "";
 	}
-
+	
 	private static String createSecondStatus(Pin firstPin, Pin secondPin) {
 		if (firstPin.isSpare(secondPin)) {
 			return firstPin.getPin() + "|/";
@@ -48,4 +53,9 @@ public class Status {
 		}
 		return firstPin.getPin() + "|" + secondPin.getPin();
 	}
+
+	public String getStatus() {
+		return status;
+	}
+	
 }

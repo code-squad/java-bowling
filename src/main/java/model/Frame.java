@@ -97,7 +97,7 @@ public abstract class Frame {
 		return this.nextFrame;
 	}
 
-	public String decideStatus() {
+	public Status decideStatus() {
 		// list to array
 		return Status.createStatus(this.getPins().stream().map(s -> s).toArray(Pin[]::new));
 	}

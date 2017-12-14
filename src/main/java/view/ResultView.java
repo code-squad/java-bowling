@@ -4,19 +4,19 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import model.Bowling;
+import model.Player;
 
 public class ResultView {
-
-	public static void printFrameNum(int frameNum) {
-		System.out.print(frameNum + "프레임 투구 : ");
+	public static void printTurn(Player player) {
+		System.out.print(player.getName() + "'s turn :");
 	}
-
+	
 	public static void printBlankTable(String playerName) {
-		printFirstLine();
 		printBlankSecondLine(playerName);
+		printBlankThirdLine();
 	}
 
-	private static void printFirstLine() {
+	public static void printFirstLine() {
 		DecimalFormat twodigits = new DecimalFormat("00");
 		String firstLine = "|  NAME  |";
 		for (int i = 1; i < 11; i++) {
@@ -33,13 +33,35 @@ public class ResultView {
 		System.out.println(secondLine);
 	}
 
-	public static void printResults(String playerName, Bowling bowling) {
+	private static void printBlankThirdLine() {
+		String thirdLine = "|         |";
+		for (int i = 1; i < 11; i++) {
+			thirdLine += "      |";
+		}
+		System.out.println(thirdLine);
+	}
+	public static void printResults1(String playerName, Bowling bowling) {
 		printFirstLine();
 		System.out.println(returnStatus(playerName, bowling));
 		System.out.println(returnScores(bowling));
 	}
-	
-	private static String returnStatus(String playerName, Bowling bowling) {
+	public static void printResults(Player player) {
+		printFirstLine();
+		System.out.println(returnStatus(playerName, bowling));
+		System.out.println(returnScores(bowling));
+	}
+	private static String returnStatus(Player player) {
+		List<String> allStatus = player.bowling.makeStatus();
+		String secondLine = "|   " + playerName + "   |";
+		for (String status : allStatus) {
+			secondLine += "   " + status + "   |";
+		}
+		for (int j = allStatus.size() + 1; j < 11; j++) {
+			secondLine += "      |";
+		}
+		return secondLine;
+	}
+	private static String returnStatus1(String playerName, Bowling bowling) {
 		List<String> allStatus = bowling.makeStatus();
 		String secondLine = "|   " + playerName + "   |";
 		for (String status : allStatus) {
