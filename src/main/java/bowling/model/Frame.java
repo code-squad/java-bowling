@@ -11,4 +11,6 @@ public interface Frame {
 	int getScore();
 	
 	int calculate(Score score); 
+	
+	void addResult(PlayerResult result);
 }

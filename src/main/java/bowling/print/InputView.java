@@ -1,15 +1,14 @@
 package bowling.print;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.regex.Pattern;
 
 import exception.InvalidPinNumberException;
 
 public class InputView {
-	private static final Logger log = LoggerFactory.getLogger(InputView.class);
 	private Scanner sc = null;
 
 	public InputView(Scanner sc) {
@@ -18,11 +17,6 @@ public class InputView {
 
 	public void endConsole() {
 		sc.close();
-	}
-
-	public String getName() {
-		System.out.print("플레이어 이름은?(3 english letters)?");
-		return sc.next();
 	}
 
 	private int checkInvalidInput(int pin) {
@@ -42,7 +36,7 @@ public class InputView {
 			sc.next(); // 없으면 inputMismatchException 무한루프
 			return getThrowedPin(frameNum);
 		} catch (Exception e) {
-			log.debug(e.getMessage());
+			System.out.println(e.getMessage());
 			return getThrowedPin(frameNum);
 		}
 	}
@@ -50,5 +44,48 @@ public class InputView {
 	public int inputThrowedPin(int frameNum) throws InputMismatchException {
 		System.out.printf("\n%1d프레임 투구 : ", frameNum);
 		return checkInvalidInput(sc.nextInt());
+	}
+
+	public List<String> getPlayers() {
+		int count = 0;
+		try {
+			System.out.print("How many people?");
+			count = sc.nextInt();
+		} catch (InputMismatchException ime) {
+			System.out.println("정수를 입력해주세요.");
+			sc.next(); 
+			return getPlayers();			
+		}
+		return getNamesOfPlayers(count);
+	}
+	
+	private List<String> getNamesOfPlayers(int count) {
+		List<String> players = new ArrayList<>();
+		for(int i=0; i<count; i++) {
+			players.add(getName());
+		}
+		return players;
+	}
+	
+	private String getName() {
+		System.out.print("플레이어 이름은?(3 english letters)?");
+		String name = sc.next();
+		try {
+			checkName(name);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			getName();
+		}
+		return name;
+	}
+	
+	private String checkName(String name) {
+		if(!Pattern.matches("^[a-zA-Z]*$", name)) {
+			throw new RuntimeException("영어만 써주세요.");
+		}
+		if(name.length() != 3) {
+			throw new RuntimeException("이름은 영어 3글자입니다.");
+		}
+		return name;
 	}
 }
