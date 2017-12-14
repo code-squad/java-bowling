@@ -9,6 +9,16 @@ public class Frame {
 		return this.pinsPerFrame;
 	}
 	
+	String changeScoreToMark(int score) {
+		if (score == 10) {
+			return "X";
+		}
+		if (score == 0) {
+			return "-";
+		}
+		return Integer.toString(score);
+	}
+	
 	String makeFristScoreMark(Player player) {
 		if (pinsPerFrame.isEmpty()) {
 			if (player.getFrameNum() == 10) {
@@ -26,7 +36,7 @@ public class Frame {
 		}
 		String oneFrame = "  " + firstValue + "   |";
 		if (pinsPerFrame.size() >= 2) {
-			oneFrame = makeSecondScoreMark(firstValue);
+			return makeSecondScoreMark(firstValue);
 		}
 		return oneFrame;
 	}
@@ -45,17 +55,17 @@ public class Frame {
 		return oneFrame;
 	}
 	
-	String makeLastScoreMark(int beforePins, int afterPins, String Value) {
+	String makeLastScoreMark(int beforePins, int afterPins, String value) {
 		if (beforePins + afterPins == 10) {
-			Value = "/";
+			value = "/";
 		}
 		if (afterPins == 0) {
-			Value = "-";
+			value = "-";
 		}
 		if (afterPins == 10) {
-			Value = "X";
+			value = "X";
 		}
-		return Value;
+		return value;
 	}
 	
 	void bowl(int pinsPerTry) {
