@@ -28,16 +28,20 @@ public class Player {
 	void play(int pinsPerTry) {
 		Frame currentFrame = frames.get(frameNum);
 		currentFrame.bowl(pinsPerTry);
+		System.out.println(currentFrame.getPinsPerFrame());
+		
 		if (currentFrame.isEnded(this)) {
+			if (frameNum >= 8) {
+				frames.add(new FrameTen());
+				frameNum++;
+				return;
+			}
 			frames.add(new Frame());
 			frameNum++;
 		}
 	}
 	
 	boolean isFinished() {
-		if (frameNum < 10) {
-			return false;
-		}
 		return frames.get(frameNum).isEnded(this);
 	}
 }
