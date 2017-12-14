@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import exception.InvalidNameException;
 import exception.InvalidPinNumberException;
 
 public class InputView {
@@ -81,10 +82,11 @@ public class InputView {
 	
 	private String checkName(String name) {
 		if(!Pattern.matches("^[a-zA-Z]*$", name)) {
-			throw new RuntimeException("영어만 써주세요.");
+			//코다시: raw Exception 사용하지 말고 subclass Exception 사용하시오
+			throw new InvalidNameException("영어만 써주세요.");
 		}
 		if(name.length() != 3) {
-			throw new RuntimeException("이름은 영어 3글자입니다.");
+			throw new InvalidNameException("이름은 영어 3글자입니다.");
 		}
 		return name;
 	}
