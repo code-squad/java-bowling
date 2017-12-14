@@ -2,21 +2,18 @@
 public class FrameTen extends Frame{
 	
 	@Override
-	protected String makeSecondScoreMark(String firstValue) {
-		int firstPins = pinsPerFrame.get(0);
-		int secondPins = pinsPerFrame.get(1);
-		String secondValue = Integer.toString(secondPins);
-		secondValue = makeLastScoreMark(firstPins, secondPins, secondValue);
-		String oneFrame = "  " + firstValue + "|" + secondValue + " |";
+	String makeSecondScoreMark(String firstValue) {
+		String oneFrame = makeOneFrame(firstValue);
 		if (pinsPerFrame.size() == 3) {
-			oneFrame = makeThirdScoreMark(firstValue, secondValue);
+			oneFrame = makeThirdScoreMark(firstValue);
 		}
 		return oneFrame;
 	}
 
-	private String makeThirdScoreMark(String firstValue, String secondValue) {
+	private String makeThirdScoreMark(String firstValue) {
 		int secondPins = pinsPerFrame.get(1);
 		int thirdPins = pinsPerFrame.get(2);
+		String secondValue = Integer.toString(secondPins);
 		String thirdValue = Integer.toString(thirdPins);
 		thirdValue = makeLastScoreMark(secondPins, thirdPins, thirdValue);
 		String oneFrame = " " + firstValue + "|" + secondValue + "|" + thirdValue + "|";

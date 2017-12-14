@@ -31,7 +31,12 @@ public class Frame {
 		return oneFrame;
 	}
 	
-	protected String makeSecondScoreMark(String firstValue) {
+	String makeSecondScoreMark(String firstValue) {
+		String oneFrame = makeOneFrame(firstValue);
+		return oneFrame;
+	}
+
+	String makeOneFrame(String firstValue) {
 		int firstPins = pinsPerFrame.get(0);
 		int secondPins = pinsPerFrame.get(1);
 		String secondValue = Integer.toString(secondPins);
@@ -40,7 +45,7 @@ public class Frame {
 		return oneFrame;
 	}
 	
-	protected String makeLastScoreMark(int beforePins, int afterPins, String Value) {
+	String makeLastScoreMark(int beforePins, int afterPins, String Value) {
 		if (beforePins + afterPins == 10) {
 			Value = "/";
 		}
