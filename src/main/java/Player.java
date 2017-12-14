@@ -29,7 +29,6 @@ public class Player {
 		Frame currentFrame = frames.get(frameNum);
 		currentFrame.bowl(pinsPerTry);
 		System.out.println(currentFrame.getPinsPerFrame());
-		
 		if (currentFrame.isEnded(this)) {
 			if (frameNum >= 8) {
 				frames.add(new FrameTen());

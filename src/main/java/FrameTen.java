@@ -2,33 +2,37 @@
 public class FrameTen extends Frame{
 	
 	@Override
-	String makeSecondScoreMark(String firstValue) {
-		String oneFrame = makeOneFrame(firstValue);
-		if (pinsPerFrame.size() == 3) {
-			return makeThirdScoreMark(firstValue);
+	String makeScoreMark(Player player) {
+		if (pinsPerFrame.isEmpty() && player.getFrameNum() == 9) {
+			return "      |";			
 		}
-		return oneFrame;
+		if (pinsPerFrame.isEmpty()) {
+			return "";			
+		}
+		String scoreMark = makeScoreMarkWhenSizeOneOrTwo();
+		if (pinsPerFrame.size() == 3) {
+			scoreMark = makeThirdScoreMark();
+		}
+		return scoreMark;
+		
 	}
-
-	private String makeThirdScoreMark(String firstValue) {
-		int firstPins = pinsPerFrame.get(0);
-		int secondPins = pinsPerFrame.get(1);
-		int thirdPins = pinsPerFrame.get(2);
-		String secondValue = Integer.toString(secondPins);
-		String thirdValue = Integer.toString(thirdPins);
-		secondValue = makeLastScoreMark(firstPins, secondPins, secondValue);
-		thirdValue = makeLastScoreMark(secondPins, thirdPins, thirdValue);
-		String oneFrame = " " + firstValue + "|" + secondValue + "|" + thirdValue + "|";
-		return oneFrame;
+	
+	String makeThirdScoreMark() {
+		if (pinsPerFrame.get(0) + pinsPerFrame.get(1) == 10) {
+			return " " + changeScoreToMark(pinsPerFrame.get(0)) +
+					"|/|" + changeScoreToMark(pinsPerFrame.get(2)) + "|";
+		}
+		if (pinsPerFrame.get(1) + pinsPerFrame.get(2) == 10) {
+			return " X|" + changeScoreToMark(pinsPerFrame.get(1)) + "|/|";
+		}
+		String oneFrame = " ";
+		return makeOneFrame(oneFrame, 3);
 	}
 	
 	@Override
 	boolean isEnded(Player player) {
 		if (player.getFrameNum() == 10) {
 			return true;
-		}
-		if (pinsPerFrame.isEmpty()) {
-			return false;
 		}
 		if (pinsPerFrame.size() == 3) {
 			return true;
