@@ -6,15 +6,16 @@ public class FrameTen extends Frame{
 		if (pinsPerFrame.isEmpty() && player.getFrameNum() == 9) {
 			return "      |";			
 		}
-		if (pinsPerFrame.isEmpty()) {
-			return "";			
+		if (pinsPerFrame.size() == 1) {
+			return makeFirstScoreMark();
 		}
-		String scoreMark = makeScoreMarkWhenSizeOneOrTwo();
+		if (pinsPerFrame.size() == 2) {
+			return makeSecondScoreMark();
+		}
 		if (pinsPerFrame.size() == 3) {
-			scoreMark = makeThirdScoreMark();
+			return makeThirdScoreMark();
 		}
-		return scoreMark;
-		
+		return "";		
 	}
 	
 	String makeThirdScoreMark() {

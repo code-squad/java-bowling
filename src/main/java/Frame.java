@@ -10,11 +10,13 @@ public class Frame {
 	}
 	
 	String makeScoreMark(Player player) {
-		if (pinsPerFrame.isEmpty()) {
-			return "      |";
+		if (pinsPerFrame.size() == 1) {
+			return makeFirstScoreMark();
 		}
-		String scoreMark = makeScoreMarkWhenSizeOneOrTwo();
-		return scoreMark;
+		if (pinsPerFrame.size() == 2) {
+			return makeSecondScoreMark();
+		}
+		return "      |";
 	}
 
 	String makeScoreMarkWhenSizeOneOrTwo() {
