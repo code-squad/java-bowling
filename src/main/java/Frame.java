@@ -18,17 +18,6 @@ public class Frame {
 		}
 		return "      |";
 	}
-
-	String makeScoreMarkWhenSizeOneOrTwo() {
-		String scoreMark = "";
-		if (pinsPerFrame.size() == 1) {
-			scoreMark =  makeFirstScoreMark();
-		}
-		if (pinsPerFrame.size() == 2) {
-			scoreMark =  makeSecondScoreMark();
-		}
-		return scoreMark;
-	}
 	
 	String makeFirstScoreMark() {
 		String oneFrame = "     ";
