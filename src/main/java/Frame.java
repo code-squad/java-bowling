@@ -13,11 +13,7 @@ public class Frame {
 	int getFrameNum() {
 		return this.frameNum;
 	}
-	
-	List<Integer> getPinsPerFrame () {
-		return this.pinsPerFrame;
-	}
-	
+		
 	String makeScoreMark() {
 		if (pinsPerFrame.size() == 1) {
 			return makeFirstScoreMark();
