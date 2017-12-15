@@ -11,8 +11,5 @@ public class Main {
 			ResultView.printFormat();
 			ResultView.printStatus(player1Status);
 		}
-//		for (int i = 0; i < 8; i++) {
-//			Play.throwBall(player1Status);
-//		}
 	}
 }
