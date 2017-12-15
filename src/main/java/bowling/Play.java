@@ -20,7 +20,7 @@ public class Play {
 		
 		int throwScore = random.nextInt(totalPin + 1);
 		
-		System.out.println(playerStatus.getFrame().getFrameNum() + "프레임 투구.");
+		System.out.println((playerStatus.getFrame().getFrameNum() + 1) + "프레임 투구.");
 		System.out.println("초구 던집니다. " + throwScore + "개 넘어뜨렸네요.");
 		playerStatus.getFrame().updatePin(throwScore);
 		playerStatus.getScore().updateFrameScore(throwScore);
