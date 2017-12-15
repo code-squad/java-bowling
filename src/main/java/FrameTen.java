@@ -1,5 +1,4 @@
 
-
 public class FrameTen extends Frame{
 	
 	FrameTen(int frameNum) {
