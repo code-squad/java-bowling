@@ -10,6 +10,7 @@ public class Player {
 
 	Player(String name) {
 		this.name = name;
+		frames.add(currentFrame);
 	}
 	
 	String getName() {
@@ -22,11 +23,10 @@ public class Player {
 	
 	void play(int pinsPerTry) {
 		currentFrame.bowl(pinsPerTry);
-		System.out.println(frames);
-		System.out.println(currentFrame.getPinsPerFrame());
+		frames.set(currentFrame.getFrameNum(), currentFrame);
 		if (currentFrame.isEnded()) {
-			frames.add(currentFrame);
 			currentFrame = currentFrame.makeNewFrame();
+			frames.add(currentFrame);
 		}
 	}
 	

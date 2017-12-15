@@ -9,7 +9,7 @@ public class playerTest {
 		Player player = new Player("PJS");
 		int pinsPerTry = 3;
 		player.play(pinsPerTry);
-		assertEquals(0, player.getFrameNum());
+		assertEquals(1, player.getFrames().size());
 	}
 	
 	@Test
@@ -17,7 +17,7 @@ public class playerTest {
 		Player player = new Player("PJS");
 		int pinsPerTry = 10;
 		player.play(pinsPerTry);
-		assertEquals(1, player.getFrameNum());
+		assertEquals(2, player.getFrames().size());
 	}
 	
 	@Test
@@ -26,6 +26,6 @@ public class playerTest {
 		int pinsPerTry = 3;
 		player.play(pinsPerTry);
 		player.play(pinsPerTry);
-		assertEquals(1, player.getFrameNum());
+		assertEquals(2, player.getFrames().size());
 	}
 }

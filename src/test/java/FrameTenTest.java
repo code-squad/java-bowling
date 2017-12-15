@@ -24,11 +24,10 @@ public class FrameTenTest {
 
 	@Test
 	public void isEndedTestWhenValueSize3() {
-		Player player = new Player("pjs");
 		FrameTen FrameTen = new FrameTen(0);
 		FrameTen.bowl(10);
 		FrameTen.bowl(7);
 		FrameTen.bowl(3);
-		assertEquals(true, FrameTen.isEnded(player));
+		assertEquals(true, FrameTen.isEnded());
 	}
 }
