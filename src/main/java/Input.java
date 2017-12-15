@@ -17,9 +17,8 @@ public class Input {
 		return name;
 	}
 	
-	static int getPinsPerTry(Player player) throws InputException{
-		int frameNum = player.getFrameNum();
-		System.out.print((frameNum + 1) + " 프레임 투구 : ");
+	static int getPinsPerTry() throws InputException{
+		System.out.print(" " + " 프레임 투구 : ");
 		int pinsPerTry = Integer.parseInt(sc.nextLine());
 		if (pinsPerTry < 0 || pinsPerTry > 10) {
 			throw new InputException("0 ~ 10 숫자만 입력해주세요");

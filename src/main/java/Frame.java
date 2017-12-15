@@ -4,81 +4,80 @@ import java.util.List;
 
 public class Frame {
 
-	private List<Integer> pinsPerFrame = new ArrayList<>();
+	List<Integer> pinsPerFrame = new ArrayList<>();
+	int frameNum = 0;
 	
-	List<Integer> getPinsPerFrame () {
-		return this.pinsPerFrame;
+	Frame (int frameNum) {
+		this.frameNum = frameNum;
+	}
+	
+	int getFrameNum() {
+		return this.frameNum;
 	}
 		
-	String makeFristScoreMark(Player player) {
-		if (pinsPerFrame.isEmpty()) {
-			if (player.getFrameNum() == 10) {
-				return "";
+	String makeScoreMark() {
+		if (pinsPerFrame.size() == 1) {
+			return makeFirstScoreMark();
+		}
+		if (pinsPerFrame.size() == 2) {
+			if (pinsPerFrame.get(0) +pinsPerFrame.get(1) > 10) {
+				throw new InputException("투구의 합은 10 이하여야 합니다");
 			}
-			return "      |";
+			return makeSecondScoreMark();
 		}
-		int firstPins = pinsPerFrame.get(0);
-		String firstValue = firstPins + "";
-		if (firstPins == 10) {
-			firstValue = "X";
+		return "      |";
+	}
+	
+	String makeFirstScoreMark() {
+		String oneFrame = "     ";
+		return makeOneFrame(oneFrame, 1);
+	}
+	
+	String makeSecondScoreMark() {
+		if (pinsPerFrame.get(0) + pinsPerFrame.get(1) == 10) {
+			return "   " + changeScoreToMark(pinsPerFrame.get(0)) + "|/|";
 		}
-		if (firstPins == 0) {
-			firstValue = "-"; 
-		}
-		String oneFrame = "  " + firstValue + "   |";
-		if (pinsPerFrame.size() >= 2) {
-			oneFrame = makeSecondScoreMark(firstValue);
+		String oneFrame = "   ";
+		return makeOneFrame(oneFrame, 2);
+	}
+	
+	String makeOneFrame(String oneFrame, int j) {
+		for (int i = 0; i < j; i++) {
+			oneFrame += getValueFromPin(i) + "|";
 		}
 		return oneFrame;
 	}
-	
-	private String makeSecondScoreMark(String firstValue) {
-		int firstPins = pinsPerFrame.get(0);
-		int secondPins = pinsPerFrame.get(1);
-		String secondValue = Integer.toString(secondPins);
-		secondValue = makeLastScoreMark(firstPins, secondPins, secondValue);
-		String oneFrame = "  " + firstValue + "|" + secondValue + " |";
-		if (pinsPerFrame.size() == 3) {
-			oneFrame = makeThirdScoreMark(firstValue, secondValue);
-		}
-		return oneFrame;
+
+	private String getValueFromPin(int i) {
+		int pins = pinsPerFrame.get(i);
+		String value = changeScoreToMark(pins);
+		return value;
 	}
 	
-	private String makeThirdScoreMark(String firstValue, String secondValue) {
-		int secondPins = pinsPerFrame.get(1);
-		int thirdPins = pinsPerFrame.get(2);
-		String thirdValue = Integer.toString(thirdPins);
-		thirdValue = makeLastScoreMark(secondPins, thirdPins, thirdValue);
-		String oneFrame = " " + firstValue + "|" + secondValue + "|" + thirdValue + "|";
-		return oneFrame;
-	}
-	
-	private String makeLastScoreMark(int firstPins, int secondPins, String secondValue) {
-		if (firstPins + secondPins == 10) {
-			secondValue = "/";
+	static String changeScoreToMark(int score) {
+		if (score == 10) {
+			return "X";
 		}
-		if (secondPins == 0) {
-			secondValue = "-";
+		if (score == 0) {
+			return "-";
 		}
-		if (secondPins == 10) {
-			secondValue = "X";
-		}
-		return secondValue;
+		return score + "";
 	}
 	
 	void bowl(int pinsPerTry) {
 		this.pinsPerFrame.add(pinsPerTry);
 	}
 	
-	boolean isEnded(Player player) {
-		if (pinsPerFrame.isEmpty()) {
-			return true;
+	Frame makeNewFrame() {
+		if (frameNum >= 8) {
+			return new FrameTen(++frameNum);
 		}
-		if (player.getFrameNum() == 9) {
-			if (pinsPerFrame.size() == 3) {
-				return true;
-			}
-			return pinsPerFrame.size() == 2 && pinsPerFrame.get(0) + pinsPerFrame.get(1) < 10;
+		return new Frame(++frameNum);
+	}
+	
+	boolean isEnded() {
+		if (pinsPerFrame.isEmpty()) {
+			return false;
 		}
 		if (pinsPerFrame.size() == 2) {
 			return true;

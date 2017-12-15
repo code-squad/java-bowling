@@ -7,7 +7,7 @@ public class Main {
 		Player player = new Player(name);
 		
 		while (!player.isFinished()) {
-			int pinsPerTry = Input.getPinsPerTry(player);
+			int pinsPerTry = Input.getPinsPerTry();
 			player.play(pinsPerTry);
 			View.showResult(player);
 		}
