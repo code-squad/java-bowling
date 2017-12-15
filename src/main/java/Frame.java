@@ -4,12 +4,21 @@ import java.util.List;
 public class Frame {
 
 	List<Integer> pinsPerFrame = new ArrayList<>();
+	int frameNum = 0;
+	
+	Frame (int frameNum) {
+		this.frameNum = frameNum;
+	}
+	
+	int getFrameNum() {
+		return this.frameNum;
+	}
 	
 	List<Integer> getPinsPerFrame () {
 		return this.pinsPerFrame;
 	}
 	
-	String makeScoreMark(Player player) {
+	String makeScoreMark() {
 		if (pinsPerFrame.size() == 1) {
 			return makeFirstScoreMark();
 		}
@@ -59,7 +68,14 @@ public class Frame {
 		this.pinsPerFrame.add(pinsPerTry);
 	}
 	
-	boolean isEnded(Player player) {
+	Frame makeNewFrame() {
+		if (frameNum >= 8) {
+			return new FrameTen(++frameNum);
+		}
+		return new Frame(++frameNum);
+	}
+	
+	boolean isEnded() {
 		if (pinsPerFrame.isEmpty()) {
 			return false;
 		}

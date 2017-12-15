@@ -1,9 +1,13 @@
 
 public class FrameTen extends Frame{
 	
+	FrameTen(int frameNum) {
+		super(frameNum);
+	}
+
 	@Override
-	String makeScoreMark(Player player) {
-		if (pinsPerFrame.isEmpty() && player.getFrameNum() == 9) {
+	String makeScoreMark() {
+		if (pinsPerFrame.isEmpty() && frameNum == 9) {
 			return "      |";			
 		}
 		if (pinsPerFrame.size() == 1) {
@@ -31,8 +35,8 @@ public class FrameTen extends Frame{
 	}
 	
 	@Override
-	boolean isEnded(Player player) {
-		if (player.getFrameNum() == 10) {
+	boolean isEnded() {
+		if (frameNum == 10) {
 			return true;
 		}
 		if (pinsPerFrame.size() == 3) {

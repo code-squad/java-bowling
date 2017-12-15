@@ -10,9 +10,8 @@ public class Input {
 		return name;
 	}
 	
-	static int getPinsPerTry(Player player) {
-		int frameNum = player.getFrameNum();
-		System.out.print((frameNum + 1) + " 프레임 투구 : ");
+	static int getPinsPerTry() {
+		System.out.print(" " + " 프레임 투구 : ");
 		return Integer.parseInt(sc.nextLine());
 	}
 }
