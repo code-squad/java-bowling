@@ -8,33 +8,33 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FramesTest {
+public class PlayerTest {
 
-	Frames frames;
+	Player player;
 	
 	@Before
 	public void setup() {
-		frames = new Frames();
-		frames.play(2);
+		player = new Player("abc");
+		player.play(2);
 	}
 	
 	@Test
 	public void 프레임1() {
-		assertThat(frames.getFrameNo()).isEqualTo(1);
+		assertThat(player.getFrameNo()).isEqualTo(1);
 	}
 
 	@Test
 	public void 스트라이크_다음프레임() {
-		frames = new Frames();
-		frames.play(10);
-		frames.play(1);
-		assertThat(frames.getFrameNo()).isEqualTo(2);
+		player = new Player("pjs");
+		player.play(10);
+		player.play(1);
+		assertThat(player.getFrameNo()).isEqualTo(2);
 	}
 	
 	@Test
 	public void 프레임2() {
-		frames.play(2);
-		frames.play(3);
-		assertThat(frames.getFrameNo()).isEqualTo(2);
+		player.play(2);
+		player.play(3);
+		assertThat(player.getFrameNo()).isEqualTo(2);
 	}
 }

@@ -1,8 +1,9 @@
 package bowling.print;
 
 import java.util.List;
-
+import bowling.model.Board;
 import bowling.model.Frame;
+import bowling.model.PlayerResult;
 
 public class ResultView {
 
@@ -15,25 +16,25 @@ public class ResultView {
 	private void name(String name) {
 		System.out.printf("\n| %4s |", name);
 	}
-
-	public void status(List<Frame> frames, String name) {
+	
+	public void board(Board board) {
 		frame();
-		name(name);
-		for (Frame frame : frames) {
-			System.out.printf("%-5s|", frame.getStatus());
+		for(PlayerResult result : board.getResults()) {
+			name(result.getName());
+			result.getStatus().stream().forEach(status -> System.out.printf("%-5s|", status));
+			blank(10 - result.getStatus().size());
+			sum(result.getScores());
 		}
-		blank(10 - frames.size());
-		sum(frames);
 	}
 
-	private void sum(List<Frame> frames) {
+	private void sum(List<Integer> scores) {
 		System.out.printf("\n| %4s |", "");
-		frames.stream().map(frame -> frame.getScore()).filter(sum -> sum!= -1).reduce(0, (a,b)->{
+		scores.stream().filter(sum -> sum!= -1).reduce(0, (a,b)->{
 			System.out.printf("%-5s|", a+b);
 			return a + b;
 		});
-		frames.stream().map(frame -> frame.getScore()).filter(sum -> sum== -1).forEach(sum -> System.out.printf("%-5s|", ""));
-		blank(10 - frames.size());
+		scores.stream().filter(sum -> sum== -1).forEach(sum -> System.out.printf("%-5s|", ""));
+		blank(10 - scores.size());
 	}
 	
 	private void frame() {

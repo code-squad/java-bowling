@@ -41,4 +41,8 @@ public abstract class AbstractFrame implements Frame {
 	
 	abstract protected int additionalCalculate(Score beforeScore);
 
+	@Override
+	public void addResult(PlayerResult result) {
+		result.addFrameResult(state.getStatus(), getScore());
+	}
 }
