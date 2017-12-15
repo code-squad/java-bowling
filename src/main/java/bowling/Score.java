@@ -9,6 +9,9 @@ public class Score {
 	//생성자.
 	public Score() {
 		frameScore = 0;
+		for (int i = 0; i < 10; i++) {
+			accumulateRecord.add("");
+		}
 	}
 	//int 형의 투구 점수를 리턴.
 	public int getFrameScore() {
@@ -18,53 +21,54 @@ public class Score {
 	public ArrayList<String> getAccRec() {
 		return accumulateRecord;
 	}
-	//int형 점수와 int형 시도숫자를 입력받아 frameScore와 accumulateRecord를 업데이트 시킨다.
-	public void updateScore(int score, int tryNum) {
-		if (tryNum == 1) {
-			updateFrameScore(score);
-			updateFirstAccRec(score);
-			return;
-		}
-		updateFrameScore(score);
-		updateSecondAccRec(score);
-	}
 	//int형 점수를 입력받아 frameScore를 업데이트 시켜준다.
 	public void updateFrameScore(int score) {
 		frameScore = score;
 	}
-	//int형 점수를 입력받아 accumulateRecord를 업데이트 시켜준다. (첫 투구)
-	public void updateFirstAccRec(int score) {
-		String stringScore = Integer.toString(score);
+	//int형 점수를 입력받아 accumulateRecord를 업데이트 시켜준다. (첫 투구일 때,)
+	public void updateFirstAccRec(int frameNum) {
+		String stringScore = Integer.toString(frameScore);
 		
-		if (score == 10) {
-			accumulateRecord.add("X");
+		if (frameScore == 10) {
+			accumulateRecord.set(frameNum, "X");
 			return;
 		}
-		accumulateRecord.add(stringScore);
+		accumulateRecord.set(frameNum, stringScore);
 	}
-	//int형 점수를 입력받아 accumulateRecord를 업데이트 시켜준다. (두번째 투구)
-		public void updateSecondAccRec(int score) {
-			String stringScore = Integer.toString(score);
-			
-			int last = accumulateRecord.size() - 1;
-			String lastScore = accumulateRecord.get(last);
-			
-			if (score == 10) {
-				lastScore += "X";
-				accumulateRecord.set(last, lastScore);
-				return;
-			}
-			lastScore += stringScore;
-			accumulateRecord.set(last, lastScore);
+	//int형 점수를 입력받아 accumulateRecord를 업데이트 시켜준다. (두번째 투구일 때,)
+	public void updateSecondAccRec(Frame frame) {
+		String recentScore = accumulateRecord.get(frame.getFrameNum());
+		if (frame.isSpare()) {
+			recentScore += "/";
+			accumulateRecord.set(frame.getFrameNum(), recentScore);
+			return;
 		}
-	//점수판을 채우기 위해 체크하는 메소드.
-	public void checkAccRec() {
-		int last = accumulateRecord.size() - 1;
-		String lastScore = accumulateRecord.get(last);
+		recentScore += "-";
+		accumulateRecord.set(frame.getFrameNum(), recentScore);
+		return;
+	}
+	//스트라이크가 아닐 때, 2구를 치기 전에 점수 사이에 " | " 를 넣어주는 메소드.
+	public void readySecondShot(int frameNum) {
+		String recentScore = accumulateRecord.get(frameNum);
 		
-		if (lastScore != "X" || lastScore != "/" || lastScore != "-") {
-			lastScore += " | ";
-			accumulateRecord.set(last, lastScore);
+		if (recentScore != "X" || recentScore != "/" || recentScore != "-") {
+			recentScore += " | ";
+			accumulateRecord.set(frameNum, recentScore);
 		}
 	}
+//	//int형 점수와 framd을 입력받아 frameScore와 accumulateRecord를 업데이트 시킨다.
+//	public void updateScore(int score, Frame frame) {
+//		if (frame.getTryNum() == 1) {
+//			frame.updatePin(score);
+//			updateFrameScore(score);
+//			updateFirstAccRec(frame.getFrameNum());
+//			frame.addTryNum();
+//			return;
+//		}
+//		frame.updatePin(score);
+//		updateFrameScore(score);
+//		readySecondShot(frame.getFrameNum());
+//		updateSecondAccRec(frame);
+//		frame.clearTryNum();
+//	}
 }
