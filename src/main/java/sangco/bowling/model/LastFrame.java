@@ -6,8 +6,8 @@ public class LastFrame implements Frame {
 	private int scoreFirstRoll = 0;
 	private int scoreSecondRoll = 0;
 	private int scoreThirdRoll = 0;
-	private int gameScoreTotal = 0;
-	private int frameScoreTotal = 0;
+	private int gameTotalScore = 0;
+	private int frameTotalScore = 0;
 	
 	public LastFrame(int scoreFirstRoll) {
 		this.scoreFirstRoll = scoreFirstRoll;
@@ -24,10 +24,6 @@ public class LastFrame implements Frame {
 		}
 	}
 
-	@Override
-	public void setFrameTotalScore(int frameTotal) {
-		this.frameScoreTotal = frameTotal;
-	}
 
 	@Override
 	public int getFirstRoll() {
@@ -37,14 +33,20 @@ public class LastFrame implements Frame {
 
 
 	@Override
-	public int getFrameScoreTotal() {
+	public int getFrameTotalScore() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getGameScoreTotal() {
+	public int getGameTotalScore() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void setGameTotalScore(int totalScore) {
+		// TODO Auto-generated method stub
+		
 	}
 }

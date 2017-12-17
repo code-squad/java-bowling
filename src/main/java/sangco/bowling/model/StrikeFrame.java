@@ -1,21 +1,10 @@
 package sangco.bowling.model;
 
-public class SpareFrame implements Frame {
-	private int scoreFirstRoll = 0;
-	private int scoreSecondRoll = 0;
-	private int gameTotalScore = 0;
+public class StrikeFrame implements Frame {
+
+	public static final int score = 10;
 	private int frameTotalScore = 0;
-
-	public SpareFrame() {
-	}
-
-	public SpareFrame(int scoreFirstRoll, int scoreSecondRoll) {
-		this.scoreFirstRoll = scoreFirstRoll;
-		this.scoreSecondRoll = scoreSecondRoll;
-	}
-
 	
-
 	@Override
 	public int getFirstRoll() {
 		// TODO Auto-generated method stub
@@ -39,4 +28,5 @@ public class SpareFrame implements Frame {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

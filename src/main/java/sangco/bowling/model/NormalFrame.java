@@ -21,21 +21,19 @@ public class NormalFrame implements Frame {
 
 	@Override
 	public int getFrameTotalScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		frameTotalScore = scoreFirstRoll + scoreSecondRoll;
+		return frameTotalScore;
 	}
 
 
 	@Override
 	public int getGameTotalScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		return gameTotalScore;
 	}
 
 
 	@Override
 	public void setGameTotalScore(int totalScore) {
-		// TODO Auto-generated method stub
-		
+		gameTotalScore = getFrameTotalScore() + totalScore;
 	}
 }
