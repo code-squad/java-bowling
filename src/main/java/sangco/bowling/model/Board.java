@@ -6,6 +6,7 @@ import sangco.bowling.view.InputView;
 
 public class Board {
 	private HashMap<Integer, Frame> scoreBoard = new HashMap<>();
+	private TotalScore totalScore = new TotalScore();
 	
 	
 	public void createFrame(int frame, int scoreFirstRoll) {
@@ -20,18 +21,17 @@ public class Board {
 		if(scoreFirstRoll < 10) {
 			scoreBoard.put(frame, createOtherFrame(scoreFirstRoll));
 		}
-		
-		// scoreBoard를 인자로 넘기면서 TotalScore 세팅하는 메소드 호출 
+		scoreBoard.put(frame, totalScore.getFrameData(frame, scoreBoard.get(frame)));
 	}
 	
-	Frame createOtherFrame(int score) {
-		int inputScore = InputView.getScore(score);
+	Frame createOtherFrame(int scoreFirstRoll) {
+		int scoreSecondRoll = InputView.getScore(scoreFirstRoll);
 		
-		if(score + inputScore == 10) {
-			return new SpareFrame(score, inputScore);
+		if(scoreFirstRoll + scoreSecondRoll == 10) {
+			return new SpareFrame(scoreFirstRoll, scoreSecondRoll);
 		}
 		
-		return new NormalFrame(score, inputScore);
+		return new NormalFrame(scoreFirstRoll, scoreSecondRoll);
 	}
 	
 	public HashMap<Integer, Frame> getScoreBoard() {
