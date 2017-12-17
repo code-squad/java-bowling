@@ -1,52 +1,41 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import Exception.InvalidFalledPinInputException;
-import Exception.InvalidFrameNumberException;
+import model.Game;
 import model.Pin;
-import model.Player;
 import view.InputView;
 import view.ResultView;
 
 public class Main {
 	private static Scanner sc = new Scanner(System.in);
-	
+
 	public static void main(String[] args) {
 		int playerNum = InputView.getNumOfPlayer(sc);
-		List<Player> players = InputView.getPlayers(playerNum, sc);
+		List<String> playerNames = InputView.getPlayers(playerNum, sc);
 		ResultView.printFirstLine();
-		players.forEach(player -> ResultView.printBlankTable(player.getName()));
-		Player thisTurnPlayer = player.decideTurn();
-		ResultView.printTurn(player);
-		int falledPin = InputView.getFalledPin(name, sc);
-		
-	}
-	
-	public static void main1(String[] args) {
-		String playerName = InputView.getPlayerName(sc);
-		ResultView.printBlankTable(playerName);
-		play(playerName);
+		playerNames.forEach(player -> ResultView.printBlankTable(player));
+		Game game = new Game(playerNames);
+		// 반복
+		play(game);
 		System.out.println("게임이 끝났습니다.");
 	}
 
-	public static void play(String playerName) {
+	private static void play(Game game) {
 		try {
-			try {
-				ResultView.printFrameNum(bowling.currentFrame.getFrameNum());
-				bowling.bowl(new Pin(InputView.getFalledPin(sc)));
-			} catch (InvalidFrameNumberException e) {
-				ResultView.printResults(playerName, bowling);
-				System.out.println("프레임 개수는 최대 10개입니다.");
+			ResultView.printTurn(game);
+			game.play(new Pin(InputView.getFalledPin(sc)));
+			ResultView.printResults(game);
+			if (game.findLastPlayer().isLastBowl()) {
+				System.out.println("10프레임이 최대프레임개수입니다.");
 				return;
 			}
-			ResultView.printResults(playerName, bowling);
-			play(playerName);
+			play(game);
 		} catch (InvalidFalledPinInputException e) {
 			System.out.println("볼링 핀은 0이상 10이하여야 합니다. 다시 입력해 주세요.");
-			play(playerName);
+			play(game);
 		}
 	}
 }

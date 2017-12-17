@@ -41,6 +41,7 @@ public class TenthFrameTest {
 		Score nineFinalScore = nine.getNextFrame().calculateScore(nineScore);
 		assertEquals(30, nineFinalScore.getScore());
 	}
+
 	@Test
 	public void ninethFrame_calculateScore_Spare() throws Exception {
 		Frame nine = new NormalFrame(9);

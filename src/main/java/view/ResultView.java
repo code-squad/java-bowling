@@ -2,15 +2,17 @@ package view;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import model.Bowling;
+import model.Game;
 import model.Player;
+import model.Status;
 
 public class ResultView {
-	public static void printTurn(Player player) {
-		System.out.print(player.getName() + "'s turn :");
+	public static void printTurn(Game game) {
+		System.out.print(game.getCurrentPlayer().getName() + "'s turn :");
 	}
-	
+
 	public static void printBlankTable(String playerName) {
 		printBlankSecondLine(playerName);
 		printBlankThirdLine();
@@ -40,32 +42,30 @@ public class ResultView {
 		}
 		System.out.println(thirdLine);
 	}
-	public static void printResults1(String playerName, Bowling bowling) {
+
+	public static void printResults1(Game game) {
 		printFirstLine();
-		System.out.println(returnStatus(playerName, bowling));
-		System.out.println(returnScores(bowling));
+		List<String> result = game.getPlayers().stream().map(player -> returnStatus(game, player))
+				.collect(Collectors.toList());
+		System.out.println(result);
 	}
-	public static void printResults(Player player) {
+
+	public static void printResults(Game game) {
 		printFirstLine();
-		System.out.println(returnStatus(playerName, bowling));
-		System.out.println(returnScores(bowling));
-	}
-	private static String returnStatus(Player player) {
-		List<String> allStatus = player.bowling.makeStatus();
-		String secondLine = "|   " + playerName + "   |";
-		for (String status : allStatus) {
-			secondLine += "   " + status + "   |";
+		for (Player player : game.getPlayers()) {
+			System.out.println(returnResult(game, player));
 		}
-		for (int j = allStatus.size() + 1; j < 11; j++) {
-			secondLine += "      |";
-		}
-		return secondLine;
 	}
-	private static String returnStatus1(String playerName, Bowling bowling) {
-		List<String> allStatus = bowling.makeStatus();
-		String secondLine = "|   " + playerName + "   |";
-		for (String status : allStatus) {
-			secondLine += "   " + status + "   |";
+
+	private static String returnResult(Game game, Player player) {
+		return returnStatus(game, player) + "\n" + returnScores(game, player);
+	}
+
+	private static String returnStatus(Game game, Player player) {
+		List<Status> allStatus = game.getPlayerStatus(player);
+		String secondLine = "|   " + player.getName() + "   |";
+		for (Status status : allStatus) {
+			secondLine += "   " + status.getStatus() + "   |";
 		}
 		for (int j = allStatus.size() + 1; j < 11; j++) {
 			secondLine += "      |";
@@ -73,8 +73,8 @@ public class ResultView {
 		return secondLine;
 	}
 
-	private static String returnScores(Bowling bowling) {
-		List<String> totalScores = bowling.getTotal();
+	private static String returnScores(Game game, Player player) {
+		List<String> totalScores = game.getPlayerScore(player);
 		String thirdLine = "|        |";
 		for (String score : totalScores) {
 			thirdLine += "   " + score + "   |";

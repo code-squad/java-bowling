@@ -3,7 +3,7 @@ package model;
 public class Status {
 	// status 생성에만 관여.
 	private String status;
-	
+
 	public Status(String status) {
 		this.status = status;
 	}
@@ -22,7 +22,7 @@ public class Status {
 		return new Status(createSecondStatus(pins[0], pins[1]) + createFirstStatus(pins[2]));
 	}
 
-	private static String whenFirstPinIsStrike(Pin... pins) {
+	public static String whenFirstPinIsStrike(Pin... pins) {
 		String status = "X";
 		if (pins.length == 1) {
 			return status;
@@ -43,7 +43,7 @@ public class Status {
 		}
 		return pin.getPin() + "";
 	}
-	
+
 	private static String createSecondStatus(Pin firstPin, Pin secondPin) {
 		if (firstPin.isSpare(secondPin)) {
 			return firstPin.getPin() + "|/";
@@ -57,5 +57,5 @@ public class Status {
 	public String getStatus() {
 		return status;
 	}
-	
+
 }
