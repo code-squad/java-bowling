@@ -1,4 +1,4 @@
-package sangco.bowling.model;
+package sangco.bowling.model.frame;
 
 import sangco.bowling.view.InputView;
 

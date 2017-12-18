@@ -1,4 +1,4 @@
-package sangco.bowling.model;
+package sangco.bowling.model.frame;
 
 public interface Frame {
 	public int getFirstRoll();

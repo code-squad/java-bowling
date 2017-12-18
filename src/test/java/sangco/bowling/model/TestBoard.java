@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import sangco.bowling.model.frame.NormalFrame;
+import sangco.bowling.model.frame.SpareFrame;
+import sangco.bowling.model.frame.StrikeFrame;
+
 public class TestBoard {
 	private Board board;
 	
@@ -41,5 +45,29 @@ public class TestBoard {
 		System.out.println(board.getScoreBoard().get(1) instanceof StrikeFrame);
 		System.out.println(board.getScoreBoard().get(6) instanceof SpareFrame);
 		System.out.println(board.getScoreBoard().get(8) instanceof NormalFrame);
+	}
+
+	@Test
+	public void test_hashMap() {
+		board.createFrame(1, 10);
+		board.createFrame(2, 10);
+		board.createFrame(3, 10);
+		board.createFrame(4, 10);
+		board.createFrame(5, 10);
+		board.createFrame(6, 7);
+		board.createFrame(7, 7);
+		board.createFrame(8, 5);
+		board.createFrame(9, 5);
+		board.createFrame(10, 5);
+		
+		board.getScoreBoard().put(1, new NormalFrame(3, 5));
+		board.getScoreBoard().put(2, new NormalFrame(3, 5));
+		board.getScoreBoard().put(3, new NormalFrame(3, 5));
+		
+		
+		System.out.println(board.getScoreBoard().size());
+		System.out.println(board.getScoreBoard().get(1) instanceof NormalFrame);
+		System.out.println(board.getScoreBoard().get(2) instanceof NormalFrame);
+		System.out.println(board.getScoreBoard().get(3) instanceof NormalFrame);
 	}
 }

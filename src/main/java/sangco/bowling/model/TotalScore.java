@@ -2,42 +2,24 @@ package sangco.bowling.model;
 
 import java.util.HashMap;
 
+import sangco.bowling.model.frame.Frame;
+
 public class TotalScore {
-	public Frame getFrameData(int frame, Frame frameObject) {
-		
-		switch(frame) {
-			case 1: 
-				frameObject = setFirstFrameTotal(frame, frameObject);
-				break;
-			case 2:
-				break;
-			case 10:
-				break;
-			default:
-				break;	
-		}
-		return frameObject;
-	}
+
 	
-	private Frame setFirstFrameTotal(int frame, Frame frameObject) {
-		if(frameObject instanceof NormalFrame) {
-			frameObject.setGameTotalScore(0); // 1프레임이라서 인자값으로 넣어주는 total이 0
-		}
-		return frameObject;
-	}
 	
-	public Frame getFrameData(Frame frame) {
-		FrameType frameType = FrameType.getFrameType(frame);
-		switch(frameType) {
-			case NOMALFRAME:
-				break;
-			case STRIKEFRAME:
-				break;
-			case SPAREFRAME:
-				break;
-			default :	
-				
-		}
-		return frame;
+	
+	
+	
+	
+	
+	public static HashMap<Integer, Frame> setPrePreFrame(int frame, HashMap<Integer, Frame> scoreBoard) {
+		scoreBoard.get(frame-2).setGameTotalScore(scoreBoard.get(frame-3).getGameTotalScore() + 10 + scoreBoard.get(frame).getFirstRoll());
+		return scoreBoard;
+	}
+
+	public static HashMap<Integer, Frame> setPreFrame(int frame, HashMap<Integer, Frame> scoreBoard) {
+		scoreBoard.get(frame-1).setGameTotalScore(scoreBoard.get(frame-2).getGameTotalScore() + scoreBoard.get(frame).getFrameTotalScore());
+		return scoreBoard;
 	}
 }

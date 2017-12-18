@@ -1,10 +1,10 @@
-package sangco.bowling.model;
+package sangco.bowling.model.frame;
 
 public class NormalFrame implements Frame {
 	private int scoreFirstRoll = 0;
 	private int scoreSecondRoll = 0;
-	private int gameTotalScore = 0;
 	private int frameTotalScore = 0;
+	private int gameTotalScore = 0;
 	
 	
 	public NormalFrame(int scoreFirstRoll, int scoreSecondRoll) {
