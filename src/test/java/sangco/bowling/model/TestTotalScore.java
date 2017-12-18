@@ -19,5 +19,4 @@ public class TestTotalScore {
 		board.createFrame(1, 6);
 		assertEquals(9, board.getScoreBoard().get(1).getGameTotalScore());
 	}
-	
 }

@@ -14,8 +14,6 @@ public class SpareFrame implements Frame {
 		this.scoreSecondRoll = scoreSecondRoll;
 	}
 
-	
-
 	@Override
 	public int getFirstRoll() {
 		// TODO Auto-generated method stub
