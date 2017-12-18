@@ -10,5 +10,14 @@ public class Main {
 			player.play(pinsPerTry);
 			View.showResult(player);
 		}
+		
+		try {
+			Input.getName();
+			Input.getPinsPerTry();
+		} catch (InputException e){
+			String message = e.getMessage();
+			System.out.println(message);
+			e.printStackTrace();
+		}
 	}
 }

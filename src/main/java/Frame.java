@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class Frame {
 			return makeFirstScoreMark();
 		}
 		if (pinsPerFrame.size() == 2) {
+			if (pinsPerFrame.get(0) +pinsPerFrame.get(1) > 10) {
+				throw new InputException("투구의 합은 10 이하여야 합니다");
+			}
 			return makeSecondScoreMark();
 		}
 		return "      |";
