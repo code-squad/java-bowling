@@ -36,7 +36,7 @@ public class Player {
 			this.isEnd = true;
 		}
 	}
-
+	
 	public boolean isLastBowl() {
 		if (frames.size() == 10 && frames.get(9).isEnd()) {
 			return true;
@@ -45,7 +45,7 @@ public class Player {
 	}
 
 	public boolean isEnd() {
-		return isEnd;
+		return currentFrame.isEnd();
 	}
 
 	public List<String> getTotal() {

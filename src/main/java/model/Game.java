@@ -15,7 +15,7 @@ public class Game {
 		currentPlayer = players.get(0);
 	}
 
-	public Player create(String name) {
+	private Player create(String name) {
 		return new Player(name);
 	}
 
