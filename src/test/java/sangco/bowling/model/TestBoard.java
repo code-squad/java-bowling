@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import sangco.bowling.model.frame.NormalFrame;
 import sangco.bowling.model.frame.SpareFrame;
 import sangco.bowling.model.frame.StrikeFrame;
 

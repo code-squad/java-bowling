@@ -1,4 +1,4 @@
-package sangco.bowling.model.frame;
+package sangco.bowling.model;
 
 import sangco.bowling.view.InputView;
 
@@ -26,19 +26,6 @@ public class LastFrame implements Frame {
 
 
 	@Override
-	public int getFirstRoll() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int getFrameTotalScore() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int getGameTotalScore() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -47,6 +34,7 @@ public class LastFrame implements Frame {
 	@Override
 	public void setGameTotalScore(int totalScore) {
 		// TODO Auto-generated method stub
+		// 다른프레임과 똑같이 가고 여기서 다른 프레임과 다른 부분을 계산해 주자
 		
 	}
 }
