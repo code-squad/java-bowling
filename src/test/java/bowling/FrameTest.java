@@ -1,61 +1,91 @@
 package bowling;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class FrameTest {
-	//생성자 테스트.
-	@Test
-	public void startFrameTest() {
-		Frame frame = new Frame();
-		
-		assertEquals(0, frame.getFrameNum());
-		assertEquals(10, frame.getPinNum());
-		assertEquals(1, frame.getTryNum());
+	private FinalFrame finalFrame;
+	private Frame frame;
+
+	@Before
+	public void setUp(){
+		frame = new Frame();
+		finalFrame = new FinalFrame();
 	}
-	//frame이 잘 넘어가는지 테스트.
+
 	@Test
-	public void goNextFrameTest() {
-		Frame frame = new Frame();
-		
-		frame.goNextFrame();
-		assertEquals(1, frame.getFrameNum());
-		assertEquals(1, frame.getTryNum());
-		assertEquals(10, frame.getPinNum());
+	public void getSpareStatus() {
+		frame.addScore(2);
+		frame.addScore(8);
+		assertEquals(Status.SPARE, frame.getStatus());
 	}
-	//시도 횟수(투구 횟수) 1 증가시키는 메소드 테스트.
+
 	@Test
-	public void addTryNumTest() {
-		Frame frame = new Frame();
-		
-		frame.addTryNum();
-		assertEquals(2, frame.getTryNum());
+	public void getStriketatus() {
+		frame.addScore(10);
+		assertEquals(Status.STRIKE, frame.getStatus());
 	}
-	//시도 횟수(투구 횟수) 다시 초기값(1)으로 변경해주는 메소드 테스트.
+
 	@Test
-	public void clearTryNumTest() {
-		Frame frame = new Frame();
-		
-		frame.addTryNum();
-		frame.clearTryNum();
-		assertEquals(1, frame.getTryNum());
+	public void getMissStatus() {
+		frame.addScore(2);
+		frame.addScore(0);
+		assertEquals(Status.MISS, frame.getStatus());
 	}
-	//score만큼 핀을 넘어뜨리고, 남은 핀 갯수를 세는 메소드 테스트.
+
 	@Test
-	public void updatePinTest() {
-		Frame frame = new Frame();
-		int score = 8;
-		frame.updatePin(score);
-		
-		assertEquals(2, frame.getPinNum());
+	public void getNormalStatus() {
+		frame.addScore(2);
+		frame.addScore(3);
+		assertEquals(" | " + "3" + "\t|", frame.changeFormat());
 	}
-	//int 형의 pinNum을 10으로 초기화하는 메소드 테스트.
+
 	@Test
-	public void clearPinTest() {
-		Frame frame = new Frame();
-		frame.clearPin();
-		
-		assertEquals(10, frame.getPinNum());
+	public void finalFrameStrike() {
+		finalFrame.addScore(10);
+		assertEquals(true, finalFrame.isNotEnd());
+		finalFrame.addScore(7);
+		assertEquals(false, finalFrame.isNotEnd());
+		assertEquals(null, finalFrame.getStatus());
+	}
+
+	@Test
+	public void finalFrameSpare() {
+		finalFrame.addScore(6);
+		assertEquals(true, finalFrame.isNotEnd());
+		finalFrame.addScore(4);
+		assertEquals(true, finalFrame.isNotEnd());
+		finalFrame.addScore(2);
+		assertEquals(false, finalFrame.isNotEnd());
+		assertEquals(Status.SPARE, finalFrame.getStatus());
+
+	}
+
+	@Test
+	public void finalFrameMiss() {
+		finalFrame.addScore(3);
+		assertEquals(true, finalFrame.isNotEnd());
+		finalFrame.addScore(0);
+		assertEquals(false, finalFrame.isNotEnd());
+		assertEquals(Status.SPARE, finalFrame.getStatus());
+
+	}
+
+	@Test
+	public void finalFrameNormal() {
+		finalFrame.addScore(3);
+		assertEquals(true, finalFrame.isNotEnd());
+		finalFrame.addScore(4);
+		assertEquals(false, finalFrame.isNotEnd());
+		assertEquals(Status.SPARE, finalFrame.getStatus());
+
+	}
+
+	@Test
+	public void isEnd() {
+		finalFrame.addScore(8);
+		assertEquals(true, finalFrame.isNotEnd());
 	}
 }

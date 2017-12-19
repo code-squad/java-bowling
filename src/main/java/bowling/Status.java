@@ -1,26 +1,23 @@
 package bowling;
 
-public class Status {
-	private Player player;
-	private Score score;
-	private Frame frame;
-	
-	//생성자.
-	public Status(Player player) {
-		this.player = player;
-		this.score = new Score();
-		this.frame = new Frame();
+public enum Status {
+	STRIKE(true, 1),
+	SPARE(true, 2),
+	MISS(false, 2);
+
+	private Boolean isTen;
+	private int size;
+
+	Status(Boolean isTen, int size) {
+		this.isTen = isTen;
+		this.size = size;
 	}
-	//Test Code용 player 리턴.
-	public Player getPlayer() {
-		return player;
-	}
-	//Test Code용 score 리턴.
-	public Score getScore() {
-		return score;
-	}
-	//Test Code용 frame 리턴.
-	public Frame getFrame() {
-		return frame;
+
+	public static Status valueOf(Boolean isTen, int size){
+		for (Status status : Status.values()) {
+			if(isTen == status.isTen && size == status.size)
+				return status;
+		}
+		return null;
 	}
 }

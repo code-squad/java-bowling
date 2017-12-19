@@ -1,52 +1,50 @@
 package bowling;
 
+import static bowling.Status.SPARE;
+import static bowling.Status.STRIKE;
+import static bowling.Status.MISS;
+
+import java.util.ArrayList;
+
 public class Frame {
-	private int frameNum;
-	private int pinNum;
-	private int tryNum;
 	
-	//생성자.
-	public Frame() {
-		frameNum = 0;
-		pinNum = 10;
-		tryNum = 1;
+	ArrayList<Integer> frame = new ArrayList<>();
+
+	Frame() {
+
 	}
-	//int 형의 현재 프레임 넘버를 리턴.
-	public int getFrameNum() {
-		return frameNum;
+
+	public void addScore(int score) {
+		frame.add(score);
 	}
-	//int 형의 현재 핀의 갯수를 리턴.
-	public int getPinNum() {
-		return pinNum;
+
+	public boolean isScoreTen() {
+		int totalScore = 0;
+		for (int i = 0; i < frame.size(); i++) {
+			totalScore += frame.get(i);
+		}
+		return totalScore == 10;
 	}
-	//int 형의 투구수를 리턴한다.(현재 프레임의 투구수)
-	public int getTryNum() {
-		return tryNum;
+
+	public Status getStatus() {
+		return Status.valueOf(isScoreTen(), frame.size());
 	}
-	//int 형의 투구 횟수 1 증가.
-	public void addTryNum() {
-		tryNum++;
+
+	public boolean isNotEnd() {
+		return getStatus() == null;
 	}
-	//int 형의 투구 횟수 1로 다시 초기화.
-	public void clearTryNum() {
-		tryNum = 1;
-	}
-	//다음 프레임으로 넘어가면서 int 형의 프레임넘버만 1증가. 나머지는 초기화.
-	public void goNextFrame() {
-		frameNum++;
-		clearPin();
-		clearTryNum();
-	}
-	//int 형의 score를 입력받아서, 그만큼 핀을 넘어뜨리고 남은 핀을 리턴해준다.
-	public void updatePin(int score) {
-		pinNum -= score;
-	}
-	//int 형의 pinNum를 10으로 초기화.
-	public void clearPin() {
-		pinNum = 10;
-	}
-	//Spare처리가 되었는지 (Pin의 갯수가 0개로 다 넘어졌는지) boolean 값으로 리턴.
-	public boolean isSpare() {
-		return (pinNum == 0);
+
+	public String changeFormat() {
+		String strScore = "\t" + frame.get(0);
+		if (getStatus() == STRIKE)
+			strScore = "\t" + "X" + "\t|";
+		if (getStatus() == SPARE)
+			strScore = " | /" + "\t|";
+		if (getStatus() == MISS && frame.get(1) == 0)
+			strScore = " | -" + "\t|";
+		if (getStatus() == MISS && frame.get(1) != 0)
+			strScore = " | " + frame.get(1) + "\t|";
+		return strScore;
+
 	}
 }
