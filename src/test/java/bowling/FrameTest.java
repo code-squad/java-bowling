@@ -2,51 +2,51 @@ package bowling;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class FrameTest {
-
-	@Test
-	public void addScore() {
-		Frame frame = new Frame();
-		frame.addScore(8);
-		assertEquals(8, frame.getFrameAt(0));
+	private FinalFrame finalFrame;
+	private Frame frame;
+	
+	@Before
+	public void setUp(){
+		frame = new Frame();
+		finalFrame = new FinalFrame();
 	}
 
 	@Test
 	public void getSpareStatus() {
-		Frame frame = new Frame();
-		int score = 2;
-		frame.addScore(score);
-		int score2 = 8;
-		frame.addScore(score2);
+		frame.addScore(2);
+		frame.addScore(8);
 		assertEquals(Status.SPARE, frame.getStatus());
 	}
 
 	@Test
 	public void getStriketatus() {
-		Frame frame = new Frame();
-		int score = 10;
-		frame.addScore(score);
+		frame.addScore(10);
 		assertEquals(Status.STRIKE, frame.getStatus());
 	}
 
 	@Test
-	public void getNormalStatus() {
-		Frame frame = new Frame();
-		int score = 2;
-		frame.addScore(score);
-		int score2 = 3;
-		frame.addScore(score2);
-		assertEquals(Status.NORMAL, frame.getStatus());
+	public void getMissStatus() {
+		frame.addScore(2);
+		frame.addScore(0);
+		assertEquals(Status.MISSORNORMAL, frame.getStatus());
 	}
+	
+	@Test
+	public void getNormalStatus() {
+		frame.addScore(2);
+		frame.addScore(3);
+		assertEquals(" | " + "3" + "\t|", frame.changeFormat());
+	}
+
+	
 
 	@Test
 	public void isEnd() {
-		Frame frame = new Frame();
-		int score = 8;
-		frame.addScore(score);
-	
-		assertEquals(true, frame.isNotEnd());
+		finalFrame.addScore(8);
+		assertEquals(true, finalFrame.isNotEnd());
 	}
 }

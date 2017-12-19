@@ -2,7 +2,7 @@ package bowling;
 
 import static bowling.Status.SPARE;
 import static bowling.Status.STRIKE;
-import static bowling.Status.NORMAL;
+import static bowling.Status.MISSORNORMAL;
 
 import java.util.ArrayList;
 
@@ -17,14 +17,6 @@ public class Frame {
 		frame.add(score);
 	}
 
-	public ArrayList<Integer> getFrame() {
-		return frame;
-	}
-
-	public int getFrameAt(int index) {
-		return frame.get(index);
-	}
-
 	public boolean isScoreTen() {
 		int totalScore = 0;
 		for (int i = 0; i < frame.size(); i++) {
@@ -37,18 +29,22 @@ public class Frame {
 		return Status.valueOf(isScoreTen(), frame.size());
 	}
 
+	
+
 	public boolean isNotEnd() {
-		return getStatus() == null;
+		return (getStatus() == null) || (getStatus() == Status.READY);
 	}
 
 	public String changeFormat() {
-		String strScore = "\t" + Integer.toString(frame.get(0));
+		String strScore = "\t" + frame.get(0);
 		if (getStatus() == STRIKE)
-			strScore = "\t" + STRIKE.symbol + "\t|";
+			strScore = "\t" + "X" + "\t|";
 		if (getStatus() == SPARE)
 			strScore = " | /" + "\t|";
-		if (getStatus() == NORMAL)
+		if (getStatus() == MISSORNORMAL && frame.get(1) == 0)
 			strScore = " | -" + "\t|";
+		if (getStatus() == MISSORNORMAL && frame.get(1) != 0)
+			strScore = " | " + frame.get(1) + "\t|";
 		return strScore;
 
 	}
