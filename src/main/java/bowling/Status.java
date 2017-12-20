@@ -1,14 +1,14 @@
 package bowling;
 
 public enum Status {
-	STRIKE(true, 1, 3),
-	SPARE(true, 2, 2),
-	MISSORNORMAL(false, 2, 1),
-	READY(false, 1, 2);
+	STRIKE(true, 1, 2),
+	SPARE(true, 2, 1),
+	MISSORNORMAL(false, 2, 0),
+	READY(false, 1, 1);
 
 	private Boolean isTen;
-	public int size;
-	private int lastChance;
+	private int size;
+	public int lastChance;
 
 	Status(Boolean isTen, int size, int lastChance) {
 		this.isTen = isTen;
@@ -24,16 +24,4 @@ public enum Status {
 		return null;
 	}
 
-	private static void useLastChance(Status finalStatus) {
-		finalStatus.lastChance--;
-	}
-
-	public static int hasLastChance(Status finalStatus) {
-		for (Status status : Status.values())
-			if (status == finalStatus) {
-				useLastChance(status);
-				return status.lastChance;
-			}
-		return -1;
-	}
 }

@@ -1,12 +1,10 @@
 package bowling;
 
-import static bowling.Status.MISSORNORMAL;
-import static bowling.Status.SPARE;
-import static bowling.Status.STRIKE;
-import static bowling.Status.READY;
+import static bowling.Status.*;
 
 public class FinalFrame extends Frame {
 	private Status status = null;
+	private static int lastChance;
 
 	public FinalFrame() {
 		super();
@@ -20,8 +18,9 @@ public class FinalFrame extends Frame {
 		return false;
 	}
 
-	private void setFrameStatus() {
+	private Status setFrameStatus() {
 		status = getStatus();
+		return status;
 	}
 
 	private Status frameStatus() {
@@ -36,33 +35,39 @@ public class FinalFrame extends Frame {
 		return null;
 	}
 
+	private Boolean isFinal() {
+		if(lastChance-- != 0)
+			return true;
+		return false;
+	}
+
 	@Override
 	public boolean isNotEnd() {
-		if (frame.size() == 0)
+		if (frame.isEmpty())
 			return true;
 		if (frameStatus() != null && !isStatusFix())
-			setFrameStatus();
-		if (Status.hasLastChance(status) != 0)
+			lastChance = setFrameStatus().lastChance;
+		if (isFinal())
 			return true;
 		return false;
 	}
 
 	@Override
 	public String changeFormat() {
-		String strScore = "";
+		String result = "";
 		if (status == STRIKE && frame.size() == 3) {
-			strScore = "\t" + "X" + "|" + frame.get(1) + "|" + frame.get(2);
-			return strScore;
+			result = "\t" + "X" + "|" + frame.get(1) + "|" + frame.get(2);
+			return result;
 		}
 		if (status == SPARE && frame.size() == 3) {
-			strScore = "\t" + frame.get(0) + " | /" + "|" + +frame.get(2);
-			return strScore;
+			result = "\t" + frame.get(0) + " | /" + "|" + +frame.get(2);
+			return result;
 		}
 		if (status == MISSORNORMAL && frame.get(1) == 0)
-			strScore = "\t" + frame.get(0) + " a| -" + "\t|";
+			result = "\t" + frame.get(0) + " a| -" + "\t|";
 		if (status == MISSORNORMAL && frame.get(1) != 0)
-			strScore = "\t" + frame.get(0) + " b| " + frame.get(1) + "\t|";
-		return strScore;
+			result = "\t" + frame.get(0) + " b| " + frame.get(1) + "\t|";
+		return result;
 
 	}
 

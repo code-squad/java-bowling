@@ -11,8 +11,7 @@ public class FrameTest {
 	
 	@Before
 	public void setUp(){
-		frame = new Frame();
-		finalFrame = new FinalFrame();
+		frame = new NormalFrame();
 	}
 
 	@Test
@@ -42,11 +41,4 @@ public class FrameTest {
 		assertEquals(" | " + "3" + "\t|", frame.changeFormat());
 	}
 
-	
-
-	@Test
-	public void isEnd() {
-		finalFrame.addScore(8);
-		assertEquals(true, finalFrame.isNotEnd());
-	}
 }
