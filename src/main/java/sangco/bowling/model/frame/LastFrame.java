@@ -1,4 +1,6 @@
-package sangco.bowling.model;
+package sangco.bowling.model.frame;
+
+import java.util.HashMap;
 
 import sangco.bowling.view.InputView;
 
@@ -24,17 +26,24 @@ public class LastFrame implements Frame {
 		}
 	}
 
-
 	@Override
 	public int getGameTotalScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		return gameTotalScore;
 	}
 
 	@Override
-	public void setGameTotalScore(int totalScore) {
-		// TODO Auto-generated method stub
-		// 다른프레임과 똑같이 가고 여기서 다른 프레임과 다른 부분을 계산해 주자
-		
+	public int setGameTotalScore(int totalScore, int scoreFirstRoll) {
+		gameTotalScore = totalScore + scoreFirstRoll + scoreSecondRoll + scoreThirdRoll;
+		return gameTotalScore;
+	}
+
+	@Override
+	public int getScoreFirstRoll() {
+		return scoreFirstRoll;
+	}
+
+	@Override
+	public int getScoreSecondRoll() {
+		return scoreSecondRoll;
 	}
 }

@@ -3,116 +3,110 @@ package sangco.bowling.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import sangco.bowling.model.frame.Frame;
+import sangco.bowling.model.frame.LastFrame;
+import sangco.bowling.model.frame.NormalFrame;
+import sangco.bowling.model.frame.SpareFrame;
+import sangco.bowling.model.frame.StrikeFrame;
 import sangco.bowling.view.InputView;
 
 public class Board {
-	private HashMap<Integer, Frame> scoreBoard = new HashMap<>();
-	private static ArrayList<Integer> totalScoreList;
-	private boolean strike = false;
-	private boolean spare = false;
-	private boolean doubleStrike = false;
+	private HashMap<Integer, Frame> scoreBoard = new HashMap<>();;
+	private int totalScore = 0;
 
-	public Board() {
-		totalScoreList = new ArrayList<>();
-		totalScoreList.add(0, 0);
-	}
+	private Boolean strike = false;
+	private Boolean spare = false;
+	private Boolean doubleStrike = false;
 
 	public void createFrame(int frame, int scoreFirstRoll) {
-		scoreBoard.put(frame, (frame == 10) ? new LastFrame(scoreFirstRoll) : new NormalFrame(scoreFirstRoll));
-		setTotalScoreCase(frame);
+		scoreBoard.put(frame, (frame == 10) ? new LastFrame(scoreFirstRoll)
+				: (scoreFirstRoll == 10) ? new StrikeFrame() : chooseFrame(scoreFirstRoll));
+		setTotalScoreCase(frame, scoreFirstRoll);
 	}
 
-	private void setTotalScoreCase(int frame) {
-		int thisFrameScore = 0;
-		int lastTotalScore = totalScoreList.get(0);
-
-		thisFrameScore = (totalScoreList.get(1) == 10) ? getScoreCase1(frame) : getScoreCase2(frame);
-		setSpareData();
+	private Frame chooseFrame(int scoreFirstRoll) {
+		int scoreSecondRoll = InputView.getScore(scoreFirstRoll);
+		return ((scoreFirstRoll + scoreSecondRoll) == 10) ? new SpareFrame(scoreFirstRoll, scoreSecondRoll)
+				: new NormalFrame(scoreFirstRoll, scoreSecondRoll);
 	}
 
-	private void setSpareData() {
-		int frameScore = totalScoreList.get(1) + totalScoreList.get(2);
-		if(frameScore == 10) {
-			spare = true;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private void setTotalScoreCase(int frame, int scoreFirstRoll) {
+		if (doubleStrike == true) {
+			setDoubleStrikeFrame(frame, scoreFirstRoll);
+		}
+		if (strike == true && scoreBoard.get(frame).getScoreFirstRoll() != 10) {
+			setStrikeFrame(frame, scoreFirstRoll);
+		}
+		if (spare == true) {
+			setSpareFrame(frame, scoreFirstRoll);
+		}
+		if (scoreBoard.get(frame) instanceof NormalFrame) {
+			setNomalFrame(frame, scoreFirstRoll);
+		}
+		
+		setBooleanData(frame);
+		
+		if (frame == 10) {
+			setLastFrame(frame, scoreFirstRoll);
 		}
 	}
-	
-	
-	
-	
-	private int getScoreCase1(int frame) {
-		return (doubleStrike == true) ? getScoreCase3(frame) : (spare == true) ? getScoreCase4(frame) : getScoreCase9();
+
+	private void setLastFrame(int frame, int scoreFirstRoll) {
+		if (doubleStrike == true) {
+			setDoubleStrikeLastFrame(frame, scoreFirstRoll);
+		}
+		totalScore = scoreBoard.get(frame).setGameTotalScore(totalScore, scoreFirstRoll);
 	}
 
-	
-	
-	
-	
-	private int getScoreCase2(int frame) {
-		return (doubleStrike == true) ? getScoreCase5(frame)
-				: (strike == true) ? getScoreCase6(frame)
-						: (spare == true) ? getScoreCase7(frame) : getScoreCase8(frame);
+	private void setNomalFrame(int frame, int scoreFirstRoll) {
+		totalScore = scoreBoard.get(frame).setGameTotalScore(totalScore, scoreFirstRoll);
 	}
 
-	
-	
-	
-	
-	
-	private int getScoreCase3(int frame) {
-		scoreBoard.get(frame - 2).setGameTotalScore(30);
-		return 30;
-	}
-
-	private int getScoreCase4(int frame) {
-		scoreBoard.get(frame - 1).setGameTotalScore(20);
-		strike = true;
-		return 20;
-	}
-
-	private int getScoreCase5(int frame) {
-		int frameScore = 20 + totalScoreList.get(1);
-		scoreBoard.get(frame - 2).setGameTotalScore(frameScore);
-		doubleStrike = false;
-		return frameScore;
-	}
-
-	private int getScoreCase6(int frame) {
-		int frameScore = 10 + totalScoreList.get(1) + totalScoreList.get(2);
-		scoreBoard.get(frame - 1).setGameTotalScore(frameScore);
-		strike = false;
-		return frameScore;
-	}
-
-	private int getScoreCase7(int frame) {
-		int frameScore = 10 + totalScoreList.get(1);
-		scoreBoard.get(frame - 1).setGameTotalScore(frameScore);
+	private void setSpareFrame(int frame, int scoreFirstRoll) {
+		totalScore = scoreBoard.get(frame - 1).setGameTotalScore(totalScore, scoreFirstRoll);
 		spare = false;
-		return frameScore;
 	}
 
-	private int getScoreCase8(int frame) {
-		int frameScore = totalScoreList.get(1) + totalScoreList.get(2);
-		if(frameScore != 10) {
-			scoreBoard.get(frame).setGameTotalScore(frameScore);
-			return frameScore;
+	private void setStrikeFrame(int frame, int scoreFirstRoll) {
+		totalScore = ((StrikeFrame) scoreBoard.get(frame - 1)).setGameTotalScoreStrike(totalScore, scoreFirstRoll,
+				scoreBoard.get(frame).getScoreSecondRoll());
+		if (!(scoreBoard.get(frame) instanceof StrikeFrame)) {
+			strike = false;
 		}
-		return 0;
 	}
 
-	private int getScoreCase9() {
-		if (strike == true) {
+	private void setDoubleStrikeFrame(int frame, int scoreFirstRoll) {
+		totalScore = scoreBoard.get(frame - 2).setGameTotalScore(totalScore, scoreFirstRoll);
+		doubleStrike = false;
+	}
+	
+	private void setDoubleStrikeLastFrame(int frame, int scoreFirstRoll) {
+		totalScore = scoreBoard.get(frame - 1).setGameTotalScore(totalScore, scoreFirstRoll);
+		doubleStrike = false;
+	}
+
+	private void setBooleanData(int frame) {
+		if (doubleStrike == false && strike == true && scoreBoard.get(frame).getScoreFirstRoll() == 10) {
 			doubleStrike = true;
 		}
-		strike = true;
-		return 0;
-	}
-
-	public static ArrayList<Integer> getTotalScoreList() {
-		return totalScoreList;
-	}
-
-	public static void setTotalScoreList(int inputScore) {
-		totalScoreList.add(inputScore);
+		if (scoreBoard.get(frame) instanceof StrikeFrame) {
+			strike = true;
+		}
+		if (scoreBoard.get(frame) instanceof SpareFrame) {
+			spare = true;
+		}
 	}
 }
