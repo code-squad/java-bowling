@@ -1,5 +1,6 @@
 package sangco.bowling.model.frame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import sangco.bowling.view.InputView;
@@ -7,8 +8,8 @@ import sangco.bowling.view.InputView;
 public class StrikeFrame implements Frame {
 	private final int scoreFirstRoll = 10;
 	private final int scoreSecondRoll = 0;
-	private int frameTotalScore = 0;
 	private int gameTotalScore = 0;
+	private boolean totalSetOrNot = false;
 
 	@Override
 	public int getGameTotalScore() {
@@ -16,16 +17,23 @@ public class StrikeFrame implements Frame {
 	}
 
 	@Override
-	public int setGameTotalScore(int totalScore, int scoreFirstRoll) {
-		gameTotalScore = totalScore + 20 + scoreFirstRoll;
-		return gameTotalScore;
-	}
-
-	public int setGameTotalScoreStrike(int totalScore, int scoreFirstRoll, int scoreSecondRoll) {
-		if(scoreFirstRoll == 10) {
-			return 0;
+	public int setGameTotalScore(int frame, HashMap<Integer, Frame> scoreBoard, int totalScore) {
+		if (scoreBoard.get(frame).getScoreFirstRoll() != 10) {
+			totalSetOrNot = true;
+			gameTotalScore = totalScore + 10 + scoreBoard.get(frame).getScoreFrame();
+			return gameTotalScore;
 		}
-		gameTotalScore = totalScore + 10 + scoreFirstRoll + scoreSecondRoll;
+		if (scoreBoard.get(frame) instanceof LastFrame) { 
+			totalSetOrNot = true;
+			gameTotalScore = totalScore + 10 + scoreBoard.get(frame).getScoreFrame();
+			return gameTotalScore;
+		}
+		return totalScore;
+	}
+	
+	public int setTripleStrikeScore(int frame, HashMap<Integer, Frame> scoreBoard, int totalScore) {
+		totalSetOrNot = true;
+		gameTotalScore = totalScore + 20 + scoreBoard.get(frame).getScoreFirstRoll();
 		return gameTotalScore;
 	}
 
@@ -37,5 +45,15 @@ public class StrikeFrame implements Frame {
 	@Override
 	public int getScoreSecondRoll() {
 		return scoreSecondRoll;
+	}
+
+	@Override
+	public int getScoreFrame() {
+		return scoreFirstRoll + scoreSecondRoll;
+	}
+
+	@Override
+	public boolean getTotalSetOrNot() {
+		return totalSetOrNot;
 	}
 }

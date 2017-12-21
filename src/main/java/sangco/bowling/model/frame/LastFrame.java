@@ -9,20 +9,14 @@ public class LastFrame implements Frame {
 	private int scoreSecondRoll = 0;
 	private int scoreThirdRoll = 0;
 	private int gameTotalScore = 0;
-	private int frameTotalScore = 0;
-	
+
 	public LastFrame(int scoreFirstRoll) {
 		this.scoreFirstRoll = scoreFirstRoll;
-
-		if(this.scoreFirstRoll == 10) {
-			this.scoreSecondRoll = InputView.getScore();
-			this.scoreThirdRoll = InputView.getScore(scoreSecondRoll);
+		if (scoreFirstRoll == 10) {
+			this.scoreSecondRoll = InputView.getScore(0);
 		}
-		
-		this.scoreSecondRoll = InputView.getScore(scoreFirstRoll);
-		
-		if(this.scoreFirstRoll + this.scoreSecondRoll == 10) {
-			this.scoreThirdRoll = InputView.getScore();
+		if (scoreFirstRoll != 10) {
+			this.scoreSecondRoll = InputView.getScore(scoreFirstRoll);
 		}
 	}
 
@@ -32,9 +26,23 @@ public class LastFrame implements Frame {
 	}
 
 	@Override
-	public int setGameTotalScore(int totalScore, int scoreFirstRoll) {
-		gameTotalScore = totalScore + scoreFirstRoll + scoreSecondRoll + scoreThirdRoll;
+	public int setGameTotalScore(int frame, HashMap<Integer, Frame> scoreBoard, int totalScore) {
+		scoreThirdRoll = setScoreThirdRoll();
+		gameTotalScore = totalScore + getScoreFrame() + scoreThirdRoll;
 		return gameTotalScore;
+	}
+
+	private int setScoreThirdRoll() {
+		if (scoreFirstRoll == 10 && scoreSecondRoll == 10) {
+			return InputView.getScore(0);
+		}
+		if (scoreFirstRoll == 10 && scoreSecondRoll != 10) {
+			return InputView.getScore(scoreSecondRoll);
+		}
+		if (getScoreFrame() == 10) {
+			return InputView.getScore(0);
+		}
+		return 0;
 	}
 
 	@Override
@@ -45,5 +53,15 @@ public class LastFrame implements Frame {
 	@Override
 	public int getScoreSecondRoll() {
 		return scoreSecondRoll;
+	}
+
+	@Override
+	public int getScoreFrame() {
+		return scoreFirstRoll + scoreSecondRoll;
+	}
+
+	@Override
+	public boolean getTotalSetOrNot() {
+		return false;
 	}
 }

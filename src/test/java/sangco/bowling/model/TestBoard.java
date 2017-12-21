@@ -18,18 +18,7 @@ public class TestBoard {
 	}
 	
 	@Test
-	public void test_createOtherFrame() {
-		assertEquals(new SpareFrame() instanceof SpareFrame, board.createOtherFrame(7) instanceof SpareFrame);
-	}
-	
-	@Test
 	public void test_createFrame() {
-		board.createFrame(1, 10);
-		assertEquals(new StrikeFrame() instanceof StrikeFrame, board.getScoreBoard().get(1) instanceof StrikeFrame);
-	}
-	
-	@Test
-	public void test_scoreBoard_have_10Frame() {
 		board.createFrame(1, 10);
 		board.createFrame(2, 10);
 		board.createFrame(3, 10);
@@ -38,36 +27,73 @@ public class TestBoard {
 		board.createFrame(6, 7);
 		board.createFrame(7, 7);
 		board.createFrame(8, 5);
-		board.createFrame(9, 5);
+		board.createFrame(9, 3);
 		board.createFrame(10, 5);
+		assertTrue(board.scoreBoard.get(1) instanceof StrikeFrame);
+		assertTrue(board.scoreBoard.get(6) instanceof SpareFrame);
+		assertTrue(board.scoreBoard.get(7) instanceof SpareFrame);
+		assertTrue(board.scoreBoard.get(8) instanceof NormalFrame);
+		assertTrue(board.scoreBoard.get(9) instanceof NormalFrame);
+	}
+	
+	@Test
+	public void test_NomalFrame_setGameTotalScore() {
 		
-		System.out.println(board.getScoreBoard().size());
-		System.out.println(board.getScoreBoard().get(1) instanceof StrikeFrame);
-		System.out.println(board.getScoreBoard().get(6) instanceof SpareFrame);
-		System.out.println(board.getScoreBoard().get(8) instanceof NormalFrame);
+		board.createFrame(1, 4);
+		board.createFrame(2, 5);
+		board.createFrame(3, 6);
+		assertEquals(24, board.scoreBoard.get(3).getGameTotalScore());
 	}
 
 	@Test
-	public void test_hashMap() {
+	public void test_SpareFrame_setGameTotalScore() {
+		board.createFrame(1, 4);
+		board.createFrame(2, 5);
+		board.createFrame(3, 6);
+		board.createFrame(4, 7);
+		board.createFrame(5, 6);
+		assertEquals(49, board.scoreBoard.get(5).getGameTotalScore());
+	}
+
+	@Test
+	public void test_StrikeFrame_setGameTotalScore() {
+		board.createFrame(1, 4);
+		board.createFrame(2, 5);
+		board.createFrame(3, 6);
+		board.createFrame(4, 7);
+		board.createFrame(5, 6);
+		board.createFrame(6, 10);
+		board.createFrame(7, 10);
+		board.createFrame(8, 5);
+		assertEquals(100, board.scoreBoard.get(8).getGameTotalScore());
+	}
+	
+	@Test
+	public void test_StrikeFrame_setGameTotalScore_continueStrike() {
 		board.createFrame(1, 10);
 		board.createFrame(2, 10);
 		board.createFrame(3, 10);
 		board.createFrame(4, 10);
 		board.createFrame(5, 10);
-		board.createFrame(6, 7);
-		board.createFrame(7, 7);
-		board.createFrame(8, 5);
-		board.createFrame(9, 5);
-		board.createFrame(10, 5);
-		
-		board.getScoreBoard().put(1, new NormalFrame(3, 5));
-		board.getScoreBoard().put(2, new NormalFrame(3, 5));
-		board.getScoreBoard().put(3, new NormalFrame(3, 5));
-		
-		
-		System.out.println(board.getScoreBoard().size());
-		System.out.println(board.getScoreBoard().get(1) instanceof NormalFrame);
-		System.out.println(board.getScoreBoard().get(2) instanceof NormalFrame);
-		System.out.println(board.getScoreBoard().get(3) instanceof NormalFrame);
+		board.createFrame(6, 10);
+		board.createFrame(7, 10);
+		board.createFrame(8, 10);
+		board.createFrame(9, 10);
+		assertEquals(210, board.scoreBoard.get(7).getGameTotalScore());
+	}
+	
+	@Test
+	public void test_LastFrame_setGameTotalScore() {
+		board.createFrame(1, 10);
+		board.createFrame(2, 10);
+		board.createFrame(3, 10);
+		board.createFrame(4, 10);
+		board.createFrame(5, 10);
+		board.createFrame(6, 10);
+		board.createFrame(7, 10);
+		board.createFrame(8, 10);
+		board.createFrame(9, 10);
+		board.createFrame(10, 10);
+		assertEquals(279, board.scoreBoard.get(10).getGameTotalScore());
 	}
 }
