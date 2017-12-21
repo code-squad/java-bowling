@@ -11,4 +11,8 @@ public class LastScore {
 		return lastChance -= 1;
 	}
 
+	public boolean isFinal() {
+		return lastChance != 0;
+	}
+
 }

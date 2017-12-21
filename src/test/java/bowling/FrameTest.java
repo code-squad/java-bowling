@@ -8,9 +8,9 @@ import org.junit.Test;
 public class FrameTest {
 	private FinalFrame finalFrame;
 	private Frame frame;
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		frame = new NormalFrame();
 	}
 
@@ -33,7 +33,7 @@ public class FrameTest {
 		frame.addScore(0);
 		assertEquals(Status.MISSORNORMAL, frame.getStatus());
 	}
-	
+
 	@Test
 	public void getNormalStatus() {
 		frame.addScore(2);
