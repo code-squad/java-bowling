@@ -6,7 +6,7 @@ public class ResultView {
 	public static void printScore(String score) {
 		printFormat();
 		System.out.print("|" + "\t" + "NAME" + "\t" + "|");
-		System.out.print(score + "\t" + "|");
+		System.out.print(score + "\t");
 	}
 
 	public static String basicPrint() {

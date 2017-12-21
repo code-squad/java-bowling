@@ -1,26 +1,29 @@
 package bowling;
 
-
 import java.util.ArrayList;
 
 public abstract class Frame {
-	ArrayList<Integer> frame = new ArrayList<>();
+	protected ArrayList<Integer> frame = new ArrayList<>();
 
 
 	public void addScore(int score) {
 		frame.add(score);
 	}
 
-	public boolean isScoreTen() {
+	public int getScopeOfScore() {
 		int totalScore = 0;
 		for (int i = 0; i < frame.size(); i++) {
 			totalScore += frame.get(i);
 		}
-		return totalScore == 10;
+		if(totalScore == 10)
+			return 1;
+		if(totalScore < 10)
+			return 0;
+		return -1;
 	}
 
 	public Status getStatus() {
-		return Status.valueOf(isScoreTen(), frame.size());
+		return Status.valueOf(getScopeOfScore(), frame.size());
 	}
 
 	public abstract boolean isNotEnd();

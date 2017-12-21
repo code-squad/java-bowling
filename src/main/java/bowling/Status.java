@@ -1,24 +1,24 @@
 package bowling;
 
 public enum Status {
-	STRIKE(true, 1, 2),
-	SPARE(true, 2, 1),
-	MISSORNORMAL(false, 2, 0),
-	READY(false, 1, 1);
+	STRIKE(1, 1, 3),
+	SPARE(1, 2, 2),
+	MISSORNORMAL(0, 2, 1),
+	READY(0, 1, 2);
 
-	private Boolean isTen;
+	private int scopeOfScore;
 	private int size;
 	public int lastChance;
 
-	Status(Boolean isTen, int size, int lastChance) {
-		this.isTen = isTen;
+	Status(int scopeOfScore, int size, int lastChance) {
+		this.scopeOfScore = scopeOfScore;
 		this.size = size;
 		this.lastChance = lastChance;
 	}
 
-	public static Status valueOf(Boolean isTen, int size) {
+	public static Status valueOf(int scopeOfScore, int size) {
 		for (Status status : Status.values()) {
-			if (isTen == status.isTen && size == status.size)
+			if (scopeOfScore == status.scopeOfScore && size == status.size)
 				return status;
 		}
 		return null;
