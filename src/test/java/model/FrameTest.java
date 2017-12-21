@@ -44,6 +44,7 @@ public class FrameTest {
 		assertTrue(eight.getNextFrame().getNextFrame().getFrameNum() == 10);
 
 	}
+
 	@Test(expected = InvalidFrameNumberException.class)
 	public void frameNumException() throws Exception {
 		Frame nine = new NormalFrame(9);

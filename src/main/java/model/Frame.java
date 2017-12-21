@@ -17,7 +17,7 @@ public abstract class Frame {
 			throw new InvalidFrameNumberException();
 		}
 		this.frameNum = frameNum;
-	
+
 	}
 
 	public int getFrameNum() {
@@ -38,8 +38,8 @@ public abstract class Frame {
 		}
 		return this.pins.get(index);
 	}
-	
-	private boolean hasNoPins() {
+
+	public boolean hasNoPins() {
 		return this.pins.isEmpty();
 	}
 
@@ -50,6 +50,7 @@ public abstract class Frame {
 	private boolean hasOnlyTwoPins(int index) {
 		return this.pins.size() == 2 && index == 2;
 	}
+
 	public Frame addAfterDecide(Pin pin) throws InvalidFrameNumberException {
 		this.addPins(pin);
 		if (!this.isEnd()) {
@@ -62,24 +63,24 @@ public abstract class Frame {
 		this.nextFrame = new NormalFrame(this.getFrameNum() + 1);
 		return this.nextFrame;
 	}
-	
+
 	public Score decide() throws HasNotFinishedException {
-		if(!this.isEnd()) {// 끝나지 않은 프레임에 대한 처리.
+		if (!this.isEnd()) {// 끝나지 않은 프레임에 대한 처리.
 			throw new HasNotFinishedException();
 		}
 		return decideCurrentScore();
 	}
-	
+
 	public Score decideCurrentScore() {
-		if(this.findPin(0).isStrike()){
+		if (this.findPin(0).isStrike()) {
 			return new Score(10, 2);
 		}
-		if(this.findPin(0).isSpare(this.findPin(1))) {
+		if (this.findPin(0).isSpare(this.findPin(1))) {
 			return new Score(10, 1);
 		}
 		return new Score(this.findPin(0).getPin() + this.findPin(1).getPin(), 0);
 	}
-	
+
 	public Score calculateTenthScore(Score score) throws HasNotValueYetException {// 해당 프레임의 score를 계산하는 메소드.
 		if (score.isEnd()) {
 			return score;
@@ -90,6 +91,7 @@ public abstract class Frame {
 		score.add(this.findPin(2).getPin());
 		return calculateTenthScore(score);
 	}
+
 	public Frame getNextFrame() throws HasNotFinishedException {
 		if (!this.isEnd()) {
 			throw new HasNotFinishedException();
@@ -97,7 +99,7 @@ public abstract class Frame {
 		return this.nextFrame;
 	}
 
-	public String decideStatus() {
+	public Status decideStatus() {
 		// list to array
 		return Status.createStatus(this.getPins().stream().map(s -> s).toArray(Pin[]::new));
 	}
@@ -105,17 +107,17 @@ public abstract class Frame {
 	public boolean isNewFrame(Frame frame) {
 		return frame != this;
 	}
-	
+
 	public boolean isTenthFrame() {
-		if(this.frameNum == 10) {
+		if (this.frameNum == 10) {
 			return true;
 		}
 		return false;
 	}
-	
 
 	public abstract boolean isEnd();
-	public abstract 	Score calculateScore(Score score) throws HasNotValueYetException;
+
+	public abstract Score calculateScore(Score score) throws HasNotValueYetException;
 
 	@Override
 	public int hashCode() {

@@ -2,21 +2,23 @@ package view;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import model.Bowling;
+import model.Game;
+import model.Player;
+import model.Status;
 
 public class ResultView {
-
-	public static void printFrameNum(int frameNum) {
-		System.out.print(frameNum + "프레임 투구 : ");
+	public static void printTurn(Game game) {
+		System.out.print(game.getCurrentPlayer().getName() + "'s turn :");
 	}
 
 	public static void printBlankTable(String playerName) {
-		printFirstLine();
 		printBlankSecondLine(playerName);
+		printBlankThirdLine();
 	}
 
-	private static void printFirstLine() {
+	public static void printFirstLine() {
 		DecimalFormat twodigits = new DecimalFormat("00");
 		String firstLine = "|  NAME  |";
 		for (int i = 1; i < 11; i++) {
@@ -33,17 +35,37 @@ public class ResultView {
 		System.out.println(secondLine);
 	}
 
-	public static void printResults(String playerName, Bowling bowling) {
-		printFirstLine();
-		System.out.println(returnStatus(playerName, bowling));
-		System.out.println(returnScores(bowling));
+	private static void printBlankThirdLine() {
+		String thirdLine = "|         |";
+		for (int i = 1; i < 11; i++) {
+			thirdLine += "      |";
+		}
+		System.out.println(thirdLine);
 	}
-	
-	private static String returnStatus(String playerName, Bowling bowling) {
-		List<String> allStatus = bowling.makeStatus();
-		String secondLine = "|   " + playerName + "   |";
-		for (String status : allStatus) {
-			secondLine += "   " + status + "   |";
+
+	public static void printResults1(Game game) {
+		printFirstLine();
+		List<String> result = game.getPlayers().stream().map(player -> returnStatus(game, player))
+				.collect(Collectors.toList());
+		System.out.println(result);
+	}
+
+	public static void printResults(Game game) {
+		printFirstLine();
+		for (Player player : game.getPlayers()) {
+			System.out.println(returnResult(game, player));
+		}
+	}
+
+	private static String returnResult(Game game, Player player) {
+		return returnStatus(game, player) + "\n" + returnScores(game, player);
+	}
+
+	private static String returnStatus(Game game, Player player) {
+		List<Status> allStatus = game.getPlayerStatus(player);
+		String secondLine = "|   " + player.getName() + "   |";
+		for (Status status : allStatus) {
+			secondLine += "   " + status.getStatus() + "   |";
 		}
 		for (int j = allStatus.size() + 1; j < 11; j++) {
 			secondLine += "      |";
@@ -51,8 +73,8 @@ public class ResultView {
 		return secondLine;
 	}
 
-	private static String returnScores(Bowling bowling) {
-		List<String> totalScores = bowling.getTotal();
+	private static String returnScores(Game game, Player player) {
+		List<String> totalScores = game.getPlayerScore(player);
 		String thirdLine = "|        |";
 		for (String score : totalScores) {
 			thirdLine += "   " + score + "   |";

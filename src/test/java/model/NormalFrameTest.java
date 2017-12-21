@@ -67,6 +67,7 @@ public class NormalFrameTest {
 		Score onefinalScore = two.calculateScore(oneScore); // one 의 score.
 		assertEquals(30, onefinalScore.getScore());
 	}
+
 	@Test
 	public void calculateScore_Spare() throws Exception {
 		one = one.addAfterDecide(pin1);
@@ -76,6 +77,7 @@ public class NormalFrameTest {
 		Score onefinalScore = one.getNextFrame().calculateScore(oneScore); // one 의 score.
 		assertEquals(20, onefinalScore.getScore());
 	}
+
 	@Test
 	public void calculateScore_Miss() throws Exception {
 		one = one.addAfterDecide(pin1);
@@ -85,6 +87,7 @@ public class NormalFrameTest {
 		Score onefinalScore = one.getNextFrame().calculateScore(oneScore); // one 의 score.
 		assertEquals(9, onefinalScore.getScore());
 	}
+
 	@Test(expected = HasNotFinishedException.class)
 	public void calculateScore_NotEnd() throws Exception {
 		one = one.addAfterDecide(pin1);
