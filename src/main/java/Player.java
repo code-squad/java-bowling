@@ -13,8 +13,8 @@ public class Player {
 	private Score currentScore = new Score();
 	private List<Integer> totalScores = new ArrayList<>();
 	private int sum = 0;
-	int j = 0;
-	int k = 0;
+	private int j = 0;
+	private int k = 0;
 
 	Player(String name) {
 		this.name = name;
@@ -61,7 +61,7 @@ public class Player {
 		makeTotalScores();
 	}
 
-	void makeTotalScores() {
+	private void makeTotalScores() {
 		for (int i = k; i < scores.size(); i++) {
 			sum += scores.get(k).calculateScoreSet();
 			totalScores.add(sum);
