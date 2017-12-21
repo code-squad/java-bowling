@@ -1,49 +1,53 @@
 package bowling;
 
-import static bowling.Status.*;
+import java.util.ArrayList;
 
 public class NormalFrame extends Frame {
+	ArrayList<Integer> normalFrame = new ArrayList<>();
 
-	public NormalFrame() {
-		super();
+	public NormalFrame(ArrayList<Integer> frame) {
+		super(frame);
+		normalFrame = frame;
+
 	}
 
-	public boolean isNotEnd() {
+	protected boolean isNotEnd() {
 		return (getStatus() == null) || (getStatus() == Status.READY);
 	}
 
 	@Override
-	public String changeFormat() {
+	protected String changeFormat() {
 		String result = "";
-		if (isReady()) {
-			result = "\t" + frame.get(0) + " | ";
-			return result;
-		}
+		if (isReady())
+			return getReadyResult();
+
 		if (isStrike()) {
 			result = "\t" + "X" + "\t| ";
 			return result;
 		}
 		if (isSpare()) {
-			result += "/" + "\t| ";
+			result += "/" + "\t|";
 			return result;
 		}
 		if (isMiss()) {
-			result += "-" + "\t|";
+			result += getMissResult();
 			return result;
 		}
 		if (isNormal()) {
-			result += frame.get(1) + "\t|";
+			result += getNormalResult();
 			return result;
 		}
 		return result;
 	}
 
-	public boolean isSpare() {
-		return (frame.size() == 2) && (frame.get(0) + frame.get(1) == 10);
+	
+
+	protected boolean isSpare() {
+		return (normalFrame.size() == 2) && (normalFrame.get(0) + normalFrame.get(1) == 10);
 	}
 
-	public boolean isStrike() {
-		return (frame.size() == 1) && frame.get(0) == 10;
+	protected boolean isStrike() {
+		return (normalFrame.size() == 1) && normalFrame.get(0) == 10;
 
 	}
 

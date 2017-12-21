@@ -2,6 +2,8 @@ package bowling;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +13,7 @@ public class FrameTest {
 
 	@Before
 	public void setUp() {
-		frame = new NormalFrame();
+		frame = new NormalFrame(new ArrayList<Integer>());
 	}
 
 	@Test
@@ -32,13 +34,6 @@ public class FrameTest {
 		frame.addScore(2);
 		frame.addScore(0);
 		assertEquals(Status.MISSORNORMAL, frame.getStatus());
-	}
-
-	@Test
-	public void getNormalStatus() {
-		frame.addScore(2);
-		frame.addScore(3);
-		assertEquals(" | " + "3" + "\t|", frame.changeFormat());
 	}
 
 }

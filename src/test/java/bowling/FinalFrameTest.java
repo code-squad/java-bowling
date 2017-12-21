@@ -2,6 +2,8 @@ package bowling;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 import static bowling.Status.SPARE;
@@ -13,7 +15,7 @@ public class FinalFrameTest {
 
 	@Before
 	public void setUp() {
-		finalFrame = new FinalFrame();
+		finalFrame = new FinalFrame(new ArrayList<Integer>());
 	}
 
 	@Test

@@ -5,13 +5,17 @@ import static bowling.Status.MISSORNORMAL;
 import java.util.ArrayList;
 
 public abstract class Frame {
-	protected ArrayList<Integer> frame = new ArrayList<>();
+	private ArrayList<Integer> frame = new ArrayList<>();
 
-	public void addScore(int score) {
+	public Frame(ArrayList<Integer> frame){
+		this.frame = frame;
+	}
+
+	protected void addScore(int score) {
 		frame.add(score);
 	}
 
-	public int getScopeOfScore() {
+	protected int getScopeOfScore() {
 		int totalScore = 0;
 		for (int i = 0; i < frame.size(); i++) {
 			totalScore += frame.get(i);
@@ -23,28 +27,40 @@ public abstract class Frame {
 		return -1;
 	}
 
-	public Status getStatus() {
+	protected Status getStatus() {
 		return Status.valueOf(getScopeOfScore(), frame.size());
 	}
 
-	public boolean isReady() {
+	protected boolean isReady() {
 		return getStatus() == Status.READY;
 	}
 
-	public boolean isMiss() {
+	protected boolean isMiss() {
 		return (getStatus() == MISSORNORMAL) && frame.get(1) == 0;
 	}
 
-	public boolean isNormal() {
+	protected boolean isNormal() {
 		return (getStatus() == MISSORNORMAL && frame.get(1) != 0);
 	}
+	
+	protected String getReadyResult() {
+		return "\t" + frame.get(0) + " | ";
+	}
 
-	public abstract boolean isSpare();
+	protected String getMissResult() {
+		return "-" + "\t|";
+	}
+	protected String getNormalResult() {
+		return frame.get(1) + "\t|";
+	}
 
-	public abstract boolean isStrike();
 
-	public abstract boolean isNotEnd();
+	protected abstract boolean isSpare();
 
-	public abstract String changeFormat();
+	protected abstract boolean isStrike();
+
+	protected abstract boolean isNotEnd();
+
+	protected abstract String changeFormat();
 
 }

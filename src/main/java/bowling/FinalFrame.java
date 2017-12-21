@@ -1,15 +1,19 @@
 package bowling;
 
+import java.util.ArrayList;
+
 public class FinalFrame extends Frame {
 	private LastScore lastScore;
+	ArrayList<Integer> finalFrame = new ArrayList<>();
 
-	public FinalFrame() {
-		super();
+	public FinalFrame(ArrayList<Integer> frame) {
+		super(frame);
+		finalFrame = frame;
 	}
 
 	@Override
-	public boolean isNotEnd() {
-		if (frame.isEmpty())
+	protected boolean isNotEnd() {
+		if (finalFrame.isEmpty())
 			return true;
 		if (getStatus() != null)
 			lastScore = new LastScore(getStatus().getLastChance());
@@ -18,37 +22,36 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	public String changeFormat() {
+	protected String changeFormat() {
 		String result = "";
-		if (isReady()) {
-			result = "\t" + frame.get(0) + " | ";
-			return result;
-		}
+		if (isReady())
+			return getReadyResult();
+
 		if (isStrike()) {
-			result = "\t" + "X" + " | " + frame.get(1) + " | " + frame.get(2);
+			result = "\t" + "X" + " | " + finalFrame.get(1) + " | " + finalFrame.get(2);
 			return result;
 		}
 		if (isSpare()) {
-			result += "/" + "|" + frame.get(2);
+			result += "/" + "|" + finalFrame.get(2);
 			return result;
 		}
 		if (isMiss()) {
-			result += "-" + "\t|";
+			result += getMissResult();
 			return result;
 		}
 		if (isNormal()) {
-			result += frame.get(1) + "\t|";
+			result += getNormalResult();
 			return result;
 		}
 		return result;
 	}
 
-	public boolean isSpare() {
-		return (frame.size() == 3) && (frame.get(0) + frame.get(1) == 10);
+	protected boolean isSpare() {
+		return (finalFrame.size() == 3) && (finalFrame.get(0) + finalFrame.get(1) == 10);
 	}
 
-	public boolean isStrike() {
-		return (frame.size() == 3) && frame.get(0) == 10;
+	protected boolean isStrike() {
+		return (finalFrame.size() == 3) && finalFrame.get(0) == 10;
 
 	}
 
