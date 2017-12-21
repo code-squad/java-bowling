@@ -32,7 +32,7 @@ public class FrameTest {
 	public void getMissStatus() {
 		frame.addScore(2);
 		frame.addScore(0);
-		assertEquals(Status.MISS, frame.getStatus());
+		assertEquals(Status.MISSORNORMAL, frame.getStatus());
 	}
 
 	@Test

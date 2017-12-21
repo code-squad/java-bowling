@@ -3,10 +3,10 @@ package bowling;
 
 public class ResultView {
 
-    public static void printScore(String score) {
+    public static void printScore(String name, String score) {
         printFormat();
-        System.out.print("|" + "\t" + "NAME" + "\t" + "|");
-        System.out.print(score + "\t" + "|");
+        System.out.print("|" + "\t" + name + "\t" + "|");
+        System.out.print(score + "\t");
     }
 
     public static String basicPrint() {

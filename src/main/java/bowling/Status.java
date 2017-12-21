@@ -3,7 +3,9 @@ package bowling;
 public enum Status {
 	STRIKE(true, 1),
 	SPARE(true, 2),
-	MISS(false, 2);
+	MISSORNORMAL(false, 2),
+	FIRSTSHOT(false, 1),
+	READY(true, 0);
 
 	private Boolean isTen;
 	private int size;
@@ -19,5 +21,9 @@ public enum Status {
 				return status;
 		}
 		return null;
+	}
+	
+	public void clearSize() {
+		size = 0;
 	}
 }
