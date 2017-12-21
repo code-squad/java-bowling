@@ -28,13 +28,16 @@ public class Board {
 	}
 
 	private void setTotalScoreCase(int frame) {
-		if (frame >= 3 && scoreBoard.get(frame - 2) instanceof StrikeFrame
-				&& scoreBoard.get(frame - 2).getTotalSetOrNot() == false) {
-			totalScore = ((StrikeFrame) scoreBoard.get(frame - 2)).setTripleStrikeScore(frame, scoreBoard, totalScore);
+		int twoFrameAgo = frame-2;
+		int oneFrameAgo = frame-1;
+		
+		if (frame >= 3 && scoreBoard.get(twoFrameAgo) instanceof StrikeFrame
+				&& scoreBoard.get(twoFrameAgo).getTotalSetOrNot() == false) {
+			totalScore = ((StrikeFrame) scoreBoard.get(twoFrameAgo)).setTripleStrikeScore(frame, scoreBoard, totalScore);
 		}
-		if (frame >= 2 && scoreBoard.get(frame - 1).getScoreFrame() == 10
-				&& scoreBoard.get(frame - 1).getTotalSetOrNot() == false) {
-			totalScore = scoreBoard.get(frame - 1).setGameTotalScore(frame, scoreBoard, totalScore);
+		if (frame >= 2 && scoreBoard.get(oneFrameAgo).getScoreFrame() == 10
+				&& scoreBoard.get(oneFrameAgo).getTotalSetOrNot() == false) {
+			totalScore = scoreBoard.get(oneFrameAgo).setGameTotalScore(frame, scoreBoard, totalScore);
 		}
 		if (scoreBoard.get(frame) instanceof NormalFrame && scoreBoard.get(frame).getTotalSetOrNot() == false) {
 			totalScore = scoreBoard.get(frame).setGameTotalScore(frame, scoreBoard, totalScore);
