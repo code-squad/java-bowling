@@ -22,11 +22,10 @@ public class NormalFrame extends Frame {
 			return getReadyResult();
 
 		if (isStrike()) {
-			result = "\t" + "X" + "\t| ";
-			return result;
+			return getStrikeResult();
 		}
 		if (isSpare()) {
-			result += "/" + "\t|";
+			result += getSpareResult();
 			return result;
 		}
 		if (isMiss()) {
@@ -39,8 +38,8 @@ public class NormalFrame extends Frame {
 		}
 		return result;
 	}
-
 	
+
 
 	protected boolean isSpare() {
 		return (normalFrame.size() == 2) && (normalFrame.get(0) + normalFrame.get(1) == 10);

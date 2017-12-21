@@ -28,11 +28,10 @@ public class FinalFrame extends Frame {
 			return getReadyResult();
 
 		if (isStrike()) {
-			result = "\t" + "X" + " | " + finalFrame.get(1) + " | " + finalFrame.get(2);
-			return result;
+			return getStrikeResult() + finalFrame.get(1) + " | " + finalFrame.get(2);
 		}
 		if (isSpare()) {
-			result += "/" + "|" + finalFrame.get(2);
+			result += getSpareResult() + finalFrame.get(2);
 			return result;
 		}
 		if (isMiss()) {

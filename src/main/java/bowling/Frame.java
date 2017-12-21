@@ -46,6 +46,14 @@ public abstract class Frame {
 	protected String getReadyResult() {
 		return "\t" + frame.get(0) + " | ";
 	}
+	
+	protected String getSpareResult() {
+		return "/" + "\t|";
+	}
+
+	protected String getStrikeResult() {
+		return "\t" + "X" + "\t| ";
+	}
 
 	protected String getMissResult() {
 		return "-" + "\t|";
