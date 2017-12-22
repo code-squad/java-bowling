@@ -44,7 +44,7 @@ public class TestBoard {
 		board.createFrame(3, 6);
 		assertEquals(24, board.scoreBoard.get(3).getGameTotalScore());
 	}
-
+	
 	@Test
 	public void test_SpareFrame_setGameTotalScore() {
 		board.createFrame(1, 4);
@@ -54,7 +54,7 @@ public class TestBoard {
 		board.createFrame(5, 6);
 		assertEquals(49, board.scoreBoard.get(5).getGameTotalScore());
 	}
-
+	
 	@Test
 	public void test_StrikeFrame_setGameTotalScore() {
 		board.createFrame(1, 4);
@@ -96,4 +96,5 @@ public class TestBoard {
 		board.createFrame(10, 10);
 		assertEquals(279, board.scoreBoard.get(10).getGameTotalScore());
 	}
+	
 }

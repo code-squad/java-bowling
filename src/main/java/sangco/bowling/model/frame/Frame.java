@@ -7,13 +7,13 @@ public interface Frame {
 
 	public int getGameTotalScore();
 
-	public int setGameTotalScore(int frame, HashMap<Integer, Frame> scoreBoard, int totalScore);
-	
+	public int setGameTotalScore(HashMap<Integer, Frame> scoreBoard, int totalScore);
+
 	public int getScoreFirstRoll();
-	
+
 	public int getScoreSecondRoll();
-	
+
 	public int getScoreFrame();
-	
+
 	public boolean getTotalSetOrNot();
 }

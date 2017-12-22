@@ -5,12 +5,14 @@ import java.util.HashMap;
 import sangco.bowling.view.InputView;
 
 public class LastFrame implements Frame {
+	private int frameNumber = 0;
 	private int scoreFirstRoll = 0;
 	private int scoreSecondRoll = 0;
 	private int scoreThirdRoll = 0;
 	private int gameTotalScore = 0;
 
-	public LastFrame(int scoreFirstRoll) {
+	public LastFrame(int frameNumber, int scoreFirstRoll) {
+		this.frameNumber = frameNumber;
 		this.scoreFirstRoll = scoreFirstRoll;
 		if (scoreFirstRoll == 10) {
 			this.scoreSecondRoll = InputView.getScore(0);
@@ -26,7 +28,7 @@ public class LastFrame implements Frame {
 	}
 
 	@Override
-	public int setGameTotalScore(int frame, HashMap<Integer, Frame> scoreBoard, int totalScore) {
+	public int setGameTotalScore(HashMap<Integer, Frame> scoreBoard, int totalScore) {
 		scoreThirdRoll = setScoreThirdRoll();
 		gameTotalScore = totalScore + getScoreFrame() + scoreThirdRoll;
 		return gameTotalScore;

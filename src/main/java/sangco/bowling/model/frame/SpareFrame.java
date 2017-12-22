@@ -6,12 +6,14 @@ import java.util.HashMap;
 import sangco.bowling.view.InputView;
 
 public class SpareFrame implements Frame {
+	private int frameNumber = 0;
+	private boolean totalSetOrNot = false;
 	private int scoreFirstRoll = 0;
 	private int scoreSecondRoll = 0;
 	private int gameTotalScore = 0;
-	private boolean totalSetOrNot = false;
 
-	public SpareFrame(int scoreFirstRoll, int scoreSecondRoll) {
+	public SpareFrame(int frameNumber, int scoreFirstRoll, int scoreSecondRoll) {
+		this.frameNumber = frameNumber;
 		this.scoreFirstRoll = scoreFirstRoll;
 		this.scoreSecondRoll = scoreSecondRoll;
 	}
@@ -22,10 +24,15 @@ public class SpareFrame implements Frame {
 	}
 
 	@Override
-	public int setGameTotalScore(int frame, HashMap<Integer, Frame> scoreBoard, int totalScore) {
-		totalSetOrNot = true;
-		gameTotalScore = totalScore + getScoreFrame() + scoreBoard.get(frame).getScoreFirstRoll();
-		return gameTotalScore;
+	public int setGameTotalScore(HashMap<Integer, Frame> scoreBoard, int totalScore) {
+		int oneFrameNext = frameNumber + 1;
+
+		if (oneFrameNext == scoreBoard.size()) {
+			totalSetOrNot = true;
+			gameTotalScore = totalScore + 10 + scoreBoard.get(oneFrameNext).getScoreFirstRoll();
+			return gameTotalScore;
+		}
+		return totalScore;
 	}
 
 	@Override

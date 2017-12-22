@@ -1,6 +1,14 @@
 package sangco.bowling.view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class InputView {
+	public static ArrayList<String> getUserList() {
+		String userName = "ASD,FGH,JKL";
+		return new ArrayList<>(Arrays.asList(userName.split(",")));
+	}
+	
 	public static int getScore() {
 		return 3;
 		// Scanner로 입력 받아야 한다. 이건 임시
