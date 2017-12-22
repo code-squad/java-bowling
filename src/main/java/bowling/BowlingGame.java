@@ -14,7 +14,7 @@ public class BowlingGame {
 				frame = new FinalFrame(new ArrayList<Integer>());
 			while (frame.isNotEnd()) {
 				frame.addScore(InputView.inputScore(frames.countFrame()));
-				result += frame.changeFormat();
+				result += frame.getStatusResult();
 				ResultView.printScore(result);
 			}
 			frames.addFrame(frame);

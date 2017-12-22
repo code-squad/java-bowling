@@ -15,12 +15,6 @@ public class NormalFrame extends Frame {
 		return (getStatus() == null) || (getStatus() == Status.READY);
 	}
 
-	@Override
-	protected String changeFormat() {
-		return  getStatusResult("");
-	}
-	
-
 
 	protected boolean isSpare() {
 		return (normalFrame.size() == 2) && (normalFrame.get(0) + normalFrame.get(1) == 10);
@@ -29,6 +23,16 @@ public class NormalFrame extends Frame {
 	protected boolean isStrike() {
 		return (normalFrame.size() == 1) && normalFrame.get(0) == 10;
 
+	}
+
+	@Override
+	protected String makeFinalStrikeResult() {
+		return "";
+	}
+
+	@Override
+	protected String makeFinalSpareResult() {
+		return "";
 	}
 
 }

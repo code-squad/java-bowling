@@ -63,28 +63,25 @@ public abstract class Frame {
 		return frame.get(1) + "\t|";
 	}
 
-	protected String getStatusResult(String result) {
+	protected String getStatusResult() {
 		if (isReady())
 			return getReadyResult();
 
 		if (isStrike()) {
-			return getStrikeResult();
+			return getStrikeResult() + makeFinalStrikeResult();
 		}
 
 		if (isSpare()) {
-			result += getSpareResult();
-			return result;
+			return getSpareResult() + makeFinalSpareResult();
 		}
 
 		if (isMiss()) {
-			result += getMissResult();
-			return result;
+			return getMissResult();
 		}
 		if (isNormal()) {
-			result += getNormalResult();
-			return result;
+			return getNormalResult();
 		}
-		return result;
+		return "";
 	}
 
 	protected abstract boolean isSpare();
@@ -93,6 +90,8 @@ public abstract class Frame {
 
 	protected abstract boolean isNotEnd();
 
-	protected abstract String changeFormat();
+	protected abstract String makeFinalStrikeResult();
+
+	protected abstract String makeFinalSpareResult();
 
 }
