@@ -35,4 +35,13 @@ public class NormalFrame extends Frame {
 		return "";
 	}
 
+	@Override
+	protected boolean checkFrameException() {
+		if(normalFrame.size() == 1 )
+			return true;
+		return false;
+	}
+
+	
+
 }

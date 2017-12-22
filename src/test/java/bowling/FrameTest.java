@@ -17,20 +17,20 @@ public class FrameTest {
 	}
 
 	@Test
-	public void getSpareStatus() {
+	public void getSpareStatus() throws MyException {
 		frame.addScore(2);
 		frame.addScore(8);
 		assertEquals(Status.SPARE, frame.getStatus());
 	}
 
 	@Test
-	public void getStriketatus() {
+	public void getStriketatus() throws MyException {
 		frame.addScore(10);
 		assertEquals(Status.STRIKE, frame.getStatus());
 	}
 
 	@Test
-	public void getMissStatus() {
+	public void getMissStatus() throws MyException {
 		frame.addScore(2);
 		frame.addScore(0);
 		assertEquals(Status.MISSORNORMAL, frame.getStatus());

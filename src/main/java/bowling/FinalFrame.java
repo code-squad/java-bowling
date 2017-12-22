@@ -42,4 +42,13 @@ public class FinalFrame extends Frame {
 		return finalFrame.get(2) + "";
 	}
 
+	@Override
+	protected boolean checkFrameException() {
+		if(getStatus() != Status.STRIKE && finalFrame.size() >= 2 && getStatus() != null)
+			return true;
+		return false;
+	}
+
+	
+
 }
