@@ -12,7 +12,20 @@ public abstract class Frame {
 	}
 
 	protected void addScore(int score) {
-		frame.add(score);
+		try {
+			validateAddScore(score);
+		} catch (MyException e) {
+			e.getErrorMessage();
+		}
+		finally {
+			frame.add(score);
+		}
+		
+	}
+
+	public void validateAddScore(int score) throws MyException {
+		if(frame.size() == 1 && (frame.get(0) + score > 10))
+			throw new MyException("남은 핀은 그것보다 적습니다.");
 	}
 
 	protected int getScopeOfScore() {
