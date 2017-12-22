@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public abstract class Frame {
 	private ArrayList<Integer> frame = new ArrayList<>();
 
-	public Frame(ArrayList<Integer> frame){
+	public Frame(ArrayList<Integer> frame) {
 		this.frame = frame;
 	}
 
@@ -42,11 +42,11 @@ public abstract class Frame {
 	protected boolean isNormal() {
 		return (getStatus() == MISSORNORMAL && frame.get(1) != 0);
 	}
-	
+
 	protected String getReadyResult() {
 		return "\t" + frame.get(0) + " | ";
 	}
-	
+
 	protected String getSpareResult() {
 		return "/" + "\t|";
 	}
@@ -58,10 +58,34 @@ public abstract class Frame {
 	protected String getMissResult() {
 		return "-" + "\t|";
 	}
+
 	protected String getNormalResult() {
 		return frame.get(1) + "\t|";
 	}
 
+	protected String getStatusResult(String result) {
+		if (isReady())
+			return getReadyResult();
+
+		if (isStrike()) {
+			return getStrikeResult();
+		}
+
+		if (isSpare()) {
+			result += getSpareResult();
+			return result;
+		}
+
+		if (isMiss()) {
+			result += getMissResult();
+			return result;
+		}
+		if (isNormal()) {
+			result += getNormalResult();
+			return result;
+		}
+		return result;
+	}
 
 	protected abstract boolean isSpare();
 

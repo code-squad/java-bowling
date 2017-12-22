@@ -23,25 +23,12 @@ public class FinalFrame extends Frame {
 
 	@Override
 	protected String changeFormat() {
-		String result = "";
-		if (isReady())
-			return getReadyResult();
+		String result =  getStatusResult("");
+		if (isStrike())
+			result += finalFrame.get(1) + " | " + finalFrame.get(2);
+		if (isSpare())
+			result += finalFrame.get(2);
 
-		if (isStrike()) {
-			return getStrikeResult() + finalFrame.get(1) + " | " + finalFrame.get(2);
-		}
-		if (isSpare()) {
-			result += getSpareResult() + finalFrame.get(2);
-			return result;
-		}
-		if (isMiss()) {
-			result += getMissResult();
-			return result;
-		}
-		if (isNormal()) {
-			result += getNormalResult();
-			return result;
-		}
 		return result;
 	}
 
