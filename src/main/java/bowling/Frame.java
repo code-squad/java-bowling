@@ -11,19 +11,21 @@ public abstract class Frame {
 		this.frame = frame;
 	}
 
-	protected void addScore(int score) throws MyException {
-		try {
-			validateAddScore(score);
-			frame.add(score);
-		} catch (MyException e) {
-			System.out.println(e.getErrorMessage());
-			return;
-		}
+	protected void addScore(int score) {
+		frame.add(score);
+
 	}
 
-	public void validateAddScore(int score) throws MyException {
-		if (frame.size() == 1 && isLeftPinExist(score))
-			throw new MyException("남은 핀은 그것보다 적습니다.");
+	public int validateAddScore(int frameNum) throws Exception {
+		int score = InputView.inputScore(frameNum);
+		try {
+			isLeftPinExist(score);
+		} catch (MyException e) {
+			System.out.println(e.getErrorMessage());
+			return validateAddScore(frameNum);
+		}
+		return score;
+
 	}
 
 	protected int getScopeOfScore() {
@@ -105,5 +107,10 @@ public abstract class Frame {
 
 	protected abstract String makeFinalSpareResult();
 
-	protected abstract boolean isLeftPinExist(int score);
+	protected void isLeftPinExist(int score) throws MyException {
+		if (checkFrameException() && (frame.get(0) + score > 10))
+			throw new MyException("남은 핀은 그렇게 많지 않습니다.");
+	}
+
+	protected abstract boolean checkFrameException();
 }

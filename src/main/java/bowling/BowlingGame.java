@@ -16,9 +16,7 @@ public class BowlingGame {
 			if (frames.countFrame() == 10)
 				frame = new FinalFrame(new ArrayList<Integer>());
 			while (frame.isNotEnd()) {
-				int score = InputView.inputScore(frames.countFrame());
-				frame.validateAddScore(score);
-				frame.addScore(score);
+				frame.addScore(frame.validateAddScore(frames.countFrame()));
 				result += frame.getStatusResult();
 				ResultView.printScore(result);
 			}

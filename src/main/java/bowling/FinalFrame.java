@@ -43,8 +43,12 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	protected boolean isLeftPinExist(int score) {
+	protected boolean checkFrameException() {
+		if(getStatus() != Status.STRIKE && finalFrame.size() >= 2 && getStatus() != null)
+			return true;
 		return false;
 	}
+
+	
 
 }
