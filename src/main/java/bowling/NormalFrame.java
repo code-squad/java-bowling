@@ -35,4 +35,9 @@ public class NormalFrame extends Frame {
 		return "";
 	}
 
+	@Override
+	protected boolean isLeftPinExist(int score) {
+		return (normalFrame.get(0) + score > 10);
+	}
+
 }

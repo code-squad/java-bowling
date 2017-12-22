@@ -24,9 +24,10 @@ public abstract class Frame {
 	}
 
 	public void validateAddScore(int score) throws MyException {
-		if(frame.size() == 1 && (frame.get(0) + score > 10))
+		if(frame.size() == 1 && isLeftPinExist(score))
 			throw new MyException("남은 핀은 그것보다 적습니다.");
 	}
+
 
 	protected int getScopeOfScore() {
 		int totalScore = 0;
@@ -107,4 +108,5 @@ public abstract class Frame {
 
 	protected abstract String makeFinalSpareResult();
 
+	protected abstract boolean isLeftPinExist(int score);
 }

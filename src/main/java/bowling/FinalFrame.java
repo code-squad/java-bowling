@@ -42,4 +42,9 @@ public class FinalFrame extends Frame {
 		return finalFrame.get(2) + "";
 	}
 
+	@Override
+	protected boolean isLeftPinExist(int score) {
+		return false;
+	}
+
 }
