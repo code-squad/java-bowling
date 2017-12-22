@@ -11,23 +11,20 @@ public abstract class Frame {
 		this.frame = frame;
 	}
 
-	protected void addScore(int score) {
+	protected void addScore(int score) throws MyException {
 		try {
 			validateAddScore(score);
-		} catch (MyException e) {
-			e.getErrorMessage();
-		}
-		finally {
 			frame.add(score);
+		} catch (MyException e) {
+			System.out.println(e.getErrorMessage());
+			return;
 		}
-		
 	}
 
 	public void validateAddScore(int score) throws MyException {
-		if(frame.size() == 1 && isLeftPinExist(score))
+		if (frame.size() == 1 && isLeftPinExist(score))
 			throw new MyException("남은 핀은 그것보다 적습니다.");
 	}
-
 
 	protected int getScopeOfScore() {
 		int totalScore = 0;

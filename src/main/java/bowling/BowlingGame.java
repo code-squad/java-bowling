@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BowlingGame {
 
-	public static void main(String[] args) throws Exception  {
+	public static void main(String[] args) throws Exception {
 		gameStart();
 	}
 
@@ -17,12 +17,7 @@ public class BowlingGame {
 				frame = new FinalFrame(new ArrayList<Integer>());
 			while (frame.isNotEnd()) {
 				int score = InputView.inputScore(frames.countFrame());
-				try {
-					frame.validateAddScore(score);
-				} catch (MyException e) {
-					System.out.println(e.getErrorMessage());
-					return;
-				}
+				frame.validateAddScore(score);
 				frame.addScore(score);
 				result += frame.getStatusResult();
 				ResultView.printScore(result);

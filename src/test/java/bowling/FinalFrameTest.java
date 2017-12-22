@@ -19,7 +19,7 @@ public class FinalFrameTest {
 	}
 
 	@Test
-	public void finalFrameStrike() {
+	public void finalFrameStrike() throws MyException {
 		finalFrame.addScore(10);
 		assertEquals(true, finalFrame.isNotEnd());
 		assertEquals(STRIKE, finalFrame.getStatus());
@@ -31,7 +31,7 @@ public class FinalFrameTest {
 	}
 
 	@Test
-	public void finalFrameSpare() {
+	public void finalFrameSpare() throws MyException {
 		finalFrame.addScore(6);
 		finalFrame.addScore(4);
 		assertEquals(true, finalFrame.isNotEnd());
@@ -43,7 +43,7 @@ public class FinalFrameTest {
 	}
 
 	@Test
-	public void finalFrameMissOrNormal() {
+	public void finalFrameMissOrNormal() throws MyException {
 		finalFrame.addScore(3);
 		assertEquals(true, finalFrame.isNotEnd());
 		finalFrame.addScore(0);
