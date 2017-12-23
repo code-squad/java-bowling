@@ -5,7 +5,7 @@ public enum Status {
 	SPARE(true, 2),
 	MISSORNORMAL(false, 2),
 	FIRSTSHOT(false, 1),
-	READY(true, 0);
+	READY(false, 0);
 
 	private Boolean isTen;
 	private int size;
@@ -22,7 +22,7 @@ public enum Status {
 		}
 		return null;
 	}
-	
+
 	public void clearSize() {
 		size = 0;
 	}

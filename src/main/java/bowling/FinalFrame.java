@@ -1,46 +1,60 @@
 package bowling;
 
-import static bowling.Status.STRIKE;
-import static bowling.Status.SPARE;
 import static bowling.Status.MISSORNORMAL;
-import static bowling.Status.FIRSTSHOT;
-import static bowling.Status.READY;
 
 import java.util.ArrayList;
 
 public class FinalFrame extends Frame {
-	
-	ArrayList<Integer> finalFrame = new ArrayList<>();
+
+	ArrayList<Integer> extraFrame = new ArrayList<>();
 
 	public FinalFrame() {
 		super();
 	}
-//Status.valueOf(isPinClear(), frame.size());
+
 	@Override
 	public boolean isNotEnd() {
-		if (getStatus() == Status.MISSORNORMAL) {
-			return false;
+		return getStatus() != Status.MISSORNORMAL && getStatus() != null;
+	}
+
+	@Override
+	protected Status getStatus() {
+		if (frame.size() != 1 && isPinClear()) {
+			
 		}
-		if (getStatus() == Status.STRIKE || getStatus() == Status.SPARE) {
-			return true;
+		return Status.valueOf(isPinClear(), frame.size());
+	}
+
+	@Override
+	public boolean isPinClear() {
+		int totalScore = 0;
+		for (int i = 0; i < frame.size(); i++) {
+			totalScore += frame.get(i);
 		}
-		if (getStatus() == Status.READY || getStatus() == Status.FIRSTSHOT) {
-			return true;
-		}
-		return false;
+		return totalScore % 10 == 0 && totalScore != 0;
 	}
 
 	@Override
 	public String changeFormat() {
-		String strScore = "\t" + frame.get(0);
-		if (getStatus() == STRIKE)
-			strScore = "\t" + "X" + "|";
-		if (getStatus() == SPARE)
-			strScore = " | /" + "\t|";
-		if (getStatus() == MISSORNORMAL && frame.get(1) == 0)
-			strScore = " | -" + "\t|";
-		if (getStatus() == MISSORNORMAL && frame.get(1) != 0)
-			strScore = " | " + frame.get(1) + "\t|";
-		return strScore;
+		String strScore = "" + frame.get(0);
+		if (isPinClear()) {
+			strScore = checkStrikeOrSpare(getStatus());
+		}
+		if (getStatus() == MISSORNORMAL) {
+			strScore = checkMissOrNormal(frame.get(1));
+		}
+
+		return isFirstOrNot(strScore);
+	}
+	
+	@Override
+	protected String checkStrikeOrSpare(Status status) {
+		if (frame.size() != 1 && frame.get(0) + frame.get(frame.size()-1) > 10) {
+			return "X";
+		}
+		if (frame.size() == 1) {
+			return "X";
+		}
+		return "/";
 	}
 }

@@ -3,22 +3,26 @@ package bowling;
 
 public class ResultView {
 
-    public static void printScore(String name, String score) {
-        printFormat();
-        System.out.print("|" + "\t" + name + "\t" + "|");
-        System.out.print(score + "\t");
-    }
+	public static void printScore(String name, Frames frames) {
+		printFormat(name);
+		for (int i = 0; i < 10; i++) {
+			System.out.print("\t" + frames.printRecentScore(i) + "\t");
+			System.out.print("|");
+		}
+	}
 
-    public static String basicPrint() {
-        return "";
-    }
+	public static String basicPrint() {
+		return "";
+	}
 
-    private static void printFormat() {
-        System.out.print("|" + "\t" + "NAME" + "\t" + "|");
-        for (int i = 0; i < 10; i++) {
-            System.out.print("\t" + (i + 1) + "\t" + "|");
-        }
-        System.out.println();
-    }
+	private static void printFormat(String name) {
+		System.out.print("|" + "\t" + "NAME" + "\t" + "|");
+		for (int i = 0; i < 10; i++) {
+			System.out.print("\t" + (i + 1) + "\t" + "|");
+		}
+		System.out.println();
+		System.out.print("|" + "\t" + name + "\t" + "|");
+
+	}
 
 }
