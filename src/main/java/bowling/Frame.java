@@ -39,6 +39,7 @@ public class Frame {
 		String strScore = "" + frame.get(0);
 		if (isPinClear()) {
 			strScore = checkStrikeOrSpare(getStatus());
+			return strScore;
 		}
 		if (getStatus() == MISSORNORMAL) {
 			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
@@ -51,7 +52,7 @@ public class Frame {
 		if (status == STRIKE) {
 			return "X";
 		}
-		return "/";
+		return frame.get(0) + "|/";
 	}
 
 	protected String checkMissOrNormal(int secondShotScore) {
@@ -63,7 +64,7 @@ public class Frame {
 
 	protected String isFirstOrNot(String convertedScore) {
 		if (frame.size() > 1) {
-			return "|" + convertedScore;
+			return frame.get(0) + "|" + convertedScore;
 		}
 		return convertedScore;
 	}
