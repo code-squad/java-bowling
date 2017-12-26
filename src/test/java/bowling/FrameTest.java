@@ -39,16 +39,14 @@ public class FrameTest {
 	public void getNormalStatus() {
 		frame.addScore(2);
 		frame.addScore(3);
-		assertEquals(" | " + "3" + "\t|", frame.changeFormat());
+		assertEquals("|" + "3", frame.changeFormat());
 	}
 
 	@Test
 	public void finalFrameStrike() {
 		finalFrame.addScore(10);
 		assertEquals(true, finalFrame.isNotEnd());
-		finalFrame.addScore(7);
-		assertEquals(false, finalFrame.isNotEnd());
-		assertEquals(null, finalFrame.getStatus());
+		assertEquals(Status.STRIKE, finalFrame.getStatus());
 	}
 
 	@Test
@@ -57,8 +55,6 @@ public class FrameTest {
 		assertEquals(true, finalFrame.isNotEnd());
 		finalFrame.addScore(4);
 		assertEquals(true, finalFrame.isNotEnd());
-		finalFrame.addScore(2);
-		assertEquals(false, finalFrame.isNotEnd());
 		assertEquals(Status.SPARE, finalFrame.getStatus());
 
 	}
@@ -69,7 +65,7 @@ public class FrameTest {
 		assertEquals(true, finalFrame.isNotEnd());
 		finalFrame.addScore(0);
 		assertEquals(false, finalFrame.isNotEnd());
-		assertEquals(Status.SPARE, finalFrame.getStatus());
+		assertEquals(Status.MISSORNORMAL, finalFrame.getStatus());
 
 	}
 
@@ -79,7 +75,7 @@ public class FrameTest {
 		assertEquals(true, finalFrame.isNotEnd());
 		finalFrame.addScore(4);
 		assertEquals(false, finalFrame.isNotEnd());
-		assertEquals(Status.SPARE, finalFrame.getStatus());
+		assertEquals(Status.MISSORNORMAL, finalFrame.getStatus());
 
 	}
 
