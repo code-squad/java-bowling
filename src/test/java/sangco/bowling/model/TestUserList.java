@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import sangco.bowling.BowlingGameStart;
 import sangco.bowling.view.InputView;
 
 public class TestUserList {

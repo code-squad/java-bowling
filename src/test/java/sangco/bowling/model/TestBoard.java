@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import sangco.bowling.model.frame.NormalFrame;
-import sangco.bowling.model.frame.SpareFrame;
-import sangco.bowling.model.frame.StrikeFrame;
+import sangco.bowling.model.state.NormalFrame;
+import sangco.bowling.model.state.SpareFrame;
+import sangco.bowling.model.state.StrikeFrame;
 
 public class TestBoard {
 	private Board board;
