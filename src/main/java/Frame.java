@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frame {
-
 	List<Integer> pinsPerFrame = new ArrayList<>();
 	int frameNum = 0;
 	private Frame nextFrame;
@@ -20,10 +19,10 @@ public class Frame {
 		if (pinsPerFrame.size() == 1) {
 			return makeFirstScoreMark();
 		}
+		if (pinsPerFrame.get(0) + pinsPerFrame.get(1) > 10) {
+			throw new InputException("투구의 합은 10 이하여야 합니다");
+		}
 		if (pinsPerFrame.size() == 2) {
-			if (pinsPerFrame.get(0) + pinsPerFrame.get(1) > 10) {
-				throw new InputException("투구의 합은 10 이하여야 합니다");
-			}
 			return makeSecondScoreMark();
 		}
 		return "      |";

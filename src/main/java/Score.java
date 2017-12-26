@@ -1,15 +1,10 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Score {
 	
 	List<Integer> scoreSet = new ArrayList<>();
-		
-	void addPinsInScoreSet(List<Integer> pinsPerFrame) {
-		for (int pinsPerTry : pinsPerFrame) {
-			scoreSet.add(pinsPerTry);
-		}
-	}
 	
 	void bowl(int pinsPerTry) {
 		this.scoreSet.add(pinsPerTry);
