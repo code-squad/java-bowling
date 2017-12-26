@@ -22,8 +22,4 @@ public enum Status {
 		}
 		return null;
 	}
-
-	public void clearSize() {
-		size = 0;
-	}
 }

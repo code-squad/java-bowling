@@ -13,48 +13,28 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	public boolean isNotEnd() {
-		return getStatus() != Status.MISSORNORMAL && getStatus() != null;
+	protected boolean isNotEnd() {
+		return (getStatus() != Status.MISSORNORMAL && getStatus() != null) || (frame.get(0) == 10 && frame.size() < 3);
 	}
-
+	
 	@Override
-	protected Status getStatus() {
-		if (frame.size() != 1 && isPinClear()) {
-			
-		}
-		return Status.valueOf(isPinClear(), frame.size());
-	}
-
-	@Override
-	public boolean isPinClear() {
-		int totalScore = 0;
-		for (int i = 0; i < frame.size(); i++) {
-			totalScore += frame.get(i);
-		}
-		return totalScore % 10 == 0 && totalScore != 0;
-	}
-
-	@Override
-	public String changeFormat() {
+	protected String changeFormat() {
 		String strScore = "" + frame.get(0);
+		
 		if (isPinClear()) {
-			strScore = checkStrikeOrSpare(getStatus());
+			return isFirstOrNot(checkStrikeOrSpare());
 		}
-		if (getStatus() == MISSORNORMAL) {
-			strScore = checkMissOrNormal(frame.get(1));
+		if (getStatus() == MISSORNORMAL || frame.size() == 3) {
+			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
 		}
 
 		return isFirstOrNot(strScore);
 	}
 	
-	@Override
-	protected String checkStrikeOrSpare(Status status) {
-		if (frame.size() != 1 && frame.get(0) + frame.get(frame.size()-1) > 10) {
-			return "X";
+	private String checkStrikeOrSpare() {
+		if (frame.get(frame.size() - 1) != 10) {
+			return "/";
 		}
-		if (frame.size() == 1) {
-			return "X";
-		}
-		return "/";
+		return "X";
 	}
 }

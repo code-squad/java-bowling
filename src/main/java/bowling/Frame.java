@@ -19,35 +19,35 @@ public class Frame {
 		frame.add(score);
 	}
 
-	public boolean isPinClear() {
+	protected boolean isPinClear() {
 		int totalScore = 0;
 		for (int i = 0; i < frame.size(); i++) {
 			totalScore += frame.get(i);
 		}
-		return totalScore == 10;
+		return totalScore % 10 == 0 && totalScore != 0;
 	}
 
 	protected Status getStatus() {
 		return Status.valueOf(isPinClear(), frame.size());
 	}
 
-	public boolean isNotEnd() {
+	protected boolean isNotEnd() {
 		return getStatus() == READY || getStatus() == FIRSTSHOT;
 	}
 
-	public String changeFormat() {
+	protected String changeFormat() {
 		String strScore = "" + frame.get(0);
 		if (isPinClear()) {
 			strScore = checkStrikeOrSpare(getStatus());
 		}
 		if (getStatus() == MISSORNORMAL) {
-			strScore = checkMissOrNormal(frame.get(1));
+			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
 		}
 
 		return isFirstOrNot(strScore);
 	}
 
-	protected String checkStrikeOrSpare(Status status) {
+	private String checkStrikeOrSpare(Status status) {
 		if (status == STRIKE) {
 			return "X";
 		}
@@ -58,7 +58,7 @@ public class Frame {
 		if (secondShotScore == 0) {
 			return  "-";
 		}
-		return "" + frame.get(1);
+		return "" + frame.get(frame.size() - 1);
 	}
 
 	protected String isFirstOrNot(String string) {
