@@ -2,19 +2,14 @@ package bowling;
 
 import static bowling.Status.MISSORNORMAL;
 
-import java.util.ArrayList;
-
 public class FinalFrame extends Frame {
-
-	ArrayList<Integer> extraFrame = new ArrayList<>();
-
 	public FinalFrame() {
 		super();
 	}
 
 	@Override
 	protected boolean isNotEnd() {
-		return (getStatus() != Status.MISSORNORMAL && getStatus() != null) || (frame.get(0) == 10 && frame.size() < 3);
+		return doNotExtraShot() || isFirstShotStrike();
 	}
 	
 	@Override
@@ -29,6 +24,14 @@ public class FinalFrame extends Frame {
 		}
 
 		return isFirstOrNot(strScore);
+	}
+	
+	private boolean isFirstShotStrike() {
+		return frame.get(0) == 10 && frame.size() < 3;
+	}
+	
+	private boolean doNotExtraShot() {
+		return getStatus() != Status.MISSORNORMAL && getStatus() != null;
 	}
 	
 	private String checkStrikeOrSpare() {

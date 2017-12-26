@@ -17,12 +17,6 @@ public class FramesTest {
 	}
 	
 	@Test
-	public void makeFramesTest(){
-		assertEquals(0, frames.countFrame());
-		assertEquals(10, frames.scoreBoard.size());
-	}
-	
-	@Test
 	public void addFrameTest() {
 		frames.addFrame(frame);
 		
@@ -52,17 +46,5 @@ public class FramesTest {
 		frames.addFrame(frame);
 		
 		assertEquals(1, frames.recentIndex());
-	}
-	
-	@Test
-	public void printRecentScoreTest() {
-		assertEquals("", frames.printRecentScore(0));
-	}
-	
-	@Test
-	public void makeResultBoardTest() {
-		frames.makeResultBoard("X", 0);
-		
-		assertEquals("X", frames.printRecentScore(0));
 	}
 }

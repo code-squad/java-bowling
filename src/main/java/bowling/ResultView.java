@@ -1,13 +1,14 @@
 package bowling;
 
+import java.util.ArrayList;
 
 public class ResultView {
 
-	public static void printScore(String name, Frames frames) {
+	public static void printScore(String name, ArrayList<String> result) {
 		printFormat(name);
 		for (int i = 0; i < 10; i++) {
-			System.out.print("\t" + frames.printRecentScore(i) + "\t");
-			System.out.print("|");
+			//System.out.print("\t" + frames.printRecentScore(i) + "\t");
+			System.out.print("\t" + result.get(i) + "\t|");
 		}
 	}
 

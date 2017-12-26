@@ -3,22 +3,14 @@ package bowling;
 import java.util.ArrayList;
 
 public class Frames {
-
 	ArrayList<Frame> frames = new ArrayList<>();
-	ArrayList<String> scoreBoard = new ArrayList<String> ();
 
 	Frames() {
-		for (int i = 0; i < 10; i++) {
-			scoreBoard.add("");
-		}
+		
 	}
 
 	public int recentIndex() {
 		return frames.size();
-	}
-
-	public String printRecentScore(int i) {
-		return scoreBoard.get(i);
 	}
 
 	public void addFrame(Frame frame) {
@@ -33,7 +25,10 @@ public class Frames {
 		return frames.size() < 10;
 	}
 
-	public void makeResultBoard(String strScore, int i) {
-		scoreBoard.set(i, strScore);
+	public ArrayList<String> updateResultBoard(ArrayList<String> resultList, Frame frame) {
+		String result = resultList.get(frames.size());
+		result += frame.changeFormat();
+		resultList.set(frames.size(), result);
+		return resultList;
 	}
 }
