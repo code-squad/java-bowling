@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,15 +6,16 @@ public class Frame {
 
 	List<Integer> pinsPerFrame = new ArrayList<>();
 	int frameNum = 0;
-	
-	Frame (int frameNum) {
+	private Frame nextFrame;
+
+	Frame(int frameNum) {
 		this.frameNum = frameNum;
 	}
-	
+
 	int getFrameNum() {
 		return this.frameNum;
 	}
-		
+
 	String makeScoreMark() {
 		if (pinsPerFrame.size() == 1) {
 			return makeFirstScoreMark();
@@ -28,12 +28,12 @@ public class Frame {
 		}
 		return "      |";
 	}
-	
+
 	String makeFirstScoreMark() {
 		String oneFrame = "     ";
 		return makeOneFrame(oneFrame, 1);
 	}
-	
+
 	String makeSecondScoreMark() {
 		if (pinsPerFrame.get(0) + pinsPerFrame.get(1) == 10) {
 			return "   " + changeScoreToMark(pinsPerFrame.get(0)) + "|/|";
@@ -41,7 +41,7 @@ public class Frame {
 		String oneFrame = "   ";
 		return makeOneFrame(oneFrame, 2);
 	}
-	
+
 	String makeOneFrame(String oneFrame, int j) {
 		for (int i = 0; i < j; i++) {
 			oneFrame += getValueFromPin(i) + "|";
@@ -54,7 +54,7 @@ public class Frame {
 		String value = changeScoreToMark(pins);
 		return value;
 	}
-	
+
 	static String changeScoreToMark(int score) {
 		if (score == 10) {
 			return "X";
@@ -64,18 +64,50 @@ public class Frame {
 		}
 		return score + "";
 	}
-	
+
 	void bowl(int pinsPerTry) {
 		this.pinsPerFrame.add(pinsPerTry);
 	}
-	
+
 	Frame makeNewFrame() {
 		if (frameNum >= 8) {
-			return new FrameTen(++frameNum);
+			nextFrame = new FrameTen(++frameNum);
+			return nextFrame;
 		}
-		return new Frame(++frameNum);
+		nextFrame = new Frame(++frameNum);
+		return nextFrame;
+	}
+
+	Score getScore() {
+		Score score = new Score();
+		for (int pinsPerTry : pinsPerFrame) {
+			score.bowl(pinsPerTry);
+		}
+		if (score.isEnded()) {
+			return score;
+		}
+		if (this.isEnded()) {
+			if (this.frameNum == 10) {
+				return score;
+			}
+			return nextFrame.getScore(score);			
+		}
+		return null;
 	}
 	
+	Score getScore(Score score) {
+		for (int pinsPerTry : pinsPerFrame) {
+			score.bowl(pinsPerTry);
+			if (score.isEnded()) {
+				return score;
+			}
+		}
+		if(this.isEnded()) {
+			return nextFrame.getScore(score);			
+		}
+		return null;
+	}
+
 	boolean isEnded() {
 		if (pinsPerFrame.isEmpty()) {
 			return false;

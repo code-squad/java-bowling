@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Score {
 	
-	private List<Integer> scoreSet = new ArrayList<>();
+	List<Integer> scoreSet = new ArrayList<>();
 		
 	void addPinsInScoreSet(List<Integer> pinsPerFrame) {
 		for (int pinsPerTry : pinsPerFrame) {
