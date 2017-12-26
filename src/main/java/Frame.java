@@ -87,9 +87,6 @@ public class Frame {
 			return score;
 		}
 		if (this.isEnded()) {
-			if (this.frameNum == 10) {
-				return score;
-			}
 			return nextFrame.getScore(score);			
 		}
 		return null;
