@@ -30,7 +30,6 @@ public class InputView {
 	}
 	
 	private static boolean isSecondWrong(Frame frame, int score) {
-		System.out.println(frame.checkSecondIsRight());
 		return frame.checkSecondIsRight() + score > 10;
 	}
 	private static boolean isWrongScore(int score) {

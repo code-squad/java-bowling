@@ -68,6 +68,9 @@ public class FinalFrame extends Frame {
 	}
 	
 	private String checkStrikeOrSpare() {
+		if (frame.get(frame.size() - 1) == 0) {
+			return "-";
+		}
 		if (frame.get(frame.size() - 1) != 10) {
 			return "/";
 		}
