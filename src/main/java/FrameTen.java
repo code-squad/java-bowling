@@ -1,6 +1,4 @@
-
 public class FrameTen extends Frame{
-	
 	FrameTen(int frameNum) {
 		super(frameNum);
 	}
@@ -32,6 +30,30 @@ public class FrameTen extends Frame{
 		}
 		String oneFrame = " ";
 		return makeOneFrame(oneFrame, 3);
+	}
+	
+	@Override
+	Score getScore() {
+		Score score = getScoreDepdingOnPins();
+		if (score == null) {
+			return null;
+		}
+		if (score.isEnded()) {
+			return score;
+		}
+		return getScore(score);	
+	}
+	
+	@Override
+	Score getScoreDepdingOnPins() {
+		int sum = getSumOfFrame();
+		if (sum >= 10) {
+			return new Score(0, 3);
+		}
+		if (pinsPerFrame.size() == 2) {
+			return new Score(sum, 0);				
+		}
+		return null;
 	}
 	
 	@Override

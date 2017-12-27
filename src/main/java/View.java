@@ -1,6 +1,5 @@
 
 public class View {
-	
 	private static final String name = "| name |";
 	private static final int lastFrameNum = 10;
 	

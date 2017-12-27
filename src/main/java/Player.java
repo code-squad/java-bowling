@@ -1,9 +1,7 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	
 	private String name;
 	private List<Frame> frames = new ArrayList<>();
 	private Frame currentFrame = new Frame(0);
@@ -12,46 +10,44 @@ public class Player {
 		this.name = name;
 		frames.add(currentFrame);
 	}
-	
+
 	List<Integer> getTotalScores() {
 		int sum = 0;
 		List<Integer> totalScores = new ArrayList<>();
 		for (Score score : getScores()) {
-			if (score != null) {
-				sum += score.calculateScoreSet();
-				totalScores.add(sum);				
-			}
+			sum += score.score;
+			totalScores.add(sum);
 		}
 		return totalScores;
 	}
-	
+
 	List<Score> getScores() {
 		List<Score> scores = new ArrayList<>();
 		for (Frame frame : frames) {
 			if (frame.getScore() != null) {
-				scores.add(frame.getScore());				
+				scores.add(frame.getScore());
 			}
 		}
 		return scores;
 	}
-	
+
 	int getCurrentFrameNo() {
 		return this.currentFrame.frameNum;
 	}
-	
+
 	Frame getCurrentFrame() {
 		return this.currentFrame;
 	}
-	
+
 	String getName() {
 		return this.name;
 	}
-	
+
 	List<Frame> getFrames() {
 		return this.frames;
 	}
-	
-	void play (int pinsPerTry) {
+
+	void play(int pinsPerTry) {
 		currentFrame.bowl(pinsPerTry);
 		frames.set(currentFrame.getFrameNum(), currentFrame);
 		if (currentFrame.isEnded()) {
@@ -62,8 +58,8 @@ public class Player {
 			frames.add(currentFrame);
 		}
 	}
-	
-	boolean isFinished () {
+
+	boolean isFinished() {
 		return currentFrame.isEnded();
 	}
 }

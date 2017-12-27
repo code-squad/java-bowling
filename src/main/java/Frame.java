@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +15,11 @@ public class Frame {
 	}
 
 	String makeScoreMark() {
+		int sum = getSumOfFrame();
 		if (pinsPerFrame.size() == 1) {
 			return makeFirstScoreMark();
 		}
-		if (pinsPerFrame.get(0) + pinsPerFrame.get(1) > 10) {
+		if (sum > 10) {
 			throw new InputException("투구의 합은 10 이하여야 합니다");
 		}
 		if (pinsPerFrame.size() == 2) {
@@ -78,17 +78,14 @@ public class Frame {
 	}
 
 	Score getScore() {
-		Score score = new Score();
-		for (int pinsPerTry : pinsPerFrame) {
-			score.bowl(pinsPerTry);
+		Score score = getScoreDepdingOnPins();
+		if (score == null) {
+			return null;
 		}
 		if (score.isEnded()) {
 			return score;
 		}
-		if (this.isEnded()) {
-			return nextFrame.getScore(score);			
-		}
-		return null;
+		return nextFrame.getScore(score);
 	}
 	
 	Score getScore(Score score) {
@@ -102,6 +99,28 @@ public class Frame {
 			return nextFrame.getScore(score);			
 		}
 		return null;
+	}
+
+	Score getScoreDepdingOnPins() {
+		int sum = getSumOfFrame();
+		if (sum == 10 && pinsPerFrame.size() == 1) {
+			return new Score(sum, 2);
+		}
+		if (sum == 10 && pinsPerFrame.size() == 2) {
+			return new Score(sum, 1);
+		}
+		if (pinsPerFrame.size() == 2) {
+			return new Score(sum, 0);			
+		}
+		return null;
+	}
+
+	int getSumOfFrame() {
+		int sum = 0;
+		for (int pinsPerTry : pinsPerFrame) {
+			sum += pinsPerTry;
+		}
+		return sum;
 	}
 
 	boolean isEnded() {

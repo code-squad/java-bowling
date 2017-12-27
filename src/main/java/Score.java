@@ -1,42 +1,18 @@
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Score {
-	
-	List<Integer> scoreSet = new ArrayList<>();
-	
+	int score;
+	private int leftNo;
+
+	Score(int score, int leftNo) {
+		this.score = score;
+		this.leftNo = leftNo;
+	}
+
 	void bowl(int pinsPerTry) {
-		this.scoreSet.add(pinsPerTry);
+		this.score += pinsPerTry;
+		this.leftNo--;
 	}
-	
-	int calculateScoreSet() {
-		int sumScoreSet = 0;
-		for (int score : scoreSet) {
-			sumScoreSet += score;
-		}
-		return sumScoreSet;
-	}
-	
+
 	boolean isEnded() {
-		if (scoreSet.isEmpty()) {
-			return false;
-		}
-		if (scoreSet.get(0) == 10) {
-			if (scoreSet.size() == 3) {
-				return true;				
-			}
-			return false;
-		}
-		if (scoreSet.size() == 1) {
-			return false;
-		}
-		if (scoreSet.get(0) + scoreSet.get(1) == 10) {
-			if (scoreSet.size() == 3) {
-				return true;				
-			}
-			return false;
-		}
-		return true;
+		return this.leftNo == 0;
 	}
 }
