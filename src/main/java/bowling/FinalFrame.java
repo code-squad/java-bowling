@@ -16,7 +16,7 @@ public class FinalFrame extends Frame {
 
 	@Override
 	protected boolean isNotEnd() {
-		return doNotExtraShot() || isFirstShotStrike();
+		return doExtraShot() || isFirstShotStrike();
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class FinalFrame extends Frame {
 			finalScore.set(frame.size() - 1, isFirstOrNot(checkStrikeOrSpare()));
 			return makeString(finalScore);
 		}
-		if (getStatus() == MISSORNORMAL || frame.size() == 3) {
+		if (getStatus() == MISSORNORMAL || getStatus().isExtraShot()) {
 			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
 			finalScore.set(frame.size() - 1, isFirstOrNot(strScore));
 			
@@ -56,15 +56,15 @@ public class FinalFrame extends Frame {
 		return frame.get(0) == 10 && frame.size() < 3;
 	}
 	
-	private boolean doNotExtraShot() {
-		return getStatus() != Status.MISSORNORMAL && getStatus() != null;
+	private boolean doExtraShot() {
+		return (getStatus() != Status.MISSORNORMAL) && (getStatus() != Status.EXTRACLEARSHOT) && (getStatus() != Status.EXTRANORMALSHOT);
 	}
 	
 	private String convertStrike(String score) {
 		if (score.equals("10")) {
 			return "X";
 		}
-		return "" + score;
+		return score;
 	}
 	
 	private String checkStrikeOrSpare() {

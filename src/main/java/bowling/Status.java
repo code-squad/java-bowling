@@ -5,7 +5,9 @@ public enum Status {
 	SPARE(true, 2),
 	MISSORNORMAL(false, 2),
 	FIRSTSHOT(false, 1),
-	READY(false, 0);
+	READY(false, 0),
+	EXTRACLEARSHOT(true, 3),
+	EXTRANORMALSHOT(false, 3);
 
 	private Boolean isTen;
 	private int size;
@@ -21,5 +23,9 @@ public enum Status {
 				return status;
 		}
 		return null;
+	}
+	
+	public boolean isExtraShot() {
+		return size == 3;
 	}
 }
