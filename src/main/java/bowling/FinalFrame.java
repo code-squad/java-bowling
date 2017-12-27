@@ -73,4 +73,14 @@ public class FinalFrame extends Frame {
 		}
 		return "X";
 	}
+	@Override
+	protected int checkSecondIsRight() {
+		if (getStatus() == Status.STRIKE || getStatus() == Status.SPARE) {
+			return 0;
+		}
+		if (frame.size() == 0) {
+			return 0;
+		}
+		return frame.get(frame.size() - 1);
+	}
 }

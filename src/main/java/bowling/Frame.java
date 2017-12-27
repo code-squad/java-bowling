@@ -34,7 +34,7 @@ public class Frame {
 	protected boolean isNotEnd() {
 		return getStatus() == READY || getStatus() == FIRSTSHOT;
 	}
-	
+
 	protected String changeFormat() {
 		String strScore = "" + frame.get(0);
 		if (isPinClear()) {
@@ -67,5 +67,11 @@ public class Frame {
 			return frame.get(0) + "|" + convertedScore;
 		}
 		return convertedScore;
+	}
+	protected int checkSecondIsRight() {
+		if (getStatus() == Status.FIRSTSHOT) {
+			return frame.get(frame.size() - 1);
+		}
+		return 0;
 	}
 }

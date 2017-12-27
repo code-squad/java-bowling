@@ -38,13 +38,4 @@ public class FramesTest {
 	public void countFramesTest() {
 		frames.addFrame(frame);
 	}
-
-	@Test
-	public void recentIndexTest() {
-		assertEquals(0, frames.recentIndex());
-		
-		frames.addFrame(frame);
-		
-		assertEquals(1, frames.recentIndex());
-	}
 }
