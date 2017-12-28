@@ -42,7 +42,7 @@ public class Frame {
 			return strScore;
 		}
 		if (getStatus() == MISSORNORMAL) {
-			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
+			strScore = checkMissOrNormal(getLastData());
 		}
 
 		return isFirstOrNot(strScore);
@@ -59,7 +59,7 @@ public class Frame {
 		if (secondShotScore == 0) {
 			return  "-";
 		}
-		return "" + frame.get(frame.size() - 1);
+		return "" + getLastData();
 	}
 
 	protected String isFirstOrNot(String convertedScore) {
@@ -68,10 +68,15 @@ public class Frame {
 		}
 		return convertedScore;
 	}
+	
 	protected int checkSecondIsRight() {
 		if (getStatus() == Status.FIRSTSHOT) {
-			return frame.get(frame.size() - 1);
+			return getLastData();
 		}
 		return 0;
+	}
+	
+	protected int getLastData() {
+		return frame.get(frame.size() - 1);
 	}
 }

@@ -25,12 +25,12 @@ public class FinalFrame extends Frame {
 		finalScore.set(0, convertStrike(strScore));
 		
 		if (isPinClear()) {
-			finalScore.set(frame.size() - 1, isFirstOrNot(checkStrikeOrSpare()));
+			finalScore.set(getLastIndex(), isFirstOrNot(checkStrikeOrSpare()));
 			return makeString(finalScore);
 		}
 		if (getStatus() == MISSORNORMAL || getStatus().isExtraShot()) {
-			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
-			finalScore.set(frame.size() - 1, isFirstOrNot(strScore));
+			strScore = checkMissOrNormal(getLastData());
+			finalScore.set(getLastIndex(), isFirstOrNot(strScore));
 			
 		}
 		return makeString(finalScore);
@@ -42,6 +42,17 @@ public class FinalFrame extends Frame {
 			return "|" + convertedScore;
 		}
 		return convertedScore;
+	}
+	
+	@Override
+	protected int checkSecondIsRight() {
+		if (getStatus() == Status.STRIKE || getStatus() == Status.SPARE) {
+			return 0;
+		}
+		if (frame.size() == 0) {
+			return 0;
+		}
+		return getLastData();
 	}
 	
 	private String makeString(ArrayList<String> result) {
@@ -68,22 +79,16 @@ public class FinalFrame extends Frame {
 	}
 	
 	private String checkStrikeOrSpare() {
-		if (frame.get(frame.size() - 1) == 0) {
+		if (getLastData() == 0) {
 			return "-";
 		}
-		if (frame.get(frame.size() - 1) != 10) {
+		if (getLastData() != 10) {
 			return "/";
 		}
 		return "X";
 	}
-	@Override
-	protected int checkSecondIsRight() {
-		if (getStatus() == Status.STRIKE || getStatus() == Status.SPARE) {
-			return 0;
-		}
-		if (frame.size() == 0) {
-			return 0;
-		}
-		return frame.get(frame.size() - 1);
+	
+	private int getLastIndex() {
+		return frame.size() - 1;
 	}
 }
