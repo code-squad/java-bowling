@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Frame {
 	List<Integer> pinsPerFrame = new ArrayList<>();
-	int frameNum = 0;
+	private int frameNum = 0;
 	private Frame nextFrame;
 
 	Frame(int frameNum) {
@@ -64,8 +64,9 @@ public class Frame {
 		return score + "";
 	}
 
-	void bowl(int pinsPerTry) {
+	Frame bowl(int pinsPerTry) {
 		this.pinsPerFrame.add(pinsPerTry);
+		return this;
 	}
 
 	Frame makeNewFrame() {

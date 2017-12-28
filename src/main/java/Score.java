@@ -1,10 +1,14 @@
 public class Score {
-	int score;
+	private int score;
 	private int leftNo;
 
 	Score(int score, int leftNo) {
 		this.score = score;
 		this.leftNo = leftNo;
+	}
+	
+	int getScore () {
+		return score;
 	}
 
 	void bowl(int pinsPerTry) {

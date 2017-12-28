@@ -5,7 +5,7 @@ public class FrameTen extends Frame{
 
 	@Override
 	String makeScoreMark() {
-		if (pinsPerFrame.isEmpty() && frameNum == 9) {
+		if (pinsPerFrame.isEmpty() && getFrameNum() == 9) {
 			return "      |";			
 		}
 		if (pinsPerFrame.size() == 1) {
@@ -58,7 +58,7 @@ public class FrameTen extends Frame{
 	
 	@Override
 	boolean isEnded() {
-		if (frameNum == 10) {
+		if (getFrameNum() == 10) {
 			return true;
 		}
 		if (pinsPerFrame.size() == 3) {

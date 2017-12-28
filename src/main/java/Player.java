@@ -15,7 +15,7 @@ public class Player {
 		int sum = 0;
 		List<Integer> totalScores = new ArrayList<>();
 		for (Score score : getScores()) {
-			sum += score.score;
+			sum += score.getScore();
 			totalScores.add(sum);
 		}
 		return totalScores;
@@ -32,7 +32,7 @@ public class Player {
 	}
 
 	int getCurrentFrameNo() {
-		return this.currentFrame.frameNum;
+		return this.currentFrame.getFrameNum();
 	}
 
 	Frame getCurrentFrame() {
@@ -48,13 +48,12 @@ public class Player {
 	}
 
 	void play(int pinsPerTry) {
-		currentFrame.bowl(pinsPerTry);
-		frames.set(currentFrame.getFrameNum(), currentFrame);
-		if (currentFrame.isEnded()) {
-			if (currentFrame.frameNum == 9) {
+		Frame frame = currentFrame.bowl(pinsPerTry);
+		if (frame.isEnded()) {
+			if (frame.getFrameNum() == 9) {
 				return;
 			}
-			currentFrame = currentFrame.makeNewFrame();
+			currentFrame = frame.makeNewFrame();
 			frames.add(currentFrame);
 		}
 	}
