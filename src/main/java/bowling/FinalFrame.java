@@ -1,7 +1,5 @@
 package bowling;
 
-import static bowling.Status.MISSORNORMAL;
-
 import java.util.ArrayList;
 
 public class FinalFrame extends Frame {
@@ -28,7 +26,7 @@ public class FinalFrame extends Frame {
 			finalScore.set(getLastIndex(), isFirstOrNot(checkStrikeOrSpare()));
 			return makeString(finalScore);
 		}
-		if (getStatus() == MISSORNORMAL || getStatus().isExtraShot()) {
+		if (getStatus().isMissOrNormal() || getStatus().isExtraShot()) {
 			strScore = checkMissOrNormal(getLastData());
 			finalScore.set(getLastIndex(), isFirstOrNot(strScore));
 			
@@ -46,7 +44,7 @@ public class FinalFrame extends Frame {
 	
 	@Override
 	protected int checkSecondIsRight() {
-		if (getStatus() == Status.STRIKE || getStatus() == Status.SPARE) {
+		if (getStatus().isStrike() || getStatus().isSpare()) {
 			return 0;
 		}
 		if (frame.size() == 0) {
@@ -68,7 +66,7 @@ public class FinalFrame extends Frame {
 	}
 	
 	private boolean doExtraShot() {
-		return (getStatus() != Status.MISSORNORMAL) && (getStatus() != Status.EXTRACLEARSHOT) && (getStatus() != Status.EXTRANORMALSHOT);
+		return (!getStatus().isMissOrNormal()) && (!getStatus().isExtraClearShot()) && (!getStatus().isExtraNormalShot());
 	}
 	
 	private String convertStrike(String score) {

@@ -14,11 +14,7 @@ public class BowlingGame {
 		frames.addFrame(frame);
 
 		while (frame.isNotEnd()) {
-			try {
-				frame.addScore(InputView.inputScore(frames.countFrame(), frame));
-			}
-			catch (InputException inputException) {
-			}
+			frame.addScore(InputView.inputScore(frames.countFrame(), frame));
 			ResultView.printScore(playerName, frames.makeResultBoard());
 		}
 	}

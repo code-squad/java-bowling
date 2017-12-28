@@ -28,4 +28,32 @@ public enum Status {
 	public boolean isExtraShot() {
 		return size == 3;
 	}
+	
+	public boolean isStrike() {
+		return valueOf(isTen, size) == STRIKE;
+	}
+	
+	public boolean isSpare() {
+		return valueOf(isTen, size) == SPARE;
+	}
+	
+	public boolean isMissOrNormal() {
+		return valueOf(isTen, size) == MISSORNORMAL;
+	}
+	
+	public boolean isFirstshot() {
+		return valueOf(isTen, size) == FIRSTSHOT;
+	}
+	
+	public boolean isReady() {
+		return valueOf(isTen, size) == READY;
+	}
+	
+	public boolean isExtraNormalShot() {
+		return valueOf(isTen, size) == EXTRANORMALSHOT;
+	}
+	
+	public boolean isExtraClearShot() {
+		return valueOf(isTen, size) == EXTRACLEARSHOT;
+	}
 }

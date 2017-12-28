@@ -1,9 +1,8 @@
 package bowling;
 
 @SuppressWarnings("serial")
-public class InputException extends Exception{
+public class InputException extends RuntimeException{
 	public InputException(String msg) {
 		super(msg);
-		System.out.println(msg);
 	}
 }
