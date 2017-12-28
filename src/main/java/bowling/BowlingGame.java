@@ -15,6 +15,8 @@ public class BowlingGame {
 
 		while (frame.isNotEnd()) {
 			frame.addScore(InputView.inputScore(frames.countFrame(), frame));
+			System.out.println(frame.frame);
+			System.out.println(frames.makeTotalScoreBoard());
 			ResultView.printScore(playerName, frames.makeResultBoard());
 		}
 	}

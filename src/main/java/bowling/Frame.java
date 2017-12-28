@@ -76,4 +76,11 @@ public class Frame {
 	protected int getLastData() {
 		return frame.get(frame.size() - 1);
 	}
+
+	public int makeTotalScore(int score) {
+		for (Integer integer : frame) {
+			score += integer;
+		}
+		return score;
+	}
 }

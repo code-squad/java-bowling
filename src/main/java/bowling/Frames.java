@@ -38,4 +38,24 @@ public class Frames {
 		}
 		return resultBoard;
 	}
+	
+	private int getLastIndex() {
+		return frames.size() - 1;
+	}
+	
+	public ArrayList<Integer> makeTotalScoreBoard() {
+		ArrayList<ArrayList<Integer>> totalScoreBoard = new ArrayList<ArrayList<Integer>> ();
+		ArrayList<Integer> frameScore = new ArrayList<Integer> ();
+		int totalScore = 0;
+		
+		for (Frame frame : frames) {
+			totalScoreBoard.add(frame.frame);
+		}
+		//------
+		
+		
+		
+		//------
+		return totalScoreBoard.get(getLastIndex());
+	}
 }
