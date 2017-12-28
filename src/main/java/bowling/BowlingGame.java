@@ -7,14 +7,14 @@ public class BowlingGame {
 		}
 		return frame;
 	}
-	
+
 	public static void playOneFrame(Frames frames, String playerName) {
 		Frame frame = new Frame();
 		frame = makeFinalFrame(frames, frame);
 		frames.addFrame(frame);
-		
+
 		while (frame.isNotEnd()) {
-			frame.addScore(InputView.inputScore(frames.countFrame()));
+			frame.addScore(InputView.inputScore(frames.countFrame(), frame));
 			ResultView.printScore(playerName, frames.makeResultBoard());
 		}
 	}

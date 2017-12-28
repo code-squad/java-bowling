@@ -1,9 +1,6 @@
 package bowling;
 
 import static bowling.Status.STRIKE;
-import static bowling.Status.MISSORNORMAL;
-import static bowling.Status.FIRSTSHOT;
-import static bowling.Status.READY;
 
 import java.util.ArrayList;
 
@@ -32,17 +29,17 @@ public class Frame {
 	}
 
 	protected boolean isNotEnd() {
-		return getStatus() == READY || getStatus() == FIRSTSHOT;
+		return getStatus().isReady() || getStatus().isFirstshot();
 	}
-	
+
 	protected String changeFormat() {
 		String strScore = "" + frame.get(0);
 		if (isPinClear()) {
 			strScore = checkStrikeOrSpare(getStatus());
 			return strScore;
 		}
-		if (getStatus() == MISSORNORMAL) {
-			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
+		if (getStatus().isMissOrNormal()) {
+			strScore = checkMissOrNormal(getLastData());
 		}
 
 		return isFirstOrNot(strScore);
@@ -59,7 +56,7 @@ public class Frame {
 		if (secondShotScore == 0) {
 			return  "-";
 		}
-		return "" + frame.get(frame.size() - 1);
+		return "" + getLastData();
 	}
 
 	protected String isFirstOrNot(String convertedScore) {
@@ -67,5 +64,16 @@ public class Frame {
 			return frame.get(0) + "|" + convertedScore;
 		}
 		return convertedScore;
+	}
+	
+	protected int checkSecondIsRight() {
+		if (getStatus().isFirstshot()) {
+			return getLastData();
+		}
+		return 0;
+	}
+	
+	protected int getLastData() {
+		return frame.get(frame.size() - 1);
 	}
 }

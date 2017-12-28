@@ -1,7 +1,5 @@
 package bowling;
 
-import static bowling.Status.MISSORNORMAL;
-
 import java.util.ArrayList;
 
 public class FinalFrame extends Frame {
@@ -25,12 +23,12 @@ public class FinalFrame extends Frame {
 		finalScore.set(0, convertStrike(strScore));
 		
 		if (isPinClear()) {
-			finalScore.set(frame.size() - 1, isFirstOrNot(checkStrikeOrSpare()));
+			finalScore.set(getLastIndex(), isFirstOrNot(checkStrikeOrSpare()));
 			return makeString(finalScore);
 		}
-		if (getStatus() == MISSORNORMAL || getStatus().isExtraShot()) {
-			strScore = checkMissOrNormal(frame.get(frame.size() - 1));
-			finalScore.set(frame.size() - 1, isFirstOrNot(strScore));
+		if (getStatus().isMissOrNormal() || getStatus().isExtraShot()) {
+			strScore = checkMissOrNormal(getLastData());
+			finalScore.set(getLastIndex(), isFirstOrNot(strScore));
 			
 		}
 		return makeString(finalScore);
@@ -42,6 +40,17 @@ public class FinalFrame extends Frame {
 			return "|" + convertedScore;
 		}
 		return convertedScore;
+	}
+	
+	@Override
+	protected int checkSecondIsRight() {
+		if (getStatus().isStrike() || getStatus().isSpare()) {
+			return 0;
+		}
+		if (frame.size() == 0) {
+			return 0;
+		}
+		return getLastData();
 	}
 	
 	private String makeString(ArrayList<String> result) {
@@ -57,7 +66,7 @@ public class FinalFrame extends Frame {
 	}
 	
 	private boolean doExtraShot() {
-		return (getStatus() != Status.MISSORNORMAL) && (getStatus() != Status.EXTRACLEARSHOT) && (getStatus() != Status.EXTRANORMALSHOT);
+		return (!getStatus().isMissOrNormal()) && (!getStatus().isExtraClearShot()) && (!getStatus().isExtraNormalShot());
 	}
 	
 	private String convertStrike(String score) {
@@ -68,9 +77,16 @@ public class FinalFrame extends Frame {
 	}
 	
 	private String checkStrikeOrSpare() {
-		if (frame.get(frame.size() - 1) != 10) {
+		if (getLastData() == 0) {
+			return "-";
+		}
+		if (getLastData() != 10) {
 			return "/";
 		}
 		return "X";
+	}
+	
+	private int getLastIndex() {
+		return frame.size() - 1;
 	}
 }
