@@ -1,12 +1,13 @@
-
 public class View {
 	private static final String name = "| name |";
 	private static final int lastFrameNum = 10;
 	
-	static void showAll(Player player) {
+	static void showAll(Players players) {
 		showFullFrameNumber();
-		showResult(player);
-		showScore(player);
+		for (Player player : players.getPlayers()) {
+			showResult(player);
+			showScore(player);			
+		}
 	}
 	
 	private static void showFullFrameNumber() {
@@ -48,7 +49,7 @@ public class View {
 		for (int i = 0; i < lastFrameNum - player.getTotalScores().size(); i++) {
 			scoreView += "      |";
 		}
-		System.out.println(scoreView + "\n");
+		System.out.println(scoreView);
 	}
 }
 
