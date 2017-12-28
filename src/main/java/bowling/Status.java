@@ -30,30 +30,30 @@ public enum Status {
 	}
 	
 	public boolean isStrike() {
-		return valueOf(isTen, size) == STRIKE;
+		return this == STRIKE;
 	}
 	
 	public boolean isSpare() {
-		return valueOf(isTen, size) == SPARE;
+		return this == SPARE;
 	}
 	
 	public boolean isMissOrNormal() {
-		return valueOf(isTen, size) == MISSORNORMAL;
+		return this == MISSORNORMAL;
 	}
 	
 	public boolean isFirstshot() {
-		return valueOf(isTen, size) == FIRSTSHOT;
+		return this == FIRSTSHOT;
 	}
 	
 	public boolean isReady() {
-		return valueOf(isTen, size) == READY;
+		return this == READY;
 	}
 	
 	public boolean isExtraNormalShot() {
-		return valueOf(isTen, size) == EXTRANORMALSHOT;
+		return this == EXTRANORMALSHOT;
 	}
 	
 	public boolean isExtraClearShot() {
-		return valueOf(isTen, size) == EXTRACLEARSHOT;
+		return this == EXTRACLEARSHOT;
 	}
 }
