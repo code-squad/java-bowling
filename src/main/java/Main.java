@@ -1,23 +1,16 @@
-
 public class Main {
 	public static void main(String[] args) {
 		
-		String name = Input.getName();
-		Player player = new Player(name);
+		int howManyPeople = Input.getHowManyPeople();
+		Players players = new Players();
+		players.makePlayers(howManyPeople);
 		
-		while (!player.isFinished()) {
-			int pinsPerTry = Input.getPinsPerTry();
-			player.play(pinsPerTry);
-			View.showResult(player);
-		}
-		
-		try {
-			Input.getName();
-			Input.getPinsPerTry();
-		} catch (InputException e){
-			String message = e.getMessage();
-			System.out.println(message);
-			e.printStackTrace();
+		while (!players.isFinished()) {
+			for (Player player : players.getPlayers()) {
+				int pinsPerTry = Input.getPinsPerTry(player);
+				player.play(pinsPerTry);
+				View.showAll(players);					
+			}			
 		}
 	}
 }
