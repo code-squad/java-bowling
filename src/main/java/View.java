@@ -25,7 +25,7 @@ public class View {
 	private static void showResult(Player player) {
 		String resultView = "|  " + player.getName() + " |";
 		for (Frame frame : player.getFrames()) {
-			resultView += frame.makeScoreMark();
+			resultView += frame.makeScoreMark();				
 		}
 		for (int i = 0; i < lastFrameNum - player.getFrames().size(); i++) {
 			resultView += "      |";

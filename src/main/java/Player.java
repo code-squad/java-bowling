@@ -4,7 +4,7 @@ import java.util.List;
 public class Player {
 	private String name;
 	private List<Frame> frames = new ArrayList<>();
-	private Frame currentFrame = new Frame(0);
+	private Frame currentFrame = new NormalFrame(0);
 
 	Player(String name) {
 		this.name = name;
@@ -46,14 +46,11 @@ public class Player {
 	List<Frame> getFrames() {
 		return this.frames;
 	}
-
+	
 	void play(int pinsPerTry) {
-		Frame frame = currentFrame.bowl(pinsPerTry);
-		if (frame.isEnded()) {
-			if (frame.getFrameNum() == 9) {
-				return;
-			}
-			currentFrame = frame.makeNewFrame();
+		currentFrame.bowl(pinsPerTry);
+		if (currentFrame.isEnded()) {
+			currentFrame = currentFrame.makeNewFrame();
 			frames.add(currentFrame);
 		}
 	}
