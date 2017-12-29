@@ -7,9 +7,7 @@ public class Main {
 		
 		while (!players.isFinished()) {
 			for (Player player : players.getPlayers()) {
-				int pinsPerTry = Input.getPinsPerTry(player);
-				player.play(pinsPerTry);
-				View.showAll(players);					
+				players.playAll(player);
 			}			
 		}
 	}
