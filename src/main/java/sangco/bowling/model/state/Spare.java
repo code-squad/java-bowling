@@ -1,5 +1,5 @@
 package sangco.bowling.model.state;
 
-public class Spare {
+public class Spare extends BowlingState {
 	
 }
