@@ -22,4 +22,13 @@ public class Players {
 		}
 		return false;
 	}
+	
+	void playAll(Player player) {
+		int frameNo = player.getCurrentFrameNo();
+		while (frameNo == player.getCurrentFrameNo()) {
+			int pinsPerTry = Input.getPinsPerTry(player);
+			player.play(pinsPerTry);
+			View.showAll(this);			
+		}
+	}
 }
