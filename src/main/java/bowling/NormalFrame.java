@@ -11,6 +11,12 @@ public class NormalFrame extends Frame {
 
 	}
 
+
+
+	
+
+	
+
 	protected boolean isNotEnd() {
 		return (getStatus() == null) || (getStatus() == Status.READY);
 	}

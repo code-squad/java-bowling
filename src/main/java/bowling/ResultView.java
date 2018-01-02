@@ -3,9 +3,9 @@ package bowling;
 
 public class ResultView {
 
-	public static void printScore(String score) {
+	public static void printScore(String score, Player player) {
 		printFormat();
-		System.out.print("|" + "\t" + "NAME" + "\t" + "|");
+		System.out.print("|" + "\t" + player.toString() + "\t" + "|");
 		System.out.print(score + "\t");
 	}
 

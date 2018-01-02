@@ -25,6 +25,12 @@ public class InputView {
 		sc.reset();
 		return score;
 	}
+	
+	public static String inputName(){
+		System.out.print("플레이어 이름은? (3 english letter) : ");
+		Scanner sc = new Scanner(System.in);
+		return sc.next();
+	}
 
 	private static void validateScopeOfScore(int score) throws MyException {
 		if (score > 10 || score < 0) 

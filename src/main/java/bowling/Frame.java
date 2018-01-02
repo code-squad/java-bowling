@@ -3,18 +3,44 @@ package bowling;
 import static bowling.Status.MISSORNORMAL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Frame {
 	private ArrayList<Integer> frame = new ArrayList<>();
+	protected Integer frameScore;
 
 	public Frame(ArrayList<Integer> frame) {
 		this.frame = frame;
+
 	}
 
 	protected void addScore(int score) {
 		frame.add(score);
-
 	}
+
+	public boolean isScoreCalc() {
+		return frameScore != null;
+	}
+
+	public void calcMissOrNormalScore() {
+		frameScore = frame.get(0) + frame.get(1);
+	}
+
+	public void calcSpareScore(Frame pastFrame) {
+		pastFrame.frameScore = 10 + frame.get(0);
+	}
+	
+	public void calcPastStrikeScore(Frame pastFrame) {
+		if (frame.size() == 2) {
+			pastFrame.frameScore = 10 + frame.get(0) + frame.get(1);
+		}
+	}
+	
+	public void calcPrePastStrikeScore(Frame prePastFrame) {
+		if(prePastFrame.frameScore == null)
+			prePastFrame.frameScore = 20 + frame.get(0);
+	}
+
 
 	public int validateAddScore(int frameNum) throws Exception {
 		int score = InputView.inputScore(frameNum);
@@ -113,4 +139,21 @@ public abstract class Frame {
 	}
 
 	protected abstract boolean checkFrameException();
+
+	public void addFrameScore(List<Integer> collectScore) {
+
+		for (Integer score : frame) {
+			collectScore.add(score);
+		}
+	}
+
+	public void calcMyScore() {
+		frameScore = frame.get(0) + frame.get(1);
+	}
+
+	public Integer getScore() {
+		return frameScore;
+	}
+
+
 }

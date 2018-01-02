@@ -14,5 +14,15 @@ public class LastScore {
 	public boolean isFinal() {
 		return lastChance != 0;
 	}
+	
+	public boolean isLastChanceEnd(){
+		return lastChance >= 0;
+	}
+	
+	public boolean isSameSize(int totalScoreSize){
+		return lastChance == totalScoreSize;
+	}
+	
+
 
 }
