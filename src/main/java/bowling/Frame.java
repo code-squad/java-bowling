@@ -76,10 +76,25 @@ public class Frame {
 	protected int getLastData() {
 		return frame.get(frame.size() - 1);
 	}
+	
+	public ArrayList<Integer> makeTotal(ArrayList<Integer> result) {
+		for (Integer score : frame) {
+			result.add(score);
+		}
+		return result;
+	}
+	
+	public int makeFrameScore() {
+		if (getStatus().isReady() || getStatus().isFirstshot()) {
+			return 0;
+		}
+		return makeScore();
+	}
 
-	public int makeTotalScore(int score) {
-		for (Integer integer : frame) {
-			score += integer;
+	public int makeScore() {
+		int score = 0;
+		for (Integer falledPin : frame) {
+			score += falledPin;
 		}
 		return score;
 	}

@@ -22,7 +22,14 @@ public class ResultView {
 		}
 		System.out.println();
 		System.out.print("|" + "\t" + name + "\t" + "|");
-
+	}
+	
+	public static void printTotalScore(ArrayList<Integer> totalResult) {
+		System.out.println("");
+		System.out.print("|   " + "totalScore" + "  |");
+		for (int i = 0; i < totalResult.size(); i++) {
+			System.out.print("\t" + totalResult.get(i) + "\t|");
+		}
 	}
 
 }
