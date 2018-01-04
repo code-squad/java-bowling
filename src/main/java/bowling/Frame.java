@@ -105,16 +105,17 @@ public class Frame {
 //	}
 	
 	public int makeFrameScore() {
-		if (getStatus().isReady() || getStatus().isFirstshot()) {
-			return 0;
+		int frameScore = makeScore();
+		if (frameScore == 10) {
+			if (isNextExist()) {
+				frameScore += nextFrame.pins.get(0);
+			}
 		}
-		if (getStatus().isMissOrNormal()) {
-			return makeScore();
-		}
-		if (getStatus().isStrike() || getStatus().isSpare()) {
-			
-		}
-		return makeBonusScore(makeScore());
+		return frameScore;
+	}
+	
+	private boolean isNextExist() {
+		return !nextFrame.pins.isEmpty();
 	}
 	
 	private int makeBonusScore(int score) {
