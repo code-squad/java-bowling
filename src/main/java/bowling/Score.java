@@ -8,7 +8,7 @@ public class Score {
 	private Score nextScore;
 	
 	public Score(Frame frame) {
-		this.score.addAll(frame.pin);
+		this.score.addAll(frame.pins);
 		this.additionalTry = makeAdditionalTryNum(frame.getStatus());
 		
 		while (isNullStringNeeded(frame)) {

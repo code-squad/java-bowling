@@ -19,7 +19,7 @@ public class FinalFrame extends Frame {
 	
 	@Override
 	protected String changeFormat() {
-		String strScore = "" + pin.get(0);
+		String strScore = "" + pins.get(0);
 		finalScore.set(0, convertStrike(strScore));
 		
 		if (isPinClear()) {
@@ -36,7 +36,7 @@ public class FinalFrame extends Frame {
 	
 	@Override
 	protected String isFirstOrNot(String convertedScore) {
-		if (pin.size() > 1) {
+		if (pins.size() > 1) {
 			return "|" + convertedScore;
 		}
 		return convertedScore;
@@ -47,7 +47,7 @@ public class FinalFrame extends Frame {
 		if (getStatus().isStrike() || getStatus().isSpare()) {
 			return 0;
 		}
-		if (pin.size() == 0) {
+		if (pins.size() == 0) {
 			return 0;
 		}
 		return getLastData();
@@ -62,7 +62,7 @@ public class FinalFrame extends Frame {
 	}
 	
 	private boolean isFirstShotStrike() {
-		return pin.get(0) == 10 && pin.size() < 3;
+		return pins.get(0) == 10 && pins.size() < 3;
 	}
 	
 	private boolean doExtraShot() {
@@ -87,6 +87,6 @@ public class FinalFrame extends Frame {
 	}
 	
 	private int getLastIndex() {
-		return pin.size() - 1;
+		return pins.size() - 1;
 	}
 }
