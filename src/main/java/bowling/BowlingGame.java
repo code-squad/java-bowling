@@ -3,26 +3,36 @@ package bowling;
 import java.util.ArrayList;
 
 public class BowlingGame {
-	public static Frame makeFinalFrame(Frames frames, Frame frame) {
-		if (frames.countFrame() == 9) {
-			frame = new FinalFrame();
+	private static Frame takeInput(Frames frames, Frame frame) {
+		while (frame.isNotEnd()) {
+			frame.addScore(InputView.inputScore(frame.getFrameNo(), frame));
+			frames.addFrame(frame);
+//			frames.totalFrames.set(frames.countFrame() - 1, frame);
+			ResultView.printScore("hi", frames.makeResultBoard());
+		}
+		return frame;
+	}
+	
+	private static Frame checkFrame(Frame frame) {
+		if (!frame.isNotEnd()) {
+			return frame.addScore(0);
 		}
 		return frame;
 	}
 
 	public static void playOneFrame(Frames frames, String playerName) {
 		ArrayList<Integer> totalResult = new ArrayList<Integer> ();
-		Frame frame = new Frame();
-		frame = makeFinalFrame(frames, frame);
-		frames.addFrame(frame);
 		
-		while (frame.isNotEnd()) {
-			frame.addScore(InputView.inputScore(frames.countFrame(), frame));
-			ResultView.printScore(playerName, frames.makeResultBoard());
-			
-			totalResult = frames.makeTotalScoreBoardform2();
-			ResultView.printTotalScore(totalResult);
+		if (frames.countFrame() == 0) {
+			Frame frame = new Frame(1);
+			frame = takeInput(frames, frame);
+			return;
 		}
+		
+		Frame frame = frames.getFrame(frames.countFrame() - 1);
+		frame = checkFrame(frame);
+		frame = takeInput(frames, frame);
+		return;
 	}
 
 	//------------------MAIN START-------------------
@@ -31,7 +41,14 @@ public class BowlingGame {
 		Frames frames = new Frames();
 
 		while (frames.isGameEnd()) {
+//			frames.addFrame(playOneFrame(frames, playerName));
 			playOneFrame(frames, playerName);
+			
+			System.out.println("");
+			for (int i = 0; i < frames.countFrame(); i++) {
+				System.out.print(frames.totalFrames.get(i).getPins() + " ");
+				//System.out.println(frames.totalFrames.get(i).makeFrameScore());
+			}
 		}
 	}
 }

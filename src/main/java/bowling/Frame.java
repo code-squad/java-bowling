@@ -9,11 +9,35 @@ public class Frame {
 	ArrayList<Integer> pins = new ArrayList<>();
 	private Frame nextFrame;
 	
-	Frame() {
+	Frame(int frameNo) {
+		this.frameNo = frameNo;
+	}
+	
+	public ArrayList<Integer> getPins() {
+		return this.pins;
+	}
+	
+	public int getFrameNo() {
+		return this.frameNo;
 	}
 
-	public void addScore(int score) {
-		pins.add(score);
+	public Frame addScore(int falledPin) {
+		if (isNotEnd()) {
+			pins.add(falledPin);
+			return this;
+		}
+		
+		if (this.frameNo == 9) {
+			this.nextFrame = new FinalFrame(frameNo + 1);
+			return nextFrame;
+		}
+		
+		this.nextFrame = new Frame(frameNo + 1);
+		return nextFrame;
+	}
+	
+	protected boolean isNotEnd() {
+		return getStatus().isReady() || getStatus().isFirstshot();
 	}
 
 	protected boolean isPinClear() {
@@ -26,10 +50,6 @@ public class Frame {
 
 	protected Status getStatus() {
 		return Status.valueOf(isPinClear(), pins.size());
-	}
-
-	protected boolean isNotEnd() {
-		return getStatus().isReady() || getStatus().isFirstshot();
 	}
 
 	protected String changeFormat() {
@@ -45,7 +65,7 @@ public class Frame {
 		return isFirstOrNot(strScore);
 	}
 
-	private String checkStrikeOrSpare(Status status) {
+	protected String checkStrikeOrSpare(Status status) {
 		if (status == STRIKE) {
 			return "X";
 		}
@@ -77,20 +97,33 @@ public class Frame {
 		return pins.get(pins.size() - 1);
 	}
 	
-	public ArrayList<Integer> makeTotal(ArrayList<Integer> result) {
-		for (Integer score : pins) {
-			result.add(score);
-		}
-		return result;
-	}
+//	public ArrayList<Integer> makeTotal(ArrayList<Integer> result) {
+//		for (Integer score : pins) {
+//			result.add(score);
+//		}
+//		return result;
+//	}
 	
 	public int makeFrameScore() {
 		if (getStatus().isReady() || getStatus().isFirstshot()) {
 			return 0;
 		}
-		return makeScore();
+		if (getStatus().isMissOrNormal()) {
+			return makeScore();
+		}
+		if (getStatus().isStrike() || getStatus().isSpare()) {
+			
+		}
+		return makeBonusScore(makeScore());
 	}
-
+	
+	private int makeBonusScore(int score) {
+		score += nextFrame.pins.get(0);
+		
+		
+		return score;
+	}
+	
 	public int makeScore() {
 		int score = 0;
 		for (Integer falledPin : pins) {

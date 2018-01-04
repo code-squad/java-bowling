@@ -13,6 +13,10 @@ public class Frames {
 		totalFrames.add(frame);
 	}
 	
+	public Frame getFrame(int index) {
+		return totalFrames.get(index);
+	}
+	
 	public int countFrame() {
 		return totalFrames.size();
 	}
