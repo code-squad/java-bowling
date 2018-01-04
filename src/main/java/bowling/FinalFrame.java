@@ -16,19 +16,24 @@ public class FinalFrame extends Frame {
 	protected boolean isNotEnd() {
 		return doExtraShot() || isFirstShotStrike();
 	}
-
+	
 	@Override
 	protected String changeFormat() {
-		String strScore = "" + pins.get(0);
+		String strScore = "";
+		if (pins.size() == 1) {
+			strScore = "" + pins.get(0);
+			finalScore.set(0, convertStrike(strScore));
+		}
+		
 		if (isPinClear()) {
-			strScore = checkStrikeOrSpare(getStatus());
-			return strScore;
+			finalScore.set(getLastIndex(), isFirstOrNot(checkStrikeOrSpare()));
+			return makeString(finalScore);
 		}
-		if (getStatus().isMissOrNormal()) {
+		if (getStatus().isMissOrNormal() || getStatus().isExtraShot()) {
 			strScore = checkMissOrNormal(getLastData());
+			finalScore.set(getLastIndex(), isFirstOrNot(strScore));
 		}
-
-		return isFirstOrNot(strScore);
+		return makeString(finalScore);
 	}
 	
 	@Override
@@ -42,6 +47,14 @@ public class FinalFrame extends Frame {
 		return getLastData();
 	}
 
+	@Override
+	protected String isFirstOrNot(String convertedScore) {
+		if (pins.size() > 1) {
+			return "|" + convertedScore;
+		}
+		return convertedScore;
+	}
+	
 	private boolean isFirstShotStrike() {
 		return pins.get(0) == 10 && pins.size() < 3;
 	}
@@ -57,25 +70,25 @@ public class FinalFrame extends Frame {
 		return score;
 	}
 	
-//	private String makeString(ArrayList<String> result) {
-//		String finalResult = "";
-//		for (int i = 0; i < result.size(); i++) {
-//			finalResult += result.get(i);
-//		}
-//		return finalResult;
-//	}
-//
-//	private String checkStrikeOrSpare() {
-//		if (getLastData() == 0) {
-//			return "-";
-//		}
-//		if (getLastData() != 10) {
-//			return "/";
-//		}
-//		return "X";
-//	}
-//
-//	private int getLastIndex() {
-//		return pins.size() - 1;
-//	}
+	private String makeString(ArrayList<String> result) {
+		String finalResult = "";
+		for (int i = 0; i < result.size(); i++) {
+			finalResult += result.get(i);
+		}
+		return finalResult;
+	}
+
+	private String checkStrikeOrSpare() {
+		if (getLastData() == 0) {
+			return "-";
+		}
+		if (getLastData() != 10) {
+			return "/";
+		}
+		return "X";
+	}
+
+	private int getLastIndex() {
+		return pins.size() - 1;
+	}
 }
