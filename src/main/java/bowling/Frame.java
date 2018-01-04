@@ -5,27 +5,26 @@ import static bowling.Status.STRIKE;
 import java.util.ArrayList;
 
 public class Frame {
-
-	ArrayList<Integer> frame = new ArrayList<>();
-
+	ArrayList<Integer> pin = new ArrayList<>();
+	
 	Frame() {
-
+		
 	}
 
 	public void addScore(int score) {
-		frame.add(score);
+		pin.add(score);
 	}
 
 	protected boolean isPinClear() {
 		int totalScore = 0;
-		for (int i = 0; i < frame.size(); i++) {
-			totalScore += frame.get(i);
+		for (int i = 0; i < pin.size(); i++) {
+			totalScore += pin.get(i);
 		}
 		return totalScore % 10 == 0 && totalScore != 0;
 	}
 
 	protected Status getStatus() {
-		return Status.valueOf(isPinClear(), frame.size());
+		return Status.valueOf(isPinClear(), pin.size());
 	}
 
 	protected boolean isNotEnd() {
@@ -33,7 +32,7 @@ public class Frame {
 	}
 
 	protected String changeFormat() {
-		String strScore = "" + frame.get(0);
+		String strScore = "" + pin.get(0);
 		if (isPinClear()) {
 			strScore = checkStrikeOrSpare(getStatus());
 			return strScore;
@@ -49,7 +48,7 @@ public class Frame {
 		if (status == STRIKE) {
 			return "X";
 		}
-		return frame.get(0) + "|/";
+		return pin.get(0) + "|/";
 	}
 
 	protected String checkMissOrNormal(int secondShotScore) {
@@ -60,8 +59,8 @@ public class Frame {
 	}
 
 	protected String isFirstOrNot(String convertedScore) {
-		if (frame.size() > 1) {
-			return frame.get(0) + "|" + convertedScore;
+		if (pin.size() > 1) {
+			return pin.get(0) + "|" + convertedScore;
 		}
 		return convertedScore;
 	}
@@ -74,11 +73,11 @@ public class Frame {
 	}
 	
 	protected int getLastData() {
-		return frame.get(frame.size() - 1);
+		return pin.get(pin.size() - 1);
 	}
 	
 	public ArrayList<Integer> makeTotal(ArrayList<Integer> result) {
-		for (Integer score : frame) {
+		for (Integer score : pin) {
 			result.add(score);
 		}
 		return result;
@@ -93,7 +92,7 @@ public class Frame {
 
 	public int makeScore() {
 		int score = 0;
-		for (Integer falledPin : frame) {
+		for (Integer falledPin : pin) {
 			score += falledPin;
 		}
 		return score;

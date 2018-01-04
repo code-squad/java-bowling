@@ -15,12 +15,12 @@ public class BowlingGame {
 		Frame frame = new Frame();
 		frame = makeFinalFrame(frames, frame);
 		frames.addFrame(frame);
-
+		
 		while (frame.isNotEnd()) {
 			frame.addScore(InputView.inputScore(frames.countFrame(), frame));
 			ResultView.printScore(playerName, frames.makeResultBoard());
 			
-			totalResult = frames.makeTotalScoreBoardform();
+			totalResult = frames.makeTotalScoreBoardform2();
 			ResultView.printTotalScore(totalResult);
 		}
 	}
