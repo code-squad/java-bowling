@@ -22,15 +22,15 @@ public class FinalFrame extends Frame {
 		String strScore = "" + pins.get(0);
 		if (isPinClear()) {
 			strScore = checkStrikeOrSpare(getStatus());
-			return strScore + "|" + convertStrike(pins.get(2) + "");
+			return strScore;
 		}
 		if (getStatus().isMissOrNormal()) {
 			strScore = checkMissOrNormal(getLastData());
 		}
 
 		return isFirstOrNot(strScore);
-
 	}
+	
 	@Override
 	protected int checkSecondIsRight() {
 		if (getStatus().isStrike() || getStatus().isSpare()) {

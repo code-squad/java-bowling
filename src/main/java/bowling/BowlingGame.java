@@ -6,8 +6,7 @@ public class BowlingGame {
 	private static Frame takeInput(Frames frames, Frame frame) {
 		while (frame.isNotEnd()) {
 			frame.addScore(InputView.inputScore(frame.getFrameNo(), frame));
-			frames.addFrame(frame);
-//			frames.totalFrames.set(frames.countFrame() - 1, frame);
+			frames.updateFrames(frame);
 			ResultView.printScore("hi", frames.makeResultBoard());
 		}
 		return frame;
@@ -25,12 +24,14 @@ public class BowlingGame {
 		
 		if (frames.countFrame() == 0) {
 			Frame frame = new Frame(1);
+			frames.addFrame(frame);
 			frame = takeInput(frames, frame);
 			return;
 		}
 		
 		Frame frame = frames.getFrame(frames.countFrame() - 1);
 		frame = checkFrame(frame);
+		frames.addFrame(frame);
 		frame = takeInput(frames, frame);
 		return;
 	}
@@ -41,13 +42,12 @@ public class BowlingGame {
 		Frames frames = new Frames();
 
 		while (frames.isGameEnd()) {
-//			frames.addFrame(playOneFrame(frames, playerName));
 			playOneFrame(frames, playerName);
 			
 			System.out.println("");
 			for (int i = 0; i < frames.countFrame(); i++) {
 				System.out.print(frames.totalFrames.get(i).getPins() + " ");
-				//System.out.println(frames.totalFrames.get(i).makeFrameScore());
+//				System.out.println(frames.totalFrames.get(i).makeFrameScore());
 			}
 		}
 	}
