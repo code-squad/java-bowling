@@ -92,27 +92,28 @@ public class Frame {
 	protected int getLastData() {
 		return pins.get(pins.size() - 1);
 	}
-
+	
 	public int makeFrameScore() {
 		int frameScore = makeScore();
+		Score score = new Score(frameScore, bonusTryNum());
+		
 		if (isPinClear() && nextFrame != null) {
-			frameScore = nextFrame.addBonusScore(frameScore, bonusTryNum());
+			score = nextFrame.addBonusScore(score);
 		}
-		return frameScore;
+		return score.getScore();
 	}
-
-	private int addBonusScore(int beforeFrameScore, int bonusTryNum) {
+	
+	private Score addBonusScore(Score score) {
 		int count = 0;
-		while (bonusTryNum != 0 && count < pins.size()) {
-			beforeFrameScore += pins.get(count);
+		while (!score.isEnded() && count < pins.size()) {
+			score.bowl(pins.get(count));
 			count++;
-			bonusTryNum--;
 		}
-		if (bonusTryNum != 0 && nextFrame != null) {
-			beforeFrameScore = nextFrame.addBonusScore(beforeFrameScore, bonusTryNum);
-			return beforeFrameScore;
+		if (!score.isEnded() && nextFrame != null) {
+			score = nextFrame.addBonusScore(score);
+			return score;
 		}
-		return beforeFrameScore;
+		return score;
 	}
 	
 	private int makeScore() {

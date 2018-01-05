@@ -24,13 +24,13 @@ public class BowlingGame {
 	}
 
 	public static void playOneFrame(Frames frames, String playerName) {
-		if (frames.countFrame() == 0) {
+		if (frames.isNotStart()) {
 			Frame frame = new Frame(1);
 			frame = bowl(frames, frame, playerName);
 			return;
 		}
 
-		Frame frame = frames.getFrame(frames.countFrame() - 1);
+		Frame frame = frames.getLastFrame();
 		frame = checkFrame(frame);
 		frame = bowl(frames, frame, playerName);
 		return;
