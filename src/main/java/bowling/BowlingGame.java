@@ -1,5 +1,7 @@
 package bowling;
 
+import java.util.ArrayList;
+
 public class BowlingGame {
 	public static Frame makeFinalFrame(Frames frames, Frame frame) {
 		if (frames.countFrame() == 9) {
@@ -9,13 +11,17 @@ public class BowlingGame {
 	}
 
 	public static void playOneFrame(Frames frames, String playerName) {
+		ArrayList<Integer> totalResult = new ArrayList<Integer> ();
 		Frame frame = new Frame();
 		frame = makeFinalFrame(frames, frame);
 		frames.addFrame(frame);
-
+		
 		while (frame.isNotEnd()) {
 			frame.addScore(InputView.inputScore(frames.countFrame(), frame));
 			ResultView.printScore(playerName, frames.makeResultBoard());
+			
+			totalResult = frames.makeTotalScoreBoardform2();
+			ResultView.printTotalScore(totalResult);
 		}
 	}
 

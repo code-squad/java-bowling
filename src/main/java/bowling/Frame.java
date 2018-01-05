@@ -5,27 +5,27 @@ import static bowling.Status.STRIKE;
 import java.util.ArrayList;
 
 public class Frame {
-
-	ArrayList<Integer> frame = new ArrayList<>();
-
+	private int frameNo;
+	ArrayList<Integer> pins = new ArrayList<>();
+	private Frame nextFrame;
+	
 	Frame() {
-
 	}
 
 	public void addScore(int score) {
-		frame.add(score);
+		pins.add(score);
 	}
 
 	protected boolean isPinClear() {
 		int totalScore = 0;
-		for (int i = 0; i < frame.size(); i++) {
-			totalScore += frame.get(i);
+		for (int i = 0; i < pins.size(); i++) {
+			totalScore += pins.get(i);
 		}
 		return totalScore % 10 == 0 && totalScore != 0;
 	}
 
 	protected Status getStatus() {
-		return Status.valueOf(isPinClear(), frame.size());
+		return Status.valueOf(isPinClear(), pins.size());
 	}
 
 	protected boolean isNotEnd() {
@@ -33,7 +33,7 @@ public class Frame {
 	}
 
 	protected String changeFormat() {
-		String strScore = "" + frame.get(0);
+		String strScore = "" + pins.get(0);
 		if (isPinClear()) {
 			strScore = checkStrikeOrSpare(getStatus());
 			return strScore;
@@ -49,7 +49,7 @@ public class Frame {
 		if (status == STRIKE) {
 			return "X";
 		}
-		return frame.get(0) + "|/";
+		return pins.get(0) + "|/";
 	}
 
 	protected String checkMissOrNormal(int secondShotScore) {
@@ -60,8 +60,8 @@ public class Frame {
 	}
 
 	protected String isFirstOrNot(String convertedScore) {
-		if (frame.size() > 1) {
-			return frame.get(0) + "|" + convertedScore;
+		if (pins.size() > 1) {
+			return pins.get(0) + "|" + convertedScore;
 		}
 		return convertedScore;
 	}
@@ -74,6 +74,28 @@ public class Frame {
 	}
 	
 	protected int getLastData() {
-		return frame.get(frame.size() - 1);
+		return pins.get(pins.size() - 1);
+	}
+	
+	public ArrayList<Integer> makeTotal(ArrayList<Integer> result) {
+		for (Integer score : pins) {
+			result.add(score);
+		}
+		return result;
+	}
+	
+	public int makeFrameScore() {
+		if (getStatus().isReady() || getStatus().isFirstshot()) {
+			return 0;
+		}
+		return makeScore();
+	}
+
+	public int makeScore() {
+		int score = 0;
+		for (Integer falledPin : pins) {
+			score += falledPin;
+		}
+		return score;
 	}
 }
