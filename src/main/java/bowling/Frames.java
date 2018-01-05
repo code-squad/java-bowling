@@ -24,17 +24,18 @@ public class Frames {
 
 	public void getFrameScore() {
 		ArrayList<Integer> total = new ArrayList<>();
-		for (int i = 0; i < frames.size(); i++) {
-			total.add(frames.get(i).getScore());
+		for (Frame frame : frames.values()) {
+			frame.getFrameScore(total);
 		}
+		
 		System.out.println("TotalScore : " + total);
 	}
 
 
 	public String getStatusResult() {
 		String result = "";
-		for (int i = 0; i < frames.size(); i++) {
-			result += frames.get(i).getStatusResult();
+		for (Frame frame : frames.values()) {
+			result += frame.getStatusResult();
 		}
 		return result;
 	}

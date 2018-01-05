@@ -12,17 +12,11 @@ public class NormalFrame extends Frame {
 	}
 
 	protected boolean isSpare() {
-		if (getFirstPin() != null && getSecondPin() != null)
+		if (getFrameSize() >= 2)
 			return (getFirstPin() + getSecondPin() == 10);
 		return false;
 	}
 
-	protected boolean isStrike() {
-		if (getFirstPin() != null)
-			return getFirstPin() == 10;
-		return false;
-
-	}
 
 	@Override
 	protected String makeFinalStrikeResult() {
@@ -36,7 +30,7 @@ public class NormalFrame extends Frame {
 
 	@Override
 	protected boolean checkFrameException(int score) {
-		if (getFirstPin() != null && getFirstPin() + score > 10)
+		if (getFrameSize() >= 1 && getFirstPin() + score > 10)
 			return true;
 		return false;
 	}
@@ -47,18 +41,10 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	protected Integer calcSparePin(int frameNum) {
-		if (getSparePin(frameNum) != null)
-			return getSparePin(frameNum);
-		return null;
+	protected boolean isFinalStrikeOrSpare() {
+		return true;
 	}
 
-	@Override
-	protected Integer calcStrikePin(int frameNum) {
-		if (getStrikePin(frameNum) != null)
-				return getStrikePin(frameNum);
-			return null;
-	}
 
 
 

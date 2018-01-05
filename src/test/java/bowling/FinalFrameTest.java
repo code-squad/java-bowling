@@ -20,10 +20,8 @@ public class FinalFrameTest {
 	@Test
 	public void finalFrameStrike() throws MyException {
 		finalFrame.addScore(10);
-		assertEquals(true, finalFrame.isNotEnd());
 		assertEquals(STRIKE, finalFrame.getStatus());
 		finalFrame.addScore(7);
-		assertEquals(true, finalFrame.isNotEnd());
 		finalFrame.addScore(10);
 		assertEquals(false, finalFrame.isNotEnd());
 		assertEquals(null, finalFrame.getStatus());
@@ -33,10 +31,8 @@ public class FinalFrameTest {
 	public void finalFrameSpare() throws MyException {
 		finalFrame.addScore(6);
 		finalFrame.addScore(4);
-		assertEquals(true, finalFrame.isNotEnd());
 		assertEquals(SPARE, finalFrame.getStatus());
 		finalFrame.addScore(2);
-		assertEquals(false, finalFrame.isNotEnd());
 		assertEquals(null, finalFrame.getStatus());
 
 	}

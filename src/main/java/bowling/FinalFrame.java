@@ -12,66 +12,57 @@ public class FinalFrame extends Frame {
 		if (isFrameEmpty())
 			return true;
 		if (getStatus() != Status.READY && lastScore == null)
-			lastScore = new LastScore(getStatus().getLastChance());
-		if(lastScore != null){
+			lastScore = new LastScore(getStatus().getLastChance() + 1);
+		if (lastScore != null) {
 			lastScore.useChance();
 			return lastScore.isFinal();
 		}
 		return true;
 	}
 
-	protected boolean isSpare() {
-		if (getFirstPin() != null && getSecondPin() != null)
-			return isFinalSpareStrike() && (getFirstPin() + getSecondPin() == 10);
-		return false;
-	}
-
-	protected boolean isStrike() {
-		if (getFirstPin() != null)
-			return isFinalSpareStrike() && (getFirstPin() == 10);
-		return false;
-	}
-
 	@Override
 	protected String makeFinalStrikeResult() {
-		return getFirstPin() + " | " + getSecondPin();
+		return getFirstPin() + " | " + getBonusPin();
 	}
 
 	@Override
 	protected String makeFinalSpareResult() {
-		return getSecondPin() + "";
+		return getBonusPin() + "";
 	}
 
 	@Override
 	protected boolean checkFrameException(int score) {
-		if(score > 10)
+		if (score > 10)
 			return true;
-		if((getStatus() == Status.SPARE && getStatus() == Status.STRIKE) && score > 10)
+		if ((getStatus() == Status.SPARE && getStatus() == Status.STRIKE) && score > 10)
 			return true;
 		return false;
 	}
 
 	@Override
 	public boolean isGameNotEnd() {
-		if(lastScore == null)
+		if (lastScore == null)
 			return true;
-		if(lastScore.isGameNotEnd())
+		if (lastScore.isGameNotEnd())
 			return true;
 		return false;
 	}
 
 	@Override
-	protected Integer calcSparePin(int frameNum) {
-		if(getBonusPin() != null)
-			return getBonusPin();
-		return null;
+	protected void calcSparePin(Score frameScore) {
+		addThirdScore(frameScore);
+	}
+
+	@Override
+	protected void calcStrikePin(Score frameScore) {
+		addSecondScore(frameScore);
+		addThirdScore(frameScore);
 	}
 	
+
 	@Override
-	protected Integer calcStrikePin(int frameNum) {
-		if(getSecondPin() != null && getBonusPin() != null)
-			return getSecondPin() + getBonusPin();
-		return null;
+	protected boolean isFinalStrikeOrSpare() {
+		return getFrameSize() == 3;
 	}
 
 
