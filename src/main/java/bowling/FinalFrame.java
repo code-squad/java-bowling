@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class FinalFrame extends Frame {
 	private ArrayList<String> finalScore = new ArrayList<String> ();
-	
-	public FinalFrame() {
-		super();
+
+	public FinalFrame(int frameNo) {
+		super(frameNo);
 		for (int i = 0; i < 3; i++) {
 			finalScore.add("");
 		}
@@ -19,27 +19,18 @@ public class FinalFrame extends Frame {
 	
 	@Override
 	protected String changeFormat() {
-		String strScore = "" + frame.get(0);
-		finalScore.set(0, convertStrike(strScore));
+		String strScore = "";
+		checkFirstShot(strScore);
 		
 		if (isPinClear()) {
-			finalScore.set(getLastIndex(), isFirstOrNot(checkStrikeOrSpare()));
-			return makeString(finalScore);
+			updateFinalFrame(checkStrikeOrSpare());
+			return makeFinalToString();
 		}
+		
 		if (getStatus().isMissOrNormal() || getStatus().isExtraShot()) {
-			strScore = checkMissOrNormal(getLastData());
-			finalScore.set(getLastIndex(), isFirstOrNot(strScore));
-			
+			updateFinalFrame(checkMissOrNormal(getLastData()));
 		}
-		return makeString(finalScore);
-	}
-	
-	@Override
-	protected String isFirstOrNot(String convertedScore) {
-		if (frame.size() > 1) {
-			return "|" + convertedScore;
-		}
-		return convertedScore;
+		return makeFinalToString();
 	}
 	
 	@Override
@@ -47,28 +38,40 @@ public class FinalFrame extends Frame {
 		if (getStatus().isStrike() || getStatus().isSpare()) {
 			return 0;
 		}
-		if (frame.size() == 0) {
+		if (pins.size() == 0) {
 			return 0;
 		}
 		return getLastData();
 	}
-	
-	private String makeString(ArrayList<String> result) {
-		String finalResult = "";
-		for (int i = 0; i < result.size(); i++) {
-			finalResult += result.get(i);
+
+	@Override
+	protected String isFirstOrNot(String convertedScore) {
+		if (pins.size() > 1) {
+			return "|" + convertedScore;
 		}
-		return finalResult;
+		return convertedScore;
+	}
+	
+	private String checkFirstShot(String strScore) {
+		if (pins.size() == 1) {
+			strScore = "" + pins.get(0);
+			finalScore.set(0, convertStrike(strScore));
+		}
+		return strScore;
+	}
+	
+	private void updateFinalFrame(String input) {
+		finalScore.set(getLastIndex(), isFirstOrNot(input));
 	}
 	
 	private boolean isFirstShotStrike() {
-		return frame.get(0) == 10 && frame.size() < 3;
+		return pins.get(0) == 10 && pins.size() < 3;
 	}
-	
+
 	private boolean doExtraShot() {
 		return (!getStatus().isMissOrNormal()) && (!getStatus().isExtraClearShot()) && (!getStatus().isExtraNormalShot());
 	}
-	
+
 	private String convertStrike(String score) {
 		if (score.equals("10")) {
 			return "X";
@@ -76,6 +79,14 @@ public class FinalFrame extends Frame {
 		return score;
 	}
 	
+	private String makeFinalToString() {
+		String finalResult = "";
+		for (int i = 0; i < finalScore.size(); i++) {
+			finalResult += finalScore.get(i);
+		}
+		return finalResult;
+	}
+
 	private String checkStrikeOrSpare() {
 		if (getLastData() == 0) {
 			return "-";
@@ -85,8 +96,8 @@ public class FinalFrame extends Frame {
 		}
 		return "X";
 	}
-	
+
 	private int getLastIndex() {
-		return frame.size() - 1;
+		return pins.size() - 1;
 	}
 }

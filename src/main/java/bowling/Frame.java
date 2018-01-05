@@ -5,35 +5,51 @@ import static bowling.Status.STRIKE;
 import java.util.ArrayList;
 
 public class Frame {
+	private int frameNo;
+	ArrayList<Integer> pins = new ArrayList<>();
+	private Frame nextFrame;
 
-	ArrayList<Integer> frame = new ArrayList<>();
-
-	Frame() {
-
+	Frame(int frameNo) {
+		this.frameNo = frameNo;
 	}
 
-	public void addScore(int score) {
-		frame.add(score);
+	public int getFrameNo() {
+		return this.frameNo;
 	}
 
-	protected boolean isPinClear() {
-		int totalScore = 0;
-		for (int i = 0; i < frame.size(); i++) {
-			totalScore += frame.get(i);
+	public Frame addScore(int falledPin) {
+		if (isNotEnd()) {
+			pins.add(falledPin);
+			return this;
 		}
-		return totalScore % 10 == 0 && totalScore != 0;
-	}
 
-	protected Status getStatus() {
-		return Status.valueOf(isPinClear(), frame.size());
+		if (this.frameNo == 9) {
+			this.nextFrame = new FinalFrame(frameNo + 1);
+			return nextFrame;
+		}
+
+		this.nextFrame = new Frame(frameNo + 1);
+		return nextFrame;
 	}
 
 	protected boolean isNotEnd() {
 		return getStatus().isReady() || getStatus().isFirstshot();
 	}
 
+	protected boolean isPinClear() {
+		int totalScore = 0;
+		for (int i = 0; i < pins.size(); i++) {
+			totalScore += pins.get(i);
+		}
+		return totalScore % 10 == 0 && totalScore != 0;
+	}
+
+	protected Status getStatus() {
+		return Status.valueOf(isPinClear(), pins.size());
+	}
+
 	protected String changeFormat() {
-		String strScore = "" + frame.get(0);
+		String strScore = "" + pins.get(0);
 		if (isPinClear()) {
 			strScore = checkStrikeOrSpare(getStatus());
 			return strScore;
@@ -45,11 +61,11 @@ public class Frame {
 		return isFirstOrNot(strScore);
 	}
 
-	private String checkStrikeOrSpare(Status status) {
+	protected String checkStrikeOrSpare(Status status) {
 		if (status == STRIKE) {
 			return "X";
 		}
-		return frame.get(0) + "|/";
+		return pins.get(0) + "|/";
 	}
 
 	protected String checkMissOrNormal(int secondShotScore) {
@@ -60,20 +76,61 @@ public class Frame {
 	}
 
 	protected String isFirstOrNot(String convertedScore) {
-		if (frame.size() > 1) {
-			return frame.get(0) + "|" + convertedScore;
+		if (pins.size() > 1) {
+			return pins.get(0) + "|" + convertedScore;
 		}
 		return convertedScore;
 	}
-	
+
 	protected int checkSecondIsRight() {
 		if (getStatus().isFirstshot()) {
 			return getLastData();
 		}
 		return 0;
 	}
-	
+
 	protected int getLastData() {
-		return frame.get(frame.size() - 1);
+		return pins.get(pins.size() - 1);
+	}
+	
+	public int makeFrameScore() {
+		int frameScore = makeScore();
+		Score score = new Score(frameScore, bonusTryNum());
+		
+		if (isPinClear() && nextFrame != null) {
+			score = nextFrame.addBonusScore(score);
+		}
+		return score.getScore();
+	}
+	
+	private Score addBonusScore(Score score) {
+		int count = 0;
+		while (!score.isEnded() && count < pins.size()) {
+			score.bowl(pins.get(count));
+			count++;
+		}
+		if (!score.isEnded() && nextFrame != null) {
+			score = nextFrame.addBonusScore(score);
+			return score;
+		}
+		return score;
+	}
+	
+	private int makeScore() {
+		int score = 0;
+		for (Integer falledPin : pins) {
+			score += falledPin;
+		}
+		return score;
+	}
+	
+	private int bonusTryNum() {
+		if (getStatus().isStrike()) {
+			return 2;
+		}
+		if (getStatus().isSpare()) {
+			return 1;
+		}
+		return 0;
 	}
 }

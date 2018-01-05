@@ -8,12 +8,12 @@ import org.junit.Test;
 public class FramesTest {
 	
 	Frames frames = new Frames();
-	Frame frame = new Frame();
+	Frame frame = new Frame(0);
 	
 	@Before
 	public void setUp(){
 		frames = new Frames();
-		frame = new Frame();
+		frame = new Frame(0);
 	}
 	
 	@Test

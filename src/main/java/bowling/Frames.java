@@ -3,39 +3,67 @@ package bowling;
 import java.util.ArrayList;
 
 public class Frames {
-	ArrayList<Frame> frames = new ArrayList<>();
+	ArrayList<Frame> totalFrames = new ArrayList<>();
 
 	Frames() {
-		
+
 	}
 
 	public void addFrame(Frame frame) {
-		frames.add(frame);
+		totalFrames.add(frame);
 	}
-
+	
+	public void updateFrames(Frame frame) {
+		totalFrames.set(countFrame() - 1, frame);
+	}
+	
+	public Frame getFrame(int index) {
+		return totalFrames.get(index);
+	}
+	
 	public int countFrame() {
-		return frames.size();
+		return totalFrames.size();
 	}
 
 	public Boolean isGameEnd(){
-		return frames.size() < 10;
+		return totalFrames.size() < 10;
 	}
 	
+	public Boolean isNotStart() {
+		return countFrame() == 0;
+	}
+	
+	public Frame getLastFrame() {
+		return getFrame(countFrame() - 1);
+	}
+
 	public ArrayList<String> makeResultBoard() {
-		ArrayList<String> resultList = initializeResult();
-		int count = 0;
-		for (Frame frame : frames) {
-			resultList.set(count, frame.changeFormat());
-			count++;
+		ArrayList<String> resultList = new ArrayList<>();
+		for(Frame frame : totalFrames) {
+		  resultList.add(frame.changeFormat());
+		}
+
+		for (int i = resultList.size(); i < 10; i++) {
+		  resultList.add("");
 		}
 		return resultList;
 	}
-	
+
 	public static ArrayList<String> initializeResult() {
 		ArrayList<String> resultBoard = new ArrayList<String> ();
 		for (int i = 0; i < 10; i++) {
 			resultBoard.add("");
 		}
 		return resultBoard;
+	}
+	
+	public ArrayList<String> makePrintResult() {
+		ArrayList<String> result = new ArrayList<String> ();
+		int count = 0;
+		for(Frame frame : totalFrames) {
+			count += frame.makeFrameScore();
+			result.add(count + "");
+		}
+		return result;
 	}
 }
