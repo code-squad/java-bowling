@@ -8,15 +8,11 @@ public class Frame {
 	private int frameNo;
 	ArrayList<Integer> pins = new ArrayList<>();
 	private Frame nextFrame;
-	
+
 	Frame(int frameNo) {
 		this.frameNo = frameNo;
 	}
-	
-	public ArrayList<Integer> getPins() {
-		return this.pins;
-	}
-	
+
 	public int getFrameNo() {
 		return this.frameNo;
 	}
@@ -26,16 +22,16 @@ public class Frame {
 			pins.add(falledPin);
 			return this;
 		}
-		
+
 		if (this.frameNo == 9) {
 			this.nextFrame = new FinalFrame(frameNo + 1);
 			return nextFrame;
 		}
-		
+
 		this.nextFrame = new Frame(frameNo + 1);
 		return nextFrame;
 	}
-	
+
 	protected boolean isNotEnd() {
 		return getStatus().isReady() || getStatus().isFirstshot();
 	}
@@ -85,51 +81,55 @@ public class Frame {
 		}
 		return convertedScore;
 	}
-	
+
 	protected int checkSecondIsRight() {
 		if (getStatus().isFirstshot()) {
 			return getLastData();
 		}
 		return 0;
 	}
-	
+
 	protected int getLastData() {
 		return pins.get(pins.size() - 1);
 	}
-	
-//	public ArrayList<Integer> makeTotal(ArrayList<Integer> result) {
-//		for (Integer score : pins) {
-//			result.add(score);
-//		}
-//		return result;
-//	}
-	
+
 	public int makeFrameScore() {
 		int frameScore = makeScore();
-		if (frameScore == 10) {
-			if (isNextExist()) {
-				frameScore += nextFrame.pins.get(0);
-			}
+		if (isPinClear() && nextFrame != null) {
+			frameScore = nextFrame.addBonusScore(frameScore, bonusTryNum());
 		}
 		return frameScore;
 	}
-	
-	private boolean isNextExist() {
-		return !nextFrame.pins.isEmpty();
+
+	private int addBonusScore(int beforeFrameScore, int bonusTryNum) {
+		int count = 0;
+		while (bonusTryNum != 0 && count < pins.size()) {
+			beforeFrameScore += pins.get(count);
+			count++;
+			bonusTryNum--;
+		}
+		if (bonusTryNum != 0 && nextFrame != null) {
+			beforeFrameScore = nextFrame.addBonusScore(beforeFrameScore, bonusTryNum);
+			return beforeFrameScore;
+		}
+		return beforeFrameScore;
 	}
 	
-	private int makeBonusScore(int score) {
-		score += nextFrame.pins.get(0);
-		
-		
-		return score;
-	}
-	
-	public int makeScore() {
+	private int makeScore() {
 		int score = 0;
 		for (Integer falledPin : pins) {
 			score += falledPin;
 		}
 		return score;
+	}
+	
+	private int bonusTryNum() {
+		if (getStatus().isStrike()) {
+			return 2;
+		}
+		if (getStatus().isSpare()) {
+			return 1;
+		}
+		return 0;
 	}
 }

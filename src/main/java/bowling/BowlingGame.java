@@ -44,11 +44,14 @@ public class BowlingGame {
 		while (frames.isGameEnd()) {
 			playOneFrame(frames, playerName);
 			
+			//--
 			System.out.println("");
 			for (int i = 0; i < frames.countFrame(); i++) {
-				System.out.print(frames.totalFrames.get(i).getPins() + " ");
-//				System.out.println(frames.totalFrames.get(i).makeFrameScore());
+				System.out.print(frames.totalFrames.get(i).pins + " ");
+				System.out.print(frames.totalFrames.get(i).makeFrameScore() + " ");
 			}
+			//--
+			
 		}
 	}
 }

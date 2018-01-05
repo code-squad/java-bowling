@@ -84,4 +84,21 @@ public class FrameTest {
 		finalFrame.addScore(8);
 		assertEquals(true, finalFrame.isNotEnd());
 	}
+	
+	@Test
+	public void makeFrameScoreTest() {
+		frame.addScore(3);
+		frame.addScore(7);
+		frame.addScore(2);
+		
+		//assertEquals(12, frame.makeFrameScore());
+	}
+	
+	@Test
+	public void isNextExistTest() {
+		frame.addScore(4);
+		frame.addScore(6);
+		frame.addScore(3);
+		//assertEquals(false, frame.isNextExist());
+	}
 }
