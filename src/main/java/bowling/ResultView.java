@@ -11,10 +11,6 @@ public class ResultView {
 		}
 	}
 
-	public static String basicPrint() {
-		return "";
-	}
-
 	private static void printFormat(String name) {
 		System.out.print("|" + "\t" + "NAME" + "\t" + "|");
 		for (int i = 0; i < 10; i++) {
@@ -24,7 +20,7 @@ public class ResultView {
 		System.out.print("|" + "\t" + name + "\t" + "|");
 	}
 	
-	public static void printTotalScore(ArrayList<Integer> totalResult) {
+	public static void printTotalScore(ArrayList<String> totalResult) {
 		System.out.println("");
 		System.out.print("|   " + "totalScore" + "  |");
 		for (int i = 0; i < totalResult.size(); i++) {
