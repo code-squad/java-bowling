@@ -1,69 +1,78 @@
 package bowling;
 
-import java.util.ArrayList;
-
 public class FinalFrame extends Frame {
 	private LastScore lastScore;
-	ArrayList<Integer> finalFrame = new ArrayList<>();
 
-	public FinalFrame(ArrayList<Integer> frame) {
-		super(frame);
-		finalFrame = frame;
+	public FinalFrame(int frameNum) {
+		super(frameNum);
 	}
 
 	@Override
 	protected boolean isNotEnd() {
-		if (finalFrame.isEmpty())
+		if (isFrameEmpty())
 			return true;
-		if (getStatus() != null)
+		if (getStatus() != Status.READY && lastScore == null)
 			lastScore = new LastScore(getStatus().getLastChance());
-		lastScore.useChance();
-		return lastScore.isFinal();
+		if(lastScore != null){
+			lastScore.useChance();
+			return lastScore.isFinal();
+		}
+		return true;
 	}
 
 	protected boolean isSpare() {
-		return (finalFrame.size() == 3) && (finalFrame.get(0) + finalFrame.get(1) == 10);
+		if (getFirstPin() != null && getSecondPin() != null)
+			return isFinalSpareStrike() && (getFirstPin() + getSecondPin() == 10);
+		return false;
 	}
 
 	protected boolean isStrike() {
-		return (finalFrame.size() == 3) && finalFrame.get(0) == 10;
-
+		if (getFirstPin() != null)
+			return isFinalSpareStrike() && (getFirstPin() == 10);
+		return false;
 	}
-
-	@Override
-	public void calcSpareScore(Frame pastFrame) {
-		if(isSpare())
-			frameScore = 10 + finalFrame.get(2);
-	}
-
-	@Override
-	public void calcPastStrikeScore(Frame pastFrame) {
-		if(isStrike()){
-			frameScore = 10 + finalFrame.get(1) + finalFrame.get(2);
-		}
-	}
-
-	@Override
-	public void calcPrePastStrikeScore(Frame prePastFrame) {
-
-	}
-
 
 	@Override
 	protected String makeFinalStrikeResult() {
-		return finalFrame.get(1) + " | " + finalFrame.get(2);
+		return getFirstPin() + " | " + getSecondPin();
 	}
 
 	@Override
 	protected String makeFinalSpareResult() {
-		return finalFrame.get(2) + "";
+		return getSecondPin() + "";
 	}
 
 	@Override
-	protected boolean checkFrameException() {
-		if (getStatus() != Status.STRIKE && finalFrame.size() >= 2 && getStatus() != null)
+	protected boolean checkFrameException(int score) {
+		if(score > 10)
+			return true;
+		if((getStatus() == Status.SPARE && getStatus() == Status.STRIKE) && score > 10)
 			return true;
 		return false;
 	}
+
+	@Override
+	public boolean isGameNotEnd() {
+		if(lastScore == null)
+			return true;
+		if(lastScore.isGameNotEnd())
+			return true;
+		return false;
+	}
+
+	@Override
+	protected Integer calcSparePin(int frameNum) {
+		if(getBonusPin() != null)
+			return getBonusPin();
+		return null;
+	}
+	
+	@Override
+	protected Integer calcStrikePin(int frameNum) {
+		if(getSecondPin() != null && getBonusPin() != null)
+			return getSecondPin() + getBonusPin();
+		return null;
+	}
+
 
 }

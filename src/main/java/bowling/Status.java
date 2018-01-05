@@ -4,7 +4,7 @@ public enum Status {
 	STRIKE(1, 1, 3, 3),
 	SPARE(1, 2, 2, 3),
 	MISSORNORMAL(0, 2, 1, 2),
-	READY(0, 1, 2, 1);
+	READY(0, 1, 0, 1);
 
 	private int scopeOfScore;
 	private int size;
@@ -33,5 +33,11 @@ public enum Status {
 		}
 		return null;
 	}
+
+	public boolean isStrike() {
+		return this != STRIKE && this != null;
+	}
+
+	
 
 }

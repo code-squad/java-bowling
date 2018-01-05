@@ -1,33 +1,26 @@
 package bowling;
 
-import java.util.ArrayList;
 
 public class NormalFrame extends Frame {
-	ArrayList<Integer> normalFrame = new ArrayList<>();
 
-	public NormalFrame(ArrayList<Integer> frame) {
-		super(frame);
-		normalFrame = frame;
-
+	public NormalFrame(int frameNum) {
+		super(frameNum);
 	}
-
-
-
-	
-
-	
 
 	protected boolean isNotEnd() {
 		return (getStatus() == null) || (getStatus() == Status.READY);
 	}
 
-
 	protected boolean isSpare() {
-		return (normalFrame.size() == 2) && (normalFrame.get(0) + normalFrame.get(1) == 10);
+		if (getFirstPin() != null && getSecondPin() != null)
+			return (getFirstPin() + getSecondPin() == 10);
+		return false;
 	}
 
 	protected boolean isStrike() {
-		return (normalFrame.size() == 1) && normalFrame.get(0) == 10;
+		if (getFirstPin() != null)
+			return getFirstPin() == 10;
+		return false;
 
 	}
 
@@ -42,12 +35,32 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	protected boolean checkFrameException() {
-		if(normalFrame.size() == 1 )
+	protected boolean checkFrameException(int score) {
+		if (getFirstPin() != null && getFirstPin() + score > 10)
 			return true;
 		return false;
 	}
 
-	
+	@Override
+	public boolean isGameNotEnd() {
+		return true;
+	}
+
+	@Override
+	protected Integer calcSparePin(int frameNum) {
+		if (getSparePin(frameNum) != null)
+			return getSparePin(frameNum);
+		return null;
+	}
+
+	@Override
+	protected Integer calcStrikePin(int frameNum) {
+		if (getStrikePin(frameNum) != null)
+				return getStrikePin(frameNum);
+			return null;
+	}
+
+
+
 
 }
