@@ -4,10 +4,15 @@ import static bowling.Status.STRIKE;
 
 import java.util.ArrayList;
 
-public class Frame {
+public abstract class Frame {
 	private int frameNo;
 	ArrayList<Integer> pins = new ArrayList<>();
 	private Frame nextFrame;
+
+	protected abstract boolean isNotEnd();
+	protected abstract String changeFormat();
+	protected abstract int checkSecondIsRight();
+	protected abstract String isFirstOrNot(String convertedScore);
 
 	Frame(int frameNo) {
 		this.frameNo = frameNo;
@@ -28,14 +33,9 @@ public class Frame {
 			return nextFrame;
 		}
 
-		this.nextFrame = new Frame(frameNo + 1);
+		this.nextFrame = new NormalFrame(frameNo + 1);
 		return nextFrame;
 	}
-
-	protected boolean isNotEnd() {
-		return getStatus().isReady() || getStatus().isFirstshot();
-	}
-
 	protected boolean isPinClear() {
 		int totalScore = 0;
 		for (int i = 0; i < pins.size(); i++) {
@@ -46,19 +46,6 @@ public class Frame {
 
 	protected Status getStatus() {
 		return Status.valueOf(isPinClear(), pins.size());
-	}
-
-	protected String changeFormat() {
-		String strScore = "" + pins.get(0);
-		if (isPinClear()) {
-			strScore = checkStrikeOrSpare(getStatus());
-			return strScore;
-		}
-		if (getStatus().isMissOrNormal()) {
-			strScore = checkMissOrNormal(getLastData());
-		}
-
-		return isFirstOrNot(strScore);
 	}
 
 	protected String checkStrikeOrSpare(Status status) {
@@ -75,34 +62,20 @@ public class Frame {
 		return "" + getLastData();
 	}
 
-	protected String isFirstOrNot(String convertedScore) {
-		if (pins.size() > 1) {
-			return pins.get(0) + "|" + convertedScore;
-		}
-		return convertedScore;
-	}
-
-	protected int checkSecondIsRight() {
-		if (getStatus().isFirstshot()) {
-			return getLastData();
-		}
-		return 0;
-	}
-
 	protected int getLastData() {
 		return pins.get(pins.size() - 1);
 	}
-	
+
 	public int makeFrameScore() {
 		int frameScore = makeScore();
 		Score score = new Score(frameScore, bonusTryNum());
-		
+
 		if (isPinClear() && nextFrame != null) {
 			score = nextFrame.addBonusScore(score);
 		}
 		return score.getScore();
 	}
-	
+
 	private Score addBonusScore(Score score) {
 		int count = 0;
 		while (!score.isEnded() && count < pins.size()) {
@@ -115,7 +88,7 @@ public class Frame {
 		}
 		return score;
 	}
-	
+
 	private int makeScore() {
 		int score = 0;
 		for (Integer falledPin : pins) {
@@ -123,7 +96,7 @@ public class Frame {
 		}
 		return score;
 	}
-	
+
 	private int bonusTryNum() {
 		if (getStatus().isStrike()) {
 			return 2;

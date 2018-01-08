@@ -12,15 +12,15 @@ public class Frames {
 	public void addFrame(Frame frame) {
 		totalFrames.add(frame);
 	}
-	
+
 	public void updateFrames(Frame frame) {
 		totalFrames.set(countFrame() - 1, frame);
 	}
-	
+
 	public Frame getFrame(int index) {
 		return totalFrames.get(index);
 	}
-	
+
 	public int countFrame() {
 		return totalFrames.size();
 	}
@@ -28,11 +28,11 @@ public class Frames {
 	public Boolean isGameEnd(){
 		return totalFrames.size() < 10;
 	}
-	
+
 	public Boolean isNotStart() {
 		return countFrame() == 0;
 	}
-	
+
 	public Frame getLastFrame() {
 		return getFrame(countFrame() - 1);
 	}
@@ -40,11 +40,11 @@ public class Frames {
 	public ArrayList<String> makeResultBoard() {
 		ArrayList<String> resultList = new ArrayList<>();
 		for(Frame frame : totalFrames) {
-		  resultList.add(frame.changeFormat());
+			resultList.add(frame.changeFormat());
 		}
 
 		for (int i = resultList.size(); i < 10; i++) {
-		  resultList.add("");
+			resultList.add("");
 		}
 		return resultList;
 	}
@@ -56,7 +56,7 @@ public class Frames {
 		}
 		return resultBoard;
 	}
-	
+
 	public ArrayList<String> makePrintResult() {
 		ArrayList<String> result = new ArrayList<String> ();
 		int count = 0;

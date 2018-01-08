@@ -23,7 +23,7 @@ public class InputView {
 				if (isSecondWrong(frame, score)) {
 					throw new InputException("총 핀의 갯수는 10입니다. 이를 넘을 수 없습니다.");
 				}
-				
+
 				return score;
 			}
 			catch (InputException e) {
@@ -34,7 +34,7 @@ public class InputView {
 			}
 		}
 	}
-	
+
 	private static boolean isSecondWrong(Frame frame, int score) {
 		return frame.checkSecondIsRight() + score > 10;
 	}
