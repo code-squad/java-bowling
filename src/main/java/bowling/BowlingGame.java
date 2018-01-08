@@ -1,6 +1,5 @@
 package bowling;
 
-import java.util.ArrayList;
 
 public class BowlingGame {
 
@@ -9,19 +8,24 @@ public class BowlingGame {
 	}
 
 	public static void gameStart() throws Exception {
-		Frames frames = new Frames();
 		String result = ResultView.basicPrint();
-		while (frames.isGameEnd()) {
-			Frame frame = new NormalFrame(new ArrayList<Integer>());
-			if (frames.countFrame() == 10)
-				frame = new FinalFrame(new ArrayList<Integer>());
-			while (frame.isNotEnd()) {
-				frame.addScore(frame.validateAddScore(frames.countFrame()));
-				result += frame.getStatusResult();
-				ResultView.printScore(result);
-			}
-			frames.addFrame(frame);
+		Player player = new Player(InputView.inputName());
+		Frames frames = new Frames();
+		Frame frame = makeFirstFrame();
+		while (frames.addFrame(frame)) {
+			int score = InputView.inputScore(frames.countFrame());
+			if(frame.validateAddScore(score) == null)
+				continue;
+			frame = frame.addScore(frame.validateAddScore(score));
+			frames.getFrameScore();
+			result = frames.getStatusResult();
+			ResultView.printScore(result, player);
 		}
+
+	}
+
+	private static Frame makeFirstFrame() {
+		return new NormalFrame(0);
 	}
 
 }

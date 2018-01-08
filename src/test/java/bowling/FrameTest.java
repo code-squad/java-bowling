@@ -13,7 +13,7 @@ public class FrameTest {
 
 	@Before
 	public void setUp() {
-		frame = new NormalFrame(new ArrayList<Integer>());
+		frame = new NormalFrame(1);
 	}
 
 	@Test

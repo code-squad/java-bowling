@@ -1,7 +1,7 @@
 package bowling;
 
 public enum Status {
-	STRIKE(1, 1, 3), SPARE(1, 2, 2), MISSORNORMAL(0, 2, 1), READY(0, 1, 2);
+	STRIKE(1, 1, 3), SPARE(1, 2, 2), MISSORNORMAL(0, 2, 1), READY(0, 1, 0);
 
 	private int scopeOfScore;
 	private int size;
@@ -14,7 +14,13 @@ public enum Status {
 	}
 
 	public int getLastChance() {
+		if(this == MISSORNORMAL)
+			return lastChance - 1;
 		return lastChance;
+	}
+
+	public int getScopeOfScore() {
+		return scopeOfScore;
 	}
 
 	public static Status valueOf(int scopeOfScore, int size) {
@@ -24,5 +30,6 @@ public enum Status {
 		}
 		return null;
 	}
+
 
 }

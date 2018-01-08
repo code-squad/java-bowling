@@ -2,7 +2,6 @@ package bowling;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,16 +14,14 @@ public class FinalFrameTest {
 
 	@Before
 	public void setUp() {
-		finalFrame = new FinalFrame(new ArrayList<Integer>());
+		finalFrame = new FinalFrame(10);
 	}
 
 	@Test
 	public void finalFrameStrike() throws MyException {
 		finalFrame.addScore(10);
-		assertEquals(true, finalFrame.isNotEnd());
 		assertEquals(STRIKE, finalFrame.getStatus());
 		finalFrame.addScore(7);
-		assertEquals(true, finalFrame.isNotEnd());
 		finalFrame.addScore(10);
 		assertEquals(false, finalFrame.isNotEnd());
 		assertEquals(null, finalFrame.getStatus());
@@ -34,10 +31,8 @@ public class FinalFrameTest {
 	public void finalFrameSpare() throws MyException {
 		finalFrame.addScore(6);
 		finalFrame.addScore(4);
-		assertEquals(true, finalFrame.isNotEnd());
 		assertEquals(SPARE, finalFrame.getStatus());
 		finalFrame.addScore(2);
-		assertEquals(false, finalFrame.isNotEnd());
 		assertEquals(null, finalFrame.getStatus());
 
 	}
