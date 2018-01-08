@@ -17,6 +17,16 @@ public class Frames {
 			frame.addFrames(frames);
 		return true;
 	}
+//	public boolean isAddPossible(Frame frame) {
+//		if (frames.get(countFrame()) != null)
+//			return frames.get(countFrame()) == frame;
+//		return true;
+//	}
+//
+//	public void addFrames(Frame frame) {
+//		frames.put(countFrame(), frame);
+//	}
+
 
 	public int countFrame() {
 		return frames.size();

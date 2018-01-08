@@ -18,19 +18,25 @@ public abstract class Frame {
 	protected ArrayList<Integer> getFrame() {
 		return frame;
 	}
-
-	protected boolean isFrameEmpty() {
-		return frame.isEmpty();
+	
+	protected int getFrameNum(){
+		return frameNum;
 	}
 
 	public boolean isAddPossible(HashMap<Integer, Frame> frames) {
+
 		if (frames.get(frameNum) != null)
 			return frames.get(frameNum) == this;
 		return true;
 	}
 
 	public void addFrames(HashMap<Integer, Frame> frames) {
+
 		frames.put(frameNum, this);
+	}
+
+	protected boolean isFrameEmpty() {
+		return frame.isEmpty();
 	}
 
 	protected int getFrameSize() {
@@ -68,33 +74,64 @@ public abstract class Frame {
 	}
 
 	public Score calcScore() {
-		if (isNotEnd()) {
+		if (isNotEnd())
 			return null;
-		}
-		if (getStatus() == Status.MISSORNORMAL) {
-			return new Score(getFirstPin() + getSecondPin(), 0);
-		}
-		if (isSpare()) {
-			Score frameScore = new Score(10, 1);
-			calcSparePin(frameScore);
-			return frameScore;
-		}
 
-		if (isStrike()) {
-			Score frameScore = new Score(10, 2);
-			calcStrikePin(frameScore);
+		frameScore = createScore();
+
+		if (frameScore.isEnded()) {
 			return frameScore;
+		}
+		if(frameNum == 9 && frame.size() == 3){
+			return addNextScore(frameScore, frameNum);
+		}
+		if (nextFrame != null) {
+			return nextFrame.addNextScore(frameScore, frameNum);
 		}
 		return null;
 	}
+	
+	protected Score addNextScore(Score frameScore, int frameNum) {
+		for (Integer score : frame) {
+			if (!frameScore.isEnded())
+				frameScore.bowl(score);
+		}
+		if (frameScore.isEnded())
+			return frameScore;
+		if (nextFrame != null)
+			return nextFrame.addNextScore(frameScore, frameNum);
+		return null;
+		
+	}
+
+	private Score createScore() {
+		if (getStatus() == Status.MISSORNORMAL) {
+			return new Score(getFirstPin() + getSecondPin(), 0);
+		}
+		return new Score(10, createBonusNum());
+	}
+
+	protected int createBonusNum() {
+		if (isSpare())
+			return 1;
+		if (isStrike())
+			return 2;
+		return 0;
+	}
+	
+//	private int createStartPin(){
+//		if(frameNum == 9)
+//			return 0;
+//		return 10;
+//	}
 
 	public void getFrameScore(ArrayList<Integer> total) {
-		if (calcScore() != null && calcScore().isEnded())
+		if (calcScore() != null)
 			total.add(calcScore().getFrameScore());
 	}
 
-	protected void calcSparePin(Score frameScore) {
-		nextFrame.addFirstScore(frameScore);
+	protected Score calcSparePin(Score frameScore) {
+		return nextFrame.addFirstScore(frameScore);
 	}
 
 	protected void calcStrikePin(Score frameScore) {
@@ -108,9 +145,10 @@ public abstract class Frame {
 		}
 	}
 
-	protected void addFirstScore(Score frameScore) {
+	protected Score addFirstScore(Score frameScore) {
 		if (frame.size() >= 1)
 			frameScore.bowl(getFirstPin());
+		return frameScore;
 	}
 
 	protected void addSecondScore(Score frameScore) {
@@ -118,9 +156,10 @@ public abstract class Frame {
 			frameScore.bowl(getSecondPin());
 	}
 
-	protected void addThirdScore(Score frameScore) {
+	protected Score addThirdScore(Score frameScore) {
 		if (frame.size() == 3)
 			frameScore.bowl(getBonusPin());
+		return frameScore;
 	}
 
 	protected void addNextFrameScore(Score frameScore) {
@@ -210,18 +249,17 @@ public abstract class Frame {
 
 	protected boolean isStrike() {
 		if (frame.size() >= 1)
-			return isFinalStrikeOrSpare() && getFirstPin() == 10 ;
+			return isFinalStrikeOrSpare() && getFirstPin() == 10;
 		return false;
 	}
 
-	protected boolean isSpare(){
+	protected boolean isSpare() {
 		if (getFrameSize() >= 2)
 			return isFinalStrikeOrSpare() && (getFirstPin() + getSecondPin() == 10);
 		return false;
 	}
 
 	protected abstract boolean isFinalStrikeOrSpare();
-
 
 	protected abstract boolean isNotEnd();
 

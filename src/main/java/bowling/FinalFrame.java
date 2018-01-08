@@ -1,5 +1,7 @@
 package bowling;
 
+import java.util.ArrayList;
+
 public class FinalFrame extends Frame {
 	private LastScore lastScore;
 
@@ -49,8 +51,8 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	protected void calcSparePin(Score frameScore) {
-		addThirdScore(frameScore);
+	protected Score calcSparePin(Score frameScore) {
+		return addThirdScore(frameScore);
 	}
 
 	@Override
@@ -58,11 +60,22 @@ public class FinalFrame extends Frame {
 		addSecondScore(frameScore);
 		addThirdScore(frameScore);
 	}
-	
 
 	@Override
 	protected boolean isFinalStrikeOrSpare() {
 		return getFrameSize() == 3;
+	}
+
+	@Override
+	protected Score addNextScore(Score frameScore, int frameNum) {
+		if(frameNum == 8)
+			return super.addNextScore(frameScore, frameNum);
+		frameScore = new Score(0, createBonusNum());
+		for (Integer score : getFrame()) {
+			frameScore.bowl(score);
+		}
+		return frameScore;
+
 	}
 
 

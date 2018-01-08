@@ -16,6 +16,9 @@ public class Score {
 		this.leftNum--;
 	}
 	
+	public int getLeftNum(){
+		return leftNum;
+	}
 
 	public int getFrameScore() {
 		return frameScore;
