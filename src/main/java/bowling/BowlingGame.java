@@ -6,7 +6,7 @@ public class BowlingGame {
 		frame = takeInput(frames, frame, playerName);
 		return frame;
 	}
-	
+
 	private static Frame takeInput(Frames frames, Frame frame, String playerName) {
 		while (frame.isNotEnd()) {
 			frame.addScore(InputView.inputScore(frame.getFrameNo(), frame));
@@ -25,7 +25,7 @@ public class BowlingGame {
 
 	public static void playOneFrame(Frames frames, String playerName) {
 		if (frames.isNotStart()) {
-			Frame frame = new Frame(1);
+			Frame frame = new NormalFrame(1);
 			frame = bowl(frames, frame, playerName);
 			return;
 		}

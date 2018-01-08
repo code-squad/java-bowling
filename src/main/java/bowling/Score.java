@@ -8,7 +8,7 @@ public class Score {
 		this.score = score;
 		this.leftNo = leftNo;
 	}
-	
+
 	public int getScore() {
 		return this.score;
 	}

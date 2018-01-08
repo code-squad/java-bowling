@@ -19,7 +19,7 @@ public class ResultView {
 		System.out.println();
 		System.out.print("|" + "\t" + name + "\t" + "|");
 	}
-	
+
 	public static void printTotalScore(ArrayList<String> totalResult) {
 		System.out.println("");
 		System.out.print("|   " + "totalScore" + "  |");

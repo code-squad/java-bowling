@@ -11,7 +11,7 @@ public class FrameTest {
 
 	@Before
 	public void setUp(){
-		frame = new Frame(0);
+		frame = new NormalFrame(0);
 		finalFrame = new FinalFrame(0);
 	}
 
