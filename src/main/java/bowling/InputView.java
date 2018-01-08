@@ -4,6 +4,26 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputView {
+	public static int howMany() {
+		while (true) {
+			try {
+				System.out.println("How many people ? ");
+				Scanner scan = new Scanner(System.in);
+				int peopleNo = scan.nextInt();
+				
+				if (isPeopleNoRight(peopleNo)) {
+					throw new InputException("최소 1명 이상의 PLAYER가 있어야 합니다.");
+				}
+				return peopleNo;
+			}
+			catch (InputException e) {
+				System.out.println(e.getMessage());
+			}
+			catch (InputMismatchException ime) {
+				System.out.println("정수를 입력해 주세요...");
+			}
+		}
+	}
 
 	public static String inputName() {
 		System.out.println("플레이어 이름을 입력해 주세요 : ");
@@ -11,10 +31,10 @@ public class InputView {
 		return scan.nextLine();
 	}
 
-	public static int inputScore(int frameNum, Frame frame) {
+	public static int inputScore(String name, Frame frame) {
 		while (true) {
 			try {
-				System.out.print("\n" + (frameNum) + " 프레임 투구 : ");
+				System.out.print("\n" + name + "의 " + (frame.getFrameNo()) + " 프레임 투구 : ");
 				Scanner sc = new Scanner(System.in);
 				int score = sc.nextInt();
 				if (isWrongScore(score)) {
@@ -35,6 +55,9 @@ public class InputView {
 		}
 	}
 
+	private static boolean isPeopleNoRight(int peopleNo) {
+		return peopleNo <= 0;
+	}
 	private static boolean isSecondWrong(Frame frame, int score) {
 		return frame.checkSecondIsRight() + score > 10;
 	}
