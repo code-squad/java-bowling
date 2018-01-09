@@ -6,8 +6,8 @@ import java.util.HashMap;
 public class Frames {
 	HashMap<Integer, Frame> frames = new HashMap<Integer, Frame>();
 
-	Frames() {
-		
+	Frames(HashMap<Integer, Frame> frames) {
+		this.frames = frames;
 	}
 
 	public boolean addFrame(Frame frame) {
@@ -17,30 +17,19 @@ public class Frames {
 			frame.addFrames(frames);
 		return true;
 	}
-//	public boolean isAddPossible(Frame frame) {
-//		if (frames.get(countFrame()) != null)
-//			return frames.get(countFrame()) == frame;
-//		return true;
-//	}
-//
-//	public void addFrames(Frame frame) {
-//		frames.put(countFrame(), frame);
-//	}
 
 
 	public int countFrame() {
 		return frames.size();
 	}
 
-	public void getFrameScore() {
+	public ArrayList<Integer> getFrameScore() {
 		ArrayList<Integer> total = new ArrayList<>();
 		for (Frame frame : frames.values()) {
 			frame.getFrameScore(total);
 		}
-		
-		System.out.println("TotalScore : " + total);
+		return total;
 	}
-
 
 	public String getStatusResult() {
 		String result = "";
@@ -49,6 +38,7 @@ public class Frames {
 		}
 		return result;
 	}
+
 
 
 

@@ -25,8 +25,8 @@ public class LastScore {
 		return lastChance == totalScoreSize;
 	}
 
-	public boolean isGameNotEnd() {
-		return lastChance >= 0;
+	public boolean isGameEnd() {
+		return lastChance == 0;
 	}
 
 	

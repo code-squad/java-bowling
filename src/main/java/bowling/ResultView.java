@@ -1,5 +1,6 @@
 package bowling;
 
+import java.util.ArrayList;
 
 public class ResultView {
 
@@ -17,6 +18,15 @@ public class ResultView {
 		System.out.print("|" + "\t" + "NAME" + "\t" + "|");
 		for (int i = 0; i < 10; i++) {
 			System.out.print("\t" + (i + 1) + "\t" + "|");
+		}
+		System.out.println();
+	}
+
+	public static void printTotalScore(ArrayList<Integer> frameScore, Player player) {
+		System.out.println();
+		System.out.print("|" + "\t" + player.toString() + "\t" + "|");
+		for (Integer totalScore : frameScore) {
+			System.out.print("\t" + totalScore + "\t" + "|");
 		}
 		System.out.println();
 	}
