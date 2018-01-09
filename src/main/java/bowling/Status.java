@@ -14,8 +14,6 @@ public enum Status {
 	}
 
 	public int getLastChance() {
-		if(this == MISSORNORMAL)
-			return lastChance - 1;
 		return lastChance;
 	}
 

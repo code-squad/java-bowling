@@ -3,7 +3,6 @@ package bowling;
 import static bowling.Status.MISSORNORMAL;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class Frame {
 	private int frameNum;
@@ -19,20 +18,6 @@ public abstract class Frame {
 		return frame;
 	}
 
-	protected int getFrameNum() {
-		return frameNum;
-	}
-
-	public boolean isAddPossible(HashMap<Integer, Frame> frames) {
-		if (frames.get(frameNum) != null)
-			return frames.get(frameNum) == this;
-		return true;
-	}
-
-	public void addFrames(HashMap<Integer, Frame> frames) {
-		frames.put(frameNum, this);
-	}
-
 	protected boolean isFrameEmpty() {
 		return frame.isEmpty();
 	}
@@ -43,19 +28,10 @@ public abstract class Frame {
 
 	public void addScore(int score) {
 		frame.add(score);
-		if(frameNum == 9 && getLastChance() == null)
-			setLastChance();
-		countChance(getLastChance());
 	}
 
 	protected LastScore getLastChance(){
 		return null;
-	}
-
-	public boolean isMakeOkay() {
-		if (isNotEnd())
-			return false;
-		return true;
 	}
 	
 	public void setNextFrame(Frame frame){
@@ -118,21 +94,8 @@ public abstract class Frame {
 		return 0;
 	}
 
-	public void getFrameScore(ArrayList<Integer> total) {
-		if (calcScore() != null)
-			total.add(calcScore().getFrameScore());
-	}
+	
 
-	public Integer validateAddScore(int score) throws Exception {
-		try {
-			isLeftPinExist(score);
-		} catch (MyException e) {
-			System.out.println(e.getErrorMessage());
-			return null;
-		}
-		return score;
-
-	}
 
 	private int getScopeOfScore() {
 		int totalScore = 0;
@@ -225,11 +188,11 @@ public abstract class Frame {
 
 	protected abstract boolean checkFrameException(int score);
 	
-	protected abstract void setLastChance();
+	protected abstract LastScore setLastChance();
 
 	public abstract boolean isGameEnd();
 
-	protected void isLeftPinExist(int score) throws MyException {
+	public void isLeftPinExist(int score) throws MyException {
 		if (checkFrameException(score))
 			throw new MyException("남은 핀은 그렇게 많지 않습니다.");
 	}

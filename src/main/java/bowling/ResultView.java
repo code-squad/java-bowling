@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class ResultView {
 
-	public static void printScore(String score, Player player) {
+	public static void printScore(Player player) {
 		printFormat();
 		System.out.print("|" + "\t" + player.toString() + "\t" + "|");
-		System.out.print(score + "\t");
+		System.out.print(player.getStatusResult() + "\t");
 	}
 
 	public static String basicPrint() {
@@ -22,11 +22,11 @@ public class ResultView {
 		System.out.println();
 	}
 
-	public static void printTotalScore(ArrayList<Integer> frameScore, Player player) {
+	public static void printTotalScore(ArrayList<Integer> totalScore) {
 		System.out.println();
-		System.out.print("|" + "\t" + player.toString() + "\t" + "|");
-		for (Integer totalScore : frameScore) {
-			System.out.print("\t" + totalScore + "\t" + "|");
+		System.out.print("|" + "\t" + "\t" + "|");
+		for (Integer score : totalScore) {
+			System.out.print("\t" + score + "\t" + "|");
 		}
 		System.out.println();
 	}

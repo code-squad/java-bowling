@@ -8,20 +8,19 @@ public class LastScore {
 	}
 
 	public int useChance() {
-		if(isLastChanceNotEnd())
-			return lastChance -= 1;
+		lastChance = lastChance - 1;
 		return lastChance;
 	}
 
 	public boolean isFinal() {
-		return lastChance != 0;
+		return lastChance == 0;
 	}
-	
-	public boolean isLastChanceNotEnd(){
+
+	public boolean isLastChanceNotEnd() {
 		return lastChance > 0;
 	}
-	
-	public boolean isSameSize(int totalScoreSize){
+
+	public boolean isSameSize(int totalScoreSize) {
 		return lastChance == totalScoreSize;
 	}
 
@@ -29,8 +28,8 @@ public class LastScore {
 		return lastChance == 0;
 	}
 
-	
-	
-
+	public int getlast() {
+		return lastChance;
+	}
 
 }

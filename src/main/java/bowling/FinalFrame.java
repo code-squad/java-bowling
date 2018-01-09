@@ -12,20 +12,22 @@ public class FinalFrame extends Frame {
 	protected boolean isNotEnd() {
 		if (isFrameEmpty())
 			return true;
-		if(lastScore != null){
-			return lastScore.isFinal();
-		}
-		return true;
+		if(lastScore == null)
+			return true;
+		return !lastScore.isFinal();
 	}
 	@Override
-	protected void setLastChance(){
-		if (getStatus() != Status.READY && lastScore == null)
+	protected LastScore setLastChance(){
+		if (getStatus() != Status.READY && lastScore == null){
 			lastScore = new LastScore(getStatus().getLastChance());
+		}
+		return lastScore;
 	}
 	@Override
 	protected void countChance(LastScore lastScore){
-		if(lastScore != null)
+		if(lastScore != null){
 			lastScore.useChance();
+		}
 	}
 	
 

@@ -46,7 +46,8 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	protected void setLastChance() {
+	protected LastScore setLastChance() {
+		return null;
 		
 	}
 
