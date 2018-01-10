@@ -1,6 +1,5 @@
 package bowling;
 
-
 public class BowlingGame {
 
 	public static void main(String[] args) throws Exception {
@@ -8,24 +7,19 @@ public class BowlingGame {
 	}
 
 	public static void gameStart() throws Exception {
-		String result = ResultView.basicPrint();
-		Player player = new Player(InputView.inputName());
-		Frames frames = new Frames();
-		Frame frame = makeFirstFrame();
-		while (frames.addFrame(frame)) {
-			int score = InputView.inputScore(frames.countFrame());
-			if(frame.validateAddScore(score) == null)
+		Players players = new Players(InputView.inputName(InputView.inputPlayerNum()));
+		while (!players.isGameOver()) {
+			int score = InputView.inputScore(players.getCurrentPlayer());
+			players.makeFrame();
+			if (players.validateAddScore(score) == null)
 				continue;
-			frame = frame.addScore(frame.validateAddScore(score));
-			frames.getFrameScore();
-			result = frames.getStatusResult();
-			ResultView.printScore(result, player);
+			players.addScore(score);
+			for (Player player : players.getPlayers()) {
+				ResultView.printScore(player);
+				ResultView.printTotalScore(player.getFrameScore());
+			}
 		}
 
-	}
-
-	private static Frame makeFirstFrame() {
-		return new NormalFrame(0);
 	}
 
 }

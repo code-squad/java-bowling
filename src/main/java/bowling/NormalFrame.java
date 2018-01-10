@@ -36,13 +36,19 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	public boolean isGameNotEnd() {
-		return true;
+	public boolean isGameEnd() {
+		return false;
 	}
 
 	@Override
 	protected boolean isFinalStrikeOrSpare() {
 		return true;
+	}
+
+	@Override
+	protected LastScore setLastChance() {
+		return null;
+		
 	}
 
 

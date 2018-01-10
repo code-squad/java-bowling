@@ -3,7 +3,6 @@ package bowling;
 import static bowling.Status.MISSORNORMAL;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class Frame {
 	private int frameNum;
@@ -18,22 +17,6 @@ public abstract class Frame {
 	protected ArrayList<Integer> getFrame() {
 		return frame;
 	}
-	
-	protected int getFrameNum(){
-		return frameNum;
-	}
-
-	public boolean isAddPossible(HashMap<Integer, Frame> frames) {
-
-		if (frames.get(frameNum) != null)
-			return frames.get(frameNum) == this;
-		return true;
-	}
-
-	public void addFrames(HashMap<Integer, Frame> frames) {
-
-		frames.put(frameNum, this);
-	}
 
 	protected boolean isFrameEmpty() {
 		return frame.isEmpty();
@@ -43,17 +26,18 @@ public abstract class Frame {
 		return frame.size();
 	}
 
-	public Frame addScore(int score) {
+	public void addScore(int score) {
 		frame.add(score);
-		if (isNotEnd())
-			return this;
-		if (frameNum < 8) {
-			this.nextFrame = new NormalFrame(frameNum + 1);
-			return nextFrame;
-		}
-		this.nextFrame = new FinalFrame(frameNum + 1);
-		return nextFrame;
 	}
+
+	protected LastScore getLastChance(){
+		return null;
+	}
+	
+	public void setNextFrame(Frame frame){
+		this.nextFrame = frame;
+	}
+
 
 	protected int getFirstPin() {
 		return frame.get(0);
@@ -67,47 +51,38 @@ public abstract class Frame {
 		return frame.get(2);
 	}
 
-	protected Integer getNextFrameFirstPin() {
-		if (nextFrame.getFrameSize() >= 1)
-			return nextFrame.getFirstPin();
-		return null;
-	}
-
 	public Score calcScore() {
 		if (isNotEnd())
 			return null;
 
 		frameScore = createScore();
 
-		if (frameScore.isEnded()) {
+		if (frameScore.isEnded())
 			return frameScore;
-		}
-		if(frameNum == 9 && frame.size() == 3){
+		if (frameNum == 9)
 			return addNextScore(frameScore, frameNum);
-		}
-		if (nextFrame != null) {
+		if (nextFrame != null)
 			return nextFrame.addNextScore(frameScore, frameNum);
-		}
 		return null;
 	}
-	
+
 	protected Score addNextScore(Score frameScore, int frameNum) {
 		for (Integer score : frame) {
-			if (!frameScore.isEnded())
+			if (!frameScore.isEnded()) {
 				frameScore.bowl(score);
+			}
 		}
 		if (frameScore.isEnded())
 			return frameScore;
 		if (nextFrame != null)
 			return nextFrame.addNextScore(frameScore, frameNum);
 		return null;
-		
+
 	}
 
 	private Score createScore() {
-		if (getStatus() == Status.MISSORNORMAL) {
+		if (getStatus() == Status.MISSORNORMAL)
 			return new Score(getFirstPin() + getSecondPin(), 0);
-		}
 		return new Score(10, createBonusNum());
 	}
 
@@ -118,65 +93,9 @@ public abstract class Frame {
 			return 2;
 		return 0;
 	}
+
 	
-//	private int createStartPin(){
-//		if(frameNum == 9)
-//			return 0;
-//		return 10;
-//	}
 
-	public void getFrameScore(ArrayList<Integer> total) {
-		if (calcScore() != null)
-			total.add(calcScore().getFrameScore());
-	}
-
-	protected Score calcSparePin(Score frameScore) {
-		return nextFrame.addFirstScore(frameScore);
-	}
-
-	protected void calcStrikePin(Score frameScore) {
-		if (nextFrame.isStrike() && frameNum != 8) {
-			nextFrame.addFirstScore(frameScore);
-			nextFrame.addNextFrameScore(frameScore);
-		}
-		if (nextFrame.getFrameSize() >= 2) {
-			nextFrame.addFirstScore(frameScore);
-			nextFrame.addSecondScore(frameScore);
-		}
-	}
-
-	protected Score addFirstScore(Score frameScore) {
-		if (frame.size() >= 1)
-			frameScore.bowl(getFirstPin());
-		return frameScore;
-	}
-
-	protected void addSecondScore(Score frameScore) {
-		if (frame.size() >= 2)
-			frameScore.bowl(getSecondPin());
-	}
-
-	protected Score addThirdScore(Score frameScore) {
-		if (frame.size() == 3)
-			frameScore.bowl(getBonusPin());
-		return frameScore;
-	}
-
-	protected void addNextFrameScore(Score frameScore) {
-		if (nextFrame != null && nextFrame.getFrameSize() >= 1)
-			nextFrame.addFirstScore(frameScore);
-	}
-
-	public Integer validateAddScore(int score) throws Exception {
-		try {
-			isLeftPinExist(score);
-		} catch (MyException e) {
-			System.out.println(e.getErrorMessage());
-			return null;
-		}
-		return score;
-
-	}
 
 	private int getScopeOfScore() {
 		int totalScore = 0;
@@ -254,7 +173,7 @@ public abstract class Frame {
 	}
 
 	protected boolean isSpare() {
-		if (getFrameSize() >= 2)
+		if (frame.size() >= 2)
 			return isFinalStrikeOrSpare() && (getFirstPin() + getSecondPin() == 10);
 		return false;
 	}
@@ -268,16 +187,21 @@ public abstract class Frame {
 	protected abstract String makeFinalSpareResult();
 
 	protected abstract boolean checkFrameException(int score);
+	
+	protected abstract LastScore setLastChance();
 
-	public abstract boolean isGameNotEnd();
+	public abstract boolean isGameEnd();
 
-	protected void isLeftPinExist(int score) throws MyException {
+	public void isLeftPinExist(int score) throws MyException {
 		if (checkFrameException(score))
 			throw new MyException("남은 핀은 그렇게 많지 않습니다.");
 	}
 
 	public boolean isOver() {
 		return frameNum > 9;
+	}
+
+	protected void countChance(LastScore lastScore) {
 	}
 
 }

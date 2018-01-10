@@ -1,6 +1,5 @@
 package bowling;
 
-import java.util.ArrayList;
 
 public class FinalFrame extends Frame {
 	private LastScore lastScore;
@@ -13,14 +12,24 @@ public class FinalFrame extends Frame {
 	protected boolean isNotEnd() {
 		if (isFrameEmpty())
 			return true;
-		if (getStatus() != Status.READY && lastScore == null)
-			lastScore = new LastScore(getStatus().getLastChance() + 1);
-		if (lastScore != null) {
-			lastScore.useChance();
-			return lastScore.isFinal();
-		}
-		return true;
+		if(lastScore == null)
+			return true;
+		return !lastScore.isFinal();
 	}
+	@Override
+	protected LastScore setLastChance(){
+		if (getStatus() != Status.READY && lastScore == null){
+			lastScore = new LastScore(getStatus().getLastChance());
+		}
+		return lastScore;
+	}
+	@Override
+	protected void countChance(LastScore lastScore){
+		if(lastScore != null){
+			lastScore.useChance();
+		}
+	}
+	
 
 	@Override
 	protected String makeFinalStrikeResult() {
@@ -42,23 +51,12 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	public boolean isGameNotEnd() {
+	public boolean isGameEnd() {
 		if (lastScore == null)
-			return true;
-		if (lastScore.isGameNotEnd())
+			return false;
+		if (lastScore.isGameEnd())
 			return true;
 		return false;
-	}
-
-	@Override
-	protected Score calcSparePin(Score frameScore) {
-		return addThirdScore(frameScore);
-	}
-
-	@Override
-	protected void calcStrikePin(Score frameScore) {
-		addSecondScore(frameScore);
-		addThirdScore(frameScore);
 	}
 
 	@Override
@@ -68,14 +66,21 @@ public class FinalFrame extends Frame {
 
 	@Override
 	protected Score addNextScore(Score frameScore, int frameNum) {
-		if(frameNum == 8)
+		if(frameNum < 9)
 			return super.addNextScore(frameScore, frameNum);
-		frameScore = new Score(0, createBonusNum());
-		for (Integer score : getFrame()) {
+		frameScore = new Score(0, 3);
+		for (Integer score : getFrame()){
 			frameScore.bowl(score);
 		}
-		return frameScore;
+		if(frameScore.isEnded())
+			return frameScore;
+		return null;
 
+	}
+
+	@Override
+	protected LastScore getLastChance() {
+		return lastScore;
 	}
 
 
