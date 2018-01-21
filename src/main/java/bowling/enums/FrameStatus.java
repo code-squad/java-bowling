@@ -15,7 +15,7 @@ public enum FrameStatus {
             return NOT_END;
         if(total == 10)
             return SPARE;
-        
+
         return MISS;
     }
 }
