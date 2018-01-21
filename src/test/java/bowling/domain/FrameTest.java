@@ -18,4 +18,5 @@ public class FrameTest {
     public void frameStatusTest() {
         assertThat(frame.status()).isEqualTo(FrameStatus.NOT_END);
     }
+
 }
