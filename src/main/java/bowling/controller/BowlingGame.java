@@ -6,8 +6,8 @@ import bowling.view.InputView;
 import bowling.view.OutputView;
 
 public class BowlingGame {
-	public static void main(String[] args) {
 
+	public static void main(String[] args) {
 		Frame head = new Frame();
 		Frame current = head;
 
@@ -15,12 +15,11 @@ public class BowlingGame {
 		OutputView.printScoreView(player, setScore(head));
 
 
-		while (current.getId() < 10) {
+		while (current != null && current.getId() <= 10) {
 			int score = InputView.askScore(current.getId());
 			current = current.bowl(score);
 			OutputView.printScoreView(player, setScore(head));
 		}
-
 	}
 
 	private static String[] setScore(Frame head) {

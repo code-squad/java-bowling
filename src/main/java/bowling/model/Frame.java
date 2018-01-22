@@ -16,30 +16,30 @@ public class Frame {
 	}
 
 	public Frame bowl(int intScore) {
-	    if (temp < 0 && intScore == 10) {
-	        score = new StrikeScore();
-	        next = new Frame(id + 1);
-	        return next;
-        }
-
         if (temp < 0 && intScore < 10) {
 	        temp = intScore;
 	        return this;
         }
 
-        if (temp + intScore == 10) {
+	    if (temp < 0 && intScore == 10) {
+	        score = new StrikeScore();
+        }
+
+        if (temp >= 0 && temp + intScore == 10) {
 	        score = new SpareScore(temp);
-	        next = new Frame(id + 1);
-	        return next;
         }
 
-        if (temp + intScore < 10) {
+        if (temp >= 0 && temp + intScore < 10) {
 	        score = new MissScore(temp, intScore);
-	        next = new Frame(id + 1);
+        }
+
+        if (id == 9) {
+        	next = new FinalFrame();
 	        return next;
         }
 
-        return this;
+        next = new Frame(id + 1);
+		return next;
 	}
 
 	public int getId() {
@@ -49,7 +49,7 @@ public class Frame {
 	@Override
 	public String toString() {
 		if (score == null) {
-			return temp == -1 ? "     " : "  " + temp + "  ";
+			return temp == -1 ? "     " : "  " + ((temp == 0) ? "-" : temp) + "  ";
 		}
 		return score.toString();
 	}
