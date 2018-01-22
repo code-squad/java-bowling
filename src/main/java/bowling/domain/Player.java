@@ -30,6 +30,10 @@ public class Player {
         frames.rollBowlingBall(round, pin);
     }
 
+    public boolean isCurrentFrameEnd() {
+        return frames.isCurrentFrameEnd(round);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

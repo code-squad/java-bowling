@@ -30,6 +30,13 @@ public class PlayerTest {
     }
 
     @Test
+    public void inRoundEndTest() {
+        assertThat(player.isCurrentFrameEnd()).isFalse();
+        player.rollBowlingBall(new Pin(10));
+        assertThat(player.isCurrentFrameEnd()).isTrue();
+    }
+
+    @Test
     public void rollBowlingBallTest() {
         //player.rollBowlingBall(new Pin(5));
     }

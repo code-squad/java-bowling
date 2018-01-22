@@ -29,6 +29,10 @@ public class Frames {
         frame(round).rollBowlingBall(fellPin);
     }
 
+    public boolean isCurrentFrameEnd(int frameNo) {
+        return frame(frameNo).isFrameEnd();
+    }
+
     public String printFrames() {
         StringBuilder sb = new StringBuilder();
 
@@ -37,10 +41,5 @@ public class Frames {
                 .forEach(sb::append);
 
         return sb.toString();
-    }
-
-    public boolean isCurrentFrameEnd(CurrentInfo currentInfo) {
-        return frames.get(currentInfo.getCurrentRound())
-                .isFrameEnd();
     }
 }

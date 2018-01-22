@@ -28,6 +28,11 @@ public class BowlingGame {
         getCurrentPlayer().rollBowlingBall(fellPin);
     }
 
+/*    public void rotatePlayer() {
+        if(getCurrentPlayer().isRoundEnd())
+            playerQueue.rotate();
+    }*/
+
 /*    public String printView() {
         StringBuilder sb = new StringBuilder(TOP_MESSAGE);
         sb.append("|  ")

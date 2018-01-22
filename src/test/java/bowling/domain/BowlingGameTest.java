@@ -35,14 +35,5 @@ public class BowlingGameTest {
                 "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
                 "|  KKH |      |      |      |      |      |      |      |      |      |      |"
         );
-    }
-
-    @Test
-    public void rollBowlingBallTest() {
-        bowlingGame.rollBowlingBall(new CurrentInfo("KKH", 0), new Pin(10));
-        assertThat(bowlingGame.printView()).isEqualTo(
-                "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
-                "|  KKH |  X   |      |      |      |      |      |      |      |      |      |"
-        );
     }*/
 }
