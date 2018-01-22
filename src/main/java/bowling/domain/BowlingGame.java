@@ -20,4 +20,8 @@ public class BowlingGame {
 
         return sb.toString();
     }
+
+    public CurrentInfo getCurrentInfo() {
+        return new CurrentInfo(player, round);
+    }
 }

@@ -19,4 +19,9 @@ public class BowlingGameTest {
                 "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
                 "|  KKH |      |      |      |      |      |      |      |      |      |      |");
     }
+
+    @Test
+    public void getCurrentInfo() {
+        assertThat(bowlingGame.getCurrentInfo()).isEqualTo(new CurrentInfo("KKH", 1));
+    }
 }
