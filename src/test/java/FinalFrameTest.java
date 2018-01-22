@@ -1,4 +1,4 @@
-//import model.FinalFrame;
+//import model.frame.FinalFrame;
 //import org.junit.Before;
 //import org.junit.Test;
 //

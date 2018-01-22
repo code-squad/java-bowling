@@ -2,23 +2,22 @@ package model;
 
 public class Ball {
     private int pinCount;
-    private boolean isPlayed;
 
-    public Ball() {
-        this.isPlayed = false;
+    public Ball(int pinCount) {
+        if (!isValidInput(pinCount))
+            throw new IllegalArgumentException();
+
+        this.pinCount = pinCount;
+    }
+
+    private boolean isValidInput(int input) {
+        if (input < 0 || input > 10)
+            return false;
+        return true;
     }
 
     public int getPinCount() {
         return pinCount;
-    }
-
-    public void setPinCount(int pinCount) {
-        this.pinCount = pinCount;
-        this.isPlayed = true;
-    }
-
-    public boolean isPlayed() {
-        return isPlayed;
     }
 
     @Override

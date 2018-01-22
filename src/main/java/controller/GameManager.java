@@ -1,7 +1,7 @@
 package controller;
 
-import model.Frame;
-import model.NormalFrame;
+import model.frame.Frame;
+import model.frame.NormalFrame;
 
 public class GameManager {
     private Frame frame;

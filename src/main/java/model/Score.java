@@ -1,29 +1,36 @@
 package model;
 
+import model.Ball;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FinalRoundScore {
+public class Score {
+
     private List<Ball> bowlingBalls;
-    private int count;
+    private Ball bonusBall;
 
-    public FinalRoundScore() {
-        bowlingBalls = IntStream.range(0, 3)
-                .mapToObj(i -> new Ball())
-                .collect(Collectors.toList());
+    public Score(List<Ball> bowlingBalls) {
+//        if (isValidInput(bowlingBalls))
+//            throw new IllegalArgumentException();
 
-        count = 0;
+        int size = bowlingBalls.size();
+
+        if (size < 3) {
+            this.bowlingBalls = bowlingBalls;
+            return;
+        }
+
+        this.bonusBall = bowlingBalls.remove(size - 1);
+        this.bowlingBalls = bowlingBalls;
     }
 
-    public boolean bowl(int number) throws IllegalArgumentException {
-        if (!isValidNumber(number))
-            throw new IllegalArgumentException();
-
-        setPinCount(count, number);
-        count++;
-
-        return false;
+    // To-Do-Later
+    private boolean isValidInput(List<Ball> bowlingBalls) {
+        if (getScoreSum() > 10)
+            return false;
+        return true;
     }
 
     public boolean isStrike() {
@@ -32,10 +39,11 @@ public class FinalRoundScore {
     }
 
     public boolean isSpare() {
+        if (isStrike())
+            return false;
+
         Ball first = bowlingBalls.get(0);
         Ball second = bowlingBalls.get(1);
-        if (!second.isPlayed())
-            return false;
 
         return (first.getPinCount() + second.getPinCount()) == 10;
     }
@@ -44,31 +52,17 @@ public class FinalRoundScore {
         return bowlingBalls.get(index).getPinCount();
     }
 
-    public void setPinCount(int index, int number) {
-        this.bowlingBalls.get(index).setPinCount(number);
-    }
-
     public int getScoreSum() {
         return bowlingBalls.stream()
                 .mapToInt(Ball::getPinCount)
                 .sum();
     }
 
-    private boolean isValidNumber(int number) {
-        return (number >= 0 && number <= 10);
-    }
-
-    public boolean isFinished() {
-        if (count == 2 && getScoreSum() < 10)
-            return true;
-    }
-
     @Override
     public String toString() {
         Ball first = bowlingBalls.get(0);
-        Ball second = bowlingBalls.get(1);
-
         if (isStrike()) return first.toString();
+        Ball second = bowlingBalls.get(1);
         if (isSpare()) return first.toString() + "|/";
         return first.toString() + "|" + second.toString();
     }
