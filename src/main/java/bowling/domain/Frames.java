@@ -29,4 +29,9 @@ public class Frames {
         frames.get(currentInfo.getCurrentRound())
                 .rollBowlingBall(fellPin);
     }
+
+    public boolean isCurrentFrameEnd(CurrentInfo currentInfo) {
+        return frames.get(currentInfo.getCurrentRound())
+                .isFrameEnd();
+    }
 }

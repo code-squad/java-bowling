@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.enums.FrameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,5 +20,12 @@ public class FramesTest {
         assertThat(frames.printFrames()).isEqualTo(
                 "  X   |      |      |      |      |      |      |      |      |      |"
         );
+    }
+
+    @Test
+    public void isCurrentFrameEndTest() {
+        CurrentInfo currentInfo = new CurrentInfo("KKH", 0);
+        frames.rollBowlingBall(currentInfo, new Pin(10));
+        assertThat(frames.isCurrentFrameEnd(currentInfo)).isTrue();
     }
 }

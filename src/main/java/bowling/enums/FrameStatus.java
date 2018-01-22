@@ -38,4 +38,10 @@ public enum FrameStatus {
         }
         return "   ";
     }
+
+    public static boolean isEnd(FrameStatus status) {
+        return status == STRIKE
+                || status == SPARE
+                || status == MISS;
+    }
 }

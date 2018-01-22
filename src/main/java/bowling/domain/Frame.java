@@ -43,4 +43,8 @@ public class Frame {
         if(firstTry.isOverTen(pin))
             throw new IllegalArgumentException("SecondTry num make total pin over 10");
     }
+
+    public boolean isFrameEnd() {
+        return FrameStatus.isEnd(status());
+    }
 }

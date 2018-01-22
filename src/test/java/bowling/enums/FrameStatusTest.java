@@ -24,4 +24,13 @@ public class FrameStatusTest {
         assertThat(FrameStatus.toView(new Pin(5), new Pin(0))).isEqualTo("5|-");
         assertThat(FrameStatus.toView(new Pin(0), new Pin(0))).isEqualTo("-|-");
     }
+
+    @Test
+    public void isEndTest() {
+        assertThat(FrameStatus.isEnd(FrameStatus.NOT_END)).isFalse();
+        assertThat(FrameStatus.isEnd(FrameStatus.NOT_START)).isFalse();
+        assertThat(FrameStatus.isEnd(FrameStatus.STRIKE)).isTrue();
+        assertThat(FrameStatus.isEnd(FrameStatus.SPARE)).isTrue();
+        assertThat(FrameStatus.isEnd(FrameStatus.MISS)).isTrue();
+    }
 }
