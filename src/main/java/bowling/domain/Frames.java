@@ -25,6 +25,10 @@ public class Frames {
         return frames.get(round);
     }
 
+    public void rollBowlingBall(int round, Pin fellPin) {
+        frame(round).rollBowlingBall(fellPin);
+    }
+
     public String printFrames() {
         StringBuilder sb = new StringBuilder();
 
@@ -33,11 +37,6 @@ public class Frames {
                 .forEach(sb::append);
 
         return sb.toString();
-    }
-
-    public void rollBowlingBall(CurrentInfo currentInfo, Pin fellPin) {
-        frames.get(currentInfo.getCurrentRound())
-                .rollBowlingBall(fellPin);
     }
 
     public boolean isCurrentFrameEnd(CurrentInfo currentInfo) {

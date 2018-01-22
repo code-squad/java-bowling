@@ -26,6 +26,10 @@ public class Player {
         return frames.getState(round);
     }
 
+    public void rollBowlingBall(Pin pin) {
+        //return frames.rollBowlingBall(round, pin);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
