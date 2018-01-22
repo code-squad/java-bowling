@@ -23,4 +23,16 @@ public class FrameTest {
     public void printFrame() {
         assertThat(frame.printFrame()).isEqualTo("      ");
     }
+
+    @Test
+    public void firstBowlTest() {
+        frame.firstBowl(new Pin(10));
+        assertThat(frame.status()).isEqualTo(FrameStatus.STRIKE);
+    }
+
+    @Test
+    public void firstBowlTest2() {
+        frame.firstBowl(new Pin(7));
+        assertThat(frame.status()).isEqualTo(FrameStatus.NOT_END);
+    }
 }

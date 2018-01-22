@@ -17,4 +17,8 @@ public class Frame {
     public String printFrame() {
         return FRAME_VIEW;
     }
+
+    public void firstBowl(Pin pin) {
+        firstTry = pin;
+    }
 }
