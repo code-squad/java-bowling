@@ -26,5 +26,6 @@ public class PinTest {
     @Test()
     public void getNumOfPinTest() {
         assertThat(Pin.getNumOfPin(new Pin(10))).isEqualTo(10);
+        assertThat(Pin.getNumOfPin(null)).isEqualTo(-1);
     }
 }
