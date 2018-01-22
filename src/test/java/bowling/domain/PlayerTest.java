@@ -37,6 +37,13 @@ public class PlayerTest {
     }
 
     @Test
+    public void frameNoUpdateTest() {
+        player.rollBowlingBall(new Pin(10));
+        player.frameNoUpdate();
+        assertThat(player.getState()).isEqualTo(FrameStatus.NOT_START);
+    }
+
+    @Test
     public void rollBowlingBallTest() {
         //player.rollBowlingBall(new Pin(5));
     }

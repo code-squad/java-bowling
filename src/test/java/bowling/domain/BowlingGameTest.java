@@ -29,6 +29,13 @@ public class BowlingGameTest {
         assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(FrameStatus.STRIKE);
     }
 
+    @Test
+    public void rotatePlayerTest() {
+        bowlingGame.rollBowlingBall(new Pin(10));
+        bowlingGame.updatePlayerQueue();
+        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(FrameStatus.NOT_START);
+    }
+
     /*@Test
     public void showStateTest() {
         assertThat(bowlingGame.printView()).isEqualTo(

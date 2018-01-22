@@ -28,10 +28,10 @@ public class BowlingGame {
         getCurrentPlayer().rollBowlingBall(fellPin);
     }
 
-/*    public void rotatePlayer() {
-        if(getCurrentPlayer().isRoundEnd())
+    public void updatePlayerQueue() {
+        if(getCurrentPlayer().isCurrentFrameEnd())
             playerQueue.rotate();
-    }*/
+    }
 
 /*    public String printView() {
         StringBuilder sb = new StringBuilder(TOP_MESSAGE);

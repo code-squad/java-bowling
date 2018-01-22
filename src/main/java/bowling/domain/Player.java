@@ -7,14 +7,14 @@ import java.util.Objects;
 public class Player {
     private String name;
     private Frames frames;
-    private int round;
+    private int frameNo;
 
     public Player(String name) {
         inputValidationCheck(name);
 
         this.name = name;
         this.frames = new Frames();
-        this.round = 0;
+        this.frameNo = 0;
     }
 
     private void inputValidationCheck(String name) {
@@ -23,15 +23,19 @@ public class Player {
     }
 
     public FrameStatus getState() {
-        return frames.getState(round);
+        return frames.getState(frameNo);
     }
 
     public void rollBowlingBall(Pin pin) {
-        frames.rollBowlingBall(round, pin);
+        frames.rollBowlingBall(frameNo, pin);
     }
 
     public boolean isCurrentFrameEnd() {
-        return frames.isCurrentFrameEnd(round);
+        return frames.isCurrentFrameEnd(frameNo);
+    }
+
+    public void frameNoUpdate() {
+        frameNo++;
     }
 
     @Override

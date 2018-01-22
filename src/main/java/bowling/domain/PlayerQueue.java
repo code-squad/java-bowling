@@ -16,6 +16,8 @@ public class PlayerQueue {
     }
 
     public void rotate() {
-        playerQueue.add(playerQueue.poll());
+        Player player = playerQueue.poll();
+        player.frameNoUpdate();
+        playerQueue.add(player);
     }
 }
