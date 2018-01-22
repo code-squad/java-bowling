@@ -21,7 +21,16 @@ public class FrameTest {
 
     @Test
     public void printFrame() {
-        assertThat(frame.printFrame()).isEqualTo("      ");
+        frame.firstBowl(new Pin(10));
+        assertThat(frame.printFrame()).isEqualTo("  X   ");
+
+        frame = new Frame();
+
+        frame.firstBowl(new Pin(5));
+        assertThat(frame.printFrame()).isEqualTo("  5   ");
+
+        frame.secondBowl(new Pin(5));
+        assertThat(frame.printFrame()).isEqualTo("  5|/ ");
     }
 
     @Test

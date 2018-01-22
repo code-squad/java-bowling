@@ -24,4 +24,18 @@ public enum FrameStatus {
 
         return MISS;
     }
+
+    public static String toView(Pin firstTry, Pin secondTry) {
+        switch(getStatus(firstTry, secondTry)) {
+            case STRIKE:
+                return "X  ";
+            case SPARE:
+                return firstTry.toString() + "|/";
+            case MISS:
+                return firstTry.toString() + "|" + secondTry.toString();
+            case NOT_END:
+                return firstTry.toString() + "  ";
+        }
+        return "   ";
+    }
 }

@@ -1,9 +1,12 @@
 package bowling.domain;
 
 import bowling.enums.FrameStatus;
+import sun.plugin2.message.MarkTaintedMessage;
+
+import java.text.MessageFormat;
 
 public class Frame {
-    private static final String FRAME_VIEW = "      ";
+    private static final String FRAME_VIEW = "  {0} ";
     private Pin firstTry;
     private Pin secondTry;
 
@@ -15,7 +18,7 @@ public class Frame {
     }
 
     public String printFrame() {
-        return FRAME_VIEW;
+        return MessageFormat.format(FRAME_VIEW, FrameStatus.toView(firstTry, secondTry));
     }
 
     public void firstBowl(Pin pin) {

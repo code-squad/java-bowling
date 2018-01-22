@@ -32,4 +32,9 @@ public class Pin {
     public boolean isOverTen(Pin pin) {
         return fellPin + pin.fellPin > MAX_VALUE;
     }
+
+    @Override
+    public String toString() {
+        return fellPin == 0 ? "-" : String.valueOf(fellPin);
+    }
 }
