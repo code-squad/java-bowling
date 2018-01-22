@@ -1,8 +1,13 @@
+package bowling;
+
+import static bowling.BowlingUtils.MAX_SCORE;
+import static bowling.BowlingUtils.MIN_SCORE;
+
 public class Score {
     private int score;
 
     private Score(int score) {
-        if(!isValidScore(score)) throw new IllegalArgumentException();
+        if(!isValidScore(score)) throw new IllegalArgumentException("점수는 1~10사이만 허용됩니다.");
         this.score = score;
     }
 
@@ -11,7 +16,7 @@ public class Score {
     }
 
     private boolean isValidScore(int score) {
-        return BowlingUtils.MIN_SCORE <= score && score <= BowlingUtils.MAX_SCORE;
+        return MIN_SCORE <= score && score <= MAX_SCORE;
     }
 
     public int get() {

@@ -1,3 +1,5 @@
+package bowling;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -14,7 +16,10 @@ public class Input {
     }
 
     public int getScore() {
-        int score = scanner.nextInt();
-        return score;
+        return scanner.nextInt();
+    }
+
+    public String getName() {
+        return scanner.next();
     }
 }
