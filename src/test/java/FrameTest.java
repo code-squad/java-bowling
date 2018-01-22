@@ -36,4 +36,28 @@ public class FrameTest {
         assertThat(frame.isSpare()).isTrue();
     }
 
+    @Test
+    public void getScoreMissTest() {
+        frame.setBallOne(8);
+        frame.setBallTwo(1);
+
+        int score = frame.getRoundScore();
+
+        assertThat(score).isEqualTo(9);
+    }
+
+    @Test
+    public void getScoreStrikeTest() {
+        frame.setBallOne(10);
+
+        Frame next = frame.getNextFrame();
+
+        assertThat().isEqualTo();
+    }
+
+    @Test
+    public void getScoreSpareTest() {
+        frame.setBallOne(8);
+        frame.setBallTwo(2);
+    }
 }

@@ -1,44 +1,56 @@
 package model;
 
 public class Frame {
-    private int[] frameScores;
+    protected int round;
+    protected RoundScore roundScore;
+    protected Frame nextFrame;
 
-    public Frame() {
-        frameScores = new int[2];
-    }
+    public Frame(int round) {
+        this.round = round;
 
-    public boolean isValidNumber(int number) {
-        if ((frameScores[0] + number) > 10 || number < 0) return false;
-        return true;
-    }
-
-
-    public void setBallOne(int number) {
-        if (!isValidNumber(number)) {
-            throw new IllegalArgumentException();
+        if (round < 10) {
+            this.roundScore = new RoundScore(2);
+            return;
         }
-        frameScores[0] = number;
+
+        this.roundScore = new RoundScore(3);
     }
 
-    public boolean isStrike() {
-        return frameScores[0] == 10;
+    public void bowl(int number) {
+        boolean success = roundScore.bowl(number);
+
+        if (!success){
+            this.nextFrame = new Frame(round + 1 );
+            this.nextFrame.bowl(number);
+        }
     }
 
-    public void setBallTwo(int number) {
-        if (!isValidNumber(number))
-            throw new IllegalArgumentException();
+    public int getRoundScore() {
+        int roundScoreSum = roundScore.getScoreSum();
 
-        frameScores[1] = number;
+        if (roundScore.isSpare()) {
+            return roundScoreSum
+                    + nextFrame.getPinCount(0);
+        }
+
+        if (roundScore.isStrike()) {
+            return roundScoreSum + getNextFrameScore();
+        }
+
+        return 0;
     }
 
-    public boolean isSpare() {
-        return (frameScores[0] + frameScores[1]) == 10;
+    private int getPinCount(int index) {
+        try {
+            return roundScore.getPinCount(index);
+        } catch (IndexOutOfBoundsException e) {
+            return 0;
+        }
     }
 
-    @Override
-    public String toString() {
-        if (isStrike()) return "X  ";
-        if (isSpare()) return frameScores[0] + "|/";
-        return frameScores[0] + "|" + frameScores[1];
+    private int getNextFrameScore() {
+        return  nextFrame.getPinCount(0)
+                + nextFrame.getPinCount(1)
+                + nextFrame.getPinCount(2);
     }
 }
