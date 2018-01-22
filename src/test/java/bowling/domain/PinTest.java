@@ -12,7 +12,7 @@ public class PinTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void excetionTest() {
+    public void exceptionTest() {
         new Pin(-1);
     }
 

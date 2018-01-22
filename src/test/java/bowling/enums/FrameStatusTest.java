@@ -1,5 +1,6 @@
 package bowling.enums;
 
+import bowling.domain.Pin;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -7,11 +8,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class FrameStatusTest {
     @Test
     public void FrameStatusTest() {
-        assertThat(FrameStatus.valueOf(-1, -1)).isEqualTo(FrameStatus.NOT_START);
-        assertThat(FrameStatus.valueOf(10, -1)).isEqualTo(FrameStatus.STRIKE);
-        assertThat(FrameStatus.valueOf(8, 2)).isEqualTo(FrameStatus.SPARE);
-        assertThat(FrameStatus.valueOf(5, -1)).isEqualTo(FrameStatus.NOT_END);
-        assertThat(FrameStatus.valueOf(0, 0)).isEqualTo(FrameStatus.MISS);
-        assertThat(FrameStatus.valueOf(5, 0)).isEqualTo(FrameStatus.MISS);
+        assertThat(FrameStatus.getStatus(null, null)).isEqualTo(FrameStatus.NOT_START);
+        assertThat(FrameStatus.getStatus(new Pin(10), null)).isEqualTo(FrameStatus.STRIKE);
+        assertThat(FrameStatus.getStatus(new Pin(8), new Pin(2))).isEqualTo(FrameStatus.SPARE);
+        assertThat(FrameStatus.getStatus(new Pin(5), null)).isEqualTo(FrameStatus.NOT_END);
+        assertThat(FrameStatus.getStatus(new Pin(0), new Pin(0))).isEqualTo(FrameStatus.MISS);
+        assertThat(FrameStatus.getStatus(new Pin(5), new Pin(0))).isEqualTo(FrameStatus.MISS);
     }
 }

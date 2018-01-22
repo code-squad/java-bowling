@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import java.util.Optional;
+
 public class Pin {
     private static final int MAX_VALUE = 10;
     private static final int MIN_VALUE = 0;
@@ -15,5 +17,9 @@ public class Pin {
     private void checkInputValidation(int fellPin) {
         if(fellPin < MIN_VALUE || MAX_VALUE < fellPin)
             throw new IllegalArgumentException("Invalid input for pin");
+    }
+
+    public int getNumOfFellPin() {
+        return fellPin;
     }
 }
