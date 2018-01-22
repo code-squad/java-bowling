@@ -28,9 +28,6 @@ public class NormalFrame implements Frame {
 
     @Override
     public String toString() {
-        if (score == null) {
-            return " ";
-        }
         return score.toString();
     }
 

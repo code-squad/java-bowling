@@ -28,7 +28,7 @@ public class Ball {
             case 0:
                 return "-";
             case 10:
-                return "X  ";
+                return "X";
             default:
                 return Integer.toString(this.pinCount);
         }

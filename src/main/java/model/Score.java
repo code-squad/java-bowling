@@ -20,12 +20,18 @@ public class Score {
     }
 
     public boolean isStrike() {
+        if(bowlingBalls.size() == 0)
+            return false;
+
         Ball first = bowlingBalls.get(0);
         return first.getPinCount() == 10;
     }
 
     public boolean isSpare() {
         if (isStrike())
+            return false;
+
+        if (bowlingBalls.size() < 2)
             return false;
 
         Ball first = bowlingBalls.get(0);
@@ -50,9 +56,12 @@ public class Score {
 
     @Override
     public String toString() {
-        return bowlingBalls.stream()
-                .map(Ball::toString)
-                .filter(i -> !i.equals(""))
-                .collect(Collectors.joining("|"));
+
+        String str = bowlingBalls.stream().map(Ball::toString).collect(Collectors.joining("|"));
+        if(this.isSpare()) {
+            return str.substring(0, 2) + "/" + str.substring(3);
+        }
+
+        return str;
     }
 }
