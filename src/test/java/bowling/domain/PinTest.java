@@ -28,4 +28,9 @@ public class PinTest {
         assertThat(Pin.getNumOfPin(new Pin(10))).isEqualTo(10);
         assertThat(Pin.getNumOfPin(null)).isEqualTo(-1);
     }
+
+    @Test()
+    public void isOverTenTest() {
+        assertThat(pin.isOverTen(new Pin(2))).isTrue();
+    }
 }

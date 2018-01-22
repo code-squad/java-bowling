@@ -28,4 +28,8 @@ public class Pin {
                 .map(Pin::getNumOfFellPin)
                 .orElse(-1);
     }
+
+    public boolean isOverTen(Pin pin) {
+        return fellPin + pin.fellPin > MAX_VALUE;
+    }
 }
