@@ -25,7 +25,7 @@ public class BowlingGame {
     }
 
     public void rollBowlingBall(Pin fellPin) {
-        //frames.rollBowlingBall(currentInfo, fellPin);
+        getCurrentPlayer().rollBowlingBall(fellPin);
     }
 
 /*    public String printView() {

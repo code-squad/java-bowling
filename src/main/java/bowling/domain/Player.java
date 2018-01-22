@@ -27,7 +27,7 @@ public class Player {
     }
 
     public void rollBowlingBall(Pin pin) {
-        //return frames.rollBowlingBall(round, pin);
+        frames.rollBowlingBall(round, pin);
     }
 
     @Override

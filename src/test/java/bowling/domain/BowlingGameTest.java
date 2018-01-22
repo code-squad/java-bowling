@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.enums.FrameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +21,12 @@ public class BowlingGameTest {
     @Test
     public void getCurrentPlayerTest() {
         assertThat(bowlingGame.getCurrentPlayer()).isEqualTo(new Player("KH1"));
+    }
+
+    @Test
+    public void rollBowlingBallTest() {
+        bowlingGame.rollBowlingBall(new Pin(10));
+        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(FrameStatus.STRIKE);
     }
 
     /*@Test
