@@ -1,4 +1,4 @@
-package bowling;
+package bowling.controller;
 
 public class BowlingGameTest {
 

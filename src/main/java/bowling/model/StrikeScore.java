@@ -1,4 +1,4 @@
-package bowling;
+package bowling.model;
 
 public class StrikeScore implements Score {
 
@@ -12,7 +12,7 @@ public class StrikeScore implements Score {
 
 	@Override
 	public String toString() {
-		return String.format("X");
+		return String.format("  X  ");
 	}
 
 }

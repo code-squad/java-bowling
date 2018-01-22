@@ -1,7 +1,7 @@
-package bowling;
+package bowling.model;
 
+import bowling.model.Player;
 import org.junit.Before;
-import org.junit.Test;
 
 public class PlayerTest {
 
@@ -9,7 +9,7 @@ public class PlayerTest {
 
 	@Before
 	public void setup() {
-		player = new Player();
+		player = new Player("han");
 	}
 
 }

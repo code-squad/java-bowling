@@ -1,4 +1,4 @@
-package bowling;
+package bowling.model;
 
 public class SpareScore implements Score {
 
@@ -15,7 +15,7 @@ public class SpareScore implements Score {
 
 	@Override
 	public String toString() {
-		return String.format("%s | /", this.score == 0 ? "-" : this.score);
+		return String.format(" %s|/ ", this.score == 0 ? "-" : this.score);
 	}
 
 }

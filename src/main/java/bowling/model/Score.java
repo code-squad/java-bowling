@@ -1,4 +1,4 @@
-package bowling;
+package bowling.model;
 
 public interface Score {
 
