@@ -20,10 +20,10 @@ public class BonusFrame extends Frame {
             return Optional.empty();
         }
         if (totalScore.isStrike()) {
-            return Optional.of(new BonusFrame(referee.playNextFrame(), frameNo + 1));
+            return Optional.of(new BonusFrame(referee.playNextFrame(this), frameNo + 1));
         }
         if (totalScore.isNeedAdditionalScore()) {
-            return Optional.of(new BonusFrame(referee.playOnlyFirst(), frameNo + 1));
+            return Optional.of(new BonusFrame(referee.playOnlyFirst(this), frameNo + 1));
         }
         return Optional.empty();
     }

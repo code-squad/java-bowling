@@ -1,7 +1,9 @@
 package domain.frame;
 
 import domain.CustomPlayStrategy;
+import domain.Player;
 import domain.Referee;
+import domain.ScoreBoard;
 import domain.score.FirstScore;
 import domain.score.SecondScore;
 import domain.score.TotalScore;
@@ -14,10 +16,14 @@ public class NormalFrameTest {
 
     private Referee referee;
 
+    private ScoreBoard scoreBoard;
+
     @Before
     public void setUp() throws Exception {
+        scoreBoard = new ScoreBoard(new Player("TEST"));
+
         referee = new Referee(new CustomPlayStrategy(new FirstScore(3),
-                                                     new SecondScore(3, 7)));
+                                                     new SecondScore(3, 7)), scoreBoard);
     }
 
     @Test

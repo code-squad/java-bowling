@@ -4,7 +4,7 @@ import domain.score.FirstScore;
 import domain.score.SecondScore;
 
 public interface PlayStrategy {
-    FirstScore playFirstScore();
+    FirstScore playFirstScore(int frameNo);
 
-    SecondScore playSecondScore(FirstScore firstScore);
+    SecondScore playSecondScore(int frameNo, FirstScore firstScore);
 }
