@@ -29,5 +29,11 @@ public class BowlingGame {
 
     public void rollBowlingBall(CurrentInfo currentInfo, Pin fellPin) {
         frames.rollBowlingBall(currentInfo, fellPin);
+        tryRoundUp(currentInfo);
+    }
+
+    private void tryRoundUp(CurrentInfo currentInfo) {
+        if(frames.isCurrentFrameEnd(currentInfo))
+            round++;
     }
 }
