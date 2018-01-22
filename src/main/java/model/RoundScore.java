@@ -24,6 +24,9 @@ public class RoundScore {
             return true;
         }
 
+        if (isStrike())
+            return false;
+
         if (first.getPinCount() + number > 10)
             throw new IllegalArgumentException();
 
@@ -44,6 +47,8 @@ public class RoundScore {
     public boolean isSpare() {
         Ball first = bowlingBalls.get(0);
         Ball second = bowlingBalls.get(1);
+        if(!second.isPlayed())
+            return false;
         return (first.getPinCount() + second.getPinCount()) == 10;
     }
 

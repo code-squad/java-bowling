@@ -20,9 +20,11 @@ public class Frame {
         boolean success = roundScore.bowl(number);
 
         if (!success){
-            this.nextFrame = new Frame(round + 1 );
+            if (this.nextFrame == null)
+                this.nextFrame = new Frame(round + 1 );
             this.nextFrame.bowl(number);
         }
+
     }
 
     public int getRoundScore() {
@@ -38,6 +40,10 @@ public class Frame {
         }
 
         return 0;
+    }
+
+    public Frame getNextFrame(){
+        return nextFrame;
     }
 
     private int getPinCount(int index) {
