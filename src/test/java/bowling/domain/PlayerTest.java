@@ -1,7 +1,10 @@
 package bowling.domain;
 
+import bowling.enums.FrameStatus;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class PlayerTest {
     private Player player;
@@ -19,5 +22,15 @@ public class PlayerTest {
     @Test(expected = IllegalArgumentException.class)
     public void invalidInputTest2() {
         new Player("KK");
+    }
+
+    @Test
+    public void getStateTest() {
+        assertThat(player.getState()).isEqualTo(FrameStatus.NOT_START);
+    }
+
+    @Test
+    public void rollBowlingBallTest() {
+   //     player.rollBowlingBall(new Pin(5))
     }
 }

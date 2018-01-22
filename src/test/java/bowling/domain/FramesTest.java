@@ -23,6 +23,11 @@ public class FramesTest {
     }
 
     @Test
+    public void getStateTest() {
+        assertThat(frames.getState(0)).isEqualTo(FrameStatus.NOT_START);
+    }
+
+    @Test
     public void isCurrentFrameEndTest() {
         CurrentInfo currentInfo = new CurrentInfo("KKH", 0);
         frames.rollBowlingBall(currentInfo, new Pin(10));

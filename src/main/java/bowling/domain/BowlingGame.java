@@ -1,19 +1,34 @@
 package bowling.domain;
 
+import java.util.List;
+
 public class BowlingGame {
     private static final String TOP_MESSAGE = "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n";
 
-    private String player;
-    private Frames frames;
-    private int round;
+    private Players players;
+    private PlayerQueue playerQueue;
 
-    public BowlingGame(String player) {
-        this.player = player;
-        this.frames = new Frames();
-        this.round = 0;
+    public BowlingGame(List<Player> players) {
+        inputValidationCheck(players);
+
+        this.players = new Players(players);
+        this.playerQueue = new PlayerQueue(players);
     }
 
-    public String printView() {
+    private void inputValidationCheck(List<Player> players) {
+        if(players == null)
+            throw new IllegalArgumentException("Players not valid");
+    }
+
+    public Player getCurrentPlayer() {
+        return playerQueue.getCurrentPlayer();
+    }
+
+    public void rollBowlingBall(Pin fellPin) {
+        //frames.rollBowlingBall(currentInfo, fellPin);
+    }
+
+/*    public String printView() {
         StringBuilder sb = new StringBuilder(TOP_MESSAGE);
         sb.append("|  ")
                 .append(player)
@@ -21,19 +36,5 @@ public class BowlingGame {
                 .append(frames.printFrames());
 
         return sb.toString();
-    }
-
-    public CurrentInfo getCurrentInfo() {
-        return new CurrentInfo(player, round);
-    }
-
-    public void rollBowlingBall(CurrentInfo currentInfo, Pin fellPin) {
-        frames.rollBowlingBall(currentInfo, fellPin);
-        tryRoundUp(currentInfo);
-    }
-
-    private void tryRoundUp(CurrentInfo currentInfo) {
-        if(frames.isCurrentFrameEnd(currentInfo))
-            round++;
-    }
+    }*/
 }

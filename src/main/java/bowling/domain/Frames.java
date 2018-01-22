@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import bowling.enums.FrameStatus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,14 @@ public class Frames {
 
         for(int i = 0 ; i < FRAME_MAX_VALUE ; ++i)
             frames.add(new Frame());
+    }
+
+    public FrameStatus getState(int round) {
+        return frame(round).status();
+    }
+
+    private Frame frame(int round) {
+        return frames.get(round);
     }
 
     public String printFrames() {
