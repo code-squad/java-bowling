@@ -4,42 +4,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class RoundScore {
-
+public class FinalRoundScore {
     private List<Ball> bowlingBalls;
+    private int count;
 
-    public RoundScore(int size) {
-        bowlingBalls = IntStream.range(0, size)
+    public FinalRoundScore() {
+        bowlingBalls = IntStream.range(0, 3)
                 .mapToObj(i -> new Ball())
                 .collect(Collectors.toList());
+
+        count = 0;
     }
 
     public boolean bowl(int number) throws IllegalArgumentException {
         if (!isValidNumber(number))
             throw new IllegalArgumentException();
 
-        Ball first = this.bowlingBalls.get(0);
-        if (!first.isPlayed()) {
-            setPinCount(0, number);
-            return true;
-        }
+        setPinCount(count, number);
+        count++;
 
-        if (isStrike())
-            return false;
-
-        if (first.getPinCount() + number > 10)
-            throw new IllegalArgumentException();
-
-        Ball second = this.bowlingBalls.get(1);
-        if (!second.isPlayed()) {
-            setPinCount(1, number);
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean lastBowl() {
         return false;
     }
 
@@ -76,15 +59,8 @@ public class RoundScore {
     }
 
     public boolean isFinished() {
-        if (isStrike())
+        if (count == 2 && getScoreSum() < 10)
             return true;
-
-        Ball first = bowlingBalls.get(0);
-        Ball second = bowlingBalls.get(1);
-        if (first.isPlayed() && second.isPlayed())
-            return true;
-
-        return false;
     }
 
     @Override

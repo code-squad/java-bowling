@@ -1,23 +1,29 @@
 package model;
 
-public class FinalFrame extends Frame{
-    public FinalFrame(){
-        super(10);
+public class FinalFrame implements Frame {
+    private FinalRoundScore finalRoundScore;
+
+    public FinalFrame() {
+        finalRoundScore = new FinalRoundScore();
+    }
+
+    @Override
+    public void bowl(int number) {
+
+    }
+
+    @Override
+    public int getPinCount(int index) {
+        return 0;
+    }
+
+    @Override
+    public boolean isFinal() {
+        return false;
     }
 
     @Override
     public String toString() {
-        Frame curr = this;
-        StringBuilder builder = new StringBuilder();
-        while(curr.getNextFrame() != null){
-            builder.append(this.roundScore.toString()).append("|");
-            curr = curr.getNextFrame();
-        }
-        return builder.toString();
-    }
 
-    @Override
-    public boolean isFinal(){
-        return this.roundScore.isFinished();
     }
 }

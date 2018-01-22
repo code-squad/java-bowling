@@ -1,11 +1,12 @@
 package controller;
 
 import model.Frame;
+import model.NormalFrame;
 
 public class GameManager {
-    Frame frame;
+    private Frame frame;
 
     public GameManager() {
-        frame = new Frame(1);
+        frame = new NormalFrame(1);
     }
 }
