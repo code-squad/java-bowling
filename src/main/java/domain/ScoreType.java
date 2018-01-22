@@ -42,4 +42,8 @@ public enum ScoreType {
     public String getDisplay() {
         return display;
     }
+
+    public boolean isDisplay() {
+        return this.getDisplay() != null;
+    }
 }

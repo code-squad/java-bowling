@@ -1,10 +1,8 @@
 package domain;
 
-public class FirstScore {
-    private final ScoreNumber score;
-
+public class FirstScore extends Score {
     public FirstScore(int score) {
-        this.score = new ScoreNumber(score);
+        super(score);
     }
 
     public boolean isStrike() {

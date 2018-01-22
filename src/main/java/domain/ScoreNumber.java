@@ -31,4 +31,9 @@ public class ScoreNumber {
     public int hashCode() {
         return score;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(score);
+    }
 }

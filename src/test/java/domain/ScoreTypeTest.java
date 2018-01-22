@@ -27,6 +27,15 @@ public class ScoreTypeTest {
 
     }
 
+    @Test
+    public void isDisplay() {
+        assertThat(ScoreType.STRIKE.isDisplay()).isTrue();
+        assertThat(ScoreType.SPARE.isDisplay()).isTrue();
+        assertThat(ScoreType.GUTTER.isDisplay()).isTrue();
+        assertThat(ScoreType.MISS.isDisplay()).isFalse();
+        assertThat(ScoreType.NONE.isDisplay()).isFalse();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void valueOf_음수인경우() {
         ScoreType.valueOf(new ScoreNumber(0), new ScoreNumber(-1));
