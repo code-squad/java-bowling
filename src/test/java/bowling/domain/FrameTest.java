@@ -19,4 +19,8 @@ public class FrameTest {
         assertThat(frame.status()).isEqualTo(FrameStatus.NOT_START);
     }
 
+    @Test
+    public void printFrame() {
+        assertThat(frame.printFrame()).isEqualTo("      ");
+    }
 }
