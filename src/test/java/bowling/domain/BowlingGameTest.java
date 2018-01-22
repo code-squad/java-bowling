@@ -35,12 +35,4 @@ public class BowlingGameTest {
         bowlingGame.updatePlayerQueue();
         assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(FrameStatus.NOT_START);
     }
-
-    /*@Test
-    public void showStateTest() {
-        assertThat(bowlingGame.printView()).isEqualTo(
-                "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
-                "|  KKH |      |      |      |      |      |      |      |      |      |      |"
-        );
-    }*/
 }

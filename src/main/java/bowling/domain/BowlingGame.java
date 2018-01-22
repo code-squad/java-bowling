@@ -32,14 +32,4 @@ public class BowlingGame {
         if(getCurrentPlayer().isCurrentFrameEnd())
             playerQueue.rotate();
     }
-
-/*    public String printView() {
-        StringBuilder sb = new StringBuilder(TOP_MESSAGE);
-        sb.append("|  ")
-                .append(player)
-                .append(" |")
-                .append(frames.printFrames());
-
-        return sb.toString();
-    }*/
 }

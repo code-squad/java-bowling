@@ -28,16 +28,9 @@ public class FramesTest {
     }
 
     @Test
-    public void isRoundEndTest() {
+    public void isCurrentFrameEndTest() {
         assertThat(frames.isCurrentFrameEnd(0)).isFalse();
         frames.rollBowlingBall(0, new Pin(10));
         assertThat(frames.isCurrentFrameEnd(0)).isTrue();
     }
-
-/*    @Test
-    public void isCurrentFrameEndTest() {
-        CurrentInfo currentInfo = new CurrentInfo("KKH", 0);
-        frames.rollBowlingBall(currentInfo, new Pin(10));
-        assertThat(frames.isCurrentFrameEnd(currentInfo)).isTrue();
-    }*/
 }
