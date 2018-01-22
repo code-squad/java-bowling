@@ -14,7 +14,6 @@ public class BowlingGame {
 		Player player = new Player(InputView.askPlayer());
 		OutputView.printScoreView(player, setScore(head));
 
-
 		while (current != null && current.getId() <= 10) {
 			int score = InputView.askScore(current.getId());
 			current = current.bowl(score);

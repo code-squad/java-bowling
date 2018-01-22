@@ -17,14 +17,26 @@ public class FinalFrame extends Frame {
 			return normalBowl(intScore);
 		}
 
-		if (score instanceof StrikeScore || score instanceof SpareScore) {
-			return bonusBowl(intScore);
+		if (temp == 10) {
+			return afterStrike(intScore);
+		}
+
+		if (temp != -1 && temp < 10) {
+			return afterNotStrike(intScore);
+		}
+
+		if (score instanceof StrikeScore) {
+			return afterStrike(intScore);
+		}
+
+		if (score instanceof SpareScore) {
+			return afterNotStrike(intScore);
 		}
 
 		return null;
 	}
 
-	public Frame normalBowl(int intScore) {
+	private Frame normalBowl(int intScore) {
 		if (temp < 0 && intScore < 10) {
 			temp = intScore;
 			return this;
@@ -47,28 +59,41 @@ public class FinalFrame extends Frame {
 		return this;
 	}
 
-	public Frame bonusBowl(int intScore) {
-		if (intScore == 10 && bonusScores.size() < 1) {
-			bonusScores.add(new StrikeScore());
-			return this;
-		}
-
-		if (intScore == 10 && bonusScores.size() == 1) {
-			bonusScores.add(new StrikeScore());
-			return null;
-		}
-
-		if (temp < 0 && intScore < 10) {
+	private Frame afterStrike(int intScore) {
+		if (intScore < 10 && bonusScores.isEmpty()) {
 			temp = intScore;
 			return this;
 		}
 
-		if (temp >= 0 && temp + intScore == 10) {
-			score = new SpareScore(temp);
+		if (intScore < 10 && !bonusScores.isEmpty()) {
+			bonusScores.add(new MissScore(intScore, 0));
+			return null;
 		}
 
-		if (temp >= 0 && temp + intScore < 10) {
-			score = new MissScore(temp, intScore);
+		bonusScores.add(new StrikeScore());
+		if (bonusScores.size() == 1) {
+			temp = intScore;
+			return this;
+		}
+
+		return null;
+	}
+
+	private Frame afterNotStrike(int intScore) {
+		if (intScore == 10) {
+			bonusScores.add(new StrikeScore());
+		}
+
+		if (temp + intScore == 10) {
+			bonusScores.add(new SpareScore(temp));
+		}
+
+		if (temp != -1 && temp + intScore < 10) {
+			bonusScores.add(new MissScore(temp, intScore));
+		}
+
+		if (temp == -1 && intScore != 10) {
+			bonusScores.add(new MissScore(intScore, 0));
 		}
 
 		return null;
