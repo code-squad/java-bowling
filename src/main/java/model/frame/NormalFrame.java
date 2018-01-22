@@ -3,45 +3,26 @@ package model.frame;
 import model.Ball;
 import model.Score;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class NormalFrame implements Frame{
+public class NormalFrame implements Frame {
     private int round;
     protected Score score;
-    private List<Ball> bowls;
     private Frame nextFrame;
 
     public NormalFrame(int round) {
-        this.bowls = new ArrayList<>();
         this.round = round;
         this.nextFrame = Frame.of(round + 1);
+        score = new Score();
     }
 
     public void bowl(int number) {
-        if(this.score != null) {
+        if (isFinished()) {
             nextFrame.bowl(number);
         }
 
-        int size = bowls.size();
-
-        if (size == 0) {
-            if (number == 10) {
-                bowls.add(new Ball(10));
-                this.score = new Score(bowls);
-                return;
-            }
-            bowls.add(new Ball(number));
-            return;
-        }
-
-        if (size == 1) {
-            bowls.add(new Ball(number));
-            this.score = new Score(bowls);
-        }
+        score.add(new Ball(number));
     }
 
-    public Frame getNextFrame(){
+    public Frame getNextFrame() {
         return nextFrame;
     }
 
@@ -54,8 +35,16 @@ public class NormalFrame implements Frame{
     }
 
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
+        if (this.score.size() == 0)
+            return false;
 
-        return this.score != null;
+        if (this.score.isStrike() && this.score.size() == 1)
+            return true;
+
+        if (this.score.size() == 2)
+            return true;
+
+        return false;
     }
 }

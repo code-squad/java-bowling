@@ -22,7 +22,7 @@ public class Ball {
 
     @Override
     public String toString() {
-        switch(pinCount) {
+        switch (pinCount) {
             case -1:
                 return "";
             case 0:

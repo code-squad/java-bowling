@@ -3,6 +3,7 @@ package model.frame;
 public interface Frame {
 
     void bowl(int number);
+
     Frame getNextFrame();
 
     boolean isFinished();

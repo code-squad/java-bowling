@@ -3,18 +3,14 @@ package model.frame;
 import model.Ball;
 import model.Score;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FinalFrame implements Frame {
 
     private static final int ROUND = 10;
-    private List<Ball> bowls;
     private Score score;
     private int availableCount;
 
     public FinalFrame() {
-        this.bowls = new ArrayList<>();
+        score = new Score();
         availableCount = 2;
     }
 
@@ -23,40 +19,42 @@ public class FinalFrame implements Frame {
         if (availableCount == 0)
             throw new IllegalStateException();
 
-        int size = bowls.size();
+        int size = score.size();
 
         if (size == 0) {
             // Strike
             if (number == 10) {
-                bowls.add(new Ball(10));
+                score.add(new Ball(10));
                 return;
             }
-            bowls.add(new Ball(number));
+            score.add(new Ball(number));
             availableCount--;
             return;
         }
 
         if (size == 1) {
-            bowls.add(new Ball(number));
+            score.add(new Ball(number));
 
             // NotSpare
-            if (bowls.get(0).getPinCount() + number != 10) {
+            if (!score.isSpare()) {
                 availableCount--;
             }
         }
 
         if (size == 2) {
-            bowls.add(new Ball(number));
+            score.add(new Ball(number));
             availableCount--;
         }
-
-        if (availableCount == 0)
-            this.score = new Score(bowls);
     }
 
     @Override
-    public boolean isFinished(){
-        return this.score != null;
+    public boolean isFinished() {
+        if ((score.isStrike() || score.isSpare()) && score.size() == 3)
+            return true;
+        if (!(score.isStrike() || score.isSpare()) && score.size() == 2)
+            return true;
+
+        return false;
     }
 
     @Override

@@ -32,7 +32,7 @@ public class ConsoleView {
                 .append(name)
                 .append(" |  ");
 
-        while(head != null) {
+        while (head != null) {
             builder.append(head.toString());
             builder.append(" |  ");
             head = head.getNextFrame();
@@ -41,7 +41,7 @@ public class ConsoleView {
         System.out.println(builder.toString());
     }
 
-    public static int inputBowl(int frameNumber){
+    public static int inputBowl(int frameNumber) {
         System.out.println(frameNumber + "프레임 투구 : ");
         return Integer.parseInt(scanner.next());
     }

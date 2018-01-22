@@ -1,6 +1,4 @@
 import controller.GameManager;
-import model.frame.Frame;
-import view.ConsoleView;
 
 public class Main {
 
