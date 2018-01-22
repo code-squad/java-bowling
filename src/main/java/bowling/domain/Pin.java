@@ -22,4 +22,10 @@ public class Pin {
     public int getNumOfFellPin() {
         return fellPin;
     }
+
+    public static int getNumOfPin(Pin pin) {
+        return Optional.ofNullable(pin)
+                .map(Pin::getNumOfFellPin)
+                .orElse(-1);
+    }
 }
