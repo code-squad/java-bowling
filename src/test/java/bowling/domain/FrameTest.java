@@ -63,4 +63,12 @@ public class FrameTest {
         frame.secondBowl(new Pin(5));
         assertThat(frame.status()).isEqualTo(FrameStatus.SPARE);
     }
+
+    @Test
+    public void rollBowlingBallTest() {
+        frame.rollBowlingBall(new Pin(5));
+        assertThat(frame.status()).isEqualTo(FrameStatus.NOT_END);
+        frame.rollBowlingBall(new Pin(5));
+        assertThat(frame.status()).isEqualTo(FrameStatus.SPARE);
+    }
 }

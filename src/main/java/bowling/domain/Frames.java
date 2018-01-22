@@ -24,4 +24,8 @@ public class Frames {
 
         return sb.toString();
     }
+
+/*    public void rollBowlingBall(CurrentInfo currentInfo, int fellPin) {
+        frames.get(currentInfo.getCurrentRound()).rollBowlingBall(fellPin);
+    }*/
 }

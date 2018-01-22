@@ -17,11 +17,21 @@ public class BowlingGameTest {
     public void showStateTest() {
         assertThat(bowlingGame.printView()).isEqualTo(
                 "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
-                "|  KKH |      |      |      |      |      |      |      |      |      |      |");
+                "|  KKH |      |      |      |      |      |      |      |      |      |      |"
+        );
     }
 
     @Test
     public void getCurrentInfo() {
         assertThat(bowlingGame.getCurrentInfo()).isEqualTo(new CurrentInfo("KKH", 1));
+    }
+
+    @Test
+    public void rollBowlingBallTest() {
+        bowlingGame.rollBowlingBall(new CurrentInfo("KKH", 1), 10);
+        assertThat(bowlingGame.printView()).isEqualTo(
+                "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
+                "|  KKH |  X   |      |      |      |      |      |      |      |      |      |"
+        );
     }
 }

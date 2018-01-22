@@ -16,6 +16,10 @@ public class CurrentInfo {
         return MessageFormat.format(CURRENT_STATUS_FORMAT, currentRound);
     }
 
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
