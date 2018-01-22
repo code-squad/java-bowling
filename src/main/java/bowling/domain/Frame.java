@@ -1,7 +1,6 @@
 package bowling.domain;
 
 import bowling.enums.FrameStatus;
-import sun.plugin2.message.MarkTaintedMessage;
 
 import java.text.MessageFormat;
 

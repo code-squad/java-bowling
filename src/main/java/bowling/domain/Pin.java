@@ -5,6 +5,7 @@ import java.util.Optional;
 public class Pin {
     private static final int MAX_VALUE = 10;
     private static final int MIN_VALUE = 0;
+    private static final String GUTTER = "-";
 
     private int fellPin;
 
@@ -35,6 +36,6 @@ public class Pin {
 
     @Override
     public String toString() {
-        return fellPin == 0 ? "-" : String.valueOf(fellPin);
+        return fellPin == 0 ? GUTTER : String.valueOf(fellPin);
     }
 }
