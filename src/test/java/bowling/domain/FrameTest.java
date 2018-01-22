@@ -40,4 +40,18 @@ public class FrameTest {
     public void secondBowl_Exception_Test() {
         frame.secondBowl(new Pin(4));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void secondBowl_Exception_Test2() {
+        frame.firstBowl(new Pin(6));
+        frame.secondBowl(new Pin(5));
+    }
+
+    @Test
+    public void secondBowlTest() {
+        frame.firstBowl(new Pin(5));
+        assertThat(frame.status()).isEqualTo(FrameStatus.NOT_END);
+        frame.secondBowl(new Pin(5));
+        assertThat(frame.status()).isEqualTo(FrameStatus.SPARE);
+    }
 }
