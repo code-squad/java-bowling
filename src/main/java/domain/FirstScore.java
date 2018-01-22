@@ -5,6 +5,10 @@ public class FirstScore extends Score {
         super(score);
     }
 
+    public FirstScore(ScoreNumber score) {
+        super(score);
+    }
+
     public boolean isStrike() {
         return getScoreType() == ScoreType.STRIKE;
     }

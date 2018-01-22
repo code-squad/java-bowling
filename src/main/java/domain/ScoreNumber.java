@@ -13,7 +13,7 @@ public class ScoreNumber {
         this.score = score;
     }
 
-    public ScoreNumber sum(ScoreNumber o1) {
+    public ScoreNumber add(ScoreNumber o1) {
         return new ScoreNumber(score + o1.score);
     }
 

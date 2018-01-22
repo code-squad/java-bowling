@@ -20,7 +20,7 @@ public enum ScoreType {
         if (first.equals(TEN)) {
             throw new IllegalArgumentException();
         }
-        if (first.sum(second).equals(TEN)) {
+        if (first.add(second).equals(TEN)) {
             return SPARE;
         }
         if (second.equals(ZERO)) {

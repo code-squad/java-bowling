@@ -11,7 +11,7 @@ public class ScoreNumberTest {
         ScoreNumber o1 = new ScoreNumber(1);
         ScoreNumber o2 = new ScoreNumber(2);
 
-        assertThat(o1.sum(o2)).isEqualTo(new ScoreNumber(3));
+        assertThat(o1.add(o2)).isEqualTo(new ScoreNumber(3));
     }
 
     @Test
@@ -22,4 +22,13 @@ public class ScoreNumberTest {
         assertThat(o1.equals(new ScoreNumber(2))).isFalse();
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void ScoreNumber_음수() throws Exception {
+        new ScoreNumber(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ScoreNumber_10보다큰값() throws Exception {
+        new ScoreNumber(11);
+    }
 }

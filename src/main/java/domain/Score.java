@@ -8,7 +8,14 @@ public abstract class Score {
     }
 
     Score(ScoreNumber score) {
+        if (score == null) {
+            throw new IllegalArgumentException();
+        }
         this.score = score;
+    }
+
+    public ScoreNumber addScore(Score o) {
+        return score.add(o.score);
     }
 
     protected abstract ScoreType getScoreType();
