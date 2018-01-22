@@ -1,7 +1,7 @@
-package domain;
+package domain.score;
 
-import static domain.ScoreNumber.TEN;
-import static domain.ScoreNumber.ZERO;
+import static domain.score.ScoreNumber.TEN;
+import static domain.score.ScoreNumber.ZERO;
 
 public enum ScoreType {
     STRIKE("X"),

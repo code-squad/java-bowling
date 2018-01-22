@@ -1,4 +1,4 @@
-package domain;
+package domain.score;
 
 public class TotalScore {
     private final FirstScore firstScore;
@@ -6,6 +6,10 @@ public class TotalScore {
 
     public TotalScore(int firstScore, int secondScore) {
         this(new FirstScore(firstScore), new SecondScore(firstScore, secondScore));
+    }
+
+    public TotalScore(FirstScore firstScore, int secondScore) {
+        this(firstScore, new SecondScore(firstScore, new ScoreNumber(secondScore)));
     }
 
     public TotalScore(FirstScore firstScore, SecondScore secondScore) {
@@ -25,7 +29,7 @@ public class TotalScore {
     }
 
     public ScoreType getType() {
-        if (firstScore.isStrike()) {
+        if (isStrike()) {
             return ScoreType.STRIKE;
         }
         if (secondScore.isSpare()) {
@@ -34,9 +38,17 @@ public class TotalScore {
         return ScoreType.MISS;
     }
 
+    public boolean isStrike() {
+        return firstScore.isStrike();
+    }
+
+    public boolean isNeedAdditionalScore() {
+        return getType() == ScoreType.STRIKE || getType() == ScoreType.SPARE;
+    }
+
     @Override
     public String toString() {
-        if (firstScore.isStrike()) {
+        if (isStrike()) {
             return firstScore.toString();
         }
         return firstScore.toString() + "|" + secondScore.toString();

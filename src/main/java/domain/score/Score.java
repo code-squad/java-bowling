@@ -1,4 +1,4 @@
-package domain;
+package domain.score;
 
 public abstract class Score {
     final ScoreNumber score;

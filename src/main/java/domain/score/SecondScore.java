@@ -1,4 +1,4 @@
-package domain;
+package domain.score;
 
 public class SecondScore extends Score {
     private final FirstScore firstScore;

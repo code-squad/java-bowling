@@ -1,4 +1,4 @@
-package domain;
+package domain.score;
 
 public class ScoreNumber {
     public static final ScoreNumber ZERO = new ScoreNumber(0);
