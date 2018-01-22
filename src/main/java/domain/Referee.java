@@ -17,44 +17,30 @@ public class Referee {
     }
 
     public void playBowling() {
-        NormalFrame normalFrame = playFirstFrame();
+        Frame fistFrame = new NormalFrame(playFrame(1), 1);
 
-        playBowlingRecursive(normalFrame);
+        playBowlingRecursive(fistFrame);
     }
 
-    private void playBowlingRecursive(Frame normalFrame) {
-        normalFrame.playNextFrame(this)
-                   .ifPresent(this::playBowlingRecursive);
+    private void playBowlingRecursive(Frame frame) {
+        frame.playNextFrame(this)
+             .ifPresent(this::playBowlingRecursive);
     }
 
-    private NormalFrame playFirstFrame() {
-        FirstScore firstScore = strategy.playFirstScore(1);
-        if (firstScore.isStrike()) {
-            NormalFrame first = new NormalFrame(new TotalScore(firstScore), 1);
-            scoreBoard.printFrame(first);
-
-            return first;
-        }
-        TotalScore totalScore = new TotalScore(firstScore, strategy.playSecondScore(1, firstScore));
-        NormalFrame firstFrame = new NormalFrame(totalScore, 1);
-        scoreBoard.printFrame(firstFrame);
-        return firstFrame;
-    }
-
-    public TotalScore playNextFrame(Frame frame) {
-        FirstScore firstScore = strategy.playFirstScore(frame.getFrameNo());
-        scoreBoard.printFirstScore(frame, firstScore);
+    public TotalScore playFrame(int frameNo) {
+        FirstScore firstScore = strategy.playFirstScore(frameNo);
+        scoreBoard.printFirstScore(frameNo, firstScore);
         if (firstScore.isStrike()) {
             return new TotalScore(firstScore);
         }
-        TotalScore totalScore = new TotalScore(firstScore, strategy.playSecondScore(frame.getFrameNo(), firstScore));
-        scoreBoard.printTotalScore(frame, totalScore);
+        TotalScore totalScore = new TotalScore(firstScore, strategy.playSecondScore(frameNo, firstScore));
+        scoreBoard.printTotalScore(frameNo, totalScore);
         return totalScore;
     }
 
-    public TotalScore playOnlyFirst(Frame frame) {
-        FirstScore firstScore = strategy.playFirstScore(frame.getFrameNo());
-        scoreBoard.printFirstScore(frame, firstScore);
+    public TotalScore playOnlyFirst(int frameNo) {
+        FirstScore firstScore = strategy.playFirstScore(frameNo);
+        scoreBoard.printFirstScore(frameNo, firstScore);
         if (firstScore.isStrike()) {
             return new TotalScore(firstScore);
         }

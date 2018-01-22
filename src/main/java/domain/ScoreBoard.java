@@ -16,15 +16,11 @@ public class ScoreBoard {
         this.player = player;
     }
 
-    public void printFirstScore(Frame frame, FirstScore firstScore) {
+    public void printFirstScore(int frameNo, FirstScore firstScore) {
 
     }
 
-    public void printFrame(Frame frame) {
-
-    }
-
-    public void printTotalScore(Frame frame, TotalScore totalScore) {
+    public void printTotalScore(int frameNo, TotalScore totalScore) {
 
     }
 }

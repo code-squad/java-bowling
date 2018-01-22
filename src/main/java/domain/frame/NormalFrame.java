@@ -17,8 +17,8 @@ public class NormalFrame extends Frame {
     @Override
     public Optional<Frame> playNextFrame(Referee referee) {
         if (frameNo == 9) {
-            return Optional.of(new FinalFrame(referee.playNextFrame(this), frameNo + 1));
+            return Optional.of(new FinalFrame(referee.playFrame(getNextFrameNo()), getNextFrameNo()));
         }
-        return Optional.of(new NormalFrame(referee.playNextFrame(this), frameNo + 1));
+        return Optional.of(new NormalFrame(referee.playFrame(getNextFrameNo()), getNextFrameNo()));
     }
 }

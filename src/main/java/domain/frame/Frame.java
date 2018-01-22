@@ -17,8 +17,8 @@ public abstract class Frame {
         this.frameNo = frameNo;
     }
 
-    public int getFrameNo() {
-        return frameNo;
+    int getNextFrameNo() {
+        return frameNo + 1;
     }
 
     public abstract Optional<Frame> playNextFrame(Referee referee);
