@@ -66,7 +66,7 @@ public class FinalFrame extends Frame {
 		}
 
 		if (intScore < 10 && !bonusScores.isEmpty()) {
-			bonusScores.add(new MissScore(intScore, 0));
+			bonusScores.add(new MissScore(intScore));
 			return null;
 		}
 
@@ -93,10 +93,19 @@ public class FinalFrame extends Frame {
 		}
 
 		if (temp == -1 && intScore != 10) {
-			bonusScores.add(new MissScore(intScore, 0));
+			bonusScores.add(new MissScore(intScore));
 		}
 
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		String text = super.toString().trim();
+
+		for (Score bonusScore : bonusScores) {
+			text += "|" + bonusScore.toString().trim();
+		}
+		return text;
+	}
 }
