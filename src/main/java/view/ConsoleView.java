@@ -30,16 +30,20 @@ public class ConsoleView {
 
         builder.append("|  ")
                 .append(name)
-                .append(" |");
+                .append(" |  ");
 
         while(head != null) {
             builder.append(head.toString());
-            builder.append("  |  ");
+            builder.append(" |  ");
             head = head.getNextFrame();
         }
 
-        builder.append("  |");
         System.out.println(builder.toString());
+    }
+
+    public static int inputBowl(int frameNumber){
+        System.out.println(frameNumber + "프레임 투구 : ");
+        return Integer.parseInt(scanner.next());
     }
 
 }

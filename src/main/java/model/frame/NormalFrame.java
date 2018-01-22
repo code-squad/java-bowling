@@ -52,4 +52,10 @@ public class NormalFrame implements Frame{
         }
         return score.toString();
     }
+
+    @Override
+    public boolean isFinished(){
+
+        return this.score != null;
+    }
 }

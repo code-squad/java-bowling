@@ -47,10 +47,16 @@ public class FinalFrame implements Frame {
 
         if (size == 2) {
             bowls.add(new Ball(number));
+            availableCount--;
         }
 
         if (availableCount == 0)
             this.score = new Score(bowls);
+    }
+
+    @Override
+    public boolean isFinished(){
+        return this.score != null;
     }
 
     @Override

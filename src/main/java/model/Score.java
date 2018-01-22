@@ -9,20 +9,8 @@ import java.util.stream.IntStream;
 public class Score {
 
     private List<Ball> bowlingBalls;
-    private Ball bonusBall;
 
     public Score(List<Ball> bowlingBalls) {
-//        if (isValidInput(bowlingBalls))
-//            throw new IllegalArgumentException();
-
-        int size = bowlingBalls.size();
-
-        if (size < 3) {
-            this.bowlingBalls = bowlingBalls;
-            return;
-        }
-
-        this.bonusBall = bowlingBalls.remove(size - 1);
         this.bowlingBalls = bowlingBalls;
     }
 
@@ -52,6 +40,10 @@ public class Score {
         return bowlingBalls.get(index).getPinCount();
     }
 
+    public int size() {
+        return bowlingBalls.size();
+    }
+
     public int getScoreSum() {
         return bowlingBalls.stream()
                 .mapToInt(Ball::getPinCount)
@@ -60,10 +52,21 @@ public class Score {
 
     @Override
     public String toString() {
-        Ball first = bowlingBalls.get(0);
-        if (isStrike()) return first.toString();
-        Ball second = bowlingBalls.get(1);
-        if (isSpare()) return first.toString() + "|/";
-        return first.toString() + "|" + second.toString();
+//        if (bowlingBalls.size() < 3){
+//            Ball first = bowlingBalls.get(0);
+//            if (isStrike()) return first.toString();
+//            Ball second = bowlingBalls.get(1);
+//            if (isSpare()) return first.toString() + "|/";
+//            return first.toString() + "|" + second.toString();
+//        }
+//        String result = "";
+//        Ball first = bowlingBalls.get(0);
+//        if (isStrike()) result += first.toString();
+//        Ball second = bowlingBalls.get(1);
+//        if (isSpare()) result += "|/";
+//        Ball third = bowlingBalls.get(2);
+//        result += third;
+
+        return bowlingBalls.stream().map(Ball::toString).filter(i -> !i.equals("")).collect(Collectors.joining("|"));
     }
 }
