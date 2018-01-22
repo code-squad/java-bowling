@@ -1,9 +1,9 @@
 package model;
 
 public class Frame {
-    protected int round;
+    private int round;
     protected RoundScore roundScore;
-    protected Frame nextFrame;
+    private Frame nextFrame;
 
     public Frame(int round) {
         this.round = round;
@@ -20,14 +20,26 @@ public class Frame {
         boolean success = roundScore.bowl(number);
 
         if (!success){
-            if (this.nextFrame == null)
-                this.nextFrame = new Frame(round + 1 );
+            if (this.nextFrame == null) {
+                this.nextFrame = Frame.of(round + 1);
+            }
             this.nextFrame.bowl(number);
         }
-
     }
 
-    public int getRoundScore() {
+    public boolean isFinal(){
+        if (nextFrame != null) {
+            return nextFrame.isFinal();
+        }
+        return false;
+    }
+
+    public static Frame of(int round ) {
+        if (round == 10) return new FinalFrame();
+        return new Frame(round);
+    }
+
+    public int getRoundScore() throws NullPointerException {
         int roundScoreSum = roundScore.getScoreSum();
 
         if (roundScore.isSpare()) {
@@ -36,6 +48,7 @@ public class Frame {
         }
 
         if (roundScore.isStrike()) {
+            if (nextFrame.getRoundScore() == 20) return 30;
             return roundScoreSum + getNextFrameScore();
         }
 

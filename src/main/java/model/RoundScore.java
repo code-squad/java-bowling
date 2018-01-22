@@ -47,7 +47,7 @@ public class RoundScore {
     public boolean isSpare() {
         Ball first = bowlingBalls.get(0);
         Ball second = bowlingBalls.get(1);
-        if(!second.isPlayed())
+        if (!second.isPlayed())
             return false;
         return (first.getPinCount() + second.getPinCount()) == 10;
     }
@@ -67,7 +67,15 @@ public class RoundScore {
     }
 
     private boolean isValidNumber(int number) {
-        return (  number >= 0 && number <= 10 );
+        return (number >= 0 && number <= 10);
+    }
+
+    public boolean isFinished() {
+        Ball first = bowlingBalls.get(0);
+        if (isStrike()) return true;
+        Ball second = bowlingBalls.get(1);
+        if (first.isPlayed() && second.isPlayed()) return true;
+        return false;
     }
 
     @Override

@@ -33,10 +33,13 @@ public class FrameTest {
         assertThat(frame.getRoundScore()).isEqualTo(18);
     }
 
-//    @Test
-//    public void getScoreSpareTest() {
-//        roundScore.setPinCount(0,8);
-//        roundScore.setPinCount(1,2);
-//    }
+    @Test
+    public void multipleStrikeTest() {
+        frame.bowl(10);
+        frame.bowl(10);
+        frame.bowl(10);
+        frame.bowl(9);
+        assertThat(frame.getRoundScore()).isEqualTo(30);
+    }
 
 }
