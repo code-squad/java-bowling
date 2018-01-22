@@ -2,27 +2,35 @@ package bowling;
 
 public class Frame {
 
+    int temp = -1;
 	Score score;
+	Frame next;
 
-	public void bowl(int first, int second) {
-		score = new MissScore(first, second);
-	}
+	public Frame bowl(int intScore) {
+	    if (temp < 0 && intScore == 10) {
+	        score = new StrikeScore();
+	        next = new Frame();
+	        return next;
+        }
 
-	public String scoreToString() {
-//		if (score.currentScore() < 10) {
-//			return String.format("%s | %s", (score.first == 0) ? "-" : score.first, (score.second == 0) ? "-" : score.second);
-//		}
-//
-//		if (score.first == 10) {
-//			return String.format("%s", "X");
-//		}
-//
-//		if (score.second == 10) {
-//			return String.format("%s | %s", "-", "/");
-//		}
-//
-//		return String.format("%d | %s", score.first, "/");
-		return super.toString();
+        if (temp < 0 && intScore < 10) {
+	        temp = intScore;
+	        return this;
+        }
+
+        if (temp + intScore == 10) {
+	        score = new SpareScore(temp);
+	        next = new Frame();
+	        return next;
+        }
+
+        if (temp + intScore < 10) {
+	        score = new MissScore(temp, intScore);
+	        next = new Frame();
+	        return next;
+        }
+
+        return this;
 	}
 
 }

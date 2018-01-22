@@ -41,4 +41,15 @@ public class ScoreTest {
 		assertThat(score.toString()).isEqualTo("X");
 	}
 
+	@Test
+	public void 미스_거터처리() {
+		Score score = new MissScore(3, 0);
+		assertThat(score.toString()).isEqualTo("3 | -");
+	}
+
+	@Test
+	public void 스페어_거터처리() {
+		Score score = new SpareScore(0);
+		assertThat(score.toString()).isEqualTo("- | /");
+	}
 }
