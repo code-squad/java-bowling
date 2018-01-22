@@ -25,7 +25,7 @@ public class BowlingGame {
         return new CurrentInfo(player, round);
     }
 
-    public void rollBowlingBall(CurrentInfo currentInfo, int fellPin) {
-        //frames.rollBowlingBall(currentInfo, fellPin);
+    public void rollBowlingBall(CurrentInfo currentInfo, Pin fellPin) {
+        frames.rollBowlingBall(currentInfo, fellPin);
     }
 }

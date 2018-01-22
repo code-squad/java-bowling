@@ -23,12 +23,12 @@ public class BowlingGameTest {
 
     @Test
     public void getCurrentInfo() {
-        assertThat(bowlingGame.getCurrentInfo()).isEqualTo(new CurrentInfo("KKH", 1));
+        assertThat(bowlingGame.getCurrentInfo()).isEqualTo(new CurrentInfo("KKH", 0));
     }
 
     @Test
     public void rollBowlingBallTest() {
-        bowlingGame.rollBowlingBall(new CurrentInfo("KKH", 1), 10);
+        bowlingGame.rollBowlingBall(new CurrentInfo("KKH", 0), new Pin(10));
         assertThat(bowlingGame.printView()).isEqualTo(
                 "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
                 "|  KKH |  X   |      |      |      |      |      |      |      |      |      |"
