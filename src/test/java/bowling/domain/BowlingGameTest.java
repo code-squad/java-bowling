@@ -14,7 +14,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    public void showState() {
+    public void showStateTest() {
         assertThat(bowlingGame.printView()).isEqualTo(
                 "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
                 "|  KKH |      |      |      |      |      |      |      |      |      |      |");

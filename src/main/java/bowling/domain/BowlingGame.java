@@ -15,7 +15,7 @@ public class BowlingGame {
     public String printView() {
         StringBuilder sb = new StringBuilder("| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n");
         sb.append("|  ").append(player).append(" |")
-                .append(frames.toString());
+                .append(frames.printFrames());
 
         return sb.toString();
     }

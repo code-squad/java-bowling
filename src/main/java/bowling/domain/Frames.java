@@ -10,6 +10,18 @@ public class Frames {
 
     public Frames() {
         frames = new ArrayList<>(FRAME_MAX_VALUE);
-        frames.add(new Frame());
+
+        for(int i = 0 ; i < FRAME_MAX_VALUE ; ++i)
+            frames.add(new Frame());
+    }
+
+    public String printFrames() {
+        StringBuilder sb = new StringBuilder();
+
+        frames.stream()
+                .map(f -> f.printFrame() + "|")
+                .forEach(sb::append);
+
+        return sb.toString();
     }
 }
