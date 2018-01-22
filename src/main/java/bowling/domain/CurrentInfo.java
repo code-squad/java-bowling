@@ -13,7 +13,7 @@ public class CurrentInfo {
     }
 
     public String showCurrentStatus() {
-        return MessageFormat.format(CURRENT_STATUS_FORMAT, currentRound);
+        return MessageFormat.format(CURRENT_STATUS_FORMAT, currentRound + 1);
     }
 
     public int getCurrentRound() {

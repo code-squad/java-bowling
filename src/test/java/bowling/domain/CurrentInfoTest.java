@@ -10,7 +10,7 @@ public class CurrentInfoTest {
 
     @Before
     public void init() {
-        currentInfo = new CurrentInfo("KKH", 1);
+        currentInfo = new CurrentInfo("KKH", 0);
     }
 
     @Test
