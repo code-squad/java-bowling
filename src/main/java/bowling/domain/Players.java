@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Players {
@@ -19,5 +20,9 @@ public class Players {
     public boolean checkIsEnd() {
         return players.stream()
                 .anyMatch(player -> !player.isEnd());
+    }
+
+    public List<Player> getPlayersAsList() {
+        return Collections.unmodifiableList(players);
     }
 }
