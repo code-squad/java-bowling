@@ -4,8 +4,9 @@ import org.junit.Test;
 
 public class FrameTest {
 
-    @Test
-    public void 보너스_투구_가능한지() {
 
+    @Test
+    public void 프레임_값_추가하기() {
+        //TODO
     }
 }

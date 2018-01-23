@@ -1,7 +1,5 @@
 package bowling.domain;
 
-import bowling.domain.FinalScore;
-import bowling.domain.Roll;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

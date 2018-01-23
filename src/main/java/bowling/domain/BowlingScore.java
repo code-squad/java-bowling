@@ -29,7 +29,8 @@ public enum BowlingScore {
                 .findFirst().get();
     }
 
-    private String toText() {
+    @Override
+    public String toString() {
         switch (this) {
             case GUTTER:
                 return "-";
@@ -50,10 +51,5 @@ public enum BowlingScore {
             default:
                 return "";
         }
-    }
-
-    @Override
-    public String toString() {
-        return toText();
     }
 }

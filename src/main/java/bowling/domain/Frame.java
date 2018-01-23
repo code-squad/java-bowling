@@ -2,11 +2,19 @@ package bowling.domain;
 
 public class Frame {
 
-    //TODO : 추후 점수 계산이 필요한 시점에 구현.
+    private TotalScore totalScore;
     private Score score;
+
+    public Frame() {
+    }
 
     public Frame(Score score) {
         this.score = score;
     }
 
+    @Override
+    public String toString() {
+        String temp = totalScore == null ? "" : totalScore.toString() + score == null ? String.format("%6s","") : score.toString();
+        return  String.format("  %2s  |", temp);
+    }
 }

@@ -8,6 +8,10 @@ public class Score {
     private Roll first;
     private Roll second;
 
+
+    public Score() {
+    }
+
     public Score(Roll first) {
         this.first = first;
     }
@@ -34,8 +38,10 @@ public class Score {
                     .sum();
     }
 
+
     @Override
     public String toString() {
+        if (first == null) return "";
         if (isStrike()) return BowlingScore.STRIKE.toString();
         BowlingScore secondScore = toBowlingScore();
         if (secondScore == BowlingScore.MISS) {

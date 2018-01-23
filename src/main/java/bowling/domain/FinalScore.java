@@ -26,6 +26,7 @@ public class FinalScore {
 
     @Override
     public String toString() {
+        if (first == null) return "";
         BowlingScore secondScore = toBowlingScore(second);
         if (isSpared()) {
             secondScore = BowlingScore.SPARE;
