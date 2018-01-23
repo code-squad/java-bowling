@@ -30,10 +30,10 @@ public class Referee {
 
     public TotalScore playFrame(int frameNo) {
         FirstScore firstScore = strategy.playFirstScore(frameNo);
-        scoreBoard.addFirstScore(frameNo, firstScore);
         if (firstScore.isStrike()) {
             return new TotalScore(firstScore);
         }
+        reportFirstScore(frameNo, firstScore);
         return strategy.playSecondScore(frameNo, firstScore);
     }
 
@@ -47,5 +47,10 @@ public class Referee {
 
     public void reportFrameResult(Frame frame) {
         scoreBoard.addFrame(frame);
+        scoreBoard.printScoreBoard();
+    }
+
+    private void reportFirstScore(int frameNo, FirstScore firstScore) {
+        scoreBoard.printFirstScore(frameNo, firstScore);
     }
 }

@@ -19,27 +19,33 @@ public class ConsoleScoreBoard implements ScoreBoard {
     }
 
     @Override
-    public void addFirstScore(int frameNo, FirstScore firstScore) {
+    public void printFirstScore(int frameNo, FirstScore firstScore) {
+        int frameSizeIncludeFirstScore = frames.size() + 1;
 
+        printHeader(Math.max(frames.size(), frameSizeIncludeFirstScore));
+        printPlayer();
+        printFrames();
+        printFirstScore(firstScore);
+        printRemainFrames(10 - frameSizeIncludeFirstScore);
+        printLine();
     }
 
     @Override
     public void addFrame(Frame frame) {
         frames.add(frame);
-        printScoreBoard();
     }
 
     @Override
     public void printScoreBoard() {
         printHeader(Math.max(frames.size(), 10));
-        printFrameResult();
-    }
-
-    private void printFrameResult() {
-        System.out.print(player);
+        printPlayer();
         printFrames();
         printRemainFrames(10 - frames.size());
         printLine();
+    }
+
+    private void printPlayer() {
+        System.out.print(player);
     }
 
     private void printHeader(int frameSize) {
@@ -47,6 +53,10 @@ public class ConsoleScoreBoard implements ScoreBoard {
         IntStream.range(0, frameSize)
                  .forEach(i -> System.out.printf(" %02d |", i + 1));
         printLine();
+    }
+
+    private void printFirstScore(FirstScore firstScore) {
+        System.out.printf("%-4s|", firstScore);
     }
 
     private void printRemainFrames(int remain) {
@@ -57,7 +67,7 @@ public class ConsoleScoreBoard implements ScoreBoard {
     }
 
     private void printFrames() {
-        frames.forEach(f -> System.out.printf("%4s|", f));
+        frames.forEach(f -> System.out.printf("%-4s|", f));
     }
 
     private void printLine() {
