@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import bowling.BowlingUser;
 import bowling.BowlingUtils;
+import bowling.GameView;
 import bowling.Input;
 import bowling.Output;
 import bowling.Score;
@@ -41,7 +42,23 @@ public class BowlingTest {
 
     @Test
     public void 기본_라인_표기가_올바른가() {
-        assertEquals("| NAME | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 |", Output.topLine());
+        assertEquals("|  NAME  |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |", Output.topLine());
+    }
+
+    @Test
+    public void 이름을_입력받고_초기_게임화면이_올바르게_생성되는가() {
+        BowlingUser bowlingUser = BowlingUser.registed(Input.generate("kyj").getName());
+        assertEquals("|  KYJ  |      |      |      |      |      |      |      |      |      |      |", GameView.generate(bowlingUser).get());
+    }
+
+    @Test
+    public void 입력받은_점수에_따른_반환값이_올바른가() {
+
+    }
+
+    @Test
+    public void 다음_라운드가_존재하는가() {
+
     }
 
     @Test
