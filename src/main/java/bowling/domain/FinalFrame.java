@@ -1,6 +1,7 @@
 package bowling.domain;
 
 import bowling.enums.FrameStatus;
+import bowling.util.PinUtil;
 
 import static bowling.enums.FrameStatus.SPARE;
 import static bowling.enums.FrameStatus.STRIKE;
@@ -60,5 +61,13 @@ public class FinalFrame extends Frame {
             return thirdTry != null;
 
         return super.isFrameEnd();
+    }
+
+    @Override
+    public String getFrameView() {
+        return String.format("%1s%1s%1s",
+                PinUtil.toView(firstTry),
+                PinUtil.toSplitor(secondTry),
+                PinUtil.toView(firstTry, secondTry));
     }
 }

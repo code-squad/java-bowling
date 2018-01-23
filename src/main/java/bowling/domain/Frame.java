@@ -1,6 +1,7 @@
 package bowling.domain;
 
 import bowling.enums.FrameStatus;
+import bowling.util.PinUtil;
 
 import java.text.MessageFormat;
 
@@ -49,8 +50,8 @@ public class Frame {
 
     public String getFrameView() {
         return String.format("%1s%1s%1s",
-                Pin.toView(firstTry),
-                Pin.toSplitor(secondTry),
-                Pin.toView(firstTry, secondTry));
+                PinUtil.toView(firstTry),
+                PinUtil.toSplitor(secondTry),
+                PinUtil.toView(firstTry, secondTry));
     }
 }

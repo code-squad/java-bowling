@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.util.PinUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,12 +22,6 @@ public class PinTest {
     @Test(expected = IllegalArgumentException.class)
     public void exceptionTest_Over10() {
         new Pin(11);
-    }
-
-    @Test()
-    public void getNumOfPinTest() {
-        assertThat(Pin.getNumOfPin(new Pin(10))).isEqualTo(10);
-        assertThat(Pin.getNumOfPin(null)).isEqualTo(-1);
     }
 
     @Test()

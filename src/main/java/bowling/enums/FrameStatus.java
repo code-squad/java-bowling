@@ -1,6 +1,7 @@
 package bowling.enums;
 
 import bowling.domain.Pin;
+import bowling.util.PinUtil;
 
 public enum FrameStatus {
     NOT_START,
@@ -10,8 +11,8 @@ public enum FrameStatus {
     NOT_END;
 
     public static FrameStatus getStatus(Pin firstTry, Pin secondTry) {
-        int numberOfFellPinOfFirstTry = Pin.getNumOfPin(firstTry);
-        int numberOfFellPinOfSecondTry = Pin.getNumOfPin(secondTry);
+        int numberOfFellPinOfFirstTry = PinUtil.getNumOfPin(firstTry);
+        int numberOfFellPinOfSecondTry = PinUtil.getNumOfPin(secondTry);
 
         if(numberOfFellPinOfFirstTry < 0)
             return NOT_START;
