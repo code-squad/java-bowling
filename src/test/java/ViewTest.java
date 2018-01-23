@@ -30,13 +30,13 @@ public class ViewTest {
 
     @Test
     public void 입력된_점수가_1부터_10사이인가() {
-        Score score1 = Score.in(Input.generate("3").getScore());
+        Score score1 = Score.in(Input.generate("3").getScore(1));
         assertTrue((MIN_SCORE <= score1.get()) && (score1.get() <= BowlingUtils.MAX_SCORE));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 입력된_점수가_1부터_10사이가_아닐때_에러를_발생시키는가() {
-        Score score2 = Score.in(Input.generate("11").getScore());
+        Score score2 = Score.in(Input.generate("11").getScore(1));
         assertFalse(MIN_SCORE <= score2.get() && score2.get() <= BowlingUtils.MAX_SCORE);
     }
 
@@ -49,5 +49,15 @@ public class ViewTest {
     public void 이름을_입력받고_초기_게임화면이_올바르게_생성되는가() {
         BowlingUser bowlingUser = BowlingUser.registed(Input.generate("kyj").getName());
         assertEquals("|  KYJ  |      |      |      |      |      |      |      |      |      |      |", GameView.generate(bowlingUser).get());
+    }
+
+    @Test
+    public void 입력받은_점수에_따른_결과화면이_올바른가() {
+        BowlingUser bowlingUser = BowlingUser.registed(Input.generate("kyj").getName());
+        GameView gameView = GameView.generate(bowlingUser);
+        Score score1 = Score.in(Input.generate("10").getScore(1));
+
+        //assertEquals("|  KYJ  |  X   |      |      |      |      |      |      |      |      |      |", gameView.reflectScore(score1).get());
+
     }
 }

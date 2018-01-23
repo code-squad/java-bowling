@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.Optional;
 import java.util.Scanner;
 
+import static bowling.utils.BowlingUtils.SCORE_INPUT_FORMAT;
 import static java.util.Optional.ofNullable;
 
 public class Input {
@@ -18,7 +19,8 @@ public class Input {
         return new Input(value);
     }
 
-    public Optional<Integer> getScore() {
+    public Optional<Integer> getScore(int frameCount) {
+        Output.print(String.format(SCORE_INPUT_FORMAT, frameCount));
         return ofNullable(scanner.nextInt());
     }
 

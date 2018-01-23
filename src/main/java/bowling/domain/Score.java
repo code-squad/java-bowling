@@ -20,6 +20,11 @@ public class Score {
         return MIN_SCORE <= score && score <= MAX_SCORE;
     }
 
+    public boolean checkNextScore(Score score) {
+        int totalScore = this.score + score.get();
+        return isValidScore(totalScore);
+    }
+
     public Integer get() {
         return score;
     }

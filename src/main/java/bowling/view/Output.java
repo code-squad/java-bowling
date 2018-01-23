@@ -15,7 +15,7 @@ public class Output {
 
     public static String topLine() {
         StringBuilder builder = new StringBuilder(String.format(BEGIN_FORMAT, "NAME"));
-        IntStream.rangeClosed(MIN_SCORE, MAX_SCORE-1).forEach(i -> builder.append(String.format(ING_FORMAT, "0"+i)));
+        IntStream.range(MIN_SCORE+1, MAX_SCORE).forEach(i -> builder.append(String.format(ING_FORMAT, "0"+i)));
         builder.append(String.format(ING_FORMAT, MAX_SCORE));
 
         return builder.toString();
