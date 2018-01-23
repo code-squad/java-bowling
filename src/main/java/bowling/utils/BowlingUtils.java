@@ -11,5 +11,9 @@ public class BowlingUtils {
     public static final String SCORE_INPUT_FORMAT = "%d프레임 투구 : ";
     public static final String FIRST_SCORE = "first";
     public static final String SECOND_SCORE = "second";
+    public static final String RESULT_SCORE_FORMAT = "%s|%s";
 
+    public static String formatScoreResult(String firstScore, String secondScore) {
+        return String.format(RESULT_SCORE_FORMAT, firstScore, secondScore);
+    }
 }

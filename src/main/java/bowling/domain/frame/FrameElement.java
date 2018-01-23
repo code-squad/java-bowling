@@ -32,7 +32,15 @@ public class FrameElement {
         return scoreMap.get(FIRST_SCORE).get();
     }
 
+    public String firstScoreToString() {
+        return String.valueOf(getFirstScore());
+    }
+
     public Integer getSecondScore() {
         return scoreMap.get(SECOND_SCORE).get();
+    }
+
+    public String secondScoreToString() {
+        return String.valueOf(getSecondScore());
     }
 }
