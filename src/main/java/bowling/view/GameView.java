@@ -27,7 +27,7 @@ public class GameView {
 
     public String firstReflectScore(NormalFrame frame) {
         resultView += getIngOnlyFormat(frame.result());
-        if(STRIKE.isStrike(frame.getFrameElement())) { return resultView; }
+        if(STRIKE.isStrike(frame.getNormalElement())) { return resultView; }
         return resultView + EMPTY_BLOCK_FRAME;
     }
 

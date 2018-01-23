@@ -1,17 +1,18 @@
 package bowling.domain.frame;
 
 import bowling.domain.ScoreMachine;
+import bowling.domain.frame.element.NormalElement;
 import bowling.domain.score.Score;
 
 import static bowling.domain.score.ScoreType.STRIKE;
 
 public class NormalFrame implements Frame {
-    private FrameElement frameElement;
+    private NormalElement normalElement;
     private String result;
 
     private NormalFrame(Score score) {
-        frameElement = frameElement.generate(score);
-        result = ScoreMachine.firstCalculate(frameElement);
+        normalElement = normalElement.generate(score);
+        result = ScoreMachine.firstCalculate(normalElement);
     }
 
     public static NormalFrame generate(Score score) {
@@ -20,13 +21,13 @@ public class NormalFrame implements Frame {
 
     @Override
     public boolean isEnd() {
-        return STRIKE.match(frameElement) || frameElement.hasSecondScore();
+        return STRIKE.match(normalElement) || normalElement.hasSecondScore();
     }
 
     @Override
     public NormalFrame nextRound(Score secondScore) {
-        if(!frameElement.canNextRound(secondScore)) { throw new IllegalArgumentException("2번째 투구점수가 올바르지 않습니다."); }
-        result = ScoreMachine.calculateScore(frameElement.inScore(secondScore));
+        if(!normalElement.validTotalScore(secondScore)) { throw new IllegalArgumentException("2번째 투구점수가 올바르지 않습니다."); }
+        result = ScoreMachine.calculateScore(normalElement.inScore(secondScore));
 
         return this;
     }
@@ -36,7 +37,7 @@ public class NormalFrame implements Frame {
         return result;
     }
 
-    public FrameElement getFrameElement() {
-        return frameElement;
+    public NormalElement getNormalElement() {
+        return normalElement;
     }
 }

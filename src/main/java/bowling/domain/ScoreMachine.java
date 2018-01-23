@@ -1,10 +1,10 @@
 package bowling.domain;
 
+import bowling.domain.frame.element.Element;
+import bowling.domain.score.ScoreType;
+
 import java.util.Arrays;
 import java.util.Optional;
-
-import bowling.domain.frame.FrameElement;
-import bowling.domain.score.ScoreType;
 
 import static bowling.domain.score.ScoreType.MISS;
 import static bowling.domain.score.ScoreType.STRIKE;
@@ -13,14 +13,14 @@ import static bowling.utils.ScoreUtils.MIN_SCORE;
 
 public class ScoreMachine {
 
-    public static String calculateScore(FrameElement frameElement) {
-        Optional<ScoreType> scoreCalculate = Arrays.stream(ScoreType.values()).filter(type -> type.match(frameElement)).findFirst();
-        return scoreCalculate.map(scoreCalculate1 -> scoreCalculate1.convert(frameElement)).get();
+    public static String calculateScore(Element element) {
+        Optional<ScoreType> scoreCalculate = Arrays.stream(ScoreType.values()).filter(type -> type.match(element)).findFirst();
+        return scoreCalculate.map(scoreCalculate1 -> scoreCalculate1.convert(element)).get();
     }
 
-    public static String firstCalculate(FrameElement frameElement) {
-        if(STRIKE.match(frameElement)) { return STRIKE.convert(frameElement); }
-        else if(isValidNumber(frameElement.getFirstScore())) { return frameElement.firstScoreToString(); }
+    public static String firstCalculate(Element element) {
+        if(STRIKE.match(element)) { return STRIKE.convert(element); }
+        else if(isValidNumber(element.getFirstScore())) { return element.firstScoreToString(); }
         return MISS.get();
     }
 

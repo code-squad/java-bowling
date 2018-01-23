@@ -3,6 +3,10 @@ package bowling.domain.frame;
 import bowling.domain.score.Score;
 
 public interface Frame {
+    String FIRST_SCORE = "first";
+    String SECOND_SCORE = "second";
+    String THIRD_SCORE = "third";
+
     boolean isEnd();
 
     Frame nextRound(Score score);
