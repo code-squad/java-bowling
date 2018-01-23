@@ -1,18 +1,23 @@
 package bowling;
 
+import java.util.Optional;
+
 public class BowlingUser {
     private String name;
 
-    public BowlingUser(String name) {
-        if(isThreeLength(name)) throw new IllegalArgumentException("이름은 3글자만 허용됩니다.");
-        this.name = name.toUpperCase();
+    public BowlingUser(Optional<String> name) {
+        this.name = name.filter(BowlingUser::isThreeLength).map(String::toUpperCase).orElseThrow(() -> new IllegalArgumentException("이름은 3글자만 허용됩니다."));
     }
 
-    public static BowlingUser registed(String name) {
+    public static BowlingUser registed(Optional<String> name) {
         return new BowlingUser(name);
     }
 
-    private boolean isThreeLength(String name) {
-        return name.length() != 3;
+    private static boolean isThreeLength(String name) {
+        return name.length() == 3;
+    }
+
+    public String getName() {
+        return name;
     }
 }

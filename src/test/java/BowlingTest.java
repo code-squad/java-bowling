@@ -13,6 +13,15 @@ import static org.junit.Assert.assertTrue;
 
 public class BowlingTest {
 
+    @Test
+    public void 플레이어_이름이_세글자일때_대문자로_변환되는가() {
+        String originalName = "kyj";
+        String upperName = "KYJ";
+        BowlingUser bowlingUser = BowlingUser.registed(Input.generate(originalName).getName());
+
+        assertEquals(upperName, bowlingUser.getName());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void 플레이어_이름이_세글자가_아닐때_에러를_발생시키는가() {
         BowlingUser.registed(Input.generate("dddo").getName());

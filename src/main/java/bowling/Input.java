@@ -1,7 +1,10 @@
 package bowling;
 
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.Scanner;
+
+import static java.util.Optional.ofNullable;
 
 public class Input {
     private static Scanner scanner;
@@ -15,11 +18,11 @@ public class Input {
         return new Input(value);
     }
 
-    public int getScore() {
-        return scanner.nextInt();
+    public Optional<Integer> getScore() {
+        return ofNullable(scanner.nextInt());
     }
 
-    public String getName() {
-        return scanner.next();
+    public Optional<String> getName() {
+        return ofNullable(scanner.next());
     }
 }
