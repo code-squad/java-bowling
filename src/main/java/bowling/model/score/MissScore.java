@@ -18,4 +18,9 @@ public class MissScore implements Score {
 	public int currentScore() {
 		return first + second;
 	}
+
+	@Override
+	public int firstScore() {
+		return first;
+	}
 }

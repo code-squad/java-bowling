@@ -15,4 +15,9 @@ public class FinalScore implements Score {
         return 0;
     }
 
+    @Override
+    public int firstScore() {
+        return scores.get(0);
+    }
+
 }

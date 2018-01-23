@@ -13,4 +13,9 @@ public class SpareScore implements Score {
 		return 10;
 	}
 
+	@Override
+	public int firstScore() {
+		return score;
+	}
+
 }

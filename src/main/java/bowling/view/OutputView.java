@@ -19,6 +19,14 @@ public class OutputView {
 		System.out.println();
 	}
 
+	public static void printTotalScoreView(String[] totalScores) {
+		System.out.print("|      |");
+		Arrays.stream(totalScores)
+				.map(OutputView::checkScore)
+				.forEach(System.out::print);
+		System.out.println();
+	}
+
 	private static String checkScore(String score) {
 		if (score == null) {
 			return "      |";

@@ -23,4 +23,13 @@ public class FinalFrame extends Frame {
 		return null;
 	}
 
+	@Override
+	public boolean isStrike() {
+		return super.isStrike();
+	}
+
+	@Override
+	public int getScore() throws Exception {
+		return super.getScore();
+	}
 }

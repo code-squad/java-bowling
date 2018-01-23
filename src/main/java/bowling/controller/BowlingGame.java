@@ -5,6 +5,8 @@ import bowling.model.Player;
 import bowling.view.InputView;
 import bowling.view.OutputView;
 
+import java.util.Arrays;
+
 public class BowlingGame {
 
 	public static void main(String[] args) {
@@ -18,15 +20,37 @@ public class BowlingGame {
 			int score = InputView.askScore(current.getId());
 			current = current.bowl(score);
 			OutputView.printScoreView(player, setScore(head));
+			OutputView.printTotalScoreView(setTotalScore(head));
 		}
 	}
 
+	private static String[] setTotalScore(Frame head) {
+		Integer[] scores = new Integer[10];
+		String[] scoresStr = new String[10];
+
+		while (head != null) {
+			try {
+				scores[head.getId() - 1] = head.getScore();
+				if (head.getId() > 1)
+					scores[head.getId() - 1] += scores[head.getId() - 2];
+
+				scoresStr[head.getId() - 1] = Integer.toString(scores[head.getId() - 1]);
+			} catch(Exception e) {
+				scores[head.getId() - 1] = null;
+			}
+			head = head.next;
+		}
+
+		return scoresStr;
+	}
+
+
 	private static String[] setScore(Frame head) {
-		Frame temp = head;
+		Frame curr = head;
 		String[] scores = new String[10];
-		while (temp != null) {
-			scores[temp.getId() - 1] = temp.toString();
-			temp = temp.next;
+		while (curr != null) {
+			scores[curr.getId() - 1] = curr.toString();
+			curr = curr.next;
 		}
 		return scores;
 	}

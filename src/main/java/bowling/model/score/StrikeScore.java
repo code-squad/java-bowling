@@ -10,4 +10,8 @@ public class StrikeScore implements Score {
 		return 10;
 	}
 
+	@Override
+	public int firstScore() {
+		return 10;
+	}
 }

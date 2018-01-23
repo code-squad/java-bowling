@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 public interface Score {
 
 	int currentScore();
+	int firstScore();
 
 	static Score of(List<Integer> scores) {
 		if (scores == null)
