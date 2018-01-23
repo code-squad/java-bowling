@@ -12,12 +12,16 @@ public class FinalScore implements Score {
 
     @Override
     public int currentScore() {
-        return 0;
+        return scores.get(0) + scores.get(1);
     }
 
     @Override
     public int firstScore() {
         return scores.get(0);
+    }
+
+    public int finalScore() {
+        return scores.stream().reduce(0, (a, b) -> a + b);
     }
 
 }

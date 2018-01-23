@@ -52,13 +52,19 @@ public class Frame {
 		return score instanceof StrikeScore;
 	}
 
+	public boolean isNextStrike() {
+		if (next == null)
+			throw new IllegalStateException();
+		return next.isStrike();
+	}
+
 	public int getScore() throws Exception {
 		if (score instanceof MissScore)
 			return this.getFramePinCount();
 		if (score instanceof SpareScore)
 			return this.getFramePinCount() + next.getFirstPinCount();
 		if (score instanceof StrikeScore) {
-			if (next.isStrike() && next.next.isStrike()) {
+			if (next.isStrike() && next.isNextStrike()) {
 				return 30;
 			} else {
 				return this.getFramePinCount() + next.getFramePinCount();
@@ -68,7 +74,7 @@ public class Frame {
 		throw new IllegalStateException();
 	}
 
-	private int getFramePinCount() {
+	protected int getFramePinCount() {
 		if(score != null)
 			return score.currentScore();
 
@@ -76,10 +82,10 @@ public class Frame {
 	}
 
 	private int getFirstPinCount() {
-		if(score != null)
-			return score.firstScore();
+		if(temp.isEmpty())
+			throw new IllegalStateException();
 
-		throw new IllegalStateException();
+		return temp.get(0);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package bowling.model.frame;
 
-import bowling.model.score.Score;
+import bowling.model.score.*;
 
 public class FinalFrame extends Frame {
 
@@ -24,12 +24,21 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	public boolean isStrike() {
-		return super.isStrike();
+	public boolean isStrike() throws IndexOutOfBoundsException {
+		return temp.get(0) == 10;
+	}
+
+	@Override
+	public boolean isNextStrike() throws IndexOutOfBoundsException {
+		return temp.get(1) == 10;
 	}
 
 	@Override
 	public int getScore() throws Exception {
-		return super.getScore();
+		if (score instanceof FinalScore) {
+			return ((FinalScore) score).finalScore();
+		}
+		return score.currentScore();
 	}
+
 }

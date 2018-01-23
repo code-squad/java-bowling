@@ -27,9 +27,6 @@ public interface Score {
 	}
 
 	static String convertString(List<Integer> scores) {
-//		if (scores.size() == 0)
-//			return "   ";
-
 		String str = scores.stream()
 				.map(score -> score.toString())
 				.collect(Collectors
