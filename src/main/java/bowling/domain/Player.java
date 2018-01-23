@@ -26,6 +26,13 @@ public class Player {
         return frames.getState(frameNo);
     }
 
+    public FrameStatus getPreviousState() {
+        if(frameNo < 1)
+            throw new IllegalArgumentException("There is no previous frame of first frame");
+
+        return frames.getState(frameNo - 1);
+    }
+
     public void rollBowlingBall(Pin pin) {
         frames.rollBowlingBall(frameNo, pin);
     }

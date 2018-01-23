@@ -1,11 +1,11 @@
 package bowling.domain;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class PlayerQueue {
-    private Queue<Player> playerQueue;
+    private Deque<Player> playerQueue;
 
     public PlayerQueue(List<Player> players) {
         playerQueue = new LinkedList<>(players);
@@ -13,6 +13,10 @@ public class PlayerQueue {
 
     public Player getCurrentPlayer() {
         return playerQueue.peek();
+    }
+
+    public Player getPreviousPlayer() {
+        return playerQueue.peekLast();
     }
 
     public void rotate() {

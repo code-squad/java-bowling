@@ -26,7 +26,7 @@ public class BowlingGameTest {
     @Test
     public void rollBowlingBallTest() {
         bowlingGame.rollBowlingBall(new Pin(10));
-        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(FrameStatus.STRIKE);
+        assertThat(bowlingGame.getPreviousPlayer().getPreviousState()).isEqualTo(FrameStatus.STRIKE);
     }
 
     @Test

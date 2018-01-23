@@ -44,6 +44,14 @@ public class PlayerTest {
     }
 
     @Test
+    public void getPreviousTest() {
+        player.rollBowlingBall(new Pin(10));
+        player.frameNoUpdate();
+        assertThat(player.getPreviousState()).isEqualTo(FrameStatus.STRIKE);
+        assertThat(player.getState()).isEqualTo(FrameStatus.NOT_START);
+    }
+
+    @Test
     public void rollBowlingBallTest() {
         //player.rollBowlingBall(new Pin(5));
     }
