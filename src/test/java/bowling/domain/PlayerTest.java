@@ -1,9 +1,9 @@
 package bowling.domain;
 
-import bowling.enums.FrameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
+import static bowling.enums.FrameStatus.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class PlayerTest {
@@ -26,7 +26,7 @@ public class PlayerTest {
 
     @Test
     public void getStateTest() {
-        assertThat(player.getState()).isEqualTo(FrameStatus.NOT_START);
+        assertThat(player.getState()).isEqualTo(NOT_START);
     }
 
     @Test
@@ -40,15 +40,15 @@ public class PlayerTest {
     public void frameNoUpdateTest() {
         player.rollBowlingBall(new Pin(10));
         player.frameNoUpdate();
-        assertThat(player.getState()).isEqualTo(FrameStatus.NOT_START);
+        assertThat(player.getState()).isEqualTo(NOT_START);
     }
 
     @Test
     public void getPreviousTest() {
         player.rollBowlingBall(new Pin(10));
         player.frameNoUpdate();
-        assertThat(player.getPreviousState()).isEqualTo(FrameStatus.STRIKE);
-        assertThat(player.getState()).isEqualTo(FrameStatus.NOT_START);
+        assertThat(player.getPreviousState()).isEqualTo(STRIKE);
+        assertThat(player.getState()).isEqualTo(NOT_START);
     }
 
     @Test
