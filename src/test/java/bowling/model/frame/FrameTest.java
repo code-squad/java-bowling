@@ -1,9 +1,9 @@
-package bowling.model;
+package bowling.model.frame;
 
-import bowling.model.Frame;
-import bowling.model.MissScore;
-import bowling.model.SpareScore;
-import bowling.model.StrikeScore;
+import bowling.model.frame.Frame;
+import bowling.model.score.MissScore;
+import bowling.model.score.SpareScore;
+import bowling.model.score.StrikeScore;
 import org.junit.Before;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;

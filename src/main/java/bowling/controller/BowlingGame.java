@@ -1,6 +1,6 @@
 package bowling.controller;
 
-import bowling.model.Frame;
+import bowling.model.frame.Frame;
 import bowling.model.Player;
 import bowling.view.InputView;
 import bowling.view.OutputView;
@@ -24,7 +24,7 @@ public class BowlingGame {
 	private static String[] setScore(Frame head) {
 		Frame temp = head;
 		String[] scores = new String[10];
-		while (temp != null) {
+		while (temp.next != null) {
 			scores[temp.getId() - 1] = temp.toString();
 			temp = temp.next;
 		}

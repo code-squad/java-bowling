@@ -23,6 +23,8 @@ public class OutputView {
 		if (score == null) {
 			return "      |";
 		}
-		return score + " |";
+		int len = score.length();
+
+		return " " + score + "      ".substring(0, 5 - len) + "|";
 	}
 }

@@ -1,4 +1,6 @@
-package bowling.model;
+package bowling.model.frame;
+
+import bowling.model.score.Score;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +45,9 @@ public class Frame {
 
 	@Override
 	public String toString() {
-		if (score == null) {
-			return temp.size() == 0 ? "     " : "  " + (temp.get(0) == 0 ? "-" : temp.get(0)) + "  ";
+		if (temp.isEmpty()) {
+			return "     ";
 		}
-		return score.toString();
+		return Score.convertString(temp);
 	}
 }
