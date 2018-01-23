@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.common.StaticVariables;
 import bowling.enums.FrameStatus;
 
 import java.util.ArrayList;
@@ -7,14 +8,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Frames {
-    private static final int FRAME_MAX_VALUE = 10;
-
     private List<Frame> frames;
 
     public Frames() {
-        frames = new ArrayList<>(FRAME_MAX_VALUE);
+        frames = new ArrayList<>(StaticVariables.FRAME_MAX_VALUE);
 
-        for(int i = 0 ; i < FRAME_MAX_VALUE - 1 ; ++i)
+        for(int i = 0; i < StaticVariables.FRAME_MAX_VALUE - 1 ; ++i)
             frames.add(new Frame());
 
         frames.add(new FinalFrame());
@@ -43,6 +42,6 @@ public class Frames {
     }
 
     public boolean isEnd() {
-        return frame(FRAME_MAX_VALUE - 1).isFrameEnd();
+        return frame(StaticVariables.FRAME_MAX_VALUE - 1).isFrameEnd();
     }
 }
