@@ -41,4 +41,8 @@ public class Frames {
                 .map(Frame::getFrameView)
                 .collect(Collectors.toList());
     }
+
+    public boolean isEnd() {
+        return frame(FRAME_MAX_VALUE - 1).isFrameEnd();
+    }
 }

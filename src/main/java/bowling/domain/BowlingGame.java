@@ -37,4 +37,8 @@ public class BowlingGame {
         if(getCurrentPlayer().isCurrentFrameEnd())
             playerQueue.rotate();
     }
+
+    public boolean isEnd() {
+        return players.checkIsEnd();
+    }
 }

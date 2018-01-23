@@ -15,4 +15,9 @@ public class Players {
         if(players == null)
             throw new IllegalArgumentException("Invalid input for Players");
     }
+
+    public boolean checkIsEnd() {
+        return players.stream()
+                .anyMatch(player -> !player.isEnd());
+    }
 }
