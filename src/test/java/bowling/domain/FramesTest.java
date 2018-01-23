@@ -4,6 +4,8 @@ import bowling.enums.FrameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class FramesTest {
@@ -30,5 +32,18 @@ public class FramesTest {
         assertThat(frames.isCurrentFrameEnd(0)).isFalse();
         frames.rollBowlingBall(0, new Pin(10));
         assertThat(frames.isCurrentFrameEnd(0)).isTrue();
+    }
+
+    @Test
+    public void getFrameViewsTest() {
+        frames.rollBowlingBall(0, new Pin(10));
+        frames.rollBowlingBall(1, new Pin(10));
+        frames.rollBowlingBall(2, new Pin(10));
+        frames.rollBowlingBall(3, new Pin(10));
+
+        assertThat(frames.getFrameViews()).isEqualTo(Arrays.asList(
+                "X  ", "X  ", "X  ", "X  ", "   ",
+                "   ", "   ", "   ", "   ", "   "
+        ));
     }
 }

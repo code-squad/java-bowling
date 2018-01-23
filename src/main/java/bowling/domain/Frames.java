@@ -4,6 +4,7 @@ import bowling.enums.FrameStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Frames {
     private static final int FRAME_MAX_VALUE = 10;
@@ -33,5 +34,11 @@ public class Frames {
 
     public boolean isCurrentFrameEnd(int frameNo) {
         return frame(frameNo).isFrameEnd();
+    }
+
+    public List<String> getFrameViews() {
+        return frames.stream()
+                .map(Frame::getFrameView)
+                .collect(Collectors.toList());
     }
 }
