@@ -1,5 +1,6 @@
 package bowling.view;
 
+import bowling.domain.Pin;
 import bowling.domain.Player;
 
 import java.util.Arrays;
@@ -19,5 +20,9 @@ public class InputView {
         return players.stream()
                 .map(Player::new)
                 .collect(Collectors.toList());
+    }
+
+    public static Pin getPin() {
+        return new Pin(Integer.parseInt(sc.nextLine()));
     }
 }

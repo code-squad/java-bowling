@@ -19,7 +19,7 @@ public class Players {
 
     public boolean checkIsEnd() {
         return players.stream()
-                .anyMatch(player -> !player.isEnd());
+                .anyMatch(Player::isEnd);
     }
 
     public List<Player> getPlayersAsList() {

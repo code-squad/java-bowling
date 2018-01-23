@@ -3,8 +3,6 @@ package bowling.domain;
 import java.util.List;
 
 public class BowlingGame {
-    private static final String TOP_MESSAGE = "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n";
-
     private Players players;
     private PlayerQueue playerQueue;
 
@@ -40,5 +38,9 @@ public class BowlingGame {
 
     public boolean isEnd() {
         return players.checkIsEnd();
+    }
+
+    public Players getPlayers() {
+        return players;
     }
 }

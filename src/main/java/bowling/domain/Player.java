@@ -58,6 +58,10 @@ public class Player {
         return frames.getFrameViews();
     }
 
+    public void printFrameInfo() {
+        System.out.print(frameNo + 1 + "프레임 투구 : ");
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
