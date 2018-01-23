@@ -14,7 +14,7 @@ public class BowlingGame {
     }
 
     private void inputValidationCheck(List<Player> players) {
-        if(players == null)
+        if(players == null || players.isEmpty())
             throw new IllegalArgumentException("Players not valid");
     }
 
