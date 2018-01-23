@@ -17,15 +17,6 @@ public class FrameStatusTest {
     }
 
     @Test
-    public void toViewTest() {
-        assertThat(FrameStatus.toView(new Pin(10), null)).isEqualTo("X  ");
-        assertThat(FrameStatus.toView(new Pin(8), new Pin(2))).isEqualTo("8|/");
-        assertThat(FrameStatus.toView(new Pin(5), null)).isEqualTo("5  ");
-        assertThat(FrameStatus.toView(new Pin(5), new Pin(0))).isEqualTo("5|-");
-        assertThat(FrameStatus.toView(new Pin(0), new Pin(0))).isEqualTo("-|-");
-    }
-
-    @Test
     public void isEndTest() {
         assertThat(FrameStatus.isEnd(FrameStatus.NOT_END)).isFalse();
         assertThat(FrameStatus.isEnd(FrameStatus.NOT_START)).isFalse();
