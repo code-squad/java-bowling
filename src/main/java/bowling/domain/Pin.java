@@ -1,13 +1,10 @@
 package bowling.domain;
 
+import bowling.common.StaticVariables;
+
 import java.util.Optional;
 
 public class Pin {
-    private static final int MAX_VALUE = 10;
-    private static final int MIN_VALUE = 0;
-    private static final String GUTTER = "-";
-    private static final String STRIKE = "X";
-
     private int fellPin;
 
     public Pin(int fellPin) {
@@ -17,7 +14,7 @@ public class Pin {
     }
 
     private void checkInputValidation(int fellPin) {
-        if(fellPin < MIN_VALUE || MAX_VALUE < fellPin)
+        if(fellPin < StaticVariables.MIN_VALUE || StaticVariables.MAX_VALUE < fellPin)
             throw new IllegalArgumentException("Invalid input for pin");
     }
 
@@ -26,20 +23,20 @@ public class Pin {
     }
 
     private String toSymbol(int fellPin) {
-        return fellPin == 0 ? GUTTER : STRIKE;
+        return fellPin == 0 ? StaticVariables.GUTTER : StaticVariables.STRIKE;
     }
 
     public boolean isOverTen(Pin pin) {
-        return fellPin + pin.fellPin > MAX_VALUE;
+        return fellPin + pin.fellPin > StaticVariables.MAX_VALUE;
     }
 
     public boolean isStrike() {
-        return fellPin == MAX_VALUE;
+        return fellPin == StaticVariables.MAX_VALUE;
     }
 
     public boolean isSpare(Pin secondTry) {
         return Optional.ofNullable(secondTry)
-                .map(second -> second.fellPin + this.fellPin == MAX_VALUE)
+                .map(second -> second.fellPin + this.fellPin == StaticVariables.MAX_VALUE)
                 .orElse(false);
     }
 
