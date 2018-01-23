@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Optional;
 import java.util.Scanner;
 
-import static bowling.utils.BowlingUtils.SCORE_INPUT_FORMAT;
+import static bowling.utils.StringUtils.SCORE_INPUT_FORMAT;
 import static java.util.Optional.ofNullable;
 
 public class Input {
@@ -25,6 +25,7 @@ public class Input {
     }
 
     public Optional<String> getName() {
+        Output.print("플레이어 이름은(3 english letters)?: ");
         return ofNullable(scanner.next());
     }
 }

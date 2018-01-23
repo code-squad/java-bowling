@@ -2,8 +2,8 @@ package bowling.domain.score;
 
 import java.util.Optional;
 
-import static bowling.utils.BowlingUtils.MAX_SCORE;
-import static bowling.utils.BowlingUtils.MIN_SCORE;
+import static bowling.utils.ScoreUtils.MAX_SCORE;
+import static bowling.utils.ScoreUtils.MIN_SCORE;
 
 public class Score {
     private Integer score;

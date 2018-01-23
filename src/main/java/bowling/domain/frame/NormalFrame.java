@@ -3,14 +3,15 @@ package bowling.domain.frame;
 import bowling.domain.ScoreMachine;
 import bowling.domain.score.Score;
 
+import static bowling.domain.score.ScoreType.STRIKE;
+
 public class NormalFrame implements Frame {
     private FrameElement frameElement;
     private String result;
 
     private NormalFrame(Score score) {
-        //optional
         frameElement = frameElement.generate(score);
-        result = ScoreMachine.calculateStrike(frameElement);
+        result = ScoreMachine.firstCalculate(frameElement);
     }
 
     public static NormalFrame generate(Score score) {
@@ -19,11 +20,11 @@ public class NormalFrame implements Frame {
 
     @Override
     public boolean isEnd() {
-        return result != null;
+        return STRIKE.match(frameElement) || frameElement.hasSecondScore();
     }
 
     @Override
-    public Frame nextRound(Score secondScore) {
+    public NormalFrame nextRound(Score secondScore) {
         if(!frameElement.canNextRound(secondScore)) { throw new IllegalArgumentException("2번째 투구점수가 올바르지 않습니다."); }
         result = ScoreMachine.calculateScore(frameElement.inScore(secondScore));
 
@@ -33,5 +34,9 @@ public class NormalFrame implements Frame {
     @Override
     public String result() {
         return result;
+    }
+
+    public FrameElement getFrameElement() {
+        return frameElement;
     }
 }

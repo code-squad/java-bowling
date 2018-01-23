@@ -43,4 +43,8 @@ public class FrameElement {
     public String secondScoreToString() {
         return String.valueOf(getSecondScore());
     }
+
+    public boolean hasSecondScore() {
+        return scoreMap.containsKey(SECOND_SCORE);
+    }
 }
