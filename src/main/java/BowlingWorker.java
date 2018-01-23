@@ -1,16 +1,27 @@
-import domain.Frames;
+import domain.*;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class BowlingWorker {
 
-  Map<String, Frames> bowlData = new HashMap<>();
+  private Frames frames;
 
   public void createBowlGame(String name) {
-    bowlData.put(name, new Frames());
+    this.frames = new Frames();
+    IntStream.rangeClosed(1, 10).forEach(i -> {
+      frames.add(new NormalFrame());
+    });
   }
 
-  public void roll(int pins) {
+  public FrameResults roll(int round, int pins) {
+    NormalFrame frame = frames.get(round);
+    //Bowl bowl = frame.roll(pins);
+    return new FrameResults();
+  }
 
+  public boolean isStrike(int round) {
+    return frames.isCompleted(round);
   }
 }

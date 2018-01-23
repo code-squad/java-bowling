@@ -13,6 +13,18 @@ public class BowlPin {
     this.pins = pins;
   }
 
+  public boolean isStrike() {
+    return pins == 10;
+  }
+
+  public boolean isGutter() {
+    return pins == 0;
+  }
+
+  public boolean isSpare(BowlPin firstBowlPin) {
+    return pins + firstBowlPin.getPins() == 10;
+  }
+
   public int getPins() {
     return pins;
   }

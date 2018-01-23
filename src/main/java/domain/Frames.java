@@ -14,4 +14,12 @@ public class Frames {
   public void add(NormalFrame frame) {
     this.frames.add(frame);
   }
+
+  public NormalFrame get(int round) {
+    return frames.get(round - 1);
+  }
+
+  public boolean isCompleted(int round) {
+    return get(round).isStrike();
+  }
 }

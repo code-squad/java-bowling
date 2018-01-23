@@ -1,26 +1,29 @@
 package domain;
 
+import domain.state.BowlState;
+
 public class NormalFrame {
 
-  private int frameSeqNo;
-  private FirstBowl firstBowl;
+  private Bowl bowl;
   private SecondBowl secondBowl;
 
-  public NormalFrame() {
-    frameSeqNo = 1;
-  }
+  public NormalFrame() {}
 
-  public int roll(int fallenPins) {
-    if (isFirstBowl()) {
-      firstBowl = new FirstBowl(fallenPins);
-      return frameSeqNo++;
+  public String roll(int fallenPins) {
+    if (bowl == null) {
+      bowl = new Bowl(fallenPins);
+      return result(bowl);
     }
 
-    secondBowl = new SecondBowl(fallenPins, firstBowl);
-    return frameSeqNo;
+    secondBowl = new SecondBowl(fallenPins, bowl.getFallenBowlPin());
+    return result(secondBowl);
   }
 
-  private boolean isFirstBowl() {
-    return frameSeqNo == 1;
+  public String result(Bowl bowl) {
+    return bowl.toString();
+  }
+
+  public boolean isStrike() {
+    return bowl.getBowlState() == BowlState.STRIKE;
   }
 }

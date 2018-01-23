@@ -1,14 +1,18 @@
 package domain.state;
 
 public enum BowlState {
-  STRIKE(1),
-  SPARE(2),
-  MISS(2),
-  GUTTER(2);
+  STRIKE("X"),
+  SPARE("/"),
+  GUTTER("-");
 
-  private final int bowlTimes;
+  private String symbol;
 
-  BowlState(int bowlTimes) {
-    this.bowlTimes = bowlTimes;
+  public String getSymbol() {
+    return symbol;
   }
+
+  private BowlState(String symbol) {
+    this.symbol = symbol;
+  }
+
 }

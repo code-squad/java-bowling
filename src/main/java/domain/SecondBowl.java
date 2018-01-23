@@ -2,46 +2,24 @@ package domain;
 
 import domain.state.BowlState;
 
-public class SecondBowl {
+public class SecondBowl extends Bowl {
 
-  private BowlPin fallenBowlPin;
-  private FirstBowl firstBowl;
-  private BowlState bowlState = BowlState.MISS;
+  private BowlPin firstBowlPin;
 
-  public SecondBowl(int fallenPins, FirstBowl firstBowl) {
-    if (firstBowl.getFallenBowlPin() == 10) {
+  public SecondBowl(int fallenPins, BowlPin firstBowlPin) {
+    super(fallenPins);
+    if (firstBowlPin.getPins() == 10) {
       throw new IllegalArgumentException("해당 프레임은 이미 종료되었습니다.");
     }
 
-    this.fallenBowlPin = new BowlPin(fallenPins);
-    this.firstBowl = firstBowl;
+    this.firstBowlPin = firstBowlPin;
 
-    if (isSpare()) {
+    if (fallenBowlPin.isSpare(firstBowlPin)) {
       bowlState = BowlState.SPARE;
     }
 
-    if (isGutter()) {
+    if (fallenBowlPin.isGutter()) {
       bowlState = BowlState.GUTTER;
     }
-  }
-
-  private boolean isGutter() {
-    return getSumFallenBowlPin() == 0;
-  }
-
-  private boolean isSpare() {
-    return getSumFallenBowlPin() == 10;
-  }
-
-  private int getSumFallenBowlPin() {
-    return getFallenBowlPin() + firstBowl.getFallenBowlPin();
-  }
-
-  public int getFallenBowlPin() {
-    return fallenBowlPin.getPins();
-  }
-
-  public BowlState getBowlState() {
-    return bowlState;
   }
 }
