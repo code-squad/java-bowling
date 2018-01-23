@@ -8,6 +8,7 @@ import static bowling.utils.ScoreUtils.MAX_SCORE;
 import static bowling.utils.ScoreUtils.MIN_POSSIBLE_SCORE;
 
 public class Output {
+    private static String topLine = makeTopLine();
 
     public static void print(String value) {
         System.out.print(value);
@@ -17,11 +18,15 @@ public class Output {
         System.out.println(value);
     }
 
-    public static String topLine() {
+    public static String makeTopLine() {
         StringBuilder builder = new StringBuilder(String.format(BEGIN_NAME_FORMAT, "NAME"));
         IntStream.range(MIN_POSSIBLE_SCORE, MAX_SCORE).forEach(i -> builder.append(String.format(DEFAULT_ING_FORMAT, "0"+i)));
         builder.append(String.format(DEFAULT_ING_FORMAT, MAX_SCORE));
 
         return builder.toString();
+    }
+
+    public static String topLine() {
+        return topLine;
     }
 }

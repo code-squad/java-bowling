@@ -36,14 +36,6 @@ public class GameView {
         return resultView;
     }
 
-    private String clearBeforeData() {
-        return resultView.substring(0, resultView.length()-1);
-    }
-
-    private String initNameView(BowlingUser bowlingUser) {
-        return String.format(BEGIN_FORMAT, bowlingUser.getName());
-    }
-
     public String initEmptyFrames(String nameView, int ingLength) {
         StringBuilder builder = new StringBuilder(nameView);
         IntStream.range(MIN_SCORE, MAX_SCORE-ingLength).forEach(i -> builder.append(String.format(DEFAULT_ING_FORMAT, EMPTY_FRAME)));
@@ -52,6 +44,14 @@ public class GameView {
 
     public String firstFrame() {
         return initEmptyFrames(resultView, MIN_SCORE);
+    }
+
+    private String clearBeforeData() {
+        return resultView.substring(0, resultView.length()-1);
+    }
+
+    private String initNameView(BowlingUser bowlingUser) {
+        return String.format(BEGIN_FORMAT, bowlingUser.getName());
     }
 
 }
