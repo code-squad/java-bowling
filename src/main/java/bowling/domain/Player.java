@@ -2,6 +2,7 @@ package bowling.domain;
 
 import bowling.enums.FrameStatus;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Player {
@@ -47,6 +48,14 @@ public class Player {
 
     public boolean isEnd() {
         return frames.isEnd();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getFrameViews() {
+        return frames.getFrameViews();
     }
 
     @Override
