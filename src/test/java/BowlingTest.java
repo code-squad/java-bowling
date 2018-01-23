@@ -1,8 +1,8 @@
 import org.junit.Test;
 
-import bowling.domain.Frame;
-import bowling.domain.NormalFrame;
-import bowling.domain.Score;
+import bowling.domain.frame.Frame;
+import bowling.domain.frame.NormalFrame;
+import bowling.domain.score.Score;
 
 import static java.util.Optional.ofNullable;
 import static org.junit.Assert.assertEquals;

@@ -1,8 +1,8 @@
-package bowling.domain.enums;
+package bowling.domain.score;
 
 import java.util.function.Function;
 
-import bowling.domain.FrameElement;
+import bowling.domain.frame.FrameElement;
 
 import static bowling.utils.BowlingUtils.MAX_SCORE;
 import static bowling.utils.BowlingUtils.MIN_SCORE;

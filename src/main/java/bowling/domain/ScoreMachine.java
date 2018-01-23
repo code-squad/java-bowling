@@ -3,9 +3,10 @@ package bowling.domain;
 import java.util.Arrays;
 import java.util.Optional;
 
-import bowling.domain.enums.ScoreCalculate;
+import bowling.domain.frame.FrameElement;
+import bowling.domain.score.ScoreCalculate;
 
-import static bowling.domain.enums.ScoreCalculate.STRIKE;
+import static bowling.domain.score.ScoreCalculate.STRIKE;
 
 public class ScoreMachine {
 

@@ -1,7 +1,7 @@
 import org.junit.Test;
 
 import bowling.domain.BowlingUser;
-import bowling.domain.Score;
+import bowling.domain.score.Score;
 import bowling.utils.BowlingUtils;
 import bowling.view.GameView;
 import bowling.view.Input;

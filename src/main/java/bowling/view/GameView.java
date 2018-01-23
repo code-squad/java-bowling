@@ -3,7 +3,7 @@ package bowling.view;
 import java.util.stream.IntStream;
 
 import bowling.domain.BowlingUser;
-import bowling.domain.Score;
+import bowling.domain.score.Score;
 
 import static bowling.utils.BowlingUtils.BEGIN_FORMAT;
 import static bowling.utils.BowlingUtils.EMPTY_FRAME;

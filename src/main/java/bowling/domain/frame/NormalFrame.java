@@ -1,4 +1,7 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import bowling.domain.ScoreMachine;
+import bowling.domain.score.Score;
 
 public class NormalFrame implements Frame {
     private FrameElement frameElement;

@@ -1,4 +1,6 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import bowling.domain.score.Score;
 
 public interface Frame {
     boolean isEnd();

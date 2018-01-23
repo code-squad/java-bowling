@@ -1,7 +1,9 @@
-package bowling.domain;
+package bowling.domain.frame;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import bowling.domain.score.Score;
 
 import static bowling.utils.BowlingUtils.FIRST_SCORE;
 import static bowling.utils.BowlingUtils.SECOND_SCORE;

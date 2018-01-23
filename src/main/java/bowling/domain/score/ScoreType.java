@@ -1,4 +1,4 @@
-package bowling.domain.enums;
+package bowling.domain.score;
 
 public enum ScoreType {
     STRIKE("X"),
