@@ -21,10 +21,6 @@ public abstract class Frame {
         return score;
     }
 
-    private void calculatePins(Integer numberOfFallingPins) {
-        numberOfLastPins = numberOfLastPins - numberOfFallingPins;
-    }
-
     public BowlingScore getScore() {
         return score;
     }
@@ -35,5 +31,9 @@ public abstract class Frame {
 
     public boolean isDone(Frame frame){
         return score.isItOver(frame);
+    }
+
+    private void calculatePins(Integer numberOfFallingPins) {
+        numberOfLastPins = numberOfLastPins - numberOfFallingPins;
     }
 }

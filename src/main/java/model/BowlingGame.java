@@ -13,19 +13,6 @@ public class BowlingGame {
         initFrames();
     }
 
-    private void initFrames() {
-        this.frames = new ArrayList();
-        addNormalFrame();
-    }
-
-    private void addNormalFrame() {
-        this.frames.add(new NormalFrame());
-    }
-
-    private void addFinalFrames() {
-        this.frames.add(new FinalFrame());
-    }
-
     public void progressGame(Integer numberOfFallingPin) {
         if (numberOfFallingPin > 10){
             throw new IllegalArgumentException("볼린 핀의 개수는 최대 10개 입니다.");
@@ -41,10 +28,6 @@ public class BowlingGame {
                 addNormalFrame();
             }
         }
-    }
-
-    private Frame getCurrentFrame() {
-        return frames.get(frames.size() - 1);
     }
 
     public List<BowlingScore> getResult() {
@@ -65,5 +48,22 @@ public class BowlingGame {
 
     public boolean isLast() {
         return getCurrentFrame().isDone(getCurrentFrame());
+    }
+
+    private void initFrames() {
+        this.frames = new ArrayList();
+        addNormalFrame();
+    }
+
+    private void addNormalFrame() {
+        this.frames.add(new NormalFrame());
+    }
+
+    private void addFinalFrames() {
+        this.frames.add(new FinalFrame());
+    }
+
+    private Frame getCurrentFrame() {
+        return frames.get(frames.size() - 1);
     }
 }

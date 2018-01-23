@@ -15,15 +15,6 @@ public class BowlingScore {
         this.secondScore = secondScore;
     }
 
-    @Override
-    public String toString() {
-        if (secondScore == null){
-            return Score.of(firstScore) + "   ";
-        }
-
-        return Score.of(firstScore) + "|" + Score.of(secondScore) + " ";
-    }
-
     public boolean hasAnyScore() {
         return firstScore != null;
     }
@@ -46,19 +37,20 @@ public class BowlingScore {
         return false;
     }
 
-    private boolean isOverCondition(Score score) {
-        return score.equals(Score.STRIKE) || score.equals(Score.STRIKE);
-    }
-
     public boolean isItOver(Frame frame) {
         if (isaFinalFrame(frame) && hasAnyScore()){
             if (firstScore.equals(Score.STRIKE)){
                 return false;
             }
             if (secondScore != null){
-                if (secondScore.equals(Score.STRIKE) || secondScore.equals(Score.SPARE)){
+                if (secondScore.equals(Score.STRIKE)){
                     return false;
                 }
+
+                if (secondScore.equals(Score.SPARE)){
+                    return false;
+                }
+
                 return true;
             }
         }
@@ -66,8 +58,20 @@ public class BowlingScore {
         return false;
     }
 
+    @Override
+    public String toString() {
+        if (secondScore == null){
+            return Score.of(firstScore) + "   ";
+        }
+
+        return Score.of(firstScore) + "|" + Score.of(secondScore) + " ";
+    }
+
+    private boolean isOverCondition(Score score) {
+        return score.equals(Score.STRIKE) || score.equals(Score.STRIKE);
+    }
+
     private boolean isaFinalFrame(Frame frame) {
         return frame instanceof FinalFrame;
     }
-
 }
