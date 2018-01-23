@@ -16,7 +16,7 @@ public class BowlingGame {
 		Player player = new Player(InputView.askPlayer());
 		OutputView.printScoreView(player, setScore(head));
 
-		while (current != null && current.getId() <= 10) {
+		while (current != null) {
 			int score = InputView.askScore(current.getId());
 			current = current.bowl(score);
 			OutputView.printScoreView(player, setScore(head));
@@ -29,14 +29,15 @@ public class BowlingGame {
 		String[] scoresStr = new String[10];
 
 		while (head != null) {
+			int id = head.getId() - 1;
 			try {
-				scores[head.getId() - 1] = head.getScore();
+				scores[id] = head.getScore();
 				if (head.getId() > 1)
-					scores[head.getId() - 1] += scores[head.getId() - 2];
+					scores[id] += scores[id - 1];
 
-				scoresStr[head.getId() - 1] = Integer.toString(scores[head.getId() - 1]);
+				scoresStr[id] = Integer.toString(scores[id]);
 			} catch(Exception e) {
-				scores[head.getId() - 1] = null;
+				scores[id] = null;
 			}
 			head = head.next;
 		}
