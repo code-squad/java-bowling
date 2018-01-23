@@ -29,11 +29,11 @@ public abstract class Frame {
         return score;
     }
 
-    public Boolean isItOverAndHasNextFrame(Integer numberOfFrame){
-        return score.isItOverAndHasNextFrame(numberOfFrame);
+    public Boolean isItOverAndHasNextFrame(Frame frame){
+        return score.isItOverAndHasNextFrame(frame);
     }
 
-    public boolean isDone(Integer numberOfFrame){
-        return score.isItOver(numberOfFrame);
+    public boolean isDone(Frame frame){
+        return score.isItOver(frame);
     }
 }

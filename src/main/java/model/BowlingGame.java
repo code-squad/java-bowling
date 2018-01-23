@@ -56,7 +56,7 @@ public class BowlingGame {
     }
 
     public boolean isItOverAndHasNextFrame() {
-        return getCurrentFrame().isItOverAndHasNextFrame(frames.size());
+        return getCurrentFrame().isItOverAndHasNextFrame(getCurrentFrame());
     }
 
     public Integer getCurrentFrameNumber() {
@@ -64,6 +64,6 @@ public class BowlingGame {
     }
 
     public boolean isLast() {
-        return getCurrentFrame().isDone(frames.size());
+        return getCurrentFrame().isDone(getCurrentFrame());
     }
 }

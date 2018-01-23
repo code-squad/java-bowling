@@ -23,10 +23,10 @@ public enum Score {
     }
 
     public static Score valueOf(Integer numberOfFallingPins, Integer totalNumberOfPins) {
-        if ((totalNumberOfPins - numberOfFallingPins) < 0){
+        if (isOverNumberOfPins((totalNumberOfPins - numberOfFallingPins))){
             throw new IllegalArgumentException("한 프레임 당 볼링 핀의 수는 10개 입니다.");
         }
-        if (totalNumberOfPins.equals(10) && numberOfFallingPins.equals(10)) {
+        if (numberOfFallingPins.equals(10)) {
             return STRIKE;
         }
         if (isSame(numberOfFallingPins - totalNumberOfPins, 0)) {
@@ -40,6 +40,10 @@ public enum Score {
                      .filter(score -> score.value.equals(String.valueOf(numberOfFallingPins)))
                      .findFirst()
                      .orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    private static boolean isOverNumberOfPins(Integer result) {
+        return result < 0;
     }
 
     public static String of(Score score) {

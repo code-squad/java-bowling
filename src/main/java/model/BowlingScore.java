@@ -28,28 +28,30 @@ public class BowlingScore {
         return firstScore != null;
     }
 
-    public boolean isItOverAndHasNextFrame(Integer numberOfFrame) {
-        if (numberOfFrame.equals(10)){
-            if (firstScore.equals(Score.STRIKE) || firstScore.equals(Score.STRIKE)){
+    public boolean isItOverAndHasNextFrame(Frame frame) {
+        if (isaFinalFrame(frame)){
+            if (isOverCondition(firstScore)){
                 return true;
             }
             if (secondScore != null && secondScore.equals(Score.SPARE)) {
                 return true;
             }
-
             return false;
         }
-        if (firstScore.equals(Score.STRIKE)){
+
+        if (firstScore.equals(Score.STRIKE) || secondScore != null){
             return true;
         }
-        if (secondScore != null){
-            return true;
-        }
+
         return false;
     }
 
-    public boolean isItOver(Integer numberOfFrame) {
-        if (numberOfFrame >= 10 && hasAnyScore()){
+    private boolean isOverCondition(Score score) {
+        return score.equals(Score.STRIKE) || score.equals(Score.STRIKE);
+    }
+
+    public boolean isItOver(Frame frame) {
+        if (isaFinalFrame(frame) && hasAnyScore()){
             if (firstScore.equals(Score.STRIKE)){
                 return false;
             }
@@ -62,6 +64,10 @@ public class BowlingScore {
         }
 
         return false;
+    }
+
+    private boolean isaFinalFrame(Frame frame) {
+        return frame instanceof FinalFrame;
     }
 
 }
