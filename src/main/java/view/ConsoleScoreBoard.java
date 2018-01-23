@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class ConsoleScoreBoard implements ScoreBoard {
-    private final List<Frame> frames = new ArrayList<>();
+    private final List<Frame> frames;
 
     private final Player player;
 
     public ConsoleScoreBoard(Player player) {
         this.player = player;
+        this.frames = new ArrayList<>();
     }
 
     @Override

@@ -17,15 +17,16 @@ public class FinalFrame extends Frame {
     @Override
     public Optional<Frame> playNextFrame(Referee referee) {
         if (totalScore.isStrike()) {
-            BonusFrame bonusFrame = new BonusFrame(referee.playFrame(getNextFrameNo()), getNextFrameNo());
-            referee.reportFrameResult(bonusFrame);
-            return Optional.of(bonusFrame);
+            return Optional.of(playFrame(referee));
         }
         if (totalScore.isNeedAdditionalScore()) {
-            BonusFrame bonusFrame = new BonusFrame(referee.playOnlyFirst(getNextFrameNo()), getNextFrameNo());
-            referee.reportFrameResult(bonusFrame);
-            return Optional.of(bonusFrame);
+            return Optional.of(playOnlyFirst(referee));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public Frame nextFrame(TotalScore totalScore) {
+        return new BonusFrame(totalScore, getNextFrameNo());
     }
 }

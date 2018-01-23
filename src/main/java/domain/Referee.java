@@ -28,6 +28,17 @@ public class Referee {
              .ifPresent(this::playBowlingRecursive);
     }
 
+    public FirstScore playFirstScore(int frameNo) {
+        FirstScore firstScore = strategy.playFirstScore(frameNo);
+        reportFirstScore(frameNo, firstScore);
+
+        return firstScore;
+    }
+
+    public TotalScore playSecondScore(int frameNo, FirstScore firstScore) {
+        return strategy.playSecondScore(frameNo, firstScore);
+    }
+
     public TotalScore playFrame(int frameNo) {
         FirstScore firstScore = strategy.playFirstScore(frameNo);
         if (firstScore.isStrike()) {
@@ -35,14 +46,6 @@ public class Referee {
         }
         reportFirstScore(frameNo, firstScore);
         return strategy.playSecondScore(frameNo, firstScore);
-    }
-
-    public TotalScore playOnlyFirst(int frameNo) {
-        FirstScore firstScore = strategy.playFirstScore(frameNo);
-        if (firstScore.isStrike()) {
-            return new TotalScore(firstScore);
-        }
-        return new TotalScore(firstScore, 0);
     }
 
     public void reportFrameResult(Frame frame) {

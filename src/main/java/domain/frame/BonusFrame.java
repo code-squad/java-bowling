@@ -20,16 +20,17 @@ public class BonusFrame extends Frame {
             return Optional.empty();
         }
         if (totalScore.isStrike()) {
-            BonusFrame bonusFrame = new BonusFrame(referee.playFrame(getNextFrameNo()), getNextFrameNo());
-            referee.reportFrameResult(bonusFrame);
-            return Optional.of(bonusFrame);
+            return Optional.of(playFrame(referee));
         }
         if (totalScore.isNeedAdditionalScore()) {
-            BonusFrame bonusFrame = new BonusFrame(referee.playOnlyFirst(getNextFrameNo()), getNextFrameNo());
-            referee.reportFrameResult(bonusFrame);
-            return Optional.of(bonusFrame);
+            return Optional.of(playOnlyFirst(referee));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public Frame nextFrame(TotalScore totalScore) {
+        return new BonusFrame(totalScore, getNextFrameNo());
     }
 }
 

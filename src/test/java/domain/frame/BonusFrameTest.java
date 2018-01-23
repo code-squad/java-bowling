@@ -21,7 +21,7 @@ public class BonusFrameTest {
 
     @Before
     public void setUp() throws Exception {
-        scoreBoard = new ConsoleScoreBoard(new Player("TEST"));
+        scoreBoard = new ConsoleScoreBoard(new Player("KKJ"));
         referee = new Referee(new CustomPlayStrategy(new FirstScore(3),
                                                      new SecondScore(3, 7)), scoreBoard);
     }
