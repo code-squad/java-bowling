@@ -26,6 +26,7 @@ public class BowlingGame {
 
     public void rollBowlingBall(Pin fellPin) {
         getCurrentPlayer().rollBowlingBall(fellPin);
+        updatePlayerQueue();
     }
 
     public void updatePlayerQueue() {
