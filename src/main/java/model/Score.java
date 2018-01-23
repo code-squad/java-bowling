@@ -12,31 +12,20 @@ public class Score {
         this.bowlingBalls = new ArrayList<>();
     }
 
-    // To-Do-Later
-    private boolean isValidInput(List<Ball> bowlingBalls) {
-        if (getScoreSum() > 10)
-            return false;
-        return true;
+    private void checkValidInput(Ball ball) {
+        if (getScoreSum() + ball.getPinCount() > getLimitOfSum())
+            throw new IllegalArgumentException();
     }
 
-    public int getBallSum(int count) {
-        if (count > bowlingBalls.size()) throw new IllegalArgumentException();
-
-        int result = 0;
-
-        for (int i = 0; i < count; i++){
-            result += bowlingBalls.get(i).getPinCount();
-        }
-
-        return result;
+    private int getLimitOfSum() {
+        return 10 * (getScoreSum() / 10 + 1);
     }
 
     public boolean isStrike() {
-        if(bowlingBalls.size() == 0)
+        if (bowlingBalls.size() == 0)
             return false;
 
-        Ball first = bowlingBalls.get(0);
-        return first.getPinCount() == 10;
+        return getScoreSum(1) == 10;
     }
 
     public boolean isSpare() {
@@ -46,10 +35,7 @@ public class Score {
         if (bowlingBalls.size() < 2)
             return false;
 
-        Ball first = bowlingBalls.get(0);
-        Ball second = bowlingBalls.get(1);
-
-        return (first.getPinCount() + second.getPinCount()) == 10;
+        return getScoreSum(2) == 10;
     }
 
     public int size() {
@@ -57,6 +43,8 @@ public class Score {
     }
 
     public void add(Ball ball) {
+        checkValidInput(ball);
+
         bowlingBalls.add(ball);
     }
 
@@ -66,11 +54,26 @@ public class Score {
                 .sum();
     }
 
+    public int getScoreSum(int count) {
+        if (count > bowlingBalls.size())
+            throw new IllegalArgumentException();
+
+        int result = 0;
+
+        for (int i = 0; i < count; i++) {
+            result += bowlingBalls.get(i).getPinCount();
+        }
+
+        return result;
+    }
+
     @Override
     public String toString() {
-
-        String str = bowlingBalls.stream().map(Ball::toString).collect(Collectors.joining("|"));
-        if(this.isSpare()) {
+        String str = bowlingBalls.stream()
+                .map(Ball::toString)
+                .collect(Collectors
+                        .joining("|"));
+        if (isSpare()) {
             return str.substring(0, 2) + "/" + str.substring(3);
         }
 

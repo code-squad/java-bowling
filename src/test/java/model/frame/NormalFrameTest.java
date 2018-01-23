@@ -49,8 +49,8 @@ public class NormalFrameTest {
         normalFrame.bowl(8);
         normalFrame.bowl(1);
         normalFrame.bowl(8);
-        int firstFrameScore = normalFrame.getScore();
-        int secondFrameScore = normalFrame.getNextFrame().getScore();
+        int firstFrameScore = normalFrame.getScoreSum();
+        int secondFrameScore = normalFrame.getNextFrame().getScoreSum();
         assertThat(firstFrameScore).isEqualTo(9);
         assertThat(secondFrameScore).isEqualTo(9);
 
@@ -62,8 +62,8 @@ public class NormalFrameTest {
         normalFrame.bowl(8);
         normalFrame.bowl(1);
         normalFrame.bowl(8);
-        int firstFrameScore = normalFrame.getScore();
-        int secondFrameScore = normalFrame.getNextFrame().getScore();
+        int firstFrameScore = normalFrame.getScoreSum();
+        int secondFrameScore = normalFrame.getNextFrame().getScoreSum();
         assertThat(firstFrameScore).isEqualTo(11);
         assertThat(secondFrameScore).isEqualTo(9);
     }
@@ -73,8 +73,8 @@ public class NormalFrameTest {
         normalFrame.bowl(10);
         normalFrame.bowl(1);
         normalFrame.bowl(8);
-        int firstFrameScore = normalFrame.getScore();
-        int secondFrameScore = normalFrame.getNextFrame().getScore();
+        int firstFrameScore = normalFrame.getScoreSum();
+        int secondFrameScore = normalFrame.getNextFrame().getScoreSum();
         assertThat(firstFrameScore).isEqualTo(19);
         assertThat(secondFrameScore).isEqualTo(9);
     }
@@ -91,9 +91,9 @@ public class NormalFrameTest {
         normalFrame.bowl(2);
         normalFrame.bowl(2);
 
-        int firstFrameScore = normalFrame.getScore();
-        int secondFrameScore = normalFrame.getNextFrame().getScore();
-        int thirdFrameScore = normalFrame.getNextFrame().getNextFrame().getScore();
+        int firstFrameScore = normalFrame.getScoreSum();
+        int secondFrameScore = normalFrame.getNextFrame().getScoreSum();
+        int thirdFrameScore = normalFrame.getNextFrame().getNextFrame().getScoreSum();
 
         assertThat(firstFrameScore).isEqualTo(22);
         assertThat(secondFrameScore).isEqualTo(14);
@@ -111,7 +111,7 @@ public class NormalFrameTest {
         //THIRD FRAME
         normalFrame.bowl(10);
 
-        int firstFrameScore = normalFrame.getScore();
+        int firstFrameScore = normalFrame.getScoreSum();
         assertThat(firstFrameScore).isEqualTo(30);
     }
 

@@ -4,16 +4,14 @@ public class Ball {
     private int pinCount;
 
     public Ball(int pinCount) {
-        if (!isValidInput(pinCount))
-            throw new IllegalArgumentException();
+        checkValidInput(pinCount);
 
         this.pinCount = pinCount;
     }
 
-    private boolean isValidInput(int input) {
+    private void checkValidInput(int input) {
         if (input < 0 || input > 10)
-            return false;
-        return true;
+            throw new IllegalArgumentException();
     }
 
     public int getPinCount() {

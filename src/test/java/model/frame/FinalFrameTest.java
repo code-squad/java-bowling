@@ -74,7 +74,7 @@ public class FinalFrameTest {
         finalFrame.bowl(2);
         finalFrame.bowl(6);
 
-        assertThat(finalFrame.getScore()).isEqualTo(8);
+        assertThat(finalFrame.getScoreSum()).isEqualTo(8);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class FinalFrameTest {
         finalFrame.bowl(8);
         finalFrame.bowl(10);
 
-        assertThat(finalFrame.getScore()).isEqualTo(20);
+        assertThat(finalFrame.getScoreSum()).isEqualTo(20);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class FinalFrameTest {
         finalFrame.bowl(1);
         finalFrame.bowl(8);
 
-        assertThat(finalFrame.getScore()).isEqualTo(19);
+        assertThat(finalFrame.getScoreSum()).isEqualTo(19);
     }
 
 }

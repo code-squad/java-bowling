@@ -1,7 +1,6 @@
 package view;
 
-import model.frame.Frame;
-
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -12,6 +11,17 @@ public class ConsoleView {
     public static String askName() {
         System.out.println("플레이어 이름은(3 english letters)?: ");
         return scanner.next();
+    }
+
+    public static int askPinCount(int frameNumber) {
+        System.out.println(frameNumber + "프레임 투구 : ");
+        return Integer.parseInt(scanner.next());
+    }
+
+    public static void printScoreBoard(String name, List<String> statusStrings, List<String> scoreStrings) {
+        printHeader();
+        printFrameStatus(name, statusStrings);
+        printScoreReducer(scoreStrings);
     }
 
     private static void printHeader() {
@@ -26,55 +36,36 @@ public class ConsoleView {
         System.out.println(builder.toString());
     }
 
-    private static void printFrameStatus(String name, Frame head) {
+    private static void printFrameStatus(String name, List<String> statusStrings) {
         StringBuilder builder = new StringBuilder();
         builder.append("|  ")
                 .append(name)
                 .append(" |");
 
-        while (head != null) {
-            String str = head.toString();
-            int len = str.length();
+        for (String statusString : statusStrings) {
+            int len = statusString.length();
 
-            builder.append("   " + str + "      ".substring(0, 6 - len - 1));
+            builder.append("   ");
+            builder.append(statusString);
+            builder.append("      ".substring(0, 6 - len - 1));
             builder.append("|");
-            head = head.getNextFrame();
         }
+
         System.out.println(builder.toString());
     }
 
-    private static void printScoreReducer(Frame head) {
+    private static void printScoreReducer(List<String> scoreStrings) {
         StringBuilder builder = new StringBuilder();
         builder.append("|      |");
 
-        int scoreSum = 0;
-        boolean canGetScore = true;
-        while (head != null) {
-            String str = "        ";
-            if (head.getScore() == -1) {
-                canGetScore = false;
-            }
-
-            if (canGetScore && head.isFinished()) {
-                scoreSum += head.getScore();
-                str = "   " + scoreSum + "      ".substring(0, 6 - String.valueOf(scoreSum).length() - 1);
-            }
-            builder.append(str);
+        for (String scoreString : scoreStrings) {
+            builder.append("   ");
+            builder.append(scoreString);
+            builder.append("      ".substring(0, 6 - String.valueOf(scoreString).length() - 1));
             builder.append("|");
-            head = head.getNextFrame();
         }
+
         System.out.println(builder.toString());
-    }
-
-    public static void printScoreBoard(String name, Frame head) {
-        printHeader();
-        printFrameStatus(name, head);
-        printScoreReducer(head);
-    }
-
-    public static int inputBowl(int frameNumber) {
-        System.out.println(frameNumber + "프레임 투구 : ");
-        return Integer.parseInt(scanner.next());
     }
 
 }

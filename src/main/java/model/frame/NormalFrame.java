@@ -4,70 +4,78 @@ import model.Ball;
 import model.Score;
 
 public class NormalFrame implements Frame {
-	private Score score;
-	private Frame nextFrame;
+    private Score score;
+    private Frame nextFrame;
+    private int round;
 
-	public NormalFrame(int round) {
-		this.nextFrame = Frame.of(round + 1);
-		score = new Score();
-	}
+    public NormalFrame(int round) {
+        this.round = round;
+        this.nextFrame = Frame.of(round + 1);
+        this.score = new Score();
+    }
 
-	public void bowl(int number) {
-		if (isFinished()) {
-			nextFrame.bowl(number);
-			return;
-		}
+    @Override
+    public void bowl(int number) {
+        if (isFinished()) {
+            this.nextFrame.bowl(number);
+            return;
+        }
 
-		score.add(new Ball(number));
-	}
+        this.score.add(new Ball(number));
+    }
 
-	public Frame getNextFrame() {
-		return nextFrame;
-	}
+    @Override
+    public int getRound() {
+        return this.round;
+    }
 
-	@Override
-	public String toString() {
-		return score.toString();
-	}
+    public Frame getNextFrame() {
+        return this.nextFrame;
+    }
 
-	@Override
-	public boolean isFinished() {
-		if (this.score.size() == 0)
-			return false;
+    @Override
+    public int getScoreSum() {
+        int sum = this.score.getScoreSum();
+        try {
+            if (this.score.isSpare())
+                sum += getNextFrame().getNextBallSum(1);
+            if (this.score.isStrike())
+                sum += getNextFrame().getNextBallSum(2);
+        } catch (IllegalArgumentException e) {
+            return -1;
+        }
+        return sum;
+    }
 
-		if (this.score.isStrike() && this.score.size() == 1)
-			return true;
+    @Override
+    public int getNextBallSum(int count) {
+        if (count == 0)
+            return 0;
 
-		return this.score.size() == 2;
-	}
+        if (count == 1 || isStrike())
+            return this.score.getScoreSum(1) + this.nextFrame.getNextBallSum(count - 1);
 
-	@Override
-	public int getScore() {
-		int sum = score.getScoreSum();
-		try {
-			if (score.isSpare())
-				sum += getNextFrame().getNextBallSum(1);
-			if (score.isStrike())
-				sum += getNextFrame().getNextBallSum(2);
-		} catch (IllegalArgumentException e) {
-			return -1;
-		}
-		return sum;
-	}
+        return this.score.getScoreSum(2) + this.nextFrame.getNextBallSum(count - 2);
+    }
 
-	@Override
-	public int getNextBallSum(int count) {
-		if (count == 0) return 0;
+    @Override
+    public boolean isStrike() {
+        return this.score.isStrike();
+    }
 
-		if (count == 1) return score.getBallSum(1);
+    @Override
+    public boolean isFinished() {
+        if (this.score.size() == 0)
+            return false;
 
-		if (isStrike()) return score.getBallSum(1) + nextFrame.getNextBallSum(count - 1);
-		return score.getBallSum(2) + nextFrame.getNextBallSum(count - 2);
-	}
+        if (this.score.isStrike() && this.score.size() == 1)
+            return true;
 
-	@Override
-	public boolean isStrike() {
-		return score.isStrike();
-	}
+        return this.score.size() == 2;
+    }
 
+    @Override
+    public String toString() {
+        return this.score.toString();
+    }
 }
