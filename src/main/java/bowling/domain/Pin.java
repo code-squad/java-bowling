@@ -1,6 +1,7 @@
 package bowling.domain;
 
 import bowling.common.StaticVariables;
+import bowling.util.PinUtil;
 
 import java.util.Optional;
 
@@ -22,10 +23,6 @@ public class Pin {
         return fellPin;
     }
 
-    private String toSymbol(int fellPin) {
-        return fellPin == 0 ? StaticVariables.GUTTER : StaticVariables.STRIKE;
-    }
-
     public boolean isOverTen(Pin pin) {
         return fellPin + pin.fellPin > StaticVariables.MAX_VALUE;
     }
@@ -43,7 +40,7 @@ public class Pin {
     @Override
     public String toString() {
         if(fellPin == 0 || fellPin == 10)
-            return toSymbol(fellPin);
+            return PinUtil.toSymbol(fellPin);
 
         return String.valueOf(fellPin);
     }

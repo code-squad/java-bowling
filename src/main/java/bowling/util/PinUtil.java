@@ -4,7 +4,7 @@ import bowling.domain.Pin;
 
 import java.util.Optional;
 
-import static bowling.enums.FrameStatus.STRIKE;
+import static bowling.common.StaticVariables.*;
 
 public class PinUtil {
 
@@ -32,5 +32,9 @@ public class PinUtil {
                 .filter(fellpin -> !fellpin.toString().equals(STRIKE))
                 .map(fellPin -> "|")
                 .orElse(" ");
+    }
+
+    public static String toSymbol(int fellPin) {
+        return fellPin == 0 ? GUTTER : STRIKE;
     }
 }
