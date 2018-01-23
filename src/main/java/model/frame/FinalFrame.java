@@ -40,6 +40,16 @@ public class FinalFrame implements Frame {
     }
 
     @Override
+    public int getScore() {
+        return 0;
+    }
+
+    @Override
+    public int getNextBallSum(int count) {
+        return 0;
+    }
+
+    @Override
     public Frame getNextFrame() {
         return null;
     }
@@ -47,5 +57,15 @@ public class FinalFrame implements Frame {
     @Override
     public String toString() {
         return score.toString();
+    }
+
+    @Override
+    public boolean isStrike() {
+        return score.isStrike();
+    }
+
+    @Override
+    public boolean isSpare() {
+        return score.isSpare();
     }
 }

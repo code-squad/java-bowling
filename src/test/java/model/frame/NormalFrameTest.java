@@ -42,4 +42,63 @@ public class NormalFrameTest {
         normalFrame.bowl(4);
         assertThat(normalFrame.getNextFrame().isFinished()).isTrue();
     }
+
+    @Test
+    public void missReducerTest(){
+        normalFrame.bowl(1);
+        normalFrame.bowl(8);
+        normalFrame.bowl(1);
+        normalFrame.bowl(8);
+        int firstFrameScore = normalFrame.getScore();
+        int secondFrameScore = normalFrame.getNextFrame().getScore();
+        assertThat(firstFrameScore).isEqualTo(9);
+        assertThat(secondFrameScore).isEqualTo(9);
+
+    }
+
+    @Test
+    public void spareReducerTest(){
+        normalFrame.bowl(2);
+        normalFrame.bowl(8);
+        normalFrame.bowl(1);
+        normalFrame.bowl(8);
+        int firstFrameScore = normalFrame.getScore();
+        int secondFrameScore = normalFrame.getNextFrame().getScore();
+        assertThat(firstFrameScore).isEqualTo(11);
+        assertThat(secondFrameScore).isEqualTo(9);
+    }
+
+    @Test
+    public void strikeReducerTest(){
+        normalFrame.bowl(10);
+        normalFrame.bowl(1);
+        normalFrame.bowl(8);
+        int firstFrameScore = normalFrame.getScore();
+        int secondFrameScore = normalFrame.getNextFrame().getScore();
+        assertThat(firstFrameScore).isEqualTo(19);
+        assertThat(secondFrameScore).isEqualTo(9);
+    }
+
+    @Test
+    public void doubleStrikeReducerTest(){
+        //FIRST FRAME
+        normalFrame.bowl(10);
+
+        //SECOND FRAME
+        normalFrame.bowl(10);
+
+        //THIRD FRAME
+        normalFrame.bowl(2);
+        normalFrame.bowl(2);
+
+        int firstFrameScore = normalFrame.getScore();
+        int secondFrameScore = normalFrame.getNextFrame().getScore();
+        int thirdFrameScore = normalFrame.getNextFrame().getNextFrame().getScore();
+
+        assertThat(firstFrameScore).isEqualTo(22);
+        assertThat(secondFrameScore).isEqualTo(14);
+        assertThat(thirdFrameScore).isEqualTo(4);
+
+    }
+
 }

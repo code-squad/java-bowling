@@ -19,6 +19,24 @@ public class Score {
         return true;
     }
 
+    public int getBallsSum(int count) {
+        if (count > bowlingBalls.size()) throw new IllegalArgumentException();
+
+        int result = 0;
+
+        for (int i = 0; i <count; i++){
+            result += bowlingBalls.get(i).getPinCount();
+        }
+
+        return result;
+    }
+
+    public int getBallsSum() {
+
+        return getBallsSum(bowlingBalls.size());
+    }
+
+
     public boolean isStrike() {
         if(bowlingBalls.size() == 0)
             return false;

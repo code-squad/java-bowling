@@ -14,4 +14,11 @@ public interface Frame {
     }
 
 
+    int getScore();
+
+    int getNextBallSum(int count);
+
+    boolean isStrike();
+    boolean isSpare();
+
 }
