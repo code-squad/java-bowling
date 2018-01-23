@@ -19,40 +19,24 @@ public class FinalFrame implements Frame {
 
         int size = score.size();
 
-        if (size == 0) {
-            // Strike
-            if (number == 10) {
-                score.add(new Ball(10));
-                return;
-            }
-            score.add(new Ball(number));
+        score.add(new Ball(number));
+
+        if (size == 0 && number != 10) {
             availableCount--;
-            return;
         }
 
-        if (size == 1) {
-            score.add(new Ball(number));
-
-            // NotSpare
-            if (!score.isSpare()) {
-                availableCount--;
-            }
+        if (size == 1 && !score.isSpare()) {
+            availableCount--;
         }
 
         if (size == 2) {
-            score.add(new Ball(number));
             availableCount--;
         }
     }
 
     @Override
     public boolean isFinished() {
-        if ((score.isStrike() || score.isSpare()) && score.size() == 3)
-            return true;
-        if (!(score.isStrike() || score.isSpare()) && score.size() == 2)
-            return true;
-
-        return false;
+        return availableCount == 0;
     }
 
     @Override
