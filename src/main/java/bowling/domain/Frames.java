@@ -1,11 +1,10 @@
 package bowling.domain;
 
-import bowling.common.StaticVariables;
 import bowling.enums.FrameStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static bowling.common.StaticVariables.FRAME_MAX_VALUE;
 
@@ -13,10 +12,9 @@ public class Frames {
     private List<Frame> frames;
 
     public Frames() {
-        frames = new ArrayList<>(FRAME_MAX_VALUE);
-
-        for(int i = 0; i < FRAME_MAX_VALUE - 1 ; ++i)
-            frames.add(new Frame());
+        frames = IntStream.range(0, FRAME_MAX_VALUE -1)
+                .mapToObj(i -> new Frame())
+                .collect(Collectors.toList());
 
         frames.add(new FinalFrame());
     }
