@@ -34,6 +34,14 @@ public class Pin {
         return fellPin + pin.fellPin > MAX_VALUE;
     }
 
+    public boolean isStrike() {
+        return fellPin == MAX_VALUE;
+    }
+
+    public boolean isSpare(Pin secondTry) {
+        return fellPin + secondTry.fellPin == MAX_VALUE;
+    }
+
     @Override
     public String toString() {
         return fellPin == 0 ? GUTTER : String.valueOf(fellPin);
