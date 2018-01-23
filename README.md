@@ -1,7 +1,7 @@
 # 볼링 게임 점수판
 ## Step 1
 * repo : https://github.com/trytocloud/java-bowling/tree/step1
-* pr : 
+* pr : https://github.com/code-squad/java-bowling/pull/50
 
 ## 요구사항
 
