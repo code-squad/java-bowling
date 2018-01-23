@@ -34,14 +34,4 @@ public class Frames {
     public boolean isCurrentFrameEnd(int frameNo) {
         return frame(frameNo).isFrameEnd();
     }
-
-    public String printFrames() {
-        StringBuilder sb = new StringBuilder();
-
-        frames.stream()
-                .map(f -> f.printFrame() + "|")
-                .forEach(sb::append);
-
-        return sb.toString();
-    }
 }

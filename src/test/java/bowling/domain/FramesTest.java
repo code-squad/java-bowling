@@ -17,9 +17,7 @@ public class FramesTest {
     @Test
     public void rollBowlingBallTest() {
         frames.rollBowlingBall(0, new Pin(10));
-        assertThat(frames.printFrames()).isEqualTo(
-                "  X   |      |      |      |      |      |      |      |      |      |"
-        );
+        assertThat(frames.getState(0)).isEqualTo(FrameStatus.STRIKE);
     }
 
     @Test

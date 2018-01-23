@@ -5,7 +5,6 @@ import bowling.enums.FrameStatus;
 import java.text.MessageFormat;
 
 public class Frame {
-    private static final String FRAME_VIEW = "  {0} ";
     protected Pin firstTry;
     protected Pin secondTry;
 
@@ -14,10 +13,6 @@ public class Frame {
 
     public FrameStatus status() {
         return FrameStatus.getStatus(firstTry, secondTry);
-    }
-
-    public String printFrame() {
-        return MessageFormat.format(FRAME_VIEW, FrameStatus.toView(firstTry, secondTry));
     }
 
     public void rollBowlingBall(Pin pin) {
@@ -50,5 +45,12 @@ public class Frame {
 
     public boolean isFrameEnd() {
         return FrameStatus.isEnd(status());
+    }
+
+    public String getFrameView() {
+        return String.format("%1s%1s%1s",
+                Pin.toView(firstTry),
+                Pin.toSplitor(secondTry),
+                Pin.toView(firstTry, secondTry));
     }
 }
