@@ -22,10 +22,6 @@ public class BowlingGame {
         return playerQueue.getCurrentPlayer();
     }
 
-    public Player getPreviousPlayer() {
-        return playerQueue.getPreviousPlayer();
-    }
-
     public void rollBowlingBall(Pin fellPin) {
         getCurrentPlayer().rollBowlingBall(fellPin);
         updatePlayerQueue();

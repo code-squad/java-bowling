@@ -1,11 +1,11 @@
 package bowling.domain;
 
-import bowling.enums.FrameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
+import static bowling.enums.FrameStatus.*;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class BowlingGameTest {
@@ -25,13 +25,13 @@ public class BowlingGameTest {
 
     @Test
     public void rollBowlingBallTest() {
-        bowlingGame.rollBowlingBall(new Pin(10));
-        assertThat(bowlingGame.getPreviousPlayer().getPreviousState()).isEqualTo(FrameStatus.STRIKE);
+        bowlingGame.rollBowlingBall(new Pin(5));
+        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(NOT_END);
     }
 
     @Test
     public void rotatePlayerTest() {
         bowlingGame.rollBowlingBall(new Pin(10));
-        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(FrameStatus.NOT_START);
+        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(NOT_START);
     }
 }
