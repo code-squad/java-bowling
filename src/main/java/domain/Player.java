@@ -6,7 +6,7 @@ public class Player {
     private final String name;
 
     public Player(String name) {
-        if (StringUtils.isEmpty(name)) {
+        if (StringUtils.isEmpty(name) || name.length() != 3) {
             throw new IllegalArgumentException();
         }
         this.name = name;
@@ -14,6 +14,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "| " + "NAME" + " |" + "\n" + "| " + name + " |";
+        return "| " + name + "  |";
     }
 }

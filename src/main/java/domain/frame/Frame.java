@@ -25,6 +25,6 @@ public abstract class Frame {
 
     @Override
     public String toString() {
-        return frameNo + " |" + "\n" + totalScore.toString() + " |";
+        return totalScore.toString();
     }
 }

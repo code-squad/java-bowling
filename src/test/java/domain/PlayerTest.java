@@ -16,10 +16,15 @@ public class PlayerTest {
         new Player(null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void Player_3글자이상() throws Exception {
+        new Player("test");
+    }
+
     @Test
     public void Player_toString() throws Exception {
-        Player player = new Player("test");
+        Player player = new Player("KKJ");
 
-        assertThat(player.toString()).isEqualTo("| " + "NAME" + " |" + "\n" + "| " + "test" + " |");
+        assertThat(player.toString()).isEqualTo("| " + "KKJ" + "  |");
     }
 }

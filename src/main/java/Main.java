@@ -10,7 +10,7 @@ public class Main {
         Player player = getPlayer();
 
         ConsoleScoreBoard scoreBoard = new ConsoleScoreBoard(player);
-        scoreBoard.printPlayer();
+        scoreBoard.printScoreBoard();
         Referee referee = new Referee(new ConsolePlayStrategy(), scoreBoard);
 
         referee.playBowling();
