@@ -53,6 +53,9 @@ public class PlayerTest {
 
     @Test
     public void rollBowlingBallTest() {
-        //player.rollBowlingBall(new Pin(5));
+        player.rollBowlingBall(new Pin(5));
+        assertThat(player.getState()).isEqualTo(NOT_END);
+        player.rollBowlingBall(new Pin(5));
+        assertThat(player.getState()).isEqualTo(SPARE);
     }
 }

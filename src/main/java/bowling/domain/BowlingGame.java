@@ -27,7 +27,7 @@ public class BowlingGame {
         updatePlayerQueue();
     }
 
-    public void updatePlayerQueue() {
+    private void updatePlayerQueue() {
         if(getCurrentPlayer().isCurrentFrameEnd())
             playerQueue.rotate();
     }
