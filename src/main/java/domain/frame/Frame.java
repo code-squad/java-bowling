@@ -22,4 +22,9 @@ public abstract class Frame {
     }
 
     public abstract Optional<Frame> playNextFrame(Referee referee);
+
+    @Override
+    public String toString() {
+        return frameNo + " |" + "\n" + totalScore.toString() + " |";
+    }
 }

@@ -18,6 +18,7 @@ public class Referee {
 
     public void playBowling() {
         Frame fistFrame = new NormalFrame(playFrame(1), 1);
+        reportFrameResult(fistFrame);
 
         playBowlingRecursive(fistFrame);
     }
@@ -33,17 +34,18 @@ public class Referee {
         if (firstScore.isStrike()) {
             return new TotalScore(firstScore);
         }
-        TotalScore totalScore = new TotalScore(firstScore, strategy.playSecondScore(frameNo, firstScore));
-        scoreBoard.printTotalScore(frameNo, totalScore);
-        return totalScore;
+        return strategy.playSecondScore(frameNo, firstScore);
     }
 
     public TotalScore playOnlyFirst(int frameNo) {
         FirstScore firstScore = strategy.playFirstScore(frameNo);
-        scoreBoard.printFirstScore(frameNo, firstScore);
         if (firstScore.isStrike()) {
             return new TotalScore(firstScore);
         }
         return new TotalScore(firstScore, 0);
+    }
+
+    public void reportFrameResult(Frame frame) {
+        scoreBoard.printFrame(frame);
     }
 }

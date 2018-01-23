@@ -2,25 +2,12 @@ package domain;
 
 import domain.frame.Frame;
 import domain.score.FirstScore;
-import domain.score.TotalScore;
 
-import java.util.ArrayList;
-import java.util.List;
+public interface ScoreBoard {
 
-public class ScoreBoard {
-    private final List<Frame> frames = new ArrayList<>();
+    void printFirstScore(int frameNo, FirstScore firstScore);
 
-    private final Player player;
+    void printFrame(Frame frame);
 
-    public ScoreBoard(Player player) {
-        this.player = player;
-    }
-
-    public void printFirstScore(int frameNo, FirstScore firstScore) {
-
-    }
-
-    public void printTotalScore(int frameNo, TotalScore totalScore) {
-
-    }
+    void printPlayer();
 }

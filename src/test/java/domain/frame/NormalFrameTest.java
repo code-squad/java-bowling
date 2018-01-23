@@ -9,6 +9,7 @@ import domain.score.SecondScore;
 import domain.score.TotalScore;
 import org.junit.Before;
 import org.junit.Test;
+import view.ConsoleScoreBoard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +21,7 @@ public class NormalFrameTest {
 
     @Before
     public void setUp() throws Exception {
-        scoreBoard = new ScoreBoard(new Player("TEST"));
+        scoreBoard = new ConsoleScoreBoard(new Player("TEST"));
 
         referee = new Referee(new CustomPlayStrategy(new FirstScore(3),
                                                      new SecondScore(3, 7)), scoreBoard);

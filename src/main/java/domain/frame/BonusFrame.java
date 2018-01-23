@@ -16,14 +16,18 @@ public class BonusFrame extends Frame {
 
     @Override
     public Optional<Frame> playNextFrame(Referee referee) {
-        if (frameNo != 11) {
+        if (frameNo > 11) {
             return Optional.empty();
         }
         if (totalScore.isStrike()) {
-            return Optional.of(new BonusFrame(referee.playFrame(getNextFrameNo()), getNextFrameNo()));
+            BonusFrame bonusFrame = new BonusFrame(referee.playFrame(getNextFrameNo()), getNextFrameNo());
+            referee.reportFrameResult(bonusFrame);
+            return Optional.of(bonusFrame);
         }
         if (totalScore.isNeedAdditionalScore()) {
-            return Optional.of(new BonusFrame(referee.playOnlyFirst(getNextFrameNo()), getNextFrameNo()));
+            BonusFrame bonusFrame = new BonusFrame(referee.playOnlyFirst(getNextFrameNo()), getNextFrameNo());
+            referee.reportFrameResult(bonusFrame);
+            return Optional.of(bonusFrame);
         }
         return Optional.empty();
     }

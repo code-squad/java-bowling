@@ -2,6 +2,7 @@ package domain;
 
 import domain.score.FirstScore;
 import domain.score.SecondScore;
+import domain.score.TotalScore;
 
 public class CustomPlayStrategy implements PlayStrategy {
     private final FirstScore firstScore;
@@ -21,12 +22,12 @@ public class CustomPlayStrategy implements PlayStrategy {
     }
 
     @Override
-    public FirstScore playFirstScore() {
+    public FirstScore playFirstScore(int frameNo) {
         return firstScore;
     }
 
     @Override
-    public SecondScore playSecondScore(FirstScore firstScore) {
-        return secondScore;
+    public TotalScore playSecondScore(int frameNo, FirstScore firstScore) {
+        return new TotalScore(firstScore, secondScore);
     }
 }

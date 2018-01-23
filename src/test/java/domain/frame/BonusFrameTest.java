@@ -9,6 +9,7 @@ import domain.score.SecondScore;
 import domain.score.TotalScore;
 import org.junit.Before;
 import org.junit.Test;
+import view.ConsoleScoreBoard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +21,7 @@ public class BonusFrameTest {
 
     @Before
     public void setUp() throws Exception {
-        scoreBoard = new ScoreBoard(new Player("TEST"));
+        scoreBoard = new ConsoleScoreBoard(new Player("TEST"));
         referee = new Referee(new CustomPlayStrategy(new FirstScore(3),
                                                      new SecondScore(3, 7)), scoreBoard);
     }
@@ -56,6 +57,13 @@ public class BonusFrameTest {
     @Test
     public void playNextFrame_2번째보너스프레임은더이상진행하지않음() throws Exception {
         BonusFrame bonusFrame = new BonusFrame(new TotalScore(new FirstScore(10)), 12);
+
+        assertThat(bonusFrame.playNextFrame(referee).isPresent()).isFalse();
+    }
+
+    @Test
+    public void playNextFrame_2번째보너스프레임은더이상진행하지않음2() throws Exception {
+        BonusFrame bonusFrame = new BonusFrame(new TotalScore(7, 3), 12);
 
         assertThat(bonusFrame.playNextFrame(referee).isPresent()).isFalse();
     }
