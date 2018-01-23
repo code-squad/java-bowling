@@ -44,4 +44,5 @@ public enum FrameStatus {
                 || status == SPARE
                 || status == MISS;
     }
+
 }
