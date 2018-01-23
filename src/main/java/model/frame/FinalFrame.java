@@ -46,7 +46,7 @@ public class FinalFrame implements Frame {
 
     @Override
     public int getNextBallSum(int count) {
-        return 0;
+        return score.getBallSum(count);
     }
 
     @Override

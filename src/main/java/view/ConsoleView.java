@@ -14,20 +14,20 @@ public class ConsoleView {
         return scanner.next();
     }
 
-    public static void printScoreBoard(String name, Frame head) {
-        // Upper Line
+    private static void printHeader() {
         StringBuilder builder = new StringBuilder();
         builder.append("| NAME |   ");
-        builder.append(IntStream.range(1, 11)
+        builder.append(IntStream
+                .range(1, 11)
                 .mapToObj(i -> (i / 10) + "" + (i % 10))
                 .collect(Collectors
                         .joining("   |   ")));
         builder.append("   |");
         System.out.println(builder.toString());
+    }
 
-        // Lower Line
-        builder = new StringBuilder();
-
+    private static void printFrameStatus(String name, Frame head) {
+        StringBuilder builder = new StringBuilder();
         builder.append("|  ")
                 .append(name)
                 .append(" |");
@@ -40,8 +40,36 @@ public class ConsoleView {
             builder.append("|");
             head = head.getNextFrame();
         }
-
         System.out.println(builder.toString());
+    }
+
+    private static void printScoreReducer(Frame head) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("|      |");
+
+        int scoreSum = 0;
+        boolean canGetScore = true;
+        while (head != null) {
+            String str = "        ";
+            if (head.getScore() == -1) {
+                canGetScore = false;
+            }
+
+            if (canGetScore && head.isFinished()) {
+                scoreSum += head.getScore();
+                str = "   " + scoreSum + "      ".substring(0, 6 - String.valueOf(scoreSum).length() - 1);
+            }
+            builder.append(str);
+            builder.append("|");
+            head = head.getNextFrame();
+        }
+        System.out.println(builder.toString());
+    }
+
+    public static void printScoreBoard(String name, Frame head) {
+        printHeader();
+        printFrameStatus(name, head);
+        printScoreReducer(head);
     }
 
     public static int inputBowl(int frameNumber) {
