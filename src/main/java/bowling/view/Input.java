@@ -1,4 +1,4 @@
-package bowling;
+package bowling.view;
 
 import java.io.InputStream;
 import java.util.Optional;

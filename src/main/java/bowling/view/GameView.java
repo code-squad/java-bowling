@@ -1,12 +1,14 @@
-package bowling;
+package bowling.view;
 
 import java.util.stream.IntStream;
 
-import static bowling.BowlingUtils.BEGIN_FORMAT;
-import static bowling.BowlingUtils.EMPTY_FRAME;
-import static bowling.BowlingUtils.ING_FORMAT;
-import static bowling.BowlingUtils.MAX_SCORE;
-import static bowling.BowlingUtils.MIN_SCORE;
+import bowling.domain.BowlingUser;
+
+import static bowling.utils.BowlingUtils.BEGIN_FORMAT;
+import static bowling.utils.BowlingUtils.EMPTY_FRAME;
+import static bowling.utils.BowlingUtils.ING_FORMAT;
+import static bowling.utils.BowlingUtils.MAX_SCORE;
+import static bowling.utils.BowlingUtils.MIN_SCORE;
 
 public class GameView {
     private static String resultView;

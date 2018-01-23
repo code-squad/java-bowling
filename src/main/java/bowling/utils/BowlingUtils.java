@@ -1,4 +1,4 @@
-package bowling;
+package bowling.utils;
 
 public class BowlingUtils {
     public static final int MIN_SCORE = 1;
