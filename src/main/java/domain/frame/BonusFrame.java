@@ -1,6 +1,6 @@
 package domain.frame;
 
-import domain.Referee;
+import domain.Player;
 import domain.score.TotalScore;
 
 import java.util.Optional;
@@ -15,15 +15,15 @@ public class BonusFrame extends Frame {
     }
 
     @Override
-    public Optional<Frame> playNextFrame(Referee referee) {
+    public Optional<Frame> playNextFrame(Player player) {
         if (frameNo > 11) {
             return Optional.empty();
         }
         if (totalScore.isStrike()) {
-            return Optional.of(playFrame(referee));
+            return Optional.of(play(player));
         }
-        if (totalScore.isNeedAdditionalScore()) {
-            return Optional.of(playOnlyFirst(referee));
+        if (totalScore.isSpare()) {
+            return Optional.of(playOnlyFirst(player));
         }
         return Optional.empty();
     }

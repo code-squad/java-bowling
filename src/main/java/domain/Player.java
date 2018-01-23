@@ -1,19 +1,51 @@
 package domain;
 
-import org.apache.commons.lang3.StringUtils;
+import domain.frame.Frame;
+import domain.frame.NormalFrame;
+import domain.score.Score;
+import domain.score.TotalScore;
 
 public class Player {
-    private final String name;
 
-    public Player(String name) {
-        if (StringUtils.isEmpty(name) || name.length() != 3) {
-            throw new IllegalArgumentException();
+    private final PlayStrategy strategy;
+
+    private final ScoreBoard scoreBoard;
+
+    public Player(PlayStrategy strategy, ScoreBoard scoreBoard) {
+        this.strategy = strategy;
+        this.scoreBoard = scoreBoard;
+        this.scoreBoard.printScoreBoard();
+    }
+
+    public void playBowling() {
+        Score firstScore = play(1);
+        Frame frame = new NormalFrame(new TotalScore(firstScore), 1);
+        addFrame(frame);
+
+        if (!firstScore.isStrike()) {
+            frame.addSecondScore(play(1));
+            notifyFrameChanged();
         }
-        this.name = name;
+
+        playBowlingRecursive(frame);
     }
 
-    @Override
-    public String toString() {
-        return "| " + name + "  |";
+    private void playBowlingRecursive(Frame frame) {
+        frame.playNextFrame(this)
+             .ifPresent(this::playBowlingRecursive);
     }
+
+    public Score play(int frameNo) {
+        return strategy.play(frameNo);
+    }
+
+    public void addFrame(Frame frame) {
+        scoreBoard.addFrame(frame);
+        notifyFrameChanged();
+    }
+
+    public void notifyFrameChanged() {
+        scoreBoard.printScoreBoard();
+    }
+
 }

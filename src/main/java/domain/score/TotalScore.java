@@ -1,55 +1,48 @@
 package domain.score;
 
 public class TotalScore {
-    private final FirstScore firstScore;
-    private final SecondScore secondScore;
+    private final Score firstScore;
+    private Score secondScore;
 
-    public TotalScore(int firstScore, int secondScore) {
-        this(new FirstScore(firstScore), new SecondScore(firstScore, secondScore));
-    }
-
-    public TotalScore(FirstScore firstScore, int secondScore) {
-        this(firstScore, new SecondScore(firstScore, new ScoreNumber(secondScore)));
-    }
-
-    public TotalScore(FirstScore firstScore, SecondScore secondScore) {
-        if (firstScore.isStrike()) {
-            throw new IllegalArgumentException();
-        }
-        this.firstScore = firstScore;
-        this.secondScore = secondScore;
-    }
-
-    public TotalScore(FirstScore firstScore) {
-        if (!firstScore.isStrike()) {
-            throw new IllegalArgumentException();
-        }
+    public TotalScore(Score firstScore) {
         this.firstScore = firstScore;
         this.secondScore = null;
     }
 
-    public ScoreType getType() {
-        if (isStrike()) {
-            return ScoreType.STRIKE;
+    public void addSecondScore(Score secondScore) {
+        if (getType() != ScoreType.UNDEFINED) {
+            throw new IllegalStateException();
         }
-        if (secondScore.isSpare()) {
-            return ScoreType.SPARE;
-        }
-        return ScoreType.MISS;
+        secondScore.addScore(firstScore);
+        this.secondScore = secondScore;
     }
 
     public boolean isStrike() {
         return firstScore.isStrike();
     }
 
-    public boolean isNeedAdditionalScore() {
-        return getType() == ScoreType.STRIKE || getType() == ScoreType.SPARE;
+    public boolean isSpare() {
+        return getType() == ScoreType.SPARE;
+    }
+
+    ScoreType getType() {
+        if (secondScore == null && !firstScore.isStrike()) {
+            return ScoreType.UNDEFINED;
+        }
+        return ScoreType.valueOf(this);
+    }
+
+    ScoreNumber sumOfScore() {
+        return firstScore.addScore(secondScore);
     }
 
     @Override
     public String toString() {
-        if (isStrike()) {
+        if (isStrike() || secondScore == null) {
             return firstScore.toString();
+        }
+        if (isSpare()) {
+            return firstScore.toString() + "|" + ScoreType.SPARE.getDisplay();
         }
         return firstScore.toString() + "|" + secondScore.toString();
     }

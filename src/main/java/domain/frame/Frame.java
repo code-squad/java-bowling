@@ -1,7 +1,7 @@
 package domain.frame;
 
-import domain.Referee;
-import domain.score.FirstScore;
+import domain.Player;
+import domain.score.Score;
 import domain.score.TotalScore;
 
 import java.util.Optional;
@@ -9,6 +9,14 @@ import java.util.Optional;
 public abstract class Frame {
     final TotalScore totalScore;
     final int frameNo;
+
+    public void addSecondScore(Score score) {
+        this.totalScore.addSecondScore(score);
+    }
+
+    public abstract Optional<Frame> playNextFrame(Player player);
+
+    public abstract Frame nextFrame(TotalScore totalScore);
 
     Frame(TotalScore totalScore, int frameNo) {
         if (totalScore == null) {
@@ -18,31 +26,29 @@ public abstract class Frame {
         this.frameNo = frameNo;
     }
 
-    Frame playFrame(Referee referee) {
-        FirstScore firstScore = referee.playFirstScore(frameNo);
-        if (firstScore.isStrike()) {
-            return nextFrame(new TotalScore(firstScore));
+    Frame play(Player player) {
+        Score firstScore = player.play(getNextFrameNo());
+        Frame frame = nextFrame(new TotalScore(firstScore));
+        player.addFrame(frame);
+
+        if (!firstScore.isStrike()) {
+            frame.addSecondScore(player.play(getNextFrameNo()));
+            player.notifyFrameChanged();
         }
-        Frame frame = nextFrame(referee.playSecondScore(frameNo, firstScore));
-        referee.reportFrameResult(frame);
         return frame;
     }
 
-    Frame playOnlyFirst(Referee referee) {
-        FirstScore firstScore = referee.playFirstScore(getNextFrameNo());
-        if (firstScore.isStrike()) {
-            return nextFrame(new TotalScore(firstScore));
-        }
-        return nextFrame(new TotalScore(firstScore, 0));
+    Frame playOnlyFirst(Player player) {
+        Score firstScore = player.play(getNextFrameNo());
+        Frame frame = nextFrame(new TotalScore(firstScore));
+
+        player.addFrame(frame);
+        return frame;
     }
 
     int getNextFrameNo() {
         return frameNo + 1;
     }
-
-    public abstract Optional<Frame> playNextFrame(Referee referee);
-
-    public abstract Frame nextFrame(TotalScore totalScore);
 
     @Override
     public String toString() {

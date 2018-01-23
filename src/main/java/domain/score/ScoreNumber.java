@@ -1,19 +1,19 @@
 package domain.score;
 
 public class ScoreNumber {
-    public static final ScoreNumber ZERO = new ScoreNumber(0);
-    public static final ScoreNumber TEN = new ScoreNumber(10);
+    static final ScoreNumber ZERO = new ScoreNumber(0);
+    static final ScoreNumber TEN = new ScoreNumber(10);
 
     private final int score;
 
-    public ScoreNumber(int score) {
+    ScoreNumber(int score) {
         if (score < 0 || score > 10) {
             throw new IllegalArgumentException();
         }
         this.score = score;
     }
 
-    public ScoreNumber add(ScoreNumber o1) {
+    ScoreNumber add(ScoreNumber o1) {
         return new ScoreNumber(score + o1.score);
     }
 

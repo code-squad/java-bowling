@@ -1,24 +1,23 @@
 package domain.score;
 
-public abstract class Score {
-    final ScoreNumber score;
+public class Score {
+    private final ScoreNumber score;
 
-    Score(int score) {
+    public Score(int score) {
         this.score = new ScoreNumber(score);
-    }
-
-    Score(ScoreNumber score) {
-        if (score == null) {
-            throw new IllegalArgumentException();
-        }
-        this.score = score;
     }
 
     public ScoreNumber addScore(Score o) {
         return score.add(o.score);
     }
 
-    protected abstract ScoreType getScoreType();
+    public boolean isStrike() {
+        return getScoreType() == ScoreType.STRIKE;
+    }
+
+    public ScoreType getScoreType() {
+        return ScoreType.valueOf(score);
+    }
 
     @Override
     public String toString() {

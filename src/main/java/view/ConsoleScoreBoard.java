@@ -1,9 +1,7 @@
 package view;
 
-import domain.Player;
 import domain.ScoreBoard;
 import domain.frame.Frame;
-import domain.score.FirstScore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +10,11 @@ import java.util.stream.IntStream;
 public class ConsoleScoreBoard implements ScoreBoard {
     private final List<Frame> frames;
 
-    private final Player player;
+    private final String playerName;
 
-    public ConsoleScoreBoard(Player player) {
-        this.player = player;
+    public ConsoleScoreBoard(String playerName) {
+        this.playerName = playerName;
         this.frames = new ArrayList<>();
-    }
-
-    @Override
-    public void printFirstScore(int frameNo, FirstScore firstScore) {
-        int frameSizeIncludeFirstScore = frames.size() + 1;
-
-        printHeader(Math.max(frames.size(), frameSizeIncludeFirstScore));
-        printPlayer();
-        printFrames();
-        printFirstScore(firstScore);
-        printRemainFrames(10 - frameSizeIncludeFirstScore);
-        printLine();
     }
 
     @Override
@@ -46,7 +32,7 @@ public class ConsoleScoreBoard implements ScoreBoard {
     }
 
     private void printPlayer() {
-        System.out.print(player);
+        System.out.print("| " + playerName + "  |");
     }
 
     private void printHeader(int frameSize) {
@@ -54,10 +40,6 @@ public class ConsoleScoreBoard implements ScoreBoard {
         IntStream.range(0, frameSize)
                  .forEach(i -> System.out.printf(" %02d |", i + 1));
         printLine();
-    }
-
-    private void printFirstScore(FirstScore firstScore) {
-        System.out.printf("%-4s|", firstScore);
     }
 
     private void printRemainFrames(int remain) {

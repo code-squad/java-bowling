@@ -8,7 +8,8 @@ public enum ScoreType {
     SPARE("/"),
     MISS(null),
     GUTTER("-"),
-    NONE(null);
+    NONE(null),
+    UNDEFINED(null);
 
     private final String display;
 
@@ -16,15 +17,12 @@ public enum ScoreType {
         this.display = display;
     }
 
-    public static ScoreType valueOf(ScoreNumber first, ScoreNumber second) {
-        if (first.equals(TEN)) {
-            throw new IllegalArgumentException();
+    public static ScoreType valueOf(TotalScore totalScore) {
+        if (totalScore.isStrike()) {
+            return STRIKE;
         }
-        if (first.add(second).equals(TEN)) {
+        if (totalScore.sumOfScore().equals(TEN)) {
             return SPARE;
-        }
-        if (second.equals(ZERO)) {
-            return GUTTER;
         }
         return MISS;
     }
@@ -44,6 +42,6 @@ public enum ScoreType {
     }
 
     public boolean isDisplay() {
-        return this.getDisplay() != null;
+        return display != null;
     }
 }

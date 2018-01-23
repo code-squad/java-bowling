@@ -1,10 +1,7 @@
 package domain;
 
-import domain.score.FirstScore;
-import domain.score.TotalScore;
+import domain.score.Score;
 
 public interface PlayStrategy {
-    FirstScore playFirstScore(int frameNo);
-
-    TotalScore playSecondScore(int frameNo, FirstScore firstScore);
+    Score play(int frameNo);
 }
