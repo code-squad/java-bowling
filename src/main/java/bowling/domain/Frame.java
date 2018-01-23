@@ -6,8 +6,8 @@ import java.text.MessageFormat;
 
 public class Frame {
     private static final String FRAME_VIEW = "  {0} ";
-    private Pin firstTry;
-    private Pin secondTry;
+    protected Pin firstTry;
+    protected Pin secondTry;
 
     public Frame() {
     }
@@ -21,10 +21,14 @@ public class Frame {
     }
 
     public void rollBowlingBall(Pin pin) {
+        if(isFrameEnd())
+            return;
+
         if(firstTry == null) {
             firstBowl(pin);
             return;
         }
+
         secondBowl(pin);
     }
 
