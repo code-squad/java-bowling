@@ -4,8 +4,6 @@ import model.Ball;
 import model.Score;
 
 public class FinalFrame implements Frame {
-
-    private static final int ROUND = 10;
     private Score score;
     private int availableCount;
 
@@ -64,8 +62,6 @@ public class FinalFrame implements Frame {
 
     @Override
     public String toString() {
-        if (score == null)
-            return " ";
         return score.toString();
     }
 }

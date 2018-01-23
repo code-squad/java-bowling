@@ -4,12 +4,10 @@ import model.Ball;
 import model.Score;
 
 public class NormalFrame implements Frame {
-    private int round;
-    protected Score score;
+    private Score score;
     private Frame nextFrame;
 
     public NormalFrame(int round) {
-        this.round = round;
         this.nextFrame = Frame.of(round + 1);
         score = new Score();
     }
@@ -39,9 +37,6 @@ public class NormalFrame implements Frame {
         if (this.score.isStrike() && this.score.size() == 1)
             return true;
 
-        if (this.score.size() == 2)
-            return true;
-
-        return false;
+        return this.score.size() == 2;
     }
 }

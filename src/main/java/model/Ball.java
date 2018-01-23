@@ -23,8 +23,6 @@ public class Ball {
     @Override
     public String toString() {
         switch (pinCount) {
-            case -1:
-                return "";
             case 0:
                 return "-";
             case 10:
