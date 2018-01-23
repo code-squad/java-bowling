@@ -50,11 +50,6 @@ public class FinalFrame extends Frame {
     }
 
     @Override
-    public FrameStatus status() {
-        return super.status();
-    }
-
-    @Override
     public boolean isFrameEnd() {
         FrameStatus status = status();
         if(status == STRIKE || status == SPARE)
@@ -65,9 +60,15 @@ public class FinalFrame extends Frame {
 
     @Override
     public String getFrameView() {
-        return String.format("%1s%1s%1s",
-                PinUtil.toView(firstTry),
-                PinUtil.toSplitor(secondTry),
-                PinUtil.toView(firstTry, secondTry));
+        if(status() == STRIKE)
+            return String.format("%1s%2s",
+                    PinUtil.toView(firstTry),
+                    PinUtil.frameView(secondTry, thirdTry)
+            );
+
+        return String.format("%2s%1s",
+                PinUtil.frameView(firstTry, secondTry),
+                PinUtil.toView(thirdTry)
+        );
     }
 }

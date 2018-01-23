@@ -14,6 +14,10 @@ public class PinUtil {
                 .orElse(-1);
     }
 
+    public static String frameView(Pin firstTry, Pin secondTry) {
+        return toView(firstTry) + toView(firstTry, secondTry);
+    }
+
     public static String toView(Pin pin) {
         return Optional.ofNullable(pin)
                 .map(Pin::toString)
