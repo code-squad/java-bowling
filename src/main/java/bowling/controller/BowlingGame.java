@@ -24,7 +24,7 @@ public class BowlingGame {
 	private static String[] setScore(Frame head) {
 		Frame temp = head;
 		String[] scores = new String[10];
-		while (temp.next != null) {
+		while (temp != null) {
 			scores[temp.getId() - 1] = temp.toString();
 			temp = temp.next;
 		}
