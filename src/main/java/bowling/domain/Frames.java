@@ -13,8 +13,10 @@ public class Frames {
     public Frames() {
         frames = new ArrayList<>(FRAME_MAX_VALUE);
 
-        for(int i = 0 ; i < FRAME_MAX_VALUE ; ++i)
+        for(int i = 0 ; i < FRAME_MAX_VALUE - 1 ; ++i)
             frames.add(new Frame());
+
+        frames.add(new FinalFrame());
     }
 
     public FrameStatus getState(int round) {
