@@ -10,13 +10,13 @@ public abstract class Frame {
     final TotalScore totalScore;
     final int frameNo;
 
-    public void addSecondScore(Score score) {
-        this.totalScore.addSecondScore(score);
-    }
-
     public abstract Optional<Frame> playNextFrame(Player player);
 
     public abstract Frame nextFrame(TotalScore totalScore);
+
+    public void addSecondScore(Score score) {
+        this.totalScore.addSecondScore(score);
+    }
 
     Frame(TotalScore totalScore, int frameNo) {
         if (totalScore == null) {
@@ -27,22 +27,19 @@ public abstract class Frame {
     }
 
     Frame play(Player player) {
-        Score firstScore = player.play(getNextFrameNo());
-        Frame frame = nextFrame(new TotalScore(firstScore));
-        player.addFrame(frame);
-
-        if (!firstScore.isStrike()) {
+        Frame frame = playFirstScore(player);
+        if (!frame.totalScore.isStrike()) {
             frame.addSecondScore(player.play(getNextFrameNo()));
             player.notifyFrameChanged();
         }
         return frame;
     }
 
-    Frame playOnlyFirst(Player player) {
+    Frame playFirstScore(Player player) {
         Score firstScore = player.play(getNextFrameNo());
         Frame frame = nextFrame(new TotalScore(firstScore));
-
         player.addFrame(frame);
+
         return frame;
     }
 

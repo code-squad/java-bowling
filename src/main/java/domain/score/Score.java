@@ -2,9 +2,11 @@ package domain.score;
 
 public class Score {
     private final ScoreNumber score;
+    private final ScoreType scoreType;
 
     public Score(int score) {
         this.score = new ScoreNumber(score);
+        this.scoreType = ScoreType.valueOf(this.score);
     }
 
     public ScoreNumber addScore(Score o) {
@@ -12,17 +14,13 @@ public class Score {
     }
 
     public boolean isStrike() {
-        return getScoreType() == ScoreType.STRIKE;
-    }
-
-    public ScoreType getScoreType() {
-        return ScoreType.valueOf(score);
+        return scoreType == ScoreType.STRIKE;
     }
 
     @Override
     public String toString() {
-        if (getScoreType().isDisplay()) {
-            return getScoreType().getDisplay();
+        if (scoreType.isDisplay()) {
+            return scoreType.getDisplay();
         }
         return score.toString();
     }

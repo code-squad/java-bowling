@@ -23,7 +23,7 @@ public class BonusFrame extends Frame {
             return Optional.of(play(player));
         }
         if (totalScore.isSpare()) {
-            return Optional.of(playOnlyFirst(player));
+            return Optional.of(playFirstScore(player));
         }
         return Optional.empty();
     }
