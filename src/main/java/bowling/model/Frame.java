@@ -1,11 +1,14 @@
 package bowling.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Frame {
 
-    int temp = -1;
-	Score score;
+	private int id;
+	protected List<Integer> temp;
+	protected Score score;
 	public Frame next;
-	int id;
 
 	public Frame() {
 		this(1);
@@ -13,25 +16,17 @@ public class Frame {
 
 	public Frame(int id) {
 		this.id = id;
+		this.temp = new ArrayList<>();
 	}
 
 	public Frame bowl(int intScore) {
-        if (temp < 0 && intScore < 10) {
-	        temp = intScore;
+		temp.add(intScore);
+
+		if (temp.size() < 2 && intScore < 10) {
 	        return this;
         }
 
-	    if (temp < 0 && intScore == 10) {
-	        score = new StrikeScore();
-        }
-
-        if (temp >= 0 && temp + intScore == 10) {
-	        score = new SpareScore(temp);
-        }
-
-        if (temp >= 0 && temp + intScore < 10) {
-	        score = new MissScore(temp, intScore);
-        }
+	    score = Score.of(temp);
 
         if (id == 9) {
         	next = new FinalFrame();
@@ -49,7 +44,7 @@ public class Frame {
 	@Override
 	public String toString() {
 		if (score == null) {
-			return temp == -1 ? "     " : "  " + ((temp == 0) ? "-" : temp) + "  ";
+			return temp.size() == 0 ? "     " : "  " + (temp.get(0) == 0 ? "-" : temp.get(0)) + "  ";
 		}
 		return score.toString();
 	}

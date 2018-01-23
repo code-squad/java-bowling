@@ -26,5 +26,4 @@ public class MissScore implements Score {
 		}
 		return String.format(" %s|%s ", (this.first == 0) ? "-" : this.first, (this.second == 0) ? "-" : this.second);
 	}
-
 }

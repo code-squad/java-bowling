@@ -5,13 +5,14 @@ import java.util.List;
 
 public class FinalFrame extends Frame {
 
-	List<Score> bonusScores;
+	private List<Score> bonusScores;
 
 	public FinalFrame() {
 		super(10);
 		bonusScores = new ArrayList<>();
 	}
 
+	@Override
 	public Frame bowl(int intScore) {
 		if (score == null) {
 			return normalBowl(intScore);
@@ -36,36 +37,42 @@ public class FinalFrame extends Frame {
 		return null;
 	}
 
+	private boolean isFinished() {
+		int size = bonusScores.size();
+		if (score == null)
+			return false;
+		if (size == 0 && score instanceof MissScore)
+			return true;
+		if (size == 1 &&
+				(!(score instanceof StrikeScore) ||
+						!(bonusScores.get(0) instanceof StrikeScore)))
+			return true;
+
+		return size == 2;
+	}
+
 	private Frame normalBowl(int intScore) {
-		if (temp < 0 && intScore < 10) {
-			temp = intScore;
+		temp.add(intScore);
+
+		if (temp.size() < 2 && intScore < 10)
 			return this;
-		}
 
-		if (temp >= 0 && temp + intScore < 10) {
-			score = new MissScore(temp, intScore);
+		score = Score.of(temp);
+
+		if(score instanceof MissScore)
 			return null;
-		}
 
-		if (temp < 0 && intScore == 10) {
-			score = new StrikeScore();
-		}
-
-		if (temp >= 0 && temp + intScore == 10) {
-			score = new SpareScore(temp);
-		}
-
-		temp = -1;
+		temp = new ArrayList<>();
 		return this;
 	}
 
 	private Frame afterStrike(int intScore) {
 		if (intScore < 10 && bonusScores.isEmpty()) {
-			temp = intScore;
+			temp.add(intScore);
 			return this;
 		}
 
-		if (intScore < 10 && !bonusScores.isEmpty()) {
+		if (intScore < 10) {
 			bonusScores.add(new MissScore(intScore));
 			return null;
 		}
