@@ -32,7 +32,6 @@ public class Score {
     }
 
     public int getBallsSum() {
-
         return getBallsSum(bowlingBalls.size());
     }
 

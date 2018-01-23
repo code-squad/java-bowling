@@ -41,7 +41,7 @@ public class FinalFrame implements Frame {
 
     @Override
     public int getScore() {
-        return 0;
+        return score.getScoreSum();
     }
 
     @Override
@@ -64,8 +64,4 @@ public class FinalFrame implements Frame {
         return score.isStrike();
     }
 
-    @Override
-    public boolean isSpare() {
-        return score.isSpare();
-    }
 }

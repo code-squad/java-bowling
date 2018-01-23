@@ -69,8 +69,4 @@ public class NormalFrame implements Frame {
         return score.isStrike();
     }
 
-    @Override
-    public boolean isSpare() {
-        return score.isSpare();
-    }
 }

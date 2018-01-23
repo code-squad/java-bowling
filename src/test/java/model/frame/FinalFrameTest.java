@@ -68,4 +68,31 @@ public class FinalFrameTest {
         finalFrame.bowl(4);
         assertThat(finalFrame.isFinished()).isTrue();
     }
+
+    @Test
+    public void missReducerTest(){
+        finalFrame.bowl(2);
+        finalFrame.bowl(6);
+
+        assertThat(finalFrame.getScore()).isEqualTo(8);
+    }
+
+    @Test
+    public void spareReducerTest(){
+        finalFrame.bowl(2);
+        finalFrame.bowl(8);
+        finalFrame.bowl(10);
+
+        assertThat(finalFrame.getScore()).isEqualTo(20);
+    }
+
+    @Test
+    public void strikeReducerTest(){
+        finalFrame.bowl(10);
+        finalFrame.bowl(1);
+        finalFrame.bowl(8);
+
+        assertThat(finalFrame.getScore()).isEqualTo(19);
+    }
+
 }

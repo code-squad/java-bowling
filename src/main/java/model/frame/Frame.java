@@ -13,12 +13,10 @@ public interface Frame {
         return new NormalFrame(round);
     }
 
-
     int getScore();
 
     int getNextBallSum(int count);
 
     boolean isStrike();
-    boolean isSpare();
 
 }

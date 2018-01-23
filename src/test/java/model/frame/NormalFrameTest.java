@@ -98,7 +98,21 @@ public class NormalFrameTest {
         assertThat(firstFrameScore).isEqualTo(22);
         assertThat(secondFrameScore).isEqualTo(14);
         assertThat(thirdFrameScore).isEqualTo(4);
+    }
 
+    @Test
+    public void tripleStrikeReducerTest(){
+        //FIRST FRAME
+        normalFrame.bowl(10);
+
+        //SECOND FRAME
+        normalFrame.bowl(10);
+
+        //THIRD FRAME
+        normalFrame.bowl(10);
+
+        int firstFrameScore = normalFrame.getScore();
+        assertThat(firstFrameScore).isEqualTo(30);
     }
 
 }
