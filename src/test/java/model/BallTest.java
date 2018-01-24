@@ -6,28 +6,28 @@ import org.junit.Test;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class BallTest {
-    private Ball ball;
+    private Shoot shoot;
     @Before
     public void setUp() {
-        ball = new Ball(5);
+        shoot = new Shoot(5);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void validNumberCheck() {
-        ball = new Ball(11);
+        shoot = new Shoot(11);
     }
 
     @Test
     public void gutterStringTest() {
-        ball = new Ball(0);
+        shoot = new Shoot(0);
 
-        assertThat(ball.toString()).isEqualTo("-");
+        assertThat(shoot.toString()).isEqualTo("-");
     }
 
     @Test
     public void strikeStringTest() {
-        ball = new Ball(10);
+        shoot = new Shoot(10);
 
-        assertThat(ball.toString()).isEqualTo("X");
+        assertThat(shoot.toString()).isEqualTo("X");
     }
 }

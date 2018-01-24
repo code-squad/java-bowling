@@ -1,16 +1,16 @@
 package model.frame;
 
-import model.Ball;
-import model.Score;
+import model.Shoot;
+import model.Pin;
 
 public class FinalFrame implements Frame {
-    private Score score;
+    private Pin pin;
     private int availableCount;
     private int round;
 
     public FinalFrame() {
         this.round = 10;
-        this.score = new Score();
+        this.pin = new Pin();
         this.availableCount = 2;
     }
 
@@ -19,21 +19,25 @@ public class FinalFrame implements Frame {
         if (this.availableCount == 0)
             throw new IllegalStateException();
 
-        int size = this.score.size();
+        int size = this.pin.size();
 
-        this.score.add(new Ball(number));
+        this.pin.add(new Shoot(number));
 
         if (size == 0 && number != 10) {
             this.availableCount--;
         }
 
-        if (size == 1 && !score.isSpare()) {
+        if (size == 1 && !pin.isSpare()) {
             this.availableCount--;
         }
 
         if (size == 2) {
             this.availableCount--;
         }
+    }
+
+    private int getLimitOfSum() {
+        return Pin.MAX_COUNT * (getScoreSum() / Pin.MAX_COUNT + 1);
     }
 
     @Override
@@ -48,17 +52,17 @@ public class FinalFrame implements Frame {
 
     @Override
     public int getScoreSum() {
-        return this.score.getScoreSum();
+        return this.pin.getScoreSum();
     }
 
     @Override
     public int getNextBallSum(int count) {
-        return this.score.getScoreSum(count);
+        return this.pin.getScoreSum(count);
     }
 
     @Override
     public boolean isStrike() {
-        return this.score.isStrike();
+        return this.pin.isStrike();
     }
 
     @Override
@@ -68,7 +72,7 @@ public class FinalFrame implements Frame {
 
     @Override
     public String toString() {
-        return this.score.toString();
+        return this.pin.toString();
     }
 
 }
