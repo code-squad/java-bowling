@@ -13,28 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ScoreTypeTest {
 
     @Test
-    public void valueOf_스트라이크() throws Exception {
-        Score score = new Score(new Score(10));
-        assertThat(ScoreType.valueOf(score)).isEqualTo(STRIKE);
-    }
-
-    @Test
-    public void valueOf_스페어() throws Exception {
-        Score score = new Score(new Score(7));
-        score.addSecond(new Score(3));
-
-        assertThat(ScoreType.valueOf(score)).isEqualTo(SPARE);
-    }
-
-    @Test
-    public void valueOf_미스() throws Exception {
-        Score score = new Score(new Score(7));
-        score.addSecond(new Score(2));
-
-        assertThat(ScoreType.valueOf(score)).isEqualTo(MISS);
-    }
-
-    @Test
     public void valueOf_거터() throws Exception {
         assertThat(ScoreType.valueOf(new Pin(0))).isEqualTo(GUTTER);
     }

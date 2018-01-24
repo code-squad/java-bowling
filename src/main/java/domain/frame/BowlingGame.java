@@ -3,11 +3,12 @@ package domain.frame;
 import com.google.common.base.Strings;
 import domain.Player;
 import domain.ScoreBoard;
-import domain.score.Score;
+import domain.score.Pin;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class BowlingGame {
     private final List<Frame> frames;
@@ -27,41 +28,29 @@ public class BowlingGame {
     }
 
     public void playBowling() {
-        Score firstScore = player.play(1);
-        Frame first = new NormalFrame(new Score(firstScore), 1);
-        frames.add(first);
+        IntStream.rangeClosed(1, 10)
+                 .forEach(this::playBowling);
+    }
+
+    private void playBowling(int frameNo) {
+        Pin pin = player.play(frameNo);
+        Frame frame = nextFrame(pin, frameNo);
+
+        frames.add(frame);
         notifyFrameChanged();
 
-        if (!firstScore.isStrike()) {
-            first.addSecondResult(player.play(1));
+        playBowlingUntilFinished(frame, frameNo);
+    }
+
+    private Frame nextFrame(Pin pin, int frameNo) {
+        return frameNo == 10 ? new FinalFrame(pin) : new NormalFrame(pin);
+    }
+
+    private void playBowlingUntilFinished(Frame frame, int frameNo) {
+        while (!frame.isFinish()) {
+            frame.addResult(player.play(frameNo));
             notifyFrameChanged();
         }
-
-        playBowlingRecursive(first);
-    }
-
-    private void playBowlingRecursive(Frame frame) {
-        frame.playNextFrame(this)
-             .ifPresent(this::playBowlingRecursive);
-    }
-
-    Frame playNext(Frame frame) {
-        Frame next = playNextFirstScore(frame);
-        if (!next.isStrike()) {
-            Score secondScore = player.play(frame.getNextFrameNo());
-            next.addSecondResult(secondScore);
-            notifyFrameChanged();
-        }
-        return next;
-    }
-
-    Frame playNextFirstScore(Frame frame) {
-        Score firstScore = player.play(frame.getNextFrameNo());
-        Frame next = frame.nextFrame(new Score(firstScore));
-        frames.add(next);
-        notifyFrameChanged();
-
-        return next;
     }
 
     private void notifyFrameChanged() {

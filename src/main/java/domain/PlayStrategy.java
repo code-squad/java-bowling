@@ -1,7 +1,7 @@
 package domain;
 
-import domain.score.Score;
+import domain.score.Pin;
 
 public interface PlayStrategy {
-    Score play(int frameNo);
+    Pin play(int frameNo);
 }

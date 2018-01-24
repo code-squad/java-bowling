@@ -2,40 +2,29 @@ package domain.score;
 
 import org.junit.Test;
 
-import static domain.score.Pin.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ScoreTest {
 
     @Test
-    public void addScore() throws Exception {
-        Score s1 = new Score(3);
-        Score s2 = new Score(7);
-
-        assertThat(s1.addScore(s2)).isEqualTo(TEN);
-    }
-
-    @Test
     public void isStrike() throws Exception {
-        Score score = new Score(10);
+        Score score = new Score(Pin.TEN);
         assertThat(score.isStrike()).isTrue();
         assertThat(score.toString()).isEqualTo("X");
     }
 
     @Test
     public void gutter() throws Exception {
-        Score zero = new Score(0);
-
+        Score zero = new Score(Pin.ZERO);
         assertThat(zero.toString()).isEqualTo("-");
     }
 
     @Test
-    public void isStrike_아닌경우() throws Exception {
-        assertThat(new Score(8).isStrike()).isFalse();
-        assertThat(new Score(7).isStrike()).isFalse();
-        assertThat(new Score(2).isStrike()).isFalse();
-        assertThat(new Score(1).isStrike()).isFalse();
-        assertThat(new Score(0).isStrike()).isFalse();
+    public void toString_SPARE() throws Exception {
+        Score s = new Score(Pin.ZERO);
+        s.addSecond(Pin.TEN);
+
+        assertThat(s.toString()).isEqualTo("-|/");
     }
 
 }

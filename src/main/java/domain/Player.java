@@ -1,6 +1,6 @@
 package domain;
 
-import domain.score.Score;
+import domain.score.Pin;
 
 public class Player {
 
@@ -16,7 +16,7 @@ public class Player {
         this.strategy = strategy;
     }
 
-    public Score play(int frameNo) {
+    public Pin play(int frameNo) {
         return strategy.play(frameNo);
     }
 

@@ -6,11 +6,15 @@ public class Pin {
 
     private final int fallPins;
 
-    Pin(int fallPins) {
+    public Pin(int fallPins) {
         if (fallPins < 0 || fallPins > 10) {
             throw new IllegalArgumentException();
         }
         this.fallPins = fallPins;
+    }
+
+    public boolean isStrike() {
+        return fallPins == 10;
     }
 
     Pin minus(Pin first) {
@@ -35,7 +39,7 @@ public class Pin {
     @Override
     public String toString() {
         if (ScoreType.valueOf(this).isDisplay()) {
-            return ScoreType.valueOf(this).toString();
+            return ScoreType.valueOf(this).getDisplay();
         }
         return String.valueOf(fallPins);
     }

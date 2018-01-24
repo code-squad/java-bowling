@@ -17,7 +17,7 @@ public class Score {
         if (second == null) {
             throw new IllegalArgumentException();
         }
-        left.minus(second);
+        this.left = left.minus(second);
         this.second = second;
     }
 
@@ -27,6 +27,10 @@ public class Score {
 
     public boolean isSpare() {
         return second != null && left.equals(Pin.ZERO);
+    }
+
+    public boolean isFinish() {
+        return isStrike() || second != null;
     }
 
     @Override
