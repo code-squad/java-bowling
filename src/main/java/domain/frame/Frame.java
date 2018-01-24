@@ -4,7 +4,7 @@ import domain.score.Pin;
 import domain.score.Score;
 
 public abstract class Frame {
-    final Score score;
+    private final Score score;
 
     Frame(Score score) {
         if (score == null) {
@@ -14,7 +14,7 @@ public abstract class Frame {
     }
 
     void addResult(Pin pin) {
-        this.score.addSecond(pin);
+        this.score.addResult(pin);
     }
 
     boolean isFinish() {

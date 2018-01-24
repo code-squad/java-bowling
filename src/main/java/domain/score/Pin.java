@@ -13,12 +13,16 @@ public class Pin {
         this.fallPins = fallPins;
     }
 
-    public boolean isStrike() {
+    boolean isStrike() {
         return fallPins == 10;
     }
 
     Pin minus(Pin first) {
         return new Pin(fallPins - first.fallPins);
+    }
+
+    boolean isSpare(Pin first) {
+        return fallPins + first.fallPins == 10;
     }
 
     @Override
