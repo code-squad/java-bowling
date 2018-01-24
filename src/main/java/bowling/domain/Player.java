@@ -52,16 +52,8 @@ public class Player {
         return frames.isEnd();
     }
 
-    public String getName() {
-        return name;
-    }
-
     public List<String> getFrameViews() {
         return frames.getFrameViews();
-    }
-
-    public void printFrameInfo() {
-        System.out.print(frameNo + 1 + "프레임 투구 : ");
     }
 
     public PlayerResult getPlayerResult() {
