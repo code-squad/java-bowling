@@ -1,5 +1,7 @@
 package view;
 
+import model.FrameResult;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -18,10 +20,10 @@ public class ConsoleView {
         return Integer.parseInt(scanner.next());
     }
 
-    public static void printScoreBoard(String name, List<String> statusStrings, List<String> scoreStrings) {
+    public static void printScoreBoard(String name, List<FrameResult> frameResults) {
         printHeader();
-        printFrameStatus(name, statusStrings);
-        printScoreReducer(scoreStrings);
+        printFrameStatus(name, frameResults);
+        printScoreReducer(frameResults);
     }
 
     private static void printHeader() {
@@ -36,32 +38,30 @@ public class ConsoleView {
         System.out.println(builder.toString());
     }
 
-    private static void printFrameStatus(String name, List<String> statusStrings) {
+    private static void printFrameStatus(String name, List<FrameResult> frameResults) {
         StringBuilder builder = new StringBuilder();
         builder.append("|  ")
                 .append(name)
                 .append(" |");
 
-        for (String statusString : statusStrings) {
-            int len = statusString.length();
-
+        for (FrameResult frameResult : frameResults) {
             builder.append("   ");
-            builder.append(statusString);
-            builder.append("      ".substring(0, 6 - len - 1));
+            builder.append(frameResult.getStatus());
+            builder.append("      ".substring(0, 6 - frameResult.getStatus().length() - 1));
             builder.append("|");
         }
 
         System.out.println(builder.toString());
     }
 
-    private static void printScoreReducer(List<String> scoreStrings) {
+    private static void printScoreReducer(List<FrameResult> frameResults) {
         StringBuilder builder = new StringBuilder();
         builder.append("|      |");
 
-        for (String scoreString : scoreStrings) {
+        for (FrameResult frameResult : frameResults) {
             builder.append("   ");
-            builder.append(scoreString);
-            builder.append("      ".substring(0, 6 - String.valueOf(scoreString).length() - 1));
+            builder.append(frameResult.getScore());
+            builder.append("      ".substring(0, 6 - frameResult.getScore().length() - 1));
             builder.append("|");
         }
 
