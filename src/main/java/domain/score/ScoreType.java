@@ -17,7 +17,7 @@ public enum ScoreType {
         this.display = display;
     }
 
-    public static ScoreType valueOf(TotalScore totalScore) {
+    static ScoreType valueOf(TotalScore totalScore) {
         if (totalScore.isStrike()) {
             return STRIKE;
         }
@@ -27,7 +27,7 @@ public enum ScoreType {
         return MISS;
     }
 
-    public static ScoreType valueOf(ScoreNumber score) {
+    static ScoreType valueOf(ScoreNumber score) {
         if (score.equals(TEN)) {
             return STRIKE;
         }
@@ -37,11 +37,11 @@ public enum ScoreType {
         return NONE;
     }
 
-    public String getDisplay() {
+    String getDisplay() {
         return display;
     }
 
-    public boolean isDisplay() {
+    boolean isDisplay() {
         return display != null;
     }
 }

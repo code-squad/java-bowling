@@ -25,13 +25,13 @@ public class ConsoleScoreBoard implements ScoreBoard {
     @Override
     public void printScoreBoard() {
         printHeader(Math.max(frames.size(), 10));
-        printPlayer();
+        printPlayerName();
         printFrames();
         printRemainFrames(10 - frames.size());
         printLine();
     }
 
-    private void printPlayer() {
+    private void printPlayerName() {
         System.out.print("| " + playerName + "  |");
     }
 

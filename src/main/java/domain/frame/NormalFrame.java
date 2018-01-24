@@ -16,11 +16,11 @@ public class NormalFrame extends Frame {
 
     @Override
     public Optional<Frame> playNextFrame(Player player) {
-        return Optional.of(play(player));
+        return Optional.of(playNext(player));
     }
 
     @Override
-    public Frame nextFrame(TotalScore totalScore) {
+    Frame nextFrame(TotalScore totalScore) {
         if (frameNo == 9) {
             return new FinalFrame(totalScore, getNextFrameNo());
         }

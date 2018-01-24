@@ -12,6 +12,9 @@ public class Player {
     private final ScoreBoard scoreBoard;
 
     public Player(PlayStrategy strategy, ScoreBoard scoreBoard) {
+        if (strategy == null || scoreBoard == null) {
+            throw new IllegalArgumentException();
+        }
         this.strategy = strategy;
         this.scoreBoard = scoreBoard;
         this.scoreBoard.printScoreBoard();
