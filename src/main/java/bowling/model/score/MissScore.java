@@ -1,4 +1,4 @@
-package bowling.model;
+package bowling.model.score;
 
 public class MissScore implements Score {
 
@@ -20,11 +20,12 @@ public class MissScore implements Score {
 	}
 
 	@Override
-	public String toString() {
-		if (second == -1) {
-			return String.format(" %s ", this.first == 0 ? "-" : this.first);
-		}
-		return String.format(" %s|%s ", (this.first == 0) ? "-" : this.first, (this.second == 0) ? "-" : this.second);
+	public int firstScore() {
+		return first;
+	}
+
+	public int getScore(Score next, Score nextNext) {
+		return this.currentScore();
 	}
 
 }
