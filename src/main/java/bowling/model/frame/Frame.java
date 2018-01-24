@@ -59,19 +59,22 @@ public class Frame {
 	}
 
 	public int getScore() throws Exception {
-		if (score instanceof MissScore)
-			return this.getFramePinCount();
-		if (score instanceof SpareScore)
-			return this.getFramePinCount() + next.getFirstPinCount();
-		if (score instanceof StrikeScore) {
-			if (next.isStrike() && next.isNextStrike()) {
-				return 30;
-			} else {
-				return this.getFramePinCount() + next.getFramePinCount();
-			}
+//		if (score instanceof MissScore)
+//			return this.getFramePinCount();
+//		if (score instanceof SpareScore)
+//			return this.getFramePinCount() + next.getFirstPinCount();
+//		if (score instanceof StrikeScore) {
+//			if (next.isStrike() && next.isNextStrike()) {
+//				return 30;
+//			} else {
+//				return this.getFramePinCount() + next.getFramePinCount();
+//			}
+//		}
+		if (score == null) {
+			throw new IllegalStateException();
 		}
 
-		throw new IllegalStateException();
+		return score.getScore(next.score, next.next.score);
 	}
 
 	protected int getFramePinCount() {

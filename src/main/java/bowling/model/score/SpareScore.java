@@ -18,4 +18,8 @@ public class SpareScore implements Score {
 		return score;
 	}
 
+	public int getScore(Score next, Score nextNext) {
+		return this.currentScore() + next.firstScore();
+	}
+
 }

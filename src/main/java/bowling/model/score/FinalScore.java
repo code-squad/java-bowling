@@ -24,4 +24,8 @@ public class FinalScore implements Score {
         return scores.stream().reduce(0, (a, b) -> a + b);
     }
 
+    public int getScore(Score next, Score nextNext) {
+        return 0;
+    }
+
 }

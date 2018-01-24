@@ -45,4 +45,6 @@ public interface Score {
 
 		return builder.toString();
 	}
+
+	public int getScore(Score next, Score nextNext);
 }

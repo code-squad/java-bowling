@@ -23,4 +23,9 @@ public class MissScore implements Score {
 	public int firstScore() {
 		return first;
 	}
+
+	public int getScore(Score next, Score nextNext) {
+		return this.currentScore();
+	}
+
 }
