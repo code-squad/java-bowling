@@ -25,7 +25,7 @@ public class FramesTest {
 
     @Test
     public void getStateTest() {
-        assertThat(frames.getState(0)).isEqualTo(NOT_START);
+        assertThat(frames.getState(0)).isEqualTo(NOT_END);
     }
 
     @Test

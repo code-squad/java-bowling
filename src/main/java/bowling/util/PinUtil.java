@@ -8,12 +8,6 @@ import static bowling.common.StaticVariables.*;
 
 public class PinUtil {
 
-    public static int getNumOfPin(Pin pin) {
-        return Optional.ofNullable(pin)
-                .map(Pin::getNumOfFellPin)
-                .orElse(-1);
-    }
-
     public static String frameView(Pin firstTry, Pin secondTry) {
         return toView(firstTry) + toView(firstTry, secondTry);
     }

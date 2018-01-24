@@ -26,7 +26,7 @@ public class PlayerTest {
 
     @Test
     public void getStateTest() {
-        assertThat(player.getState()).isEqualTo(NOT_START);
+        assertThat(player.getState()).isEqualTo(NOT_END);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class PlayerTest {
     public void frameNoUpdateTest() {
         player.rollBowlingBall(new Pin(10));
         player.frameNoUpdate();
-        assertThat(player.getState()).isEqualTo(NOT_START);
+        assertThat(player.getState()).isEqualTo(NOT_END);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class PlayerTest {
         player.rollBowlingBall(new Pin(10));
         player.frameNoUpdate();
         assertThat(player.getPreviousState()).isEqualTo(STRIKE);
-        assertThat(player.getState()).isEqualTo(NOT_START);
+        assertThat(player.getState()).isEqualTo(NOT_END);
     }
 
     @Test

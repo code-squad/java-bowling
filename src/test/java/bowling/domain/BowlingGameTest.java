@@ -32,6 +32,6 @@ public class BowlingGameTest {
     @Test
     public void rotatePlayerTest() {
         bowlingGame.rollBowlingBall(new Pin(10));
-        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(NOT_START);
+        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(NOT_END);
     }
 }

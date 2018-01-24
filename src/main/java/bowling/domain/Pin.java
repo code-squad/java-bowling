@@ -15,15 +15,6 @@ public class Pin {
         this.fellPin = fellPin;
     }
 
-    private void checkInputValidation(int fellPin) {
-        if(fellPin < MIN_VALUE || MAX_VALUE < fellPin)
-            throw new IllegalArgumentException("Invalid input for pin");
-    }
-
-    public int getNumOfFellPin() {
-        return fellPin;
-    }
-
     public boolean isOverTen(Pin pin) {
         return fellPin + pin.fellPin > MAX_VALUE;
     }
@@ -36,6 +27,16 @@ public class Pin {
         return Optional.ofNullable(secondTry)
                 .map(second -> second.fellPin + this.fellPin == MAX_VALUE)
                 .orElse(false);
+    }
+
+    public boolean isMiss(Pin secondTry) {
+        return Optional.ofNullable(secondTry)
+                .isPresent();
+    }
+
+    private void checkInputValidation(int fellPin) {
+        if(fellPin < MIN_VALUE || MAX_VALUE < fellPin)
+            throw new IllegalArgumentException("Invalid input for pin");
     }
 
     @Override

@@ -17,7 +17,7 @@ public class FrameTest {
 
     @Test
     public void frameStatusTest() {
-        assertThat(frame.status()).isEqualTo(NOT_START);
+        assertThat(frame.status()).isEqualTo(NOT_END);
     }
 
     @Test

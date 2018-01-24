@@ -1,31 +1,29 @@
 package bowling.enums;
 
 import bowling.domain.Pin;
-import bowling.util.PinUtil;
 
 import java.util.Optional;
 
 public enum FrameStatus {
-    NOT_START,
     STRIKE,
     SPARE,
     MISS,
     NOT_END;
 
     public static FrameStatus getStatus(Pin firstTry, Pin secondTry) {
-        int numberOfFellPinOfFirstTry = PinUtil.getNumOfPin(firstTry);
-        int numberOfFellPinOfSecondTry = PinUtil.getNumOfPin(secondTry);
-
-        if(numberOfFellPinOfFirstTry < 0)
-            return NOT_START;
-        if(numberOfFellPinOfFirstTry == 10)
-            return STRIKE;
-        if(numberOfFellPinOfSecondTry < 0)
+        if(firstTry == null)
             return NOT_END;
-        if(numberOfFellPinOfFirstTry + numberOfFellPinOfSecondTry == 10)
+
+        if(firstTry.isStrike())
+            return STRIKE;
+
+        if(firstTry.isSpare(secondTry))
             return SPARE;
 
-        return MISS;
+        if(firstTry.isMiss(secondTry))
+            return MISS;
+
+        return NOT_END;
     }
 
     public boolean isEnd() {
