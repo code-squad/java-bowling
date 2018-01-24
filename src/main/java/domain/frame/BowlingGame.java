@@ -48,7 +48,7 @@ public class BowlingGame {
 
     Frame playNext(Frame frame) {
         Frame next = playNextFirstScore(frame);
-        if (!next.totalScore.isStrike()) {
+        if (!next.isStrike()) {
             Score secondScore = player.play(frame.getNextFrameNo());
             next.addSecondScore(secondScore);
             notifyFrameChanged();

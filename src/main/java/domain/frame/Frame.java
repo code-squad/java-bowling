@@ -28,6 +28,10 @@ public abstract class Frame {
         return frameNo + 1;
     }
 
+    boolean isStrike() {
+        return totalScore.isStrike();
+    }
+
     abstract Optional<Frame> playNextFrame(BowlingGame game);
 
     abstract Frame nextFrame(TotalScore totalScore);
