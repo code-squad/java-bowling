@@ -1,17 +1,13 @@
 package domain.frame;
 
-import com.google.common.base.Strings;
 import domain.Player;
 import domain.ScoreBoard;
 import domain.score.Pin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class BowlingGame {
-    private final List<Frame> frames;
+    private final Frames frames;
 
     private final Player player;
 
@@ -19,12 +15,8 @@ public class BowlingGame {
 
     public BowlingGame(Player player, ScoreBoard scoreBoard) {
         this.player = player;
-        this.frames = new ArrayList<>();
+        this.frames = new Frames();
         this.scoreBoard = scoreBoard;
-    }
-
-    public int size() {
-        return frames.size();
     }
 
     public void playBowling() {
@@ -36,7 +28,7 @@ public class BowlingGame {
         Pin pin = player.play(frameNo);
         Frame frame = nextFrame(pin, frameNo);
 
-        frames.add(frame);
+        frames.addFrame(frame);
         notifyFrameChanged();
 
         playBowlingUntilFinished(frame, frameNo);
@@ -57,25 +49,8 @@ public class BowlingGame {
         this.scoreBoard.printGameResult(this);
     }
 
-    private String framesToString() {
-        if (frames.size() == 0) {
-            return "";
-        }
-        return frames.stream()
-                     .map(Frame::toString)
-                     .collect(Collectors.joining("|")) + "|";
-    }
-
-    private String remainFrames() {
-        int remain = 10 - frames.size();
-        if (remain > 0) {
-            return Strings.repeat("    |", remain);
-        }
-        return "";
-    }
-
     @Override
     public String toString() {
-        return "| " + player + "  |" + framesToString() + remainFrames();
+        return "| " + player + "  |" + frames.toString();
     }
 }
