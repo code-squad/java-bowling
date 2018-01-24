@@ -9,7 +9,7 @@ public class CurrentPlayerInfo {
     private int currentFrameNo;
 
     public CurrentPlayerInfo(String name, int currentFrameNo) {
-        if(name == null || name.isEmpty() || currentFrameNo < 0 || currentFrameNo >= FRAME_MAX_VALUE)
+        if(name == null || name.isEmpty() || currentFrameNo < 0 || currentFrameNo > FRAME_MAX_VALUE)
             throw new IllegalArgumentException("invalid input for current player info");
 
         this.name = name;
