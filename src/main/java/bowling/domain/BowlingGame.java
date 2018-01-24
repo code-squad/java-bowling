@@ -11,22 +11,22 @@ public class BowlingGame {
         this.playerQueue = new PlayerQueue(players);
     }
 
-    public Player getCurrentPlayer() {
-        return playerQueue.getCurrentPlayer();
-    }
-
     public void rollBowlingBall(Pin fellPin) {
         getCurrentPlayer().rollBowlingBall(fellPin);
         updatePlayerQueue();
     }
 
+    public boolean isGameEnd() {
+        return players.isGameEnd();
+    }
+
+    public Player getCurrentPlayer() {
+        return playerQueue.getCurrentPlayer();
+    }
+
     private void updatePlayerQueue() {
         if(getCurrentPlayer().isCurrentFrameEnd())
             playerQueue.rotate();
-    }
-
-    public boolean isEnd() {
-        return players.checkIsEnd();
     }
 
     public Players getPlayers() {

@@ -17,7 +17,7 @@ public class Players {
             throw new IllegalArgumentException("Invalid input for Players");
     }
 
-    public boolean checkIsEnd() {
+    public boolean isGameEnd() {
         return players.stream()
                 .anyMatch(Player::isEnd);
     }

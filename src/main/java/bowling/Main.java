@@ -9,7 +9,7 @@ public class Main {
         BowlingGame bowlingGame = new BowlingGame(InputView.getPlayer());
         OutputView.showScoreBoard(bowlingGame.getPlayers());
 
-        while(!bowlingGame.isEnd()) {
+        while(!bowlingGame.isGameEnd()) {
             OutputView.showPlayerTurnInfo(bowlingGame.getCurrentPlayer());
             bowlingGame.rollBowlingBall(InputView.getPin());
             OutputView.showScoreBoard(bowlingGame.getPlayers());
