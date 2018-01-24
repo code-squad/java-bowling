@@ -53,6 +53,6 @@ public abstract class Frame {
 
     @Override
     public String toString() {
-        return totalScore.toString();
+        return String.format("%-4s", totalScore.toString());
     }
 }

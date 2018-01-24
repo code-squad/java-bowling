@@ -1,10 +1,7 @@
 package domain;
 
-import domain.frame.Frame;
+import domain.frame.BowlingGame;
 
 public interface ScoreBoard {
-
-    void addFrame(Frame frame);
-
-    void printScoreBoard();
+    void printGameResult(BowlingGame bowlingGame);
 }

@@ -1,15 +1,10 @@
 package domain;
 
-import domain.frame.Frame;
+import domain.frame.BowlingGame;
 
 public class TestScoreBoard implements ScoreBoard {
     @Override
-    public void addFrame(Frame frame) {
-        // do nothing
-    }
-
-    @Override
-    public void printScoreBoard() {
+    public void printGameResult(BowlingGame bowlingGame) {
         // do nothing
     }
 }

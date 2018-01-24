@@ -19,7 +19,7 @@ public class NormalFrameTest {
     @Before
     public void setUp() throws Exception {
         totalScore = new TotalScore(new Score(10));
-        testPlayer = new Player(new TestStrategy(), new TestScoreBoard());
+        testPlayer = new Player("KKJ", new TestStrategy(), new TestScoreBoard());
     }
 
     @Test

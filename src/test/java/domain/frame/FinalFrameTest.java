@@ -18,7 +18,7 @@ public class FinalFrameTest {
 
     @Before
     public void setUp() throws Exception {
-        testPlayer = new Player(new TestStrategy(), new TestScoreBoard());
+        testPlayer = new Player("KKJ", new TestStrategy(), new TestScoreBoard());
     }
 
     @Test

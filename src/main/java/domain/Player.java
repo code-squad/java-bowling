@@ -1,5 +1,6 @@
 package domain;
 
+import domain.frame.BowlingGame;
 import domain.frame.Frame;
 import domain.frame.NormalFrame;
 import domain.score.Score;
@@ -11,13 +12,16 @@ public class Player {
 
     private final ScoreBoard scoreBoard;
 
-    public Player(PlayStrategy strategy, ScoreBoard scoreBoard) {
+    private final BowlingGame bowlingGame;
+
+    public Player(String playerName, PlayStrategy strategy, ScoreBoard scoreBoard) {
         if (strategy == null || scoreBoard == null) {
             throw new IllegalArgumentException();
         }
         this.strategy = strategy;
         this.scoreBoard = scoreBoard;
-        this.scoreBoard.printScoreBoard();
+        this.bowlingGame = new BowlingGame(playerName);
+        this.scoreBoard.printGameResult(bowlingGame);
     }
 
     public void playBowling() {
@@ -43,12 +47,12 @@ public class Player {
     }
 
     public void addFrame(Frame frame) {
-        scoreBoard.addFrame(frame);
+        bowlingGame.addFrame(frame);
         notifyFrameChanged();
     }
 
     public void notifyFrameChanged() {
-        scoreBoard.printScoreBoard();
+        this.scoreBoard.printGameResult(bowlingGame);
     }
 
 }
