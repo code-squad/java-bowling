@@ -32,19 +32,19 @@ public class Frame {
 
     private int getScore() {
         Score score = state.getScore();
-        if (score.canCalucateScore()) {
+        if (score.canCalculateScore()) {
             return score.getScore();
         }
 
-        return next.cacluateAdditionalScore(score);
+        return next.calculateAdditionalScore(score);
     }
 
-    private int cacluateAdditionalScore(Score beforeScore) {
-        Score score = state.cacluateAdditionalScore(beforeScore);
-        if (score.canCalucateScore()) {
+    private int calculateAdditionalScore(Score beforeScore) {
+        Score score = state.calculateAdditionalScore(beforeScore);
+        if (score.canCalculateScore()) {
             return score.getScore();
         }
-        return next.cacluateAdditionalScore(score);
+        return next.calculateAdditionalScore(score);
     }
 
     FrameResult getFrameResult() {

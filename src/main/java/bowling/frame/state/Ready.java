@@ -4,7 +4,7 @@ import bowling.frame.CannotCalculateException;
 import bowling.frame.pin.Pins;
 import bowling.frame.pin.Score;
 
-public class Ready extends Running {   
+public class Ready extends Running {
     @Override
     public State bowl(Pins falledPins) {
         if (falledPins.isStrike()) {
@@ -13,7 +13,7 @@ public class Ready extends Running {
         return new FirstBowl(falledPins);
     }
 
-    public Score cacluateAdditionalScore(Score score) {
+    public Score calculateAdditionalScore(Score score) {
         throw new CannotCalculateException();
     }
 

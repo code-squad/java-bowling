@@ -19,10 +19,10 @@ class FirstBowl extends Running {
 
         return new Miss(firstPins, falledPins);
     }
-    
-    public Score cacluateAdditionalScore(Score score) {
+
+    public Score calculateAdditionalScore(Score score) {
         score = firstPins.sumScore(score);
-        if (score.canCalucateScore()) {
+        if (score.canCalculateScore()) {
             return score;
         }
         throw new CannotCalculateException();

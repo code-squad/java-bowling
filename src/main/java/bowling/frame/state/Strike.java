@@ -9,8 +9,8 @@ class Strike extends Finished {
         return new Score(Pins.MAX_PINS, 2);
     }
 
-    public Score cacluateAdditionalScore(Score score) {
-        if (score.canCalucateScore()) {
+    public Score calculateAdditionalScore(Score score) {
+        if (score.canCalculateScore()) {
             return score;
         }
         return score.bowl(Pins.MAX_PINS);

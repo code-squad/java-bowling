@@ -10,7 +10,7 @@ public interface State {
 
     Score getScore();
 
-    Score cacluateAdditionalScore(Score score);
+    Score calculateAdditionalScore(Score score);
 
     String getDesc();
 }

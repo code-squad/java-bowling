@@ -17,11 +17,11 @@ public class StrikeTest {
     public void getScore() throws Exception {
         Score score = new Score(10, 2);
         Strike strike = new Strike();
-        score = strike.cacluateAdditionalScore(score);
+        score = strike.calculateAdditionalScore(score);
         assertEquals(new Score(20, 1), score);
 
         strike = new Strike();
-        score = strike.cacluateAdditionalScore(score);
+        score = strike.calculateAdditionalScore(score);
         assertEquals(new Score(30, 0), score);
     }
 }
