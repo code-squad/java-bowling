@@ -12,7 +12,7 @@ public class Frames {
     private List<Frame> frames;
 
     public Frames() {
-        frames = IntStream.range(0, FRAME_MAX_VALUE -1)
+        frames = IntStream.range(0, FRAME_MAX_VALUE - 1)
                 .mapToObj(i -> new Frame())
                 .collect(Collectors.toList());
 
