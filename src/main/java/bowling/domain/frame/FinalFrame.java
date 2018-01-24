@@ -2,12 +2,14 @@ package bowling.domain.frame;
 
 import java.util.Optional;
 
-import bowling.domain.ScoreMachine;
 import bowling.domain.frame.element.Element;
 import bowling.domain.frame.element.FinalElement;
 import bowling.domain.score.Score;
 import bowling.domain.score.ScoreType;
 
+import static bowling.domain.ScoreMachine.calculateScore;
+import static bowling.domain.ScoreMachine.convertScoreToString;
+import static bowling.domain.ScoreMachine.firstCalculate;
 import static bowling.domain.score.ScoreType.GUTTER;
 import static bowling.domain.score.ScoreType.MISS;
 import static bowling.domain.score.ScoreType.NUMBER;
@@ -21,7 +23,7 @@ public class FinalFrame implements Frame {
 
     private FinalFrame(Score score) {
         finalElement = finalElement.generate(score);
-        result = ScoreMachine.firstCalculate(finalElement);
+        result = firstCalculate(finalElement);
     }
 
     public static FinalFrame generate(Score score) {
@@ -59,7 +61,7 @@ public class FinalFrame implements Frame {
 
     private String thirdScoreCalculate(Score nextScore) {
         if(isFirstOrSecondStrike()) { return getResultMapping(FIRST_SCORE, nextScore); }
-        Optional<ScoreType> scoreType = ScoreMachine.calculateScore(FinalElement.generate(finalElement.getScoreByKey(SECOND_SCORE)).inScore(THIRD_SCORE, nextScore));
+        Optional<ScoreType> scoreType = calculateScore(FinalElement.generate(finalElement.getScoreByKey(SECOND_SCORE)).inScore(THIRD_SCORE, nextScore));
         return scoreType.map(this::resultFormat).get();
     }
 
@@ -80,7 +82,7 @@ public class FinalFrame implements Frame {
     }
 
     private String stringFormat(ScoreType type) {
-        return ScoreMachine.convertScoreToString(type, finalElement);
+        return convertScoreToString(type, finalElement);
     }
 
     private boolean isFirstStrikeAndHasNotSecond() {
@@ -92,7 +94,7 @@ public class FinalFrame implements Frame {
     }
 
     private Optional<ScoreType> getScoreType(String key, Score nextScore) {
-        return ScoreMachine.calculateScore(finalElement.inScore(key, nextScore));
+        return calculateScore(finalElement.inScore(key, nextScore));
     }
 
     private boolean isFirstAndSecondAreNumber() {

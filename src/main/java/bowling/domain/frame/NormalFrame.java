@@ -7,6 +7,8 @@ import bowling.domain.frame.element.NormalElement;
 import bowling.domain.score.Score;
 import bowling.domain.score.ScoreType;
 
+import static bowling.domain.ScoreMachine.calculateScore;
+import static bowling.domain.ScoreMachine.convertScoreToString;
 import static bowling.domain.score.ScoreType.STRIKE;
 
 public class NormalFrame implements Frame {
@@ -31,8 +33,8 @@ public class NormalFrame implements Frame {
     public NormalFrame nextRound(Score secondScore) {
         if(!normalElement.validTotalScore(secondScore)) { throw new IllegalArgumentException("2번째 투구점수가 올바르지 않습니다."); }
 
-        Optional<ScoreType> scoreType = ScoreMachine.calculateScore(normalElement.inScore(secondScore));
-        result = scoreType.map(type -> ScoreMachine.convertScoreToString(type, normalElement)).get();
+        Optional<ScoreType> scoreType = calculateScore(normalElement.inScore(secondScore));
+        result = scoreType.map(type -> convertScoreToString(type, normalElement)).get();
 
         return this;
     }

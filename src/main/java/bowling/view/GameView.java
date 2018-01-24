@@ -35,9 +35,14 @@ public class GameView {
     }
 
     public String nextReflectScore(Frame frame) {
-        resultView = clearBeforeData() + frame.result();
+        resultView = clearBeforeData(resultView.length() - 1) + frame.result();
         if(formattingGutter(frame)) return resultView;
         resultView = getIngFormat(resultView);
+        return resultView;
+    }
+
+    public String nextFinalScore(Frame frame) {
+        resultView = clearBeforeData(resultView.length() - 5) + frame.result();
         return resultView;
     }
 
@@ -67,8 +72,8 @@ public class GameView {
         return initEmptyFrames(resultView, MIN_SCORE);
     }
 
-    private String clearBeforeData() {
-        return resultView.substring(0, resultView.length()-1);
+    private String clearBeforeData(int endIndex) {
+        return resultView.substring(0, endIndex);
     }
 
     private String initNameView(BowlingUser bowlingUser) {
