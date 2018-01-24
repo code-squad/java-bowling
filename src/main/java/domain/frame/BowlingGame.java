@@ -1,7 +1,10 @@
 package domain.frame;
 
 import com.google.common.base.Strings;
-import org.apache.commons.lang3.StringUtils;
+import domain.Player;
+import domain.ScoreBoard;
+import domain.score.Score;
+import domain.score.TotalScore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,26 +13,60 @@ import java.util.stream.Collectors;
 public class BowlingGame {
     private final List<Frame> frames;
 
-    private final String playerName;
+    private final Player player;
 
-    public BowlingGame(String playerName) {
-        if (StringUtils.isEmpty(playerName) || playerName.length() != 3) {
-            throw new IllegalArgumentException();
-        }
-        this.playerName = playerName;
+    private final ScoreBoard scoreBoard;
+
+    public BowlingGame(Player player, ScoreBoard scoreBoard) {
+        this.player = player;
         this.frames = new ArrayList<>();
+        this.scoreBoard = scoreBoard;
     }
 
-    public void addFrame(Frame frame) {
-        if (frame == null || frames.size() > 12) {
-            throw new IllegalArgumentException();
+    public int size() {
+        return frames.size();
+    }
+
+    public void playBowling() {
+        Score firstScore = player.play(1);
+        Frame first = new NormalFrame(new TotalScore(firstScore), 1);
+        frames.add(first);
+        notifyFrameChanged();
+
+        if (!firstScore.isStrike()) {
+            first.addSecondScore(player.play(1));
+            notifyFrameChanged();
         }
-        frames.add(frame);
+
+        playBowlingRecursive(first);
     }
 
-    @Override
-    public String toString() {
-        return "| " + playerName + "  |" + framesToString() + remainFrames();
+    private void playBowlingRecursive(Frame frame) {
+        frame.playNextFrame(this)
+             .ifPresent(this::playBowlingRecursive);
+    }
+
+    Frame playNext(Frame frame) {
+        Frame next = playNextFirstScore(frame);
+        if (!next.totalScore.isStrike()) {
+            Score secondScore = player.play(frame.getNextFrameNo());
+            next.addSecondScore(secondScore);
+            notifyFrameChanged();
+        }
+        return next;
+    }
+
+    Frame playNextFirstScore(Frame frame) {
+        Score firstScore = player.play(frame.getNextFrameNo());
+        Frame next = frame.nextFrame(new TotalScore(firstScore));
+        frames.add(next);
+        notifyFrameChanged();
+
+        return next;
+    }
+
+    private void notifyFrameChanged() {
+        this.scoreBoard.printGameResult(this);
     }
 
     private String framesToString() {
@@ -49,7 +86,8 @@ public class BowlingGame {
         return "";
     }
 
-    public int size() {
-        return frames.size();
+    @Override
+    public String toString() {
+        return "| " + player + "  |" + framesToString() + remainFrames();
     }
 }

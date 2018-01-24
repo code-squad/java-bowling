@@ -1,6 +1,5 @@
 package domain.frame;
 
-import domain.Player;
 import domain.score.TotalScore;
 
 import java.util.Optional;
@@ -15,15 +14,15 @@ public class FinalFrame extends Frame {
     }
 
     @Override
-    public Optional<Frame> playNextFrame(Player player) {
+    public Optional<Frame> playNextFrame(BowlingGame game) {
         if (frameNo > 11) {
             return Optional.empty();
         }
         if (totalScore.isStrike()) {
-            return Optional.of(playNext(player));
+            return Optional.of(game.playNext(this));
         }
         if (totalScore.isSpare()) {
-            return Optional.of(playNextFirstScore(player));
+            return Optional.of(game.playNextFirstScore(this));
         }
         return Optional.empty();
     }

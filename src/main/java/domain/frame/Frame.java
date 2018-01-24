@@ -1,6 +1,5 @@
 package domain.frame;
 
-import domain.Player;
 import domain.score.Score;
 import domain.score.TotalScore;
 
@@ -10,17 +9,6 @@ public abstract class Frame {
     final TotalScore totalScore;
     final int frameNo;
 
-    public void addSecondScore(Score score) {
-        if (score == null) {
-            throw new IllegalArgumentException();
-        }
-        this.totalScore.addSecondScore(score);
-    }
-
-    public abstract Optional<Frame> playNextFrame(Player player);
-
-    abstract Frame nextFrame(TotalScore totalScore);
-
     Frame(TotalScore totalScore, int frameNo) {
         if (totalScore == null) {
             throw new IllegalArgumentException();
@@ -29,27 +17,20 @@ public abstract class Frame {
         this.frameNo = frameNo;
     }
 
-    Frame playNext(Player player) {
-        Frame frame = playNextFirstScore(player);
-        if (!frame.totalScore.isStrike()) {
-            Score secondScore = player.play(getNextFrameNo());
-            frame.addSecondScore(secondScore);
-            player.notifyFrameChanged();
+    void addSecondScore(Score score) {
+        if (score == null) {
+            throw new IllegalArgumentException();
         }
-        return frame;
-    }
-
-    Frame playNextFirstScore(Player player) {
-        Score firstScore = player.play(getNextFrameNo());
-        Frame frame = nextFrame(new TotalScore(firstScore));
-        player.addFrame(frame);
-
-        return frame;
+        this.totalScore.addSecondScore(score);
     }
 
     int getNextFrameNo() {
         return frameNo + 1;
     }
+
+    abstract Optional<Frame> playNextFrame(BowlingGame game);
+
+    abstract Frame nextFrame(TotalScore totalScore);
 
     @Override
     public String toString() {

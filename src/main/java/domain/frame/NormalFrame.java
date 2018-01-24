@@ -1,6 +1,5 @@
 package domain.frame;
 
-import domain.Player;
 import domain.score.TotalScore;
 
 import java.util.Optional;
@@ -15,8 +14,8 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public Optional<Frame> playNextFrame(Player player) {
-        return Optional.of(playNext(player));
+    public Optional<Frame> playNextFrame(BowlingGame game) {
+        return Optional.of(game.playNext(this));
     }
 
     @Override

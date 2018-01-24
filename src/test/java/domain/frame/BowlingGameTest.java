@@ -1,7 +1,8 @@
 package domain.frame;
 
-import domain.score.Score;
-import domain.score.TotalScore;
+import domain.Player;
+import domain.TestScoreBoard;
+import domain.TestStrategy;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,14 +14,12 @@ public class BowlingGameTest {
 
     @Before
     public void setUp() throws Exception {
-        bowlingGame = new BowlingGame("KKJ");
+        bowlingGame = new BowlingGame(new Player("KKJ", new TestStrategy()), new TestScoreBoard());
     }
 
     @Test
     public void toString_Frames() throws Exception {
         assertThat(bowlingGame.toString()).isEqualTo("| KKJ  |    |    |    |    |    |    |    |    |    |    |");
-        bowlingGame.addFrame(new NormalFrame(new TotalScore(new Score(10)), 1));
-        assertThat(bowlingGame.toString()).isEqualTo("| KKJ  |X   |    |    |    |    |    |    |    |    |    |");
     }
 
 }

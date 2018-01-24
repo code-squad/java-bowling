@@ -16,16 +16,19 @@ public class FinalFrameTest {
 
     private Player testPlayer;
 
+    private BowlingGame game;
+
     @Before
     public void setUp() throws Exception {
-        testPlayer = new Player("KKJ", new TestStrategy(), new TestScoreBoard());
+        testPlayer = new Player("KKJ", new TestStrategy());
+        game = new BowlingGame(testPlayer, new TestScoreBoard());
     }
 
     @Test
     public void playNextFrame_10번째프레임_스트라이크() throws Exception {
         FinalFrame finalFrame = new FinalFrame(new TotalScore(new Score(10)), 10);
 
-        Optional<Frame> next = finalFrame.playNextFrame(testPlayer);
+        Optional<Frame> next = finalFrame.playNextFrame(game);
         assertThat(next.isPresent()).isTrue();
         assertThat(next.get().frameNo).isEqualTo(11);
         assertThat(next.get().totalScore.isSpare()).isTrue();
@@ -37,7 +40,7 @@ public class FinalFrameTest {
         t.addSecondScore(new Score(3));
         FinalFrame finalFrame = new FinalFrame(t, 10);
 
-        Optional<Frame> next = finalFrame.playNextFrame(testPlayer);
+        Optional<Frame> next = finalFrame.playNextFrame(game);
         assertThat(next.isPresent()).isTrue();
         assertThat(next.get().frameNo).isEqualTo(11);
         assertThat(next.get().totalScore.isSpare()).isFalse();
@@ -47,7 +50,7 @@ public class FinalFrameTest {
     public void playNextFrame_12번째프레임_스트라이크() throws Exception {
         FinalFrame finalFrame = new FinalFrame(new TotalScore(new Score(10)), 12);
 
-        Optional<Frame> next = finalFrame.playNextFrame(testPlayer);
+        Optional<Frame> next = finalFrame.playNextFrame(game);
         assertThat(next.isPresent()).isFalse();
     }
 
