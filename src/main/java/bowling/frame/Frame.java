@@ -40,7 +40,7 @@ public class Frame {
     }
 
     private int cacluateAdditionalScore(Score beforeScore) {
-        Score score = state.cacluateAdditionalScore(beforeScore);
+        Score score = state.calculateAdditionalScore(beforeScore);
         if (score.canCalucateScore()) {
             return score.getScore();
         }

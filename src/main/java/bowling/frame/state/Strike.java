@@ -9,7 +9,7 @@ class Strike extends Finished {
         return new Score(Pins.MAX_PINS, 2);
     }
 
-    public Score cacluateAdditionalScore(Score score) {
+    public Score calculateAdditionalScore(Score score) {
         if (score.canCalucateScore()) {
             return score;
         }

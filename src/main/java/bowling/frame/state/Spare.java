@@ -11,12 +11,12 @@ class Spare extends Finished {
         if (!firstPins.isSpare(secondPins)) {
             throw new IllegalArgumentException();
         }
-        
+
         this.firstPins = firstPins;
         this.secondPins = secondPins;
     }
 
-    public Score cacluateAdditionalScore(Score score) {
+    public Score calculateAdditionalScore(Score score) {
         score = firstPins.sumScore(score);
         if (score.canCalucateScore()) {
             return score;
