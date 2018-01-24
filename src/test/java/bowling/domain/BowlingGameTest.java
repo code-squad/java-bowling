@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static bowling.enums.FrameState.*;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class BowlingGameTest {
@@ -20,18 +19,7 @@ public class BowlingGameTest {
 
     @Test
     public void getCurrentPlayerTest() {
-        assertThat(bowlingGame.getCurrentPlayer()).isEqualTo(new Player("KH1"));
-    }
-
-    @Test
-    public void rollBowlingBallTest() {
-        bowlingGame.rollBowlingBall(new Pin(5));
-        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(NOT_END);
-    }
-
-    @Test
-    public void rotatePlayerTest() {
-        bowlingGame.rollBowlingBall(new Pin(10));
-        assertThat(bowlingGame.getCurrentPlayer().getState()).isEqualTo(NOT_END);
+        assertThat(bowlingGame.createBoard().getCurrentPlayerInfo().getName())
+                .isEqualTo("KH1");
     }
 }
