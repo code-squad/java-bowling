@@ -5,31 +5,31 @@ import domain.frame.Frame;
 
 public class Spare implements State {
 
-  private BowlPin firstBowlPin;
-  private BowlPin secondBowlPin;
+  private BowlPin firstBowlPins;
+  private BowlPin secondBowlPins;
 
-  public Spare(BowlPin firstBowlPin, BowlPin secondBowlPin) {
-    this.firstBowlPin = firstBowlPin;
-    this.secondBowlPin = secondBowlPin;
+  public Spare(BowlPin firstBowlPins, BowlPin secondBowlPins) {
+    this.firstBowlPins = firstBowlPins;
+    this.secondBowlPins = secondBowlPins;
   }
 
   @Override
-  public void roll(Frame frame, BowlPin fallenPins) {}
+  public void roll(Frame frame, BowlPin fallenPins) {
+
+  }
 
   @Override
-  public boolean isCurrentFrameEnd() {
+  public boolean isFrameEnd() {
     return true;
   }
 
   @Override
   public int getScore() {
-    System.out.println("firstBowlPin = " + firstBowlPin);
-    System.out.println("secondBowlPin = " + secondBowlPin);
-    return firstBowlPin.sum(secondBowlPin);
+    return firstBowlPins.sum(secondBowlPins);
   }
 
   @Override
-  public String getSymbol() {
-    return "/";
+  public String toString() {
+    return firstBowlPins + "|" + "/";
   }
 }

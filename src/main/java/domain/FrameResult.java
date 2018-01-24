@@ -1,14 +1,16 @@
 package domain;
 
 public class FrameResult {
-/*  private Bowl bowl;
-  private SecondBowl secondBowl;
 
-  public FrameResult(Bowl bowl) {
-    this.bowl = bowl;
+  private String result;
+
+  public FrameResult() {}
+
+  public void addResult(String result) {
+    this.result = result;
   }
 
-  public void setSecondBowl(SecondBowl secondBowl) {
-    this.secondBowl = secondBowl;
-  }*/
+  public String getResult() {
+    return result;
+  }
 }

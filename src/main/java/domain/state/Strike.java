@@ -15,7 +15,7 @@ public class Strike implements State {
   public void roll(Frame frame, BowlPin fallenPins) {}
 
   @Override
-  public boolean isCurrentFrameEnd() {
+  public boolean isFrameEnd() {
     return true;
   }
 
@@ -25,7 +25,7 @@ public class Strike implements State {
   }
 
   @Override
-  public String getSymbol() {
-    return "X";
+  public String toString() {
+    return fallenPins + "";
   }
 }

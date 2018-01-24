@@ -1,27 +1,25 @@
 package domain;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FrameResults {
 
-  List<FrameResult> results;
+  Map<Integer, FrameResult> results;
 
-/*  public void add(Bowl bowl) {
-    results.add(new FrameResult(bowl));
+  public FrameResults() {
+    this.results = new HashMap<>();
   }
 
-  public void add(int round, SecondBowl secondBowl) {
-    FrameResult frameResult = get(round);
-    frameResult.setSecondBowl(secondBowl);
-  }*/
+  public void add(Integer round, FrameResult result) {
+    results.put(round, result);
+  }
 
   public FrameResult get(int round) {
-    return results.get(round - 1);
+    return results.get(round);
   }
 
-  // frame의 결과 저장 1 - X, 2 - 7|/
-  //
-  public String getA(int i) {
-    return "X";
+  public Map<Integer, FrameResult> getResults() {
+    return results;
   }
 }

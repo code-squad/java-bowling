@@ -14,6 +14,7 @@ public class NormalFrame implements Frame {
 
   public void changeState(State state) {
     this.state = state;
+    //System.out.println("state = " + state);
   }
 
   @Override
@@ -23,17 +24,16 @@ public class NormalFrame implements Frame {
   }
 
   @Override
-  public String getSymbol() {
-    return state.getSymbol();
-  }
-
-  @Override
   public int getScore() {
     return state.getScore();
   }
 
   @Override
-  public boolean isCurrentFrameEnd() {
-    return state.isCurrentFrameEnd();
+  public boolean isFrameEnd() {
+    return state.isFrameEnd();
+  }
+
+  public String getResult() {
+    return state.toString();
   }
 }

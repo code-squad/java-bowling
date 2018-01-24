@@ -1,14 +1,16 @@
 package view;
 
 import domain.FrameResults;
+import domain.frame.Frames;
+import domain.player.Player;
 import java.util.stream.IntStream;
 
 //| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |
 //|  PJS |      |      |      |      |      |      |      |      |      |      |
 public class BowlingUI {
-  public static void printResult(String name, FrameResults result) {
+  public static void printResult(Player player) {
     printResultHeader();
-    printResultBody(name, result);
+    printResultBody(player.getName(), player.getFrameResults());
   }
 
   public static void printResultHeader() {
@@ -26,12 +28,12 @@ public class BowlingUI {
     return String.format("  %s  |", frameNumber);
   }
 
-  public static void printResultBody(String name, FrameResults result) {
+  public static void printResultBody(String name, FrameResults results) {
     StringBuilder sb = new StringBuilder();
     sb.append("|  " + name + "  |");
-    IntStream.rangeClosed(1, 10)
-        .forEach(i -> {
-          sb.append(bodyFormat("ata"));
+    results.getResults().values().stream()
+        .forEach(f -> {
+          sb.append(bodyFormat(f.getResult()));
         });
     System.out.println(sb.toString());
   }

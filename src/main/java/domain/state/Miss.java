@@ -5,12 +5,12 @@ import domain.frame.Frame;
 
 public class Miss implements State {
 
-  private BowlPin firstPins;
-  private BowlPin secondPins;
+  private BowlPin firstBowlPins;
+  private BowlPin secondBowlPins;
 
-  public Miss(BowlPin firstPins, BowlPin secondPins) {
-    this.firstPins = firstPins;
-    this.secondPins = secondPins;
+  public Miss(BowlPin firstBowlPins, BowlPin secondBowlPins) {
+    this.firstBowlPins = firstBowlPins;
+    this.secondBowlPins = secondBowlPins;
   }
 
   @Override
@@ -19,17 +19,17 @@ public class Miss implements State {
   }
 
   @Override
-  public boolean isCurrentFrameEnd() {
+  public boolean isFrameEnd() {
     return true;
   }
 
   @Override
   public int getScore() {
-    return firstPins.sum(secondPins);
+    return firstBowlPins.sum(secondBowlPins);
   }
 
   @Override
-  public String getSymbol() {
-    return null;
+  public String toString() {
+    return firstBowlPins + "|" + secondBowlPins;
   }
 }

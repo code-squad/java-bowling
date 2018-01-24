@@ -17,15 +17,18 @@ public class BowlPinTest {
   public void 넘어뜨린_볼링핀_갯수_상태확인() throws Exception {
     BowlPin bowlPin = new BowlPin(10);
     assertTrue(bowlPin.isStrike());
+    assertEquals("X", bowlPin.toString());
 
     bowlPin = new BowlPin(9);
     assertFalse(bowlPin.isStrike());
 
     bowlPin = new BowlPin(0);
     assertTrue(bowlPin.isGutter());
+    assertEquals("-", bowlPin.toString());
 
     bowlPin = new BowlPin(3);
     assertTrue(bowlPin.isSpare(new BowlPin(7)));
+    assertEquals("3", bowlPin.toString());
   }
 
   @Test

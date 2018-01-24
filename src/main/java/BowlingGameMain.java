@@ -1,5 +1,6 @@
 import domain.FrameResult;
 import domain.FrameResults;
+import domain.player.Player;
 import view.BowlingCLI;
 import view.BowlingUI;
 
@@ -8,22 +9,19 @@ public class BowlingGameMain {
   public static void main(String[] args) {
     String name = BowlingCLI.inputPlayerName();
     BowlingWorker worker = new BowlingWorker();
-    worker.createBowlGame(name);
-
-    BowlingUI.printResultHeader();
-    BowlingUI.printResultBody(name, new FrameResults());
+    Player player = worker.createBowlGame(name);
+    BowlingUI.printResult(player);
 
     int round = 1;
-    while (round < 10) {
+    while (round <= 10) {
       int pins = BowlingCLI.inputFrameRoll(round);
-
-     /* FrameResults results = worker.roll(round, pins);
-      BowlingUI.printResult("1", results);
-      if (worker.isStrike(round)) {
-        round++;
+      FrameResult result = worker.roll(round, pins);
+      player.setResult(round, result);
+      BowlingUI.printResult(player);
+      if (!worker.isFrameEnd(round)) {
         continue;
       }
-      round++;*/
+      round++;
     }
   }
 }

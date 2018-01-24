@@ -6,7 +6,7 @@ import domain.state.State;
 public interface Frame {
   void changeState(State state);
   Frame roll(BowlPin bowlPin);
-  String getSymbol();
   int getScore();
-  boolean isCurrentFrameEnd();
+  boolean isFrameEnd();
+  String getResult();
 }

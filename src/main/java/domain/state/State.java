@@ -5,7 +5,6 @@ import domain.frame.Frame;
 
 public interface State {
   void roll(Frame frame, BowlPin fallenPins);
-  boolean isCurrentFrameEnd();
+  boolean isFrameEnd();
   int getScore();
-  String getSymbol();
 }

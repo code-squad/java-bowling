@@ -49,4 +49,11 @@ public class BowlPin {
   public int hashCode() {
     return Objects.hash(pins);
   }
+
+  @Override
+  public String toString() {
+    if (isStrike()) return "X";
+    if (isGutter()) return "-";
+    return String.valueOf(pins);
+  }
 }
