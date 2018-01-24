@@ -1,60 +1,48 @@
 package model.frame;
 
-import model.Ball;
-import model.Score;
+import model.Shoot;
+import model.Pin;
 
 public class FinalFrame implements Frame {
-
-    private static final int ROUND = 10;
-    private Score score;
+    private Pin pin;
     private int availableCount;
+    private int round;
 
     public FinalFrame() {
-        score = new Score();
-        availableCount = 2;
+        this.round = 10;
+        this.pin = new Pin();
+        this.availableCount = 2;
     }
 
     @Override
     public void bowl(int number) {
-        if (availableCount == 0)
+        if (this.availableCount == 0)
             throw new IllegalStateException();
 
-        int size = score.size();
+        int size = this.pin.size();
 
-        if (size == 0) {
-            // Strike
-            if (number == 10) {
-                score.add(new Ball(10));
-                return;
-            }
-            score.add(new Ball(number));
-            availableCount--;
-            return;
+        this.pin.add(new Shoot(number));
+
+        if (size == 0 && number != 10) {
+            this.availableCount--;
         }
 
-        if (size == 1) {
-            score.add(new Ball(number));
-
-            // NotSpare
-            if (!score.isSpare()) {
-                availableCount--;
-            }
+        if (size == 1 && !pin.isSpare()) {
+            this.availableCount--;
         }
 
         if (size == 2) {
-            score.add(new Ball(number));
-            availableCount--;
+            this.availableCount--;
         }
     }
 
-    @Override
-    public boolean isFinished() {
-        if ((score.isStrike() || score.isSpare()) && score.size() == 3)
-            return true;
-        if (!(score.isStrike() || score.isSpare()) && score.size() == 2)
-            return true;
+    private int getLimitOfSum() {
+        return Pin.MAX_COUNT * (getScoreSum() / Pin.MAX_COUNT + 1);
+    }
 
-        return false;
+    @Override
+    public int getRound() {
+        return this.round;
     }
 
     @Override
@@ -63,9 +51,28 @@ public class FinalFrame implements Frame {
     }
 
     @Override
-    public String toString() {
-        if (score == null)
-            return " ";
-        return score.toString();
+    public int getScoreSum() {
+        return this.pin.getScoreSum();
     }
+
+    @Override
+    public int getNextBallSum(int count) {
+        return this.pin.getScoreSum(count);
+    }
+
+    @Override
+    public boolean isStrike() {
+        return this.pin.isStrike();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return this.availableCount == 0;
+    }
+
+    @Override
+    public String toString() {
+        return this.pin.toString();
+    }
+
 }

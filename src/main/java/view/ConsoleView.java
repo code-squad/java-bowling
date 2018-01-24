@@ -1,7 +1,8 @@
 package view;
 
-import model.frame.Frame;
+import model.FrameResult;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,39 +15,57 @@ public class ConsoleView {
         return scanner.next();
     }
 
-    public static void printScoreBoard(String name, Frame head) {
-        // Upper Line
+    public static int askPinCount(int frameNumber) {
+        System.out.println(frameNumber + "프레임 투구 : ");
+        return Integer.parseInt(scanner.next());
+    }
+
+    public static void printScoreBoard(String name, List<FrameResult> frameResults) {
+        printHeader();
+        printFrameStatus(name, frameResults);
+        printScoreReducer(frameResults);
+    }
+
+    private static void printHeader() {
         StringBuilder builder = new StringBuilder();
         builder.append("| NAME |   ");
-        builder.append(IntStream.range(1, 11)
+        builder.append(IntStream
+                .range(1, 11)
                 .mapToObj(i -> (i / 10) + "" + (i % 10))
                 .collect(Collectors
                         .joining("   |   ")));
         builder.append("   |");
         System.out.println(builder.toString());
+    }
 
-        // Lower Line
-        builder = new StringBuilder();
-
+    private static void printFrameStatus(String name, List<FrameResult> frameResults) {
+        StringBuilder builder = new StringBuilder();
         builder.append("|  ")
                 .append(name)
                 .append(" |");
 
-        while (head != null) {
-            String str = head.toString();
-            int len = str.length();
-
-            builder.append("   " + str + "      ".substring(0, 6 - len - 1));
+        for (FrameResult frameResult : frameResults) {
+            builder.append("   ");
+            builder.append(frameResult.getStatus());
+            builder.append("      ".substring(0, 6 - frameResult.getStatus().length() - 1));
             builder.append("|");
-            head = head.getNextFrame();
         }
 
         System.out.println(builder.toString());
     }
 
-    public static int inputBowl(int frameNumber) {
-        System.out.println(frameNumber + "프레임 투구 : ");
-        return Integer.parseInt(scanner.next());
+    private static void printScoreReducer(List<FrameResult> frameResults) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("|      |");
+
+        for (FrameResult frameResult : frameResults) {
+            builder.append("   ");
+            builder.append(frameResult.getScore());
+            builder.append("      ".substring(0, 6 - frameResult.getScore().length() - 1));
+            builder.append("|");
+        }
+
+        System.out.println(builder.toString());
     }
 
 }
