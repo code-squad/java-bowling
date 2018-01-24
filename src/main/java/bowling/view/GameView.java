@@ -1,5 +1,7 @@
 package bowling.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import bowling.domain.BowlingUser;
@@ -18,6 +20,7 @@ import static bowling.utils.StringUtils.getIngFormat;
 import static bowling.utils.StringUtils.getIngOnlyFormat;
 
 public class GameView {
+    private List<Frame> frames = new ArrayList<>();
     private static String resultView;
 
     public GameView(BowlingUser bowlingUser) {
@@ -29,6 +32,7 @@ public class GameView {
     }
 
     public String firstReflectScore(Frame frame) {
+        frames.add(frame);
         resultView += getIngOnlyFormat(frame.result());
         if(isStrikeAndFormat(frame)) return resultView;
         return resultView + EMPTY_BLOCK_FRAME;

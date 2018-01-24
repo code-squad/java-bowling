@@ -1,20 +1,25 @@
 package bowling.domain.score;
 
-import bowling.domain.score.Score;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.HashMap;
-import java.util.Map;
+public class EntireScore {
+    List<Score> scores = new ArrayList<>();
 
-import static bowling.domain.frame.Frame.FIRST_SCORE;
-import static bowling.domain.frame.Frame.SECOND_SCORE;
+    public EntireScore(Score score) {
+        scores.add(score);
+    }
 
-public abstract class EntireScore {
-    Map<String, Score> scoreMap = new HashMap<>();
+    public static EntireScore generate(Score score) {
+        return new EntireScore(score);
+    }
 
-    abstract public boolean validTotalScore(Score nextScore);
+    public boolean validTotalScore(Score nextScore)  {
+        return scores.get(0).validTotalScore(nextScore);
+    }
 
     public Integer getFirstScore() {
-        return scoreMap.get(FIRST_SCORE).get();
+        return scores.get(0).get();
     }
 
     public String firstScoreToString() {
@@ -22,7 +27,7 @@ public abstract class EntireScore {
     }
 
     public Integer getSecondScore() {
-        return scoreMap.get(SECOND_SCORE).get();
+        return scores.get(1).get();
     }
 
     public String secondScoreToString() {
@@ -30,6 +35,15 @@ public abstract class EntireScore {
     }
 
     public boolean hasSecondScore() {
-        return scoreMap.containsKey(SECOND_SCORE);
+        return scores.size() == 2;
+    }
+
+    public boolean hasThirdScore() { return scores.size() == 3; }
+
+    public Score getScoreByKey(int key) { return scores.get(key); }
+
+    public EntireScore inScore(Score nextScore) {
+        scores.add(nextScore);
+        return this;
     }
 }

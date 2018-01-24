@@ -4,9 +4,6 @@ import bowling.domain.score.EntireScore;
 import bowling.domain.score.Score;
 
 public interface Frame {
-    String FIRST_SCORE = "first";
-    String SECOND_SCORE = "second";
-    String THIRD_SCORE = "third";
     int FINAL_FRAME = 10;
 
     boolean isEnd();

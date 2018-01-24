@@ -1,29 +1,22 @@
 package bowling.domain.frame;
 
-import java.util.Optional;
-
 import bowling.domain.score.EntireScore;
-import bowling.domain.score.FinalScore;
 import bowling.domain.score.Score;
 import bowling.domain.score.ScoreType;
 
-import static bowling.domain.ScoreMachine.calculateScore;
-import static bowling.domain.ScoreMachine.convertScoreToString;
-import static bowling.domain.ScoreMachine.firstCalculate;
-import static bowling.domain.score.ScoreType.GUTTER;
-import static bowling.domain.score.ScoreType.MISS;
-import static bowling.domain.score.ScoreType.NUMBER;
-import static bowling.domain.score.ScoreType.SPARE;
-import static bowling.domain.score.ScoreType.STRIKE;
+import java.util.Optional;
+
+import static bowling.domain.ScoreMachine.*;
+import static bowling.domain.score.ScoreType.*;
 import static bowling.utils.StringUtils.scoreResultFormat;
 
 public class FinalFrame implements Frame {
-    private FinalScore finalScore;
+    private EntireScore entireScore;
     private String result;
 
     private FinalFrame(Score score) {
-        finalScore = finalScore.generate(score);
-        result = firstCalculate(finalScore);
+        entireScore = entireScore.generate(score);
+        result = firstCalculate(entireScore);
     }
 
     public static FinalFrame generate(Score score) {
@@ -37,9 +30,9 @@ public class FinalFrame implements Frame {
 
     @Override
     public FinalFrame nextRound(Score nextScore) {
-        if(isFirstStrikeAndHasNotSecond()) { result = getResultMapping(SECOND_SCORE, nextScore); }
-        else if(!finalScore.hasSecondScore()) { result = getResultMapping(nextScore); }
-        else if(!finalScore.hasThirdScore()) { result = thirdScoreCalculate(nextScore); }
+        if(isFirstStrikeAndHasNotSecond()) { result = resultFormatMapping(nextScore); }
+        else if(!entireScore.hasSecondScore()) { result = stringFormatMapping(nextScore); }
+        else if(!entireScore.hasThirdScore()) { result = thirdScoreCalculate(nextScore); }
 
         return this;
     }
@@ -51,23 +44,27 @@ public class FinalFrame implements Frame {
 
     @Override
     public EntireScore getElement() {
-        return finalScore;
+        return entireScore;
     }
 
     private String thirdScoreCalculate(Score nextScore) {
-        if(isFirstOrSecondStrike()) { return getResultMapping(FIRST_SCORE, nextScore); }
-        Optional<ScoreType> scoreType = calculateScore(FinalScore.generate(finalScore.getScoreByKey(SECOND_SCORE)).inScore(THIRD_SCORE, nextScore));
+        if(isFirstOrSecondStrike()) {
+            return calculateScore(EntireScore.generate(nextScore))
+                .map(this::resultFormat)
+                .orElse(scoreResultFormat(result, String.valueOf(nextScore.get())));
+        }
+        Optional<ScoreType> scoreType = calculateScore(entireScore.generate(entireScore.getScoreByKey(1)).inScore(nextScore));
         return scoreType.map(this::resultFormat).get();
     }
 
-    private String getResultMapping(Score nextScore) {
-        return getScoreType(SECOND_SCORE, nextScore)
+    private String stringFormatMapping(Score nextScore) {
+        return getScoreType(nextScore)
                 .map(this::stringFormat)
                 .orElse(scoreResultFormat(result, String.valueOf(nextScore.get())));
     }
 
-    private String getResultMapping(String key, Score nextScore) {
-        return getScoreType(key, nextScore)
+    private String resultFormatMapping(Score nextScore) {
+        return getScoreType(nextScore)
                 .map(this::resultFormat)
                 .orElse(scoreResultFormat(result, String.valueOf(nextScore.get())));
     }
@@ -77,34 +74,34 @@ public class FinalFrame implements Frame {
     }
 
     private String stringFormat(ScoreType type) {
-        return convertScoreToString(type, finalScore);
+        return convertScoreToString(type, entireScore);
     }
 
     private boolean isFirstStrikeAndHasNotSecond() {
-        return STRIKE.match(finalScore) && !finalScore.hasSecondScore();
+        return STRIKE.match(entireScore) && !entireScore.hasSecondScore();
     }
 
     private boolean isFirstOrSecondStrike() {
-        return SPARE.match(finalScore) || STRIKE.match(FinalScore.generate(finalScore.getScoreByKey(SECOND_SCORE)));
+        return SPARE.match(entireScore) || STRIKE.match(entireScore.generate(entireScore.getScoreByKey(1)));
     }
 
-    private Optional<ScoreType> getScoreType(String key, Score nextScore) {
-        return calculateScore(finalScore.inScore(key, nextScore));
+    private Optional<ScoreType> getScoreType(Score nextScore) {
+        return calculateScore(entireScore.inScore(nextScore));
     }
 
     private boolean isFirstAndSecondAreNumber() {
-        return finalScore.hasSecondScore() && NUMBER.match(finalScore);
+        return entireScore.hasSecondScore() && NUMBER.match(entireScore);
     }
 
     private boolean isSpareAndHasThird() {
-        return finalScore.hasSecondScore() && SPARE.match(finalScore) && finalScore.hasThirdScore();
+        return entireScore.hasSecondScore() && SPARE.match(entireScore) && entireScore.hasThirdScore();
     }
 
     private boolean isStrikeAndHasThird() {
-        return STRIKE.match(finalScore) && finalScore.hasThirdScore();
+        return STRIKE.match(entireScore) && entireScore.hasThirdScore();
     }
 
     private boolean isMissOrGutterAndHasSecond() {
-        return finalScore.hasSecondScore() && (MISS.match(finalScore) || GUTTER.match(finalScore));
+        return entireScore.hasSecondScore() && (MISS.match(entireScore) || GUTTER.match(entireScore));
     }
 }
