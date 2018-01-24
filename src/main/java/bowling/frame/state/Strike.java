@@ -10,7 +10,7 @@ class Strike extends Finished {
     }
 
     public Score calculateAdditionalScore(Score score) {
-        if (score.canCalucateScore()) {
+        if (score.canCalculateScore()) {
             return score;
         }
         return score.bowl(Pins.MAX_PINS);

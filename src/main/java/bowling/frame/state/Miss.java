@@ -19,7 +19,7 @@ class Miss extends Finished {
 
     public Score calculateAdditionalScore(Score score) {
         score = firstPins.sumScore(score);
-        if (score.canCalucateScore()) {
+        if (score.canCalculateScore()) {
             return score;
         }
         score = secondPins.sumScore(score);
