@@ -13,7 +13,7 @@ public class Players {
     }
 
     private void inputValidationCheck(List<Player> players) {
-        if(players == null)
+        if(players == null || players.isEmpty())
             throw new IllegalArgumentException("Invalid input for Players");
     }
 

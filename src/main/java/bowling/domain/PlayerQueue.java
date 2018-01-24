@@ -8,7 +8,14 @@ public class PlayerQueue {
     private Queue<Player> playerQueue;
 
     public PlayerQueue(List<Player> players) {
+        inputValidationCheck(players);
+
         playerQueue = new LinkedList<>(players);
+    }
+
+    private void inputValidationCheck(List<Player> players) {
+        if(players == null || players.isEmpty())
+            throw new IllegalArgumentException("Invalid input for queue");
     }
 
     public Player getCurrentPlayer() {
