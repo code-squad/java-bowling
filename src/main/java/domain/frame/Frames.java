@@ -1,4 +1,6 @@
-package domain;
+package domain.frame;
+
+import domain.frame.NormalFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +19,5 @@ public class Frames {
 
   public NormalFrame get(int round) {
     return frames.get(round - 1);
-  }
-
-  public boolean isCompleted(int round) {
-    return get(round).isStrike();
   }
 }

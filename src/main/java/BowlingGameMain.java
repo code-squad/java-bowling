@@ -17,13 +17,13 @@ public class BowlingGameMain {
     while (round < 10) {
       int pins = BowlingCLI.inputFrameRoll(round);
 
-      FrameResults results = worker.roll(round, pins);
+     /* FrameResults results = worker.roll(round, pins);
       BowlingUI.printResult("1", results);
       if (worker.isStrike(round)) {
         round++;
         continue;
       }
-      round++;
+      round++;*/
     }
   }
 }

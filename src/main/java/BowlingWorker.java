@@ -1,7 +1,7 @@
 import domain.*;
+import domain.frame.Frames;
+import domain.frame.NormalFrame;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.IntStream;
 
 public class BowlingWorker {
@@ -19,9 +19,5 @@ public class BowlingWorker {
     NormalFrame frame = frames.get(round);
     //Bowl bowl = frame.roll(pins);
     return new FrameResults();
-  }
-
-  public boolean isStrike(int round) {
-    return frames.isCompleted(round);
   }
 }

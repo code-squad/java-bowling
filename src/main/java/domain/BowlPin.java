@@ -22,11 +22,15 @@ public class BowlPin {
   }
 
   public boolean isSpare(BowlPin firstBowlPin) {
-    return pins + firstBowlPin.getPins() == 10;
+    return sum(firstBowlPin) == 10;
   }
 
   public int getPins() {
     return pins;
+  }
+
+  public int sum(BowlPin firstBowlPin) {
+    return pins + firstBowlPin.getPins();
   }
 
   @Override

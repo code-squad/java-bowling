@@ -6,14 +6,14 @@ public class FrameResults {
 
   List<FrameResult> results;
 
-  public void add(Bowl bowl) {
+/*  public void add(Bowl bowl) {
     results.add(new FrameResult(bowl));
   }
 
   public void add(int round, SecondBowl secondBowl) {
     FrameResult frameResult = get(round);
     frameResult.setSecondBowl(secondBowl);
-  }
+  }*/
 
   public FrameResult get(int round) {
     return results.get(round - 1);
