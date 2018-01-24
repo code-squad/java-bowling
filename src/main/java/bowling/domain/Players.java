@@ -1,7 +1,10 @@
 package bowling.domain;
 
+import bowling.dto.PlayerResult;
+
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Players {
     private List<Player> players;
@@ -32,5 +35,11 @@ public class Players {
         int idx = players.indexOf(currentPlayer) + 1 % players.size();
 
         return players.get(idx);
+    }
+
+    public List<PlayerResult> getPlayerResults() {
+        return players.stream()
+                .map(Player::getPlayerResult)
+                .collect(Collectors.toList());
     }
 }

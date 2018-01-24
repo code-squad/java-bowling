@@ -5,19 +5,19 @@ import bowling.domain.Player;
 import java.util.List;
 
 public class Board {
-    private Player currentPlayer;
+    private CurrentPlayerInfo currentPlayerInfo;
     private List<PlayerResult> playerResults;
 
-    public Board(Player currentPlayer, List<PlayerResult> playerResults) {
-        if(currentPlayer == null || playerResults == null || playerResults.isEmpty())
+    public Board(CurrentPlayerInfo currentPlayerInfo, List<PlayerResult> playerResults) {
+        if(currentPlayerInfo == null || playerResults == null || playerResults.isEmpty())
             throw new IllegalArgumentException("input is not enough");
 
-        this.currentPlayer = currentPlayer;
+        this.currentPlayerInfo = currentPlayerInfo;
         this.playerResults = playerResults;
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    public CurrentPlayerInfo getCurrentPlayerInfo() {
+        return currentPlayerInfo;
     }
 
     public List<PlayerResult> getPlayerResults() {

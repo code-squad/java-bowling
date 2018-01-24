@@ -13,7 +13,7 @@ public class BoardTest {
 
     @Before
     public void init() {
-        board = new Board(new Player("KKH"), Arrays.asList(
+        board = new Board(new CurrentPlayerInfo("KKH", 0), Arrays.asList(
                 new PlayerResult("KKH", Arrays.asList("   ", "   ")
                 )
         ));
@@ -26,7 +26,7 @@ public class BoardTest {
 
     @Test
     public void getCurrentPlayerTest() {
-        assertThat(board.getCurrentPlayer()).isEqualTo(new Player("KKH"));
+        assertThat(board.getCurrentPlayerInfo()).isEqualTo(new CurrentPlayerInfo("KKH", 0));
     }
 
     @Test

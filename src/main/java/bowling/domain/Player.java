@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import bowling.dto.CurrentPlayerInfo;
+import bowling.dto.PlayerResult;
 import bowling.enums.FrameState;
 
 import java.util.List;
@@ -62,6 +64,10 @@ public class Player {
         System.out.print(frameNo + 1 + "프레임 투구 : ");
     }
 
+    public PlayerResult getPlayerResult() {
+        return new PlayerResult(name, getFrameViews());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,5 +80,9 @@ public class Player {
     public int hashCode() {
 
         return Objects.hash(name);
+    }
+
+    public CurrentPlayerInfo createPlayerInfo() {
+        return new CurrentPlayerInfo(name, frameNo);
     }
 }

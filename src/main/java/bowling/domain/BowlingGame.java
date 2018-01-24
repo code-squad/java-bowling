@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import bowling.dto.Board;
+
 import java.util.List;
 
 public class BowlingGame {
@@ -33,4 +35,7 @@ public class BowlingGame {
         return players;
     }
 
+    public Board createBoard() {
+        return new Board(currentPlayer.createPlayerInfo(), players.getPlayerResults());
+    }
 }
