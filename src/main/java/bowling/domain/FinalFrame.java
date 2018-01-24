@@ -1,10 +1,6 @@
 package bowling.domain;
 
-import bowling.enums.FrameStatus;
 import bowling.util.PinUtil;
-
-import static bowling.enums.FrameStatus.SPARE;
-import static bowling.enums.FrameStatus.STRIKE;
 
 public class FinalFrame extends Frame {
     private Pin thirdTry;
@@ -41,7 +37,7 @@ public class FinalFrame extends Frame {
 
     @Override
     public void secondBowl(Pin pin) {
-        if(status() != STRIKE) {
+        if(!isStrike()) {
             super.secondBowl(pin);
             return;
         }
@@ -51,8 +47,7 @@ public class FinalFrame extends Frame {
 
     @Override
     public boolean isFrameEnd() {
-        FrameStatus status = status();
-        if(status == STRIKE || status == SPARE)
+        if(isStrike() || isSpare())
             return thirdTry != null;
 
         return super.isFrameEnd();
@@ -60,7 +55,7 @@ public class FinalFrame extends Frame {
 
     @Override
     public String getFrameView() {
-        if(status() == STRIKE)
+        if(isStrike())
             return String.format("%1s%2s",
                     PinUtil.toView(firstTry),
                     PinUtil.frameView(secondTry, thirdTry)

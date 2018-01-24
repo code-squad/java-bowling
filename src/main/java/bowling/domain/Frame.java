@@ -3,8 +3,6 @@ package bowling.domain;
 import bowling.enums.FrameStatus;
 import bowling.util.PinUtil;
 
-import java.text.MessageFormat;
-
 public class Frame {
     protected Pin firstTry;
     protected Pin secondTry;
@@ -14,6 +12,14 @@ public class Frame {
 
     public FrameStatus status() {
         return FrameStatus.getStatus(firstTry, secondTry);
+    }
+
+    public boolean isStrike() {
+        return FrameStatus.isStrike(firstTry);
+    }
+
+    public boolean isSpare() {
+        return FrameStatus.isSpare(firstTry, secondTry);
     }
 
     public void rollBowlingBall(Pin pin) {
@@ -45,7 +51,7 @@ public class Frame {
     }
 
     public boolean isFrameEnd() {
-        return FrameStatus.isEnd(status());
+        return status().isEnd();
     }
 
     public String getFrameView() {
