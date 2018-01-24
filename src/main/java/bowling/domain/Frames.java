@@ -20,7 +20,7 @@ public class Frames {
     }
 
     public FrameState getState(int round) {
-        return frame(round).status();
+        return frame(round).state();
     }
 
     private Frame frame(int round) {

@@ -16,7 +16,7 @@ public class FrameTest {
 
     @Test
     public void frameStatusTest() {
-        assertThat(frame.status()).isEqualTo(NOT_END);
+        assertThat(frame.state()).isEqualTo(NOT_END);
     }
 
     @Test
@@ -33,13 +33,13 @@ public class FrameTest {
     @Test
     public void firstBowlTest() {
         frame.firstBowl(new Pin(10));
-        assertThat(frame.status()).isEqualTo(STRIKE);
+        assertThat(frame.state()).isEqualTo(STRIKE);
     }
 
     @Test
     public void firstBowlTest2() {
         frame.firstBowl(new Pin(7));
-        assertThat(frame.status()).isEqualTo(NOT_END);
+        assertThat(frame.state()).isEqualTo(NOT_END);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -56,17 +56,17 @@ public class FrameTest {
     @Test
     public void secondBowlTest() {
         frame.firstBowl(new Pin(5));
-        assertThat(frame.status()).isEqualTo(NOT_END);
+        assertThat(frame.state()).isEqualTo(NOT_END);
         frame.secondBowl(new Pin(5));
-        assertThat(frame.status()).isEqualTo(SPARE);
+        assertThat(frame.state()).isEqualTo(SPARE);
     }
 
     @Test
     public void rollBowlingBallTest() {
         frame.rollBowlingBall(new Pin(5));
-        assertThat(frame.status()).isEqualTo(NOT_END);
+        assertThat(frame.state()).isEqualTo(NOT_END);
         frame.rollBowlingBall(new Pin(5));
-        assertThat(frame.status()).isEqualTo(SPARE);
+        assertThat(frame.state()).isEqualTo(SPARE);
     }
 
     @Test

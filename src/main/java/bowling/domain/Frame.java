@@ -10,8 +10,8 @@ public class Frame {
     public Frame() {
     }
 
-    public FrameState status() {
-        return FrameState.getStatus(firstTry, secondTry);
+    public FrameState state() {
+        return FrameState.getState(firstTry, secondTry);
     }
 
     public boolean isStrike() {
@@ -51,7 +51,7 @@ public class Frame {
     }
 
     public boolean isFrameEnd() {
-        return status().isEnd();
+        return state().isEnd();
     }
 
     public String getFrameView() {

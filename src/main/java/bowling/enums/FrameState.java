@@ -10,7 +10,7 @@ public enum FrameState {
     MISS,
     NOT_END;
 
-    public static FrameState getStatus(Pin firstTry, Pin secondTry) {
+    public static FrameState getState(Pin firstTry, Pin secondTry) {
         if(firstTry == null)
             return NOT_END;
 

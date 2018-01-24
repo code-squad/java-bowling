@@ -9,12 +9,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class FrameStateTest {
     @Test
     public void FrameStatusTest() {
-        assertThat(FrameState.getStatus(null, null)).isEqualTo(NOT_END);
-        assertThat(FrameState.getStatus(new Pin(10), null)).isEqualTo(STRIKE);
-        assertThat(FrameState.getStatus(new Pin(8), new Pin(2))).isEqualTo(SPARE);
-        assertThat(FrameState.getStatus(new Pin(5), null)).isEqualTo(NOT_END);
-        assertThat(FrameState.getStatus(new Pin(0), new Pin(0))).isEqualTo(MISS);
-        assertThat(FrameState.getStatus(new Pin(5), new Pin(0))).isEqualTo(MISS);
+        assertThat(FrameState.getState(null, null)).isEqualTo(NOT_END);
+        assertThat(FrameState.getState(new Pin(10), null)).isEqualTo(STRIKE);
+        assertThat(FrameState.getState(new Pin(8), new Pin(2))).isEqualTo(SPARE);
+        assertThat(FrameState.getState(new Pin(5), null)).isEqualTo(NOT_END);
+        assertThat(FrameState.getState(new Pin(0), new Pin(0))).isEqualTo(MISS);
+        assertThat(FrameState.getState(new Pin(5), new Pin(0))).isEqualTo(MISS);
     }
 
     @Test
