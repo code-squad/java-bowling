@@ -1,6 +1,6 @@
 package bowling.domain;
 
-import bowling.enums.FrameStatus;
+import bowling.enums.FrameState;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +19,7 @@ public class Frames {
         frames.add(new FinalFrame());
     }
 
-    public FrameStatus getState(int round) {
+    public FrameState getState(int round) {
         return frame(round).status();
     }
 

@@ -3,7 +3,7 @@ package bowling.domain;
 import org.junit.Before;
 import org.junit.Test;
 
-import static bowling.enums.FrameStatus.*;
+import static bowling.enums.FrameState.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class PlayerTest {

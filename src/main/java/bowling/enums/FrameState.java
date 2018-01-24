@@ -4,13 +4,13 @@ import bowling.domain.Pin;
 
 import java.util.Optional;
 
-public enum FrameStatus {
+public enum FrameState {
     STRIKE,
     SPARE,
     MISS,
     NOT_END;
 
-    public static FrameStatus getStatus(Pin firstTry, Pin secondTry) {
+    public static FrameState getStatus(Pin firstTry, Pin secondTry) {
         if(firstTry == null)
             return NOT_END;
 

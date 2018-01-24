@@ -1,12 +1,11 @@
 package bowling.domain;
 
-import bowling.enums.FrameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static bowling.enums.FrameStatus.*;
+import static bowling.enums.FrameState.*;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class FramesTest {

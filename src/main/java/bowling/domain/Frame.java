@@ -1,6 +1,6 @@
 package bowling.domain;
 
-import bowling.enums.FrameStatus;
+import bowling.enums.FrameState;
 import bowling.util.PinUtil;
 
 public class Frame {
@@ -10,16 +10,16 @@ public class Frame {
     public Frame() {
     }
 
-    public FrameStatus status() {
-        return FrameStatus.getStatus(firstTry, secondTry);
+    public FrameState status() {
+        return FrameState.getStatus(firstTry, secondTry);
     }
 
     public boolean isStrike() {
-        return FrameStatus.isStrike(firstTry);
+        return FrameState.isStrike(firstTry);
     }
 
     public boolean isSpare() {
-        return FrameStatus.isSpare(firstTry, secondTry);
+        return FrameState.isSpare(firstTry, secondTry);
     }
 
     public void rollBowlingBall(Pin pin) {

@@ -1,6 +1,6 @@
 package bowling.domain;
 
-import bowling.enums.FrameStatus;
+import bowling.enums.FrameState;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,11 +23,11 @@ public class Player {
             throw new IllegalArgumentException("name must be three english letter");
     }
 
-    public FrameStatus getState() {
+    public FrameState getState() {
         return frames.getState(frameNo);
     }
 
-    public FrameStatus getPreviousState() {
+    public FrameState getPreviousState() {
         if(frameNo < 1)
             throw new IllegalArgumentException("There is no previous frame of first frame");
 
