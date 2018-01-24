@@ -2,6 +2,7 @@ package view;
 
 import domain.ScoreBoard;
 import domain.frame.Frame;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,9 @@ public class ConsoleScoreBoard implements ScoreBoard {
     private final String playerName;
 
     public ConsoleScoreBoard(String playerName) {
+        if (StringUtils.isEmpty(playerName) || playerName.length() != 3) {
+            throw new IllegalArgumentException();
+        }
         this.playerName = playerName;
         this.frames = new ArrayList<>();
     }
