@@ -14,7 +14,7 @@ public class BowlingGame {
     }
 
     public void rollBowlingBall(Pin fellPin) {
-        getCurrentPlayer().rollBowlingBall(fellPin);
+        currentPlayer.rollBowlingBall(fellPin);
         updatePlayerQueue();
     }
 
@@ -22,17 +22,9 @@ public class BowlingGame {
         return players.isGameEnd();
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     private void updatePlayerQueue() {
-        if(getCurrentPlayer().isCurrentFrameEnd())
+        if(currentPlayer.isCurrentFrameEnd())
             currentPlayer = players.rotate(currentPlayer);
-    }
-
-    public Players getPlayers() {
-        return players;
     }
 
     public Board createBoard() {
