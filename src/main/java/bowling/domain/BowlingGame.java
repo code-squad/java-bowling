@@ -4,11 +4,11 @@ import java.util.List;
 
 public class BowlingGame {
     private Players players;
-    private PlayerQueue playerQueue;
+    private Player currentPlayer;
 
     public BowlingGame(List<Player> players) {
         this.players = new Players(players);
-        this.playerQueue = new PlayerQueue(players);
+        this.currentPlayer = players.get(0);
     }
 
     public void rollBowlingBall(Pin fellPin) {
@@ -21,12 +21,12 @@ public class BowlingGame {
     }
 
     public Player getCurrentPlayer() {
-        return playerQueue.getCurrentPlayer();
+        return currentPlayer;
     }
 
     private void updatePlayerQueue() {
         if(getCurrentPlayer().isCurrentFrameEnd())
-            playerQueue.rotate();
+            currentPlayer = players.rotate(currentPlayer);
     }
 
     public Players getPlayers() {

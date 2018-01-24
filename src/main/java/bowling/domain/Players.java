@@ -25,4 +25,12 @@ public class Players {
     public List<Player> getPlayersAsList() {
         return Collections.unmodifiableList(players);
     }
+
+    public Player rotate(Player currentPlayer) {
+        currentPlayer.frameNoUpdate();
+
+        int idx = players.indexOf(currentPlayer) + 1 % players.size();
+
+        return players.get(idx);
+    }
 }
