@@ -27,11 +27,9 @@ public enum FrameStatus {
     }
 
     public boolean isEnd() {
-        return this == STRIKE
-                || this == SPARE
-                || this == MISS;
+        return this == STRIKE || this == SPARE || this == MISS;
     }
-    
+
     public static boolean isStrike(Pin firstTry) {
         return firstTry.isStrike();
     }

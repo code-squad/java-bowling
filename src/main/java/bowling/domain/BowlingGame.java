@@ -7,15 +7,8 @@ public class BowlingGame {
     private PlayerQueue playerQueue;
 
     public BowlingGame(List<Player> players) {
-        inputValidationCheck(players);
-
         this.players = new Players(players);
         this.playerQueue = new PlayerQueue(players);
-    }
-
-    private void inputValidationCheck(List<Player> players) {
-        if(players == null || players.isEmpty())
-            throw new IllegalArgumentException("Players not valid");
     }
 
     public Player getCurrentPlayer() {
