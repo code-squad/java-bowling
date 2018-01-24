@@ -3,7 +3,7 @@ package model;
 
 public abstract class Frame {
     private BowlingScore score;
-    private Integer numberOfLastPins;
+    public Integer numberOfLastPins;
 
     public Frame() {
         this.numberOfLastPins = 10;
@@ -29,8 +29,8 @@ public abstract class Frame {
         return score.isItOverAndHasNextFrame(frame);
     }
 
-    public boolean isDone(Frame frame){
-        return score.isItOver(frame);
+    public boolean isDone(){
+        return score.isItOver(this);
     }
 
     private void calculatePins(Integer numberOfFallingPins) {

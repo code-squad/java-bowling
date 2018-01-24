@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,24 +9,23 @@ public class BowlingGame {
 
     public BowlingGame(Player player) {
         this.player = player;
-        initFrames();
+        frames = CreateFrame.initFrames(frames);
     }
 
-    public void progressGame(Integer numberOfFallingPin) {
-        if (numberOfFallingPin > 10){
-            throw new IllegalArgumentException("볼린 핀의 개수는 최대 10개 입니다.");
+    public Boolean progressGame(Integer numberOfFallingPin) {
+        if (isIllegalParam(numberOfFallingPin)) {
+            throw new IllegalArgumentException("볼린 핀의 개수는 0개 에서 10개 입니다.");
         }
 
         getCurrentFrame().obtainScore(numberOfFallingPin);
-
-        if (isItOverAndHasNextFrame()){
-            if (getCurrentFrameNumber() >= 9) {
-                addFinalFrames();
-            }
-            if (getCurrentFrameNumber() < 9) {
-                addNormalFrame();
-            }
+        if (isItOverAndHasNextFrame()) {
+            CreateFrame.create(frames);
         }
+        return false;
+    }
+
+    private boolean isIllegalParam(Integer numberOfFallingPin) {
+        return numberOfFallingPin < 0 || numberOfFallingPin > 10;
     }
 
     public List<BowlingScore> getResult() {
@@ -47,20 +45,7 @@ public class BowlingGame {
     }
 
     public boolean isLast() {
-        return getCurrentFrame().isDone(getCurrentFrame());
-    }
-
-    private void initFrames() {
-        this.frames = new ArrayList();
-        addNormalFrame();
-    }
-
-    private void addNormalFrame() {
-        this.frames.add(new NormalFrame());
-    }
-
-    private void addFinalFrames() {
-        this.frames.add(new FinalFrame());
+        return getCurrentFrame().isDone();
     }
 
     private Frame getCurrentFrame() {

@@ -20,13 +20,15 @@ public class BowlingScore {
     }
 
     public boolean isItOverAndHasNextFrame(Frame frame) {
+        if (isaFinalFrame(frame) && hasStrike(firstScore)){
+            return true;
+        }
+
+        if (isaFinalFrame(frame) && hasSpare(secondScore)){
+            return true;
+        }
+
         if (isaFinalFrame(frame)){
-            if (isOverCondition(firstScore)){
-                return true;
-            }
-            if (secondScore != null && secondScore.equals(Score.SPARE)) {
-                return true;
-            }
             return false;
         }
 
@@ -38,21 +40,17 @@ public class BowlingScore {
     }
 
     public boolean isItOver(Frame frame) {
-        if (isaFinalFrame(frame) && hasAnyScore()){
-            if (firstScore.equals(Score.STRIKE)){
-                return false;
-            }
-            if (secondScore != null){
-                if (secondScore.equals(Score.STRIKE)){
-                    return false;
-                }
-
-                if (secondScore.equals(Score.SPARE)){
-                    return false;
-                }
-
-                return true;
-            }
+        if (isaFinalFrame(frame) && hasStrike(firstScore)){
+            return false;
+        }
+        if (isaFinalFrame(frame) && hasAnyScore() && hasStrike(secondScore)){
+            return false;
+        }
+        if (isaFinalFrame(frame) && hasAnyScore() && hasSpare(secondScore)) {
+            return false;
+        }
+        if (secondScore != null){
+            return true;
         }
 
         return false;
@@ -67,11 +65,15 @@ public class BowlingScore {
         return Score.of(firstScore) + "|" + Score.of(secondScore) + " ";
     }
 
-    private boolean isOverCondition(Score score) {
-        return score.equals(Score.STRIKE) || score.equals(Score.STRIKE);
+    private boolean hasStrike(Score score) {
+        return score != null && score.equals(Score.STRIKE);
     }
 
     private boolean isaFinalFrame(Frame frame) {
         return frame instanceof FinalFrame;
+    }
+
+    private boolean hasSpare(Score score) {
+        return score != null && score.equals(Score.SPARE);
     }
 }

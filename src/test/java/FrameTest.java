@@ -32,7 +32,6 @@ public class FrameTest {
 
     @Test
     public void isDone() {
-        Frame result = new NormalFrame();
-        assertThat(frame.isDone(frame)).isFalse();
+        assertThat(frame.isDone()).isFalse();
     }
 }
