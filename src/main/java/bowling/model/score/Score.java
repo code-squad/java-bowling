@@ -17,6 +17,9 @@ public interface Score {
 		if (size == 1 && scores.get(0) == 10)
 			return new StrikeScore();
 
+		if (size == 1)
+			return new FirstScore(scores.get(0));
+
 		if (size == 2 && scores.get(0) + scores.get(1) == 10)
 			return new SpareScore(scores.get(0));
 
@@ -46,5 +49,5 @@ public interface Score {
 		return builder.toString();
 	}
 
-	public int getScore(Score next, Score nextNext);
+	int getScore(Score next, Score nextNext);
 }

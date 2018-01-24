@@ -2,6 +2,8 @@ package bowling.model.frame;
 
 import bowling.model.score.*;
 
+import java.util.Arrays;
+
 public class FinalFrame extends Frame {
 
 	public FinalFrame() {
@@ -24,16 +26,6 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	public boolean isStrike() throws IndexOutOfBoundsException {
-		return temp.get(0) == 10;
-	}
-
-	@Override
-	public boolean isNextStrike() throws IndexOutOfBoundsException {
-		return temp.get(1) == 10;
-	}
-
-	@Override
 	public int getScore() throws Exception {
 		if (score instanceof FinalScore) {
 			return ((FinalScore) score).finalScore();
@@ -41,4 +33,11 @@ public class FinalFrame extends Frame {
 		return score.currentScore();
 	}
 
+	@Override
+	public Score getNextScore() throws Exception {
+		if (temp.get(1) == 10)
+			return Score.of(Arrays.asList(10));
+
+		return null;
+	}
 }

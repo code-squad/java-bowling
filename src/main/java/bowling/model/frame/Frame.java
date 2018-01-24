@@ -1,9 +1,7 @@
 package bowling.model.frame;
 
-import bowling.model.score.MissScore;
 import bowling.model.score.Score;
-import bowling.model.score.SpareScore;
-import bowling.model.score.StrikeScore;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,7 @@ public class Frame {
 	private int id;
 	protected List<Integer> temp;
 	protected Score score;
-	public Frame next;
+	private Frame next;
 
 	public Frame() {
 		this(1);
@@ -26,12 +24,11 @@ public class Frame {
 
 	public Frame bowl(int intScore) {
 		temp.add(intScore);
+	    score = Score.of(temp);
 
 		if (temp.size() < 2 && intScore < 10) {
-	        return this;
-        }
-
-	    score = Score.of(temp);
+			return this;
+		}
 
         if (id == 9) {
         	next = new FinalFrame();
@@ -46,49 +43,19 @@ public class Frame {
 		return id;
 	}
 
-	public boolean isStrike() {
-		if (temp.isEmpty())
-			throw new IllegalStateException();
-		return score instanceof StrikeScore;
-	}
-
-	public boolean isNextStrike() {
-		if (next == null)
-			throw new IllegalStateException();
-		return next.isStrike();
-	}
-
 	public int getScore() throws Exception {
-//		if (score instanceof MissScore)
-//			return this.getFramePinCount();
-//		if (score instanceof SpareScore)
-//			return this.getFramePinCount() + next.getFirstPinCount();
-//		if (score instanceof StrikeScore) {
-//			if (next.isStrike() && next.isNextStrike()) {
-//				return 30;
-//			} else {
-//				return this.getFramePinCount() + next.getFramePinCount();
-//			}
-//		}
 		if (score == null) {
 			throw new IllegalStateException();
 		}
-
-		return score.getScore(next.score, next.next.score);
+		try {
+			return score.getScore(getNextScore(), next.getNextScore());
+		} catch (NullPointerException e) {
+			return score.getScore(getNextScore(), null);
+		}
 	}
 
-	protected int getFramePinCount() {
-		if(score != null)
-			return score.currentScore();
-
-		throw new IllegalStateException();
-	}
-
-	private int getFirstPinCount() {
-		if(temp.isEmpty())
-			throw new IllegalStateException();
-
-		return temp.get(0);
+	protected Score getNextScore() throws Exception {
+		return this.next.score;
 	}
 
 	@Override
