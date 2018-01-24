@@ -33,11 +33,4 @@ public class ScoreMachine {
     private static boolean isValidNumber(Integer score) {
         return MIN_SCORE <= score && score <= MAX_SCORE;
     }
-
-    /*public static String formattingByScoreType(NormalElement element) {
-        Optional<ScoreType> scoreCalculate = Arrays.stream(ScoreType.values()).filter(type -> type.match(element)).findFirst();
-        return scoreCalculate.filter(ScoreType::isOnly).map(type -> type.convert(element)).map(StringUtils::emptyBlockFormat).orElse(
-                scoreCalculate.map(type -> type.convert(element)).get()
-        );
-    }*/
 }

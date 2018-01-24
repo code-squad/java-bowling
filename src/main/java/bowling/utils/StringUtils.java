@@ -8,6 +8,7 @@ public class StringUtils {
     public static final String ONLY_ING_FORMAT = "  %s";
     public static final String RESULT_SCORE_FORMAT = "%s|%s";
     public static final String SCORE_INPUT_FORMAT = "%d프레임 투구 : ";
+    public static final String EMPTY_BLOCK_FORMAT = "%s   |";
     public static final String EMPTY_FRAME = "  ";
     public static final String EMPTY_BLOCK_FRAME = "   |";
 
@@ -24,6 +25,6 @@ public class StringUtils {
     }
 
     public static String emptyBlockFormat(String result) {
-        return String.format("%s   |", result);
+        return String.format(EMPTY_BLOCK_FORMAT, result);
     }
 }

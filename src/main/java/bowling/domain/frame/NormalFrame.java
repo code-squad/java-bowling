@@ -48,10 +48,4 @@ public class NormalFrame implements Frame {
     public NormalElement getElement() {
         return normalElement;
     }
-
-    @Override
-    public String formattingResult() {
-        return null;
-        //return ScoreMachine.formattingByScoreType(normalElement);
-    }
 }

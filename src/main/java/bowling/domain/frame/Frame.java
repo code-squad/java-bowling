@@ -16,6 +16,4 @@ public interface Frame {
     String result();
 
     Element getElement();
-
-    String formattingResult();
 }

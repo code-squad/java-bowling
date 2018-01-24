@@ -6,41 +6,37 @@ import static bowling.utils.ScoreUtils.MAX_POSSIBLE_SCORE;
 import static bowling.utils.ScoreUtils.MAX_SCORE;
 import static bowling.utils.ScoreUtils.MIN_POSSIBLE_SCORE;
 import static bowling.utils.ScoreUtils.MIN_SCORE;
-import static bowling.utils.StringUtils.emptyBlockFormat;
 import static bowling.utils.StringUtils.scoreResultFormat;
-import static bowling.utils.StringUtils.getIngFormat;
 
 public enum ScoreType {
-    STRIKE("X", true) {
+    STRIKE("X") {
         public boolean match(Element element) { return this.isStrike(element); }
         public String convert(Element element) { return this.get(); }
     },
-    SPARE("/", false) {
+    SPARE("/") {
         public boolean match(Element element) { return this.isSpare(element); }
         public String convert(Element element) { return scoreResultFormat(element.firstScoreToString(), this.get()); }
     },
-    MISS("-", false) {
+    MISS("-") {
         public boolean match(Element element) { return this.isFirstMiss(element) || this.isSecondMiss(element); }
         public String convert(Element element) {
             if(this.isSecondMiss(element)) return scoreResultFormat(element.firstScoreToString(), this.get());
             return scoreResultFormat(this.get(), element.secondScoreToString());
         }
     },
-    GUTTER("-", true){
+    GUTTER("-"){
         public boolean match(Element element) { return this.isGutter(element); }
         public String convert(Element element) { return this.get(); }
     },
-    NUMBER("", false) {
+    NUMBER("") {
         public boolean match(Element element) { return this.isNumber(element); }
         public String convert(Element element) { return scoreResultFormat(element.firstScoreToString(), element.secondScoreToString()); }
     };
 
     private String value;
-    private boolean isOnly;
 
-    ScoreType(String value, boolean isOnly) {
+    ScoreType(String value) {
         this.value = value;
-        this.isOnly = isOnly;
     }
 
     public abstract boolean match(Element element);
@@ -49,10 +45,6 @@ public enum ScoreType {
 
     public String get() {
         return value;
-    }
-
-    public boolean isOnly() {
-        return isOnly;
     }
 
     public boolean isStrike(Element element) {

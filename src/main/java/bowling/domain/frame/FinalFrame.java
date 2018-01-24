@@ -54,11 +54,6 @@ public class FinalFrame implements Frame {
         return finalElement;
     }
 
-    @Override
-    public String formattingResult() {
-        return null;
-    }
-
     private String thirdScoreCalculate(Score nextScore) {
         if(isFirstOrSecondStrike()) { return getResultMapping(FIRST_SCORE, nextScore); }
         Optional<ScoreType> scoreType = calculateScore(FinalElement.generate(finalElement.getScoreByKey(SECOND_SCORE)).inScore(THIRD_SCORE, nextScore));

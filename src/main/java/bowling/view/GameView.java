@@ -30,32 +30,36 @@ public class GameView {
 
     public String firstReflectScore(Frame frame) {
         resultView += getIngOnlyFormat(frame.result());
-        if(formattingStrike(frame)) return resultView;
+        if(isStrikeAndFormat(frame)) return resultView;
         return resultView + EMPTY_BLOCK_FRAME;
     }
 
     public String nextReflectScore(Frame frame) {
-        resultView = clearBeforeData(resultView.length() - 1) + frame.result();
-        if(formattingGutter(frame)) return resultView;
+        updateResultView(frame, 1);
+        if(isGutterAndFormat(frame)) return resultView;
         resultView = getIngFormat(resultView);
         return resultView;
     }
 
     public String nextFinalScore(Frame frame) {
-        resultView = clearBeforeData(resultView.length() - 5) + frame.result();
+        updateResultView(frame, 5);
         return resultView;
     }
 
-    private boolean formattingStrike(Frame frame) {
-        if(STRIKE.match(frame.getElement())) {
-            resultView = emptyBlockFormat(resultView);
-            return true;
-        }
-        return false;
+    private void updateResultView(Frame frame, int deleteLength) {
+        resultView = clearBeforeData(resultView.length() - deleteLength) + frame.result();
     }
 
-    private boolean formattingGutter(Frame frame) {
-        if(GUTTER.match(frame.getElement())) {
+    private boolean isStrikeAndFormat(Frame frame) {
+        return isEmptyBlockTarget(STRIKE.match(frame.getElement()));
+    }
+
+    private boolean isGutterAndFormat(Frame frame) {
+        return isEmptyBlockTarget(GUTTER.match(frame.getElement()));
+    }
+
+    private boolean isEmptyBlockTarget(boolean isTarget) {
+        if(isTarget) {
             resultView = emptyBlockFormat(resultView);
             return true;
         }
