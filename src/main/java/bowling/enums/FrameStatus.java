@@ -3,6 +3,8 @@ package bowling.enums;
 import bowling.domain.Pin;
 import bowling.util.PinUtil;
 
+import java.util.Optional;
+
 public enum FrameStatus {
     NOT_START,
     STRIKE,
@@ -31,10 +33,14 @@ public enum FrameStatus {
     }
 
     public static boolean isStrike(Pin firstTry) {
-        return firstTry.isStrike();
+        return Optional.ofNullable(firstTry)
+                .map(Pin::isStrike)
+                .orElse(false);
     }
 
     public static boolean isSpare(Pin firstTry, Pin secondTry) {
-        return firstTry.isSpare(secondTry);
+        return Optional.ofNullable(firstTry)
+                .map(pin -> pin.isSpare(secondTry))
+                .orElse(false);
     }
 }

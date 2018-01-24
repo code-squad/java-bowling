@@ -19,10 +19,10 @@ public class FrameStatusTest {
 
     @Test
     public void isEndTest() {
-        assertThat(FrameStatus.isEnd(NOT_END)).isFalse();
-        assertThat(FrameStatus.isEnd(NOT_START)).isFalse();
-        assertThat(FrameStatus.isEnd(STRIKE)).isTrue();
-        assertThat(FrameStatus.isEnd(SPARE)).isTrue();
-        assertThat(FrameStatus.isEnd(MISS)).isTrue();
+        assertThat(NOT_END.isEnd()).isFalse();
+        assertThat(NOT_START.isEnd()).isFalse();
+        assertThat(STRIKE.isEnd()).isTrue();
+        assertThat(SPARE.isEnd()).isTrue();
+        assertThat(MISS.isEnd()).isTrue();
     }
 }
