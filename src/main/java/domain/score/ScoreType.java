@@ -1,7 +1,7 @@
 package domain.score;
 
-import static domain.score.ScoreNumber.TEN;
-import static domain.score.ScoreNumber.ZERO;
+import static domain.score.Pin.TEN;
+import static domain.score.Pin.ZERO;
 
 public enum ScoreType {
     STRIKE("X"),
@@ -17,21 +17,11 @@ public enum ScoreType {
         this.display = display;
     }
 
-    static ScoreType valueOf(TotalScore totalScore) {
-        if (totalScore.isStrike()) {
+    static ScoreType valueOf(Pin pin) {
+        if (pin.equals(TEN)) {
             return STRIKE;
         }
-        if (totalScore.sumOfScore().equals(TEN)) {
-            return SPARE;
-        }
-        return MISS;
-    }
-
-    static ScoreType valueOf(ScoreNumber score) {
-        if (score.equals(TEN)) {
-            return STRIKE;
-        }
-        if (score.equals(ZERO)) {
+        if (pin.equals(ZERO)) {
             return GUTTER;
         }
         return NONE;

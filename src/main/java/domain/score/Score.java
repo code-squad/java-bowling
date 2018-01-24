@@ -1,27 +1,45 @@
 package domain.score;
 
 public class Score {
-    private final ScoreNumber score;
-    private final ScoreType scoreType;
+    private final Pin first;
 
-    public Score(int score) {
-        this.score = new ScoreNumber(score);
-        this.scoreType = ScoreType.valueOf(this.score);
+    private Pin second;
+
+    private Pin left = Pin.TEN;
+
+    public Score(Pin first) {
+        this.first = first;
+        this.left = left.minus(first);
+        this.second = null;
     }
 
-    public ScoreNumber addScore(Score o) {
-        return score.add(o.score);
+    public void addSecond(Pin second) {
+        if (second == null) {
+            throw new IllegalArgumentException();
+        }
+        left.minus(second);
+        this.second = second;
     }
 
     public boolean isStrike() {
-        return scoreType == ScoreType.STRIKE;
+        return first.equals(Pin.TEN);
+    }
+
+    public boolean isSpare() {
+        return second != null && left.equals(Pin.ZERO);
     }
 
     @Override
     public String toString() {
-        if (scoreType.isDisplay()) {
-            return scoreType.getDisplay();
+        if (isStrike()) {
+            return ScoreType.STRIKE.getDisplay();
         }
-        return score.toString();
+        if (isSpare()) {
+            return first.toString() + "|" + ScoreType.SPARE.getDisplay();
+        }
+        if (second == null) {
+            return first.toString();
+        }
+        return first.toString() + "|" + second.toString();
     }
 }

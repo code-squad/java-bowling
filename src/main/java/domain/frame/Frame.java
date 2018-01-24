@@ -1,27 +1,22 @@
 package domain.frame;
 
+import domain.score.Pin;
 import domain.score.Score;
-import domain.score.TotalScore;
-
-import java.util.Optional;
 
 public abstract class Frame {
-    final TotalScore totalScore;
+    final Score score;
     final int frameNo;
 
-    Frame(TotalScore totalScore, int frameNo) {
-        if (totalScore == null) {
-            throw new IllegalArgumentException();
-        }
-        this.totalScore = totalScore;
-        this.frameNo = frameNo;
-    }
-
-    void addSecondScore(Score score) {
+    Frame(Score score, int frameNo) {
         if (score == null) {
             throw new IllegalArgumentException();
         }
-        this.totalScore.addSecondScore(score);
+        this.score = score;
+        this.frameNo = frameNo;
+    }
+
+    void addSecondResult(Pin pin) {
+        this.score.addSecond(pin);
     }
 
     int getNextFrameNo() {
@@ -29,15 +24,15 @@ public abstract class Frame {
     }
 
     boolean isStrike() {
-        return totalScore.isStrike();
+        return score.isStrike();
     }
 
-    abstract Optional<Frame> playNextFrame(BowlingGame game);
+    abstract boolean isFinal();
 
-    abstract Frame nextFrame(TotalScore totalScore);
+    abstract Frame nextFrame(Score score);
 
     @Override
     public String toString() {
-        return String.format("%-4s", totalScore.toString());
+        return String.format("%-4s", score.toString());
     }
 }

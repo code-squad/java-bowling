@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 import domain.Player;
 import domain.ScoreBoard;
 import domain.score.Score;
-import domain.score.TotalScore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +28,12 @@ public class BowlingGame {
 
     public void playBowling() {
         Score firstScore = player.play(1);
-        Frame first = new NormalFrame(new TotalScore(firstScore), 1);
+        Frame first = new NormalFrame(new Score(firstScore), 1);
         frames.add(first);
         notifyFrameChanged();
 
         if (!firstScore.isStrike()) {
-            first.addSecondScore(player.play(1));
+            first.addSecondResult(player.play(1));
             notifyFrameChanged();
         }
 
@@ -50,7 +49,7 @@ public class BowlingGame {
         Frame next = playNextFirstScore(frame);
         if (!next.isStrike()) {
             Score secondScore = player.play(frame.getNextFrameNo());
-            next.addSecondScore(secondScore);
+            next.addSecondResult(secondScore);
             notifyFrameChanged();
         }
         return next;
@@ -58,7 +57,7 @@ public class BowlingGame {
 
     Frame playNextFirstScore(Frame frame) {
         Score firstScore = player.play(frame.getNextFrameNo());
-        Frame next = frame.nextFrame(new TotalScore(firstScore));
+        Frame next = frame.nextFrame(new Score(firstScore));
         frames.add(next);
         notifyFrameChanged();
 

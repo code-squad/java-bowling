@@ -2,7 +2,7 @@ package domain.score;
 
 import org.junit.Test;
 
-import static domain.score.ScoreNumber.TEN;
+import static domain.score.Pin.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ScoreTest {

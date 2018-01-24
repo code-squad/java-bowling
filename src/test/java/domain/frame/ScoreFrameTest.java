@@ -1,34 +1,33 @@
 package domain.frame;
 
 import domain.score.Score;
-import domain.score.TotalScore;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class NormalFrameTest {
+public class ScoreFrameTest {
 
-    private TotalScore totalScore;
+    private Score score;
 
     @Before
     public void setUp() throws Exception {
-        totalScore = new TotalScore(new Score(10));
+        score = new Score(new Score(10));
     }
 
     @Test
     public void nextFrame_9번째프레임() throws Exception {
-        NormalFrame frame = new NormalFrame(totalScore, 9);
+        NormalFrame frame = new NormalFrame(score, 9);
 
-        Frame next = frame.nextFrame(totalScore);
+        Frame next = frame.nextFrame(score);
         assertThat(next instanceof FinalFrame).isTrue();
     }
 
     @Test
     public void nextFrame() throws Exception {
-        NormalFrame frame = new NormalFrame(totalScore, 8);
+        NormalFrame frame = new NormalFrame(score, 8);
 
-        Frame next = frame.nextFrame(totalScore);
+        Frame next = frame.nextFrame(score);
         assertThat(next instanceof NormalFrame).isTrue();
     }
 }

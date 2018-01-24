@@ -1,28 +1,26 @@
 package domain.frame;
 
-import domain.score.TotalScore;
-
-import java.util.Optional;
+import domain.score.Score;
 
 public class NormalFrame extends Frame {
 
-    public NormalFrame(TotalScore totalScore, int frameNo) {
-        super(totalScore, frameNo);
+    public NormalFrame(Score score, int frameNo) {
+        super(score, frameNo);
         if (frameNo < 0 || frameNo > 9) {
             throw new IllegalArgumentException();
         }
     }
 
     @Override
-    public Optional<Frame> playNextFrame(BowlingGame game) {
-        return Optional.of(game.playNext(this));
+    boolean isFinal() {
+        return false;
     }
 
     @Override
-    Frame nextFrame(TotalScore totalScore) {
+    Frame nextFrame(Score score) {
         if (frameNo == 9) {
-            return new FinalFrame(totalScore, getNextFrameNo());
+            return new FinalFrame(score, getNextFrameNo());
         }
-        return new NormalFrame(totalScore, getNextFrameNo());
+        return new NormalFrame(score, getNextFrameNo());
     }
 }

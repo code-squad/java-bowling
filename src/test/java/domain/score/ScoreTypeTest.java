@@ -14,37 +14,37 @@ public class ScoreTypeTest {
 
     @Test
     public void valueOf_스트라이크() throws Exception {
-        TotalScore totalScore = new TotalScore(new Score(10));
-        assertThat(ScoreType.valueOf(totalScore)).isEqualTo(STRIKE);
+        Score score = new Score(new Score(10));
+        assertThat(ScoreType.valueOf(score)).isEqualTo(STRIKE);
     }
 
     @Test
     public void valueOf_스페어() throws Exception {
-        TotalScore totalScore = new TotalScore(new Score(7));
-        totalScore.addSecondScore(new Score(3));
+        Score score = new Score(new Score(7));
+        score.addSecond(new Score(3));
 
-        assertThat(ScoreType.valueOf(totalScore)).isEqualTo(SPARE);
+        assertThat(ScoreType.valueOf(score)).isEqualTo(SPARE);
     }
 
     @Test
     public void valueOf_미스() throws Exception {
-        TotalScore totalScore = new TotalScore(new Score(7));
-        totalScore.addSecondScore(new Score(2));
+        Score score = new Score(new Score(7));
+        score.addSecond(new Score(2));
 
-        assertThat(ScoreType.valueOf(totalScore)).isEqualTo(MISS);
+        assertThat(ScoreType.valueOf(score)).isEqualTo(MISS);
     }
 
     @Test
     public void valueOf_거터() throws Exception {
-        assertThat(ScoreType.valueOf(new ScoreNumber(0))).isEqualTo(GUTTER);
+        assertThat(ScoreType.valueOf(new Pin(0))).isEqualTo(GUTTER);
     }
 
     @Test
     public void valueOf_NONE() throws Exception {
-        assertThat(ScoreType.valueOf(new ScoreNumber(7))).isEqualTo(NONE);
-        assertThat(ScoreType.valueOf(new ScoreNumber(1))).isEqualTo(NONE);
-        assertThat(ScoreType.valueOf(new ScoreNumber(2))).isEqualTo(NONE);
-        assertThat(ScoreType.valueOf(new ScoreNumber(9))).isEqualTo(NONE);
+        assertThat(ScoreType.valueOf(new Pin(7))).isEqualTo(NONE);
+        assertThat(ScoreType.valueOf(new Pin(1))).isEqualTo(NONE);
+        assertThat(ScoreType.valueOf(new Pin(2))).isEqualTo(NONE);
+        assertThat(ScoreType.valueOf(new Pin(9))).isEqualTo(NONE);
     }
 
     @Test
