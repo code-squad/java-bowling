@@ -8,7 +8,7 @@ public class Main {
 
         Player player = new Player(InputView.inputName());
         BowlingGame bowlingGame = new BowlingGame(player);
-        while (!bowlingGame.isLast()){
+        while (!bowlingGame.isLast() && bowlingGame.hasMoreTrial()){
             bowlingGame.progressGame(InputView.inputNumberOfPins(bowlingGame.getCurrentFrameNumber()));
             OutputView.showCurrentStatus(bowlingGame);
         }

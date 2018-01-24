@@ -6,22 +6,29 @@ import java.util.stream.Collectors;
 public class BowlingGame {
     private Player player;
     private List<Frame> frames;
+    private BowlingResult bowlingResult;
 
     public BowlingGame(Player player) {
         this.player = player;
         frames = CreateFrame.initFrames(frames);
+        bowlingResult = new BowlingResult();
     }
 
-    public Boolean progressGame(Integer numberOfFallingPin) {
+    public void progressGame(Integer numberOfFallingPin) {
         if (isIllegalParam(numberOfFallingPin)) {
             throw new IllegalArgumentException("볼린 핀의 개수는 0개 에서 10개 입니다.");
         }
 
-        getCurrentFrame().obtainScore(numberOfFallingPin);
+        Score thisScore = getCurrentFrame().obtainScore(numberOfFallingPin);
+        bowlingResult.calculateNextTrial(thisScore);
+
         if (isItOverAndHasNextFrame()) {
+            bowlingResult.calculateUntilNow(getCurrentFrame());
+            if (bowlingResult.stillCanCalculate()) {
+                bowlingResult.calculateUntilNow(getCurrentFrame());
+            }
             CreateFrame.create(frames);
         }
-        return false;
     }
 
     private boolean isIllegalParam(Integer numberOfFallingPin) {
@@ -37,11 +44,19 @@ public class BowlingGame {
     }
 
     public boolean isItOverAndHasNextFrame() {
-        return getCurrentFrame().isItOverAndHasNextFrame(getCurrentFrame());
+        return getCurrentFrame().isItOverAndHasNextFrame();
     }
 
     public Integer getCurrentFrameNumber() {
         return frames.size();
+    }
+
+    public List<String> getBowlingResult(){
+        return bowlingResult.getResult(getResult());
+    }
+
+    public List<String> getTotalScore(){
+        return bowlingResult.getTotalScore();
     }
 
     public boolean isLast() {
@@ -51,4 +66,9 @@ public class BowlingGame {
     private Frame getCurrentFrame() {
         return frames.get(frames.size() - 1);
     }
+
+    public boolean hasMoreTrial() {
+        return getCurrentFrame() instanceof NormalFrame || bowlingResult.hasMoreTrial();
+    }
+
 }
