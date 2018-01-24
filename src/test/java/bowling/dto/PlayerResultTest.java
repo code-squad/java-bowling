@@ -1,5 +1,6 @@
-package bowling.domain;
+package bowling.dto;
 
+import bowling.dto.PlayerResult;
 import org.junit.Before;
 import org.junit.Test;
 
