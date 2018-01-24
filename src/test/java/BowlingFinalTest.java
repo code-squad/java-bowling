@@ -48,25 +48,25 @@ public class BowlingFinalTest {
 
     @Test
     public void 마지막_프레임에서_연속_세번_스트라이크() {
-        FinalFrame frame = ThreeTimeNextFrame(10, 10, 10);
+        FinalFrame frame = threeTimeNextFrame(10, 10, 10);
         assertEquals("X|X|X", frame.result());
     }
 
     @Test
     public void 마지막_프레임에서_연속_두번_스트라이크() {
-        FinalFrame frame = ThreeTimeNextFrame(10, 10, 3);
+        FinalFrame frame = threeTimeNextFrame(10, 10, 3);
         assertEquals("X|X|3", frame.result());
     }
 
     @Test
     public void 마지막_프레임에서_스트라이크_후_스페어() {
-        FinalFrame frame = ThreeTimeNextFrame(0, 10, 4);
+        FinalFrame frame = threeTimeNextFrame(0, 10, 4);
         assertEquals("X|-|4", frame.result());
     }
 
     @Test
     public void 마지막_프레임에서_스페어_후_미스_숫자() {
-        FinalFrame frame = ThreeTimeNextFrame(3, 7, 10);
+        FinalFrame frame = threeTimeNextFrame(3, 7, 10);
         assertEquals("3|/|X", frame.result());
     }
 
@@ -84,7 +84,7 @@ public class BowlingFinalTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void 투구점수가_올바르지_않으면_에러를_발생시키는가() {
-        ThreeTimeNextFrame(0, 10, 11);
+        threeTimeNextFrame(0, 10, 11);
     }
 
     private FinalFrame isEndTest(int first, int second) {
@@ -99,7 +99,7 @@ public class BowlingFinalTest {
         return frame;
     }
 
-    private FinalFrame ThreeTimeNextFrame(int first, int second, int third) {
+    private FinalFrame threeTimeNextFrame(int first, int second, int third) {
         FinalFrame frame = FinalFrame.generate(Score.in(ofNullable(first)));
         frame.nextRound(Score.in(ofNullable(second)));
         frame.nextRound(Score.in(ofNullable(third)));

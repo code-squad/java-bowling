@@ -64,7 +64,4 @@ public class ViewTest {
         assertEquals("|  KYJ  |  X   |      |      |      |      |      |      |      |      |      |", gameView.initEmptyFrames(gameView.firstReflectScore(frame), 1));
     }
 
-    private NormalFrame makeNormalFrame(int first) {
-        return NormalFrame.generate(Score.in(ofNullable(first)));
-    }
 }

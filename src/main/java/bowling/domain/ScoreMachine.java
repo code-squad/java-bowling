@@ -1,9 +1,7 @@
 package bowling.domain;
 
-import bowling.domain.frame.element.Element;
-import bowling.domain.frame.element.NormalElement;
+import bowling.domain.score.EntireScore;
 import bowling.domain.score.ScoreType;
-import bowling.utils.StringUtils;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -15,18 +13,18 @@ import static bowling.utils.ScoreUtils.MIN_SCORE;
 
 public class ScoreMachine {
 
-    public static Optional<ScoreType> calculateScore(Element element) {
-        Optional<ScoreType> scoreCalculate = Arrays.stream(ScoreType.values()).filter(type -> type.match(element)).findFirst();
+    public static Optional<ScoreType> calculateScore(EntireScore entireScore) {
+        Optional<ScoreType> scoreCalculate = Arrays.stream(ScoreType.values()).filter(type -> type.match(entireScore)).findFirst();
         return scoreCalculate;
     }
 
-    public static String convertScoreToString(ScoreType scoreType, Element element) {
-        return scoreType.convert(element);
+    public static String convertScoreToString(ScoreType scoreType, EntireScore entireScore) {
+        return scoreType.convert(entireScore);
     }
 
-    public static String firstCalculate(Element element) {
-        if(STRIKE.match(element)) { return STRIKE.convert(element); }
-        else if(isValidNumber(element.getFirstScore())) { return element.firstScoreToString(); }
+    public static String firstCalculate(EntireScore entireScore) {
+        if(STRIKE.match(entireScore)) { return STRIKE.convert(entireScore); }
+        else if(isValidNumber(entireScore.getFirstScore())) { return entireScore.firstScoreToString(); }
         return MISS.get();
     }
 

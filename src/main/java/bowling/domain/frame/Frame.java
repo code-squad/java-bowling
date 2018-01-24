@@ -1,6 +1,6 @@
 package bowling.domain.frame;
 
-import bowling.domain.frame.element.Element;
+import bowling.domain.score.EntireScore;
 import bowling.domain.score.Score;
 
 public interface Frame {
@@ -15,5 +15,5 @@ public interface Frame {
 
     String result();
 
-    Element getElement();
+    EntireScore getElement();
 }

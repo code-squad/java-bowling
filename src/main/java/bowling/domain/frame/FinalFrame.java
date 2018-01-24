@@ -2,8 +2,8 @@ package bowling.domain.frame;
 
 import java.util.Optional;
 
-import bowling.domain.frame.element.Element;
-import bowling.domain.frame.element.FinalElement;
+import bowling.domain.score.EntireScore;
+import bowling.domain.score.FinalScore;
 import bowling.domain.score.Score;
 import bowling.domain.score.ScoreType;
 
@@ -18,12 +18,12 @@ import static bowling.domain.score.ScoreType.STRIKE;
 import static bowling.utils.StringUtils.scoreResultFormat;
 
 public class FinalFrame implements Frame {
-    private FinalElement finalElement;
+    private FinalScore finalScore;
     private String result;
 
     private FinalFrame(Score score) {
-        finalElement = finalElement.generate(score);
-        result = firstCalculate(finalElement);
+        finalScore = finalScore.generate(score);
+        result = firstCalculate(finalScore);
     }
 
     public static FinalFrame generate(Score score) {
@@ -38,8 +38,8 @@ public class FinalFrame implements Frame {
     @Override
     public FinalFrame nextRound(Score nextScore) {
         if(isFirstStrikeAndHasNotSecond()) { result = getResultMapping(SECOND_SCORE, nextScore); }
-        else if(!finalElement.hasSecondScore()) { result = getResultMapping(nextScore); }
-        else if(!finalElement.hasThirdScore()) { result = thirdScoreCalculate(nextScore); }
+        else if(!finalScore.hasSecondScore()) { result = getResultMapping(nextScore); }
+        else if(!finalScore.hasThirdScore()) { result = thirdScoreCalculate(nextScore); }
 
         return this;
     }
@@ -50,13 +50,13 @@ public class FinalFrame implements Frame {
     }
 
     @Override
-    public Element getElement() {
-        return finalElement;
+    public EntireScore getElement() {
+        return finalScore;
     }
 
     private String thirdScoreCalculate(Score nextScore) {
         if(isFirstOrSecondStrike()) { return getResultMapping(FIRST_SCORE, nextScore); }
-        Optional<ScoreType> scoreType = calculateScore(FinalElement.generate(finalElement.getScoreByKey(SECOND_SCORE)).inScore(THIRD_SCORE, nextScore));
+        Optional<ScoreType> scoreType = calculateScore(FinalScore.generate(finalScore.getScoreByKey(SECOND_SCORE)).inScore(THIRD_SCORE, nextScore));
         return scoreType.map(this::resultFormat).get();
     }
 
@@ -77,34 +77,34 @@ public class FinalFrame implements Frame {
     }
 
     private String stringFormat(ScoreType type) {
-        return convertScoreToString(type, finalElement);
+        return convertScoreToString(type, finalScore);
     }
 
     private boolean isFirstStrikeAndHasNotSecond() {
-        return STRIKE.match(finalElement) && !finalElement.hasSecondScore();
+        return STRIKE.match(finalScore) && !finalScore.hasSecondScore();
     }
 
     private boolean isFirstOrSecondStrike() {
-        return SPARE.match(finalElement) || STRIKE.match(FinalElement.generate(finalElement.getScoreByKey(SECOND_SCORE)));
+        return SPARE.match(finalScore) || STRIKE.match(FinalScore.generate(finalScore.getScoreByKey(SECOND_SCORE)));
     }
 
     private Optional<ScoreType> getScoreType(String key, Score nextScore) {
-        return calculateScore(finalElement.inScore(key, nextScore));
+        return calculateScore(finalScore.inScore(key, nextScore));
     }
 
     private boolean isFirstAndSecondAreNumber() {
-        return finalElement.hasSecondScore() && NUMBER.match(finalElement);
+        return finalScore.hasSecondScore() && NUMBER.match(finalScore);
     }
 
     private boolean isSpareAndHasThird() {
-        return finalElement.hasSecondScore() && SPARE.match(finalElement) && finalElement.hasThirdScore();
+        return finalScore.hasSecondScore() && SPARE.match(finalScore) && finalScore.hasThirdScore();
     }
 
     private boolean isStrikeAndHasThird() {
-        return STRIKE.match(finalElement) && finalElement.hasThirdScore();
+        return STRIKE.match(finalScore) && finalScore.hasThirdScore();
     }
 
     private boolean isMissOrGutterAndHasSecond() {
-        return finalElement.hasSecondScore() && (MISS.match(finalElement) || GUTTER.match(finalElement));
+        return finalScore.hasSecondScore() && (MISS.match(finalScore) || GUTTER.match(finalScore));
     }
 }

@@ -1,18 +1,16 @@
-package bowling.domain.frame.element;
-
-import bowling.domain.score.Score;
+package bowling.domain.score;
 
 import static bowling.domain.frame.Frame.FIRST_SCORE;
 import static bowling.domain.frame.Frame.SECOND_SCORE;
 
-public class NormalElement extends Element {
+public class NormalScore extends EntireScore {
 
-    public NormalElement(Score score) {
+    public NormalScore(Score score) {
         scoreMap.put(FIRST_SCORE, score);
     }
 
-    public static NormalElement generate(Score score) {
-        return new NormalElement(score);
+    public static NormalScore generate(Score score) {
+        return new NormalScore(score);
     }
 
     @Override
@@ -20,7 +18,7 @@ public class NormalElement extends Element {
         return scoreMap.get(FIRST_SCORE).validTotalScore(nextScore);
     }
 
-    public NormalElement inScore(Score secondScore) {
+    public NormalScore inScore(Score secondScore) {
         scoreMap.put(SECOND_SCORE, secondScore);
         return this;
     }

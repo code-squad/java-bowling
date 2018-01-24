@@ -1,4 +1,4 @@
-package bowling.domain.frame.element;
+package bowling.domain.score;
 
 import bowling.domain.score.Score;
 
@@ -8,7 +8,7 @@ import java.util.Map;
 import static bowling.domain.frame.Frame.FIRST_SCORE;
 import static bowling.domain.frame.Frame.SECOND_SCORE;
 
-public abstract class Element {
+public abstract class EntireScore {
     Map<String, Score> scoreMap = new HashMap<>();
 
     abstract public boolean validTotalScore(Score nextScore);

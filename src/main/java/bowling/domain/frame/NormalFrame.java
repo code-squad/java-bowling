@@ -3,7 +3,7 @@ package bowling.domain.frame;
 import java.util.Optional;
 
 import bowling.domain.ScoreMachine;
-import bowling.domain.frame.element.NormalElement;
+import bowling.domain.score.NormalScore;
 import bowling.domain.score.Score;
 import bowling.domain.score.ScoreType;
 
@@ -12,12 +12,12 @@ import static bowling.domain.ScoreMachine.convertScoreToString;
 import static bowling.domain.score.ScoreType.STRIKE;
 
 public class NormalFrame implements Frame {
-    private NormalElement normalElement;
+    private NormalScore normalScore;
     private String result;
 
     private NormalFrame(Score score) {
-        normalElement = normalElement.generate(score);
-        result = ScoreMachine.firstCalculate(normalElement);
+        normalScore = normalScore.generate(score);
+        result = ScoreMachine.firstCalculate(normalScore);
     }
 
     public static NormalFrame generate(Score score) {
@@ -26,15 +26,15 @@ public class NormalFrame implements Frame {
 
     @Override
     public boolean isEnd() {
-        return STRIKE.match(normalElement) || normalElement.hasSecondScore();
+        return STRIKE.match(normalScore) || normalScore.hasSecondScore();
     }
 
     @Override
     public NormalFrame nextRound(Score secondScore) {
-        if(!normalElement.validTotalScore(secondScore)) { throw new IllegalArgumentException("2번째 투구점수가 올바르지 않습니다."); }
+        if(!normalScore.validTotalScore(secondScore)) { throw new IllegalArgumentException("2번째 투구점수가 올바르지 않습니다."); }
 
-        Optional<ScoreType> scoreType = calculateScore(normalElement.inScore(secondScore));
-        result = scoreType.map(type -> convertScoreToString(type, normalElement)).get();
+        Optional<ScoreType> scoreType = calculateScore(normalScore.inScore(secondScore));
+        result = scoreType.map(type -> convertScoreToString(type, normalScore)).get();
 
         return this;
     }
@@ -45,7 +45,7 @@ public class NormalFrame implements Frame {
     }
 
     @Override
-    public NormalElement getElement() {
-        return normalElement;
+    public NormalScore getElement() {
+        return normalScore;
     }
 }

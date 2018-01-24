@@ -1,17 +1,15 @@
-package bowling.domain.frame.element;
-
-import bowling.domain.score.Score;
+package bowling.domain.score;
 
 import static bowling.domain.frame.Frame.*;
 
-public class FinalElement extends Element {
+public class FinalScore extends EntireScore {
 
-    public FinalElement(Score score) {
+    public FinalScore(Score score) {
         scoreMap.put(FIRST_SCORE, score);
     }
 
-    public static FinalElement generate(Score score) {
-        return new FinalElement(score);
+    public static FinalScore generate(Score score) {
+        return new FinalScore(score);
     }
 
     @Override
@@ -19,7 +17,7 @@ public class FinalElement extends Element {
         return scoreMap.get(FIRST_SCORE).validTotalScore(nextScore);
     }
 
-    public FinalElement inScore(String key, Score nextScore) {
+    public FinalScore inScore(String key, Score nextScore) {
         scoreMap.put(key, nextScore);
         return this;
     }
