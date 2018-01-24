@@ -11,34 +11,36 @@ import static bowling.utils.StringUtils.scoreResultFormat;
 import static bowling.utils.StringUtils.getIngFormat;
 
 public enum ScoreType {
-    STRIKE("X") {
+    STRIKE("X", true) {
         public boolean match(Element element) { return this.isStrike(element); }
-        public String convert(Element element) { return emptyBlockFormat(this.get()); }
+        public String convert(Element element) { return this.get(); }
     },
-    SPARE("/") {
+    SPARE("/", false) {
         public boolean match(Element element) { return this.isSpare(element); }
-        public String convert(Element element) { return getIngFormat(scoreResultFormat(element.firstScoreToString(), this.get())); }
+        public String convert(Element element) { return scoreResultFormat(element.firstScoreToString(), this.get()); }
     },
-    MISS("-") {
+    MISS("-", false) {
         public boolean match(Element element) { return this.isFirstMiss(element) || this.isSecondMiss(element); }
         public String convert(Element element) {
-            if(this.isSecondMiss(element)) return getIngFormat(scoreResultFormat(element.firstScoreToString(), this.get()));
-            return getIngFormat(scoreResultFormat(this.get(), element.secondScoreToString()));
+            if(this.isSecondMiss(element)) return scoreResultFormat(element.firstScoreToString(), this.get());
+            return scoreResultFormat(this.get(), element.secondScoreToString());
         }
     },
-    GUTTER("-"){
+    GUTTER("-", true){
         public boolean match(Element element) { return this.isGutter(element); }
-        public String convert(Element element) { return emptyBlockFormat(this.get()); }
+        public String convert(Element element) { return this.get(); }
     },
-    NUMBER("") {
+    NUMBER("", false) {
         public boolean match(Element element) { return this.isNumber(element); }
-        public String convert(Element element) { return getIngFormat(scoreResultFormat(element.firstScoreToString(), element.secondScoreToString())); }
+        public String convert(Element element) { return scoreResultFormat(element.firstScoreToString(), element.secondScoreToString()); }
     };
 
     private String value;
+    private boolean isOnly;
 
-    ScoreType(String value) {
+    ScoreType(String value, boolean isOnly) {
         this.value = value;
+        this.isOnly = isOnly;
     }
 
     public abstract boolean match(Element element);
@@ -49,30 +51,34 @@ public enum ScoreType {
         return value;
     }
 
+    public boolean isOnly() {
+        return isOnly;
+    }
+
     public boolean isStrike(Element element) {
         return element.getFirstScore() == MAX_SCORE;
     }
 
     boolean isSpare(Element element) {
-        return element.getFirstScore() + element.getSecondScore() == MAX_SCORE;
+        return element.hasSecondScore() && element.getFirstScore() + element.getSecondScore() == MAX_SCORE;
     }
 
     boolean isFirstMiss(Element element) {
-        int totalScore = element.getFirstScore() + element.getSecondScore();
-        return element.getFirstScore() == MIN_SCORE && element.getSecondScore() > MIN_SCORE && totalScore != MAX_SCORE;
+        return element.hasSecondScore() && element.getFirstScore() == MIN_SCORE && element.getSecondScore() > MIN_SCORE && (element.getFirstScore() + element.getSecondScore()) != MAX_SCORE;
     }
 
     boolean isSecondMiss(Element element) {
-        int totalScore = element.getFirstScore() + element.getSecondScore();
-        return element.getFirstScore() > MIN_SCORE && element.getSecondScore() == MIN_SCORE && totalScore != MAX_SCORE;
+        return element.hasSecondScore() && element.getFirstScore() > MIN_SCORE && element.getSecondScore() == MIN_SCORE && (element.getFirstScore() + element.getSecondScore()) != MAX_SCORE;
     }
 
     boolean isGutter(Element element) {
-        return element.getFirstScore() == MIN_SCORE && element.getSecondScore() == MIN_SCORE;
+        return element.getFirstScore() == MIN_SCORE && (element.hasSecondScore() && element.getSecondScore() == MIN_SCORE);
     }
 
     boolean isNumber(Element element) {
+        if(!element.hasSecondScore()) return false;
         int totalScore = element.getFirstScore() + element.getSecondScore();
         return MIN_POSSIBLE_SCORE <= totalScore && totalScore <= MAX_POSSIBLE_SCORE;
     }
+
 }

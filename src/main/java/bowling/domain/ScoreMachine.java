@@ -1,7 +1,9 @@
 package bowling.domain;
 
 import bowling.domain.frame.element.Element;
+import bowling.domain.frame.element.NormalElement;
 import bowling.domain.score.ScoreType;
+import bowling.utils.StringUtils;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -13,9 +15,13 @@ import static bowling.utils.ScoreUtils.MIN_SCORE;
 
 public class ScoreMachine {
 
-    public static String calculateScore(Element element) {
+    public static Optional<ScoreType> calculateScore(Element element) {
         Optional<ScoreType> scoreCalculate = Arrays.stream(ScoreType.values()).filter(type -> type.match(element)).findFirst();
-        return scoreCalculate.map(scoreCalculate1 -> scoreCalculate1.convert(element)).get();
+        return scoreCalculate;
+    }
+
+    public static String convertScoreToString(ScoreType scoreType, Element element) {
+        return scoreType.convert(element);
     }
 
     public static String firstCalculate(Element element) {
@@ -27,4 +33,11 @@ public class ScoreMachine {
     private static boolean isValidNumber(Integer score) {
         return MIN_SCORE <= score && score <= MAX_SCORE;
     }
+
+    /*public static String formattingByScoreType(NormalElement element) {
+        Optional<ScoreType> scoreCalculate = Arrays.stream(ScoreType.values()).filter(type -> type.match(element)).findFirst();
+        return scoreCalculate.filter(ScoreType::isOnly).map(type -> type.convert(element)).map(StringUtils::emptyBlockFormat).orElse(
+                scoreCalculate.map(type -> type.convert(element)).get()
+        );
+    }*/
 }

@@ -3,15 +3,18 @@ package bowling.view;
 import java.util.stream.IntStream;
 
 import bowling.domain.BowlingUser;
-import bowling.domain.frame.NormalFrame;
+import bowling.domain.frame.Frame;
 
+import static bowling.domain.score.ScoreType.GUTTER;
 import static bowling.domain.score.ScoreType.STRIKE;
-import static bowling.utils.StringUtils.BEGIN_FORMAT;
-import static bowling.utils.StringUtils.EMPTY_BLOCK_FRAME;
-import static bowling.utils.StringUtils.EMPTY_FRAME;
-import static bowling.utils.StringUtils.DEFAULT_ING_FORMAT;
 import static bowling.utils.ScoreUtils.MAX_SCORE;
 import static bowling.utils.ScoreUtils.MIN_SCORE;
+import static bowling.utils.StringUtils.BEGIN_FORMAT;
+import static bowling.utils.StringUtils.DEFAULT_ING_FORMAT;
+import static bowling.utils.StringUtils.EMPTY_BLOCK_FRAME;
+import static bowling.utils.StringUtils.EMPTY_FRAME;
+import static bowling.utils.StringUtils.emptyBlockFormat;
+import static bowling.utils.StringUtils.getIngFormat;
 import static bowling.utils.StringUtils.getIngOnlyFormat;
 
 public class GameView {
@@ -25,15 +28,33 @@ public class GameView {
         return new GameView(bowlingUser);
     }
 
-    public String firstReflectScore(NormalFrame frame) {
+    public String firstReflectScore(Frame frame) {
         resultView += getIngOnlyFormat(frame.result());
-        if(STRIKE.isStrike(frame.getNormalElement())) { return resultView; }
+        if(formattingStrike(frame)) return resultView;
         return resultView + EMPTY_BLOCK_FRAME;
     }
 
-    public String nextReflectScore(NormalFrame frame) {
+    public String nextReflectScore(Frame frame) {
         resultView = clearBeforeData() + frame.result();
+        if(formattingGutter(frame)) return resultView;
+        resultView = getIngFormat(resultView);
         return resultView;
+    }
+
+    private boolean formattingStrike(Frame frame) {
+        if(STRIKE.match(frame.getElement())) {
+            resultView = emptyBlockFormat(resultView);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean formattingGutter(Frame frame) {
+        if(GUTTER.match(frame.getElement())) {
+            resultView = emptyBlockFormat(resultView);
+            return true;
+        }
+        return false;
     }
 
     public String initEmptyFrames(String nameView, int ingLength) {

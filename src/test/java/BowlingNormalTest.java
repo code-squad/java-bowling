@@ -33,37 +33,37 @@ public class BowlingNormalTest {
     @Test
     public void 입력받은_점수가_스트라이크일때_출력이_올바른가() {
         Frame frame = makeNormalFrame(10);
-        assertEquals("X   |", frame.result());
+        assertEquals("X", frame.result());
     }
 
     @Test
     public void 입력받은_점수가_스페어일때_출력이_올바른가() {
         Frame frame = makeNormalFrameByDoubleScore(6, 4);
-        assertEquals("6|/ |", frame.result());
+        assertEquals("6|/", frame.result());
     }
 
     @Test
     public void 입력받은_총점수가_10이하일때_출력이_올바른가() {
         Frame frame = makeNormalFrameByDoubleScore(3, 3);
-        assertEquals("3|3 |", frame.result());
+        assertEquals("3|3", frame.result());
     }
 
     @Test
     public void 첫번째_입력받은_점수가_미스일때_출력이_올바른가() {
         Frame frame = makeNormalFrameByDoubleScore(4, 0);
-        assertEquals("4|- |", frame.result());
+        assertEquals("4|-", frame.result());
     }
 
     @Test
     public void 두번쨰_입력받은_점수가_미스일때_출력이_올바른가() {
         Frame frame = makeNormalFrameByDoubleScore(0, 4);
-        assertEquals("-|4 |", frame.result());
+        assertEquals("-|4", frame.result());
     }
 
     @Test
     public void 입력받은_점수가_거터일때_출력이_올바른가() {
         Frame frame = makeNormalFrameByDoubleScore(0, 0);
-        assertEquals("-   |", frame.result());
+        assertEquals("-", frame.result());
     }
 
     private NormalFrame makeNormalFrameByDoubleScore(int first, int second) {

@@ -9,6 +9,7 @@ import bowling.view.Input;
 import bowling.view.Output;
 
 import static bowling.utils.ScoreUtils.MIN_SCORE;
+import static java.util.Optional.ofNullable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -61,5 +62,29 @@ public class ViewTest {
         NormalFrame frame = NormalFrame.generate(Score.in(Input.generate("10").getScore(1)));
 
         assertEquals("|  KYJ  |  X   |      |      |      |      |      |      |      |      |      |", gameView.initEmptyFrames(gameView.firstReflectScore(frame), 1));
+    }
+
+    @Test
+    public void 단일값이일떄_포맷팅이_이루어지는가() {
+        NormalFrame frame = makeNormalFrame(10);
+        assertEquals("X   |", frame.formattingResult());
+    }
+
+    @Test
+    public void 복수값이일떄_포맷팅이_이루어지는가() {
+        NormalFrame frame = makeNormalFrameByDoubleScore(3, 0);
+        System.out.println(frame.formattingResult());
+    }
+
+    private NormalFrame makeNormalFrameByDoubleScore(int first, int second) {
+        NormalFrame frame = makeNormalFrame(first);
+        if(!frame.isEnd()) {
+            return frame.nextRound(Score.in(ofNullable(second)));
+        }
+        return frame;
+    }
+
+    private NormalFrame makeNormalFrame(int first) {
+        return NormalFrame.generate(Score.in(ofNullable(first)));
     }
 }

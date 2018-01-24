@@ -19,10 +19,12 @@ public class FinalElement extends Element {
         return scoreMap.get(FIRST_SCORE).validTotalScore(nextScore);
     }
 
-    public FinalElement inScore(Score nextScore) {
-        scoreMap.put(SECOND_SCORE, nextScore);
+    public FinalElement inScore(String key, Score nextScore) {
+        scoreMap.put(key, nextScore);
         return this;
     }
 
     public boolean hasThirdScore() { return scoreMap.containsKey(THIRD_SCORE); }
+
+    public Score getScoreByKey(String key) { return scoreMap.get(key); }
 }
