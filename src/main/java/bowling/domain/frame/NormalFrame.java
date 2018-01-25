@@ -1,13 +1,9 @@
 package bowling.domain.frame;
 
-import java.util.Optional;
-
 import bowling.domain.ScoreMachine;
 import bowling.domain.score.EntireScore;
 import bowling.domain.score.Score;
-import bowling.domain.score.ScoreType;
 
-import static bowling.domain.ScoreMachine.calculateScore;
 import static bowling.domain.ScoreMachine.convertScoreToString;
 import static bowling.domain.score.ScoreType.STRIKE;
 
@@ -17,7 +13,7 @@ public class NormalFrame implements Frame {
 
     private NormalFrame(Score score) {
         entireScore = entireScore.generate(score);
-        result = ScoreMachine.firstCalculate(entireScore);
+        result = ScoreMachine.convertScoreToString(entireScore);
     }
 
     public static NormalFrame generate(Score score) {
@@ -32,10 +28,7 @@ public class NormalFrame implements Frame {
     @Override
     public NormalFrame nextRound(Score secondScore) {
         if(!entireScore.validTotalScore(secondScore)) { throw new IllegalArgumentException("2번째 투구점수가 올바르지 않습니다."); }
-
-        Optional<ScoreType> scoreType = calculateScore(entireScore.inScore(secondScore));
-        result = scoreType.map(type -> convertScoreToString(type, entireScore)).get();
-
+        result = convertScoreToString(entireScore.inScore(secondScore));
         return this;
     }
 

@@ -1,13 +1,18 @@
 package bowling.domain.frame;
 
+import java.util.Optional;
+
 import bowling.domain.score.EntireScore;
 import bowling.domain.score.Score;
 import bowling.domain.score.ScoreType;
 
-import java.util.Optional;
-
-import static bowling.domain.ScoreMachine.*;
-import static bowling.domain.score.ScoreType.*;
+import static bowling.domain.ScoreMachine.calculateScore;
+import static bowling.domain.ScoreMachine.convertScoreToString;
+import static bowling.domain.ScoreMachine.firstCalculate;
+import static bowling.domain.score.ScoreType.MISS;
+import static bowling.domain.score.ScoreType.NUMBER;
+import static bowling.domain.score.ScoreType.SPARE;
+import static bowling.domain.score.ScoreType.STRIKE;
 import static bowling.utils.StringUtils.scoreResultFormat;
 
 public class FinalFrame implements Frame {
@@ -102,6 +107,6 @@ public class FinalFrame implements Frame {
     }
 
     private boolean isMissOrGutterAndHasSecond() {
-        return entireScore.hasSecondScore() && (MISS.match(entireScore) || GUTTER.match(entireScore));
+        return entireScore.hasSecondScore() && MISS.match(entireScore);
     }
 }

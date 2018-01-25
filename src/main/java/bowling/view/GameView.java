@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 import bowling.domain.BowlingUser;
 import bowling.domain.frame.Frame;
 
-import static bowling.domain.score.ScoreType.GUTTER;
 import static bowling.domain.score.ScoreType.STRIKE;
 import static bowling.utils.ScoreUtils.MAX_SCORE;
 import static bowling.utils.ScoreUtils.MIN_SCORE;
@@ -40,7 +39,7 @@ public class GameView {
 
     public String nextReflectScore(Frame frame) {
         updateResultView(frame, 1);
-        if(isGutterAndFormat(frame)) return resultView;
+        //if(isGutterAndFormat(frame)) return resultView;
         resultView = getIngFormat(resultView);
         return resultView;
     }
@@ -56,10 +55,6 @@ public class GameView {
 
     private boolean isStrikeAndFormat(Frame frame) {
         return isEmptyBlockTarget(STRIKE.match(frame.getElement()));
-    }
-
-    private boolean isGutterAndFormat(Frame frame) {
-        return isEmptyBlockTarget(GUTTER.match(frame.getElement()));
     }
 
     private boolean isEmptyBlockTarget(boolean isTarget) {

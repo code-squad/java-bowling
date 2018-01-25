@@ -1,8 +1,6 @@
 package bowling.domain.score;
 
-import static bowling.utils.ScoreUtils.MAX_POSSIBLE_SCORE;
 import static bowling.utils.ScoreUtils.MAX_SCORE;
-import static bowling.utils.ScoreUtils.MIN_POSSIBLE_SCORE;
 import static bowling.utils.ScoreUtils.MIN_SCORE;
 import static bowling.utils.StringUtils.scoreResultFormat;
 
@@ -13,22 +11,23 @@ public enum ScoreType {
     },
     SPARE("/") {
         public boolean match(EntireScore entireScore) { return this.isSpare(entireScore); }
-        public String convert(EntireScore entireScore) { return scoreResultFormat(entireScore.firstScoreToString(), this.get()); }
+        public String convert(EntireScore entireScore) { return scoreResultFormat(String.valueOf(entireScore.getBeforeLastScore().get()), this.get()); }
     },
     MISS("-") {
-        public boolean match(EntireScore entireScore) { return this.isFirstMiss(entireScore) || this.isSecondMiss(entireScore); }
-        public String convert(EntireScore entireScore) {
-            if(this.isSecondMiss(entireScore)) return scoreResultFormat(entireScore.firstScoreToString(), this.get());
-            return scoreResultFormat(this.get(), entireScore.secondScoreToString());
-        }
-    },
-    GUTTER("-"){
-        public boolean match(EntireScore entireScore) { return this.isGutter(entireScore); }
+        public boolean match(EntireScore entireScore) { return this.isMiss(entireScore); }
         public String convert(EntireScore entireScore) { return this.get(); }
     },
     NUMBER("") {
         public boolean match(EntireScore entireScore) { return this.isNumber(entireScore); }
-        public String convert(EntireScore entireScore) { return scoreResultFormat(entireScore.firstScoreToString(), entireScore.secondScoreToString()); }
+        public String convert(EntireScore entireScore) { return entireScore.firstScoreToString(); }
+    },
+    DUAL("|") {
+        public boolean match(EntireScore entireScore) { return this.isDual(entireScore); }
+        public String convert(EntireScore entireScore) {
+            Integer first = entireScore.getBeforeLastScore().get();
+            Integer second = entireScore.getLastScore().get();
+            return (first == MIN_SCORE ? MISS.get() : String.valueOf(first)) + this.get() + (second == MIN_SCORE ? MISS.get() : String.valueOf(second));
+        }
     };
 
     private String value;
@@ -46,29 +45,23 @@ public enum ScoreType {
     }
 
     public boolean isStrike(EntireScore entireScore) {
-        return entireScore.getFirstScore() == MAX_SCORE;
+        return entireScore.getLastScore().get() == MAX_SCORE;
     }
 
     boolean isSpare(EntireScore entireScore) {
         return entireScore.hasSecondScore() && entireScore.getFirstScore() + entireScore.getSecondScore() == MAX_SCORE;
     }
 
-    boolean isFirstMiss(EntireScore entireScore) {
-        return entireScore.hasSecondScore() && entireScore.getFirstScore() == MIN_SCORE && entireScore.getSecondScore() > MIN_SCORE && (entireScore.getFirstScore() + entireScore.getSecondScore()) != MAX_SCORE;
-    }
-
-    boolean isSecondMiss(EntireScore entireScore) {
-        return entireScore.hasSecondScore() && entireScore.getFirstScore() > MIN_SCORE && entireScore.getSecondScore() == MIN_SCORE && (entireScore.getFirstScore() + entireScore.getSecondScore()) != MAX_SCORE;
-    }
-
-    boolean isGutter(EntireScore entireScore) {
-        return entireScore.getFirstScore() == MIN_SCORE && (entireScore.hasSecondScore() && entireScore.getSecondScore() == MIN_SCORE);
+    boolean isMiss(EntireScore entireScore) {
+        return entireScore.length() == 1 && entireScore.getLastScore().get() == MIN_SCORE;
     }
 
     boolean isNumber(EntireScore entireScore) {
-        if(!entireScore.hasSecondScore()) return false;
-        int totalScore = entireScore.getFirstScore() + entireScore.getSecondScore();
-        return MIN_POSSIBLE_SCORE <= totalScore && totalScore <= MAX_POSSIBLE_SCORE;
+        return entireScore.length() == 1 && !isStrike(entireScore) && !isMiss(entireScore);
+    }
+
+    boolean isDual(EntireScore entireScore) {
+        return entireScore.length() > 1 && !isStrike(entireScore) && !isSpare(entireScore);
     }
 
 }

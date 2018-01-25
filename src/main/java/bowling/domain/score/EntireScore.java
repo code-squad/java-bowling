@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntireScore {
-    List<Score> scores = new ArrayList<>();
+    private List<Score> scores = new ArrayList<>();
 
     public EntireScore(Score score) {
         scores.add(score);
@@ -16,6 +16,22 @@ public class EntireScore {
 
     public boolean validTotalScore(Score nextScore)  {
         return scores.get(0).validTotalScore(nextScore);
+    }
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public Score getLastScore() {
+        return scores.get(scores.size()-1);
+    }
+
+    public Score getBeforeLastScore() {
+        return scores.get(scores.size()-2);
+    }
+
+    public int length() {
+        return scores.size();
     }
 
     public Integer getFirstScore() {

@@ -18,8 +18,13 @@ public class ScoreMachine {
         return scoreCalculate;
     }
 
+    @Deprecated
     public static String convertScoreToString(ScoreType scoreType, EntireScore entireScore) {
         return scoreType.convert(entireScore);
+    }
+
+    public static String convertScoreToString(EntireScore entireScore) {
+        return calculateScore(entireScore).get().convert(entireScore);
     }
 
     public static String firstCalculate(EntireScore entireScore) {
