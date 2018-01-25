@@ -46,4 +46,17 @@ public class FramesTest {
                 "   ", "   ", "   ", "   ", "   "
         ));
     }
+
+    @Test
+    public void getScoreViewsTest() {
+        frames.rollBowlingBall(0, new Pin(10));
+        frames.rollBowlingBall(1, new Pin(10));
+        frames.rollBowlingBall(2, new Pin(10));
+        frames.rollBowlingBall(3, new Pin(10));
+
+        assertThat(frames.getScoreViews()).isEqualTo(Arrays.asList(
+                "30 ", "60 ", "   ", "   ", "   ",
+                "   ", "   ", "   ", "   ", "   "
+        ));
+    }
 }

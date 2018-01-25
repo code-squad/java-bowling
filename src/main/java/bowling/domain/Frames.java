@@ -2,9 +2,7 @@ package bowling.domain;
 
 import bowling.enums.FrameState;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static bowling.common.StaticVariables.FRAME_MAX_VALUE;
@@ -42,6 +40,18 @@ public class Frames {
         return frames.stream()
                 .map(Frame::getFrameView)
                 .collect(Collectors.toList());
+    }
+
+    public List<String> getScoreViews() {
+        List<String> scores = new ArrayList<>();
+
+        Integer totalScore = 0;
+        for(int i = 0 ; i < FRAME_MAX_VALUE ; ++i) {
+            totalScore = frames.get(i).getScoreView(totalScore);
+            scores.add(totalScore == null ? "   " : String.format("%-3d", totalScore));
+        }
+
+        return scores;
     }
 
     public boolean isEnd() {
