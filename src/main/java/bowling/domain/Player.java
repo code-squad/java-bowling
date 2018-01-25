@@ -1,5 +1,10 @@
 package bowling.domain;
 
+import bowling.domain.Score.Roll;
+import bowling.domain.frame.ScoreSheet;
+import bowling.domain.number.MaxCount;
+import bowling.domain.number.Pins;
+
 public class Player {
     private Name name;
     private ScoreSheet scoreSheet;
@@ -10,11 +15,19 @@ public class Player {
     }
 
     public void roll() {
-        Roll roll = new Roll();
+        scoreSheet.add(new Roll(scoreSheet.nextMaxCount()));
     }
 
-    public void roll(int pinCount) {
-        Roll roll = new Roll(pinCount);
+    public void roll(Pins downPins) {
+        scoreSheet.add(new Roll(downPins));
+    }
+
+    public boolean needToRoll() {
+        return scoreSheet.hasEmptyFrame();
+    }
+
+    public MaxCount nextMaxCount() {
+        return scoreSheet.nextMaxCount();
     }
 
     @Override

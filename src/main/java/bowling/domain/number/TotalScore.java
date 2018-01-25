@@ -1,4 +1,4 @@
-package bowling.domain;
+package bowling.domain.number;
 
 public class TotalScore {
     private int total;

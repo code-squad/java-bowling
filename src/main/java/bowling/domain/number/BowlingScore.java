@@ -1,4 +1,6 @@
-package bowling.domain;
+package bowling.domain.number;
+
+import bowling.domain.Score.Roll;
 
 import java.util.Arrays;
 
