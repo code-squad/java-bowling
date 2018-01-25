@@ -2,17 +2,32 @@ package domain.score;
 
 import java.util.Optional;
 
-public interface Score {
+public abstract class Score {
 
-    boolean isFinish();
+    final Pin first;
 
-    void addResult(Pin pin);
+    Pin second;
 
-    Optional<Integer> getFrameScore();
+    Score(Pin first) {
+        if (first == null) {
+            throw new IllegalArgumentException();
+        }
+        this.first = first;
+    }
 
-    boolean isStrike();
+    public boolean isStrike() {
+        return first.equals(Pin.TEN);
+    }
 
-    Integer getFirstScore();
+    public Integer getFirstScore() {
+        return first.toInt();
+    }
 
-    Optional<Integer> getSumOfScore();
+    public abstract boolean isFinish();
+
+    public abstract void addResult(Pin pin);
+
+    public abstract Optional<Integer> getFrameScore();
+
+    public abstract Optional<Integer> getSumOfScore();
 }

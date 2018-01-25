@@ -2,26 +2,11 @@ package domain.score;
 
 import java.util.Optional;
 
-public class NormalScore implements Score {
-    private final Pin first;
-
-    private Pin second;
-
-    private Pin left = Pin.TEN;
+public class NormalScore extends Score {
 
     public NormalScore(Pin first) {
-        this.first = first;
-        this.left = left.minus(first);
+        super(first);
         this.second = null;
-    }
-
-    @Override
-    public void addResult(Pin second) {
-        if (second == null) {
-            throw new IllegalArgumentException();
-        }
-        this.left = left.minus(second);
-        this.second = second;
     }
 
     @Override
@@ -30,21 +15,20 @@ public class NormalScore implements Score {
     }
 
     @Override
+    public void addResult(Pin second) {
+        if (second == null) {
+            throw new IllegalArgumentException();
+        }
+        this.first.add(second);
+        this.second = second;
+    }
+
+    @Override
     public Optional<Integer> getFrameScore() {
         if (!canCalculateFrameScore()) {
             return Optional.empty();
         }
         return Optional.of(first.toInt() + second.toInt());
-    }
-
-    @Override
-    public boolean isStrike() {
-        return first.equals(Pin.TEN);
-    }
-
-    @Override
-    public Integer getFirstScore() {
-        return first.toInt();
     }
 
     @Override
@@ -63,7 +47,7 @@ public class NormalScore implements Score {
     }
 
     private boolean isSpare() {
-        return second != null && left.equals(Pin.ZERO);
+        return second != null && second.isSpare(first);
     }
 
     @Override

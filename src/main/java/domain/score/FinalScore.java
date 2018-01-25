@@ -4,16 +4,12 @@ import java.util.Optional;
 
 import static domain.score.Pin.TEN;
 
-public class FinalScore implements Score {
-
-    private Pin first;
-
-    private Pin second;
+public class FinalScore extends Score {
 
     private Pin bonus;
 
     public FinalScore(Pin first) {
-        this.first = first;
+        super(first);
         this.bonus = null;
     }
 
@@ -49,26 +45,16 @@ public class FinalScore implements Score {
 
     @Override
     public Optional<Integer> getFrameScore() {
+        return getSumOfScore();
+    }
+
+    @Override
+    public Optional<Integer> getSumOfScore() {
         if (!isFinish()) {
             return Optional.empty();
         }
         int b = bonus == null ? 0 : bonus.toInt();
         return Optional.of(first.toInt() + second.toInt() + b);
-    }
-
-    @Override
-    public boolean isStrike() {
-        return first.isStrike();
-    }
-
-    @Override
-    public Integer getFirstScore() {
-        return first.toInt();
-    }
-
-    @Override
-    public Optional<Integer> getSumOfScore() {
-        return getFrameScore();
     }
 
     @Override

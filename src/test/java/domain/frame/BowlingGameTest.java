@@ -19,7 +19,7 @@ public class BowlingGameTest {
 
     @Test
     public void toString_Frames() throws Exception {
-        assertThat(bowlingGame.toString()).isEqualTo("| KKJ  |    |    |    |    |    |    |    |    |    |    |");
+        assertThat(bowlingGame.toString()).isEqualTo("| KKJ  |");
     }
 
 }
