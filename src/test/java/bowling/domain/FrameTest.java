@@ -11,7 +11,7 @@ public class FrameTest {
 
     @Before
     public void init() {
-        frame = new Frame();
+        frame = new NormalFrame(new FinalFrame());
     }
 
     @Test
@@ -74,5 +74,18 @@ public class FrameTest {
         assertThat(frame.isFrameEnd()).isFalse();
         frame.rollBowlingBall(new Pin(10));
         assertThat(frame.isFrameEnd()).isTrue();
+    }
+
+    @Test
+    public void getScoreViewTest() {
+        frame.rollBowlingBall(new Pin(8));
+        frame.rollBowlingBall(new Pin(1));
+        assertThat(frame.getScoreView(100)).isEqualTo(109);
+    }
+
+    @Test
+    public void getScoreViewTest2() {
+        frame.rollBowlingBall(new Pin(8));
+        assertThat(frame.getScoreView(100)).isEqualTo(null);
     }
 }

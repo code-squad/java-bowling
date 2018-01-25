@@ -3,9 +3,12 @@ package bowling.domain;
 import bowling.enums.FrameState;
 import bowling.util.PinUtil;
 
-public class Frame {
+import java.util.Optional;
+
+public abstract class Frame {
     protected Pin firstTry;
     protected Pin secondTry;
+    protected Integer score;
 
     public Frame() {
     }
@@ -59,5 +62,20 @@ public class Frame {
                 PinUtil.toView(firstTry),
                 PinUtil.toSplitor(secondTry),
                 PinUtil.toView(firstTry, secondTry));
+    }
+
+    public abstract Integer getFrameScore();
+
+    public abstract Integer calculateStrike();
+
+    public abstract Integer calculateSpare();
+
+    public Integer getScoreView(Integer totalScore) {
+        if(getFrameScore() == null)
+            return null;
+
+        return Optional.ofNullable(totalScore)
+                .map(s -> s + score)
+                .orElse(null);
     }
 }
