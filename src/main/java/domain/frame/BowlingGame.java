@@ -49,6 +49,10 @@ public class BowlingGame {
         this.scoreBoard.printGameResult(this);
     }
 
+    public String scores() {
+        return frames.scores();
+    }
+
     @Override
     public String toString() {
         return "| " + player + "  |" + frames.toString();

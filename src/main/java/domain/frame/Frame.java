@@ -3,6 +3,8 @@ package domain.frame;
 import domain.score.Pin;
 import domain.score.Score;
 
+import java.util.Optional;
+
 public abstract class Frame {
     private final Score score;
 
@@ -20,6 +22,24 @@ public abstract class Frame {
     boolean isFinish() {
         return score.isFinish();
     }
+
+    boolean isStrike() {
+        return score.isStrike();
+    }
+
+    Optional<Integer> calculateScore() {
+        return score.getTotalScore();
+    }
+
+    Integer getFirstScore() {
+        return score.getFirstScore();
+    }
+
+    Optional<Integer> getSecondScore() {
+        return score.getSecondScore();
+    }
+
+    abstract Optional<Integer> calculateAdditionalScore(Frame... f);
 
     @Override
     public String toString() {

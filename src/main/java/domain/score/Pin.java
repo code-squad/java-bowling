@@ -25,6 +25,10 @@ public class Pin {
         return fallPins + first.fallPins == 10;
     }
 
+    int toInt() {
+        return fallPins;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }

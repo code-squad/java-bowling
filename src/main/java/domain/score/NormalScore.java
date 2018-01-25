@@ -1,5 +1,7 @@
 package domain.score;
 
+import java.util.Optional;
+
 public class NormalScore implements Score {
     private final Pin first;
 
@@ -27,8 +29,34 @@ public class NormalScore implements Score {
         return isStrike() || second != null;
     }
 
-    private boolean isStrike() {
+    @Override
+    public Optional<Integer> getTotalScore() {
+        if (!canCalculate()) {
+            return Optional.empty();
+        }
+        if (isStrike()) {
+            return Optional.of(10);
+        }
+        return Optional.of(first.toInt() + second.toInt());
+    }
+
+    @Override
+    public boolean isStrike() {
         return first.equals(Pin.TEN);
+    }
+
+    @Override
+    public Integer getFirstScore() {
+        return first.toInt();
+    }
+
+    @Override
+    public Optional<Integer> getSecondScore() {
+        return Optional.of(second.toInt());
+    }
+
+    private boolean canCalculate() {
+        return !isStrike() && second != null && !second.isSpare(first);
     }
 
     private boolean isSpare() {
