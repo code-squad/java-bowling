@@ -29,6 +29,54 @@ public class FinalFrameTest {
   }
 
   @Test
+  public void 프레임_10_보너스_7_3_스페어() {
+    frame.roll(new BowlPin(10));
+    프레임_결과_조회(10, false, "X");
+
+    frame.roll(new BowlPin(7));
+    프레임_결과_조회(17, false, "X|7");
+
+    frame.roll(new BowlPin(3));
+    프레임_결과_조회(20, true, "X|7|/");
+  }
+
+  @Test
+  public void 프레임_10_보너스_7_2() {
+    frame.roll(new BowlPin(10));
+    프레임_결과_조회(10, false, "X");
+
+    frame.roll(new BowlPin(7));
+    프레임_결과_조회(17, false, "X|7");
+
+    frame.roll(new BowlPin(2));
+    프레임_결과_조회(19,true, "X|7|2");
+  }
+
+  @Test
+  public void 프레임_8_2_스페어_보너스_10() {
+    frame.roll(new BowlPin(8));
+    프레임_결과_조회(8, false, "8");
+
+    frame.roll(new BowlPin(2));
+    프레임_결과_조회(10, false, "8|/");
+
+    frame.roll(new BowlPin(10));
+    프레임_결과_조회(20, true, "8|/|X");
+  }
+
+  @Test
+  public void 프레임_8_2_스페어_보너스_8() {
+    frame.roll(new BowlPin(8));
+    프레임_결과_조회(8, false, "8");
+
+    frame.roll(new BowlPin(2));
+    프레임_결과_조회(10, false, "8|/");
+
+    frame.roll(new BowlPin(8));
+    프레임_결과_조회(18, true, "8|/|8");
+  }
+
+  @Test
   public void 프레임_7_2_미스() {
     frame.roll(new BowlPin(7));
     프레임_결과_조회(7, false, "7");

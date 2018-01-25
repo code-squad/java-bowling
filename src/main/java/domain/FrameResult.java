@@ -6,11 +6,11 @@ public class FrameResult {
 
   public FrameResult() {}
 
-  public void addResult(String result) {
+  public void setResult(String result) {
     this.result = result;
   }
 
   public String getResult() {
-    return result;
+    return result != null ? result : "";
   }
 }

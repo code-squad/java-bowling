@@ -42,7 +42,7 @@ public class Gutter implements State {
 
   @Override
   public int getScore() {
-    return 0;
+    return hasSecondBowlPins() ? firstBowlPins.sum(secondBowlPins) : firstBowlPins.getPins();
   }
 
   @Override

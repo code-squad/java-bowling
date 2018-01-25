@@ -44,7 +44,6 @@ public class NoneState implements State {
     }
 
     firstBowlPins = fallenPins;
-    frame.changeState(this);
   }
 
   private boolean hasFirstBowlPins() {

@@ -11,17 +11,21 @@ import java.util.stream.IntStream;
 
 public class BowlingWorker {
 
+  private static final int FRAME_SIZE = 10;
   private List<Player> players = new ArrayList<>();
   private Frames frames;
 
   public Player createBowlGame(String name) {
     frames = new Frames();
-    IntStream.rangeClosed(1, 9).forEach(i -> {
-      frames.add(new NormalFrame());
-    });
-    frames.add(new FinalFrame());
-
     FrameResults results = new FrameResults();
+    IntStream.rangeClosed(1, FRAME_SIZE - 1).forEach(i -> {
+      frames.add(new NormalFrame());
+      results.add(i, new FrameResult());
+    });
+
+    frames.add(new FinalFrame());
+    results.add(FRAME_SIZE, new FrameResult());
+
     Player player = new Player(name, results);
     players.add(player);
     return player;
@@ -31,7 +35,7 @@ public class BowlingWorker {
     Frame frame = frames.get(round);
     frame.roll(new BowlPin(pins));
     FrameResult result = new FrameResult();
-    result.addResult(frame.getResult());
+    result.setResult(frame.getResult());
     return result;
   }
 

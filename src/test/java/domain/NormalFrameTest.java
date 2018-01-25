@@ -19,19 +19,19 @@ public class NormalFrameTest {
   }
 
   @Test
-  public void 프레임_스트라이크_현재프레임_종료() {
+  public void 프레임_10_스트라이크() {
     frame.roll(new BowlPin(10));
     프레임_결과_조회(10, true, "X");
   }
 
   @Test
-  public void 프레임_첫번째_시도_거터() {
+  public void 프레임_0_거터() {
     frame.roll(new BowlPin(0));
     프레임_결과_조회(0, false, "-");
   }
 
   @Test
-  public void 프레임_첫번째_두번째_시도_모두_거터() {
+  public void 프레임_0_0_거터() {
     frame.roll(new BowlPin(0));
     프레임_결과_조회(0, false, "-");
 
@@ -40,7 +40,7 @@ public class NormalFrameTest {
   }
 
   @Test
-  public void 프레임_첫번째_거터_두번째_스패어() {
+  public void 프레임_0_10_스패어() {
     frame.roll(new BowlPin(0));
     프레임_결과_조회(0, false, "-");
 
@@ -49,7 +49,7 @@ public class NormalFrameTest {
   }
 
   @Test
-  public void 프레임_첫번째_거터_두번째_미스() {
+  public void 프레임_0_거터_8_미스() {
     frame.roll(new BowlPin(0));
     프레임_결과_조회(0, false, "-");
 
@@ -58,17 +58,16 @@ public class NormalFrameTest {
   }
 
   @Test
-  public void 프레임_첫번째_NoneState_두번째_거터() {
+  public void 프레임_5_0_거터() {
     frame.roll(new BowlPin(5));
     프레임_결과_조회(5, false, "5");
 
     frame.roll(new BowlPin(0));
-    //todo:5점나오게 처리
-    프레임_결과_조회(0, true, "5|-");
+    프레임_결과_조회(5, true, "5|-");
   }
 
   @Test
-  public void 프레임_첫번째_두번째_합친결과_미스() {
+  public void 프레임_7_2_미스() {
     frame.roll(new BowlPin(7));
     프레임_결과_조회(7, false, "7");
 
@@ -77,7 +76,7 @@ public class NormalFrameTest {
   }
 
   @Test
-  public void 프레임_스페어_처리() {
+  public void 프레임_3_7_스페어() {
     frame.roll(new BowlPin(3));
     프레임_결과_조회(3, false, "3");
 

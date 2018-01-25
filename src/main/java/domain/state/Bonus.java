@@ -14,18 +14,9 @@ public class Bonus implements State {
     this.firstBowlPins = firstBowlPins;
   }
 
-  public Bonus(Frame frame, BowlPin firstBowlPins, BowlPin secondBowlPins) {
-    this.frame = frame;
-    this.firstBowlPins = firstBowlPins;
-    this.secondBowlPins = secondBowlPins;
-  }
-
   @Override
   public void roll(BowlPin fallenPins) {
-    if (fallenPins.isStrike()) {
-      this.secondBowlPins = fallenPins;
-      return;
-    }
+    this.secondBowlPins = fallenPins;
   }
 
   @Override
@@ -43,7 +34,14 @@ public class Bonus implements State {
 
   @Override
   public String toString() {
-    return hasSecondBowlPins() ? firstBowlPins + "|" + secondBowlPins : firstBowlPins + "";
+    return hasSecondBowlPins() ? spareDisplay() : firstBowlPins + "";
+  }
+
+  private String spareDisplay() {
+    if (firstBowlPins.isSpare(secondBowlPins)) {
+      return firstBowlPins + "|/";
+    }
+    return firstBowlPins + "|" + secondBowlPins;
   }
 
   private boolean hasSecondBowlPins() {
