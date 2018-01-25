@@ -27,7 +27,7 @@ public class Players {
     public Player rotate(Player currentPlayer) {
         currentPlayer.frameNoUpdate();
 
-        int idx = players.indexOf(currentPlayer) + 1 % players.size();
+        int idx = (players.indexOf(currentPlayer) + 1) % players.size();
 
         return players.get(idx);
     }
