@@ -30,12 +30,9 @@ public class NormalScore implements Score {
     }
 
     @Override
-    public Optional<Integer> getTotalScore() {
-        if (!canCalculate()) {
+    public Optional<Integer> getFrameScore() {
+        if (!canCalculateFrameScore()) {
             return Optional.empty();
-        }
-        if (isStrike()) {
-            return Optional.of(10);
         }
         return Optional.of(first.toInt() + second.toInt());
     }
@@ -51,11 +48,17 @@ public class NormalScore implements Score {
     }
 
     @Override
-    public Optional<Integer> getSecondScore() {
-        return Optional.of(second.toInt());
+    public Optional<Integer> getSumOfScore() {
+        if (isStrike()) {
+            return Optional.of(10);
+        }
+        if (second == null) {
+            return Optional.empty();
+        }
+        return Optional.of(first.toInt() + second.toInt());
     }
 
-    private boolean canCalculate() {
+    private boolean canCalculateFrameScore() {
         return !isStrike() && second != null && !second.isSpare(first);
     }
 

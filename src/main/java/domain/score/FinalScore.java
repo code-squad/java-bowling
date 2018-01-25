@@ -48,8 +48,8 @@ public class FinalScore implements Score {
     }
 
     @Override
-    public Optional<Integer> getTotalScore() {
-        if (!canCalculate()) {
+    public Optional<Integer> getFrameScore() {
+        if (!isFinish()) {
             return Optional.empty();
         }
         int b = bonus == null ? 0 : bonus.toInt();
@@ -67,15 +67,8 @@ public class FinalScore implements Score {
     }
 
     @Override
-    public Optional<Integer> getSecondScore() {
-        if (second == null) {
-            return Optional.empty();
-        }
-        return Optional.of(second.toInt());
-    }
-
-    private boolean canCalculate() {
-        return isFinish();
+    public Optional<Integer> getSumOfScore() {
+        return getFrameScore();
     }
 
     @Override

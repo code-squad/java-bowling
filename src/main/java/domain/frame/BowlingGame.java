@@ -24,6 +24,10 @@ public class BowlingGame {
                  .forEach(this::playBowling);
     }
 
+    public String scores() {
+        return frames.scores();
+    }
+
     private void playBowling(int frameNo) {
         Pin pin = player.play(frameNo);
         Frame frame = nextFrame(pin, frameNo);
@@ -34,10 +38,6 @@ public class BowlingGame {
         playBowlingUntilFinished(frame, frameNo);
     }
 
-    private Frame nextFrame(Pin pin, int frameNo) {
-        return frameNo == 10 ? new FinalFrame(pin) : new NormalFrame(pin);
-    }
-
     private void playBowlingUntilFinished(Frame frame, int frameNo) {
         while (!frame.isFinish()) {
             frame.addResult(player.play(frameNo));
@@ -45,12 +45,13 @@ public class BowlingGame {
         }
     }
 
-    private void notifyFrameChanged() {
-        this.scoreBoard.printGameResult(this);
+    private Frame nextFrame(Pin pin, int frameNo) {
+        return frameNo == 10 ? new FinalFrame(pin) : new NormalFrame(pin);
     }
 
-    public String scores() {
-        return frames.scores();
+    private void notifyFrameChanged() {
+        frames.updateScore();
+        scoreBoard.printGameResult(this);
     }
 
     @Override

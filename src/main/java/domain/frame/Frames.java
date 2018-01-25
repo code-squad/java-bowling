@@ -18,7 +18,6 @@ public class Frames {
     }
 
     String scores() {
-        updateScore();
         if (scores.isEmpty()) {
             return "|      |";
         }
@@ -27,7 +26,7 @@ public class Frames {
                                   .collect(Collectors.joining("|")) + "|";
     }
 
-    private void updateScore() {
+    void updateScore() {
         int index = scores.size();
         Optional<Integer> score = getScoreOfFrame(index);
         score.ifPresent(s -> {

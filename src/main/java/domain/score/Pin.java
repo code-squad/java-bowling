@@ -13,16 +13,23 @@ public class Pin {
         this.fallPins = fallPins;
     }
 
-    boolean isStrike() {
-        return fallPins == 10;
-    }
-
     Pin minus(Pin first) {
         return new Pin(fallPins - first.fallPins);
     }
 
-    boolean isSpare(Pin first) {
-        return fallPins + first.fallPins == 10;
+    Pin add(Pin p2) {
+        return new Pin(p2.fallPins + this.fallPins);
+    }
+
+    boolean isStrike() {
+        return ScoreType.valueOf(this) == ScoreType.STRIKE;
+    }
+
+    boolean isSpare(Pin p) {
+        if (p.isStrike() || this.isStrike()) {
+            return false;
+        }
+        return ScoreType.valueOf(this, p) == ScoreType.SPARE;
     }
 
     int toInt() {

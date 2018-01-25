@@ -8,11 +8,11 @@ public interface Score {
 
     void addResult(Pin pin);
 
-    Optional<Integer> getTotalScore();
+    Optional<Integer> getFrameScore();
 
     boolean isStrike();
 
     Integer getFirstScore();
 
-    Optional<Integer> getSecondScore();
+    Optional<Integer> getSumOfScore();
 }
