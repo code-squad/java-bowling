@@ -2,6 +2,7 @@ package bowling.domain.Score;
 
 import bowling.domain.number.BowlingScore;
 import bowling.domain.number.MaxCount;
+import bowling.domain.number.Roll;
 import bowling.util.ScoreAssistance;
 
 public class FinalScoreCell {
@@ -12,9 +13,13 @@ public class FinalScoreCell {
     public FinalScoreCell() {
     }
 
-    public FinalScoreCell(FinalScoreCell cell) {
-        this.score = cell.score;
-        this.bonusRoll = cell.bonusRoll;
+    public FinalScoreCell(FinalScore score) {
+        this.score = score;
+    }
+
+    public FinalScoreCell(FinalScore score, Roll bonusRoll) {
+        this.score = score;
+        this.bonusRoll = bonusRoll;
     }
 
     public boolean hasEmptyScore() {
@@ -36,10 +41,9 @@ public class FinalScoreCell {
         if (isTimeToFillBonusRoll()) {
             if (!score.isSpared()) throw new IllegalArgumentException();
             bonusRoll = roll;
-            return this;
+            return new FinalScoreCell(score, bonusRoll);
         }
-        score = new FinalScore(score.add(roll));
-        return this;
+        return new FinalScoreCell(score.add(roll));
     }
 
     private BowlingScore bonusRollScore() {
@@ -64,7 +68,7 @@ public class FinalScoreCell {
     @Override
     public String toString() {
         String temp = score == null ? "" : score.toString();
-        temp += bonusRoll == null ? "" : "|" + bonusRollScore().toString();
+        temp += bonusRoll == null ? "" : "|" + bonusRollScore().getString();
         return temp;
     }
 }

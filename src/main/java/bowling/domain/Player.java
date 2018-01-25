@@ -1,9 +1,8 @@
 package bowling.domain;
 
-import bowling.domain.Score.Roll;
+import bowling.domain.number.Roll;
 import bowling.domain.frame.ScoreSheet;
 import bowling.domain.number.MaxCount;
-import bowling.domain.number.Pins;
 
 public class Player {
     private Name name;
@@ -18,7 +17,7 @@ public class Player {
         scoreSheet.add(new Roll(scoreSheet.nextMaxCount()));
     }
 
-    public void roll(Pins downPins) {
+    public void roll(Integer downPins) {
         scoreSheet.add(new Roll(downPins));
     }
 

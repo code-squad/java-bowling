@@ -2,6 +2,7 @@ package bowling.domain.Score;
 
 import bowling.domain.number.BowlingScore;
 import bowling.domain.number.MaxCount;
+import bowling.domain.number.Roll;
 import bowling.util.ScoreAssistance;
 
 import java.util.Arrays;
@@ -15,13 +16,13 @@ public class Score {
     public Score() {
     }
 
-    public Score (Score score) {
-        this.first = score.first;
-        this.second = score.second;
-    }
-
     public Score(Roll first) {
         this.first = first;
+    }
+
+    public Score (Roll first, Roll second) {
+        this.first = first;
+        this. second = second;
     }
 
     public BowlingScore toBowlingScore() {
@@ -58,11 +59,11 @@ public class Score {
         if (!isEmpty()) throw new IllegalArgumentException();
         if (first == null) {
             first = roll;
-            return this;
+            return new Score(first);
         }
         second = roll;
         if (isOverMaxCount()) throw new IllegalArgumentException();
-        return  this;
+        return new Score(first, second);
     }
 
     public MaxCount calcMaxDownCount() {
@@ -73,14 +74,14 @@ public class Score {
     @Override
     public String toString() {
         if (first == null) return "";
-        if (isStrike()) return BowlingScore.STRIKE.toString();
-        if (second == null) return first.toBowlingScore().toString();
+        if (isStrike()) return BowlingScore.STRIKE.getString();
+        if (second == null) return first.toBowlingScore().getString();
         BowlingScore secondScore = toBowlingScore();
         if (secondScore == BowlingScore.MISS) {
             secondScore = second.toBowlingScore();
         }
         return Arrays.asList(first.toBowlingScore(), secondScore).stream()
-                .map(BowlingScore::toString)
+                .map(BowlingScore::getString)
                 .collect(Collectors.joining("|"));
     }
 }

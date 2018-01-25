@@ -2,6 +2,7 @@ package bowling.domain.Score;
 
 import bowling.domain.number.BowlingScore;
 import bowling.domain.number.MaxCount;
+import bowling.domain.number.Roll;
 import bowling.util.ScoreAssistance;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class FinalScore {
         this.first = first;
     }
 
-    public FinalScore(FinalScore score) {
-        this.first = score.first;
-        this.second = score.second;
+    public FinalScore(Roll first, Roll second) {
+        this.first = first;
+        this.second = second;
     }
 
     private BowlingScore toBowlingScore(Roll roll) {
@@ -50,10 +51,10 @@ public class FinalScore {
     public FinalScore add(Roll roll) {
         if (first == null) {
             first = roll;
-            return this;
+            return new FinalScore(first);
         }
         second = roll;
-        return  this;
+        return new FinalScore(first, second);
     }
 
     public MaxCount calcNextMaxCount() {
@@ -65,13 +66,13 @@ public class FinalScore {
     @Override
     public String toString() {
         if (first == null) return "";
-        if (second == null) return toBowlingScore(first).toString();
+        if (second == null) return toBowlingScore(first).getString();
         BowlingScore secondScore = isSpared() ? BowlingScore.SPARE : second.toBowlingScore();
         if (first.isSpare() && second.isSpare()) {
             secondScore = BowlingScore.STRIKE;
         }
         return Arrays.asList(toBowlingScore(first), secondScore).stream()
-                .map(BowlingScore::toString)
+                .map(BowlingScore::getString)
                 .collect(Collectors.joining("|"));
     }
 }

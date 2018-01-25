@@ -1,8 +1,7 @@
 package bowling.domain;
 
-import bowling.domain.Score.Roll;
+import bowling.domain.number.Roll;
 import bowling.domain.frame.Frames;
-import bowling.domain.number.Pins;
 import bowling.io.OutPutView;
 import org.junit.Test;
 
@@ -14,7 +13,7 @@ public class FramesTest {
         int frameCount = 9;
         Frames frames = new Frames();
 
-        frames.add(new Roll(new Pins(0)));
+        frames.add(new Roll(0));
 
         // 1Frame
         String expect = OutPutView.frameFormat("-");
@@ -22,13 +21,13 @@ public class FramesTest {
         assertEquals(expect, frames.toString());
 
         // 1Frame
-        frames.add(new Roll(new Pins(0)));
+        frames.add(new Roll(0));
         expect = OutPutView.frameFormat("-|-");
         expect += forText(1, frameCount, "");
         assertEquals(expect, frames.toString());
 
         // 2Frame
-        frames.add(new Roll(new Pins(10)));
+        frames.add(new Roll(10));
         expect = OutPutView.frameFormat("-|-");
         expect += OutPutView.frameFormat("X");
         expect += forText(2, frameCount, "");
@@ -37,7 +36,7 @@ public class FramesTest {
         // 3-8Frame
         int startFrame = 3;
         for(int frame=startFrame; frame<frameCount; frame++) {
-            frames.add(new Roll(new Pins(10)));
+            frames.add(new Roll(10));
             expect = OutPutView.frameFormat("-|-");
             expect += forText(1,frame,"X");
             expect += forText(frame, frameCount, "");
@@ -45,14 +44,14 @@ public class FramesTest {
         }
 
         // 9Frame
-        frames.add(new Roll(new Pins(10)));
+        frames.add(new Roll(10));
         expect = OutPutView.frameFormat("-|-");
         expect += forText(1,9,"X");
         expect += forText(9, frameCount, "");
         assertEquals(expect, frames.toString());
 
         // IllegalArgumentException
-        frames.add(new Roll(new Pins(10)));
+        frames.add(new Roll(10));
     }
 
     private String forText(int from, int to, String text) {

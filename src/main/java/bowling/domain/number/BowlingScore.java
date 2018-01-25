@@ -1,25 +1,29 @@
 package bowling.domain.number;
 
-import bowling.domain.Score.Roll;
-
 import java.util.Arrays;
 
 public enum BowlingScore {
-    GUTTER,
-    ONE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    SPARE,
-    STRIKE,
-    MISS;
+    GUTTER("-"),
+    ONE("1"),
+    TWO("2"),
+    THREE("3"),
+    FOUR("4"),
+    FIVE("5"),
+    SIX("6"),
+    SEVEN("7"),
+    EIGHT("8"),
+    NINE("9"),
+    SPARE("/"),
+    STRIKE("X"),
+    MISS("");
 
     private static final BowlingScore[] ENUMS = BowlingScore.values();
+    private String string;
+
+
+    BowlingScore(String string) {
+        this.string = string;
+    }
 
     public int getValue() {
         return this.ordinal();
@@ -31,27 +35,7 @@ public enum BowlingScore {
                 .findFirst().get();
     }
 
-    @Override
-    public String toString() {
-        switch (this) {
-            case GUTTER:
-                return "-";
-            case SPARE:
-                return "/";
-            case STRIKE:
-                return "X";
-            case ONE:
-            case TWO:
-            case THREE:
-            case FOUR:
-            case FIVE:
-            case SIX:
-            case SEVEN:
-            case EIGHT:
-            case NINE:
-                return String.valueOf(this.ordinal());
-            default:
-                return "";
-        }
+    public String getString() {
+        return string;
     }
 }

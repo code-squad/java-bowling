@@ -1,7 +1,7 @@
 package bowling.domain.frame;
 
-import bowling.domain.Score.Roll;
 import bowling.domain.number.MaxCount;
+import bowling.domain.number.Roll;
 
 public class ScoreSheet {
     private Frames frames;
@@ -22,7 +22,7 @@ public class ScoreSheet {
             return;
         }
         if (finalFrame.hasEmptyFrame()) {
-            finalFrame = new FinalFrame(finalFrame.add(roll));
+            finalFrame = finalFrame.add(roll);
         }
     }
 

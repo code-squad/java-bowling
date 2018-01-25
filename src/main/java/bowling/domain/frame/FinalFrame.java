@@ -1,8 +1,8 @@
 package bowling.domain.frame;
 
 import bowling.domain.Score.FinalScoreCell;
-import bowling.domain.Score.Roll;
 import bowling.domain.number.MaxCount;
+import bowling.domain.number.Roll;
 import bowling.domain.number.TotalScore;
 import bowling.io.OutPutView;
 
@@ -14,9 +14,8 @@ public class FinalFrame {
     public FinalFrame() {
     }
 
-    public FinalFrame(FinalFrame frame) {
-        this.totalScore = frame.totalScore;
-        this.score = frame.score;
+    public FinalFrame(FinalScoreCell score) {
+        this.score = score;
     }
 
     public boolean hasEmptyFrame() {
@@ -28,8 +27,7 @@ public class FinalFrame {
         if (score == null) {
             score = new FinalScoreCell();
         }
-        score = new FinalScoreCell(score.add(roll));
-        return this;
+        return new FinalFrame(score.add(roll));
     }
 
     public MaxCount nextMaxCount() {

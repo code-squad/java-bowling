@@ -1,8 +1,8 @@
 package bowling.domain.frame;
 
-import bowling.domain.Score.Roll;
 import bowling.domain.Score.Score;
 import bowling.domain.number.MaxCount;
+import bowling.domain.number.Roll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class Frames {
         if (!hasEmptyFrame()) throw new IllegalArgumentException();
         for (int i = 0; i < frames.size(); i++) {
             if (frames.get(i).hasEmptyScore()) {
-                frames.set(i, new Frame(frames.get(i).add(roll)));
+                frames.set(i, new Frame(frames.get(i).add(roll), frames.get(i).calcTotal()));
                 break;
             }
         }

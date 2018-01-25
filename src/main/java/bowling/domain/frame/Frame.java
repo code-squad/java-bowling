@@ -1,8 +1,8 @@
 package bowling.domain.frame;
 
-import bowling.domain.Score.Roll;
 import bowling.domain.Score.Score;
 import bowling.domain.number.MaxCount;
+import bowling.domain.number.Roll;
 import bowling.domain.number.TotalScore;
 import bowling.io.OutPutView;
 
@@ -18,26 +18,29 @@ public class Frame {
         this.score = score;
     }
 
-    public Frame(Frame frame) {
-        this.totalScore = frame.totalScore;
-        this.score = frame.score;
+    public Frame(Score score, TotalScore totalScore) {
+        this.totalScore = totalScore;
+        this.score = score;
     }
 
     public boolean hasEmptyScore() {
         return score == null ? true : score.isEmpty();
     }
 
-    public Frame add(Roll roll) {
+    public Score add(Roll roll) {
         if (score == null) {
             score = new Score();
         }
         if (!score.isEmpty()) throw new IllegalArgumentException();
-        score = new Score(score.add(roll));
-        return this;
+        return score.add(roll);
     }
 
     public MaxCount nextMaxCount() {
         return score.calcMaxDownCount();
+    }
+
+    public TotalScore calcTotal() {
+        return totalScore;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package bowling.domain;
 
-import bowling.domain.Score.Roll;
+import bowling.domain.Score.Score;
+import bowling.domain.number.Roll;
 import bowling.domain.frame.Frame;
-import bowling.domain.number.Pins;
 import bowling.io.OutPutView;
 import org.junit.Test;
 
@@ -17,29 +17,28 @@ public class FrameTest {
 
         Frame gutter = new Frame();
         assertEquals(OutPutView.frameFormat(""),gutter.toString());
-        Frame newGutter = gutter.add(new Roll(new Pins(0)));
-        assertEquals(OutPutView.frameFormat("-"),newGutter.toString());
-        Frame gutterGutter = gutter.add(new Roll(new Pins(0)));
-        assertEquals(OutPutView.frameFormat("-|-"),gutterGutter.toString());
+        Score newGutter = gutter.add(new Roll(0));
+        assertEquals("-",newGutter.toString());
+        Score gutterGutter = gutter.add(new Roll(0));
+        assertEquals("-|-",gutterGutter.toString());
 
-        Frame spare = new Frame().add(new Roll(new Pins(2)));
-        assertEquals(OutPutView.frameFormat("2"),spare.toString());
-        Frame spared = spare.add(new Roll(new Pins(8)));
-        assertEquals(OutPutView.frameFormat("2|/"),spared.toString());
+        Score spare = new Frame().add(new Roll(2));
+        assertEquals("2",spare.toString());
+        Score spared = spare.add(new Roll(8));
+        assertEquals("2|/",spared.toString());
 
         Frame eight = new Frame();
-        assertEquals(OutPutView.frameFormat(""),eight.toString());
-        Frame newFrame = eight.add(new Roll(new Pins(8)));
-        assertEquals(OutPutView.frameFormat("8"),newFrame.toString());
-        Frame eightBarEight = eight.add(new Roll(new Pins(8)));
-        assertEquals(OutPutView.frameFormat("8|8"),eightBarEight.toString());
-        Frame exceptionOccurred = eight.add(new Roll(new Pins(8)));
+        Score newFrame = eight.add(new Roll(8));
+        assertEquals("8",newFrame.toString());
+        Score eightBarEight = eight.add(new Roll(8));
+        assertEquals("8|8",eightBarEight.toString());
+        Score exceptionOccurred = eight.add(new Roll(8));
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void 프레임_준비_Score_스트라이크_1개_초과_예외처리_add() {
-        Frame strike = new Frame().add(new Roll(new Pins(10)));
-        Frame exceptionOccurred = strike.add(new Roll(new Pins(0)));
+        Score strike = new Frame().add(new Roll(10));
+        Score exceptionOccurred = strike.add(new Roll(0));
     }
 
     @Test
@@ -47,29 +46,28 @@ public class FrameTest {
         Frame frame = new Frame();
         assertTrue(frame.hasEmptyScore());
 
-        assertTrue(frame.add(new Roll(new Pins(8))).hasEmptyScore());
-        assertFalse(frame.add(new Roll(new Pins(0))).hasEmptyScore());
+        assertTrue(frame.add(new Roll(8)).isEmpty());
+        assertFalse(frame.add(new Roll(0)).isEmpty());
     }
 
     @Test
     public void 현재_프레임_찾기() {
         Player abc = new Player(new Name("abc"));
         assertEquals(1, abc.currentFrame());
-        abc.roll(new Pins(9));
+        abc.roll(9);
         assertEquals(1, abc.currentFrame());
-        abc.roll(new Pins(0));
+        abc.roll(0);
         assertEquals(2, abc.currentFrame());
         for (int i = 3; i < 10; i++) {
-            abc.roll(new Pins(10));
+            abc.roll(10);
             assertEquals(i, abc.currentFrame());
         }
         assertEquals(9, abc.currentFrame());
 
-        abc.roll(new Pins(10));
-        assertEquals(10, abc.currentFrame());
-        abc.roll(new Pins(10));
-        assertEquals(10, abc.currentFrame());
-        abc.roll(new Pins(10));
-        assertEquals(10, abc.currentFrame());
+        // 10프레임은 3번까지 가능하므로,
+        for (int i = 0; i < 3; i++) {
+            abc.roll(10);
+            assertEquals(10, abc.currentFrame());
+        }
     }
 }
