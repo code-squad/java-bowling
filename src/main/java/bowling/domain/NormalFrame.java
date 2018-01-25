@@ -105,7 +105,7 @@ public class NormalFrame implements Frame {
         return thisTry.get().getDownMessage();
     }
 
-    boolean isSpareOrStrike() {
+    protected boolean isSpareOrStrike() {
         return isSpare() || isStrike(firstTry);
     }
 }
