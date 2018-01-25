@@ -19,6 +19,7 @@ public class OutputView {
                     System.out.print("|      |");
                     result.getScoreViews()
                             .forEach(score -> System.out.print("  " + score + " |"));
+                    System.out.println();
                 });
         System.out.println();
     }
