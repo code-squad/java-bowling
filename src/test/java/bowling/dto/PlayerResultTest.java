@@ -1,6 +1,5 @@
 package bowling.dto;
 
-import bowling.dto.PlayerResult;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,17 +12,17 @@ public class PlayerResultTest {
 
     @Before
     public void init() {
-        playerResult = new PlayerResult("KKH", Arrays.asList("   ", "   "));
+        playerResult = new PlayerResult("KKH", Arrays.asList("   ", "   "), Arrays.asList("   ", "   "));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void invalidInputTest() {
-        new PlayerResult("KKH", null);
+        new PlayerResult("KKH", null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void invalidInputTest2() {
-        new PlayerResult("KKH", Arrays.asList());
+        new PlayerResult("KKH", Arrays.asList(), null);
     }
 
     @Test
