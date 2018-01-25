@@ -59,4 +59,12 @@ public abstract class Frame {
     public boolean hasStrikeOrSpare() {
         return score.hasStrikeOrSpare();
     }
+
+    public Integer calculateLast() {
+        return score.calculateIfExist();
+    }
+
+    public boolean hasAnyScore(){
+        return score.hasAnyScore();
+    }
 }

@@ -23,7 +23,6 @@ public enum Score {
     }
 
     public static Score valueOf(Integer numberOfFallingPins, Integer totalNumberOfPins) {
-        System.out.println(totalNumberOfPins+ " " + numberOfFallingPins);
         if (isOverNumberOfPins((totalNumberOfPins - numberOfFallingPins))){
             throw new IllegalArgumentException(totalNumberOfPins + "한 프레임 당 볼링 핀의 수는 10개 입니다.");
         }

@@ -47,9 +47,12 @@ public class ScoreStrategy {
         }
         if (numberOfNextTrials == 0){
             if (!queueToCalculate.isEmpty()) {
-                Integer result = queueToCalculate.get(0).calculateWithNextFrame(currentFrame);
+                BowlingScore beforeScore = queueToCalculate.get(0);
+                Integer result = beforeScore.calculateWithNextFrame(currentFrame);
                 queueToCalculate.remove(0);
-                queueToCalculate.add(currentFrame.getScore());
+                if (!beforeScore.equals(currentFrame.getScore())){
+                    queueToCalculate.add(currentFrame.getScore());
+                }
                 return result;
             }
             return currentFrame.addFirstAndSecond();
@@ -58,8 +61,19 @@ public class ScoreStrategy {
         return 0;
     }
 
+    public Integer calculateLast() {
+        if (!queueToCalculate.isEmpty()){
+            BowlingScore beforeScore = queueToCalculate.get(0);
+            return beforeScore.calculateIfExist();
+        }
+        return 0;
+    }
+
     public boolean stillCanCalculate() {
-        System.out.println(queueToCalculate);
         return !queueToCalculate.isEmpty() && !queueToCalculate.get(0).hasStrikeOrSpare();
+    }
+
+    public boolean hasNotEmptyQueue() {
+        return !queueToCalculate.isEmpty();
     }
 }

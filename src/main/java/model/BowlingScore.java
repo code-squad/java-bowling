@@ -94,12 +94,26 @@ public class BowlingScore {
             return currentFrame.addFirstAndSecond() + 10;
         }
         if (hasSpare(secondScore)) {
-            return currentFrame.addOnlyFirst() + 2;
+            return currentFrame.addOnlyFirst() + 2 + getFirst();
         }
-        return 0;
+        if (hasAllScore()){
+            return currentFrame.addFirstAndSecond();
+        }
+        return currentFrame.addOnlyFirst();
     }
 
     public boolean hasStrikeOrSpare() {
         return hasStrike(firstScore) || hasSpare(secondScore);
+    }
+
+    public Integer calculateIfExist() {
+        if (hasAllScore()) {
+            return addFirstAndSecond();
+        }
+        return addOnlyFirst();
+    }
+
+    private Integer addOnlyFirst() {
+        return Integer.valueOf(Score.of(firstScore));
     }
 }

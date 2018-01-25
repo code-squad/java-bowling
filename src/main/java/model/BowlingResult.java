@@ -57,4 +57,17 @@ public class BowlingResult {
     public boolean stillCanCalculate() {
         return scoreStrategy.stillCanCalculate();
     }
+
+    public void calculateLast(Integer value) {
+        Integer result = 0;
+        if (!scores.isEmpty()) {
+            result = scores.get(scores.size() - 1);
+            result += value;
+        }
+        scores.add(result);
+    }
+
+    public boolean hasNotEmptyQueue() {
+        return scoreStrategy.hasNotEmptyQueue();
+    }
 }
