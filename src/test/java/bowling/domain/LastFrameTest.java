@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class LastFrameTest extends FrameDefaultTest {
+public class LastFrameTest extends FrameTest {
     @Before
     public void setUp() {
         super.frame = new LastFrame();
@@ -107,6 +107,14 @@ public class LastFrameTest extends FrameDefaultTest {
         testTry(10);
         testTry(10);
         assertEquals("X|X ", frame.showMessage());
+    }
+
+    @Test
+    public void doubleStrikeAnd() {
+        testTry(10);
+        testTry(10);
+        testTry(4);
+        assertEquals("X|X|4", frame.showMessage());
     }
 
     @Test

@@ -2,63 +2,61 @@ package bowling.domain;
 
 import java.util.Optional;
 
-public class LastFrame extends Frame {
-    private Optional<Try> thirdTry = Optional.empty();
+public class LastFrame implements Frame {
+    private Optional<Try> thirdTry;
+    private NormalFrame normalFrame;
+
+    public LastFrame() {
+        thirdTry = Optional.empty();
+        normalFrame = new NormalFrame();
+    }
 
     @Override
     public boolean notYet() {
-        return !(firstTry.isPresent() && secondTry.isPresent())
-                || (!thirdTry.isPresent() && isSpecial());
-    }
-
-    private boolean isSpecial() {
-        return isSpare() || isStrike(firstTry);
+        return !(normalFrame.isPresentEverything())
+                || (!thirdTry.isPresent() && normalFrame.isSpareOrStrike());
     }
 
     @Override
-    protected boolean setTryInner(Try eachTry) {
-        if ( !super.setTryInner(eachTry) && !thirdTry.isPresent()) {
+    public void setTry(Try eachTry) {
+        if ( !notYet()) {
+            throw new IllegalStateException("setTry is not valid, try=" + eachTry);
+        }
+        setTryInner(eachTry);
+        validate();
+    }
+
+    private boolean setTryInner(Try eachTry) {
+        if ( !normalFrame.setTryInner(eachTry) && !thirdTry.isPresent()) {
             thirdTry = Optional.of(eachTry);
             return true;
         }
         return false;
     }
 
-    @Override
-    protected void validate() {
-        if ( !isStrike(firstTry)) {
-            firstTry.orElse(Try.empty())
-                    .validate(secondTry.orElse(Try.empty()));
+    private void validate() {
+        if ( !normalFrame.isFirstStrike()) {
+            normalFrame.validate();
         }
 
-        if ( !isSpare() && !isStrike(secondTry)) {
-            secondTry.orElse(Try.empty())
-                    .validate(thirdTry.orElse(Try.empty()));
+        if ( !normalFrame.isSpare() && !normalFrame.isSecondStrike()) {
+            normalFrame.validateWithSecondAnd(thirdTry);
         }
-
     }
 
     @Override
     public String showMessage() {
-        if ( !isSpecial()) {
-            return super.showMessage();
+        if (normalFrame.isSecondStrike()) {
+            return "X|X" + (normalFrame.isStrike(thirdTry) ? "|X" : getThirdDownMessage());
         }
 
-        if (!secondTry.isPresent()) {
-            return super.showMessage();
-        }
-
-        if (isStrike(secondTry)) {
-            return "X|X" + (isStrike(thirdTry) ? "|X" : getThirdDownMessage());
-        }
-
-        return showDefaultMessage() + getThirdDownMessage();
+        return " " + normalFrame.showDefaultMessage() + getThirdDownMessage();
     }
 
     private String getThirdDownMessage() {
         if ( !thirdTry.isPresent()) {
             return " ";
         }
-        return "|" + getEachTry(thirdTry).getDownMessage();
+        return "|" + normalFrame.getDownMessage(thirdTry);
     }
 }

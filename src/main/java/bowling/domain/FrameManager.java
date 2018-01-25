@@ -14,7 +14,7 @@ public class FrameManager {
     public static FrameManager of() {
         LinkedList<Frame> frames = IntStream
                                     .range(0, BowlingConstants.FRAME_COUNT - 1)
-                                    .mapToObj(i -> new Frame())
+                                    .mapToObj(i -> new NormalFrame())
                                     .collect(Collectors.toCollection(LinkedList::new));
         frames.add(new LastFrame());
 
