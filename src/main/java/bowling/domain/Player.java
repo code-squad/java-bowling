@@ -9,9 +9,9 @@ public class Player {
     private Name name;
     private ScoreSheet scoreSheet;
 
-    public Player(Name name, ScoreSheet scoreSheet) {
+    public Player(Name name) {
         this.name = name;
-        this.scoreSheet = scoreSheet;
+        scoreSheet = new ScoreSheet();
     }
 
     public void roll() {
@@ -28,6 +28,11 @@ public class Player {
 
     public MaxCount nextMaxCount() {
         return scoreSheet.nextMaxCount();
+    }
+
+    public int currentFrame() {
+        if (!needToRoll()) throw new IllegalArgumentException();
+        return scoreSheet.currentFrameIndex();
     }
 
     @Override

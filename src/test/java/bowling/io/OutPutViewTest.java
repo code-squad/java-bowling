@@ -7,9 +7,9 @@ import org.junit.Test;
 public class OutPutViewTest {
     @Test
     public void name() {
-        Player abc = new Player(new Name("abc"), new ScoreSheet());
+        Player abc = new Player(new Name("abc"));
         play(abc);
-        Player zxc = new Player(new Name("zxc"), new ScoreSheet());
+        Player zxc = new Player(new Name("zxc"));
         play(zxc);
     }
 

@@ -6,6 +6,7 @@ import bowling.domain.number.MaxCount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Frames {
     private final static int MAX_FRAME_COUNT = 9;
@@ -35,7 +36,19 @@ public class Frames {
     }
 
     public MaxCount nextMaxCount() {
-        return !hasEmptyFrame() ? null : frames.stream().filter(Frame::hasEmptyScore).findFirst().get().nextMaxCount();
+        return !hasEmptyFrame() ? null : emptyFrames().findFirst().get().nextMaxCount();
+    }
+
+    public int firstEmptyFrameIndex() {
+        return (frames.size() - (int) emptyFrames().count())+1;
+    }
+
+    private Stream<Frame> emptyFrames() {
+        return frames.stream().filter(Frame::hasEmptyScore);
+    }
+
+    public int size() {
+        return frames.size();
     }
 
     @Override

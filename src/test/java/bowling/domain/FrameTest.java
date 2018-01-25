@@ -7,6 +7,8 @@ import bowling.io.OutPutView;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class FrameTest {
 
@@ -38,5 +40,36 @@ public class FrameTest {
     public void 프레임_준비_Score_스트라이크_1개_초과_예외처리_add() {
         Frame strike = new Frame().add(new Roll(new Pins(10)));
         Frame exceptionOccurred = strike.add(new Roll(new Pins(0)));
+    }
+
+    @Test
+    public void 프레임이_비어있는지_확인() {
+        Frame frame = new Frame();
+        assertTrue(frame.hasEmptyScore());
+
+        assertTrue(frame.add(new Roll(new Pins(8))).hasEmptyScore());
+        assertFalse(frame.add(new Roll(new Pins(0))).hasEmptyScore());
+    }
+
+    @Test
+    public void 현재_프레임_찾기() {
+        Player abc = new Player(new Name("abc"));
+        assertEquals(1, abc.currentFrame());
+        abc.roll(new Pins(9));
+        assertEquals(1, abc.currentFrame());
+        abc.roll(new Pins(0));
+        assertEquals(2, abc.currentFrame());
+        for (int i = 3; i < 10; i++) {
+            abc.roll(new Pins(10));
+            assertEquals(i, abc.currentFrame());
+        }
+        assertEquals(9, abc.currentFrame());
+
+        abc.roll(new Pins(10));
+        assertEquals(10, abc.currentFrame());
+        abc.roll(new Pins(10));
+        assertEquals(10, abc.currentFrame());
+        abc.roll(new Pins(10));
+        assertEquals(10, abc.currentFrame());
     }
 }

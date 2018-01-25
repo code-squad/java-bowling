@@ -26,23 +26,30 @@ public class ScoreSheet {
         }
     }
 
-    @Override
-    public String toString() {
-        String temp = frames == null ? "" : frames.toString();
-        temp += finalFrame == null ? "" : finalFrame.toString();
-        return temp;
-    }
-
     public MaxCount nextMaxCount() {
         if (!hasEmptyFrame()) throw new IllegalArgumentException();
-        return frameNextCount();
+        return frameNextMaxCount();
     }
 
-    private MaxCount frameNextCount() {
+    private MaxCount frameNextMaxCount() {
         MaxCount maxCount = frames.nextMaxCount();
         if (maxCount == null && finalFrame!=null) {
             maxCount = finalFrame.nextMaxCount();
         }
         return maxCount;
+    }
+
+    public int currentFrameIndex() {
+        if (frames.hasEmptyFrame()) {
+            return frames.firstEmptyFrameIndex();
+        }
+        return frames.size()+1;
+    }
+
+    @Override
+    public String toString() {
+        String temp = frames == null ? "" : frames.toString();
+        temp += finalFrame == null ? "" : finalFrame.toString();
+        return temp;
     }
 }

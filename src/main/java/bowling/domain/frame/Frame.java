@@ -24,7 +24,7 @@ public class Frame {
     }
 
     public boolean hasEmptyScore() {
-        return score.isEmpty();
+        return score == null ? true : score.isEmpty();
     }
 
     public Frame add(Roll roll) {
