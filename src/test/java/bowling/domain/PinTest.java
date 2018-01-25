@@ -28,4 +28,15 @@ public class PinTest {
     public void isOverTenTest() {
         assertThat(pin.isOverTen(new Pin(2))).isTrue();
     }
+
+    @Test()
+    public void addTest() {
+        assertThat(pin.add(null)).isEqualTo(null);
+        assertThat(pin.add(new Pin(10))).isEqualTo(20);
+    }
+
+    @Test()
+    public void calculateSpareTest() {
+        assertThat(pin.calculateSpare()).isEqualTo(20);
+    }
 }

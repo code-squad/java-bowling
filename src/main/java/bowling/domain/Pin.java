@@ -39,6 +39,16 @@ public class Pin {
             throw new IllegalArgumentException("Invalid input for pin");
     }
 
+    public Integer add(Pin secondTry) {
+        return Optional.ofNullable(secondTry)
+                .map(s -> s.fellPin + fellPin)
+                .orElse(null);
+    }
+
+    public Integer calculateSpare() {
+        return this.fellPin + 10;
+    }
+
     @Override
     public String toString() {
         if(fellPin == 0 || fellPin == 10)
