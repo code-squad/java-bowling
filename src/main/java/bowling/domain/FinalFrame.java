@@ -1,6 +1,7 @@
 package bowling.domain;
 
 import bowling.util.PinUtil;
+import bowling.util.ScoreCalculator;
 
 public class FinalFrame extends Frame {
     private Pin thirdTry;
@@ -65,5 +66,29 @@ public class FinalFrame extends Frame {
                 PinUtil.frameView(firstTry, secondTry),
                 PinUtil.toView(thirdTry)
         );
+    }
+
+    @Override
+    public Integer getFrameScore() {
+        if(score != null)
+            return score;
+
+        if(isStrike())
+            return score = ScoreCalculator.calculateStrike(secondTry, thirdTry);
+
+        if(isSpare())
+            return score = ScoreCalculator.calculateSpare(thirdTry);
+
+        return score = ScoreCalculator.calculateFrame(firstTry, secondTry);
+    }
+
+    @Override
+    public Integer calculateStrike() {
+        return ScoreCalculator.calculateStrike(firstTry, secondTry);
+    }
+
+    @Override
+    public Integer calculateSpare() {
+        return ScoreCalculator.calculateSpare(firstTry);
     }
 }
