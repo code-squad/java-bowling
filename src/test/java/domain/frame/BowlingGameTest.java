@@ -22,4 +22,10 @@ public class BowlingGameTest {
         assertThat(bowlingGame.toString()).isEqualTo("| KKJ  |");
     }
 
+    @Test
+    public void play() throws Exception {
+        bowlingGame.playBowling();
+        assertThat(bowlingGame.toString()).isEqualTo("| KKJ  |5|/ |5|/ |5|/ |5|/ |5|/ |5|/ |5|/ |5|/ |5|/ |5|5|5|");
+        assertThat(bowlingGame.getUpdatedScoreResult()).isEqualTo("|      |15  |30  |45  |60  |75  |90  |105 |120 |135 |150 |");
+    }
 }

@@ -24,8 +24,8 @@ public class BowlingGame {
                  .forEach(this::playBowling);
     }
 
-    public String scores() {
-        return frames.scores();
+    public String getUpdatedScoreResult() {
+        return frames.getUpdateScoresResult();
     }
 
     private void playBowling(int frameNo) {
@@ -50,7 +50,6 @@ public class BowlingGame {
     }
 
     private void notifyFrameChanged() {
-        frames.updateScore();
         scoreBoard.printGameResult(this);
     }
 

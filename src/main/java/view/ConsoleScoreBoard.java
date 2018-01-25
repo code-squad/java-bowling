@@ -9,7 +9,7 @@ public class ConsoleScoreBoard implements ScoreBoard {
     public void printGameResult(BowlingGame bowlingGame) {
         printHeader();
         System.out.println(bowlingGame);
-        System.out.println(bowlingGame.scores());
+        System.out.println(bowlingGame.getUpdatedScoreResult());
     }
 
     private void printHeader() {

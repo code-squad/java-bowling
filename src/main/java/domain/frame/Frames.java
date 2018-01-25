@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Frames {
+
+    private static final String BLANK = "|      |";
+
     private final List<Frame> frames = new ArrayList<>();
 
     private final List<Integer> scores = new ArrayList<>();
@@ -17,16 +20,17 @@ public class Frames {
         frames.add(frame);
     }
 
-    String scores() {
+    String getUpdateScoresResult() {
+        updateScore();
         if (scores.isEmpty()) {
-            return "|      |";
+            return BLANK;
         }
-        return "|      |" + scores.stream()
-                                  .map(s -> String.format("%-4d", s))
-                                  .collect(Collectors.joining("|")) + "|";
+        return BLANK + scores.stream()
+                             .map(s -> String.format("%-4d", s))
+                             .collect(Collectors.joining("|")) + "|";
     }
 
-    void updateScore() {
+    private void updateScore() {
         int index = scores.size();
         Optional<Integer> score = getScoreOfFrame(index);
         score.ifPresent(s -> {
