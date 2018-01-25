@@ -1,10 +1,11 @@
 package bowling.domain;
 
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Optional;
 
-class LastFrame extends Frame{
+public class LastFrame extends Frame{
 
     private DownPinCount thirdThrow;
 
@@ -13,7 +14,7 @@ class LastFrame extends Frame{
     }
 
     @Override
-    public boolean add(DownPinCount result) {
+    public boolean add(@Nonnull DownPinCount result) {
         if(!getSecondThrow().isPresent())
             super.add(result);
         else if(canThrowThirdBall() && thirdThrow == null) {
@@ -31,6 +32,10 @@ class LastFrame extends Frame{
         return getSecondThrow().isPresent();
     }
 
+    private boolean isStrike(Optional<DownPinCount> throwBallResult) {
+        return throwBallResult.map(DownPinCount::isAllDown).orElse(false);
+    }
+
     private boolean canThrowThirdBall() {
         return isStrike(getFirstThrow()) || isSecondThrowSpare();
     }
@@ -43,11 +48,6 @@ class LastFrame extends Frame{
         return sumDownPinCount(getSecondThrow(), getThirdThrow()) == 10 && !isStrike(getSecondThrow());
     }
 
-    @Override
-    public int getTotalDownPinCount() {
-        return sumDownPinCount(getFirstThrow(), getSecondThrow(), getThirdThrow());
-    }
-
     private int sumDownPinCount(Optional<DownPinCount>... throwBallResults) {
         return Arrays.stream(throwBallResults)
                 .mapToInt(result -> result.map(DownPinCount::getCount).orElse(0))
@@ -56,6 +56,11 @@ class LastFrame extends Frame{
 
     private Optional<DownPinCount> getThirdThrow() {
         return Optional.ofNullable(thirdThrow);
+    }
+
+    @Override
+    protected int getTotalDownPinCount() {
+        return sumDownPinCount(getFirstThrow(), getSecondThrow(), getThirdThrow());
     }
 
     @Override

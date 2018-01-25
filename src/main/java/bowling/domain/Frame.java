@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public class Frame {
@@ -11,7 +12,7 @@ public class Frame {
         this.nextFrame = nextFrame;
     }
 
-    public boolean add(DownPinCount result) {
+    public boolean add(@Nonnull DownPinCount result) {
         if (firstThrow == null) {
             firstThrow = result;
         }else if (secondThrow == null)
@@ -23,21 +24,13 @@ public class Frame {
         return getTotalDownPinCount() == 10 || secondThrow != null;
     }
 
-    public int getTotalDownPinCount() {
-        return getFirstThrow().orElse(DownPinCount.of(0))
-                .add(getSecondThrow().orElse(DownPinCount.of(0))).getCount();
-    }
-
-    protected boolean isStrike(Optional<DownPinCount> throwBallResult) {
-        return throwBallResult.map(DownPinCount::isAllDown).orElse(false);
-    }
-
-    protected int getDownPinCount(Optional<DownPinCount> throwBallResult) {
-        return throwBallResult.map(DownPinCount::getCount).orElse(0);
-    }
-
     public Optional<Frame> getNextFrame() {
         return Optional.ofNullable(nextFrame);
+    }
+
+    protected int getTotalDownPinCount() {
+        return getFirstThrow().orElse(DownPinCount.of(0))
+                .add(getSecondThrow().orElse(DownPinCount.of(0))).getCount();
     }
 
     protected Optional<DownPinCount> getFirstThrow() {

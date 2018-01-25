@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import javax.annotation.Nonnull;
+
 public class Player {
     private String name;
 
@@ -10,7 +12,7 @@ public class Player {
         this.name = name.toUpperCase();
     }
 
-    public static Player of (String name) {
+    public static Player of (@Nonnull String name) {
         return new Player(name);
     }
 

@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class BowlingGame {
         currentFrame = frames.getFirst();
     }
 
-    public void throwBall(DownPinCount count) {
+    public void throwBall(@Nonnull DownPinCount count) {
         if(currentFrame.add(count)) {
             currentFrame = currentFrame.getNextFrame().orElse(currentFrame);
         }

@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class DownPinCount {
@@ -19,11 +20,11 @@ public class DownPinCount {
         return new DownPinCount(count);
     }
 
-    public static DownPinCount of (String countStr) {
+    public static DownPinCount of (@Nonnull String countStr) {
         return new DownPinCount(Integer.parseInt(countStr.trim()));
     }
 
-    public DownPinCount add(DownPinCount other) {
+    public DownPinCount add(@Nonnull DownPinCount other) {
         return new DownPinCount(count + other.count);
     }
 
