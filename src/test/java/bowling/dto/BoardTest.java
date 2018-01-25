@@ -14,7 +14,7 @@ public class BoardTest {
     @Before
     public void init() {
         board = new Board(new CurrentPlayerInfo("KKH", 0), Arrays.asList(
-                new PlayerResult("KKH", Arrays.asList("   ", "   ")
+                new PlayerResult("KKH", Arrays.asList("   ", "   "), Arrays.asList("   ", "   ")
                 )
         ));
     }
@@ -32,7 +32,7 @@ public class BoardTest {
     @Test
     public void getPlayerResultsTest() {
         assertThat(board.getPlayerResults()).isEqualTo(Arrays.asList(
-                new PlayerResult("KKH", Arrays.asList("   ", "   ")
+                new PlayerResult("KKH", Arrays.asList("   ", "   "), Arrays.asList("   ", "   ")
                 )
         ));
     }
