@@ -24,26 +24,19 @@ public class ScoreTypeTest {
 
     @Test
     public void valueOf_NONE() throws Exception {
-        assertThat(ScoreType.valueOf(new Pin(7))).isEqualTo(NONE);
         assertThat(ScoreType.valueOf(new Pin(1))).isEqualTo(NONE);
-        assertThat(ScoreType.valueOf(new Pin(2))).isEqualTo(NONE);
         assertThat(ScoreType.valueOf(new Pin(9))).isEqualTo(NONE);
     }
 
     @Test
     public void valueOf_SPARE() throws Exception {
         assertThat(ScoreType.valueOf(new Pin(3), new Pin(7))).isEqualTo(SPARE);
-        assertThat(ScoreType.valueOf(new Pin(2), new Pin(8))).isEqualTo(SPARE);
-        assertThat(ScoreType.valueOf(new Pin(1), new Pin(9))).isEqualTo(SPARE);
-        assertThat(ScoreType.valueOf(new Pin(5), new Pin(5))).isEqualTo(SPARE);
         assertThat(ScoreType.valueOf(new Pin(0), new Pin(10))).isEqualTo(SPARE);
     }
 
     @Test
     public void valueOf_MISS() throws Exception {
         assertThat(ScoreType.valueOf(new Pin(3), new Pin(6))).isEqualTo(MISS);
-        assertThat(ScoreType.valueOf(new Pin(2), new Pin(7))).isEqualTo(MISS);
-        assertThat(ScoreType.valueOf(new Pin(1), new Pin(8))).isEqualTo(MISS);
         assertThat(ScoreType.valueOf(new Pin(5), new Pin(4))).isEqualTo(MISS);
     }
 
@@ -72,7 +65,6 @@ public class ScoreTypeTest {
         assertThat(GUTTER.isDisplay()).isTrue();
         assertThat(MISS.isDisplay()).isFalse();
         assertThat(NONE.isDisplay()).isFalse();
-
     }
 
 }

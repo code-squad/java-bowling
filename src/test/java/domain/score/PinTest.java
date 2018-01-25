@@ -20,7 +20,6 @@ public class PinTest {
     public void minus() throws Exception {
         Pin p1 = new Pin(8);
         assertThat(p1.minus(new Pin(3))).isEqualTo(new Pin(5));
-        assertThat(p1.minus(new Pin(5))).isEqualTo(new Pin(3));
         assertThat(p1.minus(new Pin(8))).isEqualTo(new Pin(0));
     }
 
@@ -34,7 +33,6 @@ public class PinTest {
     public void add() throws Exception {
         Pin p1 = new Pin(4);
         assertThat(p1.add(new Pin(4))).isEqualTo(new Pin(8));
-        assertThat(p1.add(new Pin(5))).isEqualTo(new Pin(9));
         assertThat(p1.add(new Pin(6))).isEqualTo(new Pin(10));
     }
 

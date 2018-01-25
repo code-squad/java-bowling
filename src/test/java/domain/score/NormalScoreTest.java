@@ -11,9 +11,6 @@ public class NormalScoreTest {
         NormalScore zero = new NormalScore(Pin.ZERO);
 
         assertThat(zero.toString()).isEqualTo("-");
-        assertThat(zero.isFinish()).isFalse();
-        assertThat(zero.getFrameScore().isPresent()).isFalse();
-        assertThat(zero.getSumOfFirstAndSecondScore().isPresent()).isFalse();
     }
 
     @Test
@@ -21,7 +18,6 @@ public class NormalScoreTest {
         NormalScore score = new NormalScore(new Pin(7));
 
         assertThat(score.toString()).isEqualTo("7");
-        assertThat(score.isStrike()).isFalse();
         assertThat(score.isFinish()).isFalse();
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.getSumOfFirstAndSecondScore().isPresent()).isFalse();
@@ -31,9 +27,7 @@ public class NormalScoreTest {
     public void NormalScore_스트라이크() throws Exception {
         NormalScore strike = new NormalScore(Pin.TEN);
 
-        assertThat(strike.toString()).isEqualTo("X");
         assertThat(strike.isStrike()).isTrue();
-        assertThat(strike.isFinish()).isTrue();
         assertThat(strike.getFrameScore().isPresent()).isFalse();
         assertThat(strike.getSumOfFirstAndSecondScore().isPresent()).isTrue();
         assertThat(strike.getSumOfFirstAndSecondScore().get()).isEqualTo(10);
