@@ -30,42 +30,42 @@ public class FramesTest {
     }
 
     @Test
-    public void getUpdateScoresResult_스트라이크후첫번째시도() throws Exception {
+    public void getUpdateScoreResult_스트라이크후첫번째시도() throws Exception {
         frames.addFrame(strike);
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
         frames.addFrame(new NormalFrame(new Pin(7)));
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
     }
 
     @Test
-    public void getUpdateScoresResult_스트라이크후미스() throws Exception {
+    public void getUpdateScoreResult_스트라이크후미스() throws Exception {
         frames.addFrame(strike);
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
         frames.addFrame(miss);
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |19  |28  |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |19  |28  |");
     }
 
     @Test
-    public void getUpdateScoresResult_스트라이크후스페어() throws Exception {
+    public void getUpdateScoreResult_스트라이크후스페어() throws Exception {
         frames.addFrame(strike);
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
         frames.addFrame(spare);
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |20  |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |20  |");
     }
 
     @Test
-    public void getUpdateScoresResult_스트라이크후스페어후첫번째시도() throws Exception {
+    public void getUpdateScoreResult_스트라이크후스페어후첫번째시도() throws Exception {
         frames.addFrame(strike);
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
         frames.addFrame(spare);
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |20  |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |20  |");
 
         frames.addFrame(new NormalFrame(new Pin(7)));
-        assertThat(frames.getUpdateScoresResult()).isEqualTo("|      |20  |37  |");
+        assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |20  |37  |");
 
     }
 }

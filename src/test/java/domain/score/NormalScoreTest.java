@@ -64,4 +64,18 @@ public class NormalScoreTest {
         assertThat(spare.getSumOfFirstAndSecondScore().get()).isEqualTo(9);
     }
 
+    @Test
+    public void toString_스페어() throws Exception {
+        NormalScore normalScore = new NormalScore(new Pin(0));
+        normalScore.addResult(Pin.TEN);
+        assertThat(normalScore.isStrike()).isFalse();
+        assertThat(normalScore.toString()).isEqualTo("-|/");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void NormalScore_74() throws Exception {
+        NormalScore normalScore = new NormalScore(new Pin(7));
+        normalScore.addResult(new Pin(4));
+
+    }
 }

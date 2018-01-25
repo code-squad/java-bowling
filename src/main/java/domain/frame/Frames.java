@@ -20,7 +20,7 @@ public class Frames {
         frames.add(frame);
     }
 
-    String getUpdateScoresResult() {
+    String getUpdateScoreResult() {
         updateScore();
         if (scores.isEmpty()) {
             return BLANK;
@@ -32,14 +32,14 @@ public class Frames {
 
     private void updateScore() {
         int index = scores.size();
-        Optional<Integer> score = getScoreOfFrame(index);
+        Optional<Integer> score = getFrameScore(index);
         score.ifPresent(s -> {
-            scores.add(s + getSumOfScore());
+            scores.add(s + getSumOfFrameScore());
             updateScore();
         });
     }
 
-    private Optional<Integer> getScoreOfFrame(int index) {
+    private Optional<Integer> getFrameScore(int index) {
         Frame now = get(index);
         if (now == null) {
             return Optional.empty();
@@ -69,7 +69,7 @@ public class Frames {
         return frames.get(index);
     }
 
-    private Integer getSumOfScore() {
+    private Integer getSumOfFrameScore() {
         if (scores.isEmpty()) {
             return 0;
         }

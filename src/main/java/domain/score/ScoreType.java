@@ -28,7 +28,7 @@ public enum ScoreType {
     }
 
     static ScoreType valueOf(Pin p1, Pin p2) {
-        if (valueOf(p1) == STRIKE || valueOf(p2) == STRIKE) {
+        if (valueOf(p1) == STRIKE) {
             throw new IllegalArgumentException();
         }
         if (p1.add(p2).equals(TEN)) {

@@ -148,4 +148,24 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().get()).isEqualTo(30);
         assertThat(score.toString()).isEqualTo("X|X|X");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void FinalScore_74() throws Exception {
+        FinalScore score = new FinalScore(new Pin(7));
+        score.addResult(new Pin(4));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void FinalScore_721() throws Exception {
+        FinalScore score = new FinalScore(new Pin(7));
+        score.addResult(new Pin(2));
+        score.addResult(new Pin(1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void FinalScore_X74() throws Exception {
+        FinalScore score = new FinalScore(new Pin(10));
+        score.addResult(new Pin(7));
+        score.addResult(new Pin(4));
+    }
 }

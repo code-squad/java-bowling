@@ -36,6 +36,7 @@ public class ScoreTypeTest {
         assertThat(ScoreType.valueOf(new Pin(2), new Pin(8))).isEqualTo(SPARE);
         assertThat(ScoreType.valueOf(new Pin(1), new Pin(9))).isEqualTo(SPARE);
         assertThat(ScoreType.valueOf(new Pin(5), new Pin(5))).isEqualTo(SPARE);
+        assertThat(ScoreType.valueOf(new Pin(0), new Pin(10))).isEqualTo(SPARE);
     }
 
     @Test

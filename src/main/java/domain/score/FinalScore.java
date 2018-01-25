@@ -26,6 +26,9 @@ public class FinalScore extends Score {
 
     @Override
     public void addResult(Pin pin) {
+        if (isFinish()) {
+            throw new IllegalArgumentException();
+        }
         if (second == null) {
             if (!isStrike()) {
                 TEN.minus(first).minus(pin);
@@ -34,13 +37,20 @@ public class FinalScore extends Score {
             return;
         }
         if (bonus == null) {
-            if (!second.isStrike() && !second.isSpare(first)) {
+            if (isRemainedFrame()) {
                 TEN.minus(second).minus(pin);
             }
             bonus = pin;
             return;
         }
         throw new IllegalStateException();
+    }
+
+    private boolean isRemainedFrame() {
+        if (first.isStrike()) {
+            return !second.isStrike();
+        }
+        return !first.isSpare(second);
     }
 
     @Override

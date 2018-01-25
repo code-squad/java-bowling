@@ -20,25 +20,26 @@ public class BowlingGame {
     }
 
     public void playBowling() {
+        scoreBoard.printGameResult(this);
         IntStream.rangeClosed(1, 10)
-                 .forEach(this::playBowling);
+                 .forEach(this::playFrame);
     }
 
     public String getUpdatedScoreResult() {
-        return frames.getUpdateScoresResult();
+        return frames.getUpdateScoreResult();
     }
 
-    private void playBowling(int frameNo) {
+    private void playFrame(int frameNo) {
         Pin pin = player.play(frameNo);
         Frame frame = nextFrame(pin, frameNo);
 
         frames.addFrame(frame);
         notifyFrameChanged();
 
-        playBowlingUntilFinished(frame, frameNo);
+        playFrameUntilFinished(frame, frameNo);
     }
 
-    private void playBowlingUntilFinished(Frame frame, int frameNo) {
+    private void playFrameUntilFinished(Frame frame, int frameNo) {
         while (!frame.isFinish()) {
             frame.addResult(player.play(frameNo));
             notifyFrameChanged();

@@ -43,11 +43,11 @@ public class NormalScore extends Score {
     }
 
     private boolean canCalculateFrameScore() {
-        return !isStrike() && second != null && !second.isSpare(first);
+        return !isStrike() && second != null && !isSpare();
     }
 
     private boolean isSpare() {
-        return second != null && second.isSpare(first);
+        return second != null && first.isSpare(second);
     }
 
     @Override

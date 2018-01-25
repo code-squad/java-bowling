@@ -26,7 +26,7 @@ public class Pin {
     }
 
     boolean isSpare(Pin p) {
-        if (p.isStrike() || this.isStrike()) {
+        if (this.isStrike()) {
             return false;
         }
         return ScoreType.valueOf(this, p) == ScoreType.SPARE;
