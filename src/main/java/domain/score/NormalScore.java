@@ -32,7 +32,7 @@ public class NormalScore extends Score {
     }
 
     @Override
-    public Optional<Integer> getSumOfScore() {
+    public Optional<Integer> getSumOfFirstAndSecondScore() {
         if (isStrike()) {
             return Optional.of(10);
         }

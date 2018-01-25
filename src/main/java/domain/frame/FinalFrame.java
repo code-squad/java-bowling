@@ -31,7 +31,7 @@ class FinalFrame extends Frame {
 
     private Optional<Integer> calculateScoreWithBefore(Frame before) {
         if (before.isStrike()) {
-            return getSecondScore().map(integer -> integer + 10);
+            return getSumOfScore().map(integer -> integer + 10);
         }
         return Optional.of(getFirstScore() + 10);
     }

@@ -45,16 +45,19 @@ public class FinalScore extends Score {
 
     @Override
     public Optional<Integer> getFrameScore() {
-        return getSumOfScore();
-    }
-
-    @Override
-    public Optional<Integer> getSumOfScore() {
         if (!isFinish()) {
             return Optional.empty();
         }
         int b = bonus == null ? 0 : bonus.toInt();
         return Optional.of(first.toInt() + second.toInt() + b);
+    }
+
+    @Override
+    public Optional<Integer> getSumOfFirstAndSecondScore() {
+        if (second == null) {
+            return Optional.empty();
+        }
+        return Optional.of(first.toInt() + second.toInt());
     }
 
     @Override

@@ -29,5 +29,5 @@ public abstract class Score {
 
     public abstract Optional<Integer> getFrameScore();
 
-    public abstract Optional<Integer> getSumOfScore();
+    public abstract Optional<Integer> getSumOfFirstAndSecondScore();
 }

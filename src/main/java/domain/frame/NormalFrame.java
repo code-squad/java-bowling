@@ -30,7 +30,7 @@ class NormalFrame extends Frame {
             if (!this.isFinish()) {
                 return Optional.empty();
             }
-            int score = calculateScore().orElse(10);
+            int score = calculateFrameScore().orElse(10);
             return Optional.of(score + 10);
         }
         return Optional.of(10 + getFirstScore());

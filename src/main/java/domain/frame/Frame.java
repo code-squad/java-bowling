@@ -27,7 +27,7 @@ public abstract class Frame {
         return score.isStrike();
     }
 
-    Optional<Integer> calculateScore() {
+    Optional<Integer> calculateFrameScore() {
         return score.getFrameScore();
     }
 
@@ -35,8 +35,8 @@ public abstract class Frame {
         return score.getFirstScore();
     }
 
-    Optional<Integer> getSecondScore() {
-        return score.getSumOfScore();
+    Optional<Integer> getSumOfScore() {
+        return score.getSumOfFirstAndSecondScore();
     }
 
     abstract Optional<Integer> calculateAdditionalScore(Frame... f);

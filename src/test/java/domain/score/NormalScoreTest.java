@@ -13,7 +13,7 @@ public class NormalScoreTest {
         assertThat(zero.toString()).isEqualTo("-");
         assertThat(zero.isFinish()).isFalse();
         assertThat(zero.getFrameScore().isPresent()).isFalse();
-        assertThat(zero.getSumOfScore().isPresent()).isFalse();
+        assertThat(zero.getSumOfFirstAndSecondScore().isPresent()).isFalse();
     }
 
     @Test
@@ -24,7 +24,7 @@ public class NormalScoreTest {
         assertThat(score.isStrike()).isFalse();
         assertThat(score.isFinish()).isFalse();
         assertThat(score.getFrameScore().isPresent()).isFalse();
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getSumOfFirstAndSecondScore().isPresent()).isFalse();
     }
 
     @Test
@@ -35,8 +35,8 @@ public class NormalScoreTest {
         assertThat(strike.isStrike()).isTrue();
         assertThat(strike.isFinish()).isTrue();
         assertThat(strike.getFrameScore().isPresent()).isFalse();
-        assertThat(strike.getSumOfScore().isPresent()).isTrue();
-        assertThat(strike.getSumOfScore().get()).isEqualTo(10);
+        assertThat(strike.getSumOfFirstAndSecondScore().isPresent()).isTrue();
+        assertThat(strike.getSumOfFirstAndSecondScore().get()).isEqualTo(10);
     }
 
     @Test
@@ -47,8 +47,8 @@ public class NormalScoreTest {
         assertThat(spare.toString()).isEqualTo("7|/");
         assertThat(spare.isFinish()).isTrue();
         assertThat(spare.getFrameScore().isPresent()).isFalse();
-        assertThat(spare.getSumOfScore().isPresent()).isTrue();
-        assertThat(spare.getSumOfScore().get()).isEqualTo(10);
+        assertThat(spare.getSumOfFirstAndSecondScore().isPresent()).isTrue();
+        assertThat(spare.getSumOfFirstAndSecondScore().get()).isEqualTo(10);
     }
 
     @Test
@@ -60,8 +60,8 @@ public class NormalScoreTest {
         assertThat(spare.isFinish()).isTrue();
         assertThat(spare.getFrameScore().isPresent()).isTrue();
         assertThat(spare.getFrameScore().get()).isEqualTo(9);
-        assertThat(spare.getSumOfScore().isPresent()).isTrue();
-        assertThat(spare.getSumOfScore().get()).isEqualTo(9);
+        assertThat(spare.getSumOfFirstAndSecondScore().isPresent()).isTrue();
+        assertThat(spare.getSumOfFirstAndSecondScore().get()).isEqualTo(9);
     }
 
 }

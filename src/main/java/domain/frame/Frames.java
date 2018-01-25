@@ -40,8 +40,8 @@ public class Frames {
         if (now == null) {
             return Optional.empty();
         }
-        if (now.calculateScore().isPresent()) {
-            return now.calculateScore();
+        if (now.calculateFrameScore().isPresent()) {
+            return now.calculateFrameScore();
         }
         Frame next = get(index + 1);
         if (next == null) {

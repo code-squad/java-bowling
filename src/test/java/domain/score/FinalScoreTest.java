@@ -14,7 +14,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isFalse();
         assertThat(score.getFirstScore()).isEqualTo(7);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(2));
 
@@ -23,8 +23,8 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().get()).isEqualTo(9);
         assertThat(score.isStrike()).isFalse();
         assertThat(score.getFirstScore()).isEqualTo(7);
-        assertThat(score.getSumOfScore().isPresent()).isTrue();
-        assertThat(score.getSumOfScore().get()).isEqualTo(9);
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(9);
 
         assertThat(score.toString()).isEqualTo("7|2| ");
     }
@@ -37,7 +37,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isFalse();
         assertThat(score.getFirstScore()).isEqualTo(7);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(3));
 
@@ -45,7 +45,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isFalse();
         assertThat(score.getFirstScore()).isEqualTo(7);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(5));
 
@@ -54,8 +54,8 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().get()).isEqualTo(15);
         assertThat(score.isStrike()).isFalse();
         assertThat(score.getFirstScore()).isEqualTo(7);
-        assertThat(score.getSumOfScore().isPresent()).isTrue();
-        assertThat(score.getSumOfScore().get()).isEqualTo(15);
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(15);
         assertThat(score.toString()).isEqualTo("7|3|5");
     }
 
@@ -67,7 +67,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(8));
 
@@ -75,7 +75,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(2));
 
@@ -84,8 +84,8 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().get()).isEqualTo(20);
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isTrue();
-        assertThat(score.getSumOfScore().get()).isEqualTo(20);
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(20);
         assertThat(score.toString()).isEqualTo("X|8|2");
     }
 
@@ -97,7 +97,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(10));
 
@@ -105,7 +105,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(2));
 
@@ -114,8 +114,8 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().get()).isEqualTo(22);
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isTrue();
-        assertThat(score.getSumOfScore().get()).isEqualTo(22);
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(22);
         assertThat(score.toString()).isEqualTo("X|X|2");
     }
 
@@ -127,7 +127,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(10));
 
@@ -135,7 +135,7 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().isPresent()).isFalse();
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isFalse();
 
         score.addResult(new Pin(10));
 
@@ -144,8 +144,8 @@ public class FinalScoreTest {
         assertThat(score.getFrameScore().get()).isEqualTo(30);
         assertThat(score.isStrike()).isTrue();
         assertThat(score.getFirstScore()).isEqualTo(10);
-        assertThat(score.getSumOfScore().isPresent()).isTrue();
-        assertThat(score.getSumOfScore().get()).isEqualTo(30);
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(30);
         assertThat(score.toString()).isEqualTo("X|X|X");
     }
 }
