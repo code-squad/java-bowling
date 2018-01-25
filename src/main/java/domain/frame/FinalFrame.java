@@ -1,32 +1,45 @@
 package domain.frame;
 
 import domain.BowlPin;
+import domain.state.NoneState;
 import domain.state.State;
 
 public class FinalFrame implements Frame {
 
-  @Override
-  public void changeState(State state) {
+  private State state;
 
+  public FinalFrame() {
+    this.state = new NoneState(this);
   }
 
   @Override
-  public Frame roll(BowlPin bowlPin) {
-    return null;
+  public void changeState(State state) {
+    this.state = state;
+  }
+
+  @Override
+  public void roll(BowlPin bowlPin) {
+    state.roll(bowlPin);
   }
 
   @Override
   public int getScore() {
-    return 0;
+
+    return state.getScore();
   }
 
   @Override
   public boolean isFrameEnd() {
-    return false;
+    return state.isEnd();
   }
 
   @Override
   public String getResult() {
-    return null;
+    return state.toString();
+  }
+
+  @Override
+  public boolean isFinalFrame() {
+    return true;
   }
 }

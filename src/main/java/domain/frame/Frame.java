@@ -5,8 +5,14 @@ import domain.state.State;
 
 public interface Frame {
   void changeState(State state);
-  Frame roll(BowlPin bowlPin);
+
+  void roll(BowlPin bowlPin);
+
   int getScore();
+
   boolean isFrameEnd();
+
   String getResult();
+
+  boolean isFinalFrame();
 }

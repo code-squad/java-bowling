@@ -3,18 +3,18 @@ package domain.state;
 import domain.BowlPin;
 import domain.frame.Frame;
 
-public class Gutter implements State {
+public class Bonus implements State {
 
   private Frame frame;
   private BowlPin firstBowlPins;
   private BowlPin secondBowlPins;
 
-  public Gutter(Frame frame, BowlPin firstBowlPins) {
+  public Bonus(Frame frame, BowlPin firstBowlPins) {
     this.frame = frame;
     this.firstBowlPins = firstBowlPins;
   }
 
-  public Gutter(Frame frame, BowlPin firstBowlPins, BowlPin secondBowlPins) {
+  public Bonus(Frame frame, BowlPin firstBowlPins, BowlPin secondBowlPins) {
     this.frame = frame;
     this.firstBowlPins = firstBowlPins;
     this.secondBowlPins = secondBowlPins;
@@ -22,27 +22,23 @@ public class Gutter implements State {
 
   @Override
   public void roll(BowlPin fallenPins) {
-    if (fallenPins.isSpare(firstBowlPins)) {
-      frame.changeState(new Spare(frame, firstBowlPins, fallenPins));
+    if (fallenPins.isStrike()) {
+      this.secondBowlPins = fallenPins;
       return;
     }
-
-    if (fallenPins.isGutter()) {
-      frame.changeState(new Gutter(frame, firstBowlPins, fallenPins));
-      return;
-    }
-
-    frame.changeState(new Miss(frame, firstBowlPins, fallenPins));
   }
 
   @Override
   public boolean isEnd() {
-    return hasSecondBowlPins();
+    return secondBowlPins != null;
   }
 
   @Override
   public int getScore() {
-    return 0;
+    if (hasSecondBowlPins()) {
+      return firstBowlPins.getPins() + secondBowlPins.getPins();
+    }
+    return firstBowlPins.getPins();
   }
 
   @Override

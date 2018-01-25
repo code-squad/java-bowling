@@ -5,32 +5,41 @@ import domain.frame.Frame;
 
 public class NoneState implements State {
 
+  private Frame frame;
   private BowlPin firstBowlPins;
 
+  public NoneState(Frame frame) {
+    this.frame = frame;
+  }
+
+  public NoneState(BowlPin firstBowlPins) {
+    this.firstBowlPins = firstBowlPins;
+  }
+
   @Override
-  public void roll(Frame frame, BowlPin fallenPins) {
-    if (firstBowlPins != null) {
+  public void roll(BowlPin fallenPins) {
+    if (hasFirstBowlPins()) {
       if (fallenPins.isSpare(firstBowlPins)) {
-        frame.changeState(new Spare(firstBowlPins, fallenPins));
+        frame.changeState(new Spare(frame, firstBowlPins, fallenPins));
         return;
       }
 
       if (fallenPins.isGutter()) {
-        frame.changeState(new Gutter(firstBowlPins, fallenPins));
+        frame.changeState(new Gutter(frame, firstBowlPins, fallenPins));
         return;
       }
 
-      frame.changeState(new Miss(firstBowlPins, fallenPins));
+      frame.changeState(new Miss(frame, firstBowlPins, fallenPins));
       return;
     }
 
     if (fallenPins.isStrike()) {
-      frame.changeState(new Strike(fallenPins));
+      frame.changeState(new Strike(frame, fallenPins));
       return;
     }
 
     if (fallenPins.isGutter()) {
-      frame.changeState(new Gutter(fallenPins));
+      frame.changeState(new Gutter(frame, fallenPins));
       return;
     }
 
@@ -38,8 +47,12 @@ public class NoneState implements State {
     frame.changeState(this);
   }
 
+  private boolean hasFirstBowlPins() {
+    return firstBowlPins != null;
+  }
+
   @Override
-  public boolean isFrameEnd() {
+  public boolean isEnd() {
     return false;
   }
 

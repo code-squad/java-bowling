@@ -5,27 +5,54 @@ import domain.frame.Frame;
 
 public class Strike implements State {
 
-  private BowlPin fallenPins;
+  private Frame frame;
+  private BowlPin firstBowlPins;
+  private State bonusState;
 
-  public Strike(BowlPin fallenPins) {
-    this.fallenPins = fallenPins;
+  public Strike(Frame frame, BowlPin firstBowlPins) {
+    this.frame = frame;
+    this.firstBowlPins = firstBowlPins;
   }
 
   @Override
-  public void roll(Frame frame, BowlPin fallenPins) {}
+  public void roll(BowlPin fallenPins) {
+    if (frame.isFinalFrame()) {
+      if (hasBonusState()) {
+        this.bonusState.roll(fallenPins);
+        return;
+      }
+      this.bonusState = new Bonus(frame, fallenPins);
+    }
+  }
 
   @Override
-  public boolean isFrameEnd() {
+  public boolean isEnd() {
+    if (frame.isFinalFrame()) {
+      if (hasBonusState()) {
+        return bonusState.isEnd();
+      }
+      return false;
+    }
     return true;
   }
 
   @Override
   public int getScore() {
-    return 10;
+    if (hasBonusState()) {
+      return bonusState.getScore() + firstBowlPins.getPins();
+    }
+    return firstBowlPins.getPins();
   }
 
   @Override
   public String toString() {
-    return fallenPins + "";
+    if (hasBonusState()) {
+      return firstBowlPins + "|" + bonusState.toString();
+    }
+    return firstBowlPins + "";
+  }
+
+  private boolean hasBonusState() {
+    return bonusState != null;
   }
 }

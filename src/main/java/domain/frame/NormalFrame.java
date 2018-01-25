@@ -9,18 +9,16 @@ public class NormalFrame implements Frame {
   private State state;
 
   public NormalFrame() {
-    state = new NoneState();
+    state = new NoneState(this);
   }
 
   public void changeState(State state) {
     this.state = state;
-    //System.out.println("state = " + state);
   }
 
   @Override
-  public Frame roll(BowlPin bowlPin) {
-    state.roll(this, bowlPin);
-    return this;
+  public void roll(BowlPin bowlPin) {
+    state.roll(bowlPin);
   }
 
   @Override
@@ -30,10 +28,16 @@ public class NormalFrame implements Frame {
 
   @Override
   public boolean isFrameEnd() {
-    return state.isFrameEnd();
+    return state.isEnd();
   }
 
   public String getResult() {
     return state.toString();
   }
+
+  @Override
+  public boolean isFinalFrame() {
+    return false;
+  }
+
 }
