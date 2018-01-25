@@ -55,8 +55,7 @@ public class NormalFrame implements Frame {
     }
 
     public void validateWithSecondAnd(Optional<Try> thirdTry) {
-        secondTry.orElse(Try.empty())
-                .validate(thirdTry.orElse(Try.empty()));
+        validate(secondTry, thirdTry);
     }
 
     protected boolean setTryInner(Try eachTry) {
