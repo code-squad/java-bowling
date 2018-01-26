@@ -2,6 +2,7 @@ package bowling.domain.score;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EntireScore {
     private List<Score> scores = new ArrayList<>();
@@ -18,16 +19,12 @@ public class EntireScore {
         return scores.get(0).validTotalScore(nextScore);
     }
 
-    public List<Score> getScores() {
-        return scores;
+    public Score lastScore() {
+        return Optional.of(scores.get(scores.size()-1)).orElseThrow(() -> new IllegalArgumentException("프레임에 점수가 입력되지 않았습니다."));
     }
 
-    public Score getLastScore() {
-        return scores.get(scores.size()-1);
-    }
-
-    public Score getBeforeLastScore() {
-        return scores.get(scores.size()-2);
+    public Score beforeLastScore() {
+        return Optional.of(scores.get(scores.size()-2)).orElseThrow(() -> new IllegalArgumentException("프레임에 2번 이상 점수가 입력되지 않았습니다."));
     }
 
     public int length() {
