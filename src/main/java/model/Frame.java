@@ -38,10 +38,6 @@ public abstract class Frame {
         numberOfLastPins = numberOfLastPins - numberOfFallingPins;
     }
 
-    public Integer getNumberOfLastPins() {
-        return numberOfLastPins;
-    }
-
     public abstract Integer addFirstAndSecond();
 
     public Integer addFirstAndSecondOfScore(){

@@ -45,7 +45,7 @@ public class ScoreStrategy {
             queueToCalculate.add(currentFrame.getScore());
             return 0;
         }
-        if (numberOfNextTrials == 0){
+        if (numberOfNextTrials !=null &&numberOfNextTrials == 0){
             if (!queueToCalculate.isEmpty()) {
                 BowlingScore beforeScore = queueToCalculate.get(0);
                 Integer result = beforeScore.calculateWithNextFrame(currentFrame);
@@ -58,14 +58,6 @@ public class ScoreStrategy {
             return currentFrame.addFirstAndSecond();
         }
         queueToCalculate.add(currentFrame.getScore());
-        return 0;
-    }
-
-    public Integer calculateLast() {
-        if (!queueToCalculate.isEmpty()){
-            BowlingScore beforeScore = queueToCalculate.get(0);
-            return beforeScore.calculateIfExist();
-        }
         return 0;
     }
 

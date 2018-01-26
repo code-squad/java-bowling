@@ -69,7 +69,7 @@ public class BowlingScore {
         return Score.of(firstScore) + "|" + Score.of(secondScore) + " ";
     }
 
-    private boolean hasStrike(Score score) {
+    public boolean hasStrike(Score score) {
         return score != null && score.equals(Score.STRIKE);
     }
 

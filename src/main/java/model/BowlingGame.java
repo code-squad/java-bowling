@@ -1,7 +1,5 @@
 package model;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,19 +23,27 @@ public class BowlingGame {
         bowlingResult.calculateNextTrial(thisScore);
 
         if (!isItOverAndHasNextFrame()) {
-            if (getCurrentFrameNumber() >= 10 && !bowlingResult.hasMoreTrial() && getCurrentFrame().hasAllScore()){
-                bowlingResult.calculateLast(getCurrentFrame().calculateLast());
-            }
-            if (getCurrentFrameNumber() >= 10 && bowlingResult.hasNotEmptyQueue()){
-                bowlingResult.calculateUntilNow(getCurrentFrame());
-            }
+            calculateLastEveryThings();
         }
         if (isItOverAndHasNextFrame()) {
+            CalculateCurrentFrame();
+        }
+    }
+
+    private void CalculateCurrentFrame() {
+        bowlingResult.calculateUntilNow(getCurrentFrame());
+        if (bowlingResult.stillCanCalculate()) {
             bowlingResult.calculateUntilNow(getCurrentFrame());
-            if (bowlingResult.stillCanCalculate()) {
-                bowlingResult.calculateUntilNow(getCurrentFrame());
-            }
-            CreateFrame.create(frames);
+        }
+        CreateFrame.create(frames);
+    }
+
+    private void calculateLastEveryThings() {
+        if (getCurrentFrameNumber() >= 10 && !bowlingResult.hasMoreTrial() && getCurrentFrame().hasAllScore()){
+            bowlingResult.calculateLast(getCurrentFrame().calculateLast());
+        }
+        if (getCurrentFrameNumber() >= 10 && bowlingResult.hasNotEmptyQueue()){
+            bowlingResult.calculateUntilNow(getCurrentFrame());
         }
     }
 
@@ -61,7 +67,7 @@ public class BowlingGame {
         return frames.size();
     }
 
-    public List<String> getBowlingResult(){
+    public List<String> getBowlingResultOnlyString(){
         return bowlingResult.getResult(getResult());
     }
 
@@ -82,25 +88,21 @@ public class BowlingGame {
     }
 
     public boolean hasMoreFrame() {
-//        boolean result = false;
-        System.out.println(getCurrentFrameNumber());
-        System.out.println(getCurrentFrame().hasAllScore());
         if (getCurrentFrameNumber() > 10 && getCurrentFrame().hasAnyScore() && !bowlingResult.hasMoreTrial()){
             return false;
         }
 
         if (getCurrentFrameNumber() == 10 && !getCurrentFrame().hasAllScore()) {
-//            result = true;
             return true;
         }
-//        if (!bowlingResult.stillCanCalculate()) {
-////            result = false;
-//            return false;
-//        }
+
         if (bowlingResult.stillCanCalculate()){
-//            result = true;
             return true;
         }
         return false;
+    }
+
+    public BowlingResult getBowlingResult() {
+        return bowlingResult;
     }
 }

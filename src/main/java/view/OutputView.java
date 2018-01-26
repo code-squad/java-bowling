@@ -11,7 +11,7 @@ public class OutputView {
 
     private static String printScore(BowlingGame bowlingGame) {
         String scoreResult = "| ";
-        for (String result : bowlingGame.getBowlingResult()) {
+        for (String result : bowlingGame.getBowlingResultOnlyString()) {
             scoreResult += result + " | ";
         }
 
