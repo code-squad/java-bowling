@@ -3,7 +3,6 @@ package bowling.domain;
 import org.junit.Before;
 import org.junit.Test;
 
-import static bowling.enums.FrameState.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class PlayerTest {
@@ -25,11 +24,6 @@ public class PlayerTest {
     }
 
     @Test
-    public void getStateTest() {
-        assertThat(player.getState()).isEqualTo(NOT_END);
-    }
-
-    @Test
     public void inRoundEndTest() {
         assertThat(player.isCurrentFrameEnd()).isFalse();
         player.rollBowlingBall(new Pin(10));
@@ -40,14 +34,14 @@ public class PlayerTest {
     public void frameNoUpdateTest() {
         player.rollBowlingBall(new Pin(10));
         player.frameNoUpdate();
-        assertThat(player.getState()).isEqualTo(NOT_END);
+        assertThat(player.isCurrentFrameEnd()).isFalse();
     }
 
     @Test
     public void rollBowlingBallTest() {
         player.rollBowlingBall(new Pin(5));
-        assertThat(player.getState()).isEqualTo(NOT_END);
+        assertThat(player.isCurrentFrameEnd()).isFalse();
         player.rollBowlingBall(new Pin(5));
-        assertThat(player.getState()).isEqualTo(SPARE);
+        assertThat(player.isCurrentFrameEnd()).isTrue();
     }
 }

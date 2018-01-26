@@ -1,6 +1,6 @@
 package bowling.domain;
 
-import bowling.enums.FrameState;
+import bowling.exception.CannotCalculateException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,10 +20,6 @@ public class Frames {
         Collections.reverse(frames);
     }
 
-    public FrameState getState(int round) {
-        return frame(round).state();
-    }
-
     private Frame frame(int round) {
         return frames.get(round);
     }
@@ -39,6 +35,7 @@ public class Frames {
     public List<String> getFrameViews() {
         return frames.stream()
                 .map(Frame::getFrameView)
+                .map(s -> String.format("%s", s))
                 .collect(Collectors.toList());
     }
 
@@ -47,8 +44,12 @@ public class Frames {
 
         Integer totalScore = 0;
         for(int i = 0 ; i < FRAME_MAX_VALUE ; ++i) {
-            totalScore = frames.get(i).getScoreView(totalScore);
-            scores.add(totalScore == null ? "   " : String.format("%-3d", totalScore));
+            try {
+                totalScore += frames.get(i).getScore();
+                scores.add(String.format("%-3d", totalScore));
+            } catch (CannotCalculateException e) {
+                scores.add("   ");
+            }
         }
 
         return scores;

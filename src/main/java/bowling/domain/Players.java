@@ -21,7 +21,7 @@ public class Players {
 
     public boolean isGameEnd() {
         return players.stream()
-                .anyMatch(Player::isEnd);
+                .allMatch(Player::isEnd);
     }
 
     public Player rotate(Player currentPlayer) {

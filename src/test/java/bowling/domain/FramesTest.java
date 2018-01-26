@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static bowling.enums.FrameState.*;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class FramesTest {
@@ -19,12 +18,7 @@ public class FramesTest {
     @Test
     public void rollBowlingBallTest() {
         frames.rollBowlingBall(0, new Pin(10));
-        assertThat(frames.getState(0)).isEqualTo(STRIKE);
-    }
-
-    @Test
-    public void getStateTest() {
-        assertThat(frames.getState(0)).isEqualTo(NOT_END);
+        assertThat(frames.isCurrentFrameEnd(0)).isTrue();
     }
 
     @Test

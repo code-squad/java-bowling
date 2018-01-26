@@ -2,7 +2,6 @@ package bowling.domain;
 
 import bowling.dto.CurrentPlayerInfo;
 import bowling.dto.PlayerResult;
-import bowling.enums.FrameState;
 
 import java.util.Objects;
 
@@ -22,10 +21,6 @@ public class Player {
     private void inputValidationCheck(String name) {
         if(name == null || name.length() != 3)
             throw new IllegalArgumentException("name must be three english letter");
-    }
-
-    public FrameState getState() {
-        return frames.getState(frameNo);
     }
 
     public void rollBowlingBall(Pin pin) {
