@@ -6,36 +6,48 @@ public class Bonus implements State {
 
     private final State state;
 
-    private final Pin pin;
+    private final Pin first;
 
-    public Bonus(State state, Pin pin) {
+    private Pin second;
+
+    public Bonus(State state, Pin first) {
         this.state = state;
-        this.pin = pin;
+        this.first = first;
     }
 
     @Override
     public State bowl(Pin pin) {
-        if (state instanceof Strike) {
-            return new FinalBonus(this.pin, pin);
+        if (state instanceof Strike && second == null) {
+            second = pin;
+            if (!first.isStrike()) {
+                first.add(second);
+            }
+            return this;
         }
         throw new IllegalStateException();
     }
 
     @Override
     public int getFirstScore() {
-        return pin.toInt();
+        return first.toInt();
     }
 
     @Override
     public Optional<Integer> getTotalScore() {
-        if (state instanceof Strike) {
+        if (state instanceof Strike && second == null) {
             return Optional.empty();
         }
-        return Optional.of(pin.toInt());
+        if (second != null) {
+            return Optional.of(first.toInt() + second.toInt());
+        }
+        return Optional.of(first.toInt());
     }
 
     @Override
     public String toString() {
-        return pin.toString();
+        if (second != null) {
+            return first.toString() + "|" + second.toString();
+        }
+        return first.toString();
     }
 }
