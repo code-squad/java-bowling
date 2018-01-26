@@ -1,6 +1,7 @@
 package bowling.domain.state;
 
 import bowling.domain.Pin;
+import bowling.exception.CannotCalculateException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,8 +31,8 @@ public class FirstBowlTest {
         assertThat(firstBowl.toFrameView()).isEqualTo("5  ");
     }
 
-    @Test
-    public void isCalculableTest() {
-        assertThat(firstBowl.isCalculable()).isFalse();
+    @Test(expected = CannotCalculateException.class)
+    public void getScoreTest() {
+        firstBowl.getScore();
     }
 }

@@ -1,6 +1,7 @@
 package bowling.domain.state;
 
 import bowling.domain.Pin;
+import bowling.domain.Score;
 
 public class Miss extends State {
     private Pin firstFallenPin;
@@ -27,7 +28,8 @@ public class Miss extends State {
     }
 
     @Override
-    public boolean isCalculable() {
-        return true;
+    public Score getScore() {
+        return new Score(firstFallenPin.add(secondFallenPin), 0);
     }
+
 }

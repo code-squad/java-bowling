@@ -1,5 +1,6 @@
 package bowling.domain.state;
 
+import bowling.domain.Score;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class StrikeTest {
     }
 
     @Test
-    public void isCalculableTest() {
-        assertThat(strike.isCalculable()).isTrue();
+    public void getScoreTest() {
+        assertThat(strike.getScore()).isEqualTo(new Score(10, 2));
     }
 }

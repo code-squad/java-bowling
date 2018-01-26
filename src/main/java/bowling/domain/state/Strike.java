@@ -1,6 +1,7 @@
 package bowling.domain.state;
 
 import bowling.domain.Pin;
+import bowling.domain.Score;
 
 public class Strike extends State {
     @Override
@@ -19,7 +20,8 @@ public class Strike extends State {
     }
 
     @Override
-    public boolean isCalculable() {
-        return true;
+    public Score getScore() {
+        return new Score(10, 2);
     }
+
 }

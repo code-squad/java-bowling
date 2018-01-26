@@ -1,6 +1,7 @@
 package bowling.domain.state;
 
 import bowling.domain.Pin;
+import bowling.domain.Score;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class MissTest {
     }
 
     @Test
-    public void isCalculableTest() {
-        assertThat(miss.isCalculable()).isTrue();
+    public void getScoreTest() {
+        assertThat(miss.getScore()).isEqualTo(new Score(8, 0));
     }
 }

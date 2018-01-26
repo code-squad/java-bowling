@@ -1,6 +1,8 @@
 package bowling.domain.state;
 
 import bowling.domain.Pin;
+import bowling.domain.Score;
+import bowling.exception.CannotCalculateException;
 
 public class FirstBowl extends State {
     private Pin fallenPin;
@@ -34,7 +36,8 @@ public class FirstBowl extends State {
     }
 
     @Override
-    public boolean isCalculable() {
-        return false;
+    public Score getScore() {
+        throw new CannotCalculateException();
     }
+
 }

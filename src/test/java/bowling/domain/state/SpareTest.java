@@ -1,6 +1,7 @@
 package bowling.domain.state;
 
 import bowling.domain.Pin;
+import bowling.domain.Score;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class SpareTest {
     }
 
     @Test
-    public void isCalculableTest() {
-        assertThat(spare.isCalculable()).isTrue();
+    public void getScoreTest() {
+        assertThat(spare.getScore()).isEqualTo(new Score(10, 1));
     }
 }
