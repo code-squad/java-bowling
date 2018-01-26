@@ -32,7 +32,7 @@ public class FirstBowl extends State {
 
     @Override
     public String toFrameView() {
-        return String.format("%3s", fallenPin.toString());
+        return String.format("%-3s", fallenPin.toString());
     }
 
     @Override

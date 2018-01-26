@@ -1,5 +1,6 @@
 package bowling.domain.state;
 
+import bowling.domain.Pin;
 import bowling.domain.Score;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,7 @@ public class StrikeTest {
 
     @Test
     public void bowlTest() {
-        assertThat(strike.bowlBall(null)).isEqualTo(strike);
+        assertThat(strike.bowlBall(new Pin(10))).isExactlyInstanceOf(StrikeExtra.class);
     }
 
     @Test

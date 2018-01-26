@@ -17,7 +17,7 @@ public class StrikeExtraTest {
 
     @Test
     public void bowlTest() {
-        assertThat(strikeExtra.bowlBall(null)).isEqualTo(strikeExtra);
+        assertThat(strikeExtra.bowlBall(new Pin(10))).isExactlyInstanceOf(StrikeFinal.class);
     }
 
     @Test

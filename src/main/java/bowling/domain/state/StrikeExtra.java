@@ -22,7 +22,7 @@ public class StrikeExtra extends State {
 
     @Override
     public String toFrameView() {
-        return String.format("X%s", extraPin.toString());
+        return String.format("X%s ", extraPin.toString());
     }
 
     @Override

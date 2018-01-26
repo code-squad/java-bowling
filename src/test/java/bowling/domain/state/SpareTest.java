@@ -17,7 +17,7 @@ public class SpareTest {
 
     @Test
     public void bowlTest() {
-        assertThat(spare.bowlBall(null)).isEqualTo(spare);
+        assertThat(spare.bowlBall(new Pin(10))).isExactlyInstanceOf(SpareFinal.class);
     }
 
     @Test
