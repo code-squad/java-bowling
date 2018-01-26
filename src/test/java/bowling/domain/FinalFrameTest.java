@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.exception.CannotCalculateException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,53 +53,35 @@ public class FinalFrameTest {
         assertThat(finalFrame.isFrameEnd()).isTrue();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void invalidInputTest() {
-        finalFrame.rollBowlingBall(new Pin(10));
-        finalFrame.rollBowlingBall(new Pin(5));
-        finalFrame.rollBowlingBall(new Pin(7));
-        assertThat(finalFrame.isFrameEnd()).isTrue();
-    }
-
-    @Test
-    public void invalidInputTest2() {
-        finalFrame.rollBowlingBall(new Pin(10));
-        finalFrame.rollBowlingBall(new Pin(10));
-        finalFrame.rollBowlingBall(new Pin(7));
-        assertThat(finalFrame.isFrameEnd()).isTrue();
-    }
-
-    @Test
+    @Test(expected = CannotCalculateException.class)
     public void getFrameScoreTest() {
-        assertThat(finalFrame.getFrameScore()).isEqualTo(null);
+        assertThat(finalFrame.getScore()).isEqualTo(null);
+    }
 
+    @Test
+    public void getFrameScoreTest2() {
         finalFrame.rollBowlingBall(new Pin(10));
         finalFrame.rollBowlingBall(new Pin(10));
         finalFrame.rollBowlingBall(new Pin(10));
-        assertThat(finalFrame.getFrameScore()).isEqualTo(30);
+        assertThat(finalFrame.getScore()).isEqualTo(30);
 
         finalFrame = new FinalFrame();
         finalFrame.rollBowlingBall(new Pin(0));
         finalFrame.rollBowlingBall(new Pin(8));
-        assertThat(finalFrame.getFrameScore()).isEqualTo(8);
+        assertThat(finalFrame.getScore()).isEqualTo(8);
 
         finalFrame = new FinalFrame();
         finalFrame.rollBowlingBall(new Pin(2));
         finalFrame.rollBowlingBall(new Pin(8));
         finalFrame.rollBowlingBall(new Pin(8));
-        assertThat(finalFrame.getFrameScore()).isEqualTo(18);
+        assertThat(finalFrame.getScore()).isEqualTo(18);
     }
 
     @Test
-    public void calculateStrikeTest() {
-        finalFrame.rollBowlingBall(new Pin(2));
-        finalFrame.rollBowlingBall(new Pin(8));
-        assertThat(finalFrame.calculateStrike()).isEqualTo(20);
-    }
-
-    @Test
-    public void calculateSpareTest() {
-        finalFrame.rollBowlingBall(new Pin(2));
-        assertThat(finalFrame.calculateSpare()).isEqualTo(12);
+    public void calculateAdditionalScoreTest() {
+        finalFrame.rollBowlingBall(new Pin(5));
+        finalFrame.rollBowlingBall(new Pin(5));
+        assertThat(finalFrame.calculateAdditionalScore(new Score(10, 2)))
+                .isEqualTo(20);
     }
 }
