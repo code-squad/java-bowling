@@ -1,7 +1,5 @@
 package bowling.domain;
 
-import bowling.util.ScoreCalculator;
-
 public class NormalFrame extends Frame {
     private Frame nextFrame;
 
@@ -13,29 +11,40 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public Integer getFrameScore() {
-        if(score != null)
-            return score;
+    public void rollBowlingBall(Pin pin) {
+        if(isFrameEnd())
+            nextFrame.rollBowlingBall(pin);
 
-        if(isStrike())
-            return score = nextFrame.calculateStrike();
-
-        if(isSpare())
-            return score = nextFrame.calculateSpare();
-
-        return score = ScoreCalculator.calculateFrame(firstTry, secondTry);
+        state = state.bowlBall(pin);
     }
 
     @Override
-    public Integer calculateStrike() {
-        if(isStrike())
-            return ScoreCalculator.calculateDoubleStrike(nextFrame.calculateSpare());
+    public int getScore() {
+        Score score = state.getScore();
 
-        return ScoreCalculator.calculateStrike(firstTry, secondTry);
+        if(score.calculable())
+            return score.getScore();
+
+        return nextFrame.calculateAdditionalScore(score);
     }
 
     @Override
-    public Integer calculateSpare() {
-        return ScoreCalculator.calculateSpare(firstTry);
+    public boolean isFrameEnd() {
+        return state.isFrameEnd();
+    }
+
+    @Override
+    public String getFrameView() {
+        return state.toFrameView();
+    }
+
+    @Override
+    public int calculateAdditionalScore(Score score) {
+        Score addedScore = state.addScore(score);
+
+        if(addedScore.calculable())
+            return addedScore.getScore();
+
+        return nextFrame.calculateAdditionalScore(addedScore);
     }
 }
