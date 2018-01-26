@@ -31,11 +31,6 @@ public class Pin {
                 .orElse(false);
     }
 
-    public boolean isMiss(Pin secondTry) {
-        return Optional.ofNullable(secondTry)
-                .isPresent();
-    }
-
     private void checkInputValidation(int fellPin) {
         if(fellPin < MIN_VALUE || MAX_VALUE < fellPin)
             throw new IllegalArgumentException("Invalid input for pin");
