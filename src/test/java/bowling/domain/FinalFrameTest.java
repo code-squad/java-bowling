@@ -18,13 +18,10 @@ public class FinalFrameTest {
     public void isFrameEndTest() {
         assertThat(finalFrame.isFrameEnd()).isFalse();
 
-        finalFrame.rollBowlingBall(new Pin(10));
+        finalFrame.rollBowlingBall(0);
         assertThat(finalFrame.isFrameEnd()).isFalse();
 
-        finalFrame.rollBowlingBall(new Pin(2));
-        assertThat(finalFrame.isFrameEnd()).isFalse();
-
-        finalFrame.rollBowlingBall(new Pin(7));
+        finalFrame.rollBowlingBall(3);
         assertThat(finalFrame.isFrameEnd()).isTrue();
     }
 
@@ -32,10 +29,10 @@ public class FinalFrameTest {
     public void isFrameEndTest2() {
         assertThat(finalFrame.isFrameEnd()).isFalse();
 
-        finalFrame.rollBowlingBall(new Pin(0));
+        finalFrame.rollBowlingBall(0);
         assertThat(finalFrame.isFrameEnd()).isFalse();
 
-        finalFrame.rollBowlingBall(new Pin(5));
+        finalFrame.rollBowlingBall(5);
         assertThat(finalFrame.isFrameEnd()).isTrue();
     }
 
@@ -43,13 +40,13 @@ public class FinalFrameTest {
     public void isFrameEndTest3() {
         assertThat(finalFrame.isFrameEnd()).isFalse();
 
-        finalFrame.rollBowlingBall(new Pin(5));
+        finalFrame.rollBowlingBall(5);
         assertThat(finalFrame.isFrameEnd()).isFalse();
 
-        finalFrame.rollBowlingBall(new Pin(5));
+        finalFrame.rollBowlingBall(5);
         assertThat(finalFrame.isFrameEnd()).isFalse();
 
-        finalFrame.rollBowlingBall(new Pin(7));
+        finalFrame.rollBowlingBall(7);
         assertThat(finalFrame.isFrameEnd()).isTrue();
     }
 
@@ -60,27 +57,27 @@ public class FinalFrameTest {
 
     @Test
     public void getFrameScoreTest2() {
-        finalFrame.rollBowlingBall(new Pin(10));
-        finalFrame.rollBowlingBall(new Pin(10));
-        finalFrame.rollBowlingBall(new Pin(10));
+        finalFrame.rollBowlingBall(10);
+        finalFrame.rollBowlingBall(10);
+        finalFrame.rollBowlingBall(10);
         assertThat(finalFrame.getScore()).isEqualTo(30);
 
         finalFrame = new FinalFrame();
-        finalFrame.rollBowlingBall(new Pin(0));
-        finalFrame.rollBowlingBall(new Pin(8));
+        finalFrame.rollBowlingBall(0);
+        finalFrame.rollBowlingBall(8);
         assertThat(finalFrame.getScore()).isEqualTo(8);
 
         finalFrame = new FinalFrame();
-        finalFrame.rollBowlingBall(new Pin(2));
-        finalFrame.rollBowlingBall(new Pin(8));
-        finalFrame.rollBowlingBall(new Pin(8));
+        finalFrame.rollBowlingBall(2);
+        finalFrame.rollBowlingBall(8);
+        finalFrame.rollBowlingBall(8);
         assertThat(finalFrame.getScore()).isEqualTo(18);
     }
 
     @Test
     public void calculateAdditionalScoreTest() {
-        finalFrame.rollBowlingBall(new Pin(5));
-        finalFrame.rollBowlingBall(new Pin(5));
+        finalFrame.rollBowlingBall(5);
+        finalFrame.rollBowlingBall(5);
         assertThat(finalFrame.calculateAdditionalScore(new Score(10, 2)))
                 .isEqualTo(20);
     }

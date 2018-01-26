@@ -8,11 +8,11 @@ import bowling.exception.CannotCalculateException;
 public class FinalFrame extends Frame {
 
     @Override
-    public void rollBowlingBall(Pin pin) {
+    public void rollBowlingBall(int pin) {
         if(isFrameEnd())
             return;
 
-        state = state.bowlBall(pin);
+        state = state.bowlBall(new Pin(pin));
     }
 
     @Override

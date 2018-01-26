@@ -24,7 +24,7 @@ public class Frames {
         return frames.get(round);
     }
 
-    public void rollBowlingBall(int round, Pin fellPin) {
+    public void rollBowlingBall(int round, int  fellPin) {
         frame(round).rollBowlingBall(fellPin);
     }
 

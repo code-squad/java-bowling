@@ -23,7 +23,7 @@ public class Player {
             throw new IllegalArgumentException("name must be three english letter");
     }
 
-    public void rollBowlingBall(Pin pin) {
+    public void rollBowlingBall(int pin) {
         frames.rollBowlingBall(frameNo, pin);
     }
 

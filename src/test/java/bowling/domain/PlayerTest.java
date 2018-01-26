@@ -26,22 +26,22 @@ public class PlayerTest {
     @Test
     public void inRoundEndTest() {
         assertThat(player.isCurrentFrameEnd()).isFalse();
-        player.rollBowlingBall(new Pin(10));
+        player.rollBowlingBall(10);
         assertThat(player.isCurrentFrameEnd()).isTrue();
     }
 
     @Test
     public void frameNoUpdateTest() {
-        player.rollBowlingBall(new Pin(10));
+        player.rollBowlingBall(10);
         player.frameNoUpdate();
         assertThat(player.isCurrentFrameEnd()).isFalse();
     }
 
     @Test
     public void rollBowlingBallTest() {
-        player.rollBowlingBall(new Pin(5));
+        player.rollBowlingBall(5);
         assertThat(player.isCurrentFrameEnd()).isFalse();
-        player.rollBowlingBall(new Pin(5));
+        player.rollBowlingBall(5);
         assertThat(player.isCurrentFrameEnd()).isTrue();
     }
 }

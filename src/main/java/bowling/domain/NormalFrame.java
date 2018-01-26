@@ -11,11 +11,11 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public void rollBowlingBall(Pin pin) {
+    public void rollBowlingBall(int pin) {
         if(isFrameEnd())
             nextFrame.rollBowlingBall(pin);
 
-        state = state.bowlBall(pin);
+        state = state.bowlBall(new Pin(pin));
     }
 
     @Override

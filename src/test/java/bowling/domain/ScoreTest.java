@@ -26,7 +26,7 @@ public class ScoreTest {
 
     @Test
     public void getScoreTest2() {
-        score = score.bowl(2);
+        score = score.bowl(5);
         assertThat(score.getScore()).isEqualTo(10);
     }
 
