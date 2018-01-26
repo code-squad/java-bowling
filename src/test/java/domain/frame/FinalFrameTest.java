@@ -34,6 +34,7 @@ public class FinalFrameTest {
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(9);
+        assertThat(score.toString()).isEqualTo("7|2");
     }
 
     @Test
@@ -48,6 +49,7 @@ public class FinalFrameTest {
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(15);
+        assertThat(score.toString()).isEqualTo("7|/|5");
     }
 
     @Test
@@ -62,6 +64,7 @@ public class FinalFrameTest {
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(20);
+        assertThat(score.toString()).isEqualTo("X|8|2");
     }
 
     @Test

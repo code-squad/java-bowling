@@ -11,6 +11,9 @@ public class Bonus implements State {
     private Pin second;
 
     public Bonus(State state, Pin first) {
+        if (state instanceof Miss) {
+            throw new IllegalArgumentException();
+        }
         this.state = state;
         this.first = first;
     }
