@@ -1,21 +1,30 @@
 package domain.score;
 
+import java.util.Optional;
+
 public class FirstBowl implements State {
 
-    private final int countOfPin;
+    private final Pin pin;
 
-    public FirstBowl(int countOfPin) {
-        this.countOfPin = countOfPin;
+    FirstBowl(Pin pin) {
+        this.pin = pin;
     }
 
     @Override
-    public State bowl(int countOfPin) {
-        if (this.countOfPin + countOfPin > 10) {
-            throw new IllegalArgumentException();
+    public State bowl(Pin p) {
+        if (pin.add(p).equals(Pin.TEN)) {
+            return new Spare(this.pin, p);
         }
-        if (this.countOfPin + countOfPin == 10) {
-            return new Spare(this.countOfPin, countOfPin);
-        }
-        return new Miss();
+        return new Miss(this.pin, p);
+    }
+
+    @Override
+    public int getFirstScore() {
+        return pin.toInt();
+    }
+
+    @Override
+    public Optional<Integer> getTotalScore() {
+        return Optional.empty();
     }
 }

@@ -36,7 +36,7 @@ public class NormalFrameScoreTest {
     @Test
     public void NormalScore_스페어() throws Exception {
         NormalFrameScore spare = new NormalFrameScore(new Pin(7));
-        spare.addResult(new Pin(3));
+        spare.bowl(new Pin(3));
 
         assertThat(spare.toString()).isEqualTo("7|/");
         assertThat(spare.isFinish()).isTrue();
@@ -48,7 +48,7 @@ public class NormalFrameScoreTest {
     @Test
     public void NormalScore_미스() throws Exception {
         NormalFrameScore spare = new NormalFrameScore(new Pin(7));
-        spare.addResult(new Pin(2));
+        spare.bowl(new Pin(2));
 
         assertThat(spare.toString()).isEqualTo("7|2");
         assertThat(spare.isFinish()).isTrue();
@@ -61,7 +61,7 @@ public class NormalFrameScoreTest {
     @Test
     public void toString_스페어() throws Exception {
         NormalFrameScore normalScore = new NormalFrameScore(new Pin(0));
-        normalScore.addResult(Pin.TEN);
+        normalScore.bowl(Pin.TEN);
         assertThat(normalScore.isStrike()).isFalse();
         assertThat(normalScore.toString()).isEqualTo("-|/");
     }
@@ -69,7 +69,7 @@ public class NormalFrameScoreTest {
     @Test(expected = IllegalArgumentException.class)
     public void NormalScore_74() throws Exception {
         NormalFrameScore normalScore = new NormalFrameScore(new Pin(7));
-        normalScore.addResult(new Pin(4));
+        normalScore.bowl(new Pin(4));
 
     }
 }

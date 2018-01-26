@@ -4,28 +4,23 @@ import java.util.Optional;
 
 public abstract class FrameScore {
 
-    final Pin first;
-
-    Pin second;
+    State state;
 
     FrameScore(Pin first) {
-        if (first == null) {
-            throw new IllegalArgumentException();
-        }
-        this.first = first;
+        this.state = Ready.getInstance().bowl(first);
     }
 
     public boolean isStrike() {
-        return first.equals(Pin.TEN);
+        return state instanceof Finish;
     }
 
     public Integer getFirstScore() {
-        return first.toInt();
+        return state.getFirstScore();
     }
 
     public abstract boolean isFinish();
 
-    public abstract void addResult(Pin pin);
+    public abstract void bowl(Pin pin);
 
     public abstract Optional<Integer> getFrameScore();
 

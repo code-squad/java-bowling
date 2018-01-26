@@ -11,7 +11,7 @@ public class FinalFrameScoreTest {
         FinalFrameScore score = new FinalFrameScore(new Pin(7));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(2));
+        score.bowl(new Pin(2));
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(9);
@@ -22,10 +22,10 @@ public class FinalFrameScoreTest {
         FinalFrameScore score = new FinalFrameScore(new Pin(7));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(3));
+        score.bowl(new Pin(3));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(5));
+        score.bowl(new Pin(5));
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(15);
@@ -36,10 +36,10 @@ public class FinalFrameScoreTest {
         FinalFrameScore score = new FinalFrameScore(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(8));
+        score.bowl(new Pin(8));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(2));
+        score.bowl(new Pin(2));
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(20);
@@ -50,10 +50,10 @@ public class FinalFrameScoreTest {
         FinalFrameScore score = new FinalFrameScore(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(10));
+        score.bowl(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(2));
+        score.bowl(new Pin(2));
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(22);
@@ -65,10 +65,10 @@ public class FinalFrameScoreTest {
         FinalFrameScore score = new FinalFrameScore(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(10));
+        score.bowl(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
-        score.addResult(new Pin(10));
+        score.bowl(new Pin(10));
 
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
@@ -79,20 +79,20 @@ public class FinalFrameScoreTest {
     @Test(expected = IllegalArgumentException.class)
     public void FinalScore_74() throws Exception {
         FinalFrameScore score = new FinalFrameScore(new Pin(7));
-        score.addResult(new Pin(4));
+        score.bowl(new Pin(4));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void FinalScore_721() throws Exception {
         FinalFrameScore score = new FinalFrameScore(new Pin(7));
-        score.addResult(new Pin(2));
-        score.addResult(new Pin(1));
+        score.bowl(new Pin(2));
+        score.bowl(new Pin(1));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void FinalScore_X74() throws Exception {
         FinalFrameScore score = new FinalFrameScore(new Pin(10));
-        score.addResult(new Pin(7));
-        score.addResult(new Pin(4));
+        score.bowl(new Pin(7));
+        score.bowl(new Pin(4));
     }
 }

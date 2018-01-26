@@ -2,78 +2,72 @@ package domain.score;
 
 import java.util.Optional;
 
-import static domain.score.Pin.TEN;
-
 public class FinalFrameScore extends FrameScore {
 
-    private Pin bonus;
+    private State bonus;
 
     public FinalFrameScore(Pin first) {
         super(first);
-        this.bonus = null;
     }
 
     @Override
     public boolean isFinish() {
-        if (bonus != null) {
+        if (state instanceof Miss) {
             return true;
         }
-        if (second == null) {
-            return false;
-        }
-        return !isStrike() && !second.isSpare(first);
+
+        return bonus != null && bonus.getTotalScore()
+                                     .isPresent();
     }
 
     @Override
-    public void addResult(Pin pin) {
+    public void bowl(Pin pin) {
         if (isFinish()) {
             throw new IllegalArgumentException();
         }
-        if (second == null) {
-            if (!isStrike()) {
-                TEN.minus(first).minus(pin);
-            }
-            second = pin;
+        if (!(state instanceof Finish)) {
+            this.state = state.bowl(pin);
             return;
         }
-        if (bonus == null) {
-            if (isRemainedFrame()) {
-                TEN.minus(second).minus(pin);
-            }
-            bonus = pin;
+        if (bonus != null) {
+            this.bonus = bonus.bowl(pin);
             return;
         }
-        throw new IllegalStateException();
-    }
-
-    private boolean isRemainedFrame() {
-        if (first.isStrike()) {
-            return !second.isStrike();
-        }
-        return !first.isSpare(second);
+        bonus = new Bonus(state, pin);
     }
 
     @Override
     public Optional<Integer> getFrameScore() {
-        if (!isFinish()) {
-            return Optional.empty();
+        if (state instanceof Miss) {
+            return state.getTotalScore();
         }
-        int b = bonus == null ? 0 : bonus.toInt();
-        return Optional.of(first.toInt() + second.toInt() + b);
+        if (state instanceof Finish && bonus != null) {
+            return bonus.getTotalScore()
+                        .map(i -> i + state.getTotalScore().orElseThrow(IllegalStateException::new));
+        }
+        return Optional.empty();
     }
 
     @Override
     public Optional<Integer> getSumOfFirstAndSecondScore() {
-        if (second == null) {
+        if (!(state instanceof Finish)) {
             return Optional.empty();
         }
-        return Optional.of(first.toInt() + second.toInt());
+        if (state instanceof Strike) {
+            if (bonus == null) {
+                return Optional.empty();
+            }
+            return state.getTotalScore()
+                        .map(i -> i + bonus.getFirstScore());
+        }
+        return state.getTotalScore();
     }
 
     @Override
     public String toString() {
-        String secondString = second == null ? " " : second.toString();
-        String bonusString = bonus == null ? " " : bonus.toString();
-        return first.toString() + "|" + secondString + "|" + bonusString;
+        if (bonus == null) {
+            return state.toString();
+        }
+        return state.toString() + "|" + bonus.toString();
     }
 }

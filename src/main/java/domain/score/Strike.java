@@ -1,8 +1,20 @@
 package domain.score;
 
-public class Strike implements State {
+import java.util.Optional;
+
+public class Strike implements State, Finish {
     @Override
-    public State bowl(int countOfPin) {
-        return null;
+    public State bowl(Pin pin) {
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public int getFirstScore() {
+        return 10;
+    }
+
+    @Override
+    public Optional<Integer> getTotalScore() {
+        return Optional.of(10);
     }
 }

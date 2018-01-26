@@ -1,12 +1,20 @@
 package domain.score;
 
-public class Ready implements State {
-    @Override
-    public State bowl(int countOfPin) {
-        if (countOfPin == 10) {
-            return new Strike();
-        }
-        return new FirstBowl(countOfPin);
+public class Ready {
+
+    private static final Ready instance = new Ready();
+
+    private Ready() {
     }
 
+    static Ready getInstance() {
+        return instance;
+    }
+
+    public State bowl(Pin pin) {
+        if (pin.equals(Pin.TEN)) {
+            return new Strike();
+        }
+        return new FirstBowl(pin);
+    }
 }

@@ -6,61 +6,36 @@ public class NormalFrameScore extends FrameScore {
 
     public NormalFrameScore(Pin first) {
         super(first);
-        this.second = null;
     }
 
     @Override
     public boolean isFinish() {
-        return isStrike() || second != null;
+        return state instanceof Finish;
     }
 
     @Override
-    public void addResult(Pin second) {
-        if (second == null) {
-            throw new IllegalArgumentException();
-        }
-        this.first.add(second);
-        this.second = second;
+    public void bowl(Pin pin) {
+        this.state = state.bowl(pin);
     }
 
     @Override
     public Optional<Integer> getFrameScore() {
-        if (!canCalculateFrameScore()) {
-            return Optional.empty();
+        if (state instanceof Miss) {
+            return getSumOfFirstAndSecondScore();
         }
-        return Optional.of(first.toInt() + second.toInt());
+        return Optional.empty();
     }
 
     @Override
     public Optional<Integer> getSumOfFirstAndSecondScore() {
-        if (isStrike()) {
-            return Optional.of(10);
+        if (state instanceof Finish) {
+            return state.getTotalScore();
         }
-        if (second == null) {
-            return Optional.empty();
-        }
-        return Optional.of(first.toInt() + second.toInt());
-    }
-
-    private boolean canCalculateFrameScore() {
-        return !isStrike() && second != null && !isSpare();
-    }
-
-    private boolean isSpare() {
-        return second != null && first.isSpare(second);
+        return Optional.empty();
     }
 
     @Override
     public String toString() {
-        if (isStrike()) {
-            return ScoreType.STRIKE.getDisplay();
-        }
-        if (isSpare()) {
-            return first.toString() + "|" + ScoreType.SPARE.getDisplay();
-        }
-        if (second == null) {
-            return first.toString();
-        }
-        return first.toString() + "|" + second.toString();
+        return state.toString();
     }
 }

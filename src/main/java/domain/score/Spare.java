@@ -1,18 +1,30 @@
 package domain.score;
 
-public class Spare implements State {
+import java.util.Optional;
 
-    private final int first;
+public class Spare implements State, Finish {
 
-    private final int second;
+    private final Pin first;
 
-    public Spare(int first, int second) {
+    private final Pin second;
+
+    Spare(Pin first, Pin second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public State bowl(int countOfPin) {
+    public State bowl(Pin pin) {
         throw new IllegalStateException();
+    }
+
+    @Override
+    public int getFirstScore() {
+        return first.toInt();
+    }
+
+    @Override
+    public Optional<Integer> getTotalScore() {
+        return Optional.of(10);
     }
 }

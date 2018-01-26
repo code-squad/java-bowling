@@ -16,7 +16,7 @@ public abstract class Frame {
     }
 
     void addResult(Pin pin) {
-        this.frameScore.addResult(pin);
+        this.frameScore.bowl(pin);
     }
 
     boolean isFinish() {

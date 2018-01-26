@@ -1,7 +1,12 @@
 package domain.score;
 
+import java.util.Optional;
+
 public interface State {
 
-    State bowl(int countOfPin);
+    State bowl(Pin pin);
 
+    int getFirstScore();
+
+    Optional<Integer> getTotalScore();
 }
