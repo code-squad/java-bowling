@@ -12,4 +12,9 @@ public class Strike extends State {
     public boolean isFrameEnd() {
         return true;
     }
+
+    @Override
+    public String toFrameView() {
+        return "X  ";
+    }
 }

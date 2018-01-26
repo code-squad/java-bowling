@@ -20,4 +20,9 @@ public class Miss extends State {
     public boolean isFrameEnd() {
         return true;
     }
+
+    @Override
+    public String toFrameView() {
+        return String.format("%s|%s", firstFallenPin.toString(), secondFallenPin.toString());
+    }
 }

@@ -24,4 +24,9 @@ public class FirstBowlTest {
     public void isFrameEndTest() {
         assertThat(firstBowl.isFrameEnd()).isFalse();
     }
+
+    @Test
+    public void toFrameViewTest() {
+        assertThat(firstBowl.toFrameView()).isEqualTo("5  ");
+    }
 }

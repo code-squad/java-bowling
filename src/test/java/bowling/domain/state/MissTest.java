@@ -23,4 +23,9 @@ public class MissTest {
     public void isFrameEndTest() {
         assertThat(miss.isFrameEnd()).isTrue();
     }
+
+    @Test
+    public void toFrameViewTest() {
+        assertThat(miss.toFrameView()).isEqualTo("5|3");
+    }
 }

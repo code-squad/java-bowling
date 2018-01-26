@@ -16,4 +16,9 @@ public class Ready extends State{
     public boolean isFrameEnd() {
         return false;
     }
+
+    @Override
+    public String toFrameView() {
+        return "   ";
+    }
 }

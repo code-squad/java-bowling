@@ -18,4 +18,14 @@ public class SpareTest {
     public void bowlTest() {
         assertThat(spare.bowlBall(null)).isEqualTo(spare);
     }
+
+    @Test
+    public void isFrameEndTest() {
+        assertThat(spare.isFrameEnd()).isTrue();
+    }
+
+    @Test
+    public void toFrameViewTest() {
+        assertThat(spare.toFrameView()).isEqualTo("8|/");
+    }
 }

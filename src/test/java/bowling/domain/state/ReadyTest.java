@@ -24,4 +24,9 @@ public class ReadyTest {
     public void isFrameEndTest() {
         assertThat(ready.isFrameEnd()).isFalse();
     }
+
+    @Test
+    public void toFrameViewTest() {
+        assertThat(ready.toFrameView()).isEqualTo("   ");
+    }
 }

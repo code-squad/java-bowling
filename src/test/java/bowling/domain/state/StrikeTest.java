@@ -22,4 +22,9 @@ public class StrikeTest {
     public void isFrameEndTest() {
         assertThat(strike.isFrameEnd()).isTrue();
     }
+
+    @Test
+    public void toFrameViewTest() {
+        assertThat(strike.toFrameView()).isEqualTo("X  ");
+    }
 }
