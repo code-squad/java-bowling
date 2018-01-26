@@ -1,7 +1,5 @@
 package bowling.domain;
 
-import bowling.util.PinUtil;
-
 import java.util.Optional;
 
 import static bowling.common.StaticVariables.*;
@@ -13,6 +11,10 @@ public class Pin {
         checkInputValidation(fellPin);
 
         this.fellPin = fellPin;
+    }
+
+    public int toIntValue() {
+        return fellPin;
     }
 
     public boolean isOverTen(Pin pin) {
@@ -47,13 +49,5 @@ public class Pin {
 
     public Integer calculateSpare() {
         return this.fellPin + 10;
-    }
-
-    @Override
-    public String toString() {
-        if(fellPin == 0 || fellPin == 10)
-            return PinUtil.toSymbol(fellPin);
-
-        return String.valueOf(fellPin);
     }
 }

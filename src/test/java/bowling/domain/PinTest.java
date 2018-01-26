@@ -1,6 +1,5 @@
 package bowling.domain;
 
-import bowling.util.PinUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,5 +37,10 @@ public class PinTest {
     @Test()
     public void calculateSpareTest() {
         assertThat(pin.calculateSpare()).isEqualTo(20);
+    }
+
+    @Test()
+    public void toIntValueTest() {
+        assertThat(pin.toIntValue()).isEqualTo(10);
     }
 }
