@@ -2,13 +2,13 @@ package domain.score;
 
 import java.util.Optional;
 
-public abstract class Score {
+public abstract class FrameScore {
 
     final Pin first;
 
     Pin second;
 
-    Score(Pin first) {
+    FrameScore(Pin first) {
         if (first == null) {
             throw new IllegalArgumentException();
         }

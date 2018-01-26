@@ -1,48 +1,48 @@
 package domain.frame;
 
+import domain.score.FrameScore;
 import domain.score.Pin;
-import domain.score.Score;
 
 import java.util.Optional;
 
 public abstract class Frame {
-    private final Score score;
+    private final FrameScore frameScore;
 
-    Frame(Score score) {
-        if (score == null) {
+    Frame(FrameScore frameScore) {
+        if (frameScore == null) {
             throw new IllegalArgumentException();
         }
-        this.score = score;
+        this.frameScore = frameScore;
     }
 
     void addResult(Pin pin) {
-        this.score.addResult(pin);
+        this.frameScore.addResult(pin);
     }
 
     boolean isFinish() {
-        return score.isFinish();
+        return frameScore.isFinish();
     }
 
     boolean isStrike() {
-        return score.isStrike();
+        return frameScore.isStrike();
     }
 
     Optional<Integer> calculateFrameScore() {
-        return score.getFrameScore();
+        return frameScore.getFrameScore();
     }
 
     Integer getFirstScore() {
-        return score.getFirstScore();
+        return frameScore.getFirstScore();
     }
 
     Optional<Integer> getSumOfScore() {
-        return score.getSumOfFirstAndSecondScore();
+        return frameScore.getSumOfFirstAndSecondScore();
     }
 
     abstract Optional<Integer> calculateAdditionalScore(Frame... f);
 
     @Override
     public String toString() {
-        return String.format("%-4s", score.toString());
+        return String.format("%-4s", frameScore.toString());
     }
 }

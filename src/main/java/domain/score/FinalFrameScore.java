@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import static domain.score.Pin.TEN;
 
-public class FinalScore extends Score {
+public class FinalFrameScore extends FrameScore {
 
     private Pin bonus;
 
-    public FinalScore(Pin first) {
+    public FinalFrameScore(Pin first) {
         super(first);
         this.bonus = null;
     }

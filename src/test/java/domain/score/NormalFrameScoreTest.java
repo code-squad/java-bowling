@@ -4,18 +4,18 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NormalScoreTest {
+public class NormalFrameScoreTest {
 
     @Test
     public void NormalScore_거터() throws Exception {
-        NormalScore zero = new NormalScore(Pin.ZERO);
+        NormalFrameScore zero = new NormalFrameScore(Pin.ZERO);
 
         assertThat(zero.toString()).isEqualTo("-");
     }
 
     @Test
     public void NormalScore_끝나지않은Frame() throws Exception {
-        NormalScore score = new NormalScore(new Pin(7));
+        NormalFrameScore score = new NormalFrameScore(new Pin(7));
 
         assertThat(score.toString()).isEqualTo("7");
         assertThat(score.isFinish()).isFalse();
@@ -25,7 +25,7 @@ public class NormalScoreTest {
 
     @Test
     public void NormalScore_스트라이크() throws Exception {
-        NormalScore strike = new NormalScore(Pin.TEN);
+        NormalFrameScore strike = new NormalFrameScore(Pin.TEN);
 
         assertThat(strike.isStrike()).isTrue();
         assertThat(strike.getFrameScore().isPresent()).isFalse();
@@ -35,7 +35,7 @@ public class NormalScoreTest {
 
     @Test
     public void NormalScore_스페어() throws Exception {
-        NormalScore spare = new NormalScore(new Pin(7));
+        NormalFrameScore spare = new NormalFrameScore(new Pin(7));
         spare.addResult(new Pin(3));
 
         assertThat(spare.toString()).isEqualTo("7|/");
@@ -47,7 +47,7 @@ public class NormalScoreTest {
 
     @Test
     public void NormalScore_미스() throws Exception {
-        NormalScore spare = new NormalScore(new Pin(7));
+        NormalFrameScore spare = new NormalFrameScore(new Pin(7));
         spare.addResult(new Pin(2));
 
         assertThat(spare.toString()).isEqualTo("7|2");
@@ -60,7 +60,7 @@ public class NormalScoreTest {
 
     @Test
     public void toString_스페어() throws Exception {
-        NormalScore normalScore = new NormalScore(new Pin(0));
+        NormalFrameScore normalScore = new NormalFrameScore(new Pin(0));
         normalScore.addResult(Pin.TEN);
         assertThat(normalScore.isStrike()).isFalse();
         assertThat(normalScore.toString()).isEqualTo("-|/");
@@ -68,7 +68,7 @@ public class NormalScoreTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void NormalScore_74() throws Exception {
-        NormalScore normalScore = new NormalScore(new Pin(7));
+        NormalFrameScore normalScore = new NormalFrameScore(new Pin(7));
         normalScore.addResult(new Pin(4));
 
     }

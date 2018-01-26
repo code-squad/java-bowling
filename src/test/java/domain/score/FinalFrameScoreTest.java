@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FinalScoreTest {
+public class FinalFrameScoreTest {
 
     @Test
     public void FinalScore_72() throws Exception {
-        FinalScore score = new FinalScore(new Pin(7));
+        FinalFrameScore score = new FinalFrameScore(new Pin(7));
         assertThat(score.isFinish()).isFalse();
 
         score.addResult(new Pin(2));
@@ -19,7 +19,7 @@ public class FinalScoreTest {
 
     @Test
     public void FinalScore_735() throws Exception {
-        FinalScore score = new FinalScore(new Pin(7));
+        FinalFrameScore score = new FinalFrameScore(new Pin(7));
         assertThat(score.isFinish()).isFalse();
 
         score.addResult(new Pin(3));
@@ -33,7 +33,7 @@ public class FinalScoreTest {
 
     @Test
     public void FinalScore_X82() throws Exception {
-        FinalScore score = new FinalScore(new Pin(10));
+        FinalFrameScore score = new FinalFrameScore(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
         score.addResult(new Pin(8));
@@ -47,7 +47,7 @@ public class FinalScoreTest {
 
     @Test
     public void FinalScore_XX2() throws Exception {
-        FinalScore score = new FinalScore(new Pin(10));
+        FinalFrameScore score = new FinalFrameScore(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
         score.addResult(new Pin(10));
@@ -62,7 +62,7 @@ public class FinalScoreTest {
 
     @Test
     public void FinalScore_XXX() throws Exception {
-        FinalScore score = new FinalScore(new Pin(10));
+        FinalFrameScore score = new FinalFrameScore(new Pin(10));
         assertThat(score.isFinish()).isFalse();
 
         score.addResult(new Pin(10));
@@ -78,20 +78,20 @@ public class FinalScoreTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void FinalScore_74() throws Exception {
-        FinalScore score = new FinalScore(new Pin(7));
+        FinalFrameScore score = new FinalFrameScore(new Pin(7));
         score.addResult(new Pin(4));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void FinalScore_721() throws Exception {
-        FinalScore score = new FinalScore(new Pin(7));
+        FinalFrameScore score = new FinalFrameScore(new Pin(7));
         score.addResult(new Pin(2));
         score.addResult(new Pin(1));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void FinalScore_X74() throws Exception {
-        FinalScore score = new FinalScore(new Pin(10));
+        FinalFrameScore score = new FinalFrameScore(new Pin(10));
         score.addResult(new Pin(7));
         score.addResult(new Pin(4));
     }

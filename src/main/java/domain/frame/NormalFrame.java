@@ -1,6 +1,6 @@
 package domain.frame;
 
-import domain.score.NormalScore;
+import domain.score.NormalFrameScore;
 import domain.score.Pin;
 
 import java.util.Optional;
@@ -8,7 +8,7 @@ import java.util.Optional;
 class NormalFrame extends Frame {
 
     NormalFrame(Pin pin) {
-        super(new NormalScore(pin));
+        super(new NormalFrameScore(pin));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package domain.frame;
 
-import domain.score.FinalScore;
+import domain.score.FinalFrameScore;
 import domain.score.Pin;
 
 import java.util.Optional;
@@ -8,7 +8,7 @@ import java.util.Optional;
 class FinalFrame extends Frame {
 
     FinalFrame(Pin score) {
-        super(new FinalScore(score));
+        super(new FinalFrameScore(score));
     }
 
     @Override

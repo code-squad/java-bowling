@@ -2,9 +2,9 @@ package domain.score;
 
 import java.util.Optional;
 
-public class NormalScore extends Score {
+public class NormalFrameScore extends FrameScore {
 
-    public NormalScore(Pin first) {
+    public NormalFrameScore(Pin first) {
         super(first);
         this.second = null;
     }
