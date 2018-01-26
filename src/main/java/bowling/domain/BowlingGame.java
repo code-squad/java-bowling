@@ -14,7 +14,10 @@ public class BowlingGame {
         this.frames = new LinkedList<>();
         this.frames.add(new LastFrame());
         IntStream.range(0, 9)
-                .forEach(i -> frames.addFirst(new Frame(frames.getFirst())));
+                .forEach(i -> {
+                    Frame nextFrame = frames.getFirst();
+                    frames.addFirst(new Frame(nextFrame));
+                });
         currentFrame = frames.getFirst();
     }
 
