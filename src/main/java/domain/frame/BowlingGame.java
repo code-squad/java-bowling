@@ -41,7 +41,7 @@ public class BowlingGame {
 
     private void playFrameUntilFinished(Frame frame, int frameNo) {
         while (!frame.isFinish()) {
-            frame.addResult(player.play(frameNo));
+            frame.bowl(player.play(frameNo));
             notifyFrameChanged();
         }
     }

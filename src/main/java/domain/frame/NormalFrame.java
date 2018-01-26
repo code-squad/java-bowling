@@ -1,28 +1,45 @@
 package domain.frame;
 
-import domain.score.NormalFrameScore;
+import domain.score.Finish;
+import domain.score.Miss;
 import domain.score.Pin;
 
 import java.util.Optional;
 
-class NormalFrame extends Frame {
+public class NormalFrame extends Frame {
 
-    NormalFrame(Pin pin) {
-        super(new NormalFrameScore(pin));
+    public NormalFrame(Pin first) {
+        super(first);
     }
 
     @Override
-    Optional<Integer> calculateAdditionalScore(Frame... f) {
-        if (f.length != 1 && f.length != 2) {
-            throw new IllegalArgumentException();
-        }
-        if (f.length == 1) {
-            return calculateScoreWithBefore(f[0]);
-        }
-        return calculateScoreWithBefore(f[0], f[1]);
+    public boolean isFinish() {
+        return state instanceof Finish;
     }
 
-    private Optional<Integer> calculateScoreWithBefore(Frame before) {
+    @Override
+    public void bowl(Pin pin) {
+        this.state = state.bowl(pin);
+    }
+
+    @Override
+    public Optional<Integer> getFrameScore() {
+        if (state instanceof Miss) {
+            return getSumOfFirstAndSecondScore();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Integer> getSumOfFirstAndSecondScore() {
+        if (state instanceof Finish) {
+            return state.getTotalScore();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Integer> calculateScoreWithBefore(Frame before) {
         if (before.isStrike() && this.isStrike()) {
             return Optional.empty();
         }
@@ -30,16 +47,22 @@ class NormalFrame extends Frame {
             if (!this.isFinish()) {
                 return Optional.empty();
             }
-            int score = calculateFrameScore().orElse(10);
+            int score = getFrameScore().orElse(10);
             return Optional.of(score + 10);
         }
         return Optional.of(10 + getFirstScore());
     }
 
-    private Optional<Integer> calculateScoreWithBefore(Frame f1, Frame f2) {
+    @Override
+    public Optional<Integer> calculateScoreWithBefore(Frame f1, Frame f2) {
         if (f1.isStrike() && f2.isStrike()) {
             return Optional.of(10 + 10 + getFirstScore());
         }
         throw new IllegalArgumentException();
+    }
+
+    @Override
+    public String toString() {
+        return state.toString();
     }
 }

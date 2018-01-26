@@ -8,7 +8,7 @@ public class Bonus implements State {
 
     private final Pin pin;
 
-    Bonus(State state, Pin pin) {
+    public Bonus(State state, Pin pin) {
         this.state = state;
         this.pin = pin;
     }

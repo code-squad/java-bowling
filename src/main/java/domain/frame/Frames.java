@@ -44,14 +44,14 @@ public class Frames {
         if (now == null) {
             return Optional.empty();
         }
-        if (now.calculateFrameScore().isPresent()) {
-            return now.calculateFrameScore();
+        if (now.getFrameScore().isPresent()) {
+            return now.getFrameScore();
         }
         Frame next = get(index + 1);
         if (next == null) {
             return Optional.empty();
         }
-        Optional<Integer> score = next.calculateAdditionalScore(now);
+        Optional<Integer> score = next.calculateScoreWithBefore(now);
         if (score.isPresent()) {
             return score;
         }
@@ -59,7 +59,7 @@ public class Frames {
         if (nextOfNext == null) {
             return Optional.empty();
         }
-        return nextOfNext.calculateAdditionalScore(now, next);
+        return nextOfNext.calculateScoreWithBefore(now, next);
     }
 
     private Frame get(int index) {
@@ -82,7 +82,7 @@ public class Frames {
             return "";
         }
         return frames.stream()
-                     .map(Frame::toString)
+                     .map(f -> String.format("%-4s", f.toString()))
                      .collect(Collectors.joining("|")) + "|";
     }
 }

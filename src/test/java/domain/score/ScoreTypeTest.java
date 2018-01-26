@@ -10,7 +10,7 @@ import static domain.score.ScoreType.STRIKE;
 import static domain.score.ScoreType.UNDEFINED;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FrameScoreTypeTest {
+public class ScoreTypeTest {
 
     @Test
     public void valueOf_거터() throws Exception {

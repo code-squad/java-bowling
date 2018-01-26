@@ -1,8 +1,8 @@
 package domain.score;
 
 public class Pin {
-    static final Pin ZERO = new Pin(0);
-    static final Pin TEN = new Pin(10);
+    public static final Pin ZERO = new Pin(0);
+    public static final Pin TEN = new Pin(10);
 
     private final int fallPins;
 

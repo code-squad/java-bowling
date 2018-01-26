@@ -1,48 +1,38 @@
 package domain.frame;
 
-import domain.score.FrameScore;
 import domain.score.Pin;
+import domain.score.Ready;
+import domain.score.State;
+import domain.score.Strike;
 
 import java.util.Optional;
 
 public abstract class Frame {
-    private final FrameScore frameScore;
 
-    Frame(FrameScore frameScore) {
-        if (frameScore == null) {
-            throw new IllegalArgumentException();
-        }
-        this.frameScore = frameScore;
+    State state;
+
+    Frame(Pin first) {
+        this.state = Ready.getInstance().bowl(first);
     }
 
-    void addResult(Pin pin) {
-        this.frameScore.bowl(pin);
+    public boolean isStrike() {
+        return state instanceof Strike;
     }
 
-    boolean isFinish() {
-        return frameScore.isFinish();
+    public Integer getFirstScore() {
+        return state.getFirstScore();
     }
 
-    boolean isStrike() {
-        return frameScore.isStrike();
-    }
+    public abstract boolean isFinish();
 
-    Optional<Integer> calculateFrameScore() {
-        return frameScore.getFrameScore();
-    }
+    public abstract void bowl(Pin pin);
 
-    Integer getFirstScore() {
-        return frameScore.getFirstScore();
-    }
+    public abstract Optional<Integer> getFrameScore();
 
-    Optional<Integer> getSumOfScore() {
-        return frameScore.getSumOfFirstAndSecondScore();
-    }
+    public abstract Optional<Integer> getSumOfFirstAndSecondScore();
 
-    abstract Optional<Integer> calculateAdditionalScore(Frame... f);
+    public abstract Optional<Integer> calculateScoreWithBefore(Frame before);
 
-    @Override
-    public String toString() {
-        return String.format("%-4s", frameScore.toString());
-    }
+    public abstract Optional<Integer> calculateScoreWithBefore(Frame f1, Frame f2);
+
 }

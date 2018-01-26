@@ -1,38 +1,96 @@
 package domain.frame;
 
-import domain.score.FinalFrameScore;
+import domain.score.Bonus;
+import domain.score.Finish;
+import domain.score.Miss;
 import domain.score.Pin;
+import domain.score.State;
+import domain.score.Strike;
 
 import java.util.Optional;
 
-class FinalFrame extends Frame {
+public class FinalFrame extends Frame {
 
-    FinalFrame(Pin score) {
-        super(new FinalFrameScore(score));
+    private State bonus;
+
+    public FinalFrame(Pin first) {
+        super(first);
     }
 
     @Override
-    Optional<Integer> calculateAdditionalScore(Frame... f) {
-        if (f.length != 1 && f.length != 2) {
-            throw new IllegalArgumentException();
+    public boolean isFinish() {
+        if (state instanceof Miss) {
+            return true;
         }
-        if (f.length == 1) {
-            return calculateScoreWithBefore(f[0]);
-        }
-        return calculateScoreWithBefore(f[0], f[1]);
+
+        return bonus != null && bonus.getTotalScore()
+                                     .isPresent();
     }
 
-    private Optional<Integer> calculateScoreWithBefore(Frame f1, Frame f2) {
+    @Override
+    public void bowl(Pin pin) {
+        if (isFinish()) {
+            throw new IllegalArgumentException();
+        }
+        if (!(state instanceof Finish)) {
+            this.state = state.bowl(pin);
+            return;
+        }
+        if (bonus != null) {
+            this.bonus = bonus.bowl(pin);
+            return;
+        }
+        bonus = new Bonus(state, pin);
+    }
+
+    @Override
+    public Optional<Integer> getFrameScore() {
+        if (state instanceof Miss) {
+            return state.getTotalScore();
+        }
+        if (state instanceof Finish && bonus != null) {
+            return bonus.getTotalScore()
+                        .map(i -> i + state.getTotalScore().orElseThrow(IllegalStateException::new));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Integer> getSumOfFirstAndSecondScore() {
+        if (!(state instanceof Finish)) {
+            return Optional.empty();
+        }
+        if (state instanceof Strike) {
+            if (bonus == null) {
+                return Optional.empty();
+            }
+            return state.getTotalScore()
+                        .map(i -> i + bonus.getFirstScore());
+        }
+        return state.getTotalScore();
+    }
+
+    @Override
+    public Optional<Integer> calculateScoreWithBefore(Frame f1, Frame f2) {
         if (!f1.isStrike() || !f2.isStrike()) {
             throw new IllegalArgumentException();
         }
         return Optional.of(getFirstScore() + 20);
     }
 
-    private Optional<Integer> calculateScoreWithBefore(Frame before) {
+    @Override
+    public Optional<Integer> calculateScoreWithBefore(Frame before) {
         if (before.isStrike()) {
-            return getSumOfScore().map(integer -> integer + 10);
+            return getSumOfFirstAndSecondScore().map(integer -> integer + 10);
         }
         return Optional.of(getFirstScore() + 10);
+    }
+
+    @Override
+    public String toString() {
+        if (bonus == null) {
+            return state.toString();
+        }
+        return state.toString() + "|" + bonus.toString();
     }
 }

@@ -1,5 +1,5 @@
 package domain.score;
 
-interface Finish {
+public interface Finish {
     // nothing
 }

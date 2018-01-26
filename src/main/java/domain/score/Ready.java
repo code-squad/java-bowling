@@ -7,7 +7,7 @@ public class Ready {
     private Ready() {
     }
 
-    static Ready getInstance() {
+    public static Ready getInstance() {
         return instance;
     }
 

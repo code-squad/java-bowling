@@ -21,12 +21,12 @@ public class FramesTest {
         frames = new Frames();
 
         spare = new NormalFrame(new Pin(8));
-        spare.addResult(new Pin(2));
+        spare.bowl(new Pin(2));
 
         strike = new NormalFrame(new Pin(10));
 
         miss = new NormalFrame(new Pin(7));
-        miss.addResult(new Pin(2));
+        miss.bowl(new Pin(2));
     }
 
     @Test
