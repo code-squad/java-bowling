@@ -6,7 +6,7 @@ import bowling.domain.Score;
 public class Strike extends State {
     @Override
     public State bowlBall(Pin fallenPin) {
-        return this;
+        return new StrikeExtra(fallenPin);
     }
 
     @Override
