@@ -32,4 +32,14 @@ public class BowlingGameTest {
         }
     }
 
+    @Test
+    public void 게임종료() {
+        for (int i = 0; i < 11; i++) {
+            game.throwBall(DownPinCount.STRIKE);
+        }
+        assertThat(game.isEndGame()).isFalse();
+        game.throwBall(DownPinCount.STRIKE);
+        assertThat(game.isEndGame()).isTrue();
+    }
+
 }

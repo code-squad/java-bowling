@@ -17,29 +17,29 @@ public class LastFrameTest {
     @Test
     public void 오픈된상태_두번_투구() {
         lastFrame.add(DownPinCount.of(8));
-        assertThat(lastFrame.isEndFrame()).isEqualTo(false);
+        assertThat(lastFrame.isEndFrame()).isFalse();
         lastFrame.add(DownPinCount.of(1));
-        assertThat(lastFrame.isEndFrame()).isEqualTo(true);
+        assertThat(lastFrame.isEndFrame()).isTrue();
     }
 
     @Test
     public void 스페어_이후_세번째_투구() {
         lastFrame.add(DownPinCount.of(8));
-        assertThat(lastFrame.isEndFrame()).isEqualTo(false);
+        assertThat(lastFrame.isEndFrame()).isFalse();
         lastFrame.add(DownPinCount.of(2));
-        assertThat(lastFrame.isEndFrame()).isEqualTo(false);
+        assertThat(lastFrame.isEndFrame()).isFalse();
         lastFrame.add(DownPinCount.STRIKE);
-        assertThat(lastFrame.isEndFrame()).isEqualTo(true);
+        assertThat(lastFrame.isEndFrame()).isTrue();
     }
 
     @Test
     public void 스트라이크_이후_세번째_투구() {
         lastFrame.add(DownPinCount.STRIKE);
-        assertThat(lastFrame.isEndFrame()).isEqualTo(false);
+        assertThat(lastFrame.isEndFrame()).isFalse();
         lastFrame.add(DownPinCount.of(8));
-        assertThat(lastFrame.isEndFrame()).isEqualTo(false);
+        assertThat(lastFrame.isEndFrame()).isFalse();
         lastFrame.add(DownPinCount.of(2));
-        assertThat(lastFrame.isEndFrame()).isEqualTo(true);
+        assertThat(lastFrame.isEndFrame()).isTrue();
     }
 
     @Test

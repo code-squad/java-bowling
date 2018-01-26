@@ -8,9 +8,11 @@ public class Frame {
     private DownPinCount firstThrow;
     private DownPinCount secondThrow;
     private Frame nextFrame;
+    private FrameScore frameScore;
 
     Frame(Frame nextFrame) {
         this.nextFrame = nextFrame;
+        this.frameScore = new FrameScore(this);
     }
 
     public boolean add(@Nonnull DownPinCount result) {
@@ -27,6 +29,10 @@ public class Frame {
 
     public boolean isEndGame() {
         return false;
+    }
+
+    public boolean isStrike() {
+        return isStrike(firstThrow);
     }
 
     protected boolean isStrike(DownPinCount throwBallResult) {
@@ -58,6 +64,14 @@ public class Frame {
 
     protected Optional<DownPinCount> getSecondThrow() {
         return Optional.ofNullable(secondThrow);
+    }
+
+    public void setPreviousFrameScore(int score) {
+        frameScore.setPreviousFrameScore(score);
+    }
+
+    public Optional<Integer> getScore() {
+        return frameScore.getScore();
     }
 
     public String getFrameInfoWithFormat() {
