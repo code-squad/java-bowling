@@ -27,4 +27,9 @@ public class FirstBowl implements State {
     public Optional<Integer> getTotalScore() {
         return Optional.empty();
     }
+
+    @Override
+    public String toString() {
+        return pin.toString();
+    }
 }

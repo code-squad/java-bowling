@@ -27,4 +27,9 @@ public class Miss implements State, Finish {
     public Optional<Integer> getTotalScore() {
         return Optional.of(second.toInt() + first.toInt());
     }
+
+    @Override
+    public String toString() {
+        return first.toString() + "|" + second.toString();
+    }
 }

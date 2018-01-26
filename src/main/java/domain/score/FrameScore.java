@@ -11,7 +11,7 @@ public abstract class FrameScore {
     }
 
     public boolean isStrike() {
-        return state instanceof Finish;
+        return state instanceof Strike;
     }
 
     public Integer getFirstScore() {

@@ -29,28 +29,6 @@ public class FrameScoreTypeTest {
     }
 
     @Test
-    public void valueOf_SPARE() throws Exception {
-        assertThat(ScoreType.valueOf(new Pin(3), new Pin(7))).isEqualTo(SPARE);
-        assertThat(ScoreType.valueOf(new Pin(0), new Pin(10))).isEqualTo(SPARE);
-    }
-
-    @Test
-    public void valueOf_MISS() throws Exception {
-        assertThat(ScoreType.valueOf(new Pin(3), new Pin(6))).isEqualTo(MISS);
-        assertThat(ScoreType.valueOf(new Pin(5), new Pin(4))).isEqualTo(MISS);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void valueOf_합이10이넘은경우() throws Exception {
-        ScoreType.valueOf(new Pin(7), new Pin(4));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void valueOf_스트라이크가있는경우() throws Exception {
-        ScoreType.valueOf(new Pin(10), new Pin(0));
-    }
-
-    @Test
     public void getDisplay() throws Exception {
         assertThat(STRIKE.getDisplay()).isEqualTo("X");
         assertThat(SPARE.getDisplay()).isEqualTo("/");

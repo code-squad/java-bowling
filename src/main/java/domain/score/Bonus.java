@@ -33,4 +33,9 @@ public class Bonus implements State {
         }
         return Optional.of(pin.toInt());
     }
+
+    @Override
+    public String toString() {
+        return pin.toString();
+    }
 }

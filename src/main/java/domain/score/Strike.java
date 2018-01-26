@@ -17,4 +17,9 @@ public class Strike implements State, Finish {
     public Optional<Integer> getTotalScore() {
         return Optional.of(10);
     }
+
+    @Override
+    public String toString() {
+        return "X";
+    }
 }

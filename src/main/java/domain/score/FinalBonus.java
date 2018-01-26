@@ -37,4 +37,9 @@ public class FinalBonus implements State, Finish {
             throw new IllegalArgumentException();
         }
     }
+
+    @Override
+    public String toString() {
+        return before.toString() + "|" + pin.toString();
+    }
 }
