@@ -28,4 +28,9 @@ public class SpareTest {
     public void toFrameViewTest() {
         assertThat(spare.toFrameView()).isEqualTo("8|/");
     }
+
+    @Test
+    public void isCalculableTest() {
+        assertThat(spare.isCalculable()).isTrue();
+    }
 }

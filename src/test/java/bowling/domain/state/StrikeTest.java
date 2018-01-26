@@ -27,4 +27,9 @@ public class StrikeTest {
     public void toFrameViewTest() {
         assertThat(strike.toFrameView()).isEqualTo("X  ");
     }
+
+    @Test
+    public void isCalculableTest() {
+        assertThat(strike.isCalculable()).isTrue();
+    }
 }

@@ -17,4 +17,9 @@ public class Strike extends State {
     public String toFrameView() {
         return "X  ";
     }
+
+    @Override
+    public boolean isCalculable() {
+        return true;
+    }
 }

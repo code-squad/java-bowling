@@ -32,4 +32,9 @@ public class FirstBowl extends State {
     public String toFrameView() {
         return String.format("%3s", fallenPin.toString());
     }
+
+    @Override
+    public boolean isCalculable() {
+        return false;
+    }
 }

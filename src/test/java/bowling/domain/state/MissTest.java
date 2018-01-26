@@ -28,4 +28,9 @@ public class MissTest {
     public void toFrameViewTest() {
         assertThat(miss.toFrameView()).isEqualTo("5|3");
     }
+
+    @Test
+    public void isCalculableTest() {
+        assertThat(miss.isCalculable()).isTrue();
+    }
 }

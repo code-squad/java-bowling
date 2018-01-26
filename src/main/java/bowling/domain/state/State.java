@@ -6,4 +6,5 @@ public abstract class State {
     public abstract State bowlBall(Pin fallenPin);
     public abstract boolean isFrameEnd();
     public abstract String toFrameView();
+    public abstract boolean isCalculable();
 }

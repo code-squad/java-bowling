@@ -25,4 +25,9 @@ public class Spare extends State {
     public String toFrameView() {
         return String.format("%s|/", firstFallenPin.toString());
     }
+
+    @Override
+    public boolean isCalculable() {
+        return true;
+    }
 }

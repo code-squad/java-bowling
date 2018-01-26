@@ -29,4 +29,9 @@ public class ReadyTest {
     public void toFrameViewTest() {
         assertThat(ready.toFrameView()).isEqualTo("   ");
     }
+
+    @Test
+    public void isCalculableTest() {
+        assertThat(ready.isCalculable()).isFalse();
+    }
 }

@@ -25,4 +25,9 @@ public class Miss extends State {
     public String toFrameView() {
         return String.format("%s|%s", firstFallenPin.toString(), secondFallenPin.toString());
     }
+
+    @Override
+    public boolean isCalculable() {
+        return true;
+    }
 }

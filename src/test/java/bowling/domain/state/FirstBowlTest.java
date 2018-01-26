@@ -29,4 +29,9 @@ public class FirstBowlTest {
     public void toFrameViewTest() {
         assertThat(firstBowl.toFrameView()).isEqualTo("5  ");
     }
+
+    @Test
+    public void isCalculableTest() {
+        assertThat(firstBowl.isCalculable()).isFalse();
+    }
 }

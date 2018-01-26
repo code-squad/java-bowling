@@ -21,4 +21,9 @@ public class Ready extends State{
     public String toFrameView() {
         return "   ";
     }
+
+    @Override
+    public boolean isCalculable() {
+        return false;
+    }
 }
