@@ -45,4 +45,14 @@ public class Pin {
     public Integer calculateSpare() {
         return this.fellPin + 10;
     }
+
+    @Override
+    public String toString() {
+        if(fellPin == MIN_VALUE)
+            return "-";
+        if(fellPin == MAX_VALUE)
+            return "X";
+
+        return String.valueOf(fellPin);
+    }
 }
