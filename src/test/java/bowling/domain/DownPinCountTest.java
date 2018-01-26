@@ -37,6 +37,16 @@ public class DownPinCountTest {
     public void 스트라이크() {
         DownPinCount ten = DownPinCount.of(10);
         assertThat(DownPinCount.STRIKE).isEqualTo(ten);
+        assertThat(ten.isStrike()).isTrue();
+    }
+
+    @Test
+    public void 스페어() {
+        DownPinCount eight = DownPinCount.of(8);
+        DownPinCount two = DownPinCount.of(2);
+        DownPinCount zero = DownPinCount.of(0);
+        assertThat(eight.isSpare(two)).isTrue();
+        assertThat(eight.isSpare(zero)).isFalse();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -51,7 +61,7 @@ public class DownPinCountTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void 합쳤을때_10이상() {
-        DownPinCount.of(5).add(DownPinCount.of(6));
+        DownPinCount.of(5).isSpare(DownPinCount.of(6));
     }
 
 }

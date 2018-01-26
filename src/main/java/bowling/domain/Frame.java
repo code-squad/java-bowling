@@ -18,11 +18,11 @@ public class Frame {
             firstThrow = result;
         }else if (secondThrow == null)
             secondThrow = result;
-        return isEnd();
+        return isEndFrame();
     }
 
-    public boolean isEnd() {
-        return getTotalDownPinCount() == 10 || secondThrow != null;
+    public boolean isEndFrame() {
+        return isStrike(firstThrow) || isSecondThrowSpare() || secondThrow != null;
     }
 
     public boolean isEndGame() {
@@ -35,7 +35,7 @@ public class Frame {
 
     protected boolean isSecondThrowSpare() {
         return firstThrow != null && secondThrow != null &&
-                firstThrow.isSpare(secondThrow) && !isStrike(firstThrow);
+                !isStrike(firstThrow) && firstThrow.isSpare(secondThrow);
     }
 
     public Optional<Frame> getNextFrame() {

@@ -24,7 +24,7 @@ public class DownPinCount {
         return new DownPinCount(Integer.parseInt(countStr.trim()));
     }
 
-    private DownPinCount add(@Nonnull DownPinCount other) {
+    public DownPinCount add(@Nonnull DownPinCount other) {
         return new DownPinCount(count + other.count);
     }
 
@@ -36,7 +36,7 @@ public class DownPinCount {
         return add(other).count == 10;
     }
 
-    public boolean isNothingDown() {
+    public boolean isGutterOrMiss() {
         return count == 0;
     }
 

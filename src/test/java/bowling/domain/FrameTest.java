@@ -22,25 +22,25 @@ public class FrameTest {
     @Test
     public void 프레임종료_오픈() {
         frame.add(DownPinCount.of(5));
-        assertThat(frame.isEnd()).isEqualTo(false);
+        assertThat(frame.isEndFrame()).isEqualTo(false);
         frame.add(DownPinCount.of(4));
         assertThat(frame.getTotalDownPinCount()).isEqualTo(9);
-        assertThat(frame.isEnd()).isEqualTo(true);
+        assertThat(frame.isEndFrame()).isEqualTo(true);
     }
 
     @Test
     public void 프레임종료_스페어() {
         frame.add(DownPinCount.of(5));
-        assertThat(frame.isEnd()).isEqualTo(false);
+        assertThat(frame.isEndFrame()).isEqualTo(false);
         frame.add(DownPinCount.of(5));
         assertThat(frame.getTotalDownPinCount()).isEqualTo(10);
-        assertThat(frame.isEnd()).isEqualTo(true);
+        assertThat(frame.isEndFrame()).isEqualTo(true);
     }
 
     @Test
     public void 프레임종료_스트라이크() {
         frame.add(DownPinCount.STRIKE);
-        assertThat(frame.isEnd()).isEqualTo(true);
+        assertThat(frame.isEndFrame()).isEqualTo(true);
     }
 
     @Test

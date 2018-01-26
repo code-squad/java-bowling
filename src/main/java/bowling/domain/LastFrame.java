@@ -20,11 +20,11 @@ public class LastFrame extends Frame{
             thirdThrow = result;
             return true;
         }
-        return isEnd();
+        return isEndFrame();
     }
 
     @Override
-    public boolean isEnd() {
+    public boolean isEndFrame() {
         if (canThrowThirdBall()) {
             return thirdThrow != null;
         }
@@ -33,7 +33,7 @@ public class LastFrame extends Frame{
 
     @Override
     public boolean isEndGame() {
-        return isEnd();
+        return isEndFrame();
     }
 
     private boolean canThrowThirdBall() {
@@ -41,7 +41,8 @@ public class LastFrame extends Frame{
     }
 
     private boolean isThirdThrowSpare() {
-        return sumDownPinCount(getSecondThrow().get(), thirdThrow) == 10 && !isStrike(getSecondThrow().get());
+        return getSecondThrow().isPresent() && thirdThrow != null &&
+                !isStrike(getSecondThrow().get()) && getSecondThrow().get().isSpare(thirdThrow) ;
     }
 
     private Optional<DownPinCount> getThirdThrow() {
