@@ -75,4 +75,13 @@ public class LastFrameTest {
         lastFrame.add(DownPinCount.of(2));
         assertThat(lastFrame.getFrameInfo().endsWith("/")).isTrue();
     }
+
+    @Test
+    public void 게임종료() {
+        lastFrame.add(DownPinCount.of(0));
+        assertThat(lastFrame.isEndGame()).isFalse();
+        lastFrame.add(DownPinCount.of(0));
+        assertThat(lastFrame.isEndGame()).isTrue();
+    }
+
 }

@@ -33,6 +33,6 @@ public class BowlingGame {
     }
 
     public boolean isEndGame() {
-        return currentFrame instanceof LastFrame && currentFrame.isEnd();
+        return currentFrame.isEndGame();
     }
 }

@@ -24,6 +24,10 @@ public class Frame {
         return getTotalDownPinCount() == 10 || secondThrow != null;
     }
 
+    public boolean isEndGame() {
+        return false;
+    }
+
     public Optional<Frame> getNextFrame() {
         return Optional.ofNullable(nextFrame);
     }

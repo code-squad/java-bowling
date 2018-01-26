@@ -32,6 +32,11 @@ public class LastFrame extends Frame{
         return getSecondThrow().isPresent();
     }
 
+    @Override
+    public boolean isEndGame() {
+        return isEnd();
+    }
+
     private boolean isStrike(Optional<DownPinCount> throwBallResult) {
         return throwBallResult.map(DownPinCount::isAllDown).orElse(false);
     }
