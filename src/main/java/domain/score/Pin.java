@@ -18,7 +18,7 @@ public class Pin {
     }
 
     boolean isStrike() {
-        return ScoreType.valueOf(this) == ScoreType.STRIKE;
+        return PinType.valueOf(this) == PinType.STRIKE;
     }
 
     int toInt() {
@@ -42,8 +42,8 @@ public class Pin {
 
     @Override
     public String toString() {
-        if (ScoreType.valueOf(this).isDisplay()) {
-            return ScoreType.valueOf(this).getDisplay();
+        if (PinType.valueOf(this).isDisplay()) {
+            return PinType.valueOf(this).getDisplay();
         }
         return String.valueOf(fallPins);
     }

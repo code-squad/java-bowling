@@ -3,21 +3,18 @@ package domain.score;
 import static domain.score.Pin.TEN;
 import static domain.score.Pin.ZERO;
 
-public enum ScoreType {
+public enum PinType {
     STRIKE("X"),
-    SPARE("/"),
-    MISS(null),
     GUTTER("-"),
-    NONE(null),
-    UNDEFINED(null);
+    NONE(null);
 
     private final String display;
 
-    ScoreType(String display) {
+    PinType(String display) {
         this.display = display;
     }
 
-    static ScoreType valueOf(Pin pin) {
+    static PinType valueOf(Pin pin) {
         if (pin.equals(TEN)) {
             return STRIKE;
         }
