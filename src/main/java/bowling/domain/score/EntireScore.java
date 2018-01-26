@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public class EntireScore {
     private List<Score> scores = new ArrayList<>();
+    private ScoreType scoreType;
 
     public EntireScore(Score score) {
         scores.add(score);
@@ -21,7 +22,7 @@ public class EntireScore {
     }
 
     public boolean validTotalScore(Score nextScore)  {
-        return scores.get(0).validTotalScore(nextScore);
+        return beforeLastScore().validTotalScore(nextScore);
     }
 
     public Score lastScore() {
@@ -35,6 +36,4 @@ public class EntireScore {
     public int length() {
         return scores.size();
     }
-
-    public Score getScoreByKey(int key) { return scores.get(key); }
 }

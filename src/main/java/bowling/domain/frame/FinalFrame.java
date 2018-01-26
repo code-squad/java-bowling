@@ -9,8 +9,6 @@ import bowling.domain.score.ScoreType;
 import static bowling.domain.ScoreMachine.calculateScore;
 import static bowling.domain.ScoreMachine.convertScoreToString;
 import static bowling.domain.ScoreMachine.firstCalculate;
-import static bowling.domain.score.ScoreType.MISS;
-import static bowling.domain.score.ScoreType.NUMBER;
 import static bowling.domain.score.ScoreType.SPARE;
 import static bowling.domain.score.ScoreType.STRIKE;
 import static bowling.utils.StringUtils.scoreResultFormat;
@@ -35,9 +33,10 @@ public class FinalFrame implements Frame {
 
     @Override
     public FinalFrame nextRound(Score nextScore) {
-        if(isFirstStrikeAndHasNotSecond()) { result = resultFormatMapping(nextScore); }
+        result = convertScoreToString(entireScore.inScore(nextScore)); //숫자 3개일때 처리
+        /*if(isFirstStrikeAndHasNotSecond()) { result = convertScoreToString(entireScore.inScore(nextScore)); }//{ result = resultFormatMapping(nextScore); }
         else if(!(entireScore.length() == 2)) { result = stringFormatMapping(nextScore); }
-        else if(!(entireScore.length() == 3)) { result = thirdScoreCalculate(nextScore); }
+        else if(!(entireScore.length() == 3)) { result = thirdScoreCalculate(nextScore); }*/
 
         return this;
     }
@@ -58,7 +57,7 @@ public class FinalFrame implements Frame {
                 .map(this::resultFormat)
                 .orElse(scoreResultFormat(result, String.valueOf(nextScore.get())));
         }
-        Optional<ScoreType> scoreType = calculateScore(entireScore.generate(entireScore.getScoreByKey(1)).inScore(nextScore));
+        Optional<ScoreType> scoreType = calculateScore(entireScore.generate(entireScore.lastScore()).inScore(nextScore));
         return scoreType.map(this::resultFormat).get();
     }
 
@@ -87,7 +86,7 @@ public class FinalFrame implements Frame {
     }
 
     private boolean isFirstOrSecondStrike() {
-        return SPARE.match(entireScore) || STRIKE.match(entireScore.generate(entireScore.getScoreByKey(1)));
+        return SPARE.match(entireScore) || STRIKE.match(entireScore.generate(entireScore.lastScore()));
     }
 
     private Optional<ScoreType> getScoreType(Score nextScore) {
