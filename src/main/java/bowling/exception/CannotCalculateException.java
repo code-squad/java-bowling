@@ -1,4 +1,4 @@
 package bowling.exception;
 
-public class CannotCalculateException {
+public class CannotCalculateException extends RuntimeException {
 }
