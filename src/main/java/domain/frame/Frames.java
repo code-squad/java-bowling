@@ -16,10 +16,10 @@ public class Frames {
 
     void updateFrame(Frame frame) {
         frames[frame.frameNo - 1] = frame;
+        updateScore();
     }
 
-    String getUpdateScoreResult() {
-        updateScore();
+    String getScoresToString() {
         if (scores.isEmpty()) {
             return BLANK;
         }
@@ -30,8 +30,8 @@ public class Frames {
 
     private void updateScore() {
         int index = scores.size();
-        Optional<Integer> score = getFrameScore(index);
-        score.ifPresent(s -> {
+
+        getFrameScore(index).ifPresent(s -> {
             scores.add(s + getSumOfFrameScore());
             updateScore();
         });
@@ -61,10 +61,10 @@ public class Frames {
     }
 
     private Frame get(int index) {
-        if (index > 10) {
+        if (index >= 10) {
             return null;
         }
-        return frames[index - 1];
+        return frames[index];
     }
 
     private Integer getSumOfFrameScore() {

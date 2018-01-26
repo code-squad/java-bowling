@@ -17,10 +17,10 @@ public class BowlingGame {
     }
 
     public void playBowling() {
-        scoreBoard.printGameResult(this);
         NormalFrame first = new NormalFrame(player.play());
         frames.updateFrame(first);
         playBowlingUntilFinish(first);
+
         scoreBoard.printGameResult(this);
     }
 
@@ -31,10 +31,11 @@ public class BowlingGame {
                  notifyFrameChanged();
                  playBowlingUntilFinish(f);
              });
+        frames.updateFrame(frame);
     }
 
     public String getUpdatedScoreResult() {
-        return frames.getUpdateScoreResult();
+        return frames.getScoresToString();
     }
 
     private void notifyFrameChanged() {
