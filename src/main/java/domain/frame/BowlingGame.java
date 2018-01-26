@@ -19,6 +19,7 @@ public class BowlingGame {
     public void playBowling() {
         NormalFrame first = new NormalFrame(player.play());
         frames.updateFrame(first);
+        notifyFrameChanged();
         playBowlingUntilFinish(first);
 
         scoreBoard.printGameResult(this);

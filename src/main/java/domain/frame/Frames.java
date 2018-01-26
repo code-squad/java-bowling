@@ -3,6 +3,7 @@ package domain.frame;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -80,6 +81,7 @@ public class Frames {
             return "";
         }
         return Arrays.stream(frames)
+                     .filter(Objects::nonNull)
                      .map(f -> String.format("%-4s", f.toString()))
                      .collect(Collectors.joining("|")) + "|";
     }

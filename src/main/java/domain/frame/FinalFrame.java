@@ -34,17 +34,14 @@ public class FinalFrame extends Frame {
         }
         if (!(state instanceof Finish)) {
             this.state = state.bowl(pin);
-            return Optional.of(this);
+            return returnEmptyIfFinish();
         }
         if (bonus != null) {
             this.bonus = bonus.bowl(pin);
-            return Optional.empty();
+            return returnEmptyIfFinish();
         }
         bonus = new Bonus(state, pin);
-        if (state instanceof Strike) {
-            return Optional.of(this);
-        }
-        return Optional.empty();
+        return returnEmptyIfFinish();
     }
 
     @Override
@@ -88,6 +85,13 @@ public class FinalFrame extends Frame {
             return getSumOfFirstAndSecondScore().map(integer -> integer + 10);
         }
         return Optional.of(getFirstScore() + 10);
+    }
+
+    private Optional<Frame> returnEmptyIfFinish() {
+        if (isFinish()) {
+            return Optional.empty();
+        }
+        return Optional.of(this);
     }
 
     @Override
