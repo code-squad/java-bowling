@@ -36,6 +36,9 @@ public class NormalFrame extends Frame {
         if (state instanceof Miss) {
             return getSumOfFirstAndSecondScore();
         }
+        if (next != null) {
+            return next.calculateScoreWithBefore(this);
+        }
         return Optional.empty();
     }
 
@@ -50,14 +53,13 @@ public class NormalFrame extends Frame {
     @Override
     public Optional<Integer> calculateScoreWithBefore(Frame before) {
         if (before.isStrike() && this.isStrike()) {
+            if (next != null) {
+                return next.calculateScoreWithBefore(before, this);
+            }
             return Optional.empty();
         }
         if (before.isStrike()) {
-            if (!this.isFinish()) {
-                return Optional.empty();
-            }
-            int score = getFrameScore().orElse(10);
-            return Optional.of(score + 10);
+            return getSumOfFirstAndSecondScore().map(i -> i + 10);
         }
         return Optional.of(10 + getFirstScore());
     }

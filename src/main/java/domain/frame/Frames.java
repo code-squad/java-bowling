@@ -43,22 +43,7 @@ public class Frames {
         if (now == null) {
             return Optional.empty();
         }
-        if (now.getFrameScore().isPresent()) {
-            return now.getFrameScore();
-        }
-        Frame next = get(index + 1);
-        if (next == null) {
-            return Optional.empty();
-        }
-        Optional<Integer> score = next.calculateScoreWithBefore(now);
-        if (score.isPresent()) {
-            return score;
-        }
-        Frame nextOfNext = get(index + 2);
-        if (nextOfNext == null) {
-            return Optional.empty();
-        }
-        return nextOfNext.calculateScoreWithBefore(now, next);
+        return now.getFrameScore();
     }
 
     private Frame get(int index) {

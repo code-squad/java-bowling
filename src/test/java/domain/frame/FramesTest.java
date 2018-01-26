@@ -43,6 +43,7 @@ public class FramesTest {
         frames.updateFrame(strike);
         assertThat(frames.getScoresToString()).isEqualTo("|      |");
 
+        strike.next = miss;
         frames.updateFrame(miss);
         assertThat(frames.getScoresToString()).isEqualTo("|      |19  |28  |");
     }
@@ -52,6 +53,7 @@ public class FramesTest {
         frames.updateFrame(strike);
         assertThat(frames.getScoresToString()).isEqualTo("|      |");
 
+        strike.next = spare;
         frames.updateFrame(spare);
         assertThat(frames.getScoresToString()).isEqualTo("|      |20  |");
     }
@@ -61,10 +63,13 @@ public class FramesTest {
         frames.updateFrame(strike);
         assertThat(frames.getScoresToString()).isEqualTo("|      |");
 
+        strike.next = spare;
         frames.updateFrame(spare);
         assertThat(frames.getScoresToString()).isEqualTo("|      |20  |");
 
-        frames.updateFrame(new NormalFrame(new Pin(7), 3));
+        Frame f = new NormalFrame(new Pin(7), 3);
+        spare.next = f;
+        frames.updateFrame(f);
         assertThat(frames.getScoresToString()).isEqualTo("|      |20  |37  |");
 
     }
