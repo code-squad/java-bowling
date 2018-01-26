@@ -17,7 +17,7 @@ public enum ScoreType {
         public String convert(EntireScore entireScore) { return this.get(); }
     },
     NUMBER("", entireScore -> isNumber(entireScore)) {
-        public String convert(EntireScore entireScore) { return entireScore.firstScoreToString(); }
+        public String convert(EntireScore entireScore) { return String.valueOf(entireScore.lastScore().get()); }
     },
     DUAL("|", entireScore -> isDual(entireScore)) {
         public String convert(EntireScore entireScore) {
@@ -45,23 +45,23 @@ public enum ScoreType {
 
     public abstract String convert(EntireScore entireScore);
 
-    static boolean isStrike(EntireScore entireScore) {
+    public static boolean isStrike(EntireScore entireScore) {
         return entireScore.lastScore().get() == MAX_SCORE;
     }
 
-    static boolean isSpare(EntireScore entireScore) {
-        return entireScore.hasSecondScore() && entireScore.getFirstScore() + entireScore.getSecondScore() == MAX_SCORE;
+    public static boolean isSpare(EntireScore entireScore) {
+        return entireScore.length() > 1 && entireScore.beforeLastScore().get() + entireScore.lastScore().get() == MAX_SCORE;
     }
 
-    static boolean isMiss(EntireScore entireScore) {
+    public static boolean isMiss(EntireScore entireScore) {
         return entireScore.length() == 1 && entireScore.lastScore().get() == MIN_SCORE;
     }
 
-    static boolean isNumber(EntireScore entireScore) {
+    public static boolean isNumber(EntireScore entireScore) {
         return entireScore.length() == 1 && !isStrike(entireScore) && !isMiss(entireScore);
     }
 
-    static boolean isDual(EntireScore entireScore) {
+    public static boolean isDual(EntireScore entireScore) {
         return entireScore.length() > 1 && !isStrike(entireScore) && !isSpare(entireScore);
     }
 

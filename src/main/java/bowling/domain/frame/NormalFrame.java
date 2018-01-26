@@ -22,7 +22,7 @@ public class NormalFrame implements Frame {
 
     @Override
     public boolean isEnd() {
-        return STRIKE.match(entireScore) || entireScore.hasSecondScore();
+        return STRIKE.match(entireScore) || entireScore.length() == 2;
     }
 
     @Override

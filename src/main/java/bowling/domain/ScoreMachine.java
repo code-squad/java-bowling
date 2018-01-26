@@ -18,18 +18,19 @@ public class ScoreMachine {
         return scoreCalculate;
     }
 
+    public static String convertScoreToString(EntireScore entireScore) {
+        return calculateScore(entireScore).get().convert(entireScore);
+    }
+
     @Deprecated
     public static String convertScoreToString(ScoreType scoreType, EntireScore entireScore) {
         return scoreType.convert(entireScore);
     }
 
-    public static String convertScoreToString(EntireScore entireScore) {
-        return calculateScore(entireScore).get().convert(entireScore);
-    }
-
+    @Deprecated
     public static String firstCalculate(EntireScore entireScore) {
         if(STRIKE.match(entireScore)) { return STRIKE.convert(entireScore); }
-        else if(isValidNumber(entireScore.getFirstScore())) { return entireScore.firstScoreToString(); }
+        else if(isValidNumber(entireScore.lastScore().get())) { return String.valueOf(entireScore.lastScore().get()); }
         return MISS.get();
     }
 

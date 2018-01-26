@@ -30,14 +30,14 @@ public class FinalFrame implements Frame {
 
     @Override
     public boolean isEnd() {
-        return isFirstAndSecondAreNumber() || isStrikeAndHasThird() || isSpareAndHasThird() || isMissOrGutterAndHasSecond();
+        return entireScore.length() == 3 || ScoreType.isDual(entireScore);
     }
 
     @Override
     public FinalFrame nextRound(Score nextScore) {
         if(isFirstStrikeAndHasNotSecond()) { result = resultFormatMapping(nextScore); }
-        else if(!entireScore.hasSecondScore()) { result = stringFormatMapping(nextScore); }
-        else if(!entireScore.hasThirdScore()) { result = thirdScoreCalculate(nextScore); }
+        else if(!(entireScore.length() == 2)) { result = stringFormatMapping(nextScore); }
+        else if(!(entireScore.length() == 3)) { result = thirdScoreCalculate(nextScore); }
 
         return this;
     }
@@ -83,7 +83,7 @@ public class FinalFrame implements Frame {
     }
 
     private boolean isFirstStrikeAndHasNotSecond() {
-        return STRIKE.match(entireScore) && !entireScore.hasSecondScore();
+        return STRIKE.match(entireScore) && !(entireScore.length() == 2);
     }
 
     private boolean isFirstOrSecondStrike() {
@@ -92,21 +92,5 @@ public class FinalFrame implements Frame {
 
     private Optional<ScoreType> getScoreType(Score nextScore) {
         return calculateScore(entireScore.inScore(nextScore));
-    }
-
-    private boolean isFirstAndSecondAreNumber() {
-        return entireScore.hasSecondScore() && NUMBER.match(entireScore);
-    }
-
-    private boolean isSpareAndHasThird() {
-        return entireScore.hasSecondScore() && SPARE.match(entireScore) && entireScore.hasThirdScore();
-    }
-
-    private boolean isStrikeAndHasThird() {
-        return STRIKE.match(entireScore) && entireScore.hasThirdScore();
-    }
-
-    private boolean isMissOrGutterAndHasSecond() {
-        return entireScore.hasSecondScore() && MISS.match(entireScore);
     }
 }

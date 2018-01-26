@@ -63,7 +63,7 @@ public class BowlingNormalTest {
     @Test
     public void 입력받은_점수가_거터일때_출력이_올바른가() {
         Frame frame = makeNormalFrameByDoubleScore(0, 0);
-        assertEquals("-", frame.result());
+        assertEquals("-|-", frame.result());
     }
 
     private NormalFrame makeNormalFrameByDoubleScore(int first, int second) {

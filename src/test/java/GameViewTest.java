@@ -25,7 +25,7 @@ public class GameViewTest {
     @Test
     public void 미스일때_뷰가_올바른가() {
         NormalFrame frame = NormalFrame.generate(Score.in(of(0)));
-        assertEquals("|  KYJ  |  0   |", gameView.firstReflectScore(frame));
+        assertEquals("|  KYJ  |  -   |", gameView.firstReflectScore(frame));
     }
 
     @Test
@@ -66,6 +66,6 @@ public class GameViewTest {
     public void 거터일떄_뷰가_올바른가() {
         NormalFrame frame = NormalFrame.generate(Score.in(of(0)));
         gameView.firstReflectScore(frame);
-        assertEquals("|  KYJ  |  -   |", gameView.nextReflectScore(frame.nextRound(Score.in(of(0)))));
+        assertEquals("|  KYJ  |  -|- |", gameView.nextReflectScore(frame.nextRound(Score.in(of(0)))));
     }
 }
