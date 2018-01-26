@@ -3,30 +3,31 @@ package model;
 
 public abstract class Frame {
     private BowlingScore score;
-    public Integer numberOfLastPins;
+    private Integer numberOfLastPins;
 
     public Frame() {
         this.numberOfLastPins = 10;
         this.score = new BowlingScore();
     }
 
-    public BowlingScore obtainScore(Integer numberOfFallingPins){
+    public Score obtainScore(Integer numberOfFallingPins){
+        Score thisScore = Score.valueOf(numberOfFallingPins, numberOfLastPins);
         if (score.hasAnyScore()) {
-            score.addNewScore(Score.valueOf(numberOfFallingPins, numberOfLastPins));
+            score.addNewScore(thisScore);
             calculatePins(numberOfFallingPins);
-            return score;
+            return thisScore;
         }
-        score = new BowlingScore(Score.valueOf(numberOfFallingPins, numberOfLastPins));
+        score = new BowlingScore(thisScore);
         calculatePins(numberOfFallingPins);
-        return score;
+        return thisScore;
     }
 
     public BowlingScore getScore() {
         return score;
     }
 
-    public Boolean isItOverAndHasNextFrame(Frame frame){
-        return score.isItOverAndHasNextFrame(frame);
+    public Boolean isItOverAndHasNextFrame(){
+        return score.isItOverAndHasNextFrame(this);
     }
 
     public boolean isDone(){
@@ -35,5 +36,31 @@ public abstract class Frame {
 
     private void calculatePins(Integer numberOfFallingPins) {
         numberOfLastPins = numberOfLastPins - numberOfFallingPins;
+    }
+
+    public abstract Integer addFirstAndSecond();
+
+    public Integer addFirstAndSecondOfScore(){
+        return score.addFirstAndSecond();
+    }
+
+    public boolean hasAllScore() {
+        return score.hasAllScore();
+    }
+
+    public Integer addOnlyFirst() {
+        return score.getFirst();
+    }
+
+    public boolean hasStrikeOrSpare() {
+        return score.hasStrikeOrSpare();
+    }
+
+    public Integer calculateLast() {
+        return score.calculateIfExist();
+    }
+
+    public boolean hasAnyScore(){
+        return score.hasAnyScore();
     }
 }

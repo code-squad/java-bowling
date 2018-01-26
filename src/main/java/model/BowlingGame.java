@@ -6,22 +6,45 @@ import java.util.stream.Collectors;
 public class BowlingGame {
     private Player player;
     private List<Frame> frames;
+    private BowlingResult bowlingResult;
 
     public BowlingGame(Player player) {
         this.player = player;
         frames = CreateFrame.initFrames(frames);
+        bowlingResult = new BowlingResult();
     }
 
-    public Boolean progressGame(Integer numberOfFallingPin) {
+    public void progressGame(Integer numberOfFallingPin) {
         if (isIllegalParam(numberOfFallingPin)) {
             throw new IllegalArgumentException("볼린 핀의 개수는 0개 에서 10개 입니다.");
         }
 
-        getCurrentFrame().obtainScore(numberOfFallingPin);
-        if (isItOverAndHasNextFrame()) {
-            CreateFrame.create(frames);
+        Score thisScore = getCurrentFrame().obtainScore(numberOfFallingPin);
+        bowlingResult.calculateNextTrial(thisScore);
+
+        if (!isItOverAndHasNextFrame()) {
+            calculateLastEveryThings();
         }
-        return false;
+        if (isItOverAndHasNextFrame()) {
+            CalculateCurrentFrame();
+        }
+    }
+
+    private void CalculateCurrentFrame() {
+        bowlingResult.calculateUntilNow(getCurrentFrame());
+        if (bowlingResult.stillCanCalculate()) {
+            bowlingResult.calculateUntilNow(getCurrentFrame());
+        }
+        CreateFrame.create(frames);
+    }
+
+    private void calculateLastEveryThings() {
+        if (getCurrentFrameNumber() >= 10 && !bowlingResult.hasMoreTrial() && getCurrentFrame().hasAllScore()){
+            bowlingResult.calculateLast(getCurrentFrame().calculateLast());
+        }
+        if (getCurrentFrameNumber() >= 10 && bowlingResult.hasNotEmptyQueue()){
+            bowlingResult.calculateUntilNow(getCurrentFrame());
+        }
     }
 
     private boolean isIllegalParam(Integer numberOfFallingPin) {
@@ -37,11 +60,19 @@ public class BowlingGame {
     }
 
     public boolean isItOverAndHasNextFrame() {
-        return getCurrentFrame().isItOverAndHasNextFrame(getCurrentFrame());
+        return getCurrentFrame().isItOverAndHasNextFrame();
     }
 
     public Integer getCurrentFrameNumber() {
         return frames.size();
+    }
+
+    public List<String> getBowlingResultOnlyString(){
+        return bowlingResult.getResult(getResult());
+    }
+
+    public List<String> getTotalScore(){
+        return bowlingResult.getTotalScore();
     }
 
     public boolean isLast() {
@@ -50,5 +81,28 @@ public class BowlingGame {
 
     private Frame getCurrentFrame() {
         return frames.get(frames.size() - 1);
+    }
+
+    public boolean hasMoreTrial() {
+        return getCurrentFrame() instanceof NormalFrame || bowlingResult.hasMoreTrial();
+    }
+
+    public boolean hasMoreFrame() {
+        if (getCurrentFrameNumber() > 10 && getCurrentFrame().hasAnyScore() && !bowlingResult.hasMoreTrial()){
+            return false;
+        }
+
+        if (getCurrentFrameNumber() == 10 && !getCurrentFrame().hasAllScore()) {
+            return true;
+        }
+
+        if (bowlingResult.stillCanCalculate()){
+            return true;
+        }
+        return false;
+    }
+
+    public BowlingResult getBowlingResult() {
+        return bowlingResult;
     }
 }

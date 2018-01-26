@@ -32,7 +32,7 @@ public class BowlingScore {
             return false;
         }
 
-        if (firstScore.equals(Score.STRIKE) || secondScore != null){
+        if (firstScore.equals(Score.STRIKE) || hasAllScore()){
             return true;
         }
 
@@ -49,23 +49,27 @@ public class BowlingScore {
         if (isaFinalFrame(frame) && hasAnyScore() && hasSpare(secondScore)) {
             return false;
         }
-        if (secondScore != null){
+        if (hasAllScore()){
             return true;
         }
 
         return false;
     }
 
+    public Integer addFirstAndSecond(){
+        return Integer.parseInt(Score.of(firstScore)) + Integer.parseInt(Score.of(secondScore));
+    }
+
     @Override
     public String toString() {
-        if (secondScore == null){
+        if (!hasAllScore()){
             return Score.of(firstScore) + "   ";
         }
 
         return Score.of(firstScore) + "|" + Score.of(secondScore) + " ";
     }
 
-    private boolean hasStrike(Score score) {
+    public boolean hasStrike(Score score) {
         return score != null && score.equals(Score.STRIKE);
     }
 
@@ -75,5 +79,41 @@ public class BowlingScore {
 
     private boolean hasSpare(Score score) {
         return score != null && score.equals(Score.SPARE);
+    }
+
+    public boolean hasAllScore() {
+        return secondScore != null;
+    }
+
+    public Integer getFirst() {
+        return Integer.valueOf(Score.of(firstScore));
+    }
+
+    public Integer calculateWithNextFrame(Frame currentFrame) {
+        if (hasStrike(firstScore)) {
+            return currentFrame.addFirstAndSecond() + 10;
+        }
+        if (hasSpare(secondScore)) {
+            return currentFrame.addOnlyFirst() + 2 + getFirst();
+        }
+        if (hasAllScore()){
+            return currentFrame.addFirstAndSecond();
+        }
+        return currentFrame.addOnlyFirst();
+    }
+
+    public boolean hasStrikeOrSpare() {
+        return hasStrike(firstScore) || hasSpare(secondScore);
+    }
+
+    public Integer calculateIfExist() {
+        if (hasAllScore()) {
+            return addFirstAndSecond();
+        }
+        return addOnlyFirst();
+    }
+
+    private Integer addOnlyFirst() {
+        return Integer.valueOf(Score.of(firstScore));
     }
 }
