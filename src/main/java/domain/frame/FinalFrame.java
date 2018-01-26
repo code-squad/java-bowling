@@ -9,7 +9,7 @@ public class FinalFrame implements Frame {
   private State state;
 
   public FinalFrame() {
-    this.state = new NoneState(this);
+    this.state = new NoneState();
   }
 
   @Override
@@ -19,18 +19,17 @@ public class FinalFrame implements Frame {
 
   @Override
   public void roll(BowlPin bowlPin) {
-    state.roll(bowlPin);
+    state.roll(this, bowlPin);
   }
 
   @Override
   public int getScore() {
-
     return state.getScore();
   }
 
   @Override
   public boolean isFrameEnd() {
-    return state.isEnd();
+    return state.isEnd(this);
   }
 
   @Override

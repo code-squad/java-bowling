@@ -5,38 +5,35 @@ import domain.frame.Frame;
 
 public class Gutter implements State {
 
-  private Frame frame;
   private BowlPin firstBowlPins;
   private BowlPin secondBowlPins;
 
-  public Gutter(Frame frame, BowlPin firstBowlPins) {
-    this.frame = frame;
+  public Gutter(BowlPin firstBowlPins) {
     this.firstBowlPins = firstBowlPins;
   }
 
-  public Gutter(Frame frame, BowlPin firstBowlPins, BowlPin secondBowlPins) {
-    this.frame = frame;
+  public Gutter(BowlPin firstBowlPins, BowlPin secondBowlPins) {
     this.firstBowlPins = firstBowlPins;
     this.secondBowlPins = secondBowlPins;
   }
 
   @Override
-  public void roll(BowlPin fallenPins) {
+  public void roll(Frame frame, BowlPin fallenPins) {
     if (fallenPins.isSpare(firstBowlPins)) {
-      frame.changeState(new Spare(frame, firstBowlPins, fallenPins));
+      frame.changeState(new Spare(firstBowlPins, fallenPins));
       return;
     }
 
     if (fallenPins.isGutter()) {
-      frame.changeState(new Gutter(frame, firstBowlPins, fallenPins));
+      frame.changeState(new Gutter(firstBowlPins, fallenPins));
       return;
     }
 
-    frame.changeState(new Miss(frame, firstBowlPins, fallenPins));
+    frame.changeState(new Miss(firstBowlPins, fallenPins));
   }
 
   @Override
-  public boolean isEnd() {
+  public boolean isEnd(Frame frame) {
     return hasSecondBowlPins();
   }
 

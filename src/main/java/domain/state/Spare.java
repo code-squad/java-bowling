@@ -5,49 +5,36 @@ import domain.frame.Frame;
 
 public class Spare implements State {
 
-  private Frame frame;
   private BowlPin firstBowlPins;
   private BowlPin secondBowlPins;
-  private State bonusState;
 
-  public Spare(Frame frame, BowlPin firstBowlPins, BowlPin secondBowlPins) {
-    this.frame = frame;
+  public Spare(BowlPin firstBowlPins, BowlPin secondBowlPins) {
     this.firstBowlPins = firstBowlPins;
     this.secondBowlPins = secondBowlPins;
   }
 
   @Override
-  public void roll(BowlPin fallenPins) {
+  public void roll(Frame frame, BowlPin fallenPins) {
     if (frame.isFinalFrame()) {
-      this.bonusState = new Bonus(frame, fallenPins);
+      frame.changeState(new Bonus(firstBowlPins, secondBowlPins, fallenPins));
     }
   }
 
   @Override
-  public boolean isEnd() {
+  public boolean isEnd(Frame frame) {
     if (frame.isFinalFrame()) {
-      return hasBonusState();
+      return false;
     }
     return true;
   }
 
   @Override
   public int getScore() {
-    if (hasBonusState()) {
-      return bonusState.getScore() + firstBowlPins.getPins() + secondBowlPins.getPins();
-    }
-    return firstBowlPins.getPins() + secondBowlPins.getPins();
+    return firstBowlPins.sum(secondBowlPins);
   }
 
   @Override
   public String toString() {
-    if (hasBonusState()) {
-      return firstBowlPins + "|/|" + bonusState.toString();
-    }
     return firstBowlPins + "|/";
-  }
-
-  private boolean hasBonusState() {
-    return bonusState != null;
   }
 }

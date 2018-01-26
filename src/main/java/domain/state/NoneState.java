@@ -5,41 +5,34 @@ import domain.frame.Frame;
 
 public class NoneState implements State {
 
-  private Frame frame;
   private BowlPin firstBowlPins;
 
-  public NoneState(Frame frame) {
-    this.frame = frame;
-  }
-
-  public NoneState(BowlPin firstBowlPins) {
-    this.firstBowlPins = firstBowlPins;
-  }
+  public NoneState() {}
 
   @Override
-  public void roll(BowlPin fallenPins) {
+  public void roll(Frame frame, BowlPin fallenPins) {
     if (hasFirstBowlPins()) {
       if (fallenPins.isSpare(firstBowlPins)) {
-        frame.changeState(new Spare(frame, firstBowlPins, fallenPins));
+        frame.changeState(new Spare(firstBowlPins, fallenPins));
         return;
       }
 
       if (fallenPins.isGutter()) {
-        frame.changeState(new Gutter(frame, firstBowlPins, fallenPins));
+        frame.changeState(new Gutter(firstBowlPins, fallenPins));
         return;
       }
 
-      frame.changeState(new Miss(frame, firstBowlPins, fallenPins));
+      frame.changeState(new Miss(firstBowlPins, fallenPins));
       return;
     }
 
     if (fallenPins.isStrike()) {
-      frame.changeState(new Strike(frame, fallenPins));
+      frame.changeState(new Strike(fallenPins));
       return;
     }
 
     if (fallenPins.isGutter()) {
-      frame.changeState(new Gutter(frame, fallenPins));
+      frame.changeState(new Gutter(fallenPins));
       return;
     }
 
@@ -51,7 +44,7 @@ public class NoneState implements State {
   }
 
   @Override
-  public boolean isEnd() {
+  public boolean isEnd(Frame frame) {
     return false;
   }
 

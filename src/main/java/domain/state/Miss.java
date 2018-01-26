@@ -5,22 +5,20 @@ import domain.frame.Frame;
 
 public class Miss implements State {
 
-  private Frame frame;
   private BowlPin firstBowlPins;
   private BowlPin secondBowlPins;
 
-  public Miss(Frame frame, BowlPin firstBowlPins, BowlPin secondBowlPins) {
-    this.frame = frame;
+  public Miss(BowlPin firstBowlPins, BowlPin secondBowlPins) {
     this.firstBowlPins = firstBowlPins;
     this.secondBowlPins = secondBowlPins;
   }
 
   @Override
-  public void roll(BowlPin fallenPins) {
+  public void roll(Frame frame, BowlPin fallenPins) {
   }
 
   @Override
-  public boolean isEnd() {
+  public boolean isEnd(Frame frame) {
     return true;
   }
 

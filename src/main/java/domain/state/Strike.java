@@ -5,32 +5,23 @@ import domain.frame.Frame;
 
 public class Strike implements State {
 
-  private Frame frame;
   private BowlPin firstBowlPins;
-  private State bonusState;
 
-  public Strike(Frame frame, BowlPin firstBowlPins) {
-    this.frame = frame;
+  public Strike(BowlPin firstBowlPins) {
     this.firstBowlPins = firstBowlPins;
   }
 
   @Override
-  public void roll(BowlPin fallenPins) {
+  public void roll(Frame frame, BowlPin fallenPins) {
     if (frame.isFinalFrame()) {
-      if (hasBonusState()) {
-        this.bonusState.roll(fallenPins);
-        return;
-      }
-      this.bonusState = new Bonus(frame, fallenPins);
+      frame.changeState(new Bonus(firstBowlPins, fallenPins));
+      return;
     }
   }
 
   @Override
-  public boolean isEnd() {
+  public boolean isEnd(Frame frame) {
     if (frame.isFinalFrame()) {
-      if (hasBonusState()) {
-        return bonusState.isEnd();
-      }
       return false;
     }
     return true;
@@ -38,21 +29,11 @@ public class Strike implements State {
 
   @Override
   public int getScore() {
-    if (hasBonusState()) {
-      return bonusState.getScore() + firstBowlPins.getPins();
-    }
     return firstBowlPins.getPins();
   }
 
   @Override
   public String toString() {
-    if (hasBonusState()) {
-      return firstBowlPins + "|" + bonusState.toString();
-    }
     return firstBowlPins + "";
-  }
-
-  private boolean hasBonusState() {
-    return bonusState != null;
   }
 }

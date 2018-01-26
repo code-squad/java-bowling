@@ -18,4 +18,12 @@ public class Frames {
   public Frame get(int round) {
     return frames.get(round - 1);
   }
+
+  public boolean isFrameEnd(int round) {
+    return get(round).isFrameEnd();
+  }
+
+  public boolean isFrameExisted(int round) {
+    return frames.size() == round;
+  }
 }
