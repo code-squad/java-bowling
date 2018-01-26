@@ -24,12 +24,16 @@ public class DownPinCount {
         return new DownPinCount(Integer.parseInt(countStr.trim()));
     }
 
-    public DownPinCount add(@Nonnull DownPinCount other) {
+    private DownPinCount add(@Nonnull DownPinCount other) {
         return new DownPinCount(count + other.count);
     }
 
-    public boolean isAllDown() {
+    public boolean isStrike() {
         return count == 10;
+    }
+
+    public boolean isSpare(@Nonnull DownPinCount other) {
+        return add(other).count == 10;
     }
 
     public boolean isNothingDown() {

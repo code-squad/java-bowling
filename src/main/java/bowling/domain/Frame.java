@@ -1,6 +1,7 @@
 package bowling.domain;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class Frame {
@@ -28,13 +29,27 @@ public class Frame {
         return false;
     }
 
+    protected boolean isStrike(DownPinCount throwBallResult) {
+        return throwBallResult != null && throwBallResult.isStrike();
+    }
+
+    protected boolean isSecondThrowSpare() {
+        return firstThrow != null && secondThrow != null &&
+                firstThrow.isSpare(secondThrow) && !isStrike(firstThrow);
+    }
+
     public Optional<Frame> getNextFrame() {
         return Optional.ofNullable(nextFrame);
     }
 
     protected int getTotalDownPinCount() {
-        return getFirstThrow().orElse(DownPinCount.of(0))
-                .add(getSecondThrow().orElse(DownPinCount.of(0))).getCount();
+        return sumDownPinCount(firstThrow, secondThrow);
+    }
+
+    protected int sumDownPinCount(DownPinCount... throwBallResults) {
+        return Arrays.stream(throwBallResults)
+                .mapToInt(result -> result == null ? 0 : result.getCount())
+                .sum();
     }
 
     protected Optional<DownPinCount> getFirstThrow() {
@@ -56,7 +71,7 @@ public class Frame {
         String separator = secondThrow == null ? "" : "|";
         String second = getSecondThrow()
                 .map(DownPinCount::toString)
-                .map(str -> getTotalDownPinCount() == 10 ? "/" : str)
+                .map(str -> isSecondThrowSpare() ? "/" : str)
                 .orElse("");
         return first + separator + second;
     }
