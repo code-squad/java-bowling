@@ -8,4 +8,5 @@ public abstract class State {
     public abstract boolean isFrameEnd();
     public abstract String toFrameView();
     public abstract Score getScore();
+    public abstract Score addScore(Score score);
 }

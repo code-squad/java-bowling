@@ -34,4 +34,14 @@ public class SpareTest {
     public void getScoreTest() {
         assertThat(spare.getScore()).isEqualTo(new Score(10, 1));
     }
+
+    @Test
+    public void addScoreTest() {
+        assertThat(spare.addScore(new Score(10, 1))).isEqualTo(new Score(18, 0));
+    }
+
+    @Test
+    public void addScoreTest2() {
+        assertThat(spare.addScore(new Score(10, 2))).isEqualTo(new Score(20, 0));
+    }
 }

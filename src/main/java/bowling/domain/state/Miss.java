@@ -32,4 +32,13 @@ public class Miss extends State {
         return new Score(firstFallenPin.add(secondFallenPin), 0);
     }
 
+    @Override
+    public Score addScore(Score score) {
+        score = score.bowl(firstFallenPin.toIntValue());
+        if(score.calculable())
+            return score;
+
+        return score.bowl(secondFallenPin.toIntValue());
+    }
+
 }

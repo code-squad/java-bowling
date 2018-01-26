@@ -24,4 +24,9 @@ public class Strike extends State {
         return new Score(10, 2);
     }
 
+    @Override
+    public Score addScore(Score score) {
+        return score.bowl(10);
+    }
+
 }

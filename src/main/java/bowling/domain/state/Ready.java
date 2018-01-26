@@ -29,4 +29,9 @@ public class Ready extends State{
         throw new CannotCalculateException();
     }
 
+    @Override
+    public Score addScore(Score score) {
+        throw new CannotCalculateException();
+    }
+
 }

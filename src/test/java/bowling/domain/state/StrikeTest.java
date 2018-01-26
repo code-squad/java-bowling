@@ -33,4 +33,9 @@ public class StrikeTest {
     public void getScoreTest() {
         assertThat(strike.getScore()).isEqualTo(new Score(10, 2));
     }
+
+    @Test
+    public void addScoreTest() {
+        assertThat(strike.addScore(new Score(10, 1))).isEqualTo(new Score(20, 0));
+    }
 }

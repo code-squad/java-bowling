@@ -34,4 +34,14 @@ public class MissTest {
     public void getScoreTest() {
         assertThat(miss.getScore()).isEqualTo(new Score(8, 0));
     }
+
+    @Test
+    public void addScoreTest() {
+        assertThat(miss.addScore(new Score(10, 1))).isEqualTo(new Score(15, 0));
+    }
+
+    @Test
+    public void addScoreTest2() {
+        assertThat(miss.addScore(new Score(10, 2))).isEqualTo(new Score(18, 0));
+    }
 }

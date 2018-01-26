@@ -31,4 +31,13 @@ public class Spare extends State {
     public Score getScore() {
         return new Score(10, 1);
     }
+
+    @Override
+    public Score addScore(Score score) {
+        score = score.bowl(firstFallenPin.toIntValue());
+        if(score.calculable())
+            return score;
+
+        return score.bowl(secondFallenPin.toIntValue());
+    }
 }

@@ -40,4 +40,9 @@ public class FirstBowl extends State {
         throw new CannotCalculateException();
     }
 
+    @Override
+    public Score addScore(Score score) {
+        return score.bowl(fallenPin.toIntValue());
+    }
+
 }
