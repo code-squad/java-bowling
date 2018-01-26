@@ -10,8 +10,8 @@ public class ConsolePlayStrategy implements PlayStrategy {
     private final Scanner scanner = new Scanner(System.in);
 
     @Override
-    public Pin play(int frameNo) {
-        System.out.print(frameNo + "프레임 투구 : ");
+    public Pin play() {
+        System.out.print("프레임 투구 : ");
         int fallPin = scanner.nextInt();
         scanner.nextLine();
 

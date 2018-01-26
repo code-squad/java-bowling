@@ -9,10 +9,15 @@ import java.util.Optional;
 
 public abstract class Frame {
 
+    final int frameNo;
+
+    Frame next;
+
     State state;
 
-    Frame(Pin first) {
+    Frame(Pin first, int frameNo) {
         this.state = Ready.getInstance().bowl(first);
+        this.frameNo = frameNo;
     }
 
     public boolean isStrike() {
@@ -25,7 +30,7 @@ public abstract class Frame {
 
     public abstract boolean isFinish();
 
-    public abstract void bowl(Pin pin);
+    public abstract Optional<Frame> bowl(Pin pin);
 
     public abstract Optional<Integer> getFrameScore();
 

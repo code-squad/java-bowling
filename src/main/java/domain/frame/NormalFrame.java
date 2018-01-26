@@ -8,8 +8,12 @@ import java.util.Optional;
 
 public class NormalFrame extends Frame {
 
-    public NormalFrame(Pin first) {
-        super(first);
+    NormalFrame(Pin first) {
+        super(first, 1);
+    }
+
+    NormalFrame(Pin first, int frameNo) {
+        super(first, frameNo);
     }
 
     @Override
@@ -18,8 +22,13 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public void bowl(Pin pin) {
+    public Optional<Frame> bowl(Pin pin) {
+        if (state instanceof Finish) {
+            next = getNextFrame(pin);
+            return Optional.of(next);
+        }
         this.state = state.bowl(pin);
+        return Optional.of(this);
     }
 
     @Override
@@ -59,6 +68,13 @@ public class NormalFrame extends Frame {
             return Optional.of(10 + 10 + getFirstScore());
         }
         throw new IllegalArgumentException();
+    }
+
+    private Frame getNextFrame(Pin pin) {
+        if (frameNo == 9) {
+            return new FinalFrame(pin);
+        }
+        return new NormalFrame(pin, frameNo + 1);
     }
 
     @Override

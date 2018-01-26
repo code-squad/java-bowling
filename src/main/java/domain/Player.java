@@ -16,8 +16,8 @@ public class Player {
         this.strategy = strategy;
     }
 
-    public Pin play(int frameNo) {
-        return strategy.play(frameNo);
+    public Pin play() {
+        return strategy.play();
     }
 
     @Override

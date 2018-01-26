@@ -13,8 +13,8 @@ public class FinalFrame extends Frame {
 
     private State bonus;
 
-    public FinalFrame(Pin first) {
-        super(first);
+    FinalFrame(Pin first) {
+        super(first, 10);
     }
 
     @Override
@@ -28,19 +28,23 @@ public class FinalFrame extends Frame {
     }
 
     @Override
-    public void bowl(Pin pin) {
+    public Optional<Frame> bowl(Pin pin) {
         if (isFinish()) {
             throw new IllegalArgumentException();
         }
         if (!(state instanceof Finish)) {
             this.state = state.bowl(pin);
-            return;
+            return Optional.of(this);
         }
         if (bonus != null) {
             this.bonus = bonus.bowl(pin);
-            return;
+            return Optional.empty();
         }
         bonus = new Bonus(state, pin);
+        if (state instanceof Strike) {
+            return Optional.of(this);
+        }
+        return Optional.empty();
     }
 
     @Override

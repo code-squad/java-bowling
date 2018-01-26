@@ -1,6 +1,7 @@
 package domain.frame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,15 +10,12 @@ public class Frames {
 
     private static final String BLANK = "|      |";
 
-    private final List<Frame> frames = new ArrayList<>();
+    private final Frame[] frames = new Frame[10];
 
     private final List<Integer> scores = new ArrayList<>();
 
-    void addFrame(Frame frame) {
-        if (frame == null || frames.size() > 10) {
-            throw new IllegalArgumentException();
-        }
-        frames.add(frame);
+    void updateFrame(Frame frame) {
+        frames[frame.frameNo - 1] = frame;
     }
 
     String getUpdateScoreResult() {
@@ -63,10 +61,10 @@ public class Frames {
     }
 
     private Frame get(int index) {
-        if (index >= frames.size()) {
+        if (index > 10) {
             return null;
         }
-        return frames.get(index);
+        return frames[index - 1];
     }
 
     private Integer getSumOfFrameScore() {
@@ -78,10 +76,10 @@ public class Frames {
 
     @Override
     public String toString() {
-        if (frames.isEmpty()) {
+        if (frames[0] == null) {
             return "";
         }
-        return frames.stream()
+        return Arrays.stream(frames)
                      .map(f -> String.format("%-4s", f.toString()))
                      .collect(Collectors.joining("|")) + "|";
     }

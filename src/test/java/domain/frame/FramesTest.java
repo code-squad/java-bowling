@@ -31,40 +31,40 @@ public class FramesTest {
 
     @Test
     public void getUpdateScoreResult_스트라이크후첫번째시도() throws Exception {
-        frames.addFrame(strike);
+        frames.updateFrame(strike);
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
-        frames.addFrame(new NormalFrame(new Pin(7)));
+        frames.updateFrame(new NormalFrame(new Pin(7)));
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
     }
 
     @Test
     public void getUpdateScoreResult_스트라이크후미스() throws Exception {
-        frames.addFrame(strike);
+        frames.updateFrame(strike);
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
-        frames.addFrame(miss);
+        frames.updateFrame(miss);
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |19  |28  |");
     }
 
     @Test
     public void getUpdateScoreResult_스트라이크후스페어() throws Exception {
-        frames.addFrame(strike);
+        frames.updateFrame(strike);
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
-        frames.addFrame(spare);
+        frames.updateFrame(spare);
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |20  |");
     }
 
     @Test
     public void getUpdateScoreResult_스트라이크후스페어후첫번째시도() throws Exception {
-        frames.addFrame(strike);
+        frames.updateFrame(strike);
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |");
 
-        frames.addFrame(spare);
+        frames.updateFrame(spare);
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |20  |");
 
-        frames.addFrame(new NormalFrame(new Pin(7)));
+        frames.updateFrame(new NormalFrame(new Pin(7)));
         assertThat(frames.getUpdateScoreResult()).isEqualTo("|      |20  |37  |");
 
     }
