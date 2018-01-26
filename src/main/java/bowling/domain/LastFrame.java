@@ -37,7 +37,7 @@ public class LastFrame extends Frame{
     }
 
     private boolean canThrowThirdBall() {
-        return isStrike(getFirstThrow().get()) || isSecondThrowSpare();
+        return isStrike(getFirstThrow().orElse(null)) || isSecondThrowSpare();
     }
 
     private boolean isThirdThrowSpare() {

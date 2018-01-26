@@ -19,6 +19,7 @@ public class BowlingGame {
                     frames.addFirst(new Frame(nextFrame));
                 });
         currentFrame = frames.getFirst();
+        currentFrame.setPreviousFrameScore(0);
     }
 
     public void throwBall(@Nonnull DownPinCount count) {
