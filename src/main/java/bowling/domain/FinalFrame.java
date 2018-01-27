@@ -1,69 +1,50 @@
 package bowling.domain;
 
-import bowling.util.PinUtil;
+
+import bowling.domain.state.Spare;
+import bowling.domain.state.Strike;
+import bowling.exception.CannotCalculateException;
 
 public class FinalFrame extends Frame {
-    private Pin thirdTry;
 
     @Override
-    public void rollBowlingBall(Pin pin) {
+    public void rollBowlingBall(int pin) {
         if(isFrameEnd())
             return;
 
-        if(firstTry == null) {
-            firstBowl(pin);
-            return;
-        }
-
-        if(secondTry == null) {
-            secondBowl(pin);
-            return;
-        }
-
-        thirdBowl(pin);
-    }
-
-    private void thirdBowl(Pin pin) {
-        thirdBowlInputCheck(pin);
-        thirdTry = pin;
-    }
-
-    private void thirdBowlInputCheck(Pin pin) {
-        if(firstTry == null || secondTry == null)
-            throw new IllegalArgumentException("Invalid try, first try or second try is not attempted");
-        if((firstTry.isStrike() && !secondTry.isStrike()) && secondTry.isOverTen(pin))
-            throw new IllegalArgumentException("Third try num make total pin over 10");
-    }
-
-    @Override
-    public void secondBowl(Pin pin) {
-        if(!isStrike()) {
-            super.secondBowl(pin);
-            return;
-        }
-
-        secondTry = pin;
+        state = state.bowlBall(new Pin(pin));
     }
 
     @Override
     public boolean isFrameEnd() {
-        if(isStrike() || isSpare())
-            return thirdTry != null;
+        if(state instanceof Strike || state instanceof Spare)
+            return false;
 
-        return super.isFrameEnd();
+        return state.isFrameEnd();
     }
 
     @Override
     public String getFrameView() {
-        if(isStrike())
-            return String.format("%1s%2s",
-                    PinUtil.toView(firstTry),
-                    PinUtil.frameView(secondTry, thirdTry)
-            );
+        return state.toFrameView();
+    }
 
-        return String.format("%2s%1s",
-                PinUtil.frameView(firstTry, secondTry),
-                PinUtil.toView(thirdTry)
-        );
+    @Override
+    public int getScore() {
+        Score score = state.getScore();
+
+        if(score.calculable())
+            return score.getScore();
+
+        throw new CannotCalculateException();
+    }
+
+    @Override
+    public int calculateAdditionalScore(Score score) {
+        Score addedScore = state.addScore(score);
+
+        if(addedScore.calculable())
+            return addedScore.getScore();
+
+        throw new CannotCalculateException();
     }
 }

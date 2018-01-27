@@ -2,9 +2,7 @@ package bowling.domain;
 
 import bowling.dto.CurrentPlayerInfo;
 import bowling.dto.PlayerResult;
-import bowling.enums.FrameState;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Player {
@@ -25,18 +23,7 @@ public class Player {
             throw new IllegalArgumentException("name must be three english letter");
     }
 
-    public FrameState getState() {
-        return frames.getState(frameNo);
-    }
-
-    public FrameState getPreviousState() {
-        if(frameNo < 1)
-            throw new IllegalArgumentException("There is no previous frame of first frame");
-
-        return frames.getState(frameNo - 1);
-    }
-
-    public void rollBowlingBall(Pin pin) {
+    public void rollBowlingBall(int pin) {
         frames.rollBowlingBall(frameNo, pin);
     }
 
@@ -52,12 +39,12 @@ public class Player {
         return frames.isEnd();
     }
 
-    public List<String> getFrameViews() {
-        return frames.getFrameViews();
+    public CurrentPlayerInfo createPlayerInfo() {
+        return new CurrentPlayerInfo(name, frameNo);
     }
 
     public PlayerResult getPlayerResult() {
-        return new PlayerResult(name, getFrameViews());
+        return new PlayerResult(name, frames.getFrameViews(), frames.getScoreViews());
     }
 
     @Override
@@ -72,9 +59,5 @@ public class Player {
     public int hashCode() {
 
         return Objects.hash(name);
-    }
-
-    public CurrentPlayerInfo createPlayerInfo() {
-        return new CurrentPlayerInfo(name, frameNo);
     }
 }

@@ -1,6 +1,5 @@
 package bowling.view;
 
-import bowling.domain.Pin;
 import bowling.domain.Player;
 
 import java.util.Arrays;
@@ -22,7 +21,7 @@ public class InputView {
                 .collect(Collectors.toList());
     }
 
-    public static Pin getPin() {
-        return new Pin(Integer.parseInt(sc.nextLine()));
+    public static int getPin() {
+        return Integer.parseInt(sc.nextLine());
     }
 }

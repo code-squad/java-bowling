@@ -1,9 +1,6 @@
 package bowling.view;
 
-import bowling.domain.Player;
 import bowling.dto.Board;
-
-import java.util.List;
 
 
 public class OutputView {
@@ -14,11 +11,15 @@ public class OutputView {
 
         board.getPlayerResults()
                 .forEach(result -> {
-                    String name = result.getName();
-                    List<String> frameView = result.getFrameViews();
+                    System.out.print("|  " + result.getName() + " |");
+                    result.getFrameViews()
+                            .forEach(view -> System.out.print("  " + view + " |"));
+                    System.out.println();
 
-                    System.out.print("|  " + name + " |");
-                    frameView.forEach(view -> System.out.print("  " + view + " |"));
+                    System.out.print("|      |");
+                    result.getScoreViews()
+                            .forEach(score -> System.out.print("  " + score + " |"));
+                    System.out.println();
                 });
         System.out.println();
     }

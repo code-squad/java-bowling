@@ -2,7 +2,6 @@ package bowling.domain;
 
 import bowling.dto.PlayerResult;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,17 +21,13 @@ public class Players {
 
     public boolean isGameEnd() {
         return players.stream()
-                .anyMatch(Player::isEnd);
-    }
-
-    public List<Player> getPlayersAsList() {
-        return Collections.unmodifiableList(players);
+                .allMatch(Player::isEnd);
     }
 
     public Player rotate(Player currentPlayer) {
         currentPlayer.frameNoUpdate();
 
-        int idx = players.indexOf(currentPlayer) + 1 % players.size();
+        int idx = (players.indexOf(currentPlayer) + 1) % players.size();
 
         return players.get(idx);
     }

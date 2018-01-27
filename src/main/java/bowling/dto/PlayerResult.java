@@ -6,13 +6,15 @@ import java.util.Objects;
 public class PlayerResult {
     private String name;
     private List<String> frameViews;
+    private List<String> scoreViews;
 
-    public PlayerResult(String name, List<String> frameViews) {
-        if(frameViews == null || frameViews.isEmpty())
+    public PlayerResult(String name, List<String> frameViews, List<String> scoreView) {
+        if(frameViews == null || frameViews.isEmpty() || scoreView == null)
             throw new IllegalArgumentException("not enough value");
 
         this.name = name;
         this.frameViews = frameViews;
+        this.scoreViews = scoreView;
     }
 
     public String getName() {
@@ -21,6 +23,10 @@ public class PlayerResult {
 
     public List<String> getFrameViews() {
         return frameViews;
+    }
+
+    public List<String> getScoreViews() {
+        return scoreViews;
     }
 
     @Override

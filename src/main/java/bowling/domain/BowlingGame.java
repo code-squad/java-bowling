@@ -13,7 +13,7 @@ public class BowlingGame {
         this.currentPlayer = players.get(0);
     }
 
-    public void rollBowlingBall(Pin fellPin) {
+    public void rollBowlingBall(int fellPin) {
         currentPlayer.rollBowlingBall(fellPin);
         updatePlayerQueue();
     }

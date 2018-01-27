@@ -1,10 +1,9 @@
 package bowling.domain;
 
-import bowling.enums.FrameState;
+import bowling.exception.CannotCalculateException;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static bowling.common.StaticVariables.FRAME_MAX_VALUE;
 
@@ -12,22 +11,20 @@ public class Frames {
     private List<Frame> frames;
 
     public Frames() {
-        frames = IntStream.range(0, FRAME_MAX_VALUE - 1)
-                .mapToObj(i -> new Frame())
-                .collect(Collectors.toList());
+        frames = new ArrayList<>(FRAME_MAX_VALUE);
 
         frames.add(new FinalFrame());
-    }
+        for(int i = 0 ; i < FRAME_MAX_VALUE - 1; ++i)
+            frames.add(new NormalFrame(frames.get(frames.size() - 1)));
 
-    public FrameState getState(int round) {
-        return frame(round).state();
+        Collections.reverse(frames);
     }
 
     private Frame frame(int round) {
         return frames.get(round);
     }
 
-    public void rollBowlingBall(int round, Pin fellPin) {
+    public void rollBowlingBall(int round, int  fellPin) {
         frame(round).rollBowlingBall(fellPin);
     }
 
@@ -38,7 +35,24 @@ public class Frames {
     public List<String> getFrameViews() {
         return frames.stream()
                 .map(Frame::getFrameView)
+                .map(s -> String.format("%s", s))
                 .collect(Collectors.toList());
+    }
+
+    public List<String> getScoreViews() {
+        List<String> scores = new ArrayList<>();
+
+        Integer totalScore = 0;
+        for(int i = 0 ; i < FRAME_MAX_VALUE ; ++i) {
+            try {
+                totalScore += frames.get(i).getScore();
+                scores.add(String.format("%-3d", totalScore));
+            } catch (CannotCalculateException e) {
+                scores.add("   ");
+            }
+        }
+
+        return scores;
     }
 
     public boolean isEnd() {
