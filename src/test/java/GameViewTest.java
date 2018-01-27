@@ -1,4 +1,5 @@
 import bowling.domain.BowlingUser;
+import bowling.domain.frame.FinalFrame;
 import bowling.domain.frame.NormalFrame;
 import bowling.domain.score.Score;
 import bowling.view.GameView;
@@ -74,5 +75,25 @@ public class GameViewTest {
         assertEquals("|  KYJ  |  X   |", gameView.reflectView(frame1));
         NormalFrame frame2 = NormalFrame.generate(Score.in(of(10)));
         assertEquals("|  KYJ  |  X   |  X   |", gameView.reflectView(frame2));
+    }
+
+    @Test
+    public void 파이널_프레임에서_뷰가_올바른가() {
+        FinalFrame frame = FinalFrame.generate(Score.in(of(10)));
+        assertEquals("  X   |", gameView.reflectFinalView(frame));
+    }
+
+    @Test
+    public void 파이널_프레임에서_연속된_뷰가_올바른가() {
+        FinalFrame frame = FinalFrame.generate(Score.in(of(10)));
+        assertEquals("  X   |", gameView.reflectFinalView(frame));
+        assertEquals("  X|X |", gameView.reflectFinalView(frame.nextRound(Score.in(of(10)))));
+    }
+
+    @Test
+    public void 파이널_프레임에서_연속된_뷰가_올바른가2() {
+        FinalFrame frame = FinalFrame.generate(Score.in(of(10))); //finalScoreType 생성?
+        assertEquals("  X   |", gameView.reflectFinalView(frame));
+        assertEquals("  X|4 |", gameView.reflectFinalView(frame.nextRound(Score.in(of(4)))));
     }
 }

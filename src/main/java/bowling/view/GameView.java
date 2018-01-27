@@ -26,13 +26,20 @@ public class GameView {
         return new GameView(bowlingUser);
     }
 
-    public String reflectView(NormalFrame frame) {
+    public String reflectView(Frame frame) {
         if(frames.contains(frame)) { frames.remove(frame); }
         frames.add(frame);
 
         String result = String.format(BEGIN_FORMAT, BowlingUser.getName());
         result += frames.stream().map(f -> emptyBlockFormat(f.result())).collect(Collectors.joining());
         return result;
+    }
+
+    public String reflectFinalView(Frame frame) {
+        if(frames.contains(frame)) { frames.remove(frame); }
+        frames.add(frame);
+
+        return frames.stream().map(f -> emptyBlockFormat(f.result())).collect(Collectors.joining());
     }
 
     public String nextFinalScore(Frame frame) {
