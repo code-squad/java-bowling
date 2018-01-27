@@ -35,12 +35,7 @@ public class Main {
             }
 
             req.session().attribute("bowlingGame", bowlingGame);
-            Board board = bowlingGame.createBoard();
-            CurrentPlayerInfo playerInfo = board.getCurrentPlayerInfo();
-            model.put("currentPlayer", playerInfo.getName());
-            model.put("currentFrameNo", playerInfo.getCurrentFrameNo() + 1);
-            model.put("frameResult", board.getPlayerResults());
-            model.put("isNotEnd", !bowlingGame.isGameEnd());
+            putInModel(bowlingGame, model);
 
             return render(model, "/play.html");
         });
@@ -56,13 +51,7 @@ public class Main {
                 retry(bowlingGame);
             }
 
-            Board board = bowlingGame.createBoard();
-            CurrentPlayerInfo playerInfo = board.getCurrentPlayerInfo();
-            model.put("currentPlayer", playerInfo.getName());
-            model.put("currentFrameNo", playerInfo.getCurrentFrameNo());
-            model.put("frameResult", board.getPlayerResults());
-            model.put("isNotEnd", !bowlingGame.isGameEnd());
-
+            putInModel(bowlingGame, model);
             return render(model, "/play.html");
         });
     }
@@ -78,14 +67,18 @@ public class Main {
     private static String retry(BowlingGame bowlingGame) {
         Map<String, Object> model = new HashMap<>();
 
+        putInModel(bowlingGame, model);
+
+        return render(model, "/play.html");
+    }
+
+    private static void putInModel(BowlingGame bowlingGame, Map<String, Object> model) {
         Board board = bowlingGame.createBoard();
         CurrentPlayerInfo playerInfo = board.getCurrentPlayerInfo();
         model.put("currentPlayer", playerInfo.getName());
         model.put("currentFrameNo", playerInfo.getCurrentFrameNo());
         model.put("frameResult", board.getPlayerResults());
         model.put("isNotEnd", !bowlingGame.isGameEnd());
-
-        return render(model, "/play.html");
     }
 
 /*    public static void main(String[] args) {
