@@ -4,7 +4,7 @@ import bowling.domain.Pin;
 import bowling.domain.Score;
 import bowling.exception.CannotCalculateException;
 
-public class FirstBowl extends State {
+public class FirstBowl implements State {
     private Pin fallenPin;
 
     public FirstBowl(Pin fallenPin) {

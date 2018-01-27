@@ -3,7 +3,7 @@ package bowling.domain.state;
 import bowling.domain.Pin;
 import bowling.domain.Score;
 
-public class Miss extends State {
+public class Miss implements State {
     private Pin firstFallenPin;
     private Pin secondFallenPin;
 

@@ -3,7 +3,7 @@ package bowling.domain.state;
 import bowling.domain.Pin;
 import bowling.domain.Score;
 
-public class Strike extends State {
+public class Strike implements State {
     @Override
     public State bowlBall(Pin fallenPin) {
         return new StrikeExtra(fallenPin);

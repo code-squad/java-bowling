@@ -3,7 +3,7 @@ package bowling.domain.state;
 import bowling.domain.Pin;
 import bowling.domain.Score;
 
-public class StrikeFinal extends State {
+public class StrikeFinal implements State {
     private Pin extraPin;
     private Pin lastPin;
 

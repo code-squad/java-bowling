@@ -3,10 +3,10 @@ package bowling.domain.state;
 import bowling.domain.Pin;
 import bowling.domain.Score;
 
-public abstract class State {
-    public abstract State bowlBall(Pin fallenPin);
-    public abstract boolean isFrameEnd();
-    public abstract String toFrameView();
-    public abstract Score getScore();
-    public abstract Score addScore(Score score);
+public interface State {
+    State bowlBall(Pin fallenPin);
+    boolean isFrameEnd();
+    String toFrameView();
+    Score getScore();
+    Score addScore(Score score);
 }

@@ -4,7 +4,7 @@ import bowling.domain.Pin;
 import bowling.domain.Score;
 import bowling.exception.CannotCalculateException;
 
-public class Ready extends State{
+public class Ready implements State {
 
     @Override
     public State bowlBall(Pin fallenPin) {
