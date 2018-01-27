@@ -59,9 +59,21 @@ public class BowlingFinalTest {
     }
 
     @Test
-    public void 마지막_프레임에서_스트라이크_후_스페어() {
-        FinalFrame frame = threeTimeNextFrame(0, 10, 4);
+    public void 마지막_프레임에서_스트라이크_후_미스() {
+        FinalFrame frame = threeTimeNextFrame(10, 0, 4);
         assertEquals("X|-|4", frame.result());
+    }
+
+    @Test
+    public void 마지막_프레임에서_스트라이크_후_스페어() {
+        FinalFrame frame = threeTimeNextFrame(10, 3, 7);
+        assertEquals("X|3|/", frame.result());
+    }
+
+    @Test
+    public void 마지막_프레임에서_스트라이크_후_숫자() {
+        FinalFrame frame = threeTimeNextFrame(10, 3, 4);
+        assertEquals("X|3|4", frame.result());
     }
 
     @Test

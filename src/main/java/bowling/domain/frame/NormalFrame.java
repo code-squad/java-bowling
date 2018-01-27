@@ -1,6 +1,5 @@
 package bowling.domain.frame;
 
-import bowling.domain.ScoreMachine;
 import bowling.domain.score.EntireScore;
 import bowling.domain.score.Score;
 
@@ -13,7 +12,7 @@ public class NormalFrame implements Frame {
 
     private NormalFrame(Score score) {
         entireScore = entireScore.generate(score);
-        result = ScoreMachine.convertScoreToString(entireScore);
+        result = convertScoreToString(entireScore);
     }
 
     public static NormalFrame generate(Score score) {

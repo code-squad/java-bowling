@@ -2,11 +2,25 @@ package bowling.domain.score;
 
 import java.util.function.Function;
 
+import static bowling.domain.ScoreMachine.convertScoreToString;
 import static bowling.utils.ScoreUtils.MAX_SCORE;
 import static bowling.utils.ScoreUtils.MIN_SCORE;
 import static bowling.utils.StringUtils.scoreResultFormat;
 
 public enum ScoreType {
+    THREE("|", entireScore -> isThree(entireScore)) {
+        public String convert(EntireScore entireScore) {
+            EntireScore firstEntire = EntireScore.generate(entireScore.firstScore());
+            if(isStrike(firstEntire)) {
+                String result1 = scoreResultFormat(STRIKE.get(), convertScoreToString(EntireScore.generate(entireScore.beforeLastScore())));
+                String result2 = convertScoreToString(EntireScore.generate(entireScore.lastScore()));
+                return scoreResultFormat(result1, result2);
+            }
+            String result1 = convertScoreToString(firstEntire.inScore(entireScore.beforeLastScore()));
+            String result2 = convertScoreToString(EntireScore.generate(entireScore.lastScore()));
+            return scoreResultFormat(result1, result2);
+        }
+    },
     STRIKE("X", entireScore -> isStrike(entireScore)) {
         public String convert(EntireScore entireScore) { return this.get(); }
     },
@@ -23,13 +37,17 @@ public enum ScoreType {
         public String convert(EntireScore entireScore) {
             Integer first = entireScore.beforeLastScore().get();
             Integer second = entireScore.lastScore().get();
-            return (first == MIN_SCORE ? MISS.get() : String.valueOf(first)) + this.get() + (second == MIN_SCORE ? MISS.get() : String.valueOf(second));
+            return convertString(first) + this.get() + convertString(second);
+        }
+
+        private String convertString(Integer first) {
+            return first == MIN_SCORE ? MISS.get() : String.valueOf(first);
         }
     };
 
     private String value;
-    private Function<EntireScore, Boolean> match;
 
+    private Function<EntireScore, Boolean> match;
     ScoreType(String value, Function<EntireScore, Boolean> match) {
         this.value = value;
         this.match = match;
@@ -44,6 +62,10 @@ public enum ScoreType {
     }
 
     public abstract String convert(EntireScore entireScore);
+
+    private static boolean isThree(EntireScore entireScore) {
+        return entireScore.length() == 3;
+    }
 
     public static boolean isStrike(EntireScore entireScore) {
         return entireScore.lastScore().get() == MAX_SCORE;
