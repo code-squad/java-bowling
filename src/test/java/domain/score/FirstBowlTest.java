@@ -16,13 +16,13 @@ public class FirstBowlTest {
     @Test
     public void bowl_스페어인경우() throws Exception {
         State state = firstBowl.bowl(new Pin(3));
-        assertThat(state instanceof Spare).isTrue();
+        assertThat(state.getType() == PinType.SPARE).isTrue();
     }
 
     @Test
     public void bowl_스페어가아닌경우() throws Exception {
         State state = firstBowl.bowl(new Pin(2));
-        assertThat(state instanceof Spare).isFalse();
+        assertThat(state.getType() == PinType.SPARE).isFalse();
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -19,6 +19,11 @@ public class Strike implements State, Finish {
     }
 
     @Override
+    public PinType getType() {
+        return PinType.STRIKE;
+    }
+
+    @Override
     public String toString() {
         return "X";
     }

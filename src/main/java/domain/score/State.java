@@ -9,4 +9,6 @@ public interface State {
     int getFirstScore();
 
     Optional<Integer> getTotalScore();
+
+    PinType getType();
 }

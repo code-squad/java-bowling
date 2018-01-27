@@ -1,8 +1,7 @@
 package domain.frame;
 
-import domain.score.Finish;
-import domain.score.Miss;
 import domain.score.Pin;
+import domain.score.PinType;
 
 import java.util.Optional;
 
@@ -18,12 +17,12 @@ public class NormalFrame extends Frame {
 
     @Override
     public boolean isFinish() {
-        return state instanceof Finish;
+        return state.getType() != PinType.NOT_FINISH;
     }
 
     @Override
     public Optional<Frame> bowl(Pin pin) {
-        if (state instanceof Finish) {
+        if (state.getType() != PinType.NOT_FINISH) {
             next = getNextFrame(pin);
             return Optional.of(next);
         }
@@ -33,7 +32,7 @@ public class NormalFrame extends Frame {
 
     @Override
     public Optional<Integer> getFrameScore() {
-        if (state instanceof Miss) {
+        if (state.getType() == PinType.MISS) {
             return getSumOfFirstAndSecondScore();
         }
         if (next != null) {
@@ -44,7 +43,7 @@ public class NormalFrame extends Frame {
 
     @Override
     public Optional<Integer> getSumOfFirstAndSecondScore() {
-        if (state instanceof Finish) {
+        if (state.getType() != PinType.NOT_FINISH) {
             return state.getTotalScore();
         }
         return Optional.empty();

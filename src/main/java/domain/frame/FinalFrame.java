@@ -1,11 +1,9 @@
 package domain.frame;
 
 import domain.score.Bonus;
-import domain.score.Finish;
-import domain.score.Miss;
 import domain.score.Pin;
+import domain.score.PinType;
 import domain.score.State;
-import domain.score.Strike;
 
 import java.util.Optional;
 
@@ -19,7 +17,7 @@ public class FinalFrame extends Frame {
 
     @Override
     public boolean isFinish() {
-        if (state instanceof Miss) {
+        if (state.getType() == PinType.MISS) {
             return true;
         }
 
@@ -32,7 +30,7 @@ public class FinalFrame extends Frame {
         if (isFinish()) {
             throw new IllegalArgumentException();
         }
-        if (!(state instanceof Finish)) {
+        if (state.getType() == PinType.NOT_FINISH) {
             this.state = state.bowl(pin);
             return returnEmptyIfFinish();
         }
@@ -46,10 +44,10 @@ public class FinalFrame extends Frame {
 
     @Override
     public Optional<Integer> getFrameScore() {
-        if (state instanceof Miss) {
+        if (state.getType() == PinType.MISS) {
             return state.getTotalScore();
         }
-        if (state instanceof Finish && bonus != null) {
+        if (state.getType() != PinType.NOT_FINISH && bonus != null) {
             return bonus.getTotalScore()
                         .map(i -> i + state.getTotalScore().orElseThrow(IllegalStateException::new));
         }
@@ -58,10 +56,10 @@ public class FinalFrame extends Frame {
 
     @Override
     public Optional<Integer> getSumOfFirstAndSecondScore() {
-        if (!(state instanceof Finish)) {
+        if (state.getType() == PinType.NOT_FINISH) {
             return Optional.empty();
         }
-        if (state instanceof Strike) {
+        if (state.getType() == PinType.STRIKE) {
             if (bonus == null) {
                 return Optional.empty();
             }

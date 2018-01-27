@@ -1,9 +1,9 @@
 package domain.frame;
 
 import domain.score.Pin;
+import domain.score.PinType;
 import domain.score.Ready;
 import domain.score.State;
-import domain.score.Strike;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public abstract class Frame {
     }
 
     public boolean isStrike() {
-        return state instanceof Strike;
+        return state.getType() == PinType.STRIKE;
     }
 
     public Integer getFirstScore() {

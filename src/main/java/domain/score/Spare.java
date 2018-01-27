@@ -29,6 +29,11 @@ public class Spare implements State, Finish {
     }
 
     @Override
+    public PinType getType() {
+        return PinType.SPARE;
+    }
+
+    @Override
     public String toString() {
         return first.toString() + "|" + "/";
     }

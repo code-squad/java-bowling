@@ -29,6 +29,11 @@ public class Miss implements State, Finish {
     }
 
     @Override
+    public PinType getType() {
+        return PinType.MISS;
+    }
+
+    @Override
     public String toString() {
         return first.toString() + "|" + second.toString();
     }

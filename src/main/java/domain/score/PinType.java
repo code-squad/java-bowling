@@ -5,7 +5,10 @@ import static domain.score.Pin.ZERO;
 
 public enum PinType {
     STRIKE("X"),
+    SPARE("/"),
     GUTTER("-"),
+    MISS(null),
+    NOT_FINISH(null),
     NONE(null);
 
     private final String display;

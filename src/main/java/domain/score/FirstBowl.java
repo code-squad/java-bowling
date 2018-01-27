@@ -29,6 +29,11 @@ public class FirstBowl implements State {
     }
 
     @Override
+    public PinType getType() {
+        return PinType.NOT_FINISH;
+    }
+
+    @Override
     public String toString() {
         return pin.toString();
     }

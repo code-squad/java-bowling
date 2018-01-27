@@ -11,7 +11,7 @@ public class Bonus implements State {
     private Pin second;
 
     public Bonus(State state, Pin first) {
-        if (state instanceof Miss) {
+        if (state.getType() == PinType.MISS) {
             throw new IllegalArgumentException();
         }
         this.state = state;
@@ -20,7 +20,7 @@ public class Bonus implements State {
 
     @Override
     public State bowl(Pin pin) {
-        if (state instanceof Strike && second == null) {
+        if (state.getType() == PinType.STRIKE && second == null) {
             second = pin;
             if (!first.isStrike()) {
                 first.add(second);
@@ -37,13 +37,21 @@ public class Bonus implements State {
 
     @Override
     public Optional<Integer> getTotalScore() {
-        if (state instanceof Strike && second == null) {
+        if (state.getType() == PinType.STRIKE && second == null) {
             return Optional.empty();
         }
         if (second != null) {
             return Optional.of(first.toInt() + second.toInt());
         }
         return Optional.of(first.toInt());
+    }
+
+    @Override
+    public PinType getType() {
+        if (state.getType() == PinType.STRIKE && second == null) {
+            return PinType.NOT_FINISH;
+        }
+        return PinType.NONE;
     }
 
     @Override
