@@ -30,7 +30,7 @@ public class View {
     private void normalRendering() {
         for(int i = 1; i < 10; i++) {
             NormalFrame normalFrame = NormalFrame.generate(Score.in(input.getScore(i)));
-            pringBagicView(gameView.initEmptyFrames(gameView.firstReflectScore(normalFrame), i));
+            pringBagicView(gameView.initEmptyFrames(gameView.reflectView(normalFrame), i));
 
             int finalIndex = i;
             ofNullable(normalFrame).filter(frame -> !frame.isEnd()).map(frame -> nextNormalFrame(finalIndex, frame));
@@ -39,14 +39,14 @@ public class View {
 
     private void finalRendering() {
         FinalFrame finalFrame = FinalFrame.generate(Score.in(input.getScore(FINAL_FRAME)));
-        pringBagicView(gameView.initEmptyFrames(gameView.firstReflectScore(finalFrame), FINAL_FRAME));
+        //pringBagicView(gameView.initEmptyFrames(gameView.reflectScore(finalFrame), FINAL_FRAME));
 
         IntStream.range(0, 2).forEach(i -> ofNullable(finalFrame).filter(frame -> !frame.isEnd()).map(View::nextFinalFrame));
     }
 
     private static NormalFrame nextNormalFrame(int index, NormalFrame normalFrame) {
         normalFrame = normalFrame.nextRound(Score.in(input.getScore(index)));
-        pringBagicView(gameView.initEmptyFrames(gameView.nextReflectScore(normalFrame), index));
+        pringBagicView(gameView.initEmptyFrames(gameView.reflectView(normalFrame), index));
         return normalFrame;
     }
 

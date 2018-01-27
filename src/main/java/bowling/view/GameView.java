@@ -1,25 +1,21 @@
 package bowling.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
-
 import bowling.domain.BowlingUser;
 import bowling.domain.frame.Frame;
+import bowling.domain.frame.NormalFrame;
 
-import static bowling.domain.score.ScoreType.STRIKE;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import static bowling.utils.ScoreUtils.MAX_SCORE;
 import static bowling.utils.ScoreUtils.MIN_SCORE;
-import static bowling.utils.StringUtils.BEGIN_FORMAT;
-import static bowling.utils.StringUtils.DEFAULT_ING_FORMAT;
-import static bowling.utils.StringUtils.EMPTY_BLOCK_FRAME;
-import static bowling.utils.StringUtils.EMPTY_FRAME;
-import static bowling.utils.StringUtils.emptyBlockFormat;
-import static bowling.utils.StringUtils.getIngFormat;
-import static bowling.utils.StringUtils.getIngOnlyFormat;
+import static bowling.utils.StringUtils.*;
 
 public class GameView {
     private List<Frame> frames = new ArrayList<>();
+    @Deprecated
     private static String resultView;
 
     public GameView(BowlingUser bowlingUser) {
@@ -30,18 +26,13 @@ public class GameView {
         return new GameView(bowlingUser);
     }
 
-    public String firstReflectScore(Frame frame) {
+    public String reflectView(NormalFrame frame) {
+        if(frames.contains(frame)) { frames.remove(frame); }
         frames.add(frame);
-        resultView += getIngOnlyFormat(frame.result());
-        if(isStrikeAndFormat(frame)) return resultView;
-        return resultView + EMPTY_BLOCK_FRAME;
-    }
 
-    public String nextReflectScore(Frame frame) {
-        updateResultView(frame, 1);
-        //if(isGutterAndFormat(frame)) return resultView;
-        resultView = getIngFormat(resultView);
-        return resultView;
+        String result = String.format(BEGIN_FORMAT, BowlingUser.getName());
+        result += frames.stream().map(f -> emptyBlockFormat(f.result())).collect(Collectors.joining());
+        return result;
     }
 
     public String nextFinalScore(Frame frame) {
@@ -51,18 +42,6 @@ public class GameView {
 
     private void updateResultView(Frame frame, int deleteLength) {
         resultView = clearBeforeData(resultView.length() - deleteLength) + frame.result();
-    }
-
-    private boolean isStrikeAndFormat(Frame frame) {
-        return isEmptyBlockTarget(STRIKE.match(frame.getElement()));
-    }
-
-    private boolean isEmptyBlockTarget(boolean isTarget) {
-        if(isTarget) {
-            resultView = emptyBlockFormat(resultView);
-            return true;
-        }
-        return false;
     }
 
     public String initEmptyFrames(String nameView, int ingLength) {
@@ -82,5 +61,4 @@ public class GameView {
     private String initNameView(BowlingUser bowlingUser) {
         return String.format(BEGIN_FORMAT, bowlingUser.getName());
     }
-
 }

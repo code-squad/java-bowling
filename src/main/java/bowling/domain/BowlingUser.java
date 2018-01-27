@@ -3,7 +3,7 @@ package bowling.domain;
 import java.util.Optional;
 
 public class BowlingUser {
-    private String name;
+    private static String name;
 
     public BowlingUser(Optional<String> name) {
         this.name = name.filter(BowlingUser::isThreeLength).map(String::toUpperCase).orElseThrow(() -> new IllegalArgumentException("이름은 3글자만 허용됩니다."));
@@ -17,7 +17,7 @@ public class BowlingUser {
         return name.length() == 3;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 }

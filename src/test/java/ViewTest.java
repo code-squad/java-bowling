@@ -9,7 +9,6 @@ import bowling.view.Input;
 import bowling.view.Output;
 
 import static bowling.utils.ScoreUtils.MIN_SCORE;
-import static java.util.Optional.ofNullable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -61,7 +60,7 @@ public class ViewTest {
         GameView gameView = GameView.generate(bowlingUser);
         NormalFrame frame = NormalFrame.generate(Score.in(Input.generate("10").getScore(1)));
 
-        assertEquals("|  KYJ  |  X   |      |      |      |      |      |      |      |      |      |", gameView.initEmptyFrames(gameView.firstReflectScore(frame), 1));
+        assertEquals("|  KYJ  |  X   |      |      |      |      |      |      |      |      |      |", gameView.initEmptyFrames(gameView.reflectView(frame), 1));
     }
 
 }

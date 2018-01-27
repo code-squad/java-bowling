@@ -11,6 +11,7 @@ public enum ScoreType {
     THREE("|", entireScore -> isThree(entireScore)) {
         public String convert(EntireScore entireScore) {
             EntireScore firstEntire = EntireScore.generate(entireScore.firstScore());
+
             if(isStrike(firstEntire)) {
                 String result1 = scoreResultFormat(STRIKE.get(), convertScoreToString(EntireScore.generate(entireScore.beforeLastScore())));
                 String result2 = convertScoreToString(EntireScore.generate(entireScore.lastScore()));
@@ -63,7 +64,7 @@ public enum ScoreType {
 
     public abstract String convert(EntireScore entireScore);
 
-    private static boolean isThree(EntireScore entireScore) {
+    public static boolean isThree(EntireScore entireScore) {
         return entireScore.length() == 3;
     }
 

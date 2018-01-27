@@ -5,6 +5,7 @@ import bowling.domain.score.Score;
 import bowling.domain.score.ScoreType;
 
 import static bowling.domain.ScoreMachine.convertScoreToString;
+import static bowling.domain.score.ScoreType.isThree;
 
 public class FinalFrame implements Frame {
     private EntireScore entireScore;
@@ -21,7 +22,7 @@ public class FinalFrame implements Frame {
 
     @Override
     public boolean isEnd() {
-        return entireScore.length() > 3 || (ScoreType.isDual(entireScore) && entireScore.beforeLastScore().get() != 10);
+        return isThree(entireScore) || (ScoreType.isDual(entireScore) && entireScore.beforeLastScore().get() != 10);
     }
 
     @Override
