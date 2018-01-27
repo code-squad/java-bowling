@@ -19,8 +19,8 @@ public class Player {
     }
 
     private void inputValidationCheck(String name) {
-        if(name == null || name.length() != 3)
-            throw new IllegalArgumentException("name must be three english letter");
+        if(name == null || name.isEmpty())
+            throw new IllegalArgumentException("invalid name");
     }
 
     public void rollBowlingBall(int pin) {
