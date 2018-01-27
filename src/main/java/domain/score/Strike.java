@@ -2,7 +2,7 @@ package domain.score;
 
 import java.util.Optional;
 
-public class Strike implements State, Finish {
+public class Strike implements State {
     @Override
     public State bowl(Pin pin) {
         throw new IllegalStateException();

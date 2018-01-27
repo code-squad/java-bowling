@@ -2,7 +2,7 @@ package domain.score;
 
 import java.util.Optional;
 
-public class Miss implements State, Finish {
+public class Miss implements State {
 
     private final Pin first;
 

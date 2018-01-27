@@ -2,7 +2,7 @@ package domain.score;
 
 import java.util.Optional;
 
-public class Spare implements State, Finish {
+public class Spare implements State {
 
     private final Pin first;
 
