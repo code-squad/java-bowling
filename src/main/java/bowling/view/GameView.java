@@ -31,8 +31,7 @@ public class GameView {
         frames.add(frame);
 
         String result = String.format(BEGIN_FORMAT, BowlingUser.getName());
-        result += frames.stream().map(f -> emptyBlockFormat(f.result())).collect(Collectors.joining());
-        return result;
+        return result + frames.stream().map(f -> emptyBlockFormat(f.result())).collect(Collectors.joining());
     }
 
     public String reflectFinalView(Frame frame) {

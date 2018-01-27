@@ -13,7 +13,7 @@ public enum ScoreType {
             EntireScore firstEntire = EntireScore.generate(entireScore.firstScore());
 
             if(isStrike(firstEntire)) {
-                String result1 = scoreResultFormat(STRIKE.get(), convertScoreToString(EntireScore.generate(entireScore.beforeLastScore())));
+                String result1 = firstStrikeFormat(entireScore.beforeLastScore());
                 String result2 = convertScoreToString(EntireScore.generate(entireScore.lastScore()));
                 return scoreResultFormat(result1, result2);
             }
@@ -47,8 +47,8 @@ public enum ScoreType {
     };
 
     private String value;
-
     private Function<EntireScore, Boolean> match;
+
     ScoreType(String value, Function<EntireScore, Boolean> match) {
         this.value = value;
         this.match = match;
@@ -88,4 +88,7 @@ public enum ScoreType {
         return entireScore.length() > 1 && !isStrike(entireScore) && !isSpare(entireScore);
     }
 
+    public static String firstStrikeFormat(Score score) {
+        return scoreResultFormat(STRIKE.get(), convertScoreToString(EntireScore.generate(score)));
+    }
 }
