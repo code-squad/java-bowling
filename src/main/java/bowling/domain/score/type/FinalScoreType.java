@@ -18,14 +18,12 @@ public enum FinalScoreType implements ScoreType {
             return firstStrikeFormat(entireScore.lastScore());
         }
     },
-    STRIKE_AND_SPARE(entireScore -> isFirstStrikeAndSpare(entireScore)) {
+    STRIKE_AND_SPARE(entireScore -> isStrikeAndSpare(entireScore)) {
         public String convert(EntireScore entireScore) {
-            String result1 = firstStrikeFormat(entireScore.beforeLastScore());
-
-            return scoreResultFormat(result1, SPARE.get());
+            return scoreResultFormat(firstStrikeFormat(entireScore.beforeLastScore()), SPARE.get());
         }
     },
-    FIRST_STRIKE_OTHER(entireScore -> isFirstStrikeAndThree(entireScore)) {
+    STRIKE_THREE(entireScore -> isStrikeAndThree(entireScore)) {
         public String convert(EntireScore entireScore) {
             String result1 = firstStrikeFormat(entireScore.beforeLastScore());
             String result2 = convertFinalScore(EntireScore.generate(entireScore.lastScore()));
@@ -53,15 +51,15 @@ public enum FinalScoreType implements ScoreType {
         return this.match.apply(entireScore);
     }
 
-    private static Boolean isStrikeAndDual(EntireScore entireScore) {
+    public static Boolean isStrikeAndDual(EntireScore entireScore) {
         return entireScore.length() == 2 && isStrike(EntireScore.generate(entireScore.firstScore()));
     }
 
-    private static Boolean isFirstStrikeAndSpare(EntireScore entireScore) {
-        return isFirstStrikeAndThree(entireScore) && isSpare(EntireScore.generate(entireScore.beforeLastScore()).inScore(entireScore.lastScore()));
+    private static Boolean isStrikeAndSpare(EntireScore entireScore) {
+        return isStrikeAndThree(entireScore) && isSpare(EntireScore.generate(entireScore.beforeLastScore()).inScore(entireScore.lastScore()));
     }
 
-    private static Boolean isFirstStrikeAndThree(EntireScore entireScore) {
+    private static Boolean isStrikeAndThree(EntireScore entireScore) {
         return isStrike(EntireScore.generate(entireScore.firstScore())) && isThree(entireScore);
     }
 

@@ -20,12 +20,13 @@ public class View {
         initView();
     }
 
+    private void initView() {
+        printView(game.createView(""));
+    }
+
     public void rendering() {
         normalRendering();
         finalRendering();
-    }
-    private void initView() {
-        printView(game.createView(""));
     }
 
     private void normalRendering() {

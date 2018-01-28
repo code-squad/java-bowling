@@ -34,15 +34,18 @@ public class Game {
         if(frames.contains(frame)) { frames.remove(frame); }
         frames.add(frame);
 
-        return frames.stream().map(f -> emptyBlockFormat(f.result())).collect(Collectors.joining());
+        return initName() + frames.stream().map(f -> emptyBlockFormat(f.result())).collect(Collectors.joining());
     }
 
     public String createView(String scoreView) {
-        String name = String.format(BEGIN_FORMAT, bowlingUser.getName());
-        return name + scoreView + leftEmpty(frames.size());
+        return initName() + scoreView + rightEmpty(frames.size());
     }
 
-    public String leftEmpty(int ingLength) {
+    private String initName() {
+        return String.format(BEGIN_FORMAT, bowlingUser.getName());
+    }
+
+    public String rightEmpty(int ingLength) {
         StringBuilder builder = new StringBuilder();
         IntStream.range(MIN_SCORE, MAX_SCORE-ingLength).forEach(i -> builder.append(String.format(DEFAULT_ING_FORMAT, EMPTY_FRAME)));
         return builder.toString();

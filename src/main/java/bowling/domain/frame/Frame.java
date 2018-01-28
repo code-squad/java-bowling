@@ -1,6 +1,5 @@
 package bowling.domain.frame;
 
-import bowling.domain.score.EntireScore;
 import bowling.domain.score.Score;
 
 public interface Frame {
@@ -11,6 +10,4 @@ public interface Frame {
     Frame nextRound(Score score);
 
     String result();
-
-    EntireScore getElement();
 }
