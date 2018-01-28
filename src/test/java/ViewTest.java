@@ -1,10 +1,10 @@
+import bowling.domain.Game;
 import org.junit.Test;
 
 import bowling.domain.BowlingUser;
 import bowling.domain.frame.NormalFrame;
 import bowling.domain.score.Score;
 import bowling.utils.ScoreUtils;
-import bowling.view.GameView;
 import bowling.view.Input;
 import bowling.view.Output;
 
@@ -49,18 +49,18 @@ public class ViewTest {
     @Test
     public void 이름을_입력받고_초기_게임화면이_올바르게_생성되는가() {
         BowlingUser bowlingUser = BowlingUser.registed(Input.generate("kyj").getName());
-        GameView gameView = GameView.generate(bowlingUser);
+        Game game = Game.generate(bowlingUser);
 
-        assertEquals("|  KYJ  |      |      |      |      |      |      |      |      |      |      |", gameView.firstFrame());
+        assertEquals("|  KYJ  |      |      |      |      |      |      |      |      |      |      |", game.createView(""));
     }
 
     @Test
     public void 입력받은_점수에_따른_결과화면이_올바른가() {
         BowlingUser bowlingUser = BowlingUser.registed(Input.generate("kyj").getName());
-        GameView gameView = GameView.generate(bowlingUser);
+        Game game = Game.generate(bowlingUser);
         NormalFrame frame = NormalFrame.generate(Score.in(Input.generate("10").getScore(1)));
 
-        assertEquals("|  KYJ  |  X   |      |      |      |      |      |      |      |      |      |", gameView.initEmptyFrames(gameView.reflectView(frame), 1));
+        assertEquals("|  KYJ  |  X   |      |      |      |      |      |      |      |      |      |", game.reflectView(frame));
     }
 
 }
