@@ -34,4 +34,9 @@ public class SpareTest {
         assertThat(spare.getTotalScore().get()).isEqualTo(17);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void getTotalScore_더이상bowl할수없는경우() throws Exception {
+        spare.bowl(new Pin(7));
+        spare.bowl(new Pin(7));
+    }
 }

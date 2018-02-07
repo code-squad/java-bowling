@@ -20,9 +20,15 @@ public class FirstBowlTest {
     }
 
     @Test
-    public void bowl_스페어가아닌경우() throws Exception {
+    public void bowl_미스인경우() throws Exception {
         State state = firstBowl.bowl(new Pin(2));
-        assertThat(state instanceof Spare).isFalse();
+        assertThat(state instanceof Miss).isTrue();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void bowl_더이상bowl할수없는경우() throws Exception {
+        firstBowl.bowl(new Pin(2));
+        firstBowl.bowl(new Pin(2));
     }
 
     @Test(expected = IllegalArgumentException.class)

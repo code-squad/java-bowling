@@ -17,7 +17,7 @@ public abstract class Frame {
     }
 
     Frame(Pin first, int frameNo) {
-        this.state = Ready.getInstance().bowl(first);
+        this.state = Ready.bowl(first);
         this.frameNo = frameNo;
     }
 

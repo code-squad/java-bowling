@@ -26,4 +26,10 @@ public class MissTest {
         assertThat(miss.getTotalScore().isPresent()).isTrue();
         assertThat(miss.getTotalScore().get()).isEqualTo(9);
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void getTotalScore_더이상bowl할수없는경우() throws Exception {
+        miss.bowl(new Pin(7));
+        miss.bowl(new Pin(7));
+    }
 }

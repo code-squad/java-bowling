@@ -5,8 +5,7 @@ import java.util.Optional;
 public class Strike extends State {
 
     Strike() {
-        pin = Pin.TEN;
-        left = 2;
+        super(Pin.TEN, 2);
     }
 
     @Override
@@ -25,14 +24,11 @@ public class Strike extends State {
 
     @Override
     public State bowl(Pin pin) {
-        if (!isLeft()) {
-            throw new IllegalStateException();
-        }
-        left--;
+        reduceLeft();
         if (getNext().isPresent()) {
             return next.bowl(pin);
         }
-        return next = Ready.getInstance().bowl(pin);
+        return next = Ready.bowl(pin);
     }
 
     @Override

@@ -7,9 +7,8 @@ public class Spare extends State {
     private final Pin before;
 
     Spare(Pin before, Pin pin) {
+        super(pin, 1);
         this.before = before;
-        this.pin = pin;
-        this.left = 1;
     }
 
     @Override
@@ -24,11 +23,8 @@ public class Spare extends State {
 
     @Override
     public State bowl(Pin pin) {
-        if (!isLeft()) {
-            throw new IllegalStateException();
-        }
-        left--;
-        return next = Ready.getInstance().bowl(pin);
+        reduceLeft();
+        return next = Ready.bowl(pin);
     }
 
     @Override

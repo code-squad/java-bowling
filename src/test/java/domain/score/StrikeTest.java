@@ -21,31 +21,38 @@ public class StrikeTest {
 
     @Test
     public void getTotalScore_XXX() {
-        State next = strike.bowl(Pin.TEN);
-        next.bowl(Pin.TEN);
+        strike.bowl(Pin.TEN);
+        strike.bowl(Pin.TEN);
         assertThat(strike.getTotalScore().isPresent()).isTrue();
         assertThat(strike.getTotalScore().get()).isEqualTo(30);
     }
 
     @Test
     public void getTotalScore_SPARE() {
-        State next = strike.bowl(new Pin(3));
-        next.bowl(new Pin(7));
+        strike.bowl(new Pin(3));
+        strike.bowl(new Pin(7));
         assertThat(strike.getTotalScore().isPresent()).isTrue();
         assertThat(strike.getTotalScore().get()).isEqualTo(20);
     }
 
     @Test
     public void getTotalScore_MISS() {
-        State next = strike.bowl(new Pin(3));
-        next.bowl(new Pin(2));
+        strike.bowl(new Pin(3));
+        strike.bowl(new Pin(2));
         assertThat(strike.getTotalScore().isPresent()).isTrue();
         assertThat(strike.getTotalScore().get()).isEqualTo(15);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void getTotalScore_더이상bowl할수없는경우() {
+        strike.bowl(new Pin(3));
+        strike.bowl(new Pin(2));
+        strike.bowl(new Pin(2));
+    }
+
     @Test
     public void getTotalScore_XX() {
-        State next = strike.bowl(Pin.TEN);
+        strike.bowl(Pin.TEN);
         assertThat(strike.getTotalScore().isPresent()).isFalse();
     }
 }

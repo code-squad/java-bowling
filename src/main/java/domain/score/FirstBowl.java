@@ -5,8 +5,7 @@ import java.util.Optional;
 public class FirstBowl extends State {
 
     FirstBowl(Pin pin) {
-        this.pin = pin;
-        this.left = 1;
+        super(pin, 1);
     }
 
     @Override
@@ -21,6 +20,7 @@ public class FirstBowl extends State {
 
     @Override
     public State bowl(Pin p) {
+        reduceLeft();
         if (pin.add(p).equals(Pin.TEN)) {
             return next = new Spare(this.pin, p);
         }
