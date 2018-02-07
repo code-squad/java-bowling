@@ -17,10 +17,6 @@ public class Pin {
         return new Pin(p2.fallPins + this.fallPins);
     }
 
-    boolean isStrike() {
-        return PinType.valueOf(this) == PinType.STRIKE;
-    }
-
     int toInt() {
         return fallPins;
     }
@@ -42,8 +38,11 @@ public class Pin {
 
     @Override
     public String toString() {
-        if (PinType.valueOf(this).isDisplay()) {
-            return PinType.valueOf(this).getDisplay();
+        if (this.equals(TEN)) {
+            return "X";
+        }
+        if (this.equals(ZERO)) {
+            return "-";
         }
         return String.valueOf(fallPins);
     }

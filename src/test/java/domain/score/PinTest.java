@@ -29,4 +29,12 @@ public class PinTest {
         p1.add(new Pin(6));
     }
 
+    @Test
+    public void toString_테스트() throws Exception {
+        assertThat(new Pin(10).toString()).isEqualTo("X");
+        assertThat(new Pin(0).toString()).isEqualTo("-");
+        assertThat(new Pin(7).toString()).isEqualTo("7");
+
+    }
+
 }
