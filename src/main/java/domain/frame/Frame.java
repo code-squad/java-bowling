@@ -14,7 +14,7 @@ public abstract class Frame {
 
     State state;
 
-    public Frame(int frameNo) {
+    Frame(int frameNo) {
         this.frameNo = frameNo;
     }
 

@@ -6,6 +6,7 @@ public class Strike extends State {
 
     Strike() {
         pin = Pin.TEN;
+        left = 2;
     }
 
     @Override
@@ -18,8 +19,20 @@ public class Strike extends State {
     }
 
     @Override
-    public PinType getType() {
-        return PinType.STRIKE;
+    public boolean isFinish() {
+        return true;
+    }
+
+    @Override
+    public State bowl(Pin pin) {
+        if (!isLeft()) {
+            throw new IllegalStateException();
+        }
+        left--;
+        if (getNext().isPresent()) {
+            return next.bowl(pin);
+        }
+        return next = Ready.getInstance().bowl(pin);
     }
 
     @Override

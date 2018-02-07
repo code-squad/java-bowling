@@ -7,20 +7,23 @@ public abstract class State {
 
     Pin pin;
 
+    int left;
+
     public abstract Optional<Integer> getTotalScore();
 
-    public abstract PinType getType();
+    public abstract boolean isFinish();
+
+    public abstract State bowl(Pin pin);
 
     public int getScore() {
         return pin.toInt();
     }
 
-    public State bowl(Pin pin) {
-        return next = Ready.getInstance().bowl(pin);
-    }
-
-    Optional<State> getNext() {
+    public Optional<State> getNext() {
         return Optional.ofNullable(next);
     }
 
+    public boolean isLeft() {
+        return left > 0;
+    }
 }

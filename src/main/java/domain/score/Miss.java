@@ -9,6 +9,7 @@ public class Miss extends State {
     Miss(Pin before, Pin pin) {
         this.before = before;
         this.pin = pin;
+        this.left = 0;
     }
 
     @Override
@@ -17,8 +18,16 @@ public class Miss extends State {
     }
 
     @Override
-    public PinType getType() {
-        return PinType.MISS;
+    public boolean isFinish() {
+        return true;
+    }
+
+    @Override
+    public State bowl(Pin pin) {
+        if (getNext().isPresent()) {
+            throw new IllegalStateException();
+        }
+        return next = Ready.getInstance().bowl(pin);
     }
 
     @Override

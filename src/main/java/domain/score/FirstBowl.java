@@ -6,14 +6,7 @@ public class FirstBowl extends State {
 
     FirstBowl(Pin pin) {
         this.pin = pin;
-    }
-
-    @Override
-    public State bowl(Pin p) {
-        if (pin.add(p).equals(Pin.TEN)) {
-            return next = new Spare(this.pin, p);
-        }
-        return next = new Miss(this.pin, p);
+        this.left = 1;
     }
 
     @Override
@@ -22,8 +15,16 @@ public class FirstBowl extends State {
     }
 
     @Override
-    public PinType getType() {
-        return PinType.NOT_FINISH;
+    public boolean isFinish() {
+        return false;
+    }
+
+    @Override
+    public State bowl(Pin p) {
+        if (pin.add(p).equals(Pin.TEN)) {
+            return next = new Spare(this.pin, p);
+        }
+        return next = new Miss(this.pin, p);
     }
 
     @Override

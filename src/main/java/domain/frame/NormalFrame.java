@@ -1,7 +1,6 @@
 package domain.frame;
 
 import domain.score.Pin;
-import domain.score.PinType;
 import domain.score.State;
 
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class NormalFrame extends Frame {
 
     @Override
     public boolean isFinish() {
-        return state.getType() != PinType.NOT_FINISH;
+        return state.isFinish();
     }
 
     @Override
