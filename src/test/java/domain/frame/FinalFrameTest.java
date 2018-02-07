@@ -117,41 +117,4 @@ public class FinalFrameTest {
         score.bowl(new Pin(7));
         score.bowl(new Pin(4));
     }
-
-    @Test
-    public void calculateAdditionalScore_이전이STRIKE() throws Exception {
-        assertThat(finalFrame.calculateScoreWithBefore(strike).isPresent()).isTrue();
-        assertThat(finalFrame.calculateScoreWithBefore(strike).get()).isEqualTo(20);
-    }
-
-    @Test
-    public void calculateAdditionalScore_이전이STRIKE_FinalFrame이첫번째시도만한경우() throws Exception {
-        FinalFrame finalFrame = new FinalFrame(new Pin(7));
-        assertThat(finalFrame.calculateScoreWithBefore(strike).isPresent()).isFalse();
-    }
-
-    @Test
-    public void calculateAdditionalScore_이전이SPARE() throws Exception {
-        assertThat(finalFrame.calculateScoreWithBefore(spare).isPresent()).isTrue();
-        assertThat(finalFrame.calculateScoreWithBefore(spare).get()).isEqualTo(13);
-    }
-
-    @Test
-    public void calculateAdditionalScore_이전이SPARE_FinalFrame이첫번째시도만한경우() throws Exception {
-        FinalFrame finalFrame = new FinalFrame(new Pin(3));
-
-        assertThat(finalFrame.calculateScoreWithBefore(spare).isPresent()).isTrue();
-        assertThat(finalFrame.calculateScoreWithBefore(spare).get()).isEqualTo(13);
-    }
-
-    @Test
-    public void calculateAdditionalScore_STRIKESTRIKE() throws Exception {
-        assertThat(finalFrame.calculateScoreWithBefore(strike, strike).isPresent()).isTrue();
-        assertThat(finalFrame.calculateScoreWithBefore(strike, strike).get()).isEqualTo(23);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void calculateAdditionalScore_STRIKESPARE() throws Exception {
-        finalFrame.calculateScoreWithBefore(strike, spare);
-    }
 }

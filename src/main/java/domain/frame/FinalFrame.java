@@ -11,8 +11,14 @@ public class FinalFrame extends Frame {
 
     private State bonus;
 
+
     FinalFrame(Pin first) {
         super(first, 10);
+    }
+
+    FinalFrame(State state) {
+        super(10);
+        this.state = state;
     }
 
     @Override
@@ -52,37 +58,6 @@ public class FinalFrame extends Frame {
                         .map(i -> i + state.getTotalScore().orElseThrow(IllegalStateException::new));
         }
         return Optional.empty();
-    }
-
-    @Override
-    public Optional<Integer> getSumOfFirstAndSecondScore() {
-        if (state.getType() == PinType.NOT_FINISH) {
-            return Optional.empty();
-        }
-        if (state.getType() == PinType.STRIKE) {
-            if (bonus == null) {
-                return Optional.empty();
-            }
-            return state.getTotalScore()
-                        .map(i -> i + bonus.getScore());
-        }
-        return state.getTotalScore();
-    }
-
-    @Override
-    public Optional<Integer> calculateScoreWithBefore(Frame f1, Frame f2) {
-        if (!f1.isStrike() || !f2.isStrike()) {
-            throw new IllegalArgumentException();
-        }
-        return Optional.of(getFirstScore() + 20);
-    }
-
-    @Override
-    public Optional<Integer> calculateScoreWithBefore(Frame before) {
-        if (before.isStrike()) {
-            return getSumOfFirstAndSecondScore().map(integer -> integer + 10);
-        }
-        return Optional.of(getFirstScore() + 10);
     }
 
     private Optional<Frame> returnEmptyIfFinish() {

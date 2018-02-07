@@ -2,6 +2,7 @@ package domain.frame;
 
 import domain.score.Pin;
 import domain.score.PinType;
+import domain.score.State;
 
 import java.util.Optional;
 
@@ -11,8 +12,9 @@ public class NormalFrame extends Frame {
         super(first, 1);
     }
 
-    NormalFrame(Pin first, int frameNo) {
-        super(first, frameNo);
+    NormalFrame(State state, int frameNo) {
+        super(frameNo);
+        this.state = state;
     }
 
     @Override
@@ -22,8 +24,8 @@ public class NormalFrame extends Frame {
 
     @Override
     public Optional<Frame> bowl(Pin pin) {
-        if (state.getType() != PinType.NOT_FINISH) {
-            next = getNextFrame(pin);
+        if (isFinish()) {
+            next = getNextFrame(state.bowl(pin));
             return Optional.of(next);
         }
         this.state = state.bowl(pin);
@@ -32,50 +34,14 @@ public class NormalFrame extends Frame {
 
     @Override
     public Optional<Integer> getFrameScore() {
-        if (state.getType() == PinType.MISS) {
-            return getSumOfFirstAndSecondScore();
-        }
-        if (next != null) {
-            return next.calculateScoreWithBefore(this);
-        }
-        return Optional.empty();
+        return state.getTotalScore();
     }
 
-    @Override
-    public Optional<Integer> getSumOfFirstAndSecondScore() {
-        if (state.getType() != PinType.NOT_FINISH) {
-            return state.getTotalScore();
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<Integer> calculateScoreWithBefore(Frame before) {
-        if (before.isStrike() && this.isStrike()) {
-            if (next != null) {
-                return next.calculateScoreWithBefore(before, this);
-            }
-            return Optional.empty();
-        }
-        if (before.isStrike()) {
-            return getSumOfFirstAndSecondScore().map(i -> i + 10);
-        }
-        return Optional.of(10 + getFirstScore());
-    }
-
-    @Override
-    public Optional<Integer> calculateScoreWithBefore(Frame f1, Frame f2) {
-        if (f1.isStrike() && f2.isStrike()) {
-            return Optional.of(10 + 10 + getFirstScore());
-        }
-        throw new IllegalArgumentException();
-    }
-
-    private Frame getNextFrame(Pin pin) {
+    private Frame getNextFrame(State state) {
         if (frameNo == 9) {
-            return new FinalFrame(pin);
+            return new FinalFrame(state);
         }
-        return new NormalFrame(pin, frameNo + 1);
+        return new NormalFrame(state, frameNo + 1);
     }
 
     @Override
