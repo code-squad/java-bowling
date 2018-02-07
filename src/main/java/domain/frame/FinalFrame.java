@@ -18,15 +18,18 @@ public class FinalFrame extends Frame {
 
     @Override
     public boolean isFinish() {
-        return state.getTotalScore().isPresent();
+        return !state.isLeft();
     }
 
     @Override
     public Optional<Frame> bowl(Pin pin) {
-        if (!state.isLeft()) {
+        if (isFinish()) {
             throw new IllegalStateException();
         }
-        state.bowl(pin);
+        State next = state.bowl(pin);
+        if (!state.isFinish()) {
+            this.state = next;
+        }
         return returnEmptyIfFinish();
     }
 
@@ -36,7 +39,7 @@ public class FinalFrame extends Frame {
     }
 
     private Optional<Frame> returnEmptyIfFinish() {
-        if (!state.isLeft()) {
+        if (isFinish()) {
             return Optional.empty();
         }
         return Optional.of(this);
@@ -47,6 +50,9 @@ public class FinalFrame extends Frame {
         if (!state.getNext().isPresent()) {
             return state.toString();
         }
-        return state.toString() + "|" + state.getNext().get().toString();
+        if (!state.getNext().get().getNext().isPresent()) {
+            return state.toString() + "|" + state.getNext().get().toString();
+        }
+        return state.toString() + "|" + state.getNext().get().toString() + "|" + state.getNext().get().getNext().get().getScore();
     }
 }

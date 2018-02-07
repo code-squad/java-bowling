@@ -1,29 +1,11 @@
 package domain.frame;
 
 import domain.score.Pin;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FinalFrameTest {
-
-    private NormalFrame spare;
-
-    private NormalFrame strike;
-
-    private FinalFrame finalFrame;
-
-    @Before
-    public void setUp() throws Exception {
-        spare = new NormalFrame(new Pin(8));
-        spare.bowl(new Pin(2));
-        strike = new NormalFrame(new Pin(10));
-
-        finalFrame = new FinalFrame(new Pin(3));
-        finalFrame.bowl(new Pin(7));
-        finalFrame.bowl(new Pin(8));
-    }
 
     @Test
     public void FinalScore_72() throws Exception {
@@ -95,7 +77,7 @@ public class FinalFrameTest {
         assertThat(score.isFinish()).isTrue();
         assertThat(score.getFrameScore().isPresent()).isTrue();
         assertThat(score.getFrameScore().get()).isEqualTo(30);
-        assertThat(score.toString()).isEqualTo("X|X|X");
+        assertThat(score.toString()).isEqualTo("X|X|10");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -104,7 +86,7 @@ public class FinalFrameTest {
         score.bowl(new Pin(4));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void FinalScore_721() throws Exception {
         FinalFrame score = new FinalFrame(new Pin(7));
         score.bowl(new Pin(2));
