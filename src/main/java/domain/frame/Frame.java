@@ -10,8 +10,6 @@ public abstract class Frame {
 
     final int frameNo;
 
-    Frame next;
-
     State state;
 
     Frame(int frameNo) {

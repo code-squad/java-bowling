@@ -24,8 +24,7 @@ public class NormalFrame extends Frame {
     @Override
     public Optional<Frame> bowl(Pin pin) {
         if (isFinish()) {
-            next = getNextFrame(state.bowl(pin));
-            return Optional.of(next);
+            return Optional.of(getNextFrame(state.bowl(pin)));
         }
         this.state = state.bowl(pin);
         return Optional.of(this);
