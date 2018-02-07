@@ -2,20 +2,19 @@ package domain.score;
 
 import java.util.Optional;
 
-public class Strike implements State {
-    @Override
-    public State bowl(Pin pin) {
-        throw new IllegalStateException();
-    }
+public class Strike extends State {
 
-    @Override
-    public int getFirstScore() {
-        return 10;
+    Strike() {
+        pin = Pin.TEN;
     }
 
     @Override
     public Optional<Integer> getTotalScore() {
-        return Optional.of(10);
+        if (getNext().isPresent()) {
+            return next.getNext()
+                       .map(n -> n.getScore() + next.getScore() + 10);
+        }
+        return Optional.empty();
     }
 
     @Override

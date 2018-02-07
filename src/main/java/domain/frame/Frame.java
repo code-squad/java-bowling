@@ -25,7 +25,7 @@ public abstract class Frame {
     }
 
     public Integer getFirstScore() {
-        return state.getFirstScore();
+        return state.getScore();
     }
 
     public abstract boolean isFinish();

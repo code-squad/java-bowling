@@ -64,7 +64,7 @@ public class FinalFrame extends Frame {
                 return Optional.empty();
             }
             return state.getTotalScore()
-                        .map(i -> i + bonus.getFirstScore());
+                        .map(i -> i + bonus.getScore());
         }
         return state.getTotalScore();
     }

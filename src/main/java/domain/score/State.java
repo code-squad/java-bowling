@@ -2,13 +2,25 @@ package domain.score;
 
 import java.util.Optional;
 
-public interface State {
+public abstract class State {
+    State next;
 
-    State bowl(Pin pin);
+    Pin pin;
 
-    int getFirstScore();
+    public abstract Optional<Integer> getTotalScore();
 
-    Optional<Integer> getTotalScore();
+    public abstract PinType getType();
 
-    PinType getType();
+    public int getScore() {
+        return pin.toInt();
+    }
+
+    public State bowl(Pin pin) {
+        return next = Ready.getInstance().bowl(pin);
+    }
+
+    Optional<State> getNext() {
+        return Optional.ofNullable(next);
+    }
+
 }

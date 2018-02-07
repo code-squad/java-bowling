@@ -2,7 +2,7 @@ package domain.score;
 
 import java.util.Optional;
 
-public class Bonus implements State {
+public class Bonus extends State {
 
     private final State state;
 
@@ -31,7 +31,7 @@ public class Bonus implements State {
     }
 
     @Override
-    public int getFirstScore() {
+    public int getScore() {
         return first.toInt();
     }
 

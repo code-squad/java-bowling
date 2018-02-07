@@ -2,30 +2,18 @@ package domain.score;
 
 import java.util.Optional;
 
-public class Miss implements State {
+public class Miss extends State {
 
-    private final Pin first;
+    private final Pin before;
 
-    private final Pin second;
-
-    Miss(Pin first, Pin second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public State bowl(Pin pin) {
-        throw new IllegalArgumentException();
-    }
-
-    @Override
-    public int getFirstScore() {
-        return first.toInt();
+    Miss(Pin before, Pin pin) {
+        this.before = before;
+        this.pin = pin;
     }
 
     @Override
     public Optional<Integer> getTotalScore() {
-        return Optional.of(second.toInt() + first.toInt());
+        return Optional.of(pin.toInt() + before.toInt());
     }
 
     @Override
@@ -35,6 +23,6 @@ public class Miss implements State {
 
     @Override
     public String toString() {
-        return first.toString() + "|" + second.toString();
+        return before.toString() + "|" + pin.toString();
     }
 }

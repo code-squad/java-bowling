@@ -2,9 +2,7 @@ package domain.score;
 
 import java.util.Optional;
 
-public class FirstBowl implements State {
-
-    private final Pin pin;
+public class FirstBowl extends State {
 
     FirstBowl(Pin pin) {
         this.pin = pin;
@@ -13,14 +11,9 @@ public class FirstBowl implements State {
     @Override
     public State bowl(Pin p) {
         if (pin.add(p).equals(Pin.TEN)) {
-            return new Spare(this.pin, p);
+            return next = new Spare(this.pin, p);
         }
-        return new Miss(this.pin, p);
-    }
-
-    @Override
-    public int getFirstScore() {
-        return pin.toInt();
+        return next = new Miss(this.pin, p);
     }
 
     @Override
