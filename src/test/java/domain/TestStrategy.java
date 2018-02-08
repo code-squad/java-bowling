@@ -1,10 +1,10 @@
 package domain;
 
-import domain.score.Score;
+import domain.score.Pin;
 
 public class TestStrategy implements PlayStrategy {
     @Override
-    public Score play(int frameNo) {
-        return new Score(5);
+    public Pin play() {
+        return new Pin(5);
     }
 }

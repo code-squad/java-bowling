@@ -1,43 +1,31 @@
 package domain.frame;
 
-import domain.score.Score;
-import domain.score.TotalScore;
+import domain.score.Pin;
+import domain.score.State;
 
 import java.util.Optional;
 
 public abstract class Frame {
-    final TotalScore totalScore;
-    final int frameNo;
 
-    Frame(TotalScore totalScore, int frameNo) {
-        if (totalScore == null) {
-            throw new IllegalArgumentException();
-        }
-        this.totalScore = totalScore;
+    private final int frameNo;
+
+    State state;
+
+    Frame(State state, int frameNo) {
+        this.state = state;
         this.frameNo = frameNo;
     }
 
-    void addSecondScore(Score score) {
-        if (score == null) {
-            throw new IllegalArgumentException();
-        }
-        this.totalScore.addSecondScore(score);
+    int getFrameNo() {
+        return frameNo;
     }
 
     int getNextFrameNo() {
         return frameNo + 1;
     }
 
-    boolean isStrike() {
-        return totalScore.isStrike();
-    }
+    public abstract Optional<Frame> bowl(Pin pin);
 
-    abstract Optional<Frame> playNextFrame(BowlingGame game);
+    public abstract Optional<Integer> getFrameScore();
 
-    abstract Frame nextFrame(TotalScore totalScore);
-
-    @Override
-    public String toString() {
-        return String.format("%-4s", totalScore.toString());
-    }
 }

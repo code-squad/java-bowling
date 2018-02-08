@@ -1,34 +1,61 @@
 package domain.frame;
 
-import domain.score.Score;
-import domain.score.TotalScore;
-import org.junit.Before;
+import domain.score.Pin;
+import domain.score.Ready;
 import org.junit.Test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class NormalFrameTest {
 
-    private TotalScore totalScore;
+    @Test
+    public void bowl_SPARE() throws Exception {
+        NormalFrame normalFrame = new NormalFrame(Ready.bowl(Pin.ZERO));
 
-    @Before
-    public void setUp() throws Exception {
-        totalScore = new TotalScore(new Score(10));
+        normalFrame.bowl(Pin.TEN);
+        assertThat(normalFrame.getFrameScore().isPresent()).isFalse();
+
+        normalFrame.bowl(new Pin(3));
+        assertThat(normalFrame.getFrameScore().isPresent()).isTrue();
+        assertThat(normalFrame.getFrameScore().get()).isEqualTo(13);
+        assertThat(normalFrame.toString()).isEqualTo("-|/");
     }
 
     @Test
-    public void nextFrame_9번째프레임() throws Exception {
-        NormalFrame frame = new NormalFrame(totalScore, 9);
+    public void bowl_STRIKE() throws Exception {
+        NormalFrame normalFrame = new NormalFrame(Ready.bowl(Pin.TEN));
 
-        Frame next = frame.nextFrame(totalScore);
-        assertThat(next instanceof FinalFrame).isTrue();
+        assertThat(normalFrame.getFrameScore().isPresent()).isFalse();
+
+        normalFrame.bowl(Pin.TEN)
+                   .ifPresent(f -> f.bowl(Pin.TEN));
+
+        assertThat(normalFrame.getFrameScore().isPresent()).isTrue();
+        assertThat(normalFrame.getFrameScore().get()).isEqualTo(30);
+        assertThat(normalFrame.toString()).isEqualTo("X");
     }
 
     @Test
-    public void nextFrame() throws Exception {
-        NormalFrame frame = new NormalFrame(totalScore, 8);
+    public void bowl_MISS() throws Exception {
+        NormalFrame normalFrame = new NormalFrame(Ready.bowl(Pin.ZERO));
 
-        Frame next = frame.nextFrame(totalScore);
-        assertThat(next instanceof NormalFrame).isTrue();
+        normalFrame.bowl(new Pin(7));
+        assertThat(normalFrame.getFrameScore().isPresent()).isTrue();
+        assertThat(normalFrame.getFrameScore().get()).isEqualTo(7);
+        assertThat(normalFrame.toString()).isEqualTo("-|7");
     }
+
+    @Test
+    public void NormalScore_거터() throws Exception {
+        NormalFrame zero = new NormalFrame(Ready.bowl(Pin.ZERO));
+
+        assertThat(zero.toString()).isEqualTo("-");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void NormalScore_총합이10이넘는경우() throws Exception {
+        NormalFrame normalScore = new NormalFrame(Ready.bowl(new Pin(7)));
+        normalScore.bowl(new Pin(4));
+    }
+
 }

@@ -1,34 +1,50 @@
 package domain.frame;
 
-import domain.score.TotalScore;
+import domain.score.Pin;
+import domain.score.State;
 
 import java.util.Optional;
 
 public class FinalFrame extends Frame {
 
-    FinalFrame(TotalScore totalScore, int frameNo) {
-        super(totalScore, frameNo);
-        if (frameNo < 10) {
-            throw new IllegalArgumentException();
-        }
+    FinalFrame(State state) {
+        super(state, 10);
     }
 
     @Override
-    public Optional<Frame> playNextFrame(BowlingGame game) {
-        if (frameNo > 11) {
+    public Optional<Frame> bowl(Pin pin) {
+        if (!state.isLeft()) {
+            throw new IllegalStateException();
+        }
+        State next = state.bowl(pin);
+        if (!state.isFinish()) {
+            this.state = next;
+        }
+        return returnEmptyIfFrameFinished();
+    }
+
+    @Override
+    public Optional<Integer> getFrameScore() {
+        return state.getTotalScore();
+    }
+
+    private Optional<Frame> returnEmptyIfFrameFinished() {
+        if (!state.isLeft()) {
             return Optional.empty();
         }
-        if (totalScore.isStrike()) {
-            return Optional.of(game.playNext(this));
-        }
-        if (totalScore.isSpare()) {
-            return Optional.of(game.playNextFirstScore(this));
-        }
-        return Optional.empty();
+        return Optional.of(this);
     }
 
     @Override
-    Frame nextFrame(TotalScore totalScore) {
-        return new FinalFrame(totalScore, getNextFrameNo());
+    public String toString() {
+        if (state.hasNext()) {
+            State next = state.getNext().orElseThrow(IllegalStateException::new);
+            if (next.hasNext()) {
+                State nextOfNext = next.getNext().orElseThrow(IllegalStateException::new);
+                return state.toString() + "|" + next.toString() + "|" + nextOfNext.getScore();
+            }
+            return state.toString() + "|" + next.toString();
+        }
+        return state.toString();
     }
 }

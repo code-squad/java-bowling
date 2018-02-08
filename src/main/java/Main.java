@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Player player = getPlayer();
 
-        BowlingGame game = new BowlingGame(player, new ConsoleScoreBoard());
+        ConsoleScoreBoard scoreBoard = new ConsoleScoreBoard();
+        BowlingGame game = new BowlingGame(player, scoreBoard);
 
         game.playBowling();
     }

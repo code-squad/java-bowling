@@ -1,57 +1,84 @@
 package domain.frame;
 
-import domain.Player;
-import domain.TestScoreBoard;
-import domain.TestStrategy;
-import domain.score.Score;
-import domain.score.TotalScore;
-import org.junit.Before;
+import domain.score.Pin;
+import domain.score.Ready;
 import org.junit.Test;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FinalFrameTest {
 
-    private Player testPlayer;
+    @Test
+    public void FinalScore_72() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(7)));
+        score.bowl(new Pin(2));
 
-    private BowlingGame game;
-
-    @Before
-    public void setUp() throws Exception {
-        testPlayer = new Player("KKJ", new TestStrategy());
-        game = new BowlingGame(testPlayer, new TestScoreBoard());
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(9);
+        assertThat(score.toString()).isEqualTo("7|2");
     }
 
     @Test
-    public void playNextFrame_10번째프레임_스트라이크() throws Exception {
-        FinalFrame finalFrame = new FinalFrame(new TotalScore(new Score(10)), 10);
+    public void FinalScore_735() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(7)));
+        score.bowl(new Pin(3));
+        score.bowl(new Pin(5));
 
-        Optional<Frame> next = finalFrame.playNextFrame(game);
-        assertThat(next.isPresent()).isTrue();
-        assertThat(next.get().frameNo).isEqualTo(11);
-        assertThat(next.get().totalScore.isSpare()).isTrue();
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(15);
+        assertThat(score.toString()).isEqualTo("7|/|5");
     }
 
     @Test
-    public void playNextFrame_10번째프레임_스페어() throws Exception {
-        TotalScore t = new TotalScore(new Score(7));
-        t.addSecondScore(new Score(3));
-        FinalFrame finalFrame = new FinalFrame(t, 10);
+    public void FinalScore_X82() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(10)));
+        score.bowl(new Pin(8));
+        score.bowl(new Pin(2));
 
-        Optional<Frame> next = finalFrame.playNextFrame(game);
-        assertThat(next.isPresent()).isTrue();
-        assertThat(next.get().frameNo).isEqualTo(11);
-        assertThat(next.get().totalScore.isSpare()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(20);
+        assertThat(score.toString()).isEqualTo("X|8|2");
     }
 
     @Test
-    public void playNextFrame_12번째프레임_스트라이크() throws Exception {
-        FinalFrame finalFrame = new FinalFrame(new TotalScore(new Score(10)), 12);
+    public void FinalScore_XX2() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(10)));
+        score.bowl(new Pin(10));
+        score.bowl(new Pin(2));
 
-        Optional<Frame> next = finalFrame.playNextFrame(game);
-        assertThat(next.isPresent()).isFalse();
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(22);
+        assertThat(score.toString()).isEqualTo("X|X|2");
     }
 
+    @Test
+    public void FinalScore_XXX() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(10)));
+        score.bowl(new Pin(10));
+        score.bowl(new Pin(10));
+
+        assertThat(score.getFrameScore().isPresent()).isTrue();
+        assertThat(score.getFrameScore().get()).isEqualTo(30);
+        assertThat(score.toString()).isEqualTo("X|X|10");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void FinalScore_74() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(7)));
+        score.bowl(new Pin(4));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void FinalScore_721() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(7)));
+        score.bowl(new Pin(2));
+        score.bowl(new Pin(1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void FinalScore_X74() throws Exception {
+        FinalFrame score = new FinalFrame(Ready.bowl(new Pin(10)));
+        score.bowl(new Pin(7));
+        score.bowl(new Pin(4));
+    }
 }
