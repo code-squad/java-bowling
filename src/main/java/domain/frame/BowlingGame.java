@@ -2,6 +2,8 @@ package domain.frame;
 
 import domain.Player;
 import domain.ScoreBoard;
+import domain.score.Ready;
+import domain.score.State;
 
 public class BowlingGame {
     private final Frames frames;
@@ -17,7 +19,9 @@ public class BowlingGame {
     }
 
     public void playBowling() {
-        NormalFrame first = new NormalFrame(player.play());
+        State state = Ready.bowl(player.play());
+        NormalFrame first = new NormalFrame(state);
+
         frames.updateFrame(first);
         notifyFrameChanged();
         playBowlingUntilFinish(first);

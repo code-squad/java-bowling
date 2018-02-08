@@ -7,23 +7,17 @@ import java.util.Optional;
 
 public class NormalFrame extends Frame {
 
-    NormalFrame(Pin first) {
+    NormalFrame(State first) {
         super(first, 1);
     }
 
-    NormalFrame(State state, int frameNo) {
-        super(frameNo);
-        this.state = state;
-    }
-
-    @Override
-    public boolean isFinish() {
-        return state.isFinish();
+    private NormalFrame(State state, int frameNo) {
+        super(state, frameNo);
     }
 
     @Override
     public Optional<Frame> bowl(Pin pin) {
-        if (isFinish()) {
+        if (state.isFinish()) {
             return Optional.of(getNextFrame(state.bowl(pin)));
         }
         this.state = state.bowl(pin);

@@ -7,30 +7,20 @@ import java.util.Optional;
 
 public class FinalFrame extends Frame {
 
-    FinalFrame(Pin first) {
-        super(first, 10);
-    }
-
     FinalFrame(State state) {
-        super(10);
-        this.state = state;
-    }
-
-    @Override
-    public boolean isFinish() {
-        return !state.isLeft();
+        super(state, 10);
     }
 
     @Override
     public Optional<Frame> bowl(Pin pin) {
-        if (isFinish()) {
+        if (!state.isLeft()) {
             throw new IllegalStateException();
         }
         State next = state.bowl(pin);
         if (!state.isFinish()) {
             this.state = next;
         }
-        return returnEmptyIfFinish();
+        return returnEmptyIfFrameFinished();
     }
 
     @Override
@@ -38,8 +28,8 @@ public class FinalFrame extends Frame {
         return state.getTotalScore();
     }
 
-    private Optional<Frame> returnEmptyIfFinish() {
-        if (isFinish()) {
+    private Optional<Frame> returnEmptyIfFrameFinished() {
+        if (!state.isLeft()) {
             return Optional.empty();
         }
         return Optional.of(this);
@@ -47,12 +37,14 @@ public class FinalFrame extends Frame {
 
     @Override
     public String toString() {
-        if (!state.getNext().isPresent()) {
-            return state.toString();
+        if (state.hasNext()) {
+            State next = state.getNext().orElseThrow(IllegalStateException::new);
+            if (next.hasNext()) {
+                State nextOfNext = next.getNext().orElseThrow(IllegalStateException::new);
+                return state.toString() + "|" + next.toString() + "|" + nextOfNext.getScore();
+            }
+            return state.toString() + "|" + next.toString();
         }
-        if (!state.getNext().get().getNext().isPresent()) {
-            return state.toString() + "|" + state.getNext().get().toString();
-        }
-        return state.toString() + "|" + state.getNext().get().toString() + "|" + state.getNext().get().getNext().get().getScore();
+        return state.toString();
     }
 }

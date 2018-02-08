@@ -1,6 +1,7 @@
 package domain.frame;
 
 import domain.score.Pin;
+import domain.score.Ready;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class FramesTest {
     public void setUp() throws Exception {
         frames = new Frames();
 
-        firstFrame = new NormalFrame(new Pin(10));
+        firstFrame = new NormalFrame(Ready.bowl(new Pin(10)));
         frames.updateFrame(firstFrame);
     }
 

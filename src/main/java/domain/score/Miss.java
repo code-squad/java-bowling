@@ -23,7 +23,7 @@ public class Miss extends State {
 
     @Override
     public State bowl(Pin pin) {
-        if (getNext().isPresent()) {
+        if (hasNext()) {
             throw new IllegalStateException();
         }
         return next = Ready.bowl(pin);

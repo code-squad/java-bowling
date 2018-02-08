@@ -28,6 +28,10 @@ public abstract class State {
         return Optional.ofNullable(next);
     }
 
+    public boolean hasNext() {
+        return getNext().isPresent();
+    }
+
     public boolean isLeft() {
         return left > 0;
     }

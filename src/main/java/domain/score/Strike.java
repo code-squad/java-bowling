@@ -10,7 +10,7 @@ public class Strike extends State {
 
     @Override
     public Optional<Integer> getTotalScore() {
-        if (getNext().isPresent()) {
+        if (hasNext()) {
             return next.getNext()
                        .map(n -> n.getScore() + next.getScore() + 10);
         }
@@ -25,7 +25,7 @@ public class Strike extends State {
     @Override
     public State bowl(Pin pin) {
         reduceLeft();
-        if (getNext().isPresent()) {
+        if (hasNext()) {
             return next.bowl(pin);
         }
         return next = Ready.bowl(pin);

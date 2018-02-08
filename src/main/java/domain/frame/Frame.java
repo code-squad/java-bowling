@@ -1,7 +1,6 @@
 package domain.frame;
 
 import domain.score.Pin;
-import domain.score.Ready;
 import domain.score.State;
 
 import java.util.Optional;
@@ -12,16 +11,10 @@ public abstract class Frame {
 
     State state;
 
-    Frame(int frameNo) {
+    Frame(State state, int frameNo) {
+        this.state = state;
         this.frameNo = frameNo;
     }
-
-    Frame(Pin first, int frameNo) {
-        this.state = Ready.bowl(first);
-        this.frameNo = frameNo;
-    }
-
-    public abstract boolean isFinish();
 
     public abstract Optional<Frame> bowl(Pin pin);
 
