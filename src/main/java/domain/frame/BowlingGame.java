@@ -5,6 +5,8 @@ import domain.ScoreBoard;
 import domain.score.Ready;
 import domain.score.State;
 
+import java.util.Optional;
+
 public class BowlingGame {
     private final Frames frames;
 
@@ -19,36 +21,36 @@ public class BowlingGame {
     }
 
     public void playBowling() {
+        scoreBoard.printGameResult(this);
+
         State state = Ready.bowl(player.play());
         NormalFrame first = new NormalFrame(state);
-
-        frames.updateFrame(first);
-        notifyFrameChanged();
         playBowlingUntilFinish(first);
 
         scoreBoard.printGameResult(this);
     }
 
-    private void playBowlingUntilFinish(Frame frame) {
-        frame.bowl(player.play())
-             .ifPresent(f -> {
-                 frames.updateFrame(f);
-                 notifyFrameChanged();
-                 playBowlingUntilFinish(f);
-             });
+    private void playBowlingUntilFinish(Frame now) {
+        updateFrames(now);
+        Optional<Frame> next = now.bowl(player.play());
+
+        if (next.isPresent()) {
+            playBowlingUntilFinish(next.get());
+        } else {
+            updateFrames(now);
+        }
+    }
+
+    private void updateFrames(Frame frame) {
         frames.updateFrame(frame);
-    }
-
-    public String getUpdatedScoreResult() {
-        return frames.getScoresToString();
-    }
-
-    private void notifyFrameChanged() {
         scoreBoard.printGameResult(this);
     }
 
     @Override
     public String toString() {
-        return "| " + player + "  |" + frames.toString();
+        String frameScores = String.format("| %s  |%s|", player, frames);
+        String sumOfScores = String.format("|      |%s|", frames.sumOfScores());
+
+        return String.format("%s\n%s", frameScores, sumOfScores);
     }
 }

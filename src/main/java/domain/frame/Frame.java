@@ -7,13 +7,21 @@ import java.util.Optional;
 
 public abstract class Frame {
 
-    final int frameNo;
+    private final int frameNo;
 
     State state;
 
     Frame(State state, int frameNo) {
         this.state = state;
         this.frameNo = frameNo;
+    }
+
+    int getFrameNo() {
+        return frameNo;
+    }
+
+    int getNextFrameNo() {
+        return frameNo + 1;
     }
 
     public abstract Optional<Frame> bowl(Pin pin);

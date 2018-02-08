@@ -11,7 +11,6 @@ public class Main {
         ConsoleScoreBoard scoreBoard = new ConsoleScoreBoard();
         BowlingGame game = new BowlingGame(player, scoreBoard);
 
-        scoreBoard.printGameResult(game);
         game.playBowling();
     }
 }

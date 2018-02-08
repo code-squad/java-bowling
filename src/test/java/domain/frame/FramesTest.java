@@ -24,7 +24,7 @@ public class FramesTest {
     @Test
     public void getUpdateScoreResult_스트라이크후첫번째시도() throws Exception {
         frames.updateFrame(firstFrame.bowl(new Pin(7)).get());
-        assertThat(frames.getScoresToString()).isEqualTo("|      |");
+        assertThat(frames.sumOfScores()).isEqualTo("");
     }
 
     @Test
@@ -33,7 +33,7 @@ public class FramesTest {
         next.bowl(new Pin(7));
         frames.updateFrame(next);
 
-        assertThat(frames.getScoresToString()).isEqualTo("|      |19  |28  |");
+        assertThat(frames.sumOfScores()).isEqualTo("19  |28  ");
     }
 
     @Test
@@ -42,7 +42,7 @@ public class FramesTest {
         next.bowl(new Pin(7));
         frames.updateFrame(next);
 
-        assertThat(frames.getScoresToString()).isEqualTo("|      |20  |");
+        assertThat(frames.sumOfScores()).isEqualTo("20  ");
     }
 
     @Test
@@ -54,7 +54,7 @@ public class FramesTest {
         Frame thenNext = next.bowl(new Pin(7)).orElseThrow(IllegalStateException::new);
         frames.updateFrame(thenNext);
 
-        assertThat(frames.getScoresToString()).isEqualTo("|      |20  |37  |");
+        assertThat(frames.sumOfScores()).isEqualTo("20  |37  ");
 
     }
 }

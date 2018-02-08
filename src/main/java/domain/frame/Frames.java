@@ -9,65 +9,53 @@ import java.util.stream.Collectors;
 
 public class Frames {
 
-    private static final String BLANK = "|      |";
-
     private final Frame[] frames = new Frame[10];
 
-    private final List<Integer> scores = new ArrayList<>();
+    private final List<Integer> sumOfScores = new ArrayList<>();
 
     void updateFrame(Frame frame) {
-        frames[frame.frameNo - 1] = frame;
+        frames[frame.getFrameNo() - 1] = frame;
         updateScore();
     }
 
-    String getScoresToString() {
-        if (scores.isEmpty()) {
-            return BLANK;
-        }
-        return BLANK + scores.stream()
-                             .map(s -> String.format("%-4d", s))
-                             .collect(Collectors.joining("|")) + "|";
+    String sumOfScores() {
+        return sumOfScores.stream()
+                          .map(s -> String.format("%-4d", s))
+                          .collect(Collectors.joining("|"));
     }
 
     private void updateScore() {
-        int index = scores.size();
+        int index = sumOfScores.size();
 
         getFrameScore(index).ifPresent(s -> {
-            scores.add(s + getSumOfFrameScore());
+            sumOfScores.add(s + lastSumOfScore());
             updateScore();
         });
     }
 
     private Optional<Integer> getFrameScore(int index) {
-        Frame now = get(index);
-        if (now == null) {
+        return getFrame(index).flatMap(Frame::getFrameScore);
+    }
+
+    private Optional<Frame> getFrame(int index) {
+        if (index >= 10) {
             return Optional.empty();
         }
-        return now.getFrameScore();
+        return Optional.ofNullable(frames[index]);
     }
 
-    private Frame get(int index) {
-        if (index >= 10) {
-            return null;
-        }
-        return frames[index];
-    }
-
-    private Integer getSumOfFrameScore() {
-        if (scores.isEmpty()) {
+    private Integer lastSumOfScore() {
+        if (sumOfScores.isEmpty()) {
             return 0;
         }
-        return scores.get(scores.size() - 1);
+        return sumOfScores.get(sumOfScores.size() - 1);
     }
 
     @Override
     public String toString() {
-        if (frames[0] == null) {
-            return "";
-        }
         return Arrays.stream(frames)
                      .filter(Objects::nonNull)
                      .map(f -> String.format("%-4s", f.toString()))
-                     .collect(Collectors.joining("|")) + "|";
+                     .collect(Collectors.joining("|"));
     }
 }

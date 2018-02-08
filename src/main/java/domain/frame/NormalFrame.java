@@ -13,6 +13,9 @@ public class NormalFrame extends Frame {
 
     private NormalFrame(State state, int frameNo) {
         super(state, frameNo);
+        if (frameNo < 1 || frameNo > 9) {
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override
@@ -30,10 +33,10 @@ public class NormalFrame extends Frame {
     }
 
     private Frame getNextFrame(State state) {
-        if (frameNo == 9) {
+        if (getFrameNo() == 9) {
             return new FinalFrame(state);
         }
-        return new NormalFrame(state, frameNo + 1);
+        return new NormalFrame(state, getNextFrameNo());
     }
 
     @Override
