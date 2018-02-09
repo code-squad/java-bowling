@@ -40,8 +40,6 @@ public abstract class FrameTest {
             initNextNormalFrame();
             setNextFrameTry(i);
 
-            System.out.println("i=" + i + ", frame=" + frame);
-            System.out.println("i=" + i + ", frame=" + frame);
             initThirdNormalFrame();
             setThirdFrameTry(BowlingConstants.PIN_COUNT - i);
 

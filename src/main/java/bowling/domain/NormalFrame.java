@@ -82,9 +82,13 @@ public class NormalFrame implements Frame {
     @Override
     public String showScore() {
         int score = notYet() ? 0 : getBothDownCount();
-        int bonusScore = isSpareOrStrike() ? nextFrame.orElse(new NormalFrame()).getBonusScore(isSpare()) : 0;
+        int bonusScore = isSpareOrStrike() ? getBonusScoreOfNextFrame(isSpare()) : 0;
 
         return Score.show(score + bonusScore);
+    }
+
+    protected int getBonusScoreOfNextFrame(boolean spare) {
+        return nextFrame.orElse(new NormalFrame()).getBonusScore(spare);
     }
 
     private int getBothDownCount() {
@@ -106,7 +110,7 @@ public class NormalFrame implements Frame {
             return this.getEachDownCount(firstTry);
         }
 
-        return nextFrame.orElse(new NormalFrame()).getBonusScore(false) + this.getBothDownCount();
+        return getBonusScoreOfNextFrame(true) + this.getBothDownCount();
     }
 
     protected String showDefaultMessage() {
