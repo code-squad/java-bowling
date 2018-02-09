@@ -6,10 +6,6 @@ public class Score {
             return "     ";
         }
 
-        if (score > 10) {
-            return "  " + score + " ";
-        }
-
-        return "  " + score + "  ";
+        return String.format(" %2d  ", score);
     }
 }
