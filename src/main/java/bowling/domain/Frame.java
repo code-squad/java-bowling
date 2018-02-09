@@ -6,4 +6,12 @@ public interface Frame {
     void setTry(Try eachTry);
 
     String showMessage();
+
+    String showScore();
+
+    int getBothDownCount();
+
+    int getFirstDownCount();
+
+    void setNextFrame(Frame nextFrame);
 }

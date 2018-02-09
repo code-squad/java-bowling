@@ -5,6 +5,7 @@ import java.util.Optional;
 public class NormalFrame implements Frame {
     private Optional<Try> firstTry;
     private Optional<Try> secondTry;
+    private Frame nextFrame;
 
     public NormalFrame() {
         firstTry = Optional.empty();
@@ -77,6 +78,43 @@ public class NormalFrame implements Frame {
         return " " + showDefaultMessage() + " ";
     }
 
+    @Override
+    public String showScore() {
+        if (notYet()) {
+            return "     ";
+        }
+
+        int score = getBothDownCount();
+
+        if (!isSpareOrStrike()) {
+            return "  " + score + "  ";
+        }
+
+        int bonusScore = isSpare() ? nextFrame.getFirstDownCount() : nextFrame.getBothDownCount();
+
+        return "  " + (score + bonusScore) + " ";
+    }
+
+    @Override
+    public int getBothDownCount() {
+        return getFirstDownCount()
+                + getSecondDownCount();
+    }
+
+    protected int getSecondDownCount() {
+        return secondTry.orElse(Try.empty()).getDownCount();
+    }
+
+    @Override
+    public int getFirstDownCount() {
+        return firstTry.orElse(Try.empty()).getDownCount();
+    }
+
+    @Override
+    public void setNextFrame(Frame nextFrame) {
+        this.nextFrame = nextFrame;
+    }
+
     protected String showDefaultMessage() {
         if (isStrike(firstTry)) {
             return " X ";
@@ -107,5 +145,14 @@ public class NormalFrame implements Frame {
 
     protected boolean isSpareOrStrike() {
         return isSpare() || isStrike(firstTry);
+    }
+
+    @Override
+    public String toString() {
+        return "NormalFrame{" +
+                "firstTry=" + firstTry +
+                ", secondTry=" + secondTry +
+                ", nextFrame=" + nextFrame +
+                '}';
     }
 }

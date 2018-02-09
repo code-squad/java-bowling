@@ -53,10 +53,47 @@ public class LastFrame implements Frame {
         return " " + normalFrame.showDefaultMessage() + getThirdDownMessage();
     }
 
+    @Override
+    public String showScore() {
+        if (!normalFrame.isSpareOrStrike()) {
+            return normalFrame.showScore();
+        }
+        int score = normalFrame.getBothDownCount() + getThirdDownCount();
+
+        return "  " + score + " ";
+    }
+
+    protected int getThirdDownCount() {
+        return thirdTry.orElse(Try.empty()).getDownCount();
+    }
+
+    @Override
+    public int getBothDownCount() {
+        return normalFrame.getBothDownCount();
+    }
+
+    @Override
+    public int getFirstDownCount() {
+        return normalFrame.getFirstDownCount();
+    }
+
+    @Override
+    public void setNextFrame(Frame nextFrame) {
+        throw new UnsupportedOperationException();
+    }
+
     private String getThirdDownMessage() {
         if ( !thirdTry.isPresent()) {
             return " ";
         }
         return "|" + normalFrame.getDownMessage(thirdTry);
+    }
+
+    @Override
+    public String toString() {
+        return "LastFrame{" +
+                "thirdTry=" + thirdTry +
+                ", normalFrame=" + normalFrame +
+                '}';
     }
 }
