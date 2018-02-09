@@ -87,16 +87,11 @@ public class NormalFrame implements Frame {
     }
 
     private int getBothDownCount() {
-        return getFirstDownCount()
-                + getSecondDownCount();
+        return getEachDownCount(firstTry) + getEachDownCount(secondTry);
     }
 
-    private int getSecondDownCount() {
-        return secondTry.orElse(Try.empty()).getDownCount();
-    }
-
-    private int getFirstDownCount() {
-        return firstTry.orElse(Try.empty()).getDownCount();
+    protected int getEachDownCount(Optional<Try> eachTry) {
+        return eachTry.orElse(Try.empty()).getDownCount();
     }
 
     @Override
@@ -106,7 +101,7 @@ public class NormalFrame implements Frame {
 
     @Override
     public int getBonusScore(boolean spare) {
-        return spare ? this.getFirstDownCount() : this.getBothDownCount();
+        return spare ? this.getEachDownCount(firstTry) : this.getBothDownCount();
     }
 
     protected String showDefaultMessage() {

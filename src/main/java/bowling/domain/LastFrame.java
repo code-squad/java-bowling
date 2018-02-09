@@ -59,11 +59,8 @@ public class LastFrame implements Frame {
             return normalFrame.showScore();
         }
 
-        return Score.show(normalFrame.getBonusScore(false) + getThirdDownCount());
-    }
-
-    private int getThirdDownCount() {
-        return thirdTry.orElse(Try.empty()).getDownCount();
+        return Score.show(normalFrame.getBonusScore(false)
+                + normalFrame.getEachDownCount(thirdTry));
     }
 
     @Override
