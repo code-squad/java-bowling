@@ -90,29 +90,32 @@ public class NormalFrame implements Frame {
             return "  " + score + "  ";
         }
 
-        int bonusScore = isSpare() ? nextFrame.getFirstDownCount() : nextFrame.getBothDownCount();
+        int bonusScore = nextFrame.getBonusScore(isSpare());
 
         return "  " + (score + bonusScore) + " ";
     }
 
-    @Override
-    public int getBothDownCount() {
+    private int getBothDownCount() {
         return getFirstDownCount()
                 + getSecondDownCount();
     }
 
-    protected int getSecondDownCount() {
+    private int getSecondDownCount() {
         return secondTry.orElse(Try.empty()).getDownCount();
     }
 
-    @Override
-    public int getFirstDownCount() {
+    private int getFirstDownCount() {
         return firstTry.orElse(Try.empty()).getDownCount();
     }
 
     @Override
     public void setNextFrame(Frame nextFrame) {
         this.nextFrame = nextFrame;
+    }
+
+    @Override
+    public int getBonusScore(boolean spare) {
+        return spare ? this.getFirstDownCount() : this.getBothDownCount();
     }
 
     protected String showDefaultMessage() {

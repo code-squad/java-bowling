@@ -58,28 +58,23 @@ public class LastFrame implements Frame {
         if (!normalFrame.isSpareOrStrike()) {
             return normalFrame.showScore();
         }
-        int score = normalFrame.getBothDownCount() + getThirdDownCount();
+        int score = normalFrame.getBonusScore(false) + getThirdDownCount();
 
         return "  " + score + " ";
     }
 
-    protected int getThirdDownCount() {
+    private int getThirdDownCount() {
         return thirdTry.orElse(Try.empty()).getDownCount();
-    }
-
-    @Override
-    public int getBothDownCount() {
-        return normalFrame.getBothDownCount();
-    }
-
-    @Override
-    public int getFirstDownCount() {
-        return normalFrame.getFirstDownCount();
     }
 
     @Override
     public void setNextFrame(Frame nextFrame) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getBonusScore(boolean spare) {
+        return normalFrame.getBonusScore(spare);
     }
 
     private String getThirdDownMessage() {

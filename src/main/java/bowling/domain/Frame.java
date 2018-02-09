@@ -9,9 +9,7 @@ public interface Frame {
 
     String showScore();
 
-    int getBothDownCount();
-
-    int getFirstDownCount();
-
     void setNextFrame(Frame nextFrame);
+
+    int getBonusScore(boolean spare);
 }
