@@ -58,9 +58,8 @@ public class LastFrame implements Frame {
         if (!normalFrame.isSpareOrStrike()) {
             return normalFrame.showScore();
         }
-        int score = normalFrame.getBonusScore(false) + getThirdDownCount();
 
-        return "  " + score + " ";
+        return Score.show(normalFrame.getBonusScore(false) + getThirdDownCount());
     }
 
     private int getThirdDownCount() {

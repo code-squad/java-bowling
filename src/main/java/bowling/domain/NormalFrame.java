@@ -80,19 +80,10 @@ public class NormalFrame implements Frame {
 
     @Override
     public String showScore() {
-        if (notYet()) {
-            return "     ";
-        }
+        int score = notYet() ? 0 : getBothDownCount();
+        int bonusScore = isSpareOrStrike() ? nextFrame.getBonusScore(isSpare()) : 0;
 
-        int score = getBothDownCount();
-
-        if (!isSpareOrStrike()) {
-            return "  " + score + "  ";
-        }
-
-        int bonusScore = nextFrame.getBonusScore(isSpare());
-
-        return "  " + (score + bonusScore) + " ";
+        return Score.show(score + bonusScore);
     }
 
     private int getBothDownCount() {
