@@ -15,6 +15,7 @@ public class BowlingGame {
 
             OutputView.show(frameManager.showHeader());
             OutputView.show(frameManager.showMessage());
+            OutputView.show(frameManager.showScore());
         }
 
         OutputView.show("Good Game!");

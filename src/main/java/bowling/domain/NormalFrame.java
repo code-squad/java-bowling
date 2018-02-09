@@ -5,10 +5,12 @@ import java.util.Optional;
 public class NormalFrame implements Frame {
     private Optional<Try> firstTry;
     private Optional<Try> secondTry;
+    private Optional<Frame> nextFrame;
 
-    public NormalFrame() {
+    NormalFrame() {
         firstTry = Optional.empty();
         secondTry = Optional.empty();
+        nextFrame = Optional.empty();
     }
 
     protected boolean isFirstStrike() {
@@ -77,6 +79,40 @@ public class NormalFrame implements Frame {
         return " " + showDefaultMessage() + " ";
     }
 
+    @Override
+    public String showScore() {
+        int score = notYet() ? 0 : getBothDownCount();
+        int bonusScore = isSpareOrStrike() ? getBonusScoreOfNextFrame(isSpare()) : 0;
+
+        return Score.show(score + bonusScore);
+    }
+
+    protected int getBonusScoreOfNextFrame(boolean spare) {
+        return nextFrame.orElse(new NormalFrame()).getBonusScore(spare);
+    }
+
+    private int getBothDownCount() {
+        return getEachDownCount(firstTry) + getEachDownCount(secondTry);
+    }
+
+    protected int getEachDownCount(Optional<Try> eachTry) {
+        return eachTry.orElse(Try.empty()).getDownCount();
+    }
+
+    @Override
+    public void setNextFrame(Frame nextFrame) {
+        this.nextFrame = Optional.of(nextFrame);
+    }
+
+    @Override
+    public int getBonusScore(boolean spare) {
+        if (spare) {
+            return this.getEachDownCount(firstTry);
+        }
+
+        return getBonusScoreOfNextFrame(true) + this.getBothDownCount();
+    }
+
     protected String showDefaultMessage() {
         if (isStrike(firstTry)) {
             return " X ";
@@ -107,5 +143,14 @@ public class NormalFrame implements Frame {
 
     protected boolean isSpareOrStrike() {
         return isSpare() || isStrike(firstTry);
+    }
+
+    @Override
+    public String toString() {
+        return "NormalFrame{" +
+                "firstTry=" + firstTry +
+                ", secondTry=" + secondTry +
+                ", nextFrame=" + nextFrame +
+                '}';
     }
 }

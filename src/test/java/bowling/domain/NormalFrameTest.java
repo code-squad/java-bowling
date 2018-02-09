@@ -1,11 +1,10 @@
 package bowling.domain;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class NormalFrameTest extends FrameTest {
-    @Before
-    public void setUp() {
+    @Override
+    protected void initFrame() {
         super.frame = new NormalFrame();
     }
 
@@ -35,5 +34,4 @@ public class NormalFrameTest extends FrameTest {
         setTry(5);
         setTry(1);
     }
-
 }

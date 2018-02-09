@@ -46,4 +46,15 @@ public class Try {
         }
         return String.valueOf(downCount);
     }
+
+    public int getDownCount() {
+        return downCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Try{" +
+                "downCount=" + downCount +
+                '}';
+    }
 }

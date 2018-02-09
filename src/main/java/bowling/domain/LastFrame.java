@@ -53,10 +53,38 @@ public class LastFrame implements Frame {
         return " " + normalFrame.showDefaultMessage() + getThirdDownMessage();
     }
 
+    @Override
+    public String showScore() {
+        if (!normalFrame.isSpareOrStrike()) {
+            return normalFrame.showScore();
+        }
+
+        return Score.show(normalFrame.getBonusScore(false)
+                + normalFrame.getEachDownCount(thirdTry));
+    }
+
+    @Override
+    public void setNextFrame(Frame nextFrame) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getBonusScore(boolean spare) {
+        return normalFrame.getBonusScore(spare);
+    }
+
     private String getThirdDownMessage() {
         if ( !thirdTry.isPresent()) {
             return " ";
         }
         return "|" + normalFrame.getDownMessage(thirdTry);
+    }
+
+    @Override
+    public String toString() {
+        return "LastFrame{" +
+                "thirdTry=" + thirdTry +
+                ", normalFrame=" + normalFrame +
+                '}';
     }
 }
