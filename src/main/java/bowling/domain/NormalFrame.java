@@ -5,11 +5,12 @@ import java.util.Optional;
 public class NormalFrame implements Frame {
     private Optional<Try> firstTry;
     private Optional<Try> secondTry;
-    private Frame nextFrame;
+    private Optional<Frame> nextFrame;
 
-    public NormalFrame() {
+    NormalFrame() {
         firstTry = Optional.empty();
         secondTry = Optional.empty();
+        nextFrame = Optional.empty();
     }
 
     protected boolean isFirstStrike() {
@@ -81,7 +82,7 @@ public class NormalFrame implements Frame {
     @Override
     public String showScore() {
         int score = notYet() ? 0 : getBothDownCount();
-        int bonusScore = isSpareOrStrike() ? nextFrame.getBonusScore(isSpare()) : 0;
+        int bonusScore = isSpareOrStrike() ? nextFrame.orElse(new NormalFrame()).getBonusScore(isSpare()) : 0;
 
         return Score.show(score + bonusScore);
     }
@@ -96,12 +97,16 @@ public class NormalFrame implements Frame {
 
     @Override
     public void setNextFrame(Frame nextFrame) {
-        this.nextFrame = nextFrame;
+        this.nextFrame = Optional.of(nextFrame);
     }
 
     @Override
     public int getBonusScore(boolean spare) {
-        return spare ? this.getEachDownCount(firstTry) : this.getBothDownCount();
+        if (spare) {
+            return this.getEachDownCount(firstTry);
+        }
+
+        return nextFrame.orElse(new NormalFrame()).getBonusScore(false) + this.getBothDownCount();
     }
 
     protected String showDefaultMessage() {

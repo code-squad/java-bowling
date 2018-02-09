@@ -1,7 +1,6 @@
 package bowling.domain;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -46,14 +45,12 @@ public class FrameManager {
         return frames.stream()
                 .map(Frame::showMessage)
                 .collect(Collectors.joining("|"));
-
     }
 
     public String showScore() {
         return frames.stream()
                 .map(Frame::showScore)
                 .collect(Collectors.joining("|"));
-
     }
 
     public String showHeader() {

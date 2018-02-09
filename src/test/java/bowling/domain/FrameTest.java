@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 public abstract class FrameTest {
     protected Frame frame;
     protected Frame nextFrame;
+    protected Frame thirdFrame;
 
     protected abstract void initFrame();
 
@@ -39,7 +40,12 @@ public abstract class FrameTest {
             initNextNormalFrame();
             setNextFrameTry(i);
 
-            assertEquals("  " + (BowlingConstants.PIN_COUNT + i) + " ", frame.showScore());
+            System.out.println("i=" + i + ", frame=" + frame);
+            System.out.println("i=" + i + ", frame=" + frame);
+            initThirdNormalFrame();
+            setThirdFrameTry(BowlingConstants.PIN_COUNT - i);
+
+            assertEquals(" " + (BowlingConstants.PIN_COUNT * 2) + "  ", frame.showScore());
         }
     }
 
@@ -69,7 +75,7 @@ public abstract class FrameTest {
                     setNextFrameTry(BowlingConstants.PIN_COUNT - j);
                 }
 
-                assertEquals("  1" + j + " ", frame.showScore());
+                assertEquals(" 1" + j + "  ", frame.showScore());
             }
         }
     }
@@ -158,14 +164,30 @@ public abstract class FrameTest {
         }
         nextFrame = new NormalFrame();
         frame.setNextFrame(nextFrame);
+
     }
 
+    protected void initThirdNormalFrame() {
+        if (frame instanceof LastFrame) {
+            return;
+        }
+        thirdFrame = new NormalFrame();
+        nextFrame.setNextFrame(thirdFrame);
+    }
     protected void setNextFrameTry(int i) {
         if (frame instanceof LastFrame) {
             frame.setTry(new Try(i));
             return;
         }
         nextFrame.setTry(new Try(i));
+    }
+
+    protected void setThirdFrameTry(int i) {
+        if (frame instanceof LastFrame) {
+            frame.setTry(new Try(i));
+            return;
+        }
+        thirdFrame.setTry(new Try(i));
     }
 
     @Test
