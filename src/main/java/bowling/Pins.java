@@ -11,4 +11,8 @@ public class Pins {
 		}
 		this.pinsDown = pinsDown;
 	}
+
+	public int getPinsDown() {
+		return pinsDown;
+	}
 }

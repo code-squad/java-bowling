@@ -1,5 +1,6 @@
 package state;
 
-public abstract class Running {
+import bowling.Pins;
 
+public abstract class Running extends State {
 }

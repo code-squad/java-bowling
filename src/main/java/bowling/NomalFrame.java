@@ -1,18 +1,27 @@
 package bowling;
 
+import state.Finish;
+import state.Running;
+
 public class NomalFrame extends Frame {
-	private Frame nextFrame;
-	
-	public Frame getNextFrame() {
-		return nextFrame;
+	public NomalFrame(int frameNo) {
+		super(frameNo);
 	}
-	public void setNextFrame(Frame nextFrame) {
-		this.nextFrame = nextFrame;
-	}
-	
+
 	@Override
-	public void saveBowl(Pins pins) {
-		// TODO Auto-generated method stub
+	public void InputBowl(Pins pins) {
+		if (state instanceof Finish & nextFrame == null) {
+			// 삼항 연산자로 라스트 프레임 구현?
+			nextFrame = new NomalFrame(frameNo + 1);
+			nextFrame.InputBowl(pins);
+		}
 		
+		if (state instanceof Finish & nextFrame != null) {
+			nextFrame.InputBowl(pins);
+		}
+		
+		if (state instanceof Running) {
+			state = state.saveBowl(pins);
+		}
 	}
 }

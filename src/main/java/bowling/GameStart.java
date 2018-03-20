@@ -18,7 +18,7 @@ public class GameStart {
 			InputScore.bowlingGameStart(scan);
 			InputScore.inputScore(scan, 1);
 
-			Frame frame = new NomalFrame();
+			Frame frame = new NomalFrame(1);
 
 			// for문 10개 돌게
 			// 그안에 for문 유저수 만큼

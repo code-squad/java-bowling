@@ -1,18 +1,12 @@
 package bowling;
 
 public class LastFrame extends Frame {
-	private int third;
-
-	public int getThird() {
-		return third;
+	public LastFrame(int frameNo) {
+		super(frameNo);
 	}
 
-	public void setThird(int third) {
-		this.third = third;
-	}
-	
 	@Override
-	public void saveBowl(Pins pins) {
+	public void InputBowl(Pins pins) {
 		// TODO Auto-generated method stub
 		
 	}

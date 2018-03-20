@@ -1,33 +1,39 @@
 package bowling;
 
+import state.FirstBowl;
+import state.State;
+
 public abstract class Frame {
-	private String player;
-	private Pins firstRoll;
-	private Pins secondRoll;
+	protected int frameNo;
+	protected State state;
+	protected Frame nextFrame;
 
-	public abstract void saveBowl(Pins pins);
-
-	public String getPlayer() {
-		return player;
+	public Frame(int frameNo) {
+		this.frameNo = frameNo;
+		state = (State) new FirstBowl();
 	}
 
-	public void setPlayer(String player) {
-		this.player = player;
+	public abstract void InputBowl(Pins pins);
+
+	public int getFirstRoll() {
+		return state.getFirstRoll();
 	}
 
-	public Pins getFirstRoll() {
-		return firstRoll;
+	public int getSecondRoll() {
+		return state.getSecondRoll();
 	}
 
-	public void setFirstRoll(Pins firstRoll) {
-		this.firstRoll = firstRoll;
+	public Frame getNextFrame() {
+		return nextFrame;
+	}
+	
+
+	public int getFrameNo() {
+		return frameNo;
 	}
 
-	public Pins getSecondRoll() {
-		return secondRoll;
-	}
-
-	public void setSecondRoll(Pins secondRoll) {
-		this.secondRoll = secondRoll;
+	@Override
+	public String toString() {
+		return "Frame [frameNo=" + frameNo + "]";
 	}
 }
