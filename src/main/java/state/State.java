@@ -6,8 +6,8 @@ public abstract class State {
 	protected Pins firstRoll;
 	protected Pins secondRoll;
 
-	public abstract State saveBowl(Pins firstRoll);
-
+//	public abstract boolean isFinish();
+	
 	public int getFirstRoll() {
 		return firstRoll.getPinsDown();
 	}

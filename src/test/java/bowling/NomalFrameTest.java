@@ -6,26 +6,12 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FrameTest {
+public class NomalFrameTest {
 	Frame frame;
 
 	@Before
 	public void setting() {
 		frame = new NomalFrame(1);
-	}
-
-	@Test
-	public void firstRollTest() {
-		frame.InputBowl(new Pins(4));
-		assertThat(frame.getFirstRoll(), is(4));
-	}
-
-	@Test
-	public void secondRollTest() {
-		frame.InputBowl(new Pins(4));
-		frame.InputBowl(new Pins(5));
-		assertThat(frame.getFirstRoll(), is(4));
-		assertThat(frame.getSecondRoll(), is(5));
 	}
 
 	@Test
@@ -50,4 +36,16 @@ public class FrameTest {
 		assertThat(frame.getNextFrame().getNextFrame().getNextFrame().getNextFrame().getNextFrame().getNextFrame()
 				.getNextFrame().getNextFrame().getNextFrame().toString(), is("Frame [frameNo=10]"));
 	}
+
+	@Test
+	public void StrikeFrameTest() {
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(10));
+		assertThat(frame.getFirstRoll(), is(10));
+		assertThat(frame.getSecondRoll(), is(0));
+		assertThat(frame.toString(), is("Frame [frameNo=1]"));
+		assertThat(frame.getNextFrame().getNextFrame().toString(), is("Frame [frameNo=3]"));
+	}
+
 }

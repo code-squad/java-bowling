@@ -7,7 +7,6 @@ public class LastFrame extends Frame {
 
 	@Override
 	public void InputBowl(Pins pins) {
-		// TODO Auto-generated method stub
-		
+		// State Last를 이용해서 점수 계산을 마무리 하자.
 	}
 }

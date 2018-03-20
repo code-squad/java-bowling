@@ -19,6 +19,12 @@ public class GameStart {
 			InputScore.inputScore(scan, 1);
 
 			Frame frame = new NomalFrame(1);
+			
+			// 임시로 for문, 향후에 LastFrame 구현해서 처리
+			for (int i = 0; i < 10; i++) {
+				
+			}
+			
 
 			// for문 10개 돌게
 			// 그안에 for문 유저수 만큼

@@ -2,7 +2,7 @@ package state;
 
 import bowling.Pins;
 
-public class Ready extends Running {
+public class Ready extends State implements Running {
 
 	public Ready(Pins firstRoll) {
 		super.firstRoll = firstRoll;
@@ -10,7 +10,10 @@ public class Ready extends Running {
 
 	@Override
 	public State saveBowl(Pins secondRoll) {
-		return new Nomal(super.firstRoll, secondRoll);
+		if (secondRoll.getPinsDown() + firstRoll.getPinsDown() == 10) {
+			return new Spare(firstRoll, secondRoll);
+		}
+		return new Nomal(firstRoll, secondRoll);
 	}
 
 }

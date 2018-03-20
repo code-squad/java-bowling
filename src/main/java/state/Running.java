@@ -2,5 +2,6 @@ package state;
 
 import bowling.Pins;
 
-public abstract class Running extends State {
+public interface Running {
+	public State saveBowl(Pins firstRoll);
 }

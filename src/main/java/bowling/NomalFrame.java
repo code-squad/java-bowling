@@ -13,7 +13,6 @@ public class NomalFrame extends Frame {
 		if (state instanceof Finish & nextFrame == null) {
 			// 삼항 연산자로 라스트 프레임 구현?
 			nextFrame = new NomalFrame(frameNo + 1);
-			nextFrame.InputBowl(pins);
 		}
 		
 		if (state instanceof Finish & nextFrame != null) {
@@ -21,7 +20,8 @@ public class NomalFrame extends Frame {
 		}
 		
 		if (state instanceof Running) {
-			state = state.saveBowl(pins);
+			state = ((Running) state).saveBowl(pins);
 		}
+		//여기에 추상화된 점수 구하는 메소드를 실행 시키자
 	}
 }

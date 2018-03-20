@@ -26,7 +26,6 @@ public abstract class Frame {
 	public Frame getNextFrame() {
 		return nextFrame;
 	}
-	
 
 	public int getFrameNo() {
 		return frameNo;
