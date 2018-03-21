@@ -15,5 +15,4 @@ public class Ready extends State implements Running {
 		}
 		return new Nomal(firstRoll, secondRoll);
 	}
-
 }

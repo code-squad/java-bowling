@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import state.Finish;
+import state.Strike;
 import view.InputScore;
 import view.OutputScore;
 
@@ -16,28 +17,21 @@ public class GameStart {
 
 		try {
 			Scanner scan = new Scanner(System.in);
-			InputScore.bowlingGameStart(scan);
-
-			int currentFrame = 1;
-			
+			String name = InputScore.bowlingGameStart(scan);
 			Frame frame = new NomalFrame(1);
-			
-			
+
 			// 임시로 for문, 향후에 LastFrame 구현해서 처리
 			for (int i = 0; i < 10; i++) {
-				if(frame.getState() instanceof Finish & frame.getNextFrame() == null) {
-					currentFrame++;
+				int frameNo = frame.getCurrentFrameNo();
+
+				if (frame.getCurrentFrame().getCurrentFrameState() instanceof Finish) {
+					frameNo = frameNo + 1;
 				}
-				frame.InputBowl(new Pins(InputScore.inputScore(scan, currentFrame)));
+
+				frame.InputBowl(new Pins(InputScore.inputScore(scan, frameNo)));
+				OutputScore.printScoreboard(frame, name);
 			}
-			
-
-			// for문 10개 돌게
-			// 그안에 for문 유저수 만큼
-			// 그러면 돌아가면서 한 프레임 마다 실행 할 수 있다.
-
 			scan.close();
-
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}

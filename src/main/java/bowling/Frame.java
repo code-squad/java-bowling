@@ -34,6 +34,20 @@ public abstract class Frame {
 		}
 		return this;
 	}
+	
+	public int getCurrentFrameNo() {
+		if (state instanceof Finish & nextFrame != null) {
+			return nextFrame.getCurrentFrame().getFrameNo();
+		}
+		return this.getFrameNo();
+	}
+	
+	public State getCurrentFrameState() {
+		if (state instanceof Finish & nextFrame != null) {
+			return nextFrame.getCurrentFrame().getState();
+		}
+		return this.getState();
+	}
 
 	public int getFrameNo() {
 		return frameNo;

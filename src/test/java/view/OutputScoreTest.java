@@ -5,16 +5,28 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OutputScoreTest {
+import bowling.Frame;
+import bowling.NomalFrame;
+import bowling.Pins;
 
-	private Scanner scan;
+public class OutputScoreTest {
+	Frame frame;
+	String name = "NSG";
 	
 	@Before
 	public void setting() {
+		frame = new NomalFrame(1);
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(5));
+		frame.InputBowl(new Pins(5));
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(4));
+		frame.InputBowl(new Pins(4));
 	}
 	
-//	@Test
-//	public void get_bowling_score() {
-//		scan = new Scanner(System.in);
-//	}
+	@Test
+	public void test_method_printScoreboard() {
+		OutputScore.printScoreboard(frame, name);
+	}
 }

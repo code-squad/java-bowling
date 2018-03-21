@@ -9,8 +9,7 @@ public class FirstBowl extends State implements Running {
 		if (firstRoll.getPinsDown() == 10) {
 			return new Strike();
 		}
-		
+
 		return new Ready(firstRoll);
 	}
-
 }
