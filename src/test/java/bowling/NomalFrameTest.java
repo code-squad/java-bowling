@@ -30,11 +30,10 @@ public class NomalFrameTest {
 		for (int i = 0; i < 20; i++) {
 			frame.InputBowl(new Pins(4));
 		}
-
+		
 		assertThat(frame.getNextFrame().getNextFrame().getNextFrame().getNextFrame().toString(),
 				is("Frame [frameNo=5]"));
-		assertThat(frame.getNextFrame().getNextFrame().getNextFrame().getNextFrame().getNextFrame().getNextFrame()
-				.getNextFrame().getNextFrame().getNextFrame().toString(), is("Frame [frameNo=10]"));
+		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=10]"));
 	}
 
 	@Test
@@ -45,7 +44,21 @@ public class NomalFrameTest {
 		assertThat(frame.getFirstRoll(), is(10));
 		assertThat(frame.getSecondRoll(), is(0));
 		assertThat(frame.toString(), is("Frame [frameNo=1]"));
-		assertThat(frame.getNextFrame().getNextFrame().toString(), is("Frame [frameNo=3]"));
+		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=3]"));
 	}
-
+	
+	@Test
+	public void StrikeSpareNomalFrameTest() {
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(5));
+		frame.InputBowl(new Pins(5));
+		frame.InputBowl(new Pins(10));
+		frame.InputBowl(new Pins(4));
+		frame.InputBowl(new Pins(4));
+		assertThat(frame.getFirstRoll(), is(10));
+		assertThat(frame.getSecondRoll(), is(0));
+		assertThat(frame.toString(), is("Frame [frameNo=1]"));
+		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=5]"));
+	}
 }

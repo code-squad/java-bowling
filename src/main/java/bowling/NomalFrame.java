@@ -10,13 +10,14 @@ public class NomalFrame extends Frame {
 
 	@Override
 	public void InputBowl(Pins pins) {
+		if (state instanceof Finish & nextFrame != null) {
+			nextFrame.InputBowl(pins);
+		}
+		
 		if (state instanceof Finish & nextFrame == null) {
 			// 삼항 연산자로 라스트 프레임 구현?
 			nextFrame = new NomalFrame(frameNo + 1);
-		}
-		
-		if (state instanceof Finish & nextFrame != null) {
-			nextFrame.InputBowl(pins);
+			nextFrame.setState(((Running) nextFrame.getState()).saveBowl(pins));
 		}
 		
 		if (state instanceof Running) {

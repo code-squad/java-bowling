@@ -1,5 +1,6 @@
 package bowling;
 
+import state.Finish;
 import state.FirstBowl;
 import state.State;
 
@@ -26,9 +27,24 @@ public abstract class Frame {
 	public Frame getNextFrame() {
 		return nextFrame;
 	}
+	
+	public Frame getCurrentFrame() {
+		if (state instanceof Finish & nextFrame != null) {
+			return nextFrame.getCurrentFrame();
+		}
+		return this;
+	}
 
 	public int getFrameNo() {
 		return frameNo;
+	}
+	
+	public State getState() {
+		return state;
+	}
+	
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	@Override
