@@ -9,7 +9,6 @@ public class InputScore {
 		System.out.println("| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |");
 		System.out.println("|  " + name + " |      |      |      |      |      |      |      |      |      |      |");
 		System.out.println();
-		// 공백 넘어 올테니 숫자 받을 준비하기
 		return name;
 	}
 

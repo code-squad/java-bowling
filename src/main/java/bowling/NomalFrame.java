@@ -1,28 +1,52 @@
 package bowling;
 
-import state.Finish;
-import state.Running;
+import com.sun.istack.internal.NotNull;
 
 public class NomalFrame extends Frame {
-	public NomalFrame(int frameNo) {
+	private Frame nextFrame;
+
+	public NomalFrame(FrameNo frameNo) {
 		super(frameNo);
+		nextFrame = frameNo.createNextFrame(frameNo);
 	}
 
 	@Override
-	public void InputBowl(Pins pins) {
-		if (state instanceof Finish & nextFrame != null) {
-			nextFrame.InputBowl(pins);
+	public void roll(Pins pinsDown) {
+		if (frameDone) {
+			nextFrame.roll(pinsDown);
+			return;
 		}
 		
-		if (state instanceof Finish & nextFrame == null) {
-			// 삼항 연산자로 라스트 프레임 구현?
-			nextFrame = new NomalFrame(frameNo + 1);
-			nextFrame.setState(((Running) nextFrame.getState()).saveBowl(pins));
+		if (firstRoll == null) {
+			firstRoll = pinsDown;
+			frameDone = firstRoll.checkFrameDone();
+			return;
 		}
 		
-		if (state instanceof Running) {
-			state = ((Running) state).saveBowl(pins);
+		secondRoll = pinsDown;
+		frameDone = secondRoll.checkFrameDone(firstRoll);
+	}
+
+	@Override
+	public Frame getCurrentFrame() {
+		if (frameDone) {
+			return nextFrame.getCurrentFrame();
 		}
-		//여기에 추상화된 점수 구하는 메소드를 실행 시키자
+		return this;
+	}
+	
+	@Override
+	public Frame getNextFrame() {
+		return nextFrame;
+	}
+	
+	@Override
+	public boolean isEndGame() {
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Frame [frameNo=" + getFrameNo() + "]";
 	}
 }

@@ -1,68 +1,61 @@
 package bowling;
 
-import state.Finish;
-import state.FirstBowl;
-import state.State;
+import com.sun.istack.internal.NotNull;
 
 public abstract class Frame {
-	protected int frameNo;
-	protected State state;
-	protected Frame nextFrame;
-
-	public Frame(int frameNo) {
+	protected FrameNo frameNo;
+	protected boolean frameDone = false;
+	protected Pins firstRoll;
+	protected Pins secondRoll;
+	
+	public Frame(FrameNo frameNo) {
 		this.frameNo = frameNo;
-		state = (State) new FirstBowl();
 	}
 
-	public abstract void InputBowl(Pins pins);
+	public abstract void roll(Pins pinsDown);
+
+	public abstract Frame getCurrentFrame();
+	
+	public abstract Frame getNextFrame();
+	
+	public abstract boolean isEndGame();
+	
+	public int getFrameNo() {
+		return frameNo.getFrame();
+	}
 
 	public int getFirstRoll() {
-		return state.getFirstRoll();
+		return firstRoll.getPinsDown();
 	}
+	
+	public boolean isFirstRollNull() {
+		if (firstRoll == null) {
+			return true;
+		}
+		return false;
+ 	}
 
 	public int getSecondRoll() {
-		return state.getSecondRoll();
-	}
-
-	public Frame getNextFrame() {
-		return nextFrame;
+		return secondRoll.getPinsDown();
 	}
 	
-	public Frame getCurrentFrame() {
-		if (state instanceof Finish & nextFrame != null) {
-			return nextFrame.getCurrentFrame();
+	public boolean isSecondRollNull() {
+		if (secondRoll == null) {
+			return true;
 		}
-		return this;
+		return false;
 	}
 	
-	public int getCurrentFrameNo() {
-		if (state instanceof Finish & nextFrame != null) {
-			return nextFrame.getCurrentFrame().getFrameNo();
-		}
-		return this.getFrameNo();
+	public int getFrameScore() {
+		return getFirstRoll() + getSecondRoll();
 	}
 	
-	public State getCurrentFrameState() {
-		if (state instanceof Finish & nextFrame != null) {
-			return nextFrame.getCurrentFrame().getState();
-		}
-		return this.getState();
-	}
-
-	public int getFrameNo() {
-		return frameNo;
-	}
-	
-	public State getState() {
-		return state;
-	}
-	
-	public void setState(State state) {
-		this.state = state;
+	public boolean isFrameDone() {
+		return frameDone;
 	}
 
 	@Override
 	public String toString() {
-		return "Frame [frameNo=" + frameNo + "]";
+		return "Frame [frameNo=" + getFrameNo() + "]";
 	}
 }
