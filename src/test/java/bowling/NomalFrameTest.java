@@ -11,7 +11,7 @@ public class NomalFrameTest {
 
 	@Before
 	public void setting() {
-		frame = new NomalFrame(new FrameNo(1));
+		frame = new NormalFrame(new FrameNo(1));
 	}
 
 	@Test

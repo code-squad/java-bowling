@@ -15,7 +15,7 @@ public class BowlingGame {
 		try {
 			Scanner scan = new Scanner(System.in);
 			String name = InputScore.bowlingGameStart(scan);
-			Frame frame = new NomalFrame(new FrameNo(1));
+			Frame frame = new NormalFrame(new FrameNo(1));
 			
 			while (frame.isEndGame() == false) {
 				frame.roll(new Pins(InputScore.inputScore(scan, frame.getFrameNo())));

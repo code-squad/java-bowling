@@ -1,11 +1,9 @@
 package bowling;
 
-import com.sun.istack.internal.NotNull;
-
-public class NomalFrame extends Frame {
+public class NormalFrame extends Frame {
 	private Frame nextFrame;
 
-	public NomalFrame(FrameNo frameNo) {
+	public NormalFrame(FrameNo frameNo) {
 		super(frameNo);
 		nextFrame = frameNo.createNextFrame(frameNo);
 	}

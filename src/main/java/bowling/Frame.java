@@ -1,7 +1,5 @@
 package bowling;
 
-import com.sun.istack.internal.NotNull;
-
 public abstract class Frame {
 	protected FrameNo frameNo;
 	protected boolean frameDone = false;

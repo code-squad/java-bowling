@@ -2,8 +2,6 @@ package view;
 
 import bowling.Frame;
 import bowling.LastFrame;
-import bowling.NomalFrame;
-import bowling.Pins;
 
 public class OutputScore {
 	public static void printScoreboard(Frame frame, String name) {

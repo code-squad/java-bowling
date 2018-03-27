@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import bowling.Frame;
 import bowling.FrameNo;
-import bowling.NomalFrame;
+import bowling.NormalFrame;
 import bowling.Pins;
 
 public class OutputScoreTest {
@@ -14,7 +14,7 @@ public class OutputScoreTest {
 
 	@Before
 	public void setting() {
-		frame = new NomalFrame(new FrameNo(1));
+		frame = new NormalFrame(new FrameNo(1));
 		frame.roll(new Pins(10));
 		frame.roll(new Pins(10));
 		frame.roll(new Pins(5));
