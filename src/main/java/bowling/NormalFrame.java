@@ -3,41 +3,44 @@ package bowling;
 public class NormalFrame extends Frame {
 	private Frame nextFrame;
 
-	public NormalFrame(FrameNo frameNo) {
-		super(frameNo);
-		nextFrame = frameNo.createNextFrame(frameNo);
+	public NormalFrame(int frameNo) {
+		super(new FrameNo(frameNo));
+
+		if (frameNo == FrameNo.NOMAL_FRAME) {
+			nextFrame = new LastFrame(FrameNo.MAX);
+			return;
+		}
+		nextFrame = new NormalFrame(frameNo + FrameNo.MIN);
 	}
 
 	@Override
-	public void roll(Pins pinsDown) {
-		if (frameDone) {
+	public void roll(int pinsDown) {
+		if (isEndFrame()) {
 			nextFrame.roll(pinsDown);
 			return;
 		}
 		
-		if (firstRoll == null) {
-			firstRoll = pinsDown;
-			frameDone = firstRoll.checkFrameDone();
-			return;
-		}
-		
-		secondRoll = pinsDown;
-		frameDone = secondRoll.checkFrameDone(firstRoll);
+		setPinsDown(pinsDown);
 	}
 
 	@Override
 	public Frame getCurrentFrame() {
-		if (frameDone) {
+		if (isEndFrame()) {
 			return nextFrame.getCurrentFrame();
 		}
 		return this;
 	}
 	
 	@Override
+	public int getCurrentFrameNo() {
+		return getCurrentFrame().getFrameNo();
+	}
+
+	@Override
 	public Frame getNextFrame() {
 		return nextFrame;
 	}
-	
+
 	@Override
 	public boolean isEndGame() {
 		return false;

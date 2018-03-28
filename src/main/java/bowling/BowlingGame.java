@@ -15,12 +15,12 @@ public class BowlingGame {
 		try {
 			Scanner scan = new Scanner(System.in);
 			String name = InputScore.bowlingGameStart(scan);
-			Frame frame = new NormalFrame(new FrameNo(1));
-			
-			while (frame.isEndGame() == false) {
-				frame.roll(new Pins(InputScore.inputScore(scan, frame.getFrameNo())));
+			Frame frame = new NormalFrame(1);
+
+			while (!frame.getCurrentFrame().isEndGame()) {
+				frame.roll(InputScore.inputScore(scan, frame.getCurrentFrameNo()));
 				OutputScore.printScoreboard(frame, name);
-			}	
+			}
 			System.out.println("게임 종료");
 			scan.close();
 		} catch (Exception e) {

@@ -16,11 +16,4 @@ public class FrameNo {
 	public int getFrame() {
 		return frame;
 	}
-
-	public Frame createNextFrame(FrameNo frameNo) {
-		if (frameNo.getFrame() == NOMAL_FRAME) {
-			return new LastFrame(new FrameNo(10));
-		}
-		return new NormalFrame(new FrameNo(frameNo.getFrame() + 1));
-	}
 }

@@ -1,55 +1,92 @@
 package bowling;
 
 public abstract class Frame {
-	protected FrameNo frameNo;
-	protected boolean frameDone = false;
-	protected Pins firstRoll;
-	protected Pins secondRoll;
-	
+	private FrameNo frameNo;
+	private Pins firstRoll;
+	private Pins secondRoll;
+
 	public Frame(FrameNo frameNo) {
 		this.frameNo = frameNo;
 	}
 
-	public abstract void roll(Pins pinsDown);
+	public abstract void roll(int pinsDown);
 
 	public abstract Frame getCurrentFrame();
 	
+	public abstract int getCurrentFrameNo();
+
 	public abstract Frame getNextFrame();
-	
+
 	public abstract boolean isEndGame();
-	
+
+	public void setPinsDown(int pinsDown) {
+		if (firstRoll == null) {
+			firstRoll = new Pins(pinsDown);
+			return;
+		}
+		setSecondPinsDown(pinsDown);
+	}
+
+	public void setSecondPinsDown(int pinsDown) {
+		if (secondRoll == null) {
+			secondRoll = new Pins(pinsDown);
+			secondRoll.checkPinsValid(frameNo, firstRoll);
+		}
+	}
+
+	public boolean isEndFrame() {
+		if (firstRoll != null && firstRoll.checkFrameDone()) {
+			return true;
+		}
+
+		if (firstRoll != null && secondRoll != null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean canRollBonusBowl() {
+		if (firstRoll != null && secondRoll != null) {
+			return secondRoll.isBonusRoll(firstRoll);
+		}
+		return false;
+	}
+
 	public int getFrameNo() {
 		return frameNo.getFrame();
+	}
+
+	public FrameNo getFrameNoObj() {
+		return frameNo;
 	}
 
 	public int getFirstRoll() {
 		return firstRoll.getPinsDown();
 	}
-	
+
+	public Pins getFirstRollObj() {
+		return firstRoll;
+	}
+
 	public boolean isFirstRollNull() {
-		if (firstRoll == null) {
-			return true;
-		}
-		return false;
- 	}
+		return firstRoll == null;
+	}
 
 	public int getSecondRoll() {
 		return secondRoll.getPinsDown();
 	}
-	
-	public boolean isSecondRollNull() {
-		if (secondRoll == null) {
-			return true;
-		}
-		return false;
+
+	public Pins getSecondRollObj() {
+		return secondRoll;
 	}
-	
+
+	public boolean isSecondRollNull() {
+		return secondRoll == null;
+	}
+
 	public int getFrameScore() {
 		return getFirstRoll() + getSecondRoll();
-	}
-	
-	public boolean isFrameDone() {
-		return frameDone;
 	}
 
 	@Override

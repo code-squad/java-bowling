@@ -11,14 +11,14 @@ public class NomalFrameTest {
 
 	@Before
 	public void setting() {
-		frame = new NormalFrame(new FrameNo(1));
+		frame = new NormalFrame(1);
 	}
 
 	@Test
 	public void createNextFrameTest() {
-		frame.roll(new Pins(4));
-		frame.roll(new Pins(5));
-		frame.roll(new Pins(3));
+		frame.roll(4);
+		frame.roll(5);
+		frame.roll(3);
 		assertThat(frame.getFirstRoll(), is(4));
 		assertThat(frame.getSecondRoll(), is(5));
 		assertThat(frame.toString(), is("Frame [frameNo=1]"));
@@ -28,16 +28,16 @@ public class NomalFrameTest {
 	@Test
 	public void inputAllNomalFrame() {
 		for (int i = 0; i < 20; i++) {
-			frame.roll(new Pins(4));
+			frame.roll(4);
 		}
 		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=10]"));
 	}
 
 	@Test
 	public void StrikeFrameTest() {
-		frame.roll(new Pins(10));
-		frame.roll(new Pins(10));
-		frame.roll(new Pins(10));
+		frame.roll(10);
+		frame.roll(10);
+		frame.roll(10);
 		assertThat(frame.getFirstRoll(), is(10));
 		assertThat(frame.toString(), is("Frame [frameNo=1]"));
 		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=4]"));
@@ -45,13 +45,13 @@ public class NomalFrameTest {
 
 	@Test
 	public void StrikeSpareNomalFrameTest() {
-		frame.roll(new Pins(10));
-		frame.roll(new Pins(10));
-		frame.roll(new Pins(5));
-		frame.roll(new Pins(5));
-		frame.roll(new Pins(10));
-		frame.roll(new Pins(4));
-		frame.roll(new Pins(4));
+		frame.roll(10);
+		frame.roll(10);
+		frame.roll(5);
+		frame.roll(5);
+		frame.roll(10);
+		frame.roll(4);
+		frame.roll(4);
 		assertThat(frame.getFirstRoll(), is(10));
 		assertThat(frame.toString(), is("Frame [frameNo=1]"));
 		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=6]"));

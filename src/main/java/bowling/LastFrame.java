@@ -2,35 +2,25 @@ package bowling;
 
 public class LastFrame extends Frame {
 	private Pins bonusBowl;
-	private boolean endGame;
 
-	public LastFrame(FrameNo frameNo) {
-		super(frameNo);
+	public LastFrame(int frameNo) {
+		super(new FrameNo(frameNo));
 	}
 
 	@Override
-	public void roll(Pins pinsDown) {
-		if (endGame) {
+	public void roll(int pinsDown) {
+		if (isEndGame()) {
 			throw new EndGameException();
 		}
 
-		if (frameDone) {
-			bonusBowl = pinsDown;
-			endGame = true;
-			return;
+		if (canRollBonusBowl()) {
+			bonusBowl = new Pins(pinsDown);
 		}
+		setPinsDown(pinsDown);
+	}
 
-		if (firstRoll == null) {
-			firstRoll = pinsDown;
-			return;
-		}
-
-		if (secondRoll == null) {
-			secondRoll = pinsDown;
-			endGame = secondRoll.isBonusRoll(firstRoll);
-			frameDone = true;
-			return;
-		}
+	public boolean isBonusBowlNull() {
+		return bonusBowl == null;
 	}
 
 	@Override
@@ -38,15 +28,9 @@ public class LastFrame extends Frame {
 		return this;
 	}
 
-	public int getBonusBowl() {
-		return bonusBowl.getPinsDown();
-	}
-
-	public boolean isBonusBowlNull() {
-		if (bonusBowl == null) {
-			return true;
-		}
-		return false;
+	@Override
+	public int getCurrentFrameNo() {
+		return getCurrentFrame().getFrameNo();
 	}
 
 	@Override
@@ -55,8 +39,24 @@ public class LastFrame extends Frame {
 	}
 
 	@Override
+	public boolean isEndFrame() {
+		if (bonusBowl != null) {
+			return true;
+		}
+		
+		if (!isFirstRollNull() && !isSecondRollNull() && getFrameScore() < 10) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public boolean isEndGame() {
-		return endGame;
+		return isEndFrame();
+	}
+
+	public int getBonusBowl() {
+		return bonusBowl.getPinsDown();
 	}
 
 	@Override

@@ -22,20 +22,17 @@ public class Pins {
 		}
 		return false;
 	}
-	
-	public boolean checkFrameDone(Pins firstRoll) {
-		if (pinsDown + firstRoll.getPinsDown() > MAX) {
+
+	public void checkPinsValid(FrameNo frameNo, Pins firstRoll) {
+		if (pinsDown + firstRoll.getPinsDown() > MAX && frameNo.getFrame() > 10) {
 			throw new IllegalArgumentException("핀은 10개가 최대입니다.");
 		}
-		return true;
 	}
 
 	public boolean isBonusRoll(Pins firstRoll) {
 		if (pinsDown + firstRoll.getPinsDown() >= MAX) {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
-	
-	
 }
