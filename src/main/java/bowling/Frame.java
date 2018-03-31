@@ -1,15 +1,27 @@
 package bowling;
 
+import state.Ready;
+import state.State;
+
 public abstract class Frame {
 	private FrameNo frameNo;
+	private State state;
+//	private int totalScore;
 	private Pins firstRoll;
 	private Pins secondRoll;
 
 	public Frame(FrameNo frameNo) {
 		this.frameNo = frameNo;
+		this.state = new Ready();
 	}
 
-	public abstract void roll(int pinsDown);
+	public void roll(int pinsDown) {
+		if (state.isFinish()) {
+			getNextFrame().roll(pinsDown);
+			return;
+		}
+		setPinsDown(pinsDown);
+	}
 
 	public abstract Frame getCurrentFrame();
 	
@@ -18,10 +30,11 @@ public abstract class Frame {
 	public abstract Frame getNextFrame();
 
 	public abstract boolean isEndGame();
-
+	
 	public void setPinsDown(int pinsDown) {
 		if (firstRoll == null) {
 			firstRoll = new Pins(pinsDown);
+			state = state.update(pinsDown);
 			return;
 		}
 		setSecondPinsDown(pinsDown);
@@ -31,6 +44,7 @@ public abstract class Frame {
 		if (secondRoll == null) {
 			secondRoll = new Pins(pinsDown);
 			secondRoll.checkPinsValid(frameNo, firstRoll);
+			state = state.update(getFrameScore());
 		}
 	}
 

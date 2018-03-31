@@ -12,17 +12,7 @@ public class NormalFrame extends Frame {
 		}
 		nextFrame = new NormalFrame(frameNo + FrameNo.MIN);
 	}
-
-	@Override
-	public void roll(int pinsDown) {
-		if (isEndFrame()) {
-			nextFrame.roll(pinsDown);
-			return;
-		}
-		
-		setPinsDown(pinsDown);
-	}
-
+	
 	@Override
 	public Frame getCurrentFrame() {
 		if (isEndFrame()) {
@@ -30,7 +20,7 @@ public class NormalFrame extends Frame {
 		}
 		return this;
 	}
-	
+
 	@Override
 	public int getCurrentFrameNo() {
 		return getCurrentFrame().getFrameNo();

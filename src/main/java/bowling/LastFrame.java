@@ -1,5 +1,7 @@
 package bowling;
 
+import state.Last;
+
 public class LastFrame extends Frame {
 	private Pins bonusBowl;
 
