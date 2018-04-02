@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import bowling.Pins;
 
-public class Ready extends State {
+public class Ready implements State {
 	@Override
 	public State update(int pinsDown) {
 		if (pinsDown == State.ALLDOWN) {
@@ -15,12 +15,12 @@ public class Ready extends State {
 	}
 
 	@Override
-	public Pins getSecondRoll() {
-		return null;
-	}
-
-	@Override
 	public boolean isFinish() {
+		return false;
+	}
+	
+	@Override
+	public boolean isStrike() {
 		return false;
 	}
 
@@ -30,7 +30,12 @@ public class Ready extends State {
 	}
 
 	@Override
-	public boolean isStrike() {
-		return false;
+	public int needHowManyRoll() {
+		return 0;
+	}
+
+	@Override
+	public int suplyHowManyRoll() {
+		return 0;
 	}
 }

@@ -19,8 +19,8 @@ public class NomalFrameTest {
 		frame.roll(4);
 		frame.roll(5);
 		frame.roll(3);
-		assertThat(frame.getFirstRoll(), is(4));
-		assertThat(frame.getSecondRoll(), is(5));
+		assertThat(frame.getIntFirstRoll(), is(4));
+		assertThat(frame.getIntSecondRoll(), is(5));
 		assertThat(frame.toString(), is("Frame [frameNo=1]"));
 		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=2]"));
 	}
@@ -32,13 +32,21 @@ public class NomalFrameTest {
 		}
 		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=10]"));
 	}
+	
+
+	@Test(expected = EndGameException.class)
+	public void NomalFrame_exception_test() {
+		for (int i = 0; i < 21; i++) {
+			frame.roll(4);
+		}
+	}
 
 	@Test
 	public void StrikeFrameTest() {
 		frame.roll(10);
 		frame.roll(10);
 		frame.roll(10);
-		assertThat(frame.getFirstRoll(), is(10));
+		assertThat(frame.getIntFirstRoll(), is(10));
 		assertThat(frame.toString(), is("Frame [frameNo=1]"));
 		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=4]"));
 	}
@@ -52,7 +60,7 @@ public class NomalFrameTest {
 		frame.roll(10);
 		frame.roll(4);
 		frame.roll(4);
-		assertThat(frame.getFirstRoll(), is(10));
+		assertThat(frame.getIntFirstRoll(), is(10));
 		assertThat(frame.toString(), is("Frame [frameNo=1]"));
 		assertThat(frame.getCurrentFrame().toString(), is("Frame [frameNo=6]"));
 	}

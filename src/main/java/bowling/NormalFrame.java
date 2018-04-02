@@ -6,16 +6,16 @@ public class NormalFrame extends Frame {
 	public NormalFrame(int frameNo) {
 		super(new FrameNo(frameNo));
 
-		if (frameNo == FrameNo.NOMAL_FRAME) {
-			nextFrame = new LastFrame(FrameNo.MAX);
+		if (frameNo == FrameNo.MAX) {
+			nextFrame = new LastFrame(FrameNo.MAX, getState());
 			return;
 		}
 		nextFrame = new NormalFrame(frameNo + FrameNo.MIN);
 	}
-	
+
 	@Override
 	public Frame getCurrentFrame() {
-		if (isEndFrame()) {
+		if (getState().isFinish()) {
 			return nextFrame.getCurrentFrame();
 		}
 		return this;
@@ -23,7 +23,7 @@ public class NormalFrame extends Frame {
 
 	@Override
 	public int getCurrentFrameNo() {
-		return getCurrentFrame().getFrameNo();
+		return getCurrentFrame().getIntFrameNo();
 	}
 
 	@Override
@@ -33,11 +33,7 @@ public class NormalFrame extends Frame {
 
 	@Override
 	public boolean isEndGame() {
+		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public String toString() {
-		return "Frame [frameNo=" + getFrameNo() + "]";
 	}
 }

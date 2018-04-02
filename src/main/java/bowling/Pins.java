@@ -23,8 +23,8 @@ public class Pins {
 		return false;
 	}
 
-	public void checkPinsValid(FrameNo frameNo, Pins firstRoll) {
-		if (pinsDown + firstRoll.getPinsDown() > MAX && frameNo.getFrame() > 10) {
+	public void checkPinsValid(Pins firstRoll) {
+		if (pinsDown + firstRoll.getPinsDown() > MAX) {
 			throw new IllegalArgumentException("핀은 10개가 최대입니다.");
 		}
 	}

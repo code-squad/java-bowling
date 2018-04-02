@@ -2,19 +2,34 @@ package state;
 
 import bowling.Pins;
 
-public class Strike extends FrameDone {
+public class Strike implements State {
 	@Override
 	public State update(int pinsDown) {
-		return null;
+		return this;
 	}
 
 	@Override
-	public Pins getSecondRoll() {
-		return null;
+	public boolean isFinish() {
+		return true;
 	}
 	
-	 @Override
+	@Override
 	public boolean isStrike() {
 		return true;
+	}
+
+	@Override
+	public boolean canRollBonusBowl() {
+		return true;
+	}
+
+	@Override
+	public int needHowManyRoll() {
+		return 2;
+	}
+
+	@Override
+	public int suplyHowManyRoll() {
+		return 1;
 	}
 }

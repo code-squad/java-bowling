@@ -1,12 +1,13 @@
 package bowling;
 
-import state.Last;
+import state.State;
 
 public class LastFrame extends Frame {
-	private Pins bonusBowl;
+	private Pins firstBonusBowl;
+	private Pins secondBonusBowl;
 
-	public LastFrame(int frameNo) {
-		super(new FrameNo(frameNo));
+	public LastFrame(int frameNo, State state) {
+		super(new FrameNo(frameNo), state);
 	}
 
 	@Override
@@ -15,14 +16,15 @@ public class LastFrame extends Frame {
 			throw new EndGameException();
 		}
 
-		if (canRollBonusBowl()) {
-			bonusBowl = new Pins(pinsDown);
+		if (firstBonusBowl != null && getState().isStrike()) {
+			secondBonusBowl = new Pins(pinsDown);
+			return;
 		}
-		setPinsDown(pinsDown);
-	}
 
-	public boolean isBonusBowlNull() {
-		return bonusBowl == null;
+		if (getState().canRollBonusBowl()) {
+			firstBonusBowl = new Pins(pinsDown);
+			return;
+		}
 	}
 
 	@Override
@@ -32,7 +34,7 @@ public class LastFrame extends Frame {
 
 	@Override
 	public int getCurrentFrameNo() {
-		return getCurrentFrame().getFrameNo();
+		return getCurrentFrame().getIntFrameNo();
 	}
 
 	@Override
@@ -41,28 +43,34 @@ public class LastFrame extends Frame {
 	}
 
 	@Override
-	public boolean isEndFrame() {
-		if (bonusBowl != null) {
+	public boolean isEndGame() {
+		if (getState().isStrike() && secondBonusBowl != null) {
 			return true;
 		}
-		
-		if (!isFirstRollNull() && !isSecondRollNull() && getFrameScore() < 10) {
+
+		if (!getState().isStrike() && getState().canRollBonusBowl() && firstBonusBowl != null) {
 			return true;
 		}
 		return false;
 	}
 
-	@Override
-	public boolean isEndGame() {
-		return isEndFrame();
+	public Pins getFirstBonusBowl() {
+		return firstBonusBowl;
 	}
 
-	public int getBonusBowl() {
-		return bonusBowl.getPinsDown();
+	public int getIntFirstBonusBowl() {
+		return firstBonusBowl.getPinsDown();
 	}
 
-	@Override
-	public String toString() {
-		return "Frame [frameNo=" + getFrameNo() + "]";
+	public boolean isfirstBonusBowlNull() {
+		return firstBonusBowl == null;
+	}
+	
+	public Pins getSecondBonusBowl() {
+		return secondBonusBowl;
+	}
+
+	public int getIntSecondBonusBowl() {
+		return secondBonusBowl.getPinsDown();
 	}
 }

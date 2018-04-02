@@ -2,18 +2,34 @@ package state;
 
 import bowling.Pins;
 
-public class Normal extends FrameDone {
-
+public class Normal implements State {
 	@Override
 	public State update(int pinsDown) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
-	public Pins getSecondRoll() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isFinish() {
+		return true;
 	}
 
+	@Override
+	public boolean isStrike() {
+		return false;
+	}
+
+	@Override
+	public boolean canRollBonusBowl() {
+		return false;
+	}
+
+	@Override
+	public int needHowManyRoll() {
+		return 0;
+	}
+
+	@Override
+	public int suplyHowManyRoll() {
+		return 2;
+	}
 }
