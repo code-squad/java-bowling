@@ -11,8 +11,8 @@ public class OutputScore {
 		for (int i = 0; i < 10; i++) {
 			bowlingScore.append(convertFirstRollToString(frame));
 			bowlingScore.append(convertSecondRollToString(frame));
-
-			if (frame.getNextFrame() == null) {
+			
+			if(frame.getNextFrame() == null) {
 				break;
 			}
 			frame = frame.getNextFrame();
@@ -56,14 +56,14 @@ public class OutputScore {
 		return "|" + secondRoll + " ";
 	}
 
-	// private static String convertBonusRollToString(LastFrame frame) {
-	// return "|" + frame.getBonusBowl() + "";
-	// }
-	//
-	// private static String convertContinuousStrikeToString(LastFrame frame) {
-	// if (frame.getBonusBowl() == 10) {
-	// return "" + frame.getBonusBowl() + "";
-	// }
-	// return "|" + frame.getBonusBowl() + "";
-	// }
+//	private static String convertBonusRollToString(LastFrame frame) {
+//		return "|" + frame.getBonusBowl() + "";
+//	}
+//
+//	private static String convertContinuousStrikeToString(LastFrame frame) {
+//		if (frame.getBonusBowl() == 10) {
+//			return "" + frame.getBonusBowl() + "";
+//		}
+//		return "|" + frame.getBonusBowl() + "";
+//	}
 }
