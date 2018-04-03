@@ -1,7 +1,7 @@
 package view;
 
-import bowling.Frame;
-import bowling.LastFrame;
+import frame.Frame;
+import frame.StrikeLastFrame;
 
 public class OutputScore {
 	public static void printScoreboard(Frame frame, String name) {
@@ -12,15 +12,15 @@ public class OutputScore {
 		for (int i = 0; i < 10; i++) {
 			bowlingScore.append(convertFirstRollToString(frame));
 			bowlingScore.append(convertSecondRollToString(frame));
-			if (frame.getIntFrameNo() == 10 && !((LastFrame) frame).isfirstBonusBowlNull()) {
-				if (frame.getIntSecondRoll() == 10) {
+			if (frame.getFrameNoInt() == 10 && !((StrikeLastFrame) frame).isfirstBonusBowlNull()) {
+				if (frame.getSecondRollInt() == 10) {
 					bowlingScore.delete(71, 73);
-					bowlingScore.replace(75, 77, convertContinuousStrikeToString((LastFrame) frame));
+					bowlingScore.replace(75, 77, convertContinuousStrikeToString((StrikeLastFrame) frame));
 					break;
 				}
 
 				bowlingScore.delete(71, 72);
-				bowlingScore.replace(75, 77, convertBonusRollToString((LastFrame) frame));
+				bowlingScore.replace(75, 77, convertBonusRollToString((StrikeLastFrame) frame));
 				break;
 			}
 			frame = frame.getNextFrame();
@@ -35,7 +35,7 @@ public class OutputScore {
 			return "|   ";
 		}
 
-		int firstRoll = frame.getIntFirstRoll();
+		int firstRoll = frame.getFirstRollInt();
 
 		if (firstRoll == 10) {
 			return "|  X";
@@ -48,7 +48,7 @@ public class OutputScore {
 			return "   ";
 		}
 
-		int secondRoll = frame.getIntSecondRoll();
+		int secondRoll = frame.getSecondRollInt();
 
 		if (secondRoll == 10) {
 			return "|10";
@@ -64,11 +64,11 @@ public class OutputScore {
 		return "|" + secondRoll + " ";
 	}
 
-	private static String convertBonusRollToString(LastFrame frame) {
+	private static String convertBonusRollToString(StrikeLastFrame frame) {
 		return "|" + frame.getIntFirstBonusBowl() + "";
 	}
 
-	private static String convertContinuousStrikeToString(LastFrame frame) {
+	private static String convertContinuousStrikeToString(StrikeLastFrame frame) {
 		if (frame.getIntFirstBonusBowl() == 10) {
 			return "" + frame.getIntFirstBonusBowl() + "";
 		}

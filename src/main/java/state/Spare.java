@@ -1,6 +1,7 @@
 package state;
 
 import bowling.Pins;
+import bowling.RollForTotal;
 
 public class Spare implements State {
 	@Override
@@ -24,12 +25,12 @@ public class Spare implements State {
 	}
 
 	@Override
-	public int needHowManyRoll() {
-		return 1;
+	public RollForTotal needHowManyRoll() {
+		return RollForTotal.ONEROLL;
 	}
 
 	@Override
-	public int suplyHowManyRoll() {
-		return 2;
+	public RollForTotal suplyHowManyRoll() {
+		return RollForTotal.TWOROLL;
 	}
 }

@@ -3,10 +3,10 @@ package view;
 import org.junit.Before;
 import org.junit.Test;
 
-import bowling.Frame;
 import bowling.FrameNo;
-import bowling.NormalFrame;
 import bowling.Pins;
+import frame.Frame;
+import frame.NormalFrame;
 
 public class OutputScoreTest {
 	Frame frame;

@@ -1,9 +1,6 @@
 package state;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import bowling.Pins;
+import bowling.RollForTotal;
 
 public class Ready implements State {
 	@Override
@@ -30,12 +27,12 @@ public class Ready implements State {
 	}
 
 	@Override
-	public int needHowManyRoll() {
-		return 0;
+	public RollForTotal needHowManyRoll() {
+		return RollForTotal.ZEROROLL;
 	}
 
 	@Override
-	public int suplyHowManyRoll() {
-		return 0;
+	public RollForTotal suplyHowManyRoll() {
+		return RollForTotal.ZEROROLL;
 	}
 }

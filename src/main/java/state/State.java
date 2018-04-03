@@ -1,6 +1,6 @@
 package state;
 
-import bowling.Pins;
+import bowling.RollForTotal;
 
 public interface State {
 	public static final int ALLDOWN = 10;
@@ -13,7 +13,7 @@ public interface State {
 	
 	public abstract boolean canRollBonusBowl();
 	
-	public abstract int needHowManyRoll();
+	public abstract RollForTotal needHowManyRoll();
 	
-	public abstract int suplyHowManyRoll();
+	public abstract RollForTotal suplyHowManyRoll();
 }
