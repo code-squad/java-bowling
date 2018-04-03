@@ -5,8 +5,6 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import frame.Frame;
-import frame.NormalFrame;
 import view.InputScore;
 import view.OutputScore;
 
@@ -17,10 +15,10 @@ public class BowlingGame {
 		try {
 			Scanner scan = new Scanner(System.in);
 			String name = InputScore.bowlingGameStart(scan);
-			Frame frame = new NormalFrame(1);
+			Frame frame = new Frame();
 
-			while (!frame.getCurrentFrame().isEndGame()) {
-				frame.roll(InputScore.inputScore(scan, frame.getCurrentFrameNo()));
+			while (!frame.getCurrentFrame().isGameEnd()) {
+				frame.roll(InputScore.inputScore(scan, frame.getCurrentFrame().getFrameNo()));
 				OutputScore.printScoreboard(frame, name);
 			}
 			System.out.println("게임 종료");

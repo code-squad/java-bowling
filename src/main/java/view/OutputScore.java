@@ -1,7 +1,6 @@
 package view;
 
-import frame.Frame;
-import frame.StrikeLastFrame;
+import bowling.Frame;
 
 public class OutputScore {
 	public static void printScoreboard(Frame frame, String name) {
@@ -12,15 +11,8 @@ public class OutputScore {
 		for (int i = 0; i < 10; i++) {
 			bowlingScore.append(convertFirstRollToString(frame));
 			bowlingScore.append(convertSecondRollToString(frame));
-			if (frame.getFrameNoInt() == 10 && !((StrikeLastFrame) frame).isfirstBonusBowlNull()) {
-				if (frame.getSecondRollInt() == 10) {
-					bowlingScore.delete(71, 73);
-					bowlingScore.replace(75, 77, convertContinuousStrikeToString((StrikeLastFrame) frame));
-					break;
-				}
 
-				bowlingScore.delete(71, 72);
-				bowlingScore.replace(75, 77, convertBonusRollToString((StrikeLastFrame) frame));
+			if (frame.getNextFrame() == null) {
 				break;
 			}
 			frame = frame.getNextFrame();
@@ -35,7 +27,7 @@ public class OutputScore {
 			return "|   ";
 		}
 
-		int firstRoll = frame.getFirstRollInt();
+		int firstRoll = frame.getFirstRoll();
 
 		if (firstRoll == 10) {
 			return "|  X";
@@ -48,7 +40,7 @@ public class OutputScore {
 			return "   ";
 		}
 
-		int secondRoll = frame.getSecondRollInt();
+		int secondRoll = frame.getSecondRoll();
 
 		if (secondRoll == 10) {
 			return "|10";
@@ -64,14 +56,14 @@ public class OutputScore {
 		return "|" + secondRoll + " ";
 	}
 
-	private static String convertBonusRollToString(StrikeLastFrame frame) {
-		return "|" + frame.getIntFirstBonusBowl() + "";
-	}
-
-	private static String convertContinuousStrikeToString(StrikeLastFrame frame) {
-		if (frame.getIntFirstBonusBowl() == 10) {
-			return "" + frame.getIntFirstBonusBowl() + "";
-		}
-		return "|" + frame.getIntFirstBonusBowl() + "";
-	}
+	// private static String convertBonusRollToString(LastFrame frame) {
+	// return "|" + frame.getBonusBowl() + "";
+	// }
+	//
+	// private static String convertContinuousStrikeToString(LastFrame frame) {
+	// if (frame.getBonusBowl() == 10) {
+	// return "" + frame.getBonusBowl() + "";
+	// }
+	// return "|" + frame.getBonusBowl() + "";
+	// }
 }

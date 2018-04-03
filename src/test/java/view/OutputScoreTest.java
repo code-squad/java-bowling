@@ -3,10 +3,7 @@ package view;
 import org.junit.Before;
 import org.junit.Test;
 
-import bowling.FrameNo;
-import bowling.Pins;
-import frame.Frame;
-import frame.NormalFrame;
+import bowling.Frame;
 
 public class OutputScoreTest {
 	Frame frame;
@@ -14,48 +11,11 @@ public class OutputScoreTest {
 
 	@Before
 	public void setting() {
-		frame = new NormalFrame(1);
+		frame = new Frame();
 		
-		frame.roll(10);
-		
-		frame.roll(10);
-		
-		frame.roll(5);
-		frame.roll(5);
-		
-		frame.roll(10);
-		
-		frame.roll(4);
-		frame.roll(4);
-		
-		frame.roll(10);
-		
-		frame.roll(10);
-		
-		frame.roll(7);
-		frame.roll(0);
-				
-		frame.roll(0);
-		frame.roll(10);
-		
-		frame.roll(10);
-		
-		
-//		
-//		frame.roll(9);
-//		frame.roll(9);
-		
-		
-		
-//		frame.roll(10);
-//		frame.roll(9);
-//		
-
-		
-		frame.roll(10);
-		frame.roll(10);
-		
-		
+		for (int i = 0; i < 20; i++) {
+			frame.roll(4);
+		}
 	}
 
 	@Test
