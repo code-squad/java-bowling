@@ -10,6 +10,10 @@ public class Frame {
 	private Pins firstRoll;
 	private Pins secondRoll;
 
+	public Frame() {
+		this(1);
+	}
+	
 	public Frame(int frameNo) {
 		this.frameNo = frameNo;
 

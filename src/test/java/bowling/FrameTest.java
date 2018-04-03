@@ -11,7 +11,7 @@ public class FrameTest {
 
 	@Before
 	public void setting() {
-		frame = new Frame(1);
+		frame = new Frame();
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class FrameTest {
 
 	@Test
 	public void setting_10_Frame_Object() {
-		Frame frame = new Frame(1);
+		Frame frame = new Frame();
 		for (int i = 0; i < 9; i++) {
 			frame = frame.getNextFrame();
 		}
@@ -51,7 +51,7 @@ public class FrameTest {
 
 	@Test(expected = EndGameException.class)
 	public void lastFrame_nextFrame_is_null() {
-		Frame frame = new Frame(1);
+		Frame frame = new Frame();
 		for (int i = 0; i < 11; i++) {
 			frame = frame.getNextFrame();
 		}
