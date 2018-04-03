@@ -13,7 +13,7 @@ public class Frame {
 	public Frame() {
 		this(1);
 	}
-	
+
 	public Frame(int frameNo) {
 		this.frameNo = frameNo;
 
@@ -50,17 +50,25 @@ public class Frame {
 		return secondRoll.getPinsDown();
 	}
 
+	public boolean isFirstRollNull() {
+		return firstRoll == null;
+	}
+
+	public boolean isSecondRollNull() {
+		return secondRoll == null;
+	}
+
 	public int getTotalScore() {
 		return getTotalScore(0);
 	}
-	
+
 	public int getTotalScore(int totalScore) {
 		if (isFrameEnd()) {
 			return nextFrame.getTotalScore(totalScore + getFrameScore());
 		}
 		return totalScore + getFrameScore();
 	}
-	
+
 	public int getFrameScore() {
 		return getFirstRoll() + getSecondRoll();
 	}
@@ -69,34 +77,26 @@ public class Frame {
 		if (nextFrame == null) {
 			return this;
 		}
-		
+
 		if (isFrameEnd()) {
 			return nextFrame.getCurrentFrame();
 		}
 		return this;
 	}
 
-	private boolean isFrameEnd() {
-		return firstRoll != null && secondRoll != null;
-	}
-	
-	public boolean isGameEnd() {
-		return frameNo == 10 && isFrameEnd();
-	}
-
 	public Frame getNextFrame() {
 		return nextFrame;
 	}
 
-	public int getFrameNo() {
-		return frameNo;
+	private boolean isFrameEnd() {
+		return firstRoll != null && secondRoll != null;
 	}
 
-	public boolean isFirstRollNull() {
-		return firstRoll == null;
+	public boolean isGameEnd() {
+		return frameNo == 10 && isFrameEnd();
 	}
-	
-	public boolean isSecondRollNull() {
-		return secondRoll == null;
+
+	public int getFrameNo() {
+		return frameNo;
 	}
 }
