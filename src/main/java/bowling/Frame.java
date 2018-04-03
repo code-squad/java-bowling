@@ -66,6 +66,10 @@ public class Frame {
 	}
 
 	public Frame getCurrentFrame() {
+		if (nextFrame == null) {
+			return this;
+		}
+		
 		if (isFrameEnd()) {
 			return nextFrame.getCurrentFrame();
 		}
@@ -75,15 +79,24 @@ public class Frame {
 	private boolean isFrameEnd() {
 		return firstRoll != null && secondRoll != null;
 	}
+	
+	public boolean isGameEnd() {
+		return frameNo == 10 && isFrameEnd();
+	}
 
 	public Frame getNextFrame() {
-		if (nextFrame == null) {
-			throw new EndGameException();
-		}
 		return nextFrame;
 	}
 
 	public int getFrameNo() {
 		return frameNo;
+	}
+
+	public boolean isFirstRollNull() {
+		return firstRoll == null;
+	}
+	
+	public boolean isSecondRollNull() {
+		return secondRoll == null;
 	}
 }

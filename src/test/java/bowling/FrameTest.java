@@ -44,18 +44,21 @@ public class FrameTest {
 	public void setting_10_Frame_Object() {
 		Frame frame = new Frame();
 		for (int i = 0; i < 9; i++) {
+			if(frame.getNextFrame() == null) {
+				break;
+			}
 			frame = frame.getNextFrame();
 		}
 		assertThat(frame.getFrameNo(), is(10));
 	}
 
-	@Test(expected = EndGameException.class)
-	public void lastFrame_nextFrame_is_null() {
-		Frame frame = new Frame();
-		for (int i = 0; i < 11; i++) {
-			frame = frame.getNextFrame();
-		}
-	}
+//	@Test(expected = EndGameException.class)
+//	public void lastFrame_nextFrame_is_null() {
+//		Frame frame = new Frame();
+//		for (int i = 0; i < 11; i++) {
+//			frame = frame.getNextFrame();
+//		}
+//	}
 
 	@Test
 	public void getCurrentFrame_test() {
@@ -69,11 +72,10 @@ public class FrameTest {
 
 	@Test
 	public void set_allFrame_roll() {
-		for (int i = 0; i < 18; i++) {
+		for (int i = 0; i < 20; i++) {
 			frame.roll(4);
 		}
-		frame.roll(5);
-		assertThat(frame.getCurrentFrame().getFirstRoll(), is(5));
+		assertThat(frame.getCurrentFrame().getFirstRoll(), is(4));
 	}
 	
 	@Test

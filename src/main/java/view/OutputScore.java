@@ -1,7 +1,6 @@
 package view;
 
 import bowling.Frame;
-import bowling.LastFrame;
 
 public class OutputScore {
 	public static void printScoreboard(Frame frame, String name) {
@@ -12,15 +11,8 @@ public class OutputScore {
 		for (int i = 0; i < 10; i++) {
 			bowlingScore.append(convertFirstRollToString(frame));
 			bowlingScore.append(convertSecondRollToString(frame));
-			if (frame.getFrameNo() == 10 && !((LastFrame) frame).isBonusBowlNull()) {
-				if (frame.getSecondRoll() == 10) {
-					bowlingScore.delete(71, 73);
-					bowlingScore.replace(75, 77, convertContinuousStrikeToString((LastFrame) frame));
-					break;
-				}
-
-				bowlingScore.delete(71, 72);
-				bowlingScore.replace(75, 77, convertBonusRollToString((LastFrame) frame));
+			
+			if(frame.getNextFrame() == null) {
 				break;
 			}
 			frame = frame.getNextFrame();
@@ -64,14 +56,14 @@ public class OutputScore {
 		return "|" + secondRoll + " ";
 	}
 
-	private static String convertBonusRollToString(LastFrame frame) {
-		return "|" + frame.getBonusBowl() + "";
-	}
-
-	private static String convertContinuousStrikeToString(LastFrame frame) {
-		if (frame.getBonusBowl() == 10) {
-			return "" + frame.getBonusBowl() + "";
-		}
-		return "|" + frame.getBonusBowl() + "";
-	}
+//	private static String convertBonusRollToString(LastFrame frame) {
+//		return "|" + frame.getBonusBowl() + "";
+//	}
+//
+//	private static String convertContinuousStrikeToString(LastFrame frame) {
+//		if (frame.getBonusBowl() == 10) {
+//			return "" + frame.getBonusBowl() + "";
+//		}
+//		return "|" + frame.getBonusBowl() + "";
+//	}
 }
