@@ -16,9 +16,29 @@ public class OutputScoreTest {
 	}
 
 	@Test
-	public void test_method_printScoreboard() {
+	public void test_method_printScoreboard_allFrame() {
 		for (int i = 0; i < 20; i++) {
-			OutputScore.printScoreboard(frame.roll(4), name);
+			frame = frame.roll(4);
 		}
+		OutputScore.printScoreboard(frame, name);
+	}
+	
+	@Test
+	public void test_method_printScoreboard() {
+		for (int i = 0; i < 10; i++) {
+			frame = frame.roll(4);
+		}
+		OutputScore.printScoreboard(frame, name);
+	}
+	
+	@Test
+	public void test_method_printTotalScoreBoard() {
+		frame.roll(5);
+		frame.roll(5);
+		frame.roll(4);
+		frame.roll(6);
+		frame.roll(7);
+		
+		OutputScore.printTotalScoreBoard(frame);
 	}
 }

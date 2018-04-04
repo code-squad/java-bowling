@@ -16,10 +16,12 @@ public class BowlingGame {
 			Scanner scan = new Scanner(System.in);
 			String name = InputScore.bowlingGameStart(scan);
 			Frame frame = new Frame();
+			Frame allFrame = frame;
 
 			while (!frame.isGameEnd()) {
 				frame = frame.roll(InputScore.inputScore(scan, frame.getFrameNo()));
-				OutputScore.printScoreboard(frame, name);
+				OutputScore.printScoreboard(allFrame, name);
+				OutputScore.printTotalScoreBoard(allFrame);
 			}
 			System.out.println("게임 종료");
 			scan.close();

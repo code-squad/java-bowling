@@ -36,7 +36,7 @@ public class Frame {
 		if (frameNo == 10) {
 			return null;
 		}
-		
+
 		if (nextFrame == null) {
 			return new Frame(frameNo + 1);
 		}
@@ -64,32 +64,33 @@ public class Frame {
 	public boolean isSecondRollNull() {
 		return secondRoll == null;
 	}
-	
+
 	public int getFrameScore() {
 		return getFirstRoll() + getSecondRoll();
 	}
 
-	public int getTotalScore() {
-		return getTotalScore(0);
-	}
-
-	public int getTotalScore(int totalScore) {
-		if (isFrameEnd() && nextFrame != null) {
-			return nextFrame.getTotalScore(totalScore + getFrameScore());
+	public int getFrameTotal() {
+		if (isSpareFrame()) {
+			return getFrameScore() + nextFrame.getFirstRoll();
 		}
-		return totalScore + getFrameScore();
+		return getFrameScore();
 	}
 
-//	public Frame getCurrentFrame() {
-//		if (nextFrame == null) {
-//			return this;
-//		}
-//
-//		if (isFrameEnd()) {
-//			return nextFrame.getCurrentFrame();
-//		}
-//		return this;
-//	}
+	public boolean readyToCalculateTotal() {
+		if (isSpareFrame() && nextFrame == null) {
+			return false;
+		}
+		
+		if (isSpareFrame() && !nextFrame.isFirstRollNull()) {
+			return true;
+		}
+
+		return isFrameEnd();
+	}
+
+	private boolean isSpareFrame() {
+		return getFrameScore() == 10;
+	}
 
 	public Frame getNextFrame() {
 		return nextFrame;

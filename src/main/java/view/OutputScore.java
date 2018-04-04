@@ -6,30 +6,60 @@ import org.slf4j.LoggerFactory;
 import bowling.Frame;
 
 public class OutputScore {
-	private static StringBuilder scoreBefore = new StringBuilder("");
+	private static final Logger log = LoggerFactory.getLogger(OutputScore.class);
 
 	public static void printScoreboard(Frame frame, String name) {
 		System.out.println("| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |");
-		StringBuilder runningScore = new StringBuilder("");
-		StringBuilder outputBuilder = new StringBuilder("");
-		outputBuilder.append("|  " + name + " ");
-		outputBuilder.append(scoreBefore);
+		StringBuilder bowlingScore = new StringBuilder("");
+		bowlingScore.append("|  " + name + " ");
+		for (int i = 0; i < frame.getFrameNo(); i++) {
+			bowlingScore.append(convertFirstRollToString(frame));
+			bowlingScore.append(convertSecondRollToString(frame));
 
-		if (frame.isFrameEnd()) {
-			scoreBefore.append(convertFirstRollToString(frame));
-			scoreBefore.append(convertSecondRollToString(frame));
+			if (frame.getNextFrame() != null) {
+				frame = frame.getNextFrame();
+			}
 		}
-
-		runningScore.append(convertFirstRollToString(frame));
-		runningScore.append(convertSecondRollToString(frame));
-		outputBuilder.append(runningScore);
 
 		for (int i = 0; i < 10 - frame.getFrameNo(); i++) {
-			outputBuilder.append("|      ");
+			bowlingScore.append("|      ");
 		}
-		outputBuilder.append("|");
-		System.out.println(outputBuilder);
-		System.out.println();
+		bowlingScore.append("|");
+		System.out.println(bowlingScore);
+	}
+
+	public static void printTotalScoreBoard(Frame frame) {
+		StringBuilder bowlingTotalScore = new StringBuilder("");
+		bowlingTotalScore.append("|      ");
+		int totalScore = 0;
+
+		for (int i = 0; i < frame.getFrameNo(); i++) {
+			if (frame.readyToCalculateTotal()) {
+				totalScore += frame.getFrameTotal();
+				bowlingTotalScore.append(convertTotalToString(totalScore));
+			}
+
+			if (!frame.readyToCalculateTotal()) {
+				bowlingTotalScore.append("|      ");
+			}
+
+			if (frame.getNextFrame() != null) {
+				frame = frame.getNextFrame();
+			}
+		}
+
+		for (int i = 0; i < 10 - frame.getFrameNo(); i++) {
+			bowlingTotalScore.append("|      ");
+		}
+		bowlingTotalScore.append("|");
+		System.out.println(bowlingTotalScore);
+	}
+
+	private static String convertTotalToString(int totalScore) {
+		if (totalScore >= 100) {
+			return "|  " + totalScore + " ";
+		}
+		return "|  " + totalScore + "  ";
 	}
 
 	private static String convertFirstRollToString(Frame frame) {

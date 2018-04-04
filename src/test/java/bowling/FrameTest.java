@@ -1,7 +1,7 @@
 package bowling;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class FrameTest {
 	public void calculate_total() {
 		frame.roll(4);
 		frame.roll(5);
-		int totalScore = frame.getTotalScore();
+		int totalScore = frame.getFrameTotal();
 		assertThat(totalScore, is(9));
 	}
 
@@ -52,14 +52,5 @@ public class FrameTest {
 			frame = frame.roll(4);
 		}
 		assertThat(frame.getFirstRoll(), is(4));
-	}
-
-	@Test
-	public void get_eachFrame_total() {
-		for (int i = 0; i < 6; i++) {
-			frame.roll(4);
-		}
-		int total = frame.getTotalScore();
-		assertThat(total, is(24));
 	}
 }
