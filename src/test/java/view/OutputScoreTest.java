@@ -12,14 +12,13 @@ public class OutputScoreTest {
 	@Before
 	public void setting() {
 		frame = new Frame();
-		
-		for (int i = 0; i < 20; i++) {
-			frame.roll(4);
-		}
+
 	}
 
 	@Test
 	public void test_method_printScoreboard() {
-		OutputScore.printScoreboard(frame, name);
+		for (int i = 0; i < 20; i++) {
+			OutputScore.printScoreboard(frame.roll(4), name);
+		}
 	}
 }

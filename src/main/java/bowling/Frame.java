@@ -16,24 +16,31 @@ public class Frame {
 
 	public Frame(int frameNo) {
 		this.frameNo = frameNo;
-
-		if (frameNo == 10) {
-			nextFrame = null;
-			return;
-		}
-		nextFrame = new Frame(frameNo + 1);
 	}
 
-	public void roll(int pinsDown) {
+	public Frame roll(int pinsDown) {
 		if (isFrameEnd()) {
-			nextFrame.roll(pinsDown);
+			nextFrame = setNextFrame();
+			return nextFrame.roll(pinsDown);
 		}
 
 		if (firstRoll == null) {
 			firstRoll = new Pins(pinsDown);
-			return;
+			return this;
 		}
 		secondRoll = new Pins(pinsDown);
+		return this;
+	}
+
+	private Frame setNextFrame() {
+		if (frameNo == 10) {
+			return null;
+		}
+		
+		if (nextFrame == null) {
+			return new Frame(frameNo + 1);
+		}
+		return nextFrame;
 	}
 
 	public int getFirstRoll() {
@@ -57,38 +64,38 @@ public class Frame {
 	public boolean isSecondRollNull() {
 		return secondRoll == null;
 	}
+	
+	public int getFrameScore() {
+		return getFirstRoll() + getSecondRoll();
+	}
 
 	public int getTotalScore() {
 		return getTotalScore(0);
 	}
 
 	public int getTotalScore(int totalScore) {
-		if (isFrameEnd()) {
+		if (isFrameEnd() && nextFrame != null) {
 			return nextFrame.getTotalScore(totalScore + getFrameScore());
 		}
 		return totalScore + getFrameScore();
 	}
 
-	public int getFrameScore() {
-		return getFirstRoll() + getSecondRoll();
-	}
-
-	public Frame getCurrentFrame() {
-		if (nextFrame == null) {
-			return this;
-		}
-
-		if (isFrameEnd()) {
-			return nextFrame.getCurrentFrame();
-		}
-		return this;
-	}
+//	public Frame getCurrentFrame() {
+//		if (nextFrame == null) {
+//			return this;
+//		}
+//
+//		if (isFrameEnd()) {
+//			return nextFrame.getCurrentFrame();
+//		}
+//		return this;
+//	}
 
 	public Frame getNextFrame() {
 		return nextFrame;
 	}
 
-	private boolean isFrameEnd() {
+	public boolean isFrameEnd() {
 		return firstRoll != null && secondRoll != null;
 	}
 

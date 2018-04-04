@@ -22,43 +22,19 @@ public class FrameTest {
 
 	@Test
 	public void input_pinsDown_twoTimes_and_save_them() {
-		int firstRoll = 4;
-		frame.roll(firstRoll);
-		int secondRoll = 5;
-		frame.roll(secondRoll);
+		frame.roll(4);
+		frame.roll(5);
 		assertThat(frame.getFirstRoll(), is(4));
 		assertThat(frame.getSecondRoll(), is(5));
 	}
 
 	@Test
 	public void calculate_total() {
-		int firstRoll = 4;
-		frame.roll(firstRoll);
-		int secondRoll = 5;
-		frame.roll(secondRoll);
+		frame.roll(4);
+		frame.roll(5);
 		int totalScore = frame.getTotalScore();
-		assertThat(9, is(9));
+		assertThat(totalScore, is(9));
 	}
-
-	@Test
-	public void setting_10_Frame_Object() {
-		Frame frame = new Frame();
-		for (int i = 0; i < 9; i++) {
-			if(frame.getNextFrame() == null) {
-				break;
-			}
-			frame = frame.getNextFrame();
-		}
-		assertThat(frame.getFrameNo(), is(10));
-	}
-
-//	@Test(expected = EndGameException.class)
-//	public void lastFrame_nextFrame_is_null() {
-//		Frame frame = new Frame();
-//		for (int i = 0; i < 11; i++) {
-//			frame = frame.getNextFrame();
-//		}
-//	}
 
 	@Test
 	public void getCurrentFrame_test() {
@@ -66,18 +42,18 @@ public class FrameTest {
 		frame.roll(4);
 		frame.roll(4);
 		frame.roll(4);
-		frame.roll(4);
-		assertThat(frame.getCurrentFrame().getFrameNo(), is(3));
+		frame = frame.roll(4);
+		assertThat(frame.getFrameNo(), is(3));
 	}
 
 	@Test
 	public void set_allFrame_roll() {
 		for (int i = 0; i < 20; i++) {
-			frame.roll(4);
+			frame = frame.roll(4);
 		}
-		assertThat(frame.getCurrentFrame().getFirstRoll(), is(4));
+		assertThat(frame.getFirstRoll(), is(4));
 	}
-	
+
 	@Test
 	public void get_eachFrame_total() {
 		for (int i = 0; i < 6; i++) {

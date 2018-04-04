@@ -1,24 +1,34 @@
 package view;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bowling.Frame;
 
 public class OutputScore {
+	private static StringBuilder scoreBefore = new StringBuilder("");
+
 	public static void printScoreboard(Frame frame, String name) {
 		System.out.println("| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |");
-		StringBuilder bowlingScore = new StringBuilder("");
-		bowlingScore.append("|  " + name + " ");
+		StringBuilder runningScore = new StringBuilder("");
+		StringBuilder outputBuilder = new StringBuilder("");
+		outputBuilder.append("|  " + name + " ");
+		outputBuilder.append(scoreBefore);
 
-		for (int i = 0; i < 10; i++) {
-			bowlingScore.append(convertFirstRollToString(frame));
-			bowlingScore.append(convertSecondRollToString(frame));
-			
-			if(frame.getNextFrame() == null) {
-				break;
-			}
-			frame = frame.getNextFrame();
+		if (frame.isFrameEnd()) {
+			scoreBefore.append(convertFirstRollToString(frame));
+			scoreBefore.append(convertSecondRollToString(frame));
 		}
-		bowlingScore.append("|");
-		System.out.println(bowlingScore);
+
+		runningScore.append(convertFirstRollToString(frame));
+		runningScore.append(convertSecondRollToString(frame));
+		outputBuilder.append(runningScore);
+
+		for (int i = 0; i < 10 - frame.getFrameNo(); i++) {
+			outputBuilder.append("|      ");
+		}
+		outputBuilder.append("|");
+		System.out.println(outputBuilder);
 		System.out.println();
 	}
 
@@ -56,14 +66,14 @@ public class OutputScore {
 		return "|" + secondRoll + " ";
 	}
 
-//	private static String convertBonusRollToString(LastFrame frame) {
-//		return "|" + frame.getBonusBowl() + "";
-//	}
-//
-//	private static String convertContinuousStrikeToString(LastFrame frame) {
-//		if (frame.getBonusBowl() == 10) {
-//			return "" + frame.getBonusBowl() + "";
-//		}
-//		return "|" + frame.getBonusBowl() + "";
-//	}
+	// private static String convertBonusRollToString(LastFrame frame) {
+	// return "|" + frame.getBonusBowl() + "";
+	// }
+	//
+	// private static String convertContinuousStrikeToString(LastFrame frame) {
+	// if (frame.getBonusBowl() == 10) {
+	// return "" + frame.getBonusBowl() + "";
+	// }
+	// return "|" + frame.getBonusBowl() + "";
+	// }
 }
