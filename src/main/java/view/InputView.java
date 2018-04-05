@@ -19,14 +19,13 @@ public class InputView {
         }
     }
 
-    /*  TODO : 프레임 몇번째인지 알아야함 - 프레임에 물어보던가(몇번째 프레임이냐? index와 다르니깐 안에서 로직처리하고 결과값만 받아서) */
-    public static int getScore() {
-        System.out.println("번째 프레임 투구 : ");
+    public static int getScore(int frameNum) {
+        System.out.println(frameNum + "번 프레임 투구 : ");
         try {
             return InputUtils.convertToNumber(scanner.nextLine());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getScore();
+            return getScore(frameNum);
         }
     }
 }

@@ -14,13 +14,14 @@ public class FramesTest {
     }
 
     @Test
-    public void 몇번째_프레임이세요() {
-        /* 프레임 추가하고 점수 추가하고 */
-        assertEquals(1, frames.getCurrentFrameNumber());
+    public void 이번턴_프레임넘버1() {
+        frames.recordScore(5);
+        assertEquals(1, frames.getTurnNumber());
     }
 
-    /*@Test
-    public void 마지막_프레임인가요() {
-        assertFalse(frames.isFinishFrame());
-    }*/
+    @Test
+    public void 이번턴_프레임넘버2() {
+        frames.recordScore(10);
+        assertEquals(2, frames.getTurnNumber());
+    }
 }

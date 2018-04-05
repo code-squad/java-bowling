@@ -18,11 +18,12 @@ public class Score {
         return score >= MIN && score <= MAX;
     }
 
+    public static boolean isScoreLimit(List<Score> scores) {
+        return scores.stream().mapToInt(scoreInstance -> scoreInstance.score).sum() == MAX;
+    }
+
     public boolean isOverRecord(List<Score> scores) {
-        int existingSum = 0;
-        for (Score scoreInstance : scores) {
-            existingSum += scoreInstance.score;
-        }
+        int existingSum = scores.stream().mapToInt(scoreInstance -> scoreInstance.score).sum();
         return existingSum + this.score > MAX;
     }
 }

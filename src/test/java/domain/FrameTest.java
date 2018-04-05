@@ -29,9 +29,8 @@ public class FrameTest {
         frame.addScore(2);
     }
 
-    /*@Test
+    @Test
     public void 프레임_종료_체크() {
-        //상태변경이 내부에서 되도록 코드짜기
         assertTrue(testFrame.isFinish());
-    }*/
+    }
 }
