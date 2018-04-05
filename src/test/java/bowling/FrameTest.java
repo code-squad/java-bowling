@@ -2,6 +2,7 @@ package bowling;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,5 +53,29 @@ public class FrameTest {
 			frame = frame.roll(4);
 		}
 		assertThat(frame.getFirstRoll(), is(4));
+	}
+
+	@Test
+	public void test_method_isCalculatePreStrikeFrame_case1() {
+		Frame prmNextFrame = new Frame();
+		prmNextFrame.roll(10);
+		prmNextFrame.roll(5);
+		// prmNextFrame.roll(10);
+		assertTrue(frame.isCalculatePreStrikeFrame(prmNextFrame));
+	}
+	
+	@Test
+	public void test_method_isCalculatePreStrikeFrame_case2() {
+		Frame prmNextFrame = new Frame();
+		prmNextFrame.roll(4);
+//		prmNextFrame.roll(5);
+		assertTrue(!frame.isCalculatePreStrikeFrame(prmNextFrame));
+	}
+	
+	@Test
+	public void test_method_isCalculatePreStrikeFrame_case3() {
+		Frame prmNextFrame = new Frame();
+		prmNextFrame.roll(10);
+		assertTrue(!frame.isCalculatePreStrikeFrame(prmNextFrame));
 	}
 }
