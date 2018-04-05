@@ -19,7 +19,7 @@ public class BowlingGame {
 			Frame allFrame = frame;
 
 			while (!frame.isGameEnd()) {
-				frame = frame.roll(InputScore.inputScore(scan, frame.getFrameNo()));
+				frame = frame.roll(InputScore.inputScore(scan, frame.getFrameNoForConsole()));
 				OutputScore.printScoreboard(allFrame, name);
 				OutputScore.printTotalScoreBoard(allFrame);
 			}

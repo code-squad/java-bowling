@@ -45,7 +45,9 @@ public class OutputScoreTest {
 	@Test
 	public void test_method_printTotalScoreBoard_StrikeFrame_Test() {
 		frame.roll(10);
-		frame.roll(10);
+		
+		frame.roll(5);
+		frame.roll(4);
 
 		frame.roll(5);
 		frame.roll(5);

@@ -99,7 +99,11 @@ public class Frame {
 		if (isStrikeFrame() && nextFrame.isCalculatePreStrikeFrame(nextFrame)) {
 			return true;
 		}
-		return isFrameEnd();
+		return isNomalFrameEnd();
+	}
+	
+	private boolean isNomalFrameEnd() {
+		return firstRoll != null && secondRoll != null;
 	}
 
 	boolean isCalculatePreStrikeFrame(Frame prmNextFrame) {
@@ -152,6 +156,13 @@ public class Frame {
 	}
 
 	public int getFrameNo() {
+		return frameNo;
+	}
+	
+	public int getFrameNoForConsole() {
+		if (isStrikeFrame() || isFrameEnd()) {
+			return frameNo + 1;
+		}
 		return frameNo;
 	}
 }
