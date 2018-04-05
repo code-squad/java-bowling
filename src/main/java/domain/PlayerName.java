@@ -1,7 +1,7 @@
 package domain;
 
 public class PlayerName {
-    public static final int LENGTH = 3;
+    public static final int LENGTH = 5;
     private String name;
 
     public PlayerName(String name) {

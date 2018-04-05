@@ -19,7 +19,7 @@ public class InputView {
         }
     }
 
-    /*  TODO : 프레임 몇번째인지 알아야함 - 프레임에 물어보던가(몇번쨰 프레임이냐? index와 다르니깐 안에서 로직처리하고 결과값만 받아서) */
+    /*  TODO : 프레임 몇번째인지 알아야함 - 프레임에 물어보던가(몇번째 프레임이냐? index와 다르니깐 안에서 로직처리하고 결과값만 받아서) */
     public static int getScore() {
         System.out.println("번째 프레임 투구 : ");
         try {
