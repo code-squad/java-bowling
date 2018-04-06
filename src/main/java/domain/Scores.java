@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scores {
-    private static final int LIMIT_SIZE = 2;
+    private static final int LIMIT_NUM = 2;
     private List<Score> scores = new ArrayList<>();
 
     public void addScore(int number) throws IllegalArgumentException {
@@ -20,6 +20,6 @@ public class Scores {
     }
 
     public boolean isLimitSize() {
-        return scores.size() == LIMIT_SIZE;
+        return scores.size() == LIMIT_NUM;
     }
 }
