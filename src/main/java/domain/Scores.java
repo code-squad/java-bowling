@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scores {
-    private static final int LIMIT_SIZE = 2; //프레임별로 사이즈 제한이 다를 수 있음?(배열?)
+    private static final int LIMIT_SIZE = 2;
     private List<Score> scores = new ArrayList<>();
 
     public void addScore(int number) throws IllegalArgumentException {
@@ -15,15 +15,11 @@ public class Scores {
         scores.add(newScore);
     }
 
-    public boolean isRecordFinish() {
-        return isScoreLimit() || isLimitSize();
-    }
-
-    private boolean isScoreLimit() {
+    public boolean isScoreLimit() {
         return Score.isScoreLimit(scores);
     }
 
-    private boolean isLimitSize() {
+    public boolean isLimitSize() {
         return scores.size() == LIMIT_SIZE;
     }
 }

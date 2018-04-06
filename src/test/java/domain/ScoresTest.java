@@ -28,13 +28,13 @@ public class ScoresTest {
     @Test
     public void 최대치점수일때_점수추가_더이상할수없다() {
         scores.addScore(10);
-        assertTrue(scores.isRecordFinish());
+        assertTrue(scores.isScoreLimit());
     }
 
     @Test
     public void 던진횟수_소진시_점수추가_더이상할수없다() {
         scores.addScore(5);
         scores.addScore(3);
-        assertTrue(scores.isRecordFinish());
+        assertTrue(scores.isLimitSize());
     }
 }

@@ -1,4 +1,4 @@
-import domain.Frames;
+import domain.frame.Frames;
 import domain.Player;
 import view.InputView;
 
@@ -9,10 +9,16 @@ public class BowlingMain {
         Player player = InputView.getPlayer();
         Frames frames = new Frames();
         while (!frames.isFinish()) {
-            //여기를 메소드로 변경해서 try - catch문 분리할 수 있겠음
-            int score = InputView.getScore(frames.getTurnNumber());
-            frames.recordScore(score);
+            doGame(frames);
         }
+    }
 
+    public static void doGame(Frames frames) {
+        try {
+            int score = InputView.getScore(frames.getCurrentFrameNum());
+            frames.recordScore(score);
+        } catch (IllegalArgumentException e) {
+            doGame(frames);
+        }
     }
 }

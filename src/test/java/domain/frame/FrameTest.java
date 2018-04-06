@@ -1,4 +1,4 @@
-package domain;
+package domain.frame;
 
 import org.junit.Before;
 import org.junit.Test;

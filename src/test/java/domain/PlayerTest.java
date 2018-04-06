@@ -7,13 +7,13 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void 세글자아닌이름() {
+    public void 이름길이() {
         new Player("aaaaaa");
     }
 
     @Test
-    public void 세글자이름() {
-        new Player("aaa");
+    public void 이름길이2() {
+        new Player("aaaaa");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -23,6 +23,6 @@ public class PlayerTest {
 
     @Test
     public void 영어이름() {
-        new Player("col");
+        new Player("colin");
     }
 }
