@@ -16,12 +16,12 @@ public class FramesTest {
     @Test
     public void 이번턴_프레임넘버1() {
         frames.recordScore(5);
-        assertEquals(1, frames.getTurnNumber());
+        assertEquals(1, frames.getCurrentFrameNum());
     }
 
     @Test
     public void 이번턴_프레임넘버2() {
         frames.recordScore(10);
-        assertEquals(2, frames.getTurnNumber());
+        assertEquals(2, frames.getCurrentFrameNum());
     }
 }
