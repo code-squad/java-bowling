@@ -1,5 +1,8 @@
 package domain.frame;
 
+import domain.frame.result.FrameResult;
+import utils.FrameFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +16,16 @@ public class Frames {
         nextFrameIdx = 0;
     }
 
-    public void recordScore(int score) {
+    public FrameResult recordScore(int score) {
         Frame currentFrame = getCurrentFrame();
-        currentFrame.addScore(score);
+        FrameResult result = currentFrame.addScore(score);
         if (currentFrame.isFinish()) {
             nextFrameIdx++;
         }
+        return result;
     }
 
-    private Frame getCurrentFrame() {
+    public Frame getCurrentFrame() {
         try {
             return frames.get(nextFrameIdx);
         } catch (IndexOutOfBoundsException e) {

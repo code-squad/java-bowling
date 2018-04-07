@@ -1,24 +1,28 @@
-import domain.frame.Frames;
 import domain.Player;
+import domain.frame.result.FrameResults;
+import domain.frame.Frames;
 import view.InputView;
+import view.OutputView;
 
 public class BowlingMain {
 
     public static void main(String[] args) {
-        //Frames가 Player를 가지고 있을 것인지, Player가 Frames를 가지고 있을 것인지 아니면 꼭 가져있어야하나
         Player player = InputView.getPlayer();
+        FrameResults results = new FrameResults();
         Frames frames = new Frames();
         while (!frames.isFinish()) {
-            doGame(frames);
+            doGame(player, results, frames);
         }
     }
 
-    public static void doGame(Frames frames) {
+    private static void doGame(Player player, FrameResults results, Frames frames) {
         try {
             int score = InputView.getScore(frames.getCurrentFrameNum());
-            frames.recordScore(score);
+            results.addResult(frames.getCurrentFrame(), frames.recordScore(score));
+            OutputView.printGameResult(player, results);
         } catch (IllegalArgumentException e) {
-            doGame(frames);
+            InputView.printMessage(e.getMessage());
+            doGame(player, results, frames);
         }
     }
 }

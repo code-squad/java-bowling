@@ -22,8 +22,4 @@ public enum FrameStatus {
     public static boolean isBonus(FrameStatus status) {
         return status == STRIKE || status == SPARE;
     }
-
-    public String formationScore(Scores scores) {
-        return null;
-    }
 }

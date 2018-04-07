@@ -2,6 +2,7 @@ package domain.frame;
 
 import domain.Score;
 import domain.Scores;
+import domain.frame.result.FrameResult;
 import domain.frame.status.FrameStatus;
 
 public class LastFrame implements Frame {
@@ -15,7 +16,7 @@ public class LastFrame implements Frame {
     }
 
     @Override
-    public void addScore(int score) throws IllegalArgumentException {
+    public FrameResult addScore(int score) throws IllegalArgumentException {
         if (!FrameStatus.isBonus(status)) {
             scores.addScore(score);
         }
@@ -24,6 +25,9 @@ public class LastFrame implements Frame {
             bonusScore = new Score(score);
         }
         status = FrameStatus.of(scores);
+
+        // Result 안에 무엇을 저장할 것인가
+        return new FrameResult();
     }
 
     @Override

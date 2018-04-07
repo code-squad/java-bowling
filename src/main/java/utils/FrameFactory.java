@@ -1,4 +1,9 @@
-package domain.frame;
+package utils;
+
+import domain.frame.Frame;
+import domain.frame.Frames;
+import domain.frame.LastFrame;
+import domain.frame.NormalFrame;
 
 public class FrameFactory {
 
