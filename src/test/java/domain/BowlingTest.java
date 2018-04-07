@@ -10,8 +10,12 @@ public class BowlingTest {
     @Test
     public void calculate_total_score_by_1_frame() {
         Frame frame = new Frame();
-        frame.putFisrtTryPoint(4);
-        frame.putFisrtTryPoint(1);
-        assertThat(frame.totalNumber(), is(5));
+        int first = 10;
+        int second = 2;
+        int total = 10;
+        frame.tryInning(first, second);
+        assertThat(frame.totalScore(), is(total));
     }
+
+
 }
