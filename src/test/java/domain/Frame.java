@@ -1,30 +1,52 @@
 package domain;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Frame {
 
-    int score = 0;
+    int updatedScore = 0;
+    int tryCount = 0;
+    List<Integer> scores = new ArrayList<>();
 
-    public void putFisrtTryPoint(int i) {
-        score += i;
+    public int getScore() {
+        return sumScores();
     }
 
-    public int totalScore() {
-        return score;
+    public int getUpdatedScore() {
+        return updatedScore;
     }
 
-    public void tryInning(int first, int second) {
-        List<Integer> scores = Arrays.asList(first, second);
-        int turn = 0;
-        while (!isTurnEnd(scores, turn)) {
-            score += scores.get(turn);
-            turn++;
+    public void trying(int score) {
+        scores.add(score);
+        tryCount++;
+    }
+
+    public int sumScores() {
+        return scores.stream().mapToInt(Integer::intValue).sum();
+    }
+
+    public boolean isFrameEnd() {
+        return sumScores() == 10 || tryCount == 2;
+    }
+
+    public boolean isStrike() {
+        return sumScores() == 10 && tryCount == 1;
+    }
+
+    public boolean isSpare() {
+        return sumScores() == 10 && tryCount == 2;
+    }
+
+    public void updateScore(Frame firstFrame) {
+        if (firstFrame.isSpare()) {
+            updatedScore += firstFrame.sumScores() + sumScores() + scores.get(0);
         }
-    }
-
-    private boolean isTurnEnd(List<Integer> scores, int turn) {
-        return score == 10 | turn == scores.size();
+        if (firstFrame.isStrike()) {
+            updatedScore += firstFrame.sumScores() + sumScores() + sumScores();
+        }
+        if (!firstFrame.isStrike() && !firstFrame.isSpare()) {
+            updatedScore += firstFrame.sumScores() + sumScores();
+        }
     }
 }
