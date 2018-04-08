@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Scores {
 
@@ -54,7 +55,12 @@ public class Scores {
         return Objects.hash(totalScore, scores);
     }
 
-    public int getSize() {
-        return scores.size();
+    @Override
+    public String toString() {
+        return scores.stream().map(s -> s.toString()).collect(Collectors.joining("|"));
+    }
+
+    public String firstString() {
+        return scores.get(0).toString();
     }
 }

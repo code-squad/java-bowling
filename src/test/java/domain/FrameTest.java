@@ -67,4 +67,23 @@ public class FrameTest {
         assertThat(frame.isSpare(), is(false));
     }
 
+    @Test
+    public void toStringTest_when_normal_case() {
+        frame.trying(1);
+        frame.trying(8);
+        assertThat(frame.toString(), is("1|8"));
+    }
+
+    @Test
+    public void toStringTest_when_normal_spare() {
+        frame.trying(3);
+        frame.trying(7);
+        assertThat(frame.toString(), is("3|/"));
+    }
+
+    @Test
+    public void toStringTest_when_normal_strike() {
+        frame.trying(10);
+        assertThat(frame.toString(), is("X  "));
+    }
 }
