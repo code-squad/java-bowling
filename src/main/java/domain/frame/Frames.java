@@ -34,6 +34,10 @@ public class Frames {
         }
     }
 
+    public int getCurrentFrameIdx() {
+        return nextFrameIdx;
+    }
+
     public int getCurrentFrameNum() {
         return nextFrameIdx + 1;
     }

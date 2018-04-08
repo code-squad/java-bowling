@@ -18,8 +18,8 @@ public class FrameResultsTest {
     @Test
     public void 같은_프레임_결과_채우기() {
         Frame frame = FrameFactory.of(1);
-        results.addResult(frame, frame.convertScore(5));
-        results.addResult(frame, frame.convertScore(4));
+        results.addResult(0, frame.convertScore(5));
+        results.addResult(0, frame.convertScore(4));
         assertEquals(1, results.getSavedSize());
     }
 
@@ -27,8 +27,8 @@ public class FrameResultsTest {
     public void 다른_프레임_결과_채우기() {
         Frame frame1 = FrameFactory.of(1);
         Frame frame2 = FrameFactory.of(2);
-        results.addResult(frame1, frame1.convertScore(5));
-        results.addResult(frame2, frame2.convertScore(3));
+        results.addResult(0, frame1.convertScore(5));
+        results.addResult(1, frame2.convertScore(3));
         assertEquals(2, results.getSavedSize());
     }
 }
