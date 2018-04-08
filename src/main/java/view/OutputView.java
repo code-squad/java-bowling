@@ -43,10 +43,18 @@ public class OutputView {
         char[] area = new char[6];
         Arrays.fill(area, ' ');
         char[] contentArr = content.toCharArray();
-        int startIdx = 2;
+        int startIdx = getFillStartIdx(content);
         for (int i = startIdx, j = 0; i < area.length && j < contentArr.length; i++, j++) {
             area[i] = contentArr[j];
         }
         return String.valueOf(area);
+    }
+
+    private static int getFillStartIdx(String content) {
+        int defaultStartIdx = 2;
+        if (content.length() > 4) {
+            return defaultStartIdx - 1;
+        }
+        return defaultStartIdx;
     }
 }
