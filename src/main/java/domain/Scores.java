@@ -35,4 +35,7 @@ public class Scores {
         return totalScore;
     }
 
+    public boolean isTryThird() {
+        return scores.size() == 3;
+    }
 }

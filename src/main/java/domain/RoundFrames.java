@@ -21,6 +21,10 @@ public class RoundFrames {
     }
 
     public void addNextFrame() {
+        if (roundFrames.size() == 9) {
+            roundFrames.add(new LastFrame());
+            return;
+        }
         roundFrames.add(new Frame());
     }
 
