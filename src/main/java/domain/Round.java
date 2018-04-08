@@ -1,25 +1,23 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Round {
 
-    List<Frame> roundFrames;
+    RoundFrames roundFrames;
 
     public Round() {
-        roundFrames = new ArrayList<>();
-        roundFrames.add(new Frame());
+        roundFrames = new RoundFrames();
     }
 
     public void trying(int i) {
-        roundFrames.get(roundFrames.size() - 1).trying(i); // last frame
-        if (roundFrames.get(roundFrames.size() - 1).isFrameEnd()) {
-            roundFrames.add(new Frame());
+        roundFrames.lastFrameTry(i); // last frame
+        if (roundFrames.lastFrameWasEnd()) {
+            roundFrames.addNextFrame();
         }
     }
 
     public List<Frame> getRoundFrames() {
-        return roundFrames;
+        return roundFrames.getRoundFrames();
     }
 }
