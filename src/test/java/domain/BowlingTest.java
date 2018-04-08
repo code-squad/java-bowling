@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class BowlingTest {
+
     Frame frame;
 
     @Before
@@ -18,7 +19,7 @@ public class BowlingTest {
     public void calculate_total_score_at_one_frame() {
         frame.trying(1);
         frame.trying(6);
-        assertThat(frame.getScore(), is(7));
+        assertThat(frame.getFrameScore(), is(Score.of(7)));
     }
 
     @Test
@@ -67,44 +68,15 @@ public class BowlingTest {
     }
 
     @Test
-    public void calculate_total_count_by_2nd_frame_normal_case() {
-        Frame firstFrame = new Frame();
-        firstFrame.trying(1);
-        firstFrame.trying(8);
-
-        Frame secondFrame = new Frame();
-        secondFrame.trying(1);
-        secondFrame.trying(8);
-
-        secondFrame.updateScore(firstFrame);
-        assertThat(secondFrame.getUpdatedScore(), is(18));
+    public void should_send_frameChange_message_when_appropriate_trying() {
+        Round round = new Round();
+        round.trying(1);
+        round.trying(5); // frame end
+        round.trying(6); // new frame add
+        round.trying(0); // frame end
+        round.trying(3); // new frame add
+        round.trying(7); // spare, frame end
+        round.trying(10); // new frame add, strike, frame end
+        assertThat(round.getRoundFrames().size(), is(5));
     }
-
-    @Test
-    public void calculate_total_count_by_2nd_frame_1st_spare_case() {
-        Frame firstFrame = new Frame();
-        firstFrame.trying(1);
-        firstFrame.trying(9);
-
-        Frame secondFrame = new Frame();
-        secondFrame.trying(1);
-        secondFrame.trying(8);
-
-        secondFrame.updateScore(firstFrame);
-        assertThat(secondFrame.getUpdatedScore(), is(20));
-    }
-
-    @Test
-    public void calculate_total_count_by_2nd_frame_1st_strike_case() {
-        Frame firstFrame = new Frame();
-        firstFrame.trying(10);
-
-        Frame secondFrame = new Frame();
-        secondFrame.trying(1);
-        secondFrame.trying(8);
-
-        secondFrame.updateScore(firstFrame);
-        assertThat(secondFrame.getUpdatedScore(), is(28));
-    }
-
 }
