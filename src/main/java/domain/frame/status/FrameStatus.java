@@ -4,7 +4,6 @@ import domain.Scores;
 
 public abstract class FrameStatus {
 
-    // TODO : 싱글턴 고민좀 해보기
     public static FrameStatus changeStatus(Scores scores) {
         if (!scores.isScoreLimit()) {
             return scores.isLimitSize() ? Miss.of() : Ing.of();
