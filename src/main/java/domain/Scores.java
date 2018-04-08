@@ -7,12 +7,17 @@ public class Scores {
     private static final int LIMIT_NUM = 2;
     private List<Score> scores = new ArrayList<>();
 
-    public void addScore(int number) throws IllegalArgumentException {
+    public Score addScore(int number) throws IllegalArgumentException {
         Score newScore = new Score(number);
         if (newScore.isOverRecord(scores)) {
             throw new IllegalArgumentException("합산 : " + Score.MAX + "점을 넘을 수 없습니다");
         }
         scores.add(newScore);
+        return newScore;
+    }
+
+    public boolean isFinish() {
+        return isLimitSize() || isScoreLimit();
     }
 
     public boolean isScoreLimit() {

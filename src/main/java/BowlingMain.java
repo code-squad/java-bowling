@@ -4,6 +4,8 @@ import domain.frame.Frames;
 import view.InputView;
 import view.OutputView;
 
+import static view.InputView.getScore;
+
 public class BowlingMain {
 
     public static void main(String[] args) {
@@ -13,12 +15,12 @@ public class BowlingMain {
         while (!frames.isFinish()) {
             doGame(player, results, frames);
         }
+        System.out.println(results);
     }
 
     private static void doGame(Player player, FrameResults results, Frames frames) {
         try {
-            int score = InputView.getScore(frames.getCurrentFrameNum());
-            results.addResult(frames.getCurrentFrame(), frames.recordScore(score));
+            results.addResult(frames.getCurrentFrame(), frames.recordScore(getScore(frames.getCurrentFrameNum())));
             OutputView.printGameResult(player, results);
         } catch (IllegalArgumentException e) {
             InputView.printMessage(e.getMessage());

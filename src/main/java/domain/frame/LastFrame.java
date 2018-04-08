@@ -2,7 +2,7 @@ package domain.frame;
 
 import domain.Score;
 import domain.Scores;
-import domain.frame.result.FrameResult;
+import domain.frame.result.ScoreMessage;
 import domain.frame.status.FrameStatus;
 
 public class LastFrame implements Frame {
@@ -12,22 +12,26 @@ public class LastFrame implements Frame {
 
     public LastFrame() {
         scores = new Scores();
-        status = FrameStatus.of(scores);
+        status = FrameStatus.changeStatus(scores);
     }
 
     @Override
-    public FrameResult addScore(int score) throws IllegalArgumentException {
-        if (!FrameStatus.isBonus(status)) {
-            scores.addScore(score);
-        }
-
+    public String addScore(int score) throws IllegalArgumentException {
         if (FrameStatus.isBonus(status)) {
             bonusScore = new Score(score);
+            return convertScore(score);
         }
-        status = FrameStatus.of(scores);
+        scores.addScore(score);
+        status = FrameStatus.changeStatus(scores);
+        return convertScore(score);
+    }
 
-        // Result 안에 무엇을 저장할 것인가
-        return new FrameResult();
+    @Override
+    public String convertScore(int score) {
+        if (scores.isFinish()) {
+            return ScoreMessage.convertMessage(score);
+        }
+        return status.convertScore(score);
     }
 
     @Override

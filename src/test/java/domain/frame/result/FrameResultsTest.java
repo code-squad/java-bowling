@@ -18,21 +18,17 @@ public class FrameResultsTest {
     @Test
     public void 같은_프레임_결과_채우기() {
         Frame frame = FrameFactory.of(1);
-        FrameResult aResult = new FrameResult();
-        FrameResult sameResult = new FrameResult();
-        results.addResult(frame, aResult);
-        results.addResult(frame, sameResult);
+        results.addResult(frame, frame.convertScore(5));
+        results.addResult(frame, frame.convertScore(4));
         assertEquals(1, results.getSavedSize());
     }
 
     @Test
     public void 다른_프레임_결과_채우기() {
-        Frame frame = FrameFactory.of(1);
-        FrameResult aResult = new FrameResult();
-        Frame antherFrame = FrameFactory.of(2);
-        FrameResult anotherResult = new FrameResult();
-        results.addResult(frame, aResult);
-        results.addResult(antherFrame, anotherResult);
+        Frame frame1 = FrameFactory.of(1);
+        Frame frame2 = FrameFactory.of(2);
+        results.addResult(frame1, frame1.convertScore(5));
+        results.addResult(frame2, frame2.convertScore(3));
         assertEquals(2, results.getSavedSize());
     }
 }

@@ -1,6 +1,5 @@
 package domain.frame;
 
-import domain.frame.result.FrameResult;
 import utils.FrameFactory;
 
 import java.util.ArrayList;
@@ -16,13 +15,13 @@ public class Frames {
         nextFrameIdx = 0;
     }
 
-    public FrameResult recordScore(int score) {
+    public String recordScore(int score) {
         Frame currentFrame = getCurrentFrame();
-        FrameResult result = currentFrame.addScore(score);
+        String convertedScore = currentFrame.addScore(score);
         if (currentFrame.isFinish()) {
             nextFrameIdx++;
         }
-        return result;
+        return convertedScore;
     }
 
     public Frame getCurrentFrame() {
