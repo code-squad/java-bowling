@@ -1,7 +1,7 @@
 package domain;
 
 public class PlayerName {
-    public static final int LENGTH = 5;
+    public static final int LENGTH = 3;
     private String name;
 
     public PlayerName(String name) {
@@ -27,5 +27,9 @@ public class PlayerName {
             }
         }
         return true;
+    }
+
+    public String getName() {
+        return name;
     }
 }

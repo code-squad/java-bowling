@@ -37,4 +37,10 @@ public class LastFrameTest {
         lastFrame.addScore(10);
         assertEquals("X", lastFrame.addScore(10));
     }
+
+    @Test
+    public void 스패어_보너스0점_결과() {
+        lastFrame.addScore(10);
+        assertEquals("-", lastFrame.addScore(0));
+    }
 }

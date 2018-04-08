@@ -15,13 +15,13 @@ public class BowlingMain {
         while (!frames.isFinish()) {
             doGame(player, results, frames);
         }
-        System.out.println(results);
     }
 
     private static void doGame(Player player, FrameResults results, Frames frames) {
         try {
+            int currentIdx = frames.getCurrentFrameIdx();
             String resultMessage = frames.recordScore(getScore(frames.getCurrentFrameNum()));
-            results.addResult(frames.getCurrentFrameIdx(), resultMessage);
+            results.addResult(currentIdx, resultMessage);
             OutputView.printGameResult(player, results);
         } catch (IllegalArgumentException e) {
             InputView.printMessage(e.getMessage());

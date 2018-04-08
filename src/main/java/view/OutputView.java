@@ -3,14 +3,50 @@ package view;
 import domain.Player;
 import domain.frame.result.FrameResults;
 
+import java.util.Arrays;
+
 public class OutputView {
 
     public static void printGameResult(Player player, FrameResults results) {
-        // TODO : 메시지 구성하기 player에서 이름 1회, results에서 계속 꺼내오기(포맷팅은 여기서 맞춰주기 - 포맷팅까지 results에서 해주지않기)
-
+        System.out.println(getTopMessage() + getResultMessage(player, results));
     }
 
-    public static String buildTopMessage(Player player) {
-        return null;
+    private static String getTopMessage() {
+        return "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n";
+    }
+
+    private static String getResultMessage(Player player, FrameResults results) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("|").append(fillArea(player.getName()));
+        for (int frameIdx = 0; frameIdx < results.getMaxSaveSize(); frameIdx++) {
+            builder.append("|").append(buildFrameResultMessage(results, frameIdx));
+            if (isLastFrame(results, frameIdx)) {
+                builder.append("|");
+            }
+        }
+        return builder.toString();
+    }
+
+    private static boolean isLastFrame(FrameResults results, int frameIdx) {
+        return results.getMaxSaveSize() - 1 == frameIdx;
+    }
+
+    private static String buildFrameResultMessage(FrameResults results, int frameIdx) {
+        String resultContent = results.getFrameResultMessage(frameIdx);
+        if (resultContent == null) {
+            return fillArea("");
+        }
+        return fillArea(resultContent);
+    }
+
+    private static String fillArea(String content) {
+        char[] area = new char[6];
+        Arrays.fill(area, ' ');
+        char[] contentArr = content.toCharArray();
+        int startIdx = 2;
+        for (int i = startIdx, j = 0; i < area.length && j < contentArr.length; i++, j++) {
+            area[i] = contentArr[j];
+        }
+        return String.valueOf(area);
     }
 }

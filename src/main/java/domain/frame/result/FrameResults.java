@@ -32,5 +32,13 @@ public class FrameResults {
     public int getMaxSaveSize() {
         return Frames.LIMIT_NUM;
     }
-    /* 추가될 때마다 꺼내어 갈 수 있도록 외부 인터페이스 만들기 */
+
+    public String getFrameResultMessage(int frameIdx) {
+        try {
+            FrameResult frameResult = results.get(frameIdx);
+            return frameResult.toString();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
 }
