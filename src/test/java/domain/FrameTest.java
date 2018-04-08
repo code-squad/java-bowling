@@ -68,10 +68,16 @@ public class FrameTest {
     }
 
     @Test
-    public void toStringTest_when_normal_case() {
-        frame.trying(1);
+    public void toStringTest_when_one_try() {
         frame.trying(8);
-        assertThat(frame.toString(), is("1|8"));
+        assertThat(String.format("%-3s", frame.toString()), is("8  "));
+    }
+
+    @Test
+    public void toStringTest_when_normal_case() {
+        frame.trying(8);
+        frame.trying(1);
+        assertThat(frame.toString(), is("8|1"));
     }
 
     @Test
@@ -84,6 +90,6 @@ public class FrameTest {
     @Test
     public void toStringTest_when_normal_strike() {
         frame.trying(10);
-        assertThat(frame.toString(), is("X  "));
+        assertThat(String.format("%-3s", frame.toString()), is("X  "));
     }
 }

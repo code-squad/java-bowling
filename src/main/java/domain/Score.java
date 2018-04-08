@@ -43,6 +43,7 @@ public class Score {
 
     @Override
     public String toString() {
+        if (score == 0) return "-";
         return Integer.toString(score);
     }
 }

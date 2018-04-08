@@ -47,7 +47,7 @@ public class Frame {
     @Override
     public String toString() {
         if (isSpare()) return scores.firstString() + "|/";
-        if (isStrike()) return "X  ";
+        if (isStrike()) return "X";
         return scores.toString();
     }
 
