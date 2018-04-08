@@ -4,11 +4,12 @@ import java.util.Objects;
 
 public class LastFrame extends Frame{
 
-    Scores scores;
+    public LastFrame() {
+        super();
+    }
 
-    @Override
     public boolean isFrameEnd() {
-        return scores.isTryThird();
+        return scores.isTryThird() || (scores.isTrySecond() && !scores.isTen());
     }
 
     @Override

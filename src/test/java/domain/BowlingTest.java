@@ -81,7 +81,7 @@ public class BowlingTest {
     }
 
     @Test
-    public void should_add_10th_frame_when_10th_turn() {
+    public void should_add_10th_frame_when_9th_frame_end() {
         Round round = new Round();
         round.trying(1); // game start 1st frame
         round.trying(2); // frame end
@@ -95,5 +95,46 @@ public class BowlingTest {
         round.trying(10); // 8th frame add, strike, frame end
         round.trying(10); // 9th frame add, strike, frame end
         assertThat(round.getRoundFrames().get(9), is(new LastFrame()));
+    }
+
+    @Test
+    public void last_frame_should_send_end_message_when_try_second_and_no_bonus() {
+        LastFrame lastFrame = new LastFrame();
+        lastFrame.trying(1);
+        lastFrame.trying(3);
+        assertThat(lastFrame.isFrameEnd(), is(true));
+    }
+
+    @Test
+    public void should_send_not_end_when_spare_at_last_frame() {
+        LastFrame lastFrame = new LastFrame();
+        lastFrame.trying(3);
+        lastFrame.trying(7);
+        assertThat(lastFrame.isFrameEnd(), is(false));
+    }
+
+    @Test
+    public void should_send_not_end_when_strike_at_last_frame() {
+        LastFrame lastFrame = new LastFrame();
+        lastFrame.trying(10);
+        assertThat(lastFrame.isFrameEnd(), is(false));
+    }
+
+    @Test
+    public void should_send_end_when_after_3_sequence_strike() {
+        LastFrame lastFrame = new LastFrame();
+        lastFrame.trying(10);
+        lastFrame.trying(10);
+        lastFrame.trying(10);
+        assertThat(lastFrame.isFrameEnd(), is(true));
+    }
+
+    @Test
+    public void should_send_end_when_after_spare_and_one_try_bonus() {
+        LastFrame lastFrame = new LastFrame();
+        lastFrame.trying(3);
+        lastFrame.trying(7);
+        lastFrame.trying(10);
+        assertThat(lastFrame.isFrameEnd(), is(true));
     }
 }

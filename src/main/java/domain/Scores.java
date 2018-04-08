@@ -38,4 +38,23 @@ public class Scores {
     public boolean isTryThird() {
         return scores.size() == 3;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Scores scores1 = (Scores) o;
+        return Objects.equals(totalScore, scores1.totalScore) &&
+                Objects.equals(scores, scores1.scores);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(totalScore, scores);
+    }
+
+    public int getSize() {
+        return scores.size();
+    }
 }
