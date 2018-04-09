@@ -2,20 +2,14 @@ package domain;
 
 import java.util.Objects;
 
-public class Frame {
+public abstract class Frame {
 
     Scores scores;
 
-    public Frame() {
-        scores = new Scores();
-    }
+    public abstract boolean isFrameEnd();
 
     public void trying(int score) {
-        scores.add(score);
-    }
-
-    public boolean isFrameEnd() {
-        return scores.isTen() || scores.isTrySecond();
+        this.scores.add(score);
     }
 
     public boolean isStrike() {
@@ -31,6 +25,13 @@ public class Frame {
     }
 
     @Override
+    public String toString() {
+        if (isSpare()) return scores.firstString() + "|"+Figure.SPARE;
+        if (isStrike()) return Figure.STRIKE.toString();
+        return scores.toString();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -40,15 +41,6 @@ public class Frame {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(scores);
     }
-
-    @Override
-    public String toString() {
-        if (isSpare()) return scores.firstString() + "|/";
-        if (isStrike()) return "X";
-        return scores.toString();
-    }
-
 }

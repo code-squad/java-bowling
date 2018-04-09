@@ -7,9 +7,15 @@ import static org.junit.Assert.assertThat;
 
 public class RoundTest {
 
+    private Round round;
+
+    @Test
+    public void setUp() {
+        round = Round.of();
+    }
+
     @Test
     public void should_add_new_Frame_when_appropriate_trying() {
-        Round round = new Round();
         round.trying(1);
         round.trying(5); // frame end
         round.trying(6); // new frame add
@@ -22,7 +28,6 @@ public class RoundTest {
 
     @Test
     public void should_add_10th_frame_when_9th_frame_end() {
-        Round round = new Round();
         round.trying(1); // game start 1st frame
         round.trying(2); // frame end
         round.trying(4); // 2nd frame add
@@ -34,7 +39,7 @@ public class RoundTest {
         round.trying(10); // 7th frame add, strike, frame end
         round.trying(10); // 8th frame add, strike, frame end
         round.trying(10); // 9th frame add, strike, frame end
-        assertThat(round.getRoundFrames().get(9), is(new LastFrame()));
+        assertThat(round.getRoundFrames().get(9), is(LastFrame.of()));
     }
 
 }

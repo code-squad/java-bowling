@@ -1,28 +1,37 @@
 package domain;
 
-import java.util.Objects;
+public class LastFrame extends Frame {
 
-public class LastFrame extends Frame{
-
-    public LastFrame() {
-        super();
+    private LastFrame() {
+        scores = Scores.of();
     }
 
+    public static Frame of() {
+        return new LastFrame();
+    }
+
+    @Override
     public boolean isFrameEnd() {
-        return scores.isTryThird() || (scores.isTrySecond() && !scores.isTen());
+        if (scores.isTryThird()) return true;
+        if (scores.isTrySecond() && scores.isTotalScoreUnderTen()) return true;
+        return false;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LastFrame lastFrame = (LastFrame) o;
-        return Objects.equals(scores, lastFrame.scores);
+    public String toString() {
+        if (isSpare()) return scores.firstString() + "|"+Figure.SPARE;
+        if (isStrike()) return Figure.STRIKE.toString();
+        if (isDouble()) return Figure.STRIKE.toString();
+        if (isTurkey()) return Figure.STRIKE.toString();
+        return scores.toString();
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(scores);
+    private boolean isDouble() {
+        return scores.isTrySecond() && scores.isTwenty();
     }
+
+    private boolean isTurkey() {
+        return scores.isTryThird() && scores.isThirty();
+    }
+
 }

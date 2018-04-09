@@ -12,7 +12,7 @@ public class FrameTest {
 
     @Before
     public void setUp() {
-        frame = new Frame();
+        frame = NormalFrame.of();
     }
 
     @Test

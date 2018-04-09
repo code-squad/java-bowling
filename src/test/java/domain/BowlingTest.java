@@ -1,6 +1,5 @@
 package domain;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -8,28 +7,43 @@ import static org.junit.Assert.assertThat;
 
 public class BowlingTest {
 
-    private User testUser;
-
-    @Before
-    public void setUp() {
-        testUser = User.of("testUser");
+    @Test
+    public void should_send_true_message_when_round_end() {
+        Round round = Round.of();
+        round.trying(1); // game start 1st frame
+        round.trying(2); // frame end
+        round.trying(4); // 2nd frame add
+        round.trying(6); // frame end, spare
+        round.trying(10); // 3rd frame add, strike, frame end
+        round.trying(10); // 4th frame add, strike, frame end
+        round.trying(10); // 5th frame add, strike, frame end
+        round.trying(10); // 6th frame add, strike, frame end
+        round.trying(10); // 7th frame add, strike, frame end
+        round.trying(10); // 8th frame add, strike, frame end
+        round.trying(10); // 9th frame add, strike, frame end
+        round.trying(10); // 10th frame add, strike
+        round.trying(10); // 10th frame add, strike, bonus 1
+        round.trying(10); // 10th frame add, strike, bonus 2, frame end, round end
+        assertThat(round.isRoundEnd(), is(true));
     }
 
     @Test
-    public void user_should_have_RoundFrames_when_initialize() {
-        RoundFrames testRoundFrames = new RoundFrames();
-        assertThat(testUser.getRoundFrames(), is(testRoundFrames));
+    public void should_send_false_message_when_round_not_end_() {
+        Round round = Round.of();
+        round.trying(1); // game start 1st frame
+        round.trying(2); // frame end
+        round.trying(4); // 2nd frame add
+        round.trying(6); // frame end, spare
+        round.trying(10); // 3rd frame add, strike, frame end
+        round.trying(10); // 4th frame add, strike, frame end
+        round.trying(10); // 5th frame add, strike, frame end
+        round.trying(10); // 6th frame add, strike, frame end
+        round.trying(10); // 7th frame add, strike, frame end
+        round.trying(10); // 8th frame add, strike, frame end
+        round.trying(10); // 9th frame add, strike, frame end
+        round.trying(10); // 10th frame add, strike
+        round.trying(10); // strike, bonus 1, not round end
+        assertThat(round.isRoundEnd(), is(false));
     }
-
-    @Test
-    public void user_can_enter_score_on_roundFrames() {
-        testUser.shot(6);
-        testUser.shot(4);
-        RoundFrames testRoundFrames = new RoundFrames();
-        testRoundFrames.lastFrameTry(6);
-        testRoundFrames.lastFrameTry(4);
-        assertThat(testUser.getRoundFrames(), is(testRoundFrames));
-    }
-
 
 }

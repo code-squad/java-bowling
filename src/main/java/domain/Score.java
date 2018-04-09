@@ -4,9 +4,12 @@ import java.util.Objects;
 
 public class Score {
 
-    int score;
+    private int score;
 
     private Score(int n) {
+        if (!isValidScore(n)) {
+            throw new IllegalArgumentException("0에서 10사이의 값을 넣어주세요.");
+        }
         this.score = n;
     }
 
@@ -22,9 +25,12 @@ public class Score {
         return new Score(score);
     }
 
-    public Score sum(Score otherScore) {
-        score += otherScore.score;
-        return new Score(score);
+    private boolean isValidScore(int n) {
+        return 0 <= n && n <= 10;
+    }
+
+    public void sum(Score otherScore) {
+        this.score += otherScore.score;
     }
 
     @Override
@@ -45,6 +51,22 @@ public class Score {
     public String toString() {
         if (score == 0) return "-";
         return Integer.toString(score);
+    }
+
+    public boolean isUnderTen() {
+        return score < 10;
+    }
+
+    public boolean isTwenty() {
+        return score == 20;
+    }
+
+    public boolean isThirty() {
+        return score == 30;
+    }
+
+    public boolean isValidValue(int score) {
+        return score <= 10 - this.score;
     }
 }
 

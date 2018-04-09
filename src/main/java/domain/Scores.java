@@ -7,37 +7,60 @@ import java.util.stream.Collectors;
 
 public class Scores {
 
-    Score totalScore;
-    List<Score> scores;
+    private Score totalScore;
+    private List<Score> scores;
 
-    public Scores() {
+    private Scores() {
         scores = new ArrayList<>();
         totalScore = Score.of();
     }
 
+    public static Scores of() {
+        return new Scores();
+    }
+
     public void add(int score) {
+        if (!isValidScore(score)) {
+            throw new IllegalArgumentException("프레임 당 합쳐서 10을 넘길 수 없습니다.");
+        }
         scores.add(Score.of(score));
-        this.totalScore = totalScore.sum(Score.of(score));
+        totalScore.sum(Score.of(score));
+    }
+
+    private boolean isValidScore(int score) {
+        return totalScore.isValidValue(score);
     }
 
     public boolean isTen() {
         return totalScore.equals(Score.of(10));
     }
 
+    public boolean isTryFirst() {
+        return scores.size() == 1;
+    }
+
     public boolean isTrySecond() {
         return scores.size() == 2;
     }
 
-    public boolean isTryFirst() {
-        return scores.size() == 1;
+    public boolean isTryThird() {
+        return scores.size() == 3;
     }
 
     public Score getTotalScore() {
         return totalScore;
     }
 
-    public boolean isTryThird() {
-        return scores.size() == 3;
+    public String firstString() {
+        return scores.get(0).toString();
+    }
+
+    public boolean isTwenty() {
+        return totalScore.isTwenty();
+    }
+
+    public boolean isThirty() {
+        return totalScore.isThirty();
     }
 
     @Override
@@ -57,10 +80,11 @@ public class Scores {
 
     @Override
     public String toString() {
-        return scores.stream().map(s -> s.toString()).collect(Collectors.joining("|"));
+        return scores.stream().map(Score::toString).collect(Collectors.joining("|"));
     }
 
-    public String firstString() {
-        return scores.get(0).toString();
+    public boolean isTotalScoreUnderTen() {
+        return totalScore.isUnderTen();
     }
+
 }

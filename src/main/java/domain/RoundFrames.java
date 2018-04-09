@@ -6,27 +6,37 @@ import java.util.Objects;
 
 public class RoundFrames {
 
-    List<Frame> roundFrames;
+    private List<Frame> roundFrames;
 
-    public RoundFrames() {
-        roundFrames = new ArrayList<>();
-        roundFrames.add(new Frame());
+    private RoundFrames() {
+        roundFrames = new ArrayList<>(10);
+        roundFrames.add(NormalFrame.of());
+    }
+
+    public static RoundFrames of() {
+        return new RoundFrames();
     }
 
     public void lastFrameTry(int i) {
-        roundFrames.get(roundFrames.size()-1).trying(i);
+        roundFrames.get(roundFrames.size() - 1).trying(i);
     }
 
     public boolean lastFrameWasEnd() {
-        return roundFrames.get(roundFrames.size()-1).isFrameEnd();
+        return roundFrames.get(roundFrames.size() - 1).isFrameEnd();
+    }
+
+    public boolean isTenthFrameAndEnd() {
+        return roundFrames.size() == 10 && lastFrameWasEnd();
     }
 
     public void addNextFrame() {
         if (roundFrames.size() == 9) {
-            roundFrames.add(new LastFrame());
+            roundFrames.add(LastFrame.of());
             return;
         }
-        roundFrames.add(new Frame());
+        if (roundFrames.size() != 10) {
+            roundFrames.add(NormalFrame.of());
+        }
     }
 
     public List<Frame> getRoundFrames() {
@@ -45,5 +55,9 @@ public class RoundFrames {
     public int hashCode() {
 
         return Objects.hash(roundFrames);
+    }
+
+    public int getFrameNumber() {
+        return roundFrames.size();
     }
 }
