@@ -1,5 +1,7 @@
 package domain;
 
+import static view.ScoreMarker.*;
+
 public class NormalFrame extends Frame {
 
     public NormalFrame(int firstThrow, int secondThrow) {
@@ -9,11 +11,11 @@ public class NormalFrame extends Frame {
     @Override
     public String toString() {
         if (isStrike()) {
-            return ScoreMarker.markStrike();
+            return markStrike();
         }
         if (isSpare()) {
-            return ScoreMarker.markSpare(firstThrow);
+            return markSpare(firstThrow);
         }
-        return ScoreMarker.markNumbers(firstThrow, secondThrow);
+        return markNumbers(firstThrow, secondThrow);
     }
 }

@@ -1,4 +1,4 @@
-package domain;
+package view;
 
 import org.junit.Test;
 
@@ -50,7 +50,7 @@ public class ScoreMarkerTest {
 
     @Test
     public void markSeparator() {
-        String separator = ScoreMarker.markFrameSeparator();
+        String separator = ScoreMarker.markSeparator();
         assertEquals("|", separator);
     }
 }

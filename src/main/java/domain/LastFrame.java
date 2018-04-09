@@ -1,5 +1,7 @@
 package domain;
 
+import static view.ScoreMarker.*;
+
 public class LastFrame extends Frame {
     private final int thirdThrow;
 
@@ -10,12 +12,24 @@ public class LastFrame extends Frame {
 
     @Override
     public String toString() {
+        if (isStrike() && thirdThrow == STRIKE) {
+            return markStrike()
+                    + markSeparator()
+                    + markEmpty()
+                    + markSeparator()
+                    + markStrike();
+        }
         if (isStrike()) {
-            return ScoreMarker.markStrike() + ScoreMarker.markBonusNumber(thirdThrow);
+            return markStrike()
+                    + markSeparator()
+                    + markEmpty()
+                    + markBonusNumber(thirdThrow);
         }
         if (isSpare()) {
-            return ScoreMarker.markSpare(firstThrow) + ScoreMarker.markBonusNumber(thirdThrow);
+            return markSpare(firstThrow)
+                    + markBonusNumber(thirdThrow);
         }
-        return ScoreMarker.markNumbers(firstThrow, secondThrow) + ScoreMarker.markEmpty();
+        return markNumbers(firstThrow, secondThrow)
+                + markSeparator();
     }
 }

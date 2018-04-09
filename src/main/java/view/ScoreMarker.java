@@ -1,4 +1,4 @@
-package domain;
+package view;
 
 public class ScoreMarker {
 
@@ -23,7 +23,7 @@ public class ScoreMarker {
     }
 
     public static String markStrike() {
-        return "X  ";
+        return "X";
     }
 
     public static String markBonusNumber(int number) {
@@ -34,7 +34,7 @@ public class ScoreMarker {
         return " ";
     }
 
-    public static String markFrameSeparator() {
+    public static String markSeparator() {
         return "|";
     }
 }

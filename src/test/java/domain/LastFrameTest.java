@@ -4,27 +4,27 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class NormalFrameTest {
-    private NormalFrame frame;
+public class LastFrameTest {
+    private Frame frame;
 
     @Test
     public void toStringTest_Strike() {
-        frame = new NormalFrame(10, 0);
+        frame = new LastFrame(10, 0, 10);
         String oneFrame = frame.toString();
-        assertEquals("X  ", oneFrame);
+        assertEquals("X| |X", oneFrame);
     }
 
     @Test
     public void toStringTest_Spare() {
-        frame = new NormalFrame(8, 2);
+        frame = new LastFrame(8, 2, 8);
         String oneFrame = frame.toString();
-        assertEquals("8|/", oneFrame);
+        assertEquals("8|/|8", oneFrame);
     }
 
     @Test
     public void toStringTest_Normal() {
-        frame = new NormalFrame(5, 4);
+        frame = new LastFrame(5, 4, 0);
         String oneFrame = frame.toString();
-        assertEquals("5|4", oneFrame);
+        assertEquals("5|4|", oneFrame);
     }
 }

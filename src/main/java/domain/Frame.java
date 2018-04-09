@@ -1,7 +1,8 @@
 package domain;
 
 public abstract class Frame {
-    public static final int MAX = 10;
+    public static final int STRIKE
+            = 10;
     final int firstThrow;
     final int secondThrow;
 
@@ -11,11 +12,11 @@ public abstract class Frame {
     }
 
     public boolean isStrike() {
-        return firstThrow == MAX;
+        return firstThrow == STRIKE;
     }
 
     public boolean isSpare() {
-        return firstThrow + secondThrow == MAX;
+        return firstThrow + secondThrow == STRIKE;
     }
 
     public abstract String toString();
