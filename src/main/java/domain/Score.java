@@ -2,6 +2,8 @@ package domain;
 
 import java.util.Objects;
 
+import static domain.Figure.STRIKE;
+
 public class Score {
 
     private int score;
@@ -37,6 +39,10 @@ public class Score {
         return score < 10;
     }
 
+    public boolean isOverTen() {
+        return score >= 10;
+    }
+
     public boolean isTen() {
         return score == 10;
     }
@@ -70,6 +76,7 @@ public class Score {
     @Override
     public String toString() {
         if (score == 0) return "-";
+        if (score == 10) return STRIKE.toString();
         return Integer.toString(score);
     }
 

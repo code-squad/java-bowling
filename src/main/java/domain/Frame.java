@@ -10,7 +10,7 @@ public abstract class Frame {
 
     public void trying(int score) {
         if (!isValidScore(score)) {
-            throw new IllegalArgumentException("하");
+            throw new IllegalArgumentException("잘못된 입력입니다.");
         }
         this.scores.add(score);
     }
@@ -32,7 +32,6 @@ public abstract class Frame {
     @Override
     public String toString() {
         if (isSpare()) return scores.firstString() + "|"+Figure.SPARE;
-        if (isStrike()) return Figure.STRIKE.toString();
         return scores.toString();
     }
 

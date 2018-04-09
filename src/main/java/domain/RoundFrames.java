@@ -17,8 +17,8 @@ public class RoundFrames {
         return new RoundFrames();
     }
 
-    public void lastFrameTry(int i) {
-        roundFrames.get(roundFrames.size() - 1).trying(i);
+    public void lastFrameTry(int score) {
+        roundFrames.get(roundFrames.size() - 1).trying(score);
     }
 
     public boolean lastFrameWasEnd() {

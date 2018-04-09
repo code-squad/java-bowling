@@ -18,8 +18,8 @@ public class User {
         return round;
     }
 
-    public void shot(int i) {
-        round.trying(i);
+    public void shot(int score) {
+        round.trying(score);
     }
 
     public boolean roundEnd() {

@@ -44,16 +44,38 @@ public class Scores {
         return scores.get(0).toString();
     }
 
+    public String thirdString() {
+        return scores.get(2).toString();
+    }
+
     public boolean isTen() {
         return totalScore.isTen();
     }
 
-    public boolean isTwenty() {
-        return totalScore.isTwenty();
+    public boolean isTotalScoreUnderTen() {
+        return totalScore.isUnderTen();
     }
 
-    public boolean isThirty() {
-        return totalScore.isThirty();
+    public boolean isTotalScoreOverTen() {
+        return totalScore.isOverTen();
+    }
+
+    public boolean isValidScoreForNormalCase(int score) {
+        return totalScore.isValidAdditionScore(score);
+    }
+
+    public boolean isValidScoreForLastCase(int score) {
+        boolean result = true;
+        if (scores.size() == 1 && isTen()) {
+            result = true;
+        }
+        if (scores.size() == 1 && !isTen()) {
+            result = totalScore.isValidAdditionScore(score);
+        }
+        if (scores.size() == 2 && !isTen()) {
+            result = true;
+        }
+        return result;
     }
 
     @Override
@@ -76,25 +98,4 @@ public class Scores {
         return scores.stream().map(Score::toString).collect(Collectors.joining("|"));
     }
 
-    public boolean isTotalScoreUnderTen() {
-        return totalScore.isUnderTen();
-    }
-
-    public boolean isValidScoreForNormalCase(int score) {
-        return totalScore.isValidAdditionScore(score);
-    }
-
-    public boolean isValidScoreForLastCase(int score) {
-        boolean result = true;
-        if (scores.size() == 1 && isTen()) {
-            result = true;
-        }
-        if (scores.size() == 1 && !isTen()) {
-            result = totalScore.isValidAdditionScore(score);
-        }
-        if (scores.size() == 2 && !isTen()) {
-            result = true;
-        }
-        return result;
-    }
 }
