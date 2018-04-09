@@ -2,6 +2,7 @@ package domain.frame.result;
 
 public enum ScoreMessage {
     TEN("X"),
+    SPARE("/"),
     ZERO("-");
 
     private String message;

@@ -12,17 +12,17 @@ public class LastFrame implements Frame {
 
     public LastFrame() {
         scores = new Scores();
-        status = FrameStatus.changeStatus(scores);
+        status = FrameStatus.getInitStatus();
     }
 
     @Override
     public String addScore(int score) throws IllegalArgumentException {
-        if (FrameStatus.isBonus(status)) {
+        if (status.isBonus()) {
             bonusScore = new Score(score);
             return convertScore(score);
         }
         scores.addScore(score);
-        status = FrameStatus.changeStatus(scores);
+        status = status.changeStatus(scores);
         return convertScore(score);
     }
 
@@ -36,11 +36,11 @@ public class LastFrame implements Frame {
 
     @Override
     public boolean isFinish() {
-        if (!FrameStatus.isFinish(status)) {
+        if (!status.isFinish()) {
             return false;
         }
 
-        if (!FrameStatus.isBonus(status)) {
+        if (!status.isBonus()) {
             return true;
         }
         return bonusScore != null;

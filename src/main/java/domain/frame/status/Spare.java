@@ -1,5 +1,7 @@
 package domain.frame.status;
 
+import domain.frame.result.ScoreMessage;
+
 public class Spare extends FrameStatus {
     private static Spare spare = new Spare();
 
@@ -13,6 +15,16 @@ public class Spare extends FrameStatus {
 
     @Override
     public String convertScore(int score) {
-        return "/";
+        return ScoreMessage.getMessage(ScoreMessage.SPARE);
+    }
+
+    @Override
+    public boolean isFinish() {
+        return true;
+    }
+
+    @Override
+    public boolean isBonus() {
+        return true;
     }
 }

@@ -9,7 +9,7 @@ public class Scores {
 
     public Score addScore(int number) throws IllegalArgumentException {
         Score newScore = new Score(number);
-        if (newScore.isOverRecord(scores)) {
+        if (scores.size() != 0 && newScore.isOverRecord(scores)) {
             throw new IllegalArgumentException("합산 : " + Score.MAX + "점을 넘을 수 없습니다");
         }
         scores.add(newScore);

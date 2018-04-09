@@ -4,7 +4,8 @@ import domain.Scores;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class FrameStatusTest {
     private FrameStatus status;
@@ -13,34 +14,34 @@ public class FrameStatusTest {
     @Before
     public void setUp() throws Exception {
         scores = new Scores();
-        status = FrameStatus.changeStatus(scores);
+        status = FrameStatus.getInitStatus();
     }
 
     @Test
     public void 프레임_상태_진행중() {
-        assertTrue(FrameStatus.isIng(status));
+        assertFalse(status.isFinish());
     }
 
     @Test
     public void 프레임_상태_스트라이크() {
         scores.addScore(10);
-        status = FrameStatus.changeStatus(scores);
-        assertTrue(FrameStatus.isStrike(status));
+        status = status.changeStatus(scores);
+        assertTrue(status.isFinish() && status.isBonus());
     }
 
     @Test
     public void 프레임_상태_스페어() {
         scores.addScore(3);
         scores.addScore(7);
-        status = FrameStatus.changeStatus(scores);
-        assertTrue(FrameStatus.isSpare(status));
+        status = status.changeStatus(scores);
+        assertTrue(status.isFinish() && status.isBonus());
     }
 
     @Test
     public void 프레임_상태_미쓰() {
         scores.addScore(6);
         scores.addScore(2);
-        status = FrameStatus.changeStatus(scores);
-        assertTrue(FrameStatus.isMiss(status));
+        status = status.changeStatus(scores);
+        assertTrue(status.isFinish() && !status.isBonus());
     }
 }

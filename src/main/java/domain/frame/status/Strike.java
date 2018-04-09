@@ -17,4 +17,14 @@ public class Strike extends FrameStatus {
     public String convertScore(int score) {
         return ScoreMessage.getMessage(ScoreMessage.TEN);
     }
+
+    @Override
+    public boolean isFinish() {
+        return true;
+    }
+
+    @Override
+    public boolean isBonus() {
+        return true;
+    }
 }

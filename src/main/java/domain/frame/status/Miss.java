@@ -20,4 +20,14 @@ public class Miss extends FrameStatus {
         }
         return String.valueOf(score);
     }
+
+    @Override
+    public boolean isFinish() {
+        return true;
+    }
+
+    @Override
+    public boolean isBonus() {
+        return false;
+    }
 }

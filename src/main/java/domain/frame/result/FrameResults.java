@@ -13,7 +13,7 @@ public class FrameResults {
             results.add(new FrameResult());
         }
         FrameResult result = results.get(frameIdx);
-        result.addResultEachThrow(convertedScore);
+        result.add(convertedScore);
     }
 
     public boolean isExistFrameResult(int frameIdx) {

@@ -9,13 +9,13 @@ public class NormalFrame implements Frame {
 
     public NormalFrame() {
         scores = new Scores();
-        status = FrameStatus.changeStatus(scores);
+        status = FrameStatus.getInitStatus();
     }
 
     @Override
     public String addScore(int score) throws IllegalArgumentException {
         scores.addScore(score);
-        status = FrameStatus.changeStatus(scores);
+        status = status.changeStatus(scores);
         return convertScore(score);
     }
 
@@ -26,6 +26,6 @@ public class NormalFrame implements Frame {
 
     @Override
     public boolean isFinish() {
-        return FrameStatus.isFinish(status);
+        return status.isFinish();
     }
 }

@@ -15,4 +15,14 @@ public class Ing extends FrameStatus {
     public String convertScore(int score) {
         return String.valueOf(score);
     }
+
+    @Override
+    public boolean isFinish() {
+        return false;
+    }
+
+    @Override
+    public boolean isBonus() {
+        return false;
+    }
 }

@@ -8,7 +8,7 @@ import static java.util.stream.Collectors.joining;
 public class FrameResult {
     private List<String> results = new ArrayList<>();
 
-    public void addResultEachThrow(String resultMessage) {
+    public void add(String resultMessage) {
         results.add(resultMessage);
     }
 
