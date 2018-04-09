@@ -20,19 +20,8 @@ public class Scores {
     }
 
     public void add(int score) {
-        if (!isValidScore(score)) {
-            throw new IllegalArgumentException("프레임 당 합쳐서 10을 넘길 수 없습니다.");
-        }
         scores.add(Score.of(score));
         totalScore.sum(Score.of(score));
-    }
-
-    private boolean isValidScore(int score) {
-        return totalScore.isValidValue(score);
-    }
-
-    public boolean isTen() {
-        return totalScore.equals(Score.of(10));
     }
 
     public boolean isTryFirst() {
@@ -53,6 +42,10 @@ public class Scores {
 
     public String firstString() {
         return scores.get(0).toString();
+    }
+
+    public boolean isTen() {
+        return totalScore.isTen();
     }
 
     public boolean isTwenty() {
@@ -87,4 +80,21 @@ public class Scores {
         return totalScore.isUnderTen();
     }
 
+    public boolean isValidScoreForNormalCase(int score) {
+        return totalScore.isValidAdditionScore(score);
+    }
+
+    public boolean isValidScoreForLastCase(int score) {
+        boolean result = true;
+        if (scores.size() == 1 && isTen()) {
+            result = true;
+        }
+        if (scores.size() == 1 && !isTen()) {
+            result = totalScore.isValidAdditionScore(score);
+        }
+        if (scores.size() == 2 && !isTen()) {
+            result = true;
+        }
+        return result;
+    }
 }

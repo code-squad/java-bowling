@@ -9,8 +9,13 @@ public abstract class Frame {
     public abstract boolean isFrameEnd();
 
     public void trying(int score) {
+        if (!isValidScore(score)) {
+            throw new IllegalArgumentException("하");
+        }
         this.scores.add(score);
     }
+
+    public abstract boolean isValidScore(int score);
 
     public boolean isStrike() {
         return scores.isTen() && scores.isTryFirst();

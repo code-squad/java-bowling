@@ -25,12 +25,32 @@ public class Score {
         return new Score(score);
     }
 
-    private boolean isValidScore(int n) {
+    static boolean isValidScore(int n) {
         return 0 <= n && n <= 10;
     }
 
     public void sum(Score otherScore) {
         this.score += otherScore.score;
+    }
+
+    public boolean isUnderTen() {
+        return score < 10;
+    }
+
+    public boolean isTen() {
+        return score == 10;
+    }
+
+    public boolean isTwenty() {
+        return score == 20;
+    }
+
+    public boolean isThirty() {
+        return score == 30;
+    }
+
+    public boolean isValidAdditionScore(int score) {
+        return score <= 10 - this.score;
     }
 
     @Override
@@ -53,20 +73,5 @@ public class Score {
         return Integer.toString(score);
     }
 
-    public boolean isUnderTen() {
-        return score < 10;
-    }
-
-    public boolean isTwenty() {
-        return score == 20;
-    }
-
-    public boolean isThirty() {
-        return score == 30;
-    }
-
-    public boolean isValidValue(int score) {
-        return score <= 10 - this.score;
-    }
 }
 

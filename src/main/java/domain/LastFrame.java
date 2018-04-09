@@ -1,5 +1,8 @@
 package domain;
 
+import static domain.Figure.SPARE;
+import static domain.Figure.STRIKE;
+
 public class LastFrame extends Frame {
 
     private LastFrame() {
@@ -11,6 +14,11 @@ public class LastFrame extends Frame {
     }
 
     @Override
+    public boolean isValidScore(int score) {
+        return scores.isValidScoreForLastCase(score);
+    }
+
+    @Override
     public boolean isFrameEnd() {
         if (scores.isTryThird()) return true;
         if (scores.isTrySecond() && scores.isTotalScoreUnderTen()) return true;
@@ -19,10 +27,10 @@ public class LastFrame extends Frame {
 
     @Override
     public String toString() {
-        if (isSpare()) return scores.firstString() + "|"+Figure.SPARE;
-        if (isStrike()) return Figure.STRIKE.toString();
-        if (isDouble()) return Figure.STRIKE.toString();
-        if (isTurkey()) return Figure.STRIKE.toString();
+        if (isSpare()) return scores.firstString() + "|"+SPARE;
+        if (isStrike()) return STRIKE.toString();
+        if (isDouble()) return STRIKE.toString() + "|" + STRIKE.toString();
+        if (isTurkey()) return STRIKE.toString() + "|" + STRIKE.toString()+ "|" + STRIKE.toString();
         return scores.toString();
     }
 

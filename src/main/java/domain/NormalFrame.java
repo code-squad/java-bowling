@@ -11,6 +11,11 @@ public class NormalFrame extends Frame {
     }
 
     @Override
+    public boolean isValidScore(int score) {
+        return scores.isValidScoreForNormalCase(score);
+    }
+
+    @Override
     public boolean isFrameEnd() {
         return scores.isTen() || scores.isTrySecond();
     }

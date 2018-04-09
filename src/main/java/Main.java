@@ -4,8 +4,7 @@ import view.ResultView;
 
 public class Main {
 
-    static User user;
-
+    private static User user;
 
     public static void main(String[] args) {
 
