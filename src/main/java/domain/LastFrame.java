@@ -1,23 +1,11 @@
 package domain;
 
-public class LastFrame implements Frame {
-
-    private final int firstThrow;
-    private final int secondThrow;
+public class LastFrame extends Frame {
     private final int thirdThrow;
 
     public LastFrame(int firstThrow, int secondThrow, int thirdThrow) {
-        this.firstThrow = firstThrow;
-        this.secondThrow = secondThrow;
+        super(firstThrow, secondThrow);
         this.thirdThrow = thirdThrow;
-    }
-
-    public boolean isStrike() {
-        return firstThrow == MAX;
-    }
-
-    public boolean isSpare() {
-        return firstThrow + secondThrow == MAX;
     }
 
     @Override

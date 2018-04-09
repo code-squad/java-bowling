@@ -1,20 +1,9 @@
 package domain;
 
-public class NormalFrame implements Frame {
-    private final int secondThrow;
-    private final int firstThrow;
+public class NormalFrame extends Frame {
 
     public NormalFrame(int firstThrow, int secondThrow) {
-        this.firstThrow = firstThrow;
-        this.secondThrow = secondThrow;
-    }
-
-    public boolean isStrike() {
-        return firstThrow == MAX;
-    }
-
-    public boolean isSpare() {
-        return firstThrow + secondThrow == MAX;
+        super(firstThrow, secondThrow);
     }
 
     @Override
