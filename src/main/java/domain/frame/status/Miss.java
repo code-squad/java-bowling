@@ -30,4 +30,9 @@ public class Miss extends FrameStatus {
     public boolean isBonus() {
         return false;
     }
+
+    @Override
+    public int getBonusCount() {
+        return 0;
+    }
 }

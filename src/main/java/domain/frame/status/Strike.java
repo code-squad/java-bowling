@@ -27,4 +27,9 @@ public class Strike extends FrameStatus {
     public boolean isBonus() {
         return true;
     }
+
+    @Override
+    public int getBonusCount() {
+        return 2;
+    }
 }

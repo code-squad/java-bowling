@@ -20,5 +20,7 @@ public abstract class FrameStatus {
     public abstract boolean isFinish();
 
     public abstract boolean isBonus();
+
+    public abstract int getBonusCount();
 }
 
