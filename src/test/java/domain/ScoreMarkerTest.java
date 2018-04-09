@@ -19,27 +19,33 @@ public class ScoreMarkerTest {
     }
 
     @Test
-    public void markNone() {
-        String none = ScoreMarker.markNone();
-        assertEquals(" ", none);
-    }
-
-    @Test
-    public void markNumber() {
-        String number = ScoreMarker.markNumber(8);
-        assertEquals("8", number);
+    public void markNumbers() {
+        String number = ScoreMarker.markNumbers(5, 4);
+        assertEquals("5|4", number);
     }
 
     @Test
     public void markSpare() {
-        String spare = ScoreMarker.markSpare();
-        assertEquals("/", spare);
+        String spare = ScoreMarker.markSpare(9);
+        assertEquals("9|/", spare);
     }
 
     @Test
     public void markStrike() {
         String strike = ScoreMarker.markStrike();
-        assertEquals("X", strike);
+        assertEquals("X  ", strike);
+    }
+
+    @Test
+    public void markBonusNumber() {
+        String bonus = ScoreMarker.markBonusNumber(8);
+        assertEquals("|8", bonus);
+    }
+
+    @Test
+    public void markEmpty() {
+        String empty = ScoreMarker.markEmpty();
+        assertEquals(" ", empty);
     }
 
     @Test

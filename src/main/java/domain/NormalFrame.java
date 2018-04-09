@@ -1,11 +1,10 @@
 package domain;
 
-public class NormalFrame {
-    private static final int MAX = 10;
+public class NormalFrame implements Frame {
     private final int secondThrow;
     private final int firstThrow;
 
-    private NormalFrame(int firstThrow, int secondThrow) {
+    public NormalFrame(int firstThrow, int secondThrow) {
         this.firstThrow = firstThrow;
         this.secondThrow = secondThrow;
     }
@@ -26,6 +25,6 @@ public class NormalFrame {
         if (isSpare()) {
             return ScoreMarker.markSpare(firstThrow);
         }
-        return ScoreMarker.markNumber(firstThrow, secondThrow);
+        return ScoreMarker.markNumbers(firstThrow, secondThrow);
     }
 }

@@ -19,9 +19,4 @@ public class NormalFrameTest {
         assertTrue(frame.isSpare());
     }
 
-    @Test
-    public void isNormal() {
-        frame = new NormalFrame(2, 5);
-        assertTrue(frame.isNormal());
-    }
 }

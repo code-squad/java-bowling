@@ -14,7 +14,7 @@ public class ScoreMarker {
         return number;
     }
 
-    public static String markNumber(int firstThrow, int secondThrow) {
+    public static String markNumbers(int firstThrow, int secondThrow) {
         return firstThrow + "|" + secondThrow;
     }
 
@@ -23,7 +23,15 @@ public class ScoreMarker {
     }
 
     public static String markStrike() {
-        return "X| ";
+        return "X  ";
+    }
+
+    public static String markBonusNumber(int number) {
+        return "|" + number;
+    }
+
+    public static String markEmpty() {
+        return " ";
     }
 
     public static String markFrameSeparator() {
