@@ -2,42 +2,30 @@ package domain;
 
 public class NormalFrame {
     private static final int MAX = 10;
-    private final int score;
-    private final boolean strike;
-    private final boolean spare;
+    private final int secondThrow;
+    private final int firstThrow;
 
-    private NormalFrame(int score, boolean strike, boolean spare) {
-        this.score = score;
-        this.strike = strike;
-        this.spare = spare;
+    private NormalFrame(int firstThrow, int secondThrow) {
+        this.firstThrow = firstThrow;
+        this.secondThrow = secondThrow;
     }
 
-    public NormalFrame ofNormalFrame(int firstThrow, int secondThrow) {
-        if (isStrike(firstThrow)) {
-            return new NormalFrame(10, true, false);
-        }
-        if (isSpare(firstThrow, secondThrow)) {
-            return new NormalFrame(10, false, true);
-        }
-        return new NormalFrame(firstThrow + secondThrow, false, false);
-    }
-
-    public static boolean isStrike(int firstThrow) {
+    public boolean isStrike() {
         return firstThrow == MAX;
     }
 
-    public static boolean isSpare(int firstThrow, int secondThrow) {
+    public boolean isSpare() {
         return firstThrow + secondThrow == MAX;
     }
 
     @Override
     public String toString() {
-        if(strike){
+        if (isStrike()) {
             return ScoreMarker.markStrike();
         }
-        if(spare){
-            return ScoreMarker.markSpare();
+        if (isSpare()) {
+            return ScoreMarker.markSpare(firstThrow);
         }
-        return ScoreMarker.markNumber();
+        return ScoreMarker.markNumber(firstThrow, secondThrow);
     }
 }
