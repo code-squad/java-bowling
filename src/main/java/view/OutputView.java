@@ -1,9 +1,8 @@
 package view;
 
 import domain.Player;
+import domain.frame.Frames;
 import domain.frame.result.FrameResults;
-
-import java.util.Arrays;
 
 public class OutputView {
 
@@ -20,15 +19,11 @@ public class OutputView {
         builder.append("|").append(fillArea(name));
         for (int frameIdx = 0; frameIdx < results.getMaxSaveSize(); frameIdx++) {
             builder.append("|").append(buildFrameResultMessage(results, frameIdx));
-            if (isLastFrame(results, frameIdx)) {
+            if (Frames.isLast(frameIdx + 1)) {
                 builder.append("|");
             }
         }
         return builder.toString();
-    }
-
-    private static boolean isLastFrame(FrameResults results, int frameIdx) {
-        return results.getMaxSaveSize() - 1 == frameIdx;
     }
 
     private static String buildFrameResultMessage(FrameResults results, int frameIdx) {
@@ -39,30 +34,12 @@ public class OutputView {
         return fillArea(resultContent);
     }
 
-
-
-
-
-
-
-
-    // TODO : 고치자 간결하게
     private static String fillArea(String content) {
-        char[] area = new char[6];
-        Arrays.fill(area, ' ');
-        char[] contentArr = content.toCharArray();
-        int startIdx = getFillStartIdx(content);
-        for (int i = startIdx, j = 0; i < area.length && j < contentArr.length; i++, j++) {
-            area[i] = contentArr[j];
-        }
-        return String.valueOf(area);
-    }
-
-    private static int getFillStartIdx(String content) {
-        int defaultStartIdx = 2;
-        if (content.length() > 4) {
-            return defaultStartIdx - 1;
-        }
-        return defaultStartIdx;
+        int areaSize = 6;
+        String out = String.format("%" + areaSize + "s%s%" + areaSize + "s", "", content, "");
+        int mid = (out.length() / 2);
+        int start = mid - (areaSize / 2);
+        int end = start + areaSize;
+        return out.substring(start, end);
     }
 }
