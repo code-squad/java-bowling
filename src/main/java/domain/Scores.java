@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static domain.Figure.FRAMEBAR;
+
 public class Scores {
 
     private Score totalScore;
@@ -24,28 +26,12 @@ public class Scores {
         totalScore.sum(Score.of(score));
     }
 
-    public boolean isTryFirst() {
-        return scores.size() == 1;
-    }
-
     public boolean isTrySecond() {
         return scores.size() == 2;
     }
 
     public boolean isTryThird() {
         return scores.size() == 3;
-    }
-
-    public Score getTotalScore() {
-        return totalScore;
-    }
-
-    public String firstString() {
-        return scores.get(0).toString();
-    }
-
-    public String thirdString() {
-        return scores.get(2).toString();
     }
 
     public boolean isTen() {
@@ -56,8 +42,8 @@ public class Scores {
         return totalScore.isUnderTen();
     }
 
-    public boolean isTotalScoreOverTen() {
-        return totalScore.isOverTen();
+    public boolean isTotalScoreOverTenAndNotDouble() {
+        return !totalScore.isUnderTen() && totalScore.isUnderTwenty();
     }
 
     public boolean isValidScoreForNormalCase(int score) {
@@ -72,10 +58,22 @@ public class Scores {
         if (scores.size() == 1 && !isTen()) {
             result = totalScore.isValidAdditionScore(score);
         }
-        if (scores.size() == 2 && !isTen()) {
-            result = true;
-        }
+//        if (scores.size() == 2 && !isTen()) {
+//            result = true;
+//        }
         return result;
+    }
+
+    public Score getTotalScore() {
+        return totalScore;
+    }
+
+    public String firstString() {
+        return scores.get(0).toString();
+    }
+
+    public String thirdString() {
+        return scores.get(2).toString();
     }
 
     @Override
@@ -95,7 +93,7 @@ public class Scores {
 
     @Override
     public String toString() {
-        return scores.stream().map(Score::toString).collect(Collectors.joining("|"));
+        return scores.stream().map(Score::toString).collect(Collectors.joining(FRAMEBAR.toString()));
     }
 
 }

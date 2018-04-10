@@ -2,6 +2,9 @@ package domain;
 
 import java.util.Objects;
 
+import static domain.Figure.FRAMEBAR;
+import static domain.Figure.SPARE;
+
 public abstract class Frame {
 
     Scores scores;
@@ -17,10 +20,6 @@ public abstract class Frame {
 
     public abstract boolean isValidScore(int score);
 
-    public boolean isStrike() {
-        return scores.isTen() && scores.isTryFirst();
-    }
-
     public boolean isSpare() {
         return scores.isTen() && scores.isTrySecond();
     }
@@ -31,7 +30,7 @@ public abstract class Frame {
 
     @Override
     public String toString() {
-        if (isSpare()) return scores.firstString() + "|"+Figure.SPARE;
+        if (isSpare()) return scores.firstString() + FRAMEBAR + SPARE;
         return scores.toString();
     }
 

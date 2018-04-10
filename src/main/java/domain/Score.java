@@ -3,20 +3,21 @@ package domain;
 import java.util.Objects;
 
 import static domain.Figure.STRIKE;
+import static domain.Figure.ZERO;
 
 public class Score {
 
     private int score;
+
+    private Score() {
+        this.score = 0;
+    }
 
     private Score(int n) {
         if (!isValidScore(n)) {
             throw new IllegalArgumentException("0에서 10사이의 값을 넣어주세요.");
         }
         this.score = n;
-    }
-
-    private Score() {
-        this.score = 0;
     }
 
     public static Score of() {
@@ -27,36 +28,32 @@ public class Score {
         return new Score(score);
     }
 
-    static boolean isValidScore(int n) {
-        return 0 <= n && n <= 10;
-    }
-
     public void sum(Score otherScore) {
         this.score += otherScore.score;
-    }
-
-    public boolean isUnderTen() {
-        return score < 10;
-    }
-
-    public boolean isOverTen() {
-        return score >= 10;
     }
 
     public boolean isTen() {
         return score == 10;
     }
 
-    public boolean isTwenty() {
-        return score == 20;
+    public boolean isUnderTen() {
+        return score < 10;
     }
 
-    public boolean isThirty() {
-        return score == 30;
+    public boolean isUnderTwenty() {
+        return score <= 20;
     }
 
     public boolean isValidAdditionScore(int score) {
         return score <= 10 - this.score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    private static boolean isValidScore(int n) {
+        return 0 <= n && n <= 10;
     }
 
     @Override
@@ -75,7 +72,7 @@ public class Score {
 
     @Override
     public String toString() {
-        if (score == 0) return "-";
+        if (score == 0) return ZERO.toString();
         if (score == 10) return STRIKE.toString();
         return Integer.toString(score);
     }

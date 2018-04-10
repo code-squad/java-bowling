@@ -3,7 +3,9 @@ package domain;
 public enum Figure {
 
     STRIKE("X"),
-    SPARE("/");
+    SPARE("/"),
+    FRAMEBAR("|"),
+    ZERO("-");
 
     private final String figure;
 

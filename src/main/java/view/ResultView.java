@@ -23,7 +23,7 @@ public class ResultView {
         System.out.println(String.format("|  %s  |", user.getName())+printRoundState(user.getRound()));
     }
 
-    public static String printRoundState(Round round) {
+    static String printRoundState(Round round) {
         return toStringRoundState(round.getRoundFrames()) + toStringBlankFrames(11 - round.getRoundFrames().size());
     }
 

@@ -1,5 +1,6 @@
 package domain;
 
+import static domain.Figure.FRAMEBAR;
 import static domain.Figure.SPARE;
 
 public class LastFrame extends Frame {
@@ -12,8 +13,8 @@ public class LastFrame extends Frame {
         return new LastFrame();
     }
 
-    public boolean isSpareBonus() {
-        return scores.isTryThird() && scores.isTotalScoreOverTen();
+    private boolean isSpareBonus() {
+        return scores.isTryThird() && scores.isTotalScoreOverTenAndNotDouble();
     }
 
     @Override
@@ -30,8 +31,8 @@ public class LastFrame extends Frame {
 
     @Override
     public String toString() {
-        if (isSpare()) return scores.firstString() + "|" + SPARE;
-        if (isSpareBonus()) return scores.firstString() + "|" + SPARE + "|" + scores.thirdString();
+        if (isSpare()) return scores.firstString() + FRAMEBAR + SPARE;
+        if (isSpareBonus()) return scores.firstString() + FRAMEBAR + SPARE + FRAMEBAR + scores.thirdString();
         return scores.toString();
     }
 

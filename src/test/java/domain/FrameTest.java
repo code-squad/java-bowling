@@ -42,18 +42,6 @@ public class FrameTest {
     }
 
     @Test
-    public void should_send_strikeMessage_when_Strike_true() {
-        frame.trying(10);
-        assertThat(frame.isStrike(), is(true));
-    }
-
-    @Test
-    public void should_send_strikeMessage_when_Strike_false() {
-        frame.trying(1);
-        assertThat(frame.isStrike(), is(false));
-    }
-
-    @Test
     public void should_send_strikeMessage_when_Spare_true() {
         frame.trying(2);
         frame.trying(8);

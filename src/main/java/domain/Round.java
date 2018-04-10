@@ -16,8 +16,8 @@ public class Round {
     }
 
     public void trying(int score) {
-        roundFrames.lastFrameTry(score);
-        if (roundFrames.lastFrameWasEnd()) {
+        roundFrames.presentFrameTry(score);
+        if (roundFrames.isPresentFrameEnd()) {
             roundFrames.addNextFrame();
         }
     }

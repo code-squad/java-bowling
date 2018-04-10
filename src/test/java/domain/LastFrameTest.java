@@ -58,4 +58,43 @@ public class LastFrameTest {
         assertThat(lastFrame.isFrameEnd(), is(true));
     }
 
+    @Test
+    public void should_return_right_Frame_score_toString_Turkey() {
+        lastFrame.trying(10);
+        lastFrame.trying(10);
+        lastFrame.trying(10);
+        assertThat(lastFrame.toString(), is("X|X|X"));
+    }
+
+    @Test
+    public void should_return_right_Frame_score_toString_normal() {
+        lastFrame.trying(2);
+        lastFrame.trying(3);
+        assertThat(lastFrame.toString(), is("2|3"));
+    }
+
+    @Test
+    public void should_return_right_Frame_score_toString_Turkey_spareBonus1() {
+        lastFrame.trying(5);
+        lastFrame.trying(5);
+        lastFrame.trying(10);
+        assertThat(lastFrame.toString(), is("5|/|X"));
+    }
+
+    @Test
+    public void should_return_right_Frame_score_toString_Turkey_spareBonus2() {
+        lastFrame.trying(5);
+        lastFrame.trying(5);
+        lastFrame.trying(0);
+        assertThat(lastFrame.toString(), is("5|/|-"));
+    }
+
+    @Test
+    public void should_return_right_Frame_score_toString_Turkey_spareBonus() {
+        lastFrame.trying(5);
+        lastFrame.trying(5);
+        lastFrame.trying(2);
+        assertThat(lastFrame.toString(), is("5|/|2"));
+    }
+
 }

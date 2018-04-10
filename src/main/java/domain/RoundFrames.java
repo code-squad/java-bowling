@@ -17,16 +17,16 @@ public class RoundFrames {
         return new RoundFrames();
     }
 
-    public void lastFrameTry(int score) {
+    public void presentFrameTry(int score) {
         roundFrames.get(roundFrames.size() - 1).trying(score);
     }
 
-    public boolean lastFrameWasEnd() {
+    public boolean isPresentFrameEnd() {
         return roundFrames.get(roundFrames.size() - 1).isFrameEnd();
     }
 
     public boolean isTenthFrameAndEnd() {
-        return roundFrames.size() == 10 && lastFrameWasEnd();
+        return roundFrames.size() == 10 && isPresentFrameEnd();
     }
 
     public void addNextFrame() {
@@ -43,6 +43,10 @@ public class RoundFrames {
         return roundFrames;
     }
 
+    public int getFrameNumber() {
+        return roundFrames.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,9 +59,5 @@ public class RoundFrames {
     public int hashCode() {
 
         return Objects.hash(roundFrames);
-    }
-
-    public int getFrameNumber() {
-        return roundFrames.size();
     }
 }
