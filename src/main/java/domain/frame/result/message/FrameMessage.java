@@ -1,4 +1,4 @@
-package domain.frame.result;
+package domain.frame.result.message;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,16 +1,14 @@
 package domain.frame;
 
-import domain.Pin;
 import domain.Pins;
-import domain.frame.result.ScoreMessage;
+import domain.frame.result.message.ScoreMessage;
+import domain.frame.result.score.FrameScore;
 import domain.frame.status.FrameStatus;
 
 public class LastFrame implements Frame {
     private FrameStatus status;
     private Pins pins;
-
-
-    private Pin bonusPin;
+    private FrameScore score;
 
     public LastFrame() {
         pins = new Pins();
@@ -20,7 +18,7 @@ public class LastFrame implements Frame {
     @Override
     public String recordPins(int score) throws IllegalArgumentException {
         if (status.isBonus()) {
-            bonusPin = new Pin(score);
+            /*   bonusPin = new Pin(score);*/
             return convertPinNum(score);
         }
         pins.recordPins(score);
@@ -29,8 +27,13 @@ public class LastFrame implements Frame {
     }
 
     @Override
+    public String recordBonusPins(int num) throws IllegalArgumentException {
+        return null;
+    }
+
+    @Override
     public String convertPinNum(int num) {
-        if (pins.isFinish()) {
+        if (status.isFinish()) {
             return ScoreMessage.convertMessage(num);
         }
         return status.convertScore(num);
@@ -45,11 +48,22 @@ public class LastFrame implements Frame {
         if (!status.isBonus()) {
             return true;
         }
-        return bonusPin != null;
+        return isBonusFinish();
     }
 
     @Override
-    public int getTotalScore() {
-        return 0;
+    public boolean isBonusFinish() {
+        return score.isSettingDone();
+    }
+
+    /* TODO : 계속 null이다가 점수가 다 들어올 시점에 Score 그대로 방출 */
+    @Override
+    public FrameScore getScore() {
+        return null;
+    }
+
+    @Override
+    public boolean isLast() {
+        return true;
     }
 }

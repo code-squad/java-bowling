@@ -65,6 +65,15 @@ public class NormalFrameTest {
         assertFalse(currentFrame.isFinish());
     }
 
+
+
+    /*
+       TODO
+       - 보너스 점수 할당 해결
+       - 상태 체크 뭐해야하는지(3) : 토탈 끝남 / 정규 투구 끝남 / 보너스 투구 끝남
+     */
+
+
     @Test
     public void 스트라이크_보너스투구_미완료() {
         currentFrame.recordPins(10);

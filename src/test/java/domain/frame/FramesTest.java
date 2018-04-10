@@ -1,18 +1,15 @@
 package domain.frame;
 
-import domain.frame.result.FrameMessages;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class FramesTest {
-    private FrameMessages results;
     private Frames frames;
 
     @Before
     public void setUp() throws Exception {
-        results = new FrameMessages();
         frames = new Frames();
     }
 

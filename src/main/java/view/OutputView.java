@@ -2,19 +2,19 @@ package view;
 
 import domain.Player;
 import domain.frame.Frames;
-import domain.frame.result.FrameMessages;
+import domain.frame.result.FrameResults;
 
 public class OutputView {
 
     public static void printResult(Player player) {
-        System.out.println(getTopMessage() + getResultMessage(player.getName(), player.getMessages()));
+        //System.out.println(getTopMessage() + getResultMessage(player.getName(), player.getMessages()));
     }
 
     private static String getTopMessage() {
         return "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n";
     }
 
-    private static String getResultMessage(String name, FrameMessages results) {
+    private static String getResultMessage(String name, FrameResults results) {
         StringBuilder builder = new StringBuilder();
         builder.append("|").append(fillArea(name));
         for (int frameIdx = 0; frameIdx < Frames.LIMIT_NUM; frameIdx++) {
@@ -26,12 +26,12 @@ public class OutputView {
         return builder.toString();
     }
 
-    private static String buildFrameResultMessage(FrameMessages results, int frameIdx) {
-        String resultContent = results.getFrameResultMessage(frameIdx);
+    private static String buildFrameResultMessage(FrameResults results, int frameIdx) {
+        /*String resultContent = results.getMessage(frameIdx);
         if (resultContent == null) {
             return fillArea("");
-        }
-        return fillArea(resultContent);
+        }*/
+        return fillArea("");
     }
 
     private static String fillArea(String content) {

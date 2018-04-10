@@ -9,7 +9,7 @@ public abstract class FrameStatus {
     }
 
     public FrameStatus changeStatus(Pins pins) {
-        if (!pins.isFullCount()) {
+        if (!pins.isFullPinNumRecord()) {
             return pins.isFullCount() ? Miss.of() : Ing.of();
         }
         return pins.isFullCount() ? Spare.of() : Strike.of();

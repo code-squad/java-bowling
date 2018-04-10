@@ -8,7 +8,6 @@ import java.util.List;
 public class Frames {
     public static final int LIMIT_NUM = 10;
     private List<Frame> frames;
-
     private int currentFrameIdx;
 
     public Frames() {
@@ -19,11 +18,9 @@ public class Frames {
     public String recordPins(int num) {
         Frame currentFrame = getCurrentFrame();
         String convertedPinNum = currentFrame.recordPins(num);
-
         if (currentFrame.isFinish()) {
             currentFrameIdx++;
         }
-
         return convertedPinNum;
     }
 
@@ -35,10 +32,6 @@ public class Frames {
             frames.add(FrameFactory.of(frameNum));
             return frames.get(currentFrameIdx);
         }
-    }
-
-    public int getCurrentFrameIdx() {
-        return currentFrameIdx;
     }
 
     public int getCurrentFrameNum() {

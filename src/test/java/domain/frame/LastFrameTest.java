@@ -1,5 +1,6 @@
 package domain.frame;
 
+import domain.frame.result.score.FrameScore;
 import org.junit.Before;
 import org.junit.Test;
 import utils.FrameFactory;
@@ -19,6 +20,17 @@ public class LastFrameTest {
         lastFrame.recordPins(10);
         assertFalse(lastFrame.isFinish());
     }
+
+
+
+
+    /*
+       TODO
+       - 보너스 점수 할당 해결
+       - 상태 체크 뭐해야하는지(3) : 토탈 끝남 / 정규 투구 끝남 / 보너스 투구 끝남
+     */
+
+
 
     @Test
     public void 스트라이크_보너스투구_미완료() {
@@ -40,7 +52,7 @@ public class LastFrameTest {
     public void 스트라이크_보너스투구_토탈점수() {
         lastFrame.recordPins(10);
 
-        assertEquals(25, lastFrame.getTotalScore());
+        assertEquals(25, lastFrame.getScore());
     }
 
     @Test
@@ -56,28 +68,26 @@ public class LastFrameTest {
         lastFrame.recordPins(5);
 
 
-        assertEquals(10, lastFrame.getTotalScore());
+        FrameScore score = lastFrame.getScore();
+        assertEquals(10, score.getScore());
     }
 
     @Test
     public void 스트라이크_보너스10점_결과() {
         lastFrame.recordPins(10);
 
-        //assertEquals("X", lastFrame.recordBonusPins(10));
     }
 
     @Test
     public void 스트라이크_보너스0점_결과() {
         lastFrame.recordPins(10);
 
-        //assertEquals("-", lastFrame.recordBonusPins(0));
     }
 
     @Test
     public void 스패어_보너스10점_결과() {
         lastFrame.recordPins(5);
-
-        //assertEquals("X", lastFrame.recordBonusPins(10));
+        lastFrame.recordPins(5);
     }
 
     @Test

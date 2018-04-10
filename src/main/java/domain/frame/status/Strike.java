@@ -1,6 +1,6 @@
 package domain.frame.status;
 
-import domain.frame.result.ScoreMessage;
+import domain.frame.result.message.ScoreMessage;
 
 public class Strike extends FrameStatus {
     private static Strike strike = new Strike();
