@@ -1,46 +1,21 @@
 package domain.frame;
 
-import domain.Pins;
 import domain.frame.result.message.ScoreMessage;
 import domain.frame.result.score.FrameScore;
 import domain.frame.status.FrameStatus;
 
-public class LastFrame implements Frame {
-    private FrameStatus status;
-    private Pins pins;
-    private FrameScore score;
-
-    public LastFrame() {
-        pins = new Pins();
-        status = FrameStatus.getInitStatus();
-    }
+public class LastFrame extends Frame {
 
     @Override
-    public String recordPins(int score) throws IllegalArgumentException {
-        if (status.isBonus()) {
-            /*   bonusPin = new Pin(score);*/
-            return convertPinNum(score);
-        }
-        pins.recordPins(score);
-        status = status.changeStatus(pins);
-        return convertPinNum(score);
-    }
-
-    @Override
-    public String recordBonusPins(int num) throws IllegalArgumentException {
-        return null;
-    }
-
-    @Override
-    public String convertPinNum(int num) {
-        if (status.isFinish()) {
+    String doConvert(FrameStatus status, FrameScore score, int num) {
+        if (status.isBonus() && score.isStartedRecord()) {
             return ScoreMessage.convertMessage(num);
         }
         return status.convertScore(num);
     }
 
     @Override
-    public boolean isFinish() {
+    boolean doCheckFinish(FrameStatus status) {
         if (!status.isFinish()) {
             return false;
         }
@@ -49,17 +24,6 @@ public class LastFrame implements Frame {
             return true;
         }
         return isBonusFinish();
-    }
-
-    @Override
-    public boolean isBonusFinish() {
-        return score.isSettingDone();
-    }
-
-    /* TODO : 계속 null이다가 점수가 다 들어올 시점에 Score 그대로 방출 */
-    @Override
-    public FrameScore getScore() {
-        return null;
     }
 
     @Override

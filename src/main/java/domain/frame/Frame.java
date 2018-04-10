@@ -1,19 +1,55 @@
 package domain.frame;
 
+import domain.Pins;
 import domain.frame.result.score.FrameScore;
+import domain.frame.status.FrameStatus;
 
-public interface Frame {
-    String recordPins(int num) throws IllegalArgumentException;
+public abstract class Frame {
+    private FrameStatus status;
+    private Pins pins;
+    private FrameScore score;
 
-    String recordBonusPins(int num) throws IllegalArgumentException;
+    public Frame() {
+        pins = new Pins();
+        status = FrameStatus.getInitStatus();
+    }
 
-    String convertPinNum(int num);
+    public String recordPins(int num) throws IllegalArgumentException {
+        pins.recordPins(num);
+        status = status.changeStatus(pins);
+        if (status.isFinish()) {
+            score = new FrameScore(pins, status.getBonusCount());
+        }
+        return convertPinNum(num);
+    }
 
-    FrameScore getScore();
+    public String recordBonusPins(int num) throws IllegalArgumentException {
+        score.addBonusPins(num);
+        return convertPinNum(num);
+    }
 
-    boolean isFinish();
+    public String convertPinNum(int num) {
+        return doConvert(status, score, num);
+    }
 
-    boolean isBonusFinish();
+    abstract String doConvert(FrameStatus status, FrameScore score, int num);
 
-    boolean isLast();
+    public boolean isFinish() {
+        return doCheckFinish(status);
+    }
+
+    abstract boolean doCheckFinish(FrameStatus status);
+
+    public boolean isBonusFinish() {
+        return score.isSettingDone();
+    }
+
+    public FrameScore getScore() {
+        if (!score.isSettingDone()) {
+            return null;
+        }
+        return score;
+    }
+
+    public abstract boolean isLast();
 }
