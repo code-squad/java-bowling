@@ -1,8 +1,7 @@
 package domain;
 
-import com.sun.javafx.UnmodifiableArrayList;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,8 +51,8 @@ public class Round {
         return roundFrames.size();
     }
 
-    public UnmodifiableArrayList<Frame> getRoundFrames() {
-        return (UnmodifiableArrayList<Frame>) roundFrames;
+    public List<Frame> getRoundFrames() {
+        return Collections.unmodifiableList(roundFrames);
     }
 
     @Override
