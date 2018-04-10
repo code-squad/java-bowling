@@ -1,31 +1,36 @@
 package domain.frame;
 
-import domain.Scores;
+import domain.Pins;
 import domain.frame.status.FrameStatus;
 
 public class NormalFrame implements Frame {
     private FrameStatus status;
-    private Scores scores;
+    private Pins pins;
 
     public NormalFrame() {
-        scores = new Scores();
+        pins = new Pins();
         status = FrameStatus.getInitStatus();
     }
 
     @Override
-    public String addScore(int score) throws IllegalArgumentException {
-        scores.addScore(score);
-        status = status.changeStatus(scores);
-        return convertScore(score);
+    public String recordPins(int num) throws IllegalArgumentException {
+        pins.recordPins(num);
+        status = status.changeStatus(pins);
+        return convertPinNum(num);
     }
 
     @Override
-    public String convertScore(int score) {
-        return status.convertScore(score);
+    public String convertPinNum(int num) {
+        return status.convertScore(num);
     }
 
     @Override
     public boolean isFinish() {
         return status.isFinish();
+    }
+
+    @Override
+    public int getTotalScore() {
+        return 0;
     }
 }

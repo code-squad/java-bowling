@@ -1,37 +1,39 @@
 package domain.frame;
 
-import domain.Score;
-import domain.Scores;
+import domain.Pin;
+import domain.Pins;
 import domain.frame.result.ScoreMessage;
 import domain.frame.status.FrameStatus;
 
 public class LastFrame implements Frame {
     private FrameStatus status;
-    private Scores scores;
-    private Score bonusScore;
+    private Pins pins;
+
+
+    private Pin bonusPin;
 
     public LastFrame() {
-        scores = new Scores();
+        pins = new Pins();
         status = FrameStatus.getInitStatus();
     }
 
     @Override
-    public String addScore(int score) throws IllegalArgumentException {
+    public String recordPins(int score) throws IllegalArgumentException {
         if (status.isBonus()) {
-            bonusScore = new Score(score);
-            return convertScore(score);
+            bonusPin = new Pin(score);
+            return convertPinNum(score);
         }
-        scores.addScore(score);
-        status = status.changeStatus(scores);
-        return convertScore(score);
+        pins.recordPins(score);
+        status = status.changeStatus(pins);
+        return convertPinNum(score);
     }
 
     @Override
-    public String convertScore(int score) {
-        if (scores.isFinish()) {
-            return ScoreMessage.convertMessage(score);
+    public String convertPinNum(int num) {
+        if (pins.isFinish()) {
+            return ScoreMessage.convertMessage(num);
         }
-        return status.convertScore(score);
+        return status.convertScore(num);
     }
 
     @Override
@@ -43,6 +45,11 @@ public class LastFrame implements Frame {
         if (!status.isBonus()) {
             return true;
         }
-        return bonusScore != null;
+        return bonusPin != null;
+    }
+
+    @Override
+    public int getTotalScore() {
+        return 0;
     }
 }

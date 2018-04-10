@@ -5,36 +5,36 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class ScoresTest {
-    private Scores scores;
+public class PinsTest {
+    private Pins pins;
 
     @Before
     public void setUp() throws Exception {
-        scores = new Scores();
+        pins = new Pins();
     }
 
     @Test
     public void 점수정상추가() {
-        scores.addScore(4);
-        scores.addScore(6);
+        pins.recordPins(4);
+        pins.recordPins(6);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void 점수오버추가() {
-        scores.addScore(10);
-        scores.addScore(1);
+        pins.recordPins(10);
+        pins.recordPins(1);
     }
 
     @Test
     public void 최대치점수일때_점수추가_더이상할수없다() {
-        scores.addScore(10);
-        assertTrue(scores.isScoreLimit());
+        pins.recordPins(10);
+        assertTrue(pins.isFullPinNumRecord());
     }
 
     @Test
     public void 던진횟수_소진시_점수추가_더이상할수없다() {
-        scores.addScore(5);
-        scores.addScore(3);
-        assertTrue(scores.isLimitSize());
+        pins.recordPins(5);
+        pins.recordPins(3);
+        assertTrue(pins.isFullCount());
     }
 }

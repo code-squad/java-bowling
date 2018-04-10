@@ -8,38 +8,41 @@ import java.util.List;
 public class Frames {
     public static final int LIMIT_NUM = 10;
     private List<Frame> frames;
-    private int nextFrameIdx;
+
+    private int currentFrameIdx;
 
     public Frames() {
         frames = new ArrayList<>();
-        nextFrameIdx = 0;
+        currentFrameIdx = 0;
     }
 
-    public String recordScore(int score) {
+    public String recordPins(int num) {
         Frame currentFrame = getCurrentFrame();
-        String convertedScore = currentFrame.addScore(score);
+        String convertedPinNum = currentFrame.recordPins(num);
+
         if (currentFrame.isFinish()) {
-            nextFrameIdx++;
+            currentFrameIdx++;
         }
-        return convertedScore;
+
+        return convertedPinNum;
     }
 
     public Frame getCurrentFrame() {
         try {
-            return frames.get(nextFrameIdx);
+            return frames.get(currentFrameIdx);
         } catch (IndexOutOfBoundsException e) {
-            int frameNum = nextFrameIdx + 1;
+            int frameNum = getCurrentFrameNum();
             frames.add(FrameFactory.of(frameNum));
-            return frames.get(nextFrameIdx);
+            return frames.get(currentFrameIdx);
         }
     }
 
     public int getCurrentFrameIdx() {
-        return nextFrameIdx;
+        return currentFrameIdx;
     }
 
     public int getCurrentFrameNum() {
-        return nextFrameIdx + 1;
+        return currentFrameIdx + 1;
     }
 
     public boolean isFinish() {

@@ -5,15 +5,15 @@ import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
-public class FrameResult {
-    private List<String> results = new ArrayList<>();
+public class FrameMessage {
+    private List<String> messages = new ArrayList<>();
 
     public void add(String resultMessage) {
-        results.add(resultMessage);
+        messages.add(resultMessage);
     }
 
     @Override
     public String toString() {
-        return results.stream().collect(joining("|"));
+        return messages.stream().collect(joining("|"));
     }
 }

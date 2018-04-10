@@ -15,7 +15,7 @@ public class BowlingMain {
 
     private static void doGame(Player player) {
         try {
-            player.recordScore(getScore(player.getCurrentFrameNum()));
+            player.recordPins(getScore(player.getCurrentFrameNum()));
             OutputView.printResult(player);
         } catch (IllegalArgumentException e) {
             InputView.printMessage(e.getMessage());

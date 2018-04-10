@@ -16,65 +16,74 @@ public class LastFrameTest {
 
     @Test
     public void 보너스상황() {
-        lastFrame.addScore(10);
+        lastFrame.recordPins(10);
         assertFalse(lastFrame.isFinish());
     }
 
     @Test
     public void 스트라이크_보너스투구_미완료() {
-        lastFrame.addScore(10);
-        lastFrame.addScore(10);
+        lastFrame.recordPins(10);
+
+
         assertFalse(lastFrame.isFinish());
     }
 
     @Test
     public void 스트라이크_보너스투구_완료() {
-        lastFrame.addScore(10);
-        lastFrame.addScore(10);
-        lastFrame.addScore(5);
+        lastFrame.recordPins(10);
+
+
         assertTrue(lastFrame.isFinish());
     }
 
     @Test
+    public void 스트라이크_보너스투구_토탈점수() {
+        lastFrame.recordPins(10);
+
+        assertEquals(25, lastFrame.getTotalScore());
+    }
+
+    @Test
     public void 스패어_보너스투구_미완료() {
-        lastFrame.addScore(5);
-        lastFrame.addScore(5);
+        lastFrame.recordPins(5);
+        lastFrame.recordPins(5);
         assertFalse(lastFrame.isFinish());
     }
 
     @Test
     public void 스패어_보너스투구_완료() {
-        lastFrame.addScore(5);
-        lastFrame.addScore(5);
-        lastFrame.addScore(0);
-        assertTrue(lastFrame.isFinish());
+        lastFrame.recordPins(5);
+        lastFrame.recordPins(5);
+
+
+        assertEquals(10, lastFrame.getTotalScore());
     }
 
     @Test
     public void 스트라이크_보너스10점_결과() {
-        lastFrame.addScore(10);
-        lastFrame.addScore(0);
-        assertEquals("X", lastFrame.addScore(10));
+        lastFrame.recordPins(10);
+
+        //assertEquals("X", lastFrame.recordBonusPins(10));
     }
 
     @Test
     public void 스트라이크_보너스0점_결과() {
-        lastFrame.addScore(10);
-        lastFrame.addScore(5);
-        assertEquals("-", lastFrame.addScore(0));
+        lastFrame.recordPins(10);
+
+        //assertEquals("-", lastFrame.recordBonusPins(0));
     }
 
     @Test
     public void 스패어_보너스10점_결과() {
-        lastFrame.addScore(5);
-        lastFrame.addScore(5);
-        assertEquals("X", lastFrame.addScore(10));
+        lastFrame.recordPins(5);
+
+        //assertEquals("X", lastFrame.recordBonusPins(10));
     }
 
     @Test
     public void 스패어_보너스0점_결과() {
-        lastFrame.addScore(5);
-        lastFrame.addScore(5);
-        assertEquals("-", lastFrame.addScore(0));
+        lastFrame.recordPins(5);
+
+        //assertEquals("-", lastFrame.recordBonusPins(0));
     }
 }

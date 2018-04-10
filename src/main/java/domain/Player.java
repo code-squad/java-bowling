@@ -1,17 +1,17 @@
 package domain;
 
 import domain.frame.Frames;
-import domain.frame.result.FrameResults;
+import domain.frame.result.FrameMessages;
 
 public class Player {
     private PlayerName name;
     private Frames frames;
-    private FrameResults results;
+    private FrameMessages messages;
 
     public Player(String name) throws IllegalArgumentException {
         this.name = new PlayerName(name);
         frames = new Frames();
-        results = new FrameResults();
+        messages = new FrameMessages();
     }
 
     public String getName() {
@@ -22,16 +22,16 @@ public class Player {
         return frames.isFinish();
     }
 
-    public FrameResults recordScore(int score) {
-        results.addResult(frames.getCurrentFrameIdx(), frames.recordScore(score));
-        return results;
+    public FrameMessages recordPins(int pins) {
+        messages.addFrameMessage(frames.getCurrentFrameIdx(), frames.recordPins(pins));
+        return messages;
     }
 
     public int getCurrentFrameNum() {
         return frames.getCurrentFrameNum();
     }
 
-    public FrameResults getResults() {
-        return results;
+    public FrameMessages getMessages() {
+        return messages;
     }
 }
