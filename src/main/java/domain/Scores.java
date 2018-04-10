@@ -58,9 +58,6 @@ public class Scores {
         if (scores.size() == 1 && !isTen()) {
             result = totalScore.isValidAdditionScore(score);
         }
-//        if (scores.size() == 2 && !isTen()) {
-//            result = true;
-//        }
         return result;
     }
 

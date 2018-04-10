@@ -7,7 +7,11 @@ import static domain.Figure.SPARE;
 
 public abstract class Frame {
 
-    Scores scores;
+    private Scores scores;
+
+    Frame(Scores scores) {
+        this.scores = scores;
+    }
 
     public abstract boolean isFrameEnd();
 
@@ -24,8 +28,48 @@ public abstract class Frame {
         return scores.isTen() && scores.isTrySecond();
     }
 
+    public boolean isSpareBonus() {
+        return scores.isTryThird() && scores.isTotalScoreOverTenAndNotDouble();
+    }
+
+    public boolean isValidForLastCase(int score) {
+        return scores.isValidScoreForLastCase(score);
+    }
+
     public Score getFrameScore() {
         return scores.getTotalScore();
+    }
+
+    public boolean isaBoolean() {
+        return scores.isTrySecond() && scores.isTotalScoreUnderTen();
+    }
+
+    public boolean isTryThird() {
+        return scores.isTryThird();
+    }
+
+    public String getScoresString() {
+        return scores.toString();
+    }
+
+    public String getThirdString() {
+        return scores.thirdString();
+    }
+
+    public String getFirstString() {
+        return scores.firstString();
+    }
+
+    public boolean isValidScoreForNormalCase(int score) {
+        return scores.isValidScoreForNormalCase(score);
+    }
+
+    public boolean isTrySecond() {
+        return scores.isTrySecond();
+    }
+
+    public boolean isTen() {
+        return scores.isTen();
     }
 
     @Override

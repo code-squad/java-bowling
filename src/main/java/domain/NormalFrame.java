@@ -3,7 +3,7 @@ package domain;
 public class NormalFrame extends Frame {
 
     private NormalFrame() {
-        scores = Scores.of();
+        super(Scores.of());
     }
 
     public static Frame of() {
@@ -12,14 +12,12 @@ public class NormalFrame extends Frame {
 
     @Override
     public boolean isValidScore(int score) {
-        return scores.isValidScoreForNormalCase(score);
+        return isValidScoreForNormalCase(score);
     }
 
     @Override
     public boolean isFrameEnd() {
-        return scores.isTen() || scores.isTrySecond();
+        return isTen() || isTrySecond();
     }
-
-
 
 }
