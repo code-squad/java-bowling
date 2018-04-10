@@ -2,43 +2,22 @@ package bowling.domain;
 
 public class LastFrame extends Frame {
 
-	int thridDownPin;
+	private int thirdDownPin;
 
-	private LastFrame(int num, int firstDownPin, int secondDownPin, int thridDownPin) {
-		super(num, firstDownPin, secondDownPin);
-		this.thridDownPin = thridDownPin;
+	public LastFrame(int frameNum, Score score) {
+		super(frameNum, score.getScore(0), score.getScore(1));
 	}
 
-	public static LastFrame of(int num, Frame frame, int thridDownPin) {
-		if (frame.isFisrtThrowStrike()) {
-			return new LastFrame(num, frame.getFirstDownPin(), 0, thridDownPin);
-		}
-		if (frame.getSecondDownPin() != 0) {
-			return new LastFrame(num, frame.getFirstDownPin(), frame.getSecondDownPin(), thridDownPin);
-		}
-		return new LastFrame(num, frame.getFirstDownPin(), thridDownPin, 0);
+	public LastFrame(int frameNum, Score score, int thirdDownPin) {
+		super(frameNum, score.getScore(0), score.getScore(1));
+		this.thirdDownPin = thirdDownPin;
 	}
 
-	public static LastFrame of(int num, int firstDownPin, int secondDownPin, int thridDownPin) {
-		return new LastFrame(num, firstDownPin, secondDownPin, thridDownPin);
-	}
-
-	@Override
-	String getDownPin() {
-		if (isFisrtThrowStrike()) {
-			return "X" + "||" + getThirdDownPin();
+	public static LastFrame of(int frameNum, Score score) {
+		if (score.size() == 3) {
+			return new LastFrame(frameNum, score, score.getScore(2));
 		}
-		if (isSecondThrowSpare(getSecondDownPin())) {
-			return getFirstDownPin() + "|" + calcSecondDownPin() + "|" + getThirdDownPin();
-		}
-		return getFirstDownPin() + "|" + calcSecondDownPin();
-	}
-
-	public String getThirdDownPin() {
-		if (thridDownPin == 0) {
-			return "";
-		}
-		return String.valueOf(thridDownPin);
+		return new LastFrame(frameNum, score);
 	}
 
 }

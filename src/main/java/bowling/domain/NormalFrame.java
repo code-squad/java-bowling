@@ -2,28 +2,19 @@ package bowling.domain;
 
 public class NormalFrame extends Frame {
 
-	private NormalFrame(int num, int firstDownPin) {
-		super(num, firstDownPin, 0);
+	public NormalFrame(int frameNum, Score score) {
+		super(frameNum, score.getScore(0), score.getScore(1));
 	}
 
-	private NormalFrame(int num, int firstDownPin, int secondDownPin) {
-		super(num, firstDownPin, secondDownPin);
+	public NormalFrame(int frameNum, int firstDownPin) {
+		super(frameNum, firstDownPin);
 	}
 
-	public static NormalFrame of(int num, int firstDownPin, int secondDownPin) {
-		return new NormalFrame(num, firstDownPin, secondDownPin);
-	}
-
-	public static NormalFrame of(int num, Frame frame, int secondDownPin) {
-		return new NormalFrame(num, frame.getFirstDownPin(), secondDownPin);
-	}
-
-	@Override
-	String getDownPin() {
-		if (isFisrtThrowStrike()) {
-			return "X" + "  ";
+	public static NormalFrame of(int frameNum, Score score) {
+		if (score.size() == 1) {
+			return new NormalFrame(frameNum, score.getScore(0));
 		}
-		return getFirstDownPin() + "|" + calcSecondDownPin();
+		return new NormalFrame(frameNum, score);
 	}
 
 }

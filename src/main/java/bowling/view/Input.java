@@ -11,9 +11,6 @@ public class Input {
         return sc.nextLine();
     }
 
-    public static String getName() {
-        return inputName();
-    }
 
     public static int inputThrowScore(int frameNum) {
         Scanner sc = new Scanner(System.in);

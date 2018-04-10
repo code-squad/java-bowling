@@ -5,48 +5,42 @@ import org.junit.Before;
 import org.junit.Test;
 
 import bowling.domain.Game;
+import bowling.domain.Score;
 
 import static org.hamcrest.CoreMatchers.*;
 
 public class NormalFrameTest {
 
 	Game game;
+	Score score;
 
 	@Before
 	public void setUp() {
-		game = Game.of("lsc");
+		game = Game.of();
+		score = Score.of();
 	}
 
 	@Test
-	public void 일반프레임_초구_스트라이크() {
-		// 스트라이크 1프레임 초구
-		game.addFrame(10, 1, 1);
-		assertThat(game.getDownPin(1), is("X" + "  "));
+	public void 일반프레임_스트라이크() {
+		score.addScore(10);
+		game.addNormalFrame(1, score);
+		assertThat(game.getDownPin(0), is("X" + "  "));
 	}
 
 	@Test
-	public void 일반프레임_초구_노스트라이크() {
-		// 노스트라이크 1프레임 초구
-		game.addFrame(5, 1, 1);
-		assertThat(game.getDownPin(1), is("5| "));
+	public void 일반프레임_스페어() {
+		score.addScore(5);
+		score.addScore(5);
+		game.addNormalFrame(1, score);
+		assertThat(game.getDownPin(0), is("5|/"));
 	}
 
 	@Test
-	public void 일반프레임_2구_스페어() {
-		// 노스트라이크 1프레임 초구
-		game.addFrame(5, 1, 1);
-		// 스페어 1프레임 2구
-		game.addFrame(5, 1, 2);
-		assertThat(game.getDownPin(1), is("5|/"));
-	}
-
-	@Test
-	public void 일반프레임_2구_노스페어() {
-		// 노스트라이크 1프레임 초구
-		game.addFrame(5, 1, 1);
-		// 노스페어 1프레임 2구
-		game.addFrame(4, 1, 2);
-		assertThat(game.getDownPin(1), is("5|4"));
+	public void 일반프레임_2번투구() {
+		score.addScore(4);
+		score.addScore(5);
+		game.addNormalFrame(1, score);
+		assertThat(game.getDownPin(0), is("4|5"));
 	}
 
 }

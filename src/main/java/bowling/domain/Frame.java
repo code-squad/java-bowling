@@ -2,46 +2,29 @@ package bowling.domain;
 
 abstract public class Frame {
 
-	private int num;
-	private int firstDownPin;
-	private int secondDownPin;
+	private int frameNum;
+	protected int firstDownPin;
+	protected int secondDownPin;
 
-	public Frame(int num, int firstDownPin, int secondDownPin) {
-		this.num = num;
+	public Frame(int frameNum, int firstDownPin, int secondDownPin) {
+		this.frameNum = frameNum;
 		this.firstDownPin = firstDownPin;
 		this.secondDownPin = secondDownPin;
 	}
 
-	abstract String getDownPin();
-
-	public int getFirstDownPin() {
-		return firstDownPin;
+	public Frame(int frameNum, int firstDownPin) {
+		this.frameNum = frameNum;
+		this.firstDownPin = firstDownPin;
 	}
 
-	public int getSecondDownPin() {
-		return secondDownPin;
-	}
-
-	public int getNum() {
-		return num;
-	}
-
-	public Boolean isFisrtThrowStrike() {
-		return firstDownPin == 10;
-	}
-
-	public Boolean isSecondThrowSpare(int inputThrowScore) {
-		return firstDownPin == (10 - inputThrowScore);
-	}
-
-	public String calcSecondDownPin() {
-		if (getSecondDownPin() == 0) {
-			return " ";
+	public String getDownPin() {
+		if (firstDownPin == 10) {
+			return "X  ";
 		}
-		if (isSecondThrowSpare(getSecondDownPin())) {
-			return "/";
+		if (Score.isSpare(firstDownPin, secondDownPin)) {
+			return firstDownPin + "|/";
 		}
-		return String.valueOf(getSecondDownPin());
+		return firstDownPin + "|" + secondDownPin;
 	}
 
 }

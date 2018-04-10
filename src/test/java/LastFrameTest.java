@@ -5,68 +5,84 @@ import org.junit.Before;
 import org.junit.Test;
 
 import bowling.domain.Game;
+import bowling.domain.Score;
 
 import static org.hamcrest.CoreMatchers.*;
 
 public class LastFrameTest {
 
 	Game game;
+	Score score;
 
 	@Before
 	public void setUp() {
-		game = Game.of("lsc");
+		game = Game.of();
+		score = Score.of();
 	}
 
 	@Test
-	public void 마지막프레임_초구_스트라이크() {
-		// 스트라이크 10프레임 초구
-		game.addFrame(10, 10, 1);
-		assertThat(game.getDownPin(10), is("X||"));
+	public void 마지막프레임_초구스트라이크() {
+		score.addScore(10);
+		assertThat(score.checkLastScore(), is("X|"));
 	}
 
 	@Test
-	public void 마지막프레임_초구_노스트라이크() {
-		// 5핀 10프레임 초구
-		game.addFrame(5, 10, 1);
-		assertThat(game.getDownPin(10), is("5|" + " "));
+	public void 마지막프레임_초구스트라이크_이구() {
+		score.addScore(10);
+		score.addScore(5);
+		assertThat(score.checkLastScore(), is("X|5"));
 	}
 
 	@Test
-	public void 마지막프레임_2구_스페어() {
-		// 4핀 10프레임 1구
-		game.addFrame(4, 10, 1);
-		// 스페어 10프레임 2구
-		game.addFrame(6, 10, 2);
-		assertThat(game.getDownPin(10), is("4|/|"));
+	public void 마지막프레임_초구스트라이크_이구_삼구() {
+		score.addScore(10);
+		score.addScore(5);
+		score.addScore(4);
+		assertThat(score.checkLastScore(), is("X|5|4"));
 	}
 
 	@Test
-	public void 마지막프레임_2구_노스페어() {
-		// 4핀 10프레임 1구
-		game.addFrame(4, 10, 1);
-		// 5핀 10프레임 2구
-		game.addFrame(5, 10, 2);
-		assertThat(game.getDownPin(10), is("4|5"));
+	public void 마지막프레임_초구스트라이크_이구_삼구스페어() {
+		score.addScore(10);
+		score.addScore(5);
+		score.addScore(5);
+		assertThat(score.checkLastScore(), is("X|5|/"));
 	}
 
 	@Test
-	public void 마지막프레임_스트라이크_3구() {
-		// 스트라이크 10프레임 1구
-		game.addFrame(10, 10, 1);
-		// 5핀 10프레임 3구
-		game.addFrame(5, 10, 2);
-		assertThat(game.getDownPin(10), is("X||5"));
+	public void 마지막프레임_초구이구스트라이크() {
+		score.addScore(10);
+		score.addScore(10);
+		assertThat(score.checkLastScore(), is("X|X"));
 	}
 
 	@Test
-	public void 마지막프레임_스페어_3구() {
-		// 5핀 10프레임 1구
-		game.addFrame(5, 10, 1);
-		// 스페어 10프레임 2구
-		game.addFrame(5, 10, 2);
-		// 5핀 10프레임 3구
-		game.addFrame(5, 10, 3);
-		assertThat(game.getDownPin(10), is("5|/|5"));
+	public void 마지막프레임_초구이구삼구스트라이크() {
+		score.addScore(10);
+		score.addScore(10);
+		score.addScore(10);
+		assertThat(score.checkLastScore(), is("X|X|X"));
+	}
+
+	@Test
+	public void 마지막프레임_초구_이구스트라이크() {
+		score.addScore(5);
+		score.addScore(10);
+		assertThat(score.checkLastScore(), is("5|X"));
+	}
+
+	@Test
+	public void 마지막프레임_초구_이구스페어() {
+		score.addScore(5);
+		score.addScore(5);
+		assertThat(score.checkLastScore(), is("5|/"));
+	}
+
+	@Test
+	public void 마지막프레임_초구_이구() {
+		score.addScore(5);
+		score.addScore(4);
+		assertThat(score.checkLastScore(), is("5|4"));
 	}
 
 }

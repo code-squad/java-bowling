@@ -1,79 +1,118 @@
 package bowling.view;
 
 import bowling.domain.Game;
-
-import java.util.ArrayList;
-import java.util.List;
+import bowling.domain.Score;
 
 public class Print {
 
-	public static final List<String> BASE_BOARD = makeBaseUpBoard();
+	private static final int STRIKE = 10;
+	private static final int LAST_FRAME = 10;
+	private static final int MAX_RANGE = 10;
 
-	public static Game printGame(Game game, String name) {
-		for (int frameNum = 1; frameNum <= 10; frameNum++) {
-			game = printGame(game, frameNum, name);
-			Print.printScoreBoard(game, name);
+	public static void startBowlingGame(String name, int frameNum, Game game) {
+		Score score = Score.of();
+		if (frameNum == LAST_FRAME) {
+			printLastFrame(score, name, frameNum, game);
+			game.addLastFrame(frameNum, score);
+			return;
 		}
-		return game;
+		printNormalFrame(score, name, frameNum, game);
+		game.addNormalFrame(frameNum, score);
 	}
 
-	public static Game printGame(Game game, int frameNum, String name) {
-		int range = 2;
-		if (frameNum == 10) {
-			range = 3;
-		}
-		for (int throwTime = 1; throwTime <= range; throwTime++) {
-			if (!game.addFrame(Input.inputThrowScore(frameNum), frameNum, throwTime)) {
-				return game;
+	public static void printNormalFrame(Score score, String name, int frameNum, Game game) {
+		for (int throwTime = 1; throwTime <= 2; throwTime++) {
+			int inputScore = Input.inputThrowScore(frameNum);
+			score.addScore(inputScore);
+			Print.printBaseUpBoard();
+			System.out.print("|   " + name + "    ");
+			Print.printScoreBoard(frameNum, game, score);
+			if (inputScore == STRIKE) {
+				return;
 			}
-			Print.printScoreBoard(game, name);
 		}
-		return game;
 	}
 
-	public static void printScoreBoard(Game game, String name) {
-		printBaseUpBoard();
-		System.out.print("|   " + name + "    ");
-		for (int i = 1; i <= 10; i++) {
-			System.out.print("|   ");
-			System.out.print(game.getDownPin(i));
-			System.out.print("  ");
+	public static void printLastFrame(Score score, String name, int frameNum, Game game) {
+		for (int throwTime = 1; throwTime <= 3; throwTime++) {
+			int inputScore = Input.inputThrowScore(frameNum);
+			score.addScore(inputScore);
+			Print.printBaseUpBoard();
+			System.out.print("|   " + name + "    ");
+			Print.printScoreBoard(frameNum, game, score);
+			if (score.checkNotThird()) {
+				return;
+			}
+		}
+	}
+
+	public static void printScoreBoard(int frameNum, Game game, Score score) {
+		if (frameNum == 1) {
+			printFirstFrame(score);
+			return;
+		}
+		if (frameNum == LAST_FRAME) {
+			printLastFrame(frameNum, game, score);
+			return;
+		}
+		printNormalFrame(frameNum, game, score);
+	}
+
+	public static void printFirstFrame(Score score) {
+		printScore(score);
+		for (int i = 2; i <= MAX_RANGE; i++) {
+			printEmptyFrame();
 		}
 		System.out.print("|\n");
 	}
 
-	public static void printBaseBoard(String name) {
-		Print.printBaseUpBoard();
-		Print.printBaseDownBoard(name);
+	public static void printNormalFrame(int frameNum, Game game, Score score) {
+		for (int j = 0; j < game.size(); j++) {
+			System.out.print("|   ");
+			System.out.print(game.getDownPin(j));
+			System.out.print("    ");
+		}
+		printScore(score);
+		for (int i = 0; i < MAX_RANGE - frameNum; i++) {
+			printEmptyFrame();
+		}
+		System.out.print("|\n");
+	}
+
+	public static void printLastFrame(int frameNum, Game game, Score score) {
+		for (int j = 0; j < game.size(); j++) {
+			System.out.print("|   ");
+			System.out.print(game.getDownPin(j));
+			System.out.print("    ");
+		}
+		System.out.print("|   " + score.checkLastScore() + "    ");
+		System.out.print("|\n");
+	}
+
+	public static void printScore(Score score) {
+		System.out.print("|   " + score.checkScore() + "    ");
+	}
+
+	public static void printEmptyFrame() {
+		System.out.print("|    " + "  " + "    ");
 	}
 
 	public static void printBaseUpBoard() {
-		for (String baseFrame : BASE_BOARD) {
-			System.out.print("|   ");
-			System.out.print(baseFrame);
-			System.out.print("   ");
+		System.out.print("|   Name   ");
+		for (int i = 1; i < MAX_RANGE; i++) {
+			System.out.print("|    " + "0" + i + "    ");
 		}
+		System.out.print("|   10     ");
 		System.out.print("|\n");
 	}
 
-	public static void printBaseDownBoard(String name) {
+	public static void printBaseScoreBoard(String name) {
 		System.out.print("|   " + name + "    ");
-		for (int i = 0; i < 10; i++) {
-			System.out.print("|   ");
-			System.out.print("  ");
-			System.out.print("   ");
+		for (int i = 1; i < MAX_RANGE; i++) {
+			printEmptyFrame();
 		}
+		System.out.print("|          ");
 		System.out.print("|\n");
-	}
-
-	private static List<String> makeBaseUpBoard() {
-		List<String> baseFrame = new ArrayList<>();
-		baseFrame.add("Name");
-		for (int i = 1; i < 10; i++) {
-			baseFrame.add("0" + i);
-		}
-		baseFrame.add("10");
-		return baseFrame;
 	}
 
 }
