@@ -7,12 +7,6 @@ import static org.junit.Assert.*;
 public class ScoreMarkerTest {
 
     @Test
-    public void markPlayerName() {
-        String playerName = ScoreMarker.markPlayerName("name");
-        assertEquals("name", playerName);
-    }
-
-    @Test
     public void markFrameNumber() {
         String frameNumber = ScoreMarker.markFrameNumber(5);
         assertEquals("05", frameNumber);
@@ -20,7 +14,7 @@ public class ScoreMarkerTest {
 
     @Test
     public void markNumbers() {
-        String number = ScoreMarker.markNumbers(5, 4);
+        String number = ScoreMarker.markNumber(5, 4);
         assertEquals("5|4", number);
     }
 

@@ -5,11 +5,11 @@ import static view.ScoreMarker.*;
 public class NormalFrame extends Frame {
 
     public boolean updateFrame(int throwScore) {
-        if (isFirstThrow()) {
+        if (frameNotPlayed()) {
             firstThrow = throwScore;
             return true;
         }
-        if (isSecondThrow()) {
+        if (secondThrowNotPlayed()) {
             secondThrow = throwScore;
             return true;
         }
@@ -18,15 +18,21 @@ public class NormalFrame extends Frame {
 
     @Override
     public String toString() {
+        if (frameNotPlayed()) {
+            return markEmpty();
+        }
+        if (secondThrowNotPlayed()) {
+            return markNumber(firstThrow) + markSeparator() + markEmpty();
+        }
         if (isStrike()) {
             return markStrike();
         }
         if (isSpare()) {
             return markSpare(firstThrow);
         }
-        if (firstThrow + secondThrow == 0) {
-            return markEmpty() + markSeparator() + markEmpty();
+        if (isZero()) {
+            return markNone() + markSeparator() + markNone();
         }
-        return markNumbers(firstThrow, secondThrow);
+        return markNumber(firstThrow) + markSeparator() + markNumber(secondThrow);
     }
 }

@@ -6,11 +6,11 @@ public class LastFrame extends Frame {
     private Integer thirdThrow;
 
     public boolean updateFrame(int throwScore) {
-        if (isFirstThrow()) {
+        if (frameNotPlayed()) {
             firstThrow = throwScore;
             return true;
         }
-        if (isSecondThrow() && !isStrike()) {
+        if (secondThrowNotPlayed() && !isStrike()) {
             secondThrow = throwScore;
             return true;
         }
@@ -21,8 +21,50 @@ public class LastFrame extends Frame {
         return false;
     }
 
+    private boolean bonusIsStrike(){
+        return thirdThrow == 10;
+    }
+
     @Override
     public String toString() {
+
+
+
+
+
+
+        if(frameNotPlayed()){
+
+        }
+        if(secondThrowNotPlayed()){
+
+        }
+        if(isStrike() && bonusIsStrike()){
+
+        }
+        if(isStrike() && !bonusIsStrike()){
+
+        }
+        if(isSpare() && bonusIsStrike()){
+
+        }
+        if(isStrike() && !bonusIsStrike()){
+
+        }
+        if()
+
+
+
+
+
+
+
+        if(frameNotPlayed()){
+            return markEmpty();
+        }
+        if(secondThrowNotPlayed() && !isStrike()){
+
+        }
         if (isStrike() && thirdThrow == STRIKE) {
             return markStrike()
                     + markSeparator()
@@ -40,7 +82,7 @@ public class LastFrame extends Frame {
             return markSpare(firstThrow)
                     + markBonusNumber(thirdThrow);
         }
-        return markNumbers(firstThrow, secondThrow)
+        return markNumber(firstThrow, secondThrow)
                 + markSeparator();
     }
 }

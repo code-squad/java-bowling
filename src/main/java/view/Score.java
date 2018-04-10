@@ -35,6 +35,14 @@ public class Score {
         return true;
     }
 
+    public boolean isBonus() {
+        Frame lastFrame = frames.get(9);
+        if (lastFrame.isStrike() || lastFrame.isSpare()) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -44,7 +52,7 @@ public class Score {
 
         for (Frame frame : frames) { //프레임 스코어
             builder.append(markSeparator());
-            builder.append(frame);
+            builder.append(formatFrame(frame.toString()));
             builder.append(markSeparator());
         }
         return builder.toString();

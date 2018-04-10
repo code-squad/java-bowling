@@ -5,9 +5,8 @@ import java.util.Scanner;
 public class Prompter {
 
     public static String takeInput() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextLine();
-        }
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 
     public static String promptForPlayerNames() {
@@ -17,6 +16,11 @@ public class Prompter {
 
     public static String promptForThrowScore(int frameNumber) {
         System.out.printf("%d프레임 투구: ", frameNumber);
+        return takeInput();
+    }
+
+    public static String promptForBonusScore() {
+        System.out.println("보너스 투구: ");
         return takeInput();
     }
 }

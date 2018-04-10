@@ -5,22 +5,26 @@ public abstract class Frame {
     Integer firstThrow;
     Integer secondThrow;
 
-    boolean isStrike() {
-        return firstThrow == STRIKE;
-    }
-
-    boolean isSpare() {
-        return firstThrow + secondThrow == STRIKE;
-    }
-
-    boolean isFirstThrow() {
+    boolean frameNotPlayed() {
         return firstThrow == null
                 && secondThrow == null;
     }
 
-    boolean isSecondThrow() {
+    boolean secondThrowNotPlayed() {
         return firstThrow != null
                 && secondThrow == null;
+    }
+
+    public boolean isStrike() {
+        return firstThrow == STRIKE;
+    }
+
+    public boolean isSpare() {
+        return firstThrow + secondThrow == STRIKE;
+    }
+
+    boolean isZero() {
+        return firstThrow + secondThrow == 0;
     }
 
     public abstract boolean updateFrame(int throwScore);

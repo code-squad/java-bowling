@@ -1,22 +1,25 @@
-import domain.BowlingGame;
 import view.Prompter;
+import view.Score;
 import view.Validator;
 
 public class BowlingConsole {
 
     public static void main(String[] args) {
-        BowlingGame game = startGame();
+        startGame();
     }
 
-    private static BowlingGame startGame() {
+    private static void startGame() {
         String playerName = takeName();
-        BowlingGame game = new BowlingGame(playerName);
+        Score game = new Score(playerName);
 
-        for (int throwCount = 0; throwCount < 19; throwCount++) {
+        for (int throwCount = 0; throwCount < 21; throwCount++) {
             int throwScore = takeThrowScore(throwCount);
-            game.updateScores(throwScore, throwCount);
+            game.updateScore(throwScore, throwCount);
         }
-        return game;
+        if (game.isBonus()) {
+            int bonusScore = takeBonusScore();
+            game.updateScore(bonusScore, 21);
+        }
     }
 
     private static String takeName() {
@@ -36,6 +39,16 @@ public class BowlingConsole {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return takeThrowScore(throwCount);
+        }
+    }
+
+    private static int takeBonusScore() {
+        try {
+            String throwScore = Prompter.promptForBonusScore();
+            return Validator.validateScore(throwScore);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return takeBonusScore();
         }
     }
 }
