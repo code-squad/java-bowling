@@ -1,38 +1,24 @@
 package domain;
 
-import static view.ScoreMarker.*;
+public class NormalFrame {
+    private FirstThrow firstThrow;
+    private SecondThrow secondThrow;
 
-public class NormalFrame extends Frame {
-
-    public boolean updateFrame(int throwScore) {
-        if (frameNotPlayed()) {
-            firstThrow = throwScore;
-            return true;
-        }
-        if (secondThrowNotPlayed()) {
-            secondThrow = throwScore;
-            return true;
-        }
-        return false;
+    public NormalFrame() {
+        this.firstThrow = new FirstThrow();
+        this.secondThrow = new SecondThrow();
     }
 
-    @Override
-    public String toString() {
-        if (frameNotPlayed()) {
-            return markEmpty();
-        }
-        if (secondThrowNotPlayed()) {
-            return markNumber(firstThrow) + markSeparator() + markEmpty();
-        }
-        if (isStrike()) {
-            return markStrike();
-        }
-        if (isSpare()) {
-            return markSpare(firstThrow);
-        }
-        if (isZero()) {
-            return markNone() + markSeparator() + markNone();
-        }
-        return markNumber(firstThrow) + markSeparator() + markNumber(secondThrow);
+    public void updateFirstThrow(int pinsKnocked) { //toString보다 먼저 실행 됨
+        firstThrow.updateScore(pinsKnocked);
+    }
+
+    public void updateSecondThrow(int pinsKnocked) { //toString 이후에 실행 됨
+        int pinsStanding = firstThrow.countPinsStanding();
+        secondThrow.updateScore(pinsStanding, pinsKnocked);
+    }
+
+    public boolean isStrike() {
+        return firstThrow.countPinsStanding() == 0;
     }
 }
