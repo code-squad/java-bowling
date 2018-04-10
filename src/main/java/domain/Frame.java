@@ -1,16 +1,21 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static domain.Figure.FRAMEBAR;
 import static domain.Figure.SPARE;
 
 public abstract class Frame {
 
-    private Scores scores;
+    private Score totalScore;
+    private List<Score> scores;
 
-    Frame(Scores scores) {
-        this.scores = scores;
+    Frame() {
+        this.scores = new ArrayList<>();
+        this.totalScore = Score.of();
     }
 
     public abstract boolean isFrameEnd();
@@ -19,63 +24,50 @@ public abstract class Frame {
         if (!isValidScore(score)) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
-        this.scores.add(score);
+        addition(score);
     }
 
-    public abstract boolean isValidScore(int score);
+    void addition(int score) {
+        this.scores.add(Score.of(score));
+        this.totalScore.sum(Score.of(score));
+    }
 
     public boolean isSpare() {
-        return scores.isTen() && scores.isTrySecond();
-    }
-
-    public boolean isSpareBonus() {
-        return scores.isTryThird() && scores.isTotalScoreOverTenAndNotDouble();
-    }
-
-    public boolean isValidForLastCase(int score) {
-        return scores.isValidScoreForLastCase(score);
-    }
-
-    public Score getFrameScore() {
-        return scores.getTotalScore();
-    }
-
-    public boolean isaBoolean() {
-        return scores.isTrySecond() && scores.isTotalScoreUnderTen();
-    }
-
-    public boolean isTryThird() {
-        return scores.isTryThird();
-    }
-
-    public String getScoresString() {
-        return scores.toString();
-    }
-
-    public String getThirdString() {
-        return scores.thirdString();
-    }
-
-    public String getFirstString() {
-        return scores.firstString();
-    }
-
-    public boolean isValidScoreForNormalCase(int score) {
-        return scores.isValidScoreForNormalCase(score);
-    }
-
-    public boolean isTrySecond() {
-        return scores.isTrySecond();
+        return totalScore.isTen() && isTrySecond();
     }
 
     public boolean isTen() {
-        return scores.isTen();
+        return totalScore.isTen();
+    }
+
+    public Score getFrameScore() {
+        return totalScore;
+    }
+
+    public boolean isValidScore(int score) {
+        return isValidScoreToTotalScore(score);
+    }
+
+    public boolean isValidScoreToTotalScore(int score) {
+        return totalScore.isValidAdditionScore(score);
+    }
+
+    public boolean isTrySecond() {
+        return scores.size() == 2;
+    }
+
+    public String toScoreString() {
+        return scores.stream().map(Score::toString).collect(Collectors.joining(FRAMEBAR.toString()));
+    }
+
+    public String spareString() {
+        return scores.get(0).toString() + FRAMEBAR + SPARE;
     }
 
     @Override
     public String toString() {
-        if (isSpare()) return scores.firstString() + FRAMEBAR + SPARE;
-        return scores.toString();
+        if (isSpare()) return spareString();
+        return toScoreString();
     }
 
     @Override

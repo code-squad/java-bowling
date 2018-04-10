@@ -1,12 +1,13 @@
 package domain;
 
 import static domain.Figure.FRAMEBAR;
-import static domain.Figure.SPARE;
 
 public class LastFrame extends Frame {
 
+    private Score lastScore;
+
     private LastFrame() {
-        super(Scores.of());
+        super();
     }
 
     public static Frame of() {
@@ -14,23 +15,42 @@ public class LastFrame extends Frame {
     }
 
     @Override
+    public void trying(int score) {
+        if (!isValidScore(score))
+            throw new IllegalArgumentException("잘못된 입력입니다.");
+        addition(score);
+        if (hasBonusTry())
+            lastScore = Score.of(score);
+    }
+
+    private boolean hasBonusTry() {
+        return isSpare() || isTen();
+    }
+
+    @Override
     public boolean isValidScore(int score) {
-        return isValidForLastCase(score);
+        boolean result = true;
+        if (!isTrySecond() && isTen()) {
+            result = true;
+        }
+        if (!isTrySecond() && !isTen()) {
+            result = isValidScoreToTotalScore(score);
+        }
+        return result;
     }
 
     @Override
     public boolean isFrameEnd() {
-        if (isTryThird()) return true;
-        if (isaBoolean()) return true;
+        if (hasBonusTry()) return true;
+        if (isTrySecond() && !isSpare()) return true;
         return false;
     }
 
-
     @Override
     public String toString() {
-        if (isSpare()) return getFirstString() + FRAMEBAR + SPARE;
-        if (isSpareBonus()) return getFirstString() + FRAMEBAR + SPARE + FRAMEBAR + getThirdString();
-        return getScoresString();
+        if (isSpare()) return spareString();
+        if (isSpare() && hasBonusTry()) return spareString() + FRAMEBAR + lastScore;
+        return toScoreString();
     }
 
 }

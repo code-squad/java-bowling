@@ -3,16 +3,11 @@ package domain;
 public class NormalFrame extends Frame {
 
     private NormalFrame() {
-        super(Scores.of());
+        super();
     }
 
     public static Frame of() {
         return new NormalFrame();
-    }
-
-    @Override
-    public boolean isValidScore(int score) {
-        return isValidScoreForNormalCase(score);
     }
 
     @Override
