@@ -14,8 +14,8 @@ public class ScoreMarker {
         return number;
     }
 
-    public static String markNumbers(int firstThrow, int secondThrow) {
-        return firstThrow + "|" + secondThrow;
+    public static String markNumbers(Integer firstThrow, Integer secondThrow) {
+        return (firstThrow == null ? 0 : firstThrow) + "|" + (secondThrow == null ? 0 : secondThrow);
     }
 
     public static String markSpare(int firstThrow) {

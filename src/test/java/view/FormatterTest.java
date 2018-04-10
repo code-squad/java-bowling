@@ -23,4 +23,6 @@ public class FormatterTest {
         String formatString = Formatter.formatFrame("X| |X");
         assertEquals("  X| |X", formatString);
     }
+
+
 }

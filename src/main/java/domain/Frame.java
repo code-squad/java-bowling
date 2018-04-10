@@ -1,23 +1,29 @@
 package domain;
 
 public abstract class Frame {
-    public static final int STRIKE
-            = 10;
-    final int firstThrow;
-    final int secondThrow;
+    static final int STRIKE = 10;
+    Integer firstThrow;
+    Integer secondThrow;
 
-    public Frame(int firstThrow, int secondThrow){
-        this.firstThrow = firstThrow;
-        this.secondThrow = secondThrow;
-    }
-
-    public boolean isStrike() {
+    boolean isStrike() {
         return firstThrow == STRIKE;
     }
 
-    public boolean isSpare() {
+    boolean isSpare() {
         return firstThrow + secondThrow == STRIKE;
     }
+
+    boolean isFirstThrow() {
+        return firstThrow == null
+                && secondThrow == null;
+    }
+
+    boolean isSecondThrow() {
+        return firstThrow != null
+                && secondThrow == null;
+    }
+
+    public abstract boolean updateFrame(int throwScore);
 
     public abstract String toString();
 }

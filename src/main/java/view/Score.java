@@ -1,7 +1,10 @@
 package view;
 
 import domain.Frame;
+import domain.LastFrame;
+import domain.NormalFrame;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static view.ScoreMarker.*;
@@ -11,13 +14,25 @@ public class Score {
     private final String name;
     private List<Frame> frames;
 
-    public Score(String name, List<Frame> frames) {
+    public Score(String name) {
         this.name = name;
+        List<Frame> frames = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            frames.add(new NormalFrame());
+        }
+        frames.add(new LastFrame());
         this.frames = frames;
     }
 
-    public void updateScore(Frame frame) {
-        frames.add(frame);
+    public boolean updateScore(int throwScore, int throwCount) {
+        int frameNumber = throwCount / 2;
+        int lastFrame = frames.size() - 1;
+        if (frameNumber < lastFrame) {
+            frames.get(throwCount / 2).updateFrame(throwScore);
+            return true;
+        }
+        frames.get(lastFrame).updateFrame(throwScore);
+        return true;
     }
 
     @Override

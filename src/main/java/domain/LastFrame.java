@@ -3,11 +3,22 @@ package domain;
 import static view.ScoreMarker.*;
 
 public class LastFrame extends Frame {
-    private final int thirdThrow;
+    private Integer thirdThrow;
 
-    public LastFrame(int firstThrow, int secondThrow, int thirdThrow) {
-        super(firstThrow, secondThrow);
-        this.thirdThrow = thirdThrow;
+    public boolean updateFrame(int throwScore) {
+        if (isFirstThrow()) {
+            firstThrow = throwScore;
+            return true;
+        }
+        if (isSecondThrow() && !isStrike()) {
+            secondThrow = throwScore;
+            return true;
+        }
+        if (isStrike() || isSpare()) {
+            thirdThrow = throwScore;
+            return true;
+        }
+        return false;
     }
 
     @Override

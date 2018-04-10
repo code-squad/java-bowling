@@ -13,4 +13,8 @@ public class Formatter {
         }
         return builder.toString();
     }
+
+    public static int formatToInt(String number) {
+        return Integer.parseInt(number);
+    }
 }
