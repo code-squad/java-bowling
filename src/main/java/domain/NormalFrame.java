@@ -12,7 +12,7 @@ public class NormalFrame extends Frame {
 
     @Override
     public boolean isFrameEnd() {
-        return isTen() || isTrySecond();
+        return isFirstStrike() || isTrySecond();
     }
 
 }

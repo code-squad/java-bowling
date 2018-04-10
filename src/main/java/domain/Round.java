@@ -1,5 +1,7 @@
 package domain;
 
+import com.sun.javafx.UnmodifiableArrayList;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,22 +19,22 @@ public class Round {
         return new Round();
     }
 
-    public void trying(int score) {
+    public void trying(final int score) {
         presentFrameTry(score);
         if (isPresentFrameEnd()) {
             addNextFrame();
         }
     }
 
-    public void presentFrameTry(int score) {
+    private void presentFrameTry(final int score) {
         roundFrames.get(roundFrames.size() - 1).trying(score);
     }
 
-    public boolean isPresentFrameEnd() {
+    private boolean isPresentFrameEnd() {
         return roundFrames.get(roundFrames.size() - 1).isFrameEnd();
     }
 
-    public void addNextFrame() {
+    private void addNextFrame() {
         if (roundFrames.size() == 9) {
             roundFrames.add(LastFrame.of());
             return;
@@ -42,16 +44,16 @@ public class Round {
         }
     }
 
-    public List<Frame> getRoundFrames() {
-        return roundFrames;
-    }
-
     public boolean isRoundEnd() {
         return roundFrames.size() == 10 && isPresentFrameEnd();
     }
 
     public int getFrameNumber() {
         return roundFrames.size();
+    }
+
+    public UnmodifiableArrayList<Frame> getRoundFrames() {
+        return (UnmodifiableArrayList<Frame>) roundFrames;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Score {
         this.score = 0;
     }
 
-    private Score(int n) {
+    private Score(final int n) {
         if (!isValidScore(n)) {
             throw new IllegalArgumentException("0에서 10사이의 값을 넣어주세요.");
         }
@@ -24,8 +24,12 @@ public class Score {
         return new Score();
     }
 
-    public static Score of(int score) {
+    public static Score of(final int score) {
         return new Score(score);
+    }
+
+    private static boolean isValidScore(final int n) {
+        return 0 <= n && n <= 10;
     }
 
     public void sum(Score otherScore) {
@@ -36,24 +40,12 @@ public class Score {
         return score == 10;
     }
 
-    public boolean isUnderTen() {
-        return score < 10;
-    }
-
-    public boolean isUnderTwenty() {
-        return score <= 20;
-    }
-
-    public boolean isValidAdditionScore(int score) {
+    public boolean isValidAdditionScore(final int score) {
         return score <= 10 - this.score;
     }
 
     public int getScore() {
         return score;
-    }
-
-    private static boolean isValidScore(int n) {
-        return 0 <= n && n <= 10;
     }
 
     @Override

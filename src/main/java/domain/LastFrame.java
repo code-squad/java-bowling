@@ -15,42 +15,42 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public void trying(int score) {
+    public void trying(final int score) {
         if (!isValidScore(score))
             throw new IllegalArgumentException("잘못된 입력입니다.");
-        addition(score);
-        if (hasBonusTry())
+        if (hasBonusTry()) {
             lastScore = Score.of(score);
-    }
-
-    private boolean hasBonusTry() {
-        return isSpare() || isTen();
+            return;
+        }
+        addition(score);
     }
 
     @Override
-    public boolean isValidScore(int score) {
-        boolean result = true;
-        if (!isTrySecond() && isTen()) {
-            result = true;
+    public boolean isValidScore(final int score) {
+        try {
+            return hasBonusTry() || isFirstStrike() || isValidScoreToTotalScore(score);
+        } catch (RuntimeException e) {
+            return true;
         }
-        if (!isTrySecond() && !isTen()) {
-            result = isValidScoreToTotalScore(score);
-        }
-        return result;
+    }
+
+    private boolean hasBonusTry() {
+        return isSpare() || (isTrySecond() && isFirstStrike()) ;
+    }
+
+    private String toStringLastScore() {
+        if (lastScore != null) return lastScore.toString();
+        return "";
     }
 
     @Override
     public boolean isFrameEnd() {
-        if (hasBonusTry()) return true;
-        if (isTrySecond() && !isSpare()) return true;
-        return false;
+        return lastScore != null || isTrySecond() && !isSpare() && !isFirstStrike();
     }
 
     @Override
     public String toString() {
-        if (isSpare()) return spareString();
-        if (isSpare() && hasBonusTry()) return spareString() + FRAMEBAR + lastScore;
-        return toScoreString();
+        return toFrameString() + FRAMEBAR + toStringLastScore();
     }
 
 }

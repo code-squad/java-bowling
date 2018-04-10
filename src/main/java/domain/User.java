@@ -2,15 +2,15 @@ package domain;
 
 public class User {
 
-    private String name;
+    private final String name;
     private Round round;
 
-    private User(String name) {
+    private User(final String name) {
         this.name = name;
         this.round = Round.of();
     }
 
-    public static User of(String name) {
+    public static User of(final String name) {
         return new User(name);
     }
 
@@ -18,7 +18,7 @@ public class User {
         return round;
     }
 
-    public void shot(int score) {
+    public void shot(final int score) {
         round.trying(score);
     }
 
