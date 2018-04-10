@@ -5,7 +5,6 @@ import bowling.domain.Score;
 
 public class Print {
 
-	private static final int STRIKE = 10;
 	private static final int LAST_FRAME = 10;
 	private static final int MAX_RANGE = 10;
 
@@ -27,7 +26,7 @@ public class Print {
 			Print.printBaseUpBoard();
 			System.out.print("|   " + name + "    ");
 			Print.printScoreBoard(frameNum, game, score);
-			if (inputScore == STRIKE) {
+			if (inputScore == Score.STRIKE) {
 				return;
 			}
 		}
@@ -67,11 +66,7 @@ public class Print {
 	}
 
 	public static void printNormalFrame(int frameNum, Game game, Score score) {
-		for (int j = 0; j < game.size(); j++) {
-			System.out.print("|   ");
-			System.out.print(game.getDownPin(j));
-			System.out.print("    ");
-		}
+		printBeforeFrame(game);
 		printScore(score);
 		for (int i = 0; i < MAX_RANGE - frameNum; i++) {
 			printEmptyFrame();
@@ -80,13 +75,17 @@ public class Print {
 	}
 
 	public static void printLastFrame(int frameNum, Game game, Score score) {
+		printBeforeFrame(game);
+		System.out.print("|   " + score.checkLastScore() + "    ");
+		System.out.print("|\n");
+	}
+
+	public static void printBeforeFrame(Game game) {
 		for (int j = 0; j < game.size(); j++) {
 			System.out.print("|   ");
 			System.out.print(game.getDownPin(j));
 			System.out.print("    ");
 		}
-		System.out.print("|   " + score.checkLastScore() + "    ");
-		System.out.print("|\n");
 	}
 
 	public static void printScore(Score score) {
@@ -102,7 +101,7 @@ public class Print {
 		for (int i = 1; i < MAX_RANGE; i++) {
 			System.out.print("|    " + "0" + i + "    ");
 		}
-		System.out.print("|   10     ");
+		System.out.print("|   " + LAST_FRAME + "     ");
 		System.out.print("|\n");
 	}
 

@@ -3,8 +3,8 @@ package bowling.domain;
 abstract public class Frame {
 
 	private int frameNum;
-	protected int firstDownPin;
-	protected int secondDownPin;
+	private int firstDownPin;
+	private int secondDownPin;
 
 	public Frame(int frameNum, int firstDownPin, int secondDownPin) {
 		this.frameNum = frameNum;
@@ -17,14 +17,34 @@ abstract public class Frame {
 		this.firstDownPin = firstDownPin;
 	}
 
-	public String getDownPin() {
-		if (firstDownPin == 10) {
-			return "X  ";
+	abstract String getDownPin();
+	abstract String checkSecondPin();
+
+	public String checkFirstPin() {
+		if (isStrike()) {
+			return "X";
 		}
-		if (Score.isSpare(firstDownPin, secondDownPin)) {
-			return firstDownPin + "|/";
-		}
-		return firstDownPin + "|" + secondDownPin;
+		return String.valueOf(firstDownPin);
+	}
+
+	public Boolean isStrike() {
+		return Score.isStrike(firstDownPin);
+	}
+
+	public Boolean isStrkeSecondPin() {
+		return Score.isStrike(secondDownPin);
+	}
+
+	public Boolean isSpare() {
+		return Score.isSpare(firstDownPin, secondDownPin);
+	}
+
+	public Boolean isSpare(int thirdDownPin) {
+		return Score.isSpare(secondDownPin, thirdDownPin);
+	}
+
+	public int getSecondDownPin() {
+		return secondDownPin;
 	}
 
 }

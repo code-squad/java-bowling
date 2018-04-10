@@ -20,4 +20,30 @@ public class LastFrame extends Frame {
 		return new LastFrame(frameNum, score);
 	}
 
+	public String getDownPin() {
+		return checkFirstPin() + "|" + checkSecondPin() + "|" + checkThirdPin();
+	}
+
+	public String checkSecondPin() {
+		if (isSpare()) {
+			return "/";
+		}
+		if (isStrkeSecondPin()) {
+			return "X";
+		}
+		return String.valueOf(getSecondDownPin());
+	}
+
+	public String checkThirdPin() {
+		if (isSpare()) {
+			return String.valueOf(thirdDownPin);
+		}
+		if (isSpare(thirdDownPin)) {
+			return "/";
+		}
+		if (thirdDownPin == Score.STRIKE) {
+			return "X";
+		}
+		return String.valueOf(thirdDownPin);
+	}
 }

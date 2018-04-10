@@ -17,4 +17,18 @@ public class NormalFrame extends Frame {
 		return new NormalFrame(frameNum, score);
 	}
 
+	public String getDownPin() {
+		return checkFirstPin() + checkSecondPin();
+	}
+
+	public String checkSecondPin() {
+		if (isStrike()) {
+			return "  ";
+		}
+		if (isSpare()) {
+			return "|/";
+		}
+		return "|" + getSecondDownPin();
+	}
+
 }
