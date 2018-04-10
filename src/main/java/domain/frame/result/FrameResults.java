@@ -25,6 +25,10 @@ public class FrameResults {
         if (score == null) {
             return;
         }
+
+        if (!isExistRegisteredResult(frame)) {
+            results.put(frame, new FrameResult());
+        }
         FrameResult result = results.get(frame);
         result.addScore(score);
     }
@@ -34,9 +38,13 @@ public class FrameResults {
         return result.getMessage();
     }
 
-    public FrameScore getScore(Frame frame) {
-        FrameResult result = results.get(frame);
-        return result.getScore();
+    public FrameScore getScore(Frame frame) throws NullPointerException {
+        try {
+            FrameResult result = results.get(frame);
+            return result.getScore();
+        } catch (NullPointerException e) {
+            throw new NullPointerException("결과값 null에 대해서 뷰가 처리해야합니다.");
+        }
     }
 
     public boolean isExistRegisteredResult(Frame frame) {

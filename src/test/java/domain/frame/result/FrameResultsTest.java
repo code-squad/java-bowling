@@ -6,8 +6,7 @@ import org.junit.Test;
 import utils.FrameFactory;
 
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FrameResultsTest {
     private FrameResults results;
@@ -66,5 +65,37 @@ public class FrameResultsTest {
         assertEquals("5|/|-", results.getMessage(lastFrame));
     }
 
-    // 점수 조회 관련 테스트 코드 만들기
+    @Test(expected = NullPointerException.class)
+    public void 노말프레임_점수세팅_미완료() {
+        normalFrame.recordPins(10);
+        normalFrame.recordBonusPins(10);
+        results.addScore(normalFrame, normalFrame.getScore());
+        results.getScore(normalFrame);
+    }
+
+    @Test
+    public void 노말프레임_점수세팅_완료() {
+        normalFrame.recordPins(10);
+        normalFrame.recordBonusPins(10);
+        normalFrame.recordBonusPins(10);
+        results.addScore(normalFrame, normalFrame.getScore());
+        assertNotNull(results.getScore(normalFrame));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void 라스트레임_점수세팅_미완료() {
+        lastFrame.recordPins(5);
+        lastFrame.recordPins(5);
+        results.addScore(lastFrame, lastFrame.getScore());
+        results.getScore(lastFrame);
+    }
+
+    @Test
+    public void 라스트프레임_점수세팅_완료() {
+        lastFrame.recordPins(5);
+        lastFrame.recordPins(5);
+        lastFrame.recordBonusPins(10);
+        results.addScore(lastFrame, lastFrame.getScore());
+        assertNotNull(results.getScore(lastFrame));
+    }
 }
