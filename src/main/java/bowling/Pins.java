@@ -1,6 +1,7 @@
 package bowling;
 
 public class Pins {
+	
 	private int pinsDown;
 	public static final int MIN = 0;
 	public static final int MAX = 10;
@@ -15,4 +16,9 @@ public class Pins {
 	public int getPinsDown() {
 		return pinsDown;
 	}
+	
+	public Pins getRestPins() {
+		return new Pins(Pins.MAX - pinsDown);
+	}
+	
 }

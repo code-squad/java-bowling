@@ -21,7 +21,7 @@ public class BowlingGame {
 			while (!frame.isGameEnd()) {
 				frame = frame.roll(InputScore.inputScore(scan, frame.getFrameNoForConsole()));
 				OutputScore.printScoreboard(allFrame, name);
-				OutputScore.printTotalScoreBoard(allFrame);
+				// OutputScore.printTotalScoreBoard(allFrame);
 			}
 			System.out.println("게임 종료");
 			scan.close();

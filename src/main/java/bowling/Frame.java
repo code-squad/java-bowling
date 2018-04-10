@@ -3,12 +3,16 @@ package bowling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import state.Ready;
+import state.State;
+
 public class Frame {
+
 	private static final Logger log = LoggerFactory.getLogger(Frame.class);
+
 	private int frameNo;
 	private Frame nextFrame;
-	private Pins firstRoll;
-	private Pins secondRoll;
+	private State state;
 
 	public Frame() {
 		this(1);
@@ -16,36 +20,22 @@ public class Frame {
 
 	public Frame(int frameNo) {
 		this.frameNo = frameNo;
+		state = new Ready();
 	}
 
 	// 인풋값을 받아 인스턴스 변수 세팅
 	public Frame roll(int pinsDown) {
-		if (isFrameEnd()) {
+		if (state.isFrameEnd()) {
 			nextFrame = setNextFrame();
 			return nextFrame.roll(pinsDown);
 		}
-
-		if (firstRoll == null) {
-			firstRoll = new Pins(pinsDown);
-			return this;
-		}
-		secondRoll = new Pins(pinsDown);
+		state = state.update(pinsDown);
 		return this;
 	}
 
-	private boolean isFrameEnd() {
-		if (isPinsAllDown()) {
-			return true;
-		}
-		return firstRoll != null && secondRoll != null;
-	}
-
-	private boolean isPinsAllDown() {
-		return getFrameScore() == 10;
-	}
-
 	private Frame setNextFrame() {
-		if (frameNo == 10) {
+		if (frameNo == Pins.MAX) {
+			// 상수 교체
 			return null;
 		}
 
@@ -55,114 +45,32 @@ public class Frame {
 		return nextFrame;
 	}
 
-	// 호출 당시의 Frame의 토탈값을 제공해준다.
-	public int getFrameTotal() {
-		if (isSpareFrame()) {
-			return getFrameScore() + nextFrame.getFirstRoll();
-		}
-
-		if (isStrikeFrame()) {
-			return 10 + nextFrame.getRollStrikeFrameNeed();
-		}
-
-		return getFrameScore();
-	}
-
-	private boolean isSpareFrame() {
-		if (isStrikeFrame()) {
-			return false;
-		}
-		return getFrameScore() == 10;
-	}
-
-	private boolean isStrikeFrame() {
-		return getFirstRoll() == 10;
-	}
-
-	private int getRollStrikeFrameNeed() {
-		if (isStrikeFrame() && nextFrame != null) {
-			return 10 + nextFrame.getFirstRoll();
-		}
-		return getFrameScore();
-	}
-
-	// 호출 당시의 Frame이 토탈값을 계산 할 수 있는 상태인지를 알려준다.
-	public boolean readyToCalculateTotal() {
-		if (isPinsAllDown() && nextFrame == null) {
-			return false;
-		}
-
-		if (isSpareFrame() && !nextFrame.isFirstRollNull()) {
-			return true;
-		}
-
-		if (isStrikeFrame() && nextFrame.isCalculatePreStrikeFrame(nextFrame)) {
-			return true;
-		}
-		return isNomalFrameEnd();
-	}
-	
-	private boolean isNomalFrameEnd() {
-		return firstRoll != null && secondRoll != null;
-	}
-
-	boolean isCalculatePreStrikeFrame(Frame prmNextFrame) {
-		if (prmNextFrame.isStrikeFrame() && prmNextFrame.getNextFrame() == null) {
-			return false;
-		}
-		
-		if (prmNextFrame.isStrikeFrame() && prmNextFrame.getNextFrame() != null && !prmNextFrame.isFirstRollNull()) {
-			return true;
-		}
-
-		if (prmNextFrame.isStrikeFrame() && prmNextFrame.getNextFrame() == null) {
-			return false;
-		}
-		return prmNextFrame.isFrameEnd();
-	}
-
-	public boolean isFirstRollNull() {
-		return firstRoll == null;
-	}
-
-	public boolean isSecondRollNull() {
-		return secondRoll == null;
-	}
-
-	public int getFrameScore() {
-		return getFirstRoll() + getSecondRoll();
+	public FrameScore getFrameScore() {
+		return state.getFrameScore();
 	}
 
 	public boolean isGameEnd() {
-		return frameNo == 10 && isFrameEnd();
+		return frameNo == Pins.MAX && state.isFrameEnd();
+		// 상수 교체
 	}
 
-	public int getFirstRoll() {
-		if (firstRoll == null) {
-			return 0;
-		}
-		return firstRoll.getPinsDown();
+	public int getFrameNo() {
+		return frameNo;
 	}
 
-	public int getSecondRoll() {
-		if (secondRoll == null) {
-			return 0;
+	public int getFrameNoForConsole() {
+		if (state.isFrameEnd()) {
+			return frameNo + 1;
 		}
-		return secondRoll.getPinsDown();
+		return frameNo;
+	}
+
+	public State getState() {
+		return state;
 	}
 
 	public Frame getNextFrame() {
 		return nextFrame;
 	}
 
-	public int getFrameNo() {
-		return frameNo;
-	}
-	
-	public int getFrameNoForConsole() {
-		if (isStrikeFrame() || isFrameEnd()) {
-			return frameNo + 1;
-		}
-		return frameNo;
-	}
 }
