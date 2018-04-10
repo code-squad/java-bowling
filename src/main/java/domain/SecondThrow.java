@@ -17,14 +17,14 @@ public class SecondThrow {
     @Override
     public String toString() {
         if (pinsKnocked == null) {
-            return " ";
+            return "  ";
         }
         if (isSpare()) {
-            return "/";
+            return "|/";
         }
         if (pinsKnocked == 0){
-            return "-";
+            return "|-";
         }
-        return String.valueOf(pinsKnocked);
+        return "|" + pinsKnocked;
     }
 }

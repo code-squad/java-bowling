@@ -20,8 +20,25 @@ public class SecondThrowTest {
     }
 
     @Test
-    public void toStringTest() {
+    public void toStringTest_Spare() {
         secondThrow.updateScore(2, 2);
-        assertEquals("/", secondThrow.toString());
+        assertEquals("|/", secondThrow.toString());
+    }
+
+    @Test
+    public void toStringTest_Not_Played_Yet() {
+        assertEquals("  ", secondThrow.toString());
+    }
+
+    @Test
+    public void toStringTest_Zero() {
+        secondThrow.updateScore(2, 0);
+        assertEquals("|-", secondThrow.toString());
+    }
+
+    @Test
+    public void toStringTest_Number() {
+        secondThrow.updateScore(2, 1);
+        assertEquals("|1", secondThrow.toString());
     }
 }

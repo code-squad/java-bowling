@@ -21,4 +21,9 @@ public class NormalFrame {
     public boolean isStrike() {
         return firstThrow.countPinsStanding() == 0;
     }
+
+    @Override
+    public String toString(){
+        return firstThrow.toString() + secondThrow.toString();
+    }
 }

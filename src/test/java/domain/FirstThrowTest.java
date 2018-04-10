@@ -19,7 +19,7 @@ public class FirstThrowTest {
     }
 
     @Test
-    public void countPinsLeft() {
+    public void countPinsStanding() {
         firstThrow.updateScore(7);
         assertEquals(3, firstThrow.countPinsStanding());
     }
