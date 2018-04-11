@@ -5,33 +5,33 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class BonusThrowTest {
-    private BonusThrow bonusThrow;
+public class BonusScoreTest {
+    private BonusScore bonusScore;
 
     @Before
     public void setUp() throws Exception {
-        bonusThrow = new BonusThrow();
+        bonusScore = new BonusScore();
     }
 
     @Test
     public void updateScore() {
-        assertEquals(8, bonusThrow.updateScore(8));
+        assertEquals(8, bonusScore.updateScore(8));
     }
 
     @Test
     public void toStringTest_Empty() {
-        assertEquals("| ", bonusThrow.toString());
+        assertEquals("| ", bonusScore.toString());
     }
 
     @Test
     public void toStringTest_Number() {
-        bonusThrow.updateScore(8);
-        assertEquals("|8", bonusThrow.toString());
+        bonusScore.updateScore(8);
+        assertEquals("|8", bonusScore.toString());
     }
 
     @Test
     public void toStringTest_Strike() {
-        bonusThrow.updateScore(10);
-        assertEquals("|X", bonusThrow.toString());
+        bonusScore.updateScore(10);
+        assertEquals("|X", bonusScore.toString());
     }
 }

@@ -1,30 +1,40 @@
 package domain;
 
 public class LastFrame extends Frame {
-    private FirstThrow firstThrow;
-    private SecondThrow secondThrow;
-    private BonusThrow bonusThrow;
+    private Score firstScore;
+    private Score secondScore;
+    private BonusScore bonusScore;
 
     public LastFrame() {
-        this.firstThrow = new FirstThrow();
-        this.secondThrow = new SecondThrow();
-        this.bonusThrow = new BonusThrow();
+        this.firstScore = new FirstScore();
+        this.secondScore = new SecondScore();
+        this.bonusScore = new BonusScore();
     }
 
-    public void updateFirstThrow(int pinsKnocked) {
-        firstThrow.updateScore(pinsKnocked);
+    public void updateFirstThrow(int pinsKnocked) { //첫번째로 실행
+        firstScore.updateScore(pinsKnocked);
+        firstScore.updatePinsStanding(pinsKnocked);
     }
 
-    public void updateSecondThrow(int pinsKnocked) {
-        secondThrow.updateScore(firstThrow.countPinsStanding(), pinsKnocked);
+    public boolean isStrike() {
+        return firstScore.isNoPinStanding();
     }
 
-    public void updateBonusThrow(int pinsKnocked) {
-        bonusThrow.updateScore(pinsKnocked);
+    public void updateSecondThrow(int pinsKnocked) { //세번째로 실행
+        secondScore.updateScore(pinsKnocked);
+        secondScore.updatePinsStanding(pinsKnocked);
+    }
+
+    public boolean isSpare() {
+        return secondScore.isNoPinStanding();
+    }
+
+    public void updateBonusThrow(int pinsKnocked) { //마지막으로 실행
+        bonusScore.updateScore(pinsKnocked);
     }
 
     @Override
     public String toString() {
-        return firstThrow.toString() + secondThrow.toString() + bonusThrow.toString();
+        return firstScore.toString() + secondScore.toString() + bonusScore.toString();
     }
 }

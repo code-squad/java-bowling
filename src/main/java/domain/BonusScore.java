@@ -1,10 +1,12 @@
 package domain;
 
-public class BonusThrow {
+public class BonusScore {
     private Integer pinsKnocked;
 
     public int updateScore(int pinsKnocked) {
-        this.pinsKnocked = pinsKnocked;
+        if (this.pinsKnocked == null) {
+            this.pinsKnocked = pinsKnocked;
+        }
         return this.pinsKnocked;
     }
 

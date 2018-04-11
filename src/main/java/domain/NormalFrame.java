@@ -1,28 +1,38 @@
 package domain;
 
 public class NormalFrame extends Frame {
-    private FirstThrow firstThrow;
-    private SecondThrow secondThrow;
+    private Score firstScore;
+    private Score secondScore;
 
     public NormalFrame() {
-        this.firstThrow = new FirstThrow();
-        this.secondThrow = new SecondThrow();
+        this.firstScore = new FirstScore();
+        this.secondScore = new SecondScore();
     }
 
-    public void updateFirstThrow(int pinsKnocked) { //toString보다 먼저 실행 됨
-        firstThrow.updateScore(pinsKnocked);
-    }
-
-    public void updateSecondThrow(int pinsKnocked) { //toString 이후에 실행 됨
-        secondThrow.updateScore(firstThrow.countPinsStanding(), pinsKnocked);
+    public void updateFirstThrow(int pinsKnocked) {
+        firstScore.updateScore(pinsKnocked);
+        firstScore.updatePinsStanding(pinsKnocked);
     }
 
     public boolean isStrike() {
-        return firstThrow.countPinsStanding() == 0;
+        return firstScore.isPlayed()
+                && !secondScore.isPlayed()
+                && firstScore.isNoPinStanding();
+    }
+
+    public void updateSecondThrow(int pinsKnocked) {
+        secondScore.updateScore(pinsKnocked);
+        secondScore.updatePinsStanding(pinsKnocked);
+    }
+
+    public boolean isSpare() {
+        return firstScore.isPlayed()
+                && secondScore.isPlayed()
+                && secondScore.isNoPinStanding();
     }
 
     @Override
-    public String toString(){
-        return firstThrow.toString() + secondThrow.toString();
+    public String toString() {
+        return firstScore.toString() + secondScore.toString();
     }
 }
