@@ -36,8 +36,8 @@ public class FrameResultsTest {
     @Test
     public void 노말프레임_스트라이크_보너스투구후() {
         results.addMessage(normalFrame, normalFrame.recordPins(10));
-        results.addMessage(normalFrame, normalFrame.recordBonusPins(10));
-        results.addMessage(normalFrame, normalFrame.recordBonusPins(10));
+        results.addMessage(normalFrame, normalFrame.recordPins(10));
+        results.addMessage(normalFrame, normalFrame.recordPins(10));
         assertEquals("X", results.getMessage(normalFrame));
     }
 
@@ -45,15 +45,15 @@ public class FrameResultsTest {
     public void 노말프레임_스패어_보너스투구후() {
         results.addMessage(normalFrame, normalFrame.recordPins(5));
         results.addMessage(normalFrame, normalFrame.recordPins(5));
-        results.addMessage(normalFrame, normalFrame.recordBonusPins(10));
+        results.addMessage(normalFrame, normalFrame.recordPins(10));
         assertEquals("5|/", results.getMessage(normalFrame));
     }
 
     @Test
     public void 라스트프레임_스트라이크_보너스투구후() {
         results.addMessage(lastFrame, lastFrame.recordPins(10));
-        results.addMessage(lastFrame, lastFrame.recordBonusPins(0));
-        results.addMessage(lastFrame, lastFrame.recordBonusPins(10));
+        results.addMessage(lastFrame, lastFrame.recordPins(0));
+        results.addMessage(lastFrame, lastFrame.recordPins(10));
         assertEquals("X|-|X", results.getMessage(lastFrame));
     }
 
@@ -61,14 +61,14 @@ public class FrameResultsTest {
     public void 라스트프레임_스패어_보너스투구후() {
         results.addMessage(lastFrame, lastFrame.recordPins(5));
         results.addMessage(lastFrame, lastFrame.recordPins(5));
-        results.addMessage(lastFrame, lastFrame.recordBonusPins(0));
+        results.addMessage(lastFrame, lastFrame.recordPins(0));
         assertEquals("5|/|-", results.getMessage(lastFrame));
     }
 
     @Test(expected = NullPointerException.class)
     public void 노말프레임_점수세팅_미완료() {
         normalFrame.recordPins(10);
-        normalFrame.recordBonusPins(10);
+        normalFrame.recordPins(10);
         results.addScore(normalFrame, normalFrame.getScore());
         results.getScore(normalFrame);
     }
@@ -76,10 +76,10 @@ public class FrameResultsTest {
     @Test
     public void 노말프레임_점수세팅_완료() {
         normalFrame.recordPins(10);
-        normalFrame.recordBonusPins(10);
-        normalFrame.recordBonusPins(10);
+        normalFrame.recordPins(10);
+        normalFrame.recordPins(10);
         results.addScore(normalFrame, normalFrame.getScore());
-        assertNotNull(results.getScore(normalFrame));
+        assertEquals(30, results.getScore(normalFrame).getScore());
     }
 
     @Test(expected = NullPointerException.class)
@@ -94,8 +94,8 @@ public class FrameResultsTest {
     public void 라스트프레임_점수세팅_완료() {
         lastFrame.recordPins(5);
         lastFrame.recordPins(5);
-        lastFrame.recordBonusPins(10);
+        lastFrame.recordPins(10);
         results.addScore(lastFrame, lastFrame.getScore());
-        assertNotNull(results.getScore(lastFrame));
+        assertEquals(20, results.getScore(lastFrame).getScore());
     }
 }

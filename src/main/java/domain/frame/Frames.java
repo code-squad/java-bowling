@@ -1,5 +1,6 @@
 package domain.frame;
 
+import domain.frame.result.FrameResults;
 import utils.FrameFactory;
 
 import java.util.ArrayList;
@@ -15,13 +16,28 @@ public class Frames {
         currentFrameIdx = 0;
     }
 
-    public String recordPins(int num) {
+    public void recordPins(FrameResults results, int num) {
+        List<Frame> recordableFrames = getRecordableFrame(getCurrentFrameNum());
+        for (Frame frame : recordableFrames) {
+            results.addMessage(frame, frame.recordPins(num));
+            results.addScore(frame, frame.getScore());
+        }
+
         Frame currentFrame = getCurrentFrame();
-        String convertedPinNum = currentFrame.recordPins(num);
         if (currentFrame.isFinish()) {
             currentFrameIdx++;
         }
-        return convertedPinNum;
+    }
+
+    private List<Frame> getRecordableFrame(int currentFrameNum) {
+        List<Frame> frames = new ArrayList<>();
+        for (int idx = 0; idx < currentFrameNum - 1; idx++) {
+            Frame frame = frames.get(idx);
+            if (!frame.isFinish()) {
+                frames.add(frame);
+            }
+        }
+        return frames;
     }
 
     public Frame getCurrentFrame() {

@@ -7,27 +7,18 @@ import domain.frame.status.FrameStatus;
 public class LastFrame extends Frame {
 
     @Override
-    String doConvert(FrameStatus status, FrameScore score, int num) {
-        if (status.isBonus() && score.isStartedRecord()) {
-            return ScoreMessage.convertMessage(num);
-        }
-        return status.convertScore(num);
-    }
-
-    @Override
     boolean doCheckFinish(FrameStatus status) {
-        if (!status.isFinish()) {
+        if (!status.isFinish() || !isBonus()) {
             return false;
-        }
-
-        if (!status.isBonus()) {
-            return true;
         }
         return isBonusFinish();
     }
 
     @Override
-    public boolean isLast() {
-        return true;
+    String doConvert(FrameStatus status, FrameScore score, int num) {
+        if (status.isBonus() && score != null) {
+            return ScoreMessage.convertMessage(num);
+        }
+        return status.convertScore(num);
     }
 }

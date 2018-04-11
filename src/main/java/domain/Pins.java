@@ -1,23 +1,24 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Pins {
-    private static final int LIMIT_NUM = 2;
-    private List<Pin> pins = new ArrayList<>();
+    private Pin pin1;
+    private Pin pin2;
 
     public Pin recordPins(int num) throws IllegalArgumentException {
-        Pin newPin = new Pin(num);
-        if (isThrown() && newPin.isOverRecord(pins)) {
-            throw new IllegalArgumentException("한 프레임에 정규 투구 점수" + Pin.MAX + "개를 기록할 수 없습니다.");
+        if (!isThrown()) {
+            pin1 = new Pin(num);
+            return pin1;
         }
-        pins.add(newPin);
-        return newPin;
+
+        if (pin1.isOverRecord(num)) {
+            throw new IllegalArgumentException(Pin.MAX + "개 까지만 기록가능합니다.");
+        }
+        pin2 = new Pin(num);
+        return pin2;
     }
 
     private boolean isThrown() {
-        return pins.size() != 0;
+        return pin1 != null;
     }
 
     public boolean isFinish() {
@@ -25,10 +26,14 @@ public class Pins {
     }
 
     public boolean isFullPinNumRecord() {
-        return Pin.isFullPinNumRecord(pins);
+        return pin1.isFullRecord(pin2);
     }
 
     public boolean isFullCount() {
-        return pins.size() == LIMIT_NUM;
+        return pin1 != null && pin2 != null;
+    }
+
+    public int calcTotal() {
+        return pin1.calcTotal(pin2);
     }
 }

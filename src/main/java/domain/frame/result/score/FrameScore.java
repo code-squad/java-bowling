@@ -24,15 +24,14 @@ public class FrameScore {
     }
 
     public int getScore() {
-        /* TODO : 총합구하기 로직 구현 (Pins, Pin 사용)*/
-        return 0;
+        int score = pins.calcTotal();
+        for (Pin pin : bonusPins) {
+            score = pin.calcTotal(score);
+        }
+        return score;
     }
 
     public boolean isSettingDone() {
         return bonusPins.size() == bonusCount;
-    }
-
-    public boolean isStartedRecord() {
-        return bonusPins.size() > 0;
     }
 }

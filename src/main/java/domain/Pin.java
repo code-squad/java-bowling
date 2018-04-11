@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.List;
-
 public class Pin {
     public static final int MIN = 0;
     public static final int MAX = 10;
@@ -18,12 +16,25 @@ public class Pin {
         return score >= MIN && score <= MAX;
     }
 
-    public static boolean isFullPinNumRecord(List<Pin> pins) {
-        return pins.stream().mapToInt(pinInstance -> pinInstance.num).sum() == MAX;
+    public boolean isOverRecord(int otherNum) {
+        return this.num + otherNum > MAX;
     }
 
-    public boolean isOverRecord(List<Pin> pins) {
-        int existingSum = pins.stream().mapToInt(pinInstance -> pinInstance.num).sum();
-        return existingSum + this.num > MAX;
+    public boolean isFullRecord(Pin otherPin) {
+        if (otherPin == null) {
+            return this.num == MAX;
+        }
+        return this.num + otherPin.num == MAX;
+    }
+
+    public int calcTotal(Pin otherPin) {
+        if (otherPin == null) {
+            return this.num;
+        }
+        return this.num + otherPin.num;
+    }
+
+    public int calcTotal(int otherNum) {
+        return this.num + otherNum;
     }
 }

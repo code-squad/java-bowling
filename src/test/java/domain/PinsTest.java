@@ -3,6 +3,7 @@ package domain;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PinsTest {
@@ -36,5 +37,12 @@ public class PinsTest {
         pins.recordPins(5);
         pins.recordPins(3);
         assertTrue(pins.isFullCount());
+    }
+
+    @Test
+    public void 합계구하기() {
+        pins.recordPins(5);
+        pins.recordPins(5);
+        assertEquals(10, pins.calcTotal());
     }
 }

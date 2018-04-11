@@ -23,13 +23,7 @@ public class Player {
     }
 
     public void recordPins(int pins) throws IllegalArgumentException {
-
-        /*
-            TODO : 여기부터 생각해보기 - 정규 투구, 보너스 투구 기록, 각각 다른 메소드?
-            Frame currentFrame = frames.getCurrentFrame();
-            int currentFrameNum = frames.getCurrentFrameNum();
-        */
-
+        frames.recordPins(results, pins);
     }
 
     public int getCurrentFrameNum() {

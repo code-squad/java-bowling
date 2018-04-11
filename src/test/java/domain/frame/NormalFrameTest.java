@@ -20,12 +20,6 @@ public class NormalFrameTest {
         currentFrame.recordPins(5);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void 프레임_점수_오버추가() {
-        currentFrame.recordPins(10);
-        currentFrame.recordPins(2);
-    }
-
     @Test
     public void 프레임_종료_체크() {
         assertFalse(currentFrame.isFinish());
@@ -62,28 +56,20 @@ public class NormalFrameTest {
     @Test
     public void 보너스상황() {
         currentFrame.recordPins(10);
-        assertFalse(currentFrame.isFinish());
+        assertTrue(currentFrame.isBonus());
     }
-
-
-
-    /*
-       TODO
-       - 보너스 점수 할당 해결
-       - 상태 체크 뭐해야하는지(3) : 토탈 끝남 / 정규 투구 끝남 / 보너스 투구 끝남
-     */
-
 
     @Test
     public void 스트라이크_보너스투구_미완료() {
         currentFrame.recordPins(10);
-        assertFalse(currentFrame.isFinish());
+        assertFalse(currentFrame.isBonusFinish());
     }
 
     @Test
     public void 스트라이크_보너스투구_완료() {
         currentFrame.recordPins(10);
-
+        currentFrame.recordPins(10);
+        currentFrame.recordPins(0);
         assertTrue(currentFrame.isFinish());
     }
 
@@ -91,15 +77,14 @@ public class NormalFrameTest {
     public void 스패어_보너스투구_미완료() {
         currentFrame.recordPins(5);
         currentFrame.recordPins(5);
-        assertFalse(currentFrame.isFinish());
+        assertFalse(currentFrame.isBonusFinish());
     }
 
     @Test
     public void 스패어_보너스투구_완료() {
         currentFrame.recordPins(5);
         currentFrame.recordPins(5);
-
-
-        assertTrue(currentFrame.isFinish());
+        currentFrame.recordPins(10);
+        assertTrue(currentFrame.isBonusFinish());
     }
 }

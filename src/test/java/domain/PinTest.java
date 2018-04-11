@@ -22,13 +22,15 @@ public class PinTest {
 
     @Test
     public void 합산점수_최대치인가() {
-        List<Pin> pins = Arrays.asList(new Pin(5), new Pin(5));
-        assertTrue(Pin.isFullPinNumRecord(pins));
+        Pin pin1 = new Pin(5);
+        Pin pin2 = new Pin(5);
+        assertTrue(pin1.isFullRecord(pin2));
     }
 
     @Test
     public void 합산점수_최대치인가2() {
-        List<Pin> pins = Arrays.asList(new Pin(2), new Pin(7));
-        assertFalse(Pin.isFullPinNumRecord(pins));
+        Pin pin1 = new Pin(5);
+        Pin pin2 = new Pin(4);
+        assertFalse(pin1.isFullRecord(pin2));
     }
 }
