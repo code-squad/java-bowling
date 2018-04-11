@@ -15,16 +15,9 @@ public class LastNormalFrame extends Frame {
         if (!scores.secondThrowPlayed()) {
             scores.updateSecondThrow(pinsKnocked);
         }
-        if()
-    }
-
-    public void updateBonusThrow(int pinsKnocked) {
-        bonusScore.updateScore(pinsKnocked);
-    }
-
-    @Override
-    public void updateScores(int pinsKnocked) {
-
+        if (!bonusScore.isPlayed()) {
+            bonusScore.updateScore(pinsKnocked);
+        }
     }
 
     @Override
