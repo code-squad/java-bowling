@@ -12,21 +12,16 @@ public class SecondScore extends Score {
     }
 
     @Override
-    public boolean isNoPinStanding() {
-        return pinsKnocked.equals(pinsStanding);
-    }
-
-    @Override
     public boolean isPlayed() {
         return pinsKnocked != null;
     }
 
     @Override
-    public String toString() {
+    public String toString(boolean allPinsDown) {
         if (!isPlayed()) {
             return "  ";
         }
-        if (isNoPinStanding()) {
+        if (allPinsDown) {
             return "|/";
         }
         if (pinsKnocked == 0) {

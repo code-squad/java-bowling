@@ -19,20 +19,25 @@ public class FirstScoreTest {
     }
 
     @Test
-    public void countPinsStanding() {
-        firstScore.updateScore(7);
-        assertEquals(3, firstScore.countPinsStanding());
+    public void toStringTest_Not_Played_Yet() {
+        assertEquals(" ", firstScore.toString(false));
     }
 
     @Test
     public void toStringTest_Strike() {
         firstScore.updateScore(10);
-        assertEquals("X", firstScore.toString());
+        assertEquals("X", firstScore.toString(true));
     }
 
     @Test
     public void toStringTest_Number() {
         firstScore.updateScore(9);
-        assertEquals("9", firstScore.toString());
+        assertEquals("9", firstScore.toString(false));
+    }
+
+    @Test
+    public void toStringTest_Zero() {
+        firstScore.updateScore(0);
+        assertEquals("-", firstScore.toString(false));
     }
 }

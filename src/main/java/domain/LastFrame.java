@@ -11,8 +11,8 @@ public class LastFrame extends Frame {
         bonusScore.updateScore(pinsKnocked);
     }
 
-    @Override
-    public String toString() {
-        return firstScore.toString() + secondScore.toString() + bonusScore.toString();
-    }
+//    @Override
+//    public String toString() {
+//        return
+//    }
 }
