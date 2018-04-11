@@ -22,4 +22,15 @@ public class Frames {
     public void updateFrame(int frameNumber, int pinsKnocked) {
         frames.get(frameNumber).updateScore(pinsKnocked);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("|");
+        for (Frame frame : frames) {
+            builder.append(Formatter.formatFrame(frame.toString()));
+            builder.append("|");
+        }
+        return builder.toString();
+    }
 }

@@ -1,8 +1,9 @@
 package bowling.domain;
 
+import static bowling.domain.Scores.ALL;
 import static bowling.domain.Scores.NONE;
 
-public class BonusScore extends Score {
+public class BonusScore {
     private Integer pinsKnocked;
 
     public int updateScore(int pinsKnocked) {
@@ -17,11 +18,11 @@ public class BonusScore extends Score {
     }
 
     @Override
-    public String toString(boolean allPinsDown) {
+    public String toString() {
         if (!isPlayed()) {
-            return "| ";
+            return "  ";
         }
-        if (allPinsDown) {
+        if (pinsKnocked == ALL) {
             return "|X";
         }
         if (pinsKnocked == NONE) {

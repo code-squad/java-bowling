@@ -13,6 +13,6 @@ public class NormalFrame extends Frame {
 
     @Override
     public String toString() {
-        return scores.toString() + " |";
+        return " " + scores.toString();
     }
 }

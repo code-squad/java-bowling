@@ -1,7 +1,7 @@
 package bowling.domain;
 
 public class LastFrame extends Frame {
-    private Score bonusScore;
+    private BonusScore bonusScore;
 
     public LastFrame() {
         this.bonusScore = new BonusScore();
@@ -22,6 +22,6 @@ public class LastFrame extends Frame {
 
     @Override
     public String toString() {
-        return scores.toString() + bonusScore.toString();
+        return " " + scores.toString() + bonusScore.toString();
     }
 }

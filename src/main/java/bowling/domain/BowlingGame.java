@@ -12,4 +12,9 @@ public class BowlingGame {
     public void updateFrames(int frameNumber, int pinsKnocked) {
         frames.updateFrame(frameNumber, pinsKnocked);
     }
+
+    @Override
+    public String toString() {
+        return frames.toString();
+    }
 }
