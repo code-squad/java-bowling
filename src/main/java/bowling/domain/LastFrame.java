@@ -1,9 +1,9 @@
 package bowling.domain;
 
-public class LastNormalFrame extends Frame {
+public class LastFrame extends Frame {
     private Score bonusScore;
 
-    public LastNormalFrame() {
+    public LastFrame() {
         this.bonusScore = new BonusScore();
     }
 
