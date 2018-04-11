@@ -8,7 +8,7 @@ public class LastFrame extends Frame {
 
     @Override
     boolean doCheckFinish(FrameStatus status, FrameScore score) {
-        return status.isFinish() && (score != null && score.isSettingDone());
+        return status.isFinish() && score.isDone();
     }
 
     @Override

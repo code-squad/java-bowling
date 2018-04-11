@@ -1,6 +1,5 @@
 package domain.frame;
 
-import domain.frame.result.score.FrameScore;
 import org.junit.Before;
 import org.junit.Test;
 import utils.FrameFactory;
@@ -58,27 +57,44 @@ public class LastFrameTest {
     }
 
     @Test
-    public void 스트라이크_보너스10점_결과() {
+    public void 스트라이크_보너스투구_미완료_점수조회() {
         lastFrame.recordPins(10);
-
+        assertNull(lastFrame.getScore());
     }
 
     @Test
-    public void 스트라이크_보너스0점_결과() {
+    public void 스트라이크_보너스투구_완료_점수조회() {
         lastFrame.recordPins(10);
-
+        lastFrame.recordPins(10);
+        lastFrame.recordPins(0);
+        assertEquals(20, lastFrame.getScore().getScore());
     }
 
     @Test
-    public void 스패어_보너스10점_결과() {
+    public void 스패어_보너스투구_미완료_점수조회() {
         lastFrame.recordPins(5);
         lastFrame.recordPins(5);
+        assertNull(lastFrame.getScore());
     }
 
     @Test
-    public void 스패어_보너스0점_결과() {
+    public void 스패어_보너스투구_완료_점수조회() {
         lastFrame.recordPins(5);
+        lastFrame.recordPins(5);
+        lastFrame.recordPins(10);
+        assertEquals(20, lastFrame.getScore().getScore());
+    }
 
-        //assertEquals("-", lastFrame.recordBonusPins(0));
+    @Test
+    public void 미쓰_점수조회() {
+        lastFrame.recordPins(5);
+        lastFrame.recordPins(4);
+        assertEquals(9, lastFrame.getScore().getScore());
+    }
+
+    @Test
+    public void 진행중_점수조회() {
+        lastFrame.recordPins(5);
+        assertNull(lastFrame.getScore());
     }
 }

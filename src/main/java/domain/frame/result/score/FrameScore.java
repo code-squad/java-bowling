@@ -17,10 +17,9 @@ public class FrameScore {
     }
 
     public void addBonusPins(int num) throws IllegalArgumentException {
-        if (isSettingDone()) {
-            return;
+        if (!isDone()) {
+            bonusPins.add(new Pin(num));
         }
-        bonusPins.add(new Pin(num));
     }
 
     public int getScore() {
@@ -31,7 +30,11 @@ public class FrameScore {
         return score;
     }
 
-    public boolean isSettingDone() {
+    public boolean isDone() {
         return bonusPins.size() == bonusCount;
+    }
+
+    public boolean isRecordStared() {
+        return bonusPins.size() > 0;
     }
 }

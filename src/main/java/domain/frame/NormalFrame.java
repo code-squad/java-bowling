@@ -12,7 +12,7 @@ public class NormalFrame extends Frame {
 
     @Override
     String doConvert(FrameStatus status, FrameScore score, int num) {
-        if (status.isFinish() && score != null) {
+        if (status.isFinish() && score.isRecordStared()) {
             return null;
         }
         return status.convertScore(num);

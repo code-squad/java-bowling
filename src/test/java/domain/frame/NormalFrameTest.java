@@ -62,7 +62,7 @@ public class NormalFrameTest {
     @Test
     public void 스트라이크_보너스투구_미완료() {
         currentFrame.recordPins(10);
-        assertTrue(currentFrame.isFinish());
+        assertTrue(currentFrame.isRegularRecordFinish());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class NormalFrameTest {
     public void 스패어_보너스투구_미완료() {
         currentFrame.recordPins(5);
         currentFrame.recordPins(5);
-        assertTrue(currentFrame.isFinish());
+        assertTrue(currentFrame.isRegularRecordFinish());
     }
 
     @Test
@@ -86,5 +86,47 @@ public class NormalFrameTest {
         currentFrame.recordPins(5);
         currentFrame.recordPins(10);
         assertTrue(currentFrame.isFinish());
+    }
+
+    @Test
+    public void 스트라이크_보너스투구_미완료_점수조회() {
+        currentFrame.recordPins(10);
+        assertNull(currentFrame.getScore());
+    }
+
+    @Test
+    public void 스트라이크_보너스투구_완료_점수조회() {
+        currentFrame.recordPins(10);
+        currentFrame.recordPins(10);
+        currentFrame.recordPins(0);
+        assertEquals(20, currentFrame.getScore().getScore());
+    }
+
+    @Test
+    public void 스패어_보너스투구_미완료_점수조회() {
+        currentFrame.recordPins(5);
+        currentFrame.recordPins(5);
+        assertNull(currentFrame.getScore());
+    }
+
+    @Test
+    public void 스패어_보너스투구_완료_점수조회() {
+        currentFrame.recordPins(5);
+        currentFrame.recordPins(5);
+        currentFrame.recordPins(10);
+        assertEquals(20, currentFrame.getScore().getScore());
+    }
+
+    @Test
+    public void 미쓰_점수조회() {
+        currentFrame.recordPins(5);
+        currentFrame.recordPins(4);
+        assertEquals(9, currentFrame.getScore().getScore());
+    }
+
+    @Test
+    public void 진행중_점수조회() {
+        currentFrame.recordPins(5);
+        assertNull(currentFrame.getScore());
     }
 }

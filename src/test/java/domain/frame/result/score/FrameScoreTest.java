@@ -25,7 +25,7 @@ public class FrameScoreTest {
     @Test
     public void 점수추가() {
         score.addBonusPins(10);
-        assertTrue(score.isSettingDone());
+        assertTrue(score.isDone());
     }
 
     @Test
@@ -36,6 +36,6 @@ public class FrameScoreTest {
 
     @Test
     public void 점수추가_시작안했을때() {
-        assertFalse(score.isSettingDone());
+        assertFalse(score.isDone());
     }
 }

@@ -33,11 +33,11 @@ public class Frames {
         }
     }
 
-    private List<Frame> getRecordableFrames(int boundary) {
+    public List<Frame> getRecordableFrames(int boundaryIdx) {
         List<Frame> recordableFrames = new ArrayList<>();
-        for (int i = 0; i <= boundary; i++) {
-            Frame frame = frames.get(i);
-            if (!frame.isRegularRecordFinish() || (frame.isRegularRecordFinish() && !frame.isFinish())) {
+        for (int idx = 0; idx <= boundaryIdx; idx++) {
+            Frame frame = frames.get(idx);
+            if (frame.isRecordable()) {
                 recordableFrames.add(frame);
             }
         }

@@ -28,4 +28,25 @@ public class FramesTest {
         frames.recordPins(results, 10);
         assertEquals(2, frames.getCurrentFrameNum());
     }
+
+    @Test
+    public void 핀개수_계속_기록할수있는_프레임() {
+        frames.recordPins(results, 10);
+        assertEquals(1, frames.getRecordableFrames(0).size());
+    }
+
+    @Test
+    public void 핀개수_계속_기록할수있는_프레임2() {
+        frames.recordPins(results, 10);
+        frames.recordPins(results, 5);
+        assertEquals(2, frames.getRecordableFrames(1).size());
+    }
+
+    @Test
+    public void 핀개수_계속_기록할수있는_프레임3() {
+        frames.recordPins(results, 10);
+        frames.recordPins(results, 10);
+        frames.recordPins(results, 10);
+        assertEquals(2, frames.getRecordableFrames(2).size());
+    }
 }

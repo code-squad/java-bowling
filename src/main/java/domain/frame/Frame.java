@@ -20,13 +20,14 @@ public abstract class Frame {
         }
         pins.recordPins(num);
         status = status.changeStatus(pins);
+
+        if (isRegularRecordFinish()) {
+            score = new FrameScore(pins, status.getBonusCount());
+        }
         return convertPinNum(num);
     }
 
     private String recordBonusPins(int num) throws IllegalArgumentException {
-        if (score == null) {
-            score = new FrameScore(pins, status.getBonusCount());
-        }
         score.addBonusPins(num);
         return convertPinNum(num);
     }
@@ -42,7 +43,7 @@ public abstract class Frame {
     }
 
     public FrameScore getScore() {
-        if (score == null || !score.isSettingDone()) {
+        if (score == null || !score.isDone()) {
             return null;
         }
         return score;
@@ -53,4 +54,8 @@ public abstract class Frame {
     }
 
     abstract boolean doCheckFinish(FrameStatus status, FrameScore score);
+
+    public boolean isRecordable() {
+        return !isRegularRecordFinish() || !score.isDone();
+    }
 }
