@@ -13,7 +13,7 @@ public class LastFrame extends Frame {
 
     @Override
     String doConvert(FrameStatus status, FrameScore score, int num) {
-        if (status.isBonus() && score != null) {
+        if (status.isBonus() && score.isRecordStared()) {
             return ScoreMessage.convertMessage(num);
         }
         return status.convertScore(num);

@@ -34,7 +34,6 @@ public class OutputView {
     }
 
     private static String getResultScore(Player player) {
-        //합산되게 바꿔야함 각각 가지고 있고
         StringBuilder builder = new StringBuilder();
         builder.append("|").append(fillArea("")).append("|");
         for (int frameNum = 1; frameNum <= Frames.LIMIT_NUM; frameNum++) {
@@ -51,7 +50,6 @@ public class OutputView {
         }
         builder.append(fillArea(String.valueOf(score.getScore()))).append("|");
     }
-
 
     private static String fillArea(String content) {
         int areaSize = 6;
