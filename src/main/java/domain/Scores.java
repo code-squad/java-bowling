@@ -3,6 +3,7 @@ package domain;
 public class Scores {
     static final int ALL = 10;
     static final int NONE = 0;
+
     private Score firstScore;
     private Score secondScore;
     private int pinsStanding;
@@ -18,6 +19,10 @@ public class Scores {
         pinsStanding -= pinsKnocked;
     }
 
+    public boolean firstThrowPlayed() {
+        return firstScore.isPlayed();
+    }
+
     public boolean isStrike() {
         return firstScore.isPlayed()
                 && !secondScore.isPlayed()
@@ -27,6 +32,10 @@ public class Scores {
     public void updateSecondThrow(int pinsKnocked) {
         secondScore.updateScore(pinsKnocked);
         pinsStanding -= pinsKnocked;
+    }
+
+    public boolean secondThrowPlayed() {
+        return secondScore.isPlayed();
     }
 
     public boolean isSpare() {

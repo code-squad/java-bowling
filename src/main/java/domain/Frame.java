@@ -1,6 +1,6 @@
 package domain;
 
-public class Frame {
+public abstract class Frame {
     Scores scores;
 
     public Frame() {
@@ -15,8 +15,5 @@ public class Frame {
         return scores.isSpare();
     }
 
-    @Override
-    public String toString() {
-        return scores.toString() + " |";
-    }
+    public abstract void updateScore(int pinsKnocked);
 }

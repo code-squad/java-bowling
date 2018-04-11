@@ -1,6 +1,8 @@
 package domain;
 
-public class BonusScore {
+import static domain.Scores.NONE;
+
+public class BonusScore extends Score {
     private Integer pinsKnocked;
 
     public int updateScore(int pinsKnocked) {
@@ -10,15 +12,19 @@ public class BonusScore {
         return this.pinsKnocked;
     }
 
+    public boolean isPlayed() {
+        return pinsKnocked != null;
+    }
+
     @Override
-    public String toString() {
-        if (pinsKnocked == null) {
+    public String toString(boolean allPinsDown) {
+        if (!isPlayed()) {
             return "| ";
         }
-        if (pinsKnocked == 10) {
+        if (allPinsDown) {
             return "|X";
         }
-        if (pinsKnocked == 0) {
+        if (pinsKnocked == NONE) {
             return "|-";
         }
         return "|" + pinsKnocked;
