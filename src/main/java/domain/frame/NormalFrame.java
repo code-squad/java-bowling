@@ -7,7 +7,7 @@ public class NormalFrame extends Frame {
 
     @Override
     boolean doCheckFinish(FrameStatus status, FrameScore score) {
-        return status.isFinish();
+        return status.isFinish() && score != null;
     }
 
     @Override

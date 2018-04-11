@@ -59,4 +59,10 @@ public class Frames {
     public static boolean isLast(int frameNum) {
         return frameNum == LIMIT_NUM;
     }
+
+
+    public Frame getFrame(int frameNum) throws IndexOutOfBoundsException {
+        int frameIdx = frameNum - 1;
+        return frames.get(frameIdx);
+    }
 }

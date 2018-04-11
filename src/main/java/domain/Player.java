@@ -2,6 +2,7 @@ package domain;
 
 import domain.frame.Frames;
 import domain.frame.result.FrameResults;
+import domain.frame.result.score.FrameScore;
 
 public class Player {
     private PlayerName name;
@@ -28,5 +29,21 @@ public class Player {
 
     public int getCurrentFrameNum() {
         return frames.getCurrentFrameNum();
+    }
+
+    public String getFrameResultMessage(int frameNum) {
+        try {
+            return results.getMessage(frames.getFrame(frameNum));
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    public FrameScore getFrameResultScore(int frameNum) {
+        try {
+            return results.getScore(frames.getFrame(frameNum));
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 }

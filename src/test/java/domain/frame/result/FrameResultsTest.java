@@ -6,7 +6,8 @@ import org.junit.Test;
 import utils.FrameFactory;
 
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FrameResultsTest {
     private FrameResults results;
