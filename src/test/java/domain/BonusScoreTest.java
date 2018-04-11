@@ -19,7 +19,7 @@ public class BonusScoreTest {
     }
 
     @Test
-    public void toStringTest_Empty() {
+    public void toStringTest_Not_Played() {
         assertEquals("| ", bonusScore.toString());
     }
 
@@ -33,5 +33,11 @@ public class BonusScoreTest {
     public void toStringTest_Strike() {
         bonusScore.updateScore(10);
         assertEquals("|X", bonusScore.toString());
+    }
+
+    @Test
+    public void toStringTest_Zero() {
+        bonusScore.updateScore(0);
+        assertEquals("|-", bonusScore.toString());
     }
 }

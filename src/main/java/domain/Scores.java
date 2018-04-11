@@ -1,6 +1,8 @@
 package domain;
 
 public class Scores {
+    static final int ALL = 10;
+    static final int NONE = 0;
     private Score firstScore;
     private Score secondScore;
     private int pinsStanding;
@@ -8,7 +10,7 @@ public class Scores {
     public Scores() {
         this.firstScore = new FirstScore();
         this.secondScore = new SecondScore();
-        this.pinsStanding = 10;
+        this.pinsStanding = ALL;
     }
 
     public void updateFirstThrow(int pinsKnocked) {
@@ -19,7 +21,7 @@ public class Scores {
     public boolean isStrike() {
         return firstScore.isPlayed()
                 && !secondScore.isPlayed()
-                && pinsStanding == 0;
+                && pinsStanding == NONE;
     }
 
     public void updateSecondThrow(int pinsKnocked) {
@@ -30,7 +32,7 @@ public class Scores {
     public boolean isSpare() {
         return firstScore.isPlayed()
                 && secondScore.isPlayed()
-                && pinsStanding == 0;
+                && pinsStanding == NONE;
     }
 
     @Override

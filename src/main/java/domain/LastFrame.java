@@ -7,12 +7,12 @@ public class LastFrame extends Frame {
         this.bonusScore = new BonusScore();
     }
 
-    public void updateBonusThrow(int pinsKnocked) { //마지막으로 실행
+    public void updateBonusThrow(int pinsKnocked) {
         bonusScore.updateScore(pinsKnocked);
     }
 
-//    @Override
-//    public String toString() {
-//        return
-//    }
+    @Override
+    public String toString() {
+        return scores.toString() + bonusScore.toString();
+    }
 }

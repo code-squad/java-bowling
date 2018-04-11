@@ -1,5 +1,7 @@
 package domain;
 
+import static domain.Scores.NONE;
+
 public class SecondScore extends Score {
     private Integer pinsKnocked;
 
@@ -24,7 +26,7 @@ public class SecondScore extends Score {
         if (allPinsDown) {
             return "|/";
         }
-        if (pinsKnocked == 0) {
+        if (pinsKnocked == NONE) {
             return "|-";
         }
         return "|" + pinsKnocked;
