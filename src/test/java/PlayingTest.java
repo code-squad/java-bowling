@@ -12,26 +12,26 @@ public class PlayingTest {
     }
 
     @Test
-    public void 랜덤숫자생성() {
-        assertNotNull(playing.makeRandomNum());
-    }
-    @Test
     public void 첫번째투구() {
-        playing.shot(playing.makeRandomNum());
+        int num = playing.shot(6);
+        assertEquals(6, num);
     }
 
     @Test
     public void 스트라이크() {
-        playing.shot(10);
+        int num = playing.shot(10);
+        assertEquals(10, num);
     }
 
     @Test
     public void 두번째투구() {
-        playing.secondshot(3);
+        int num = playing.secondshot(6, 3);
+        assertEquals(3, num);
     }
 
     @Test
     public void 스페어() {
-        playing.secondshot(10);
+        int num = playing.secondshot(7, 3);
+        assertEquals(3, num);
     }
 }

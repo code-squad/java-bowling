@@ -1,34 +1,22 @@
 package score;
 
-import java.util.Random;
-
 public class Playing {
-    private Random rnd;
-
-    public Playing() {
-        rnd = new Random();
-    }
-
-    public Integer makeRandomNum() {
-        return rnd.nextInt(11);
-    }
-
-    public Integer shot(int rndNum) {
-        if (rndNum == 10) {
+    public Integer shot(int firstNum) {
+        if (firstNum == 10) {
             System.out.println("스트라이크");
-            return rndNum;
+            return firstNum;
         }
-        System.out.println("first pin is " + rndNum);
-        return rndNum;
+        System.out.println("첫번째 맞춘갯수 : " + firstNum);
+        return firstNum;
     }
 
-    public Integer secondshot(int firstPin) {
-        int secondpin = rnd.nextInt(11 - firstPin);
-        if (secondpin == (10 - firstPin)) {
+    public Integer secondshot(int firstNum ,int secondNum) {
+        System.out.println("남은갯수 : " + (10 - firstNum));
+        if (secondNum == (10 - firstNum)) {
             System.out.println("스페어");
-            return secondpin;
+            return secondNum;
         }
-        System.out.println("secondPin is " + secondpin);
-        return secondpin;
+        System.out.println("두번째 맞춘 갯수 : " + secondNum);
+        return secondNum;
     }
 }
