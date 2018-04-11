@@ -7,11 +7,8 @@ import domain.frame.status.FrameStatus;
 public class LastFrame extends Frame {
 
     @Override
-    boolean doCheckFinish(FrameStatus status) {
-        if (!status.isFinish() || !isBonus()) {
-            return false;
-        }
-        return isBonusFinish();
+    boolean doCheckFinish(FrameStatus status, FrameScore score) {
+        return status.isFinish() && (score != null && score.isSettingDone());
     }
 
     @Override

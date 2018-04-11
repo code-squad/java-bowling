@@ -8,46 +8,44 @@ import java.util.List;
 
 public class Frames {
     public static final int LIMIT_NUM = 10;
-    private List<Frame> frames;
-    private int currentFrameIdx;
-
-    public Frames() {
-        frames = new ArrayList<>();
-        currentFrameIdx = 0;
-    }
+    private List<Frame> frames = new ArrayList<>();
+    private int currentFrameIdx = 0;
 
     public void recordPins(FrameResults results, int num) {
-        List<Frame> recordableFrames = getRecordableFrame(getCurrentFrameNum());
+        Frame currentFrame = getCurrentFrame();
+        List<Frame> recordableFrames = getRecordableFrames(currentFrameIdx);
         for (Frame frame : recordableFrames) {
             results.addMessage(frame, frame.recordPins(num));
             results.addScore(frame, frame.getScore());
         }
 
-        Frame currentFrame = getCurrentFrame();
-        if (currentFrame.isFinish()) {
+        if (isPossibleNextIdx(currentFrame)) {
             currentFrameIdx++;
         }
     }
 
-    private List<Frame> getRecordableFrame(int currentFrameNum) {
-        List<Frame> frames = new ArrayList<>();
-        for (int idx = 0; idx < currentFrameNum - 1; idx++) {
-            Frame frame = frames.get(idx);
-            if (!frame.isFinish()) {
-                frames.add(frame);
-            }
-        }
-        return frames;
-    }
-
-    public Frame getCurrentFrame() {
+    private Frame getCurrentFrame() {
         try {
             return frames.get(currentFrameIdx);
         } catch (IndexOutOfBoundsException e) {
-            int frameNum = getCurrentFrameNum();
-            frames.add(FrameFactory.of(frameNum));
+            frames.add(FrameFactory.of(getCurrentFrameNum()));
             return frames.get(currentFrameIdx);
         }
+    }
+
+    private List<Frame> getRecordableFrames(int boundary) {
+        List<Frame> recordableFrames = new ArrayList<>();
+        for (int i = 0; i <= boundary; i++) {
+            Frame frame = frames.get(i);
+            if (!frame.isRegularRecordFinish() || (frame.isRegularRecordFinish() && !frame.isFinish())) {
+                recordableFrames.add(frame);
+            }
+        }
+        return recordableFrames;
+    }
+
+    private boolean isPossibleNextIdx(Frame currentFrame) {
+        return currentFrame.isRegularRecordFinish() && frames.size() < LIMIT_NUM;
     }
 
     public int getCurrentFrameNum() {

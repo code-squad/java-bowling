@@ -6,7 +6,7 @@ import domain.frame.status.FrameStatus;
 public class NormalFrame extends Frame {
 
     @Override
-    boolean doCheckFinish(FrameStatus status) {
+    boolean doCheckFinish(FrameStatus status, FrameScore score) {
         return status.isFinish();
     }
 

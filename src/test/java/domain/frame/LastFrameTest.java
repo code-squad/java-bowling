@@ -18,7 +18,7 @@ public class LastFrameTest {
     @Test
     public void 보너스상황() {
         lastFrame.recordPins(10);
-        assertFalse(lastFrame.isFinish());
+        assertTrue(lastFrame.isRegularRecordFinish());
     }
 
     @Test
@@ -31,16 +31,15 @@ public class LastFrameTest {
     @Test
     public void 스트라이크_보너스투구_완료() {
         lastFrame.recordPins(10);
-
-
-        assertTrue(lastFrame.isFinish());
+        assertTrue(lastFrame.isRegularRecordFinish());
     }
 
     @Test
     public void 스트라이크_보너스투구_토탈점수() {
         lastFrame.recordPins(10);
-
-        assertEquals(25, lastFrame.getScore());
+        lastFrame.recordPins(10);
+        lastFrame.recordPins(5);
+        assertEquals(25, lastFrame.getScore().getScore());
     }
 
     @Test
@@ -54,10 +53,8 @@ public class LastFrameTest {
     public void 스패어_보너스투구_완료() {
         lastFrame.recordPins(5);
         lastFrame.recordPins(5);
-
-
-        FrameScore score = lastFrame.getScore();
-        assertEquals(10, score.getScore());
+        lastFrame.recordPins(0);
+        assertEquals(10, lastFrame.getScore().getScore());
     }
 
     @Test

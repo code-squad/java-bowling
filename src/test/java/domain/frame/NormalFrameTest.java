@@ -22,7 +22,7 @@ public class NormalFrameTest {
 
     @Test
     public void 프레임_종료_체크() {
-        assertFalse(currentFrame.isFinish());
+        assertFalse(currentFrame.isRegularRecordFinish());
     }
 
     @Test
@@ -56,13 +56,13 @@ public class NormalFrameTest {
     @Test
     public void 보너스상황() {
         currentFrame.recordPins(10);
-        assertTrue(currentFrame.isBonus());
+        assertTrue(currentFrame.isRegularRecordFinish());
     }
 
     @Test
     public void 스트라이크_보너스투구_미완료() {
         currentFrame.recordPins(10);
-        assertFalse(currentFrame.isBonusFinish());
+        assertTrue(currentFrame.isFinish());
     }
 
     @Test
@@ -70,14 +70,14 @@ public class NormalFrameTest {
         currentFrame.recordPins(10);
         currentFrame.recordPins(10);
         currentFrame.recordPins(0);
-        assertTrue(currentFrame.isFinish());
+        assertTrue(currentFrame.isRegularRecordFinish());
     }
 
     @Test
     public void 스패어_보너스투구_미완료() {
         currentFrame.recordPins(5);
         currentFrame.recordPins(5);
-        assertFalse(currentFrame.isBonusFinish());
+        assertTrue(currentFrame.isFinish());
     }
 
     @Test
@@ -85,6 +85,6 @@ public class NormalFrameTest {
         currentFrame.recordPins(5);
         currentFrame.recordPins(5);
         currentFrame.recordPins(10);
-        assertTrue(currentFrame.isBonusFinish());
+        assertTrue(currentFrame.isFinish());
     }
 }

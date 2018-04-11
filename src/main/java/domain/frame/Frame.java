@@ -15,7 +15,7 @@ public abstract class Frame {
     }
 
     public String recordPins(int num) throws IllegalArgumentException {
-        if (isBonus()) {
+        if (isRegularRecordFinish()) {
             return recordBonusPins(num);
         }
         pins.recordPins(num);
@@ -37,11 +37,9 @@ public abstract class Frame {
 
     abstract String doConvert(FrameStatus status, FrameScore score, int num);
 
-    public boolean isFinish() {
-        return doCheckFinish(status);
+    public boolean isRegularRecordFinish() {
+        return status.isFinish();
     }
-
-    abstract boolean doCheckFinish(FrameStatus status);
 
     public FrameScore getScore() {
         if (score == null || !score.isSettingDone()) {
@@ -50,11 +48,9 @@ public abstract class Frame {
         return score;
     }
 
-    public boolean isBonus() {
-        return status.isBonus();
+    public boolean isFinish() {
+        return doCheckFinish(status, score);
     }
 
-    public boolean isBonusFinish() {
-        return score.isSettingDone();
-    }
+    abstract boolean doCheckFinish(FrameStatus status, FrameScore score);
 }
