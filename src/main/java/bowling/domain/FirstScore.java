@@ -1,6 +1,6 @@
-package domain;
+package bowling.domain;
 
-import static domain.Scores.NONE;
+import static bowling.domain.Scores.NONE;
 
 public class FirstScore extends Score {
     private Integer pinsKnocked;

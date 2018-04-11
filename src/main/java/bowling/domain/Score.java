@@ -1,4 +1,4 @@
-package domain;
+package bowling.domain;
 
 public abstract class Score {
 

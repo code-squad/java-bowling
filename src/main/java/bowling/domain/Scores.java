@@ -1,4 +1,4 @@
-package domain;
+package bowling.domain;
 
 public class Scores {
     static final int ALL = 10;

@@ -1,4 +1,4 @@
-package domain;
+package bowling.domain;
 
 public class LastNormalFrame extends Frame {
     private Score bonusScore;
