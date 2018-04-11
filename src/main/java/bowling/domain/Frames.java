@@ -19,11 +19,7 @@ public class Frames {
         return frames;
     }
 
-    public void updateFrame(int throwCount, int pinsKnocked) {
-        int frameNumber = throwCount / 2;
-        if (frameNumber < 19) {
-            frames.get(throwCount).updateScore(pinsKnocked);
-        }
-        frames.get(19).updateScore(pinsKnocked);
+    public void updateFrame(int frameNumber, int pinsKnocked) {
+        frames.get(frameNumber).updateScore(pinsKnocked);
     }
 }
