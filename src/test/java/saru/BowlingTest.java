@@ -18,25 +18,25 @@ public class BowlingTest {
 
     @Test
     public void makeBalls() {
-        투구현황.of(2);
+        Frame.of(2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void makeBallsOverFour() {
-        투구현황.of(4);
+        Frame.of(4);
     }
 
     @Test
-    public void 투구() {
-        투구현황 투구현황_ = 투구현황.of(2);
-        투구현황_.투구(DownPin.of(5));
-        assertEquals(DownPin.of(5), 투구현황_.투구결과());
+    public void throwing() {
+        Frame throwStatus = Frame.of(2);
+        throwStatus.throwing(DownPin.of(5));
+        assertEquals(DownPin.of(5), throwStatus.getThrowResult());
     }
 
     @Test
-    public void 현재투구횟수() {
-        투구현황 투구현황_ = 투구현황.of(2);
-        투구현황_.투구(DownPin.of(5));
-        assertEquals(1, 투구현황_.현재투구횟수());
+    public void nowThrowingTimes() {
+        Frame throwStatus = Frame.of(2);
+        throwStatus.throwing(DownPin.of(5));
+        assertEquals(1, throwStatus.getNowThrowTimes());
     }
 }
