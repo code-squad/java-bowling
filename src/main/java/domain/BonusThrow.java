@@ -1,6 +1,6 @@
 package domain;
 
-public class FirstThrow {
+public class BonusThrow {
     private Integer pinsKnocked;
 
     public int updateScore(int pinsKnocked) {
@@ -8,21 +8,17 @@ public class FirstThrow {
         return this.pinsKnocked;
     }
 
-    public int countPinsStanding() {
-        return 10 - pinsKnocked;
-    }
-
     @Override
     public String toString() {
         if (pinsKnocked == null) {
-            return " ";
+            return "| ";
         }
         if (pinsKnocked == 10) {
-            return "X";
+            return "|X";
         }
         if (pinsKnocked == 0) {
-            return "-";
+            return "|-";
         }
-        return String.valueOf(pinsKnocked);
+        return "|" + pinsKnocked;
     }
 }

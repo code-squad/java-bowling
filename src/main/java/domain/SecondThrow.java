@@ -7,7 +7,7 @@ public class SecondThrow {
     public int updateScore(int pinsStanding, int pinsKnocked) {
         this.pinsKnocked = pinsKnocked;
         this.pinsLeftFromPrevThrow = pinsStanding;
-        return pinsKnocked;
+        return this.pinsKnocked;
     }
 
     public boolean isSpare() {
@@ -22,7 +22,7 @@ public class SecondThrow {
         if (isSpare()) {
             return "|/";
         }
-        if (pinsKnocked == 0){
+        if (pinsKnocked == 0) {
             return "|-";
         }
         return "|" + pinsKnocked;

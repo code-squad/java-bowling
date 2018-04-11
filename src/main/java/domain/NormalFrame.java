@@ -1,6 +1,6 @@
 package domain;
 
-public class NormalFrame {
+public class NormalFrame extends Frame {
     private FirstThrow firstThrow;
     private SecondThrow secondThrow;
 
@@ -14,8 +14,7 @@ public class NormalFrame {
     }
 
     public void updateSecondThrow(int pinsKnocked) { //toString 이후에 실행 됨
-        int pinsStanding = firstThrow.countPinsStanding();
-        secondThrow.updateScore(pinsStanding, pinsKnocked);
+        secondThrow.updateScore(firstThrow.countPinsStanding(), pinsKnocked);
     }
 
     public boolean isStrike() {
