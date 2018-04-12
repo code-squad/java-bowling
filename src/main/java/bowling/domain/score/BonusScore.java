@@ -13,13 +13,13 @@ public class BonusScore {
         return this.pinsKnocked;
     }
 
-    public boolean isNotPlayed() {
-        return pinsKnocked == null;
+    public boolean isPlayed() {
+        return pinsKnocked != null;
     }
 
     @Override
     public String toString() {
-        if (isNotPlayed()) {
+        if (!isPlayed()) {
             return "  ";
         }
         if (pinsKnocked == ALL) {

@@ -14,13 +14,13 @@ public class SecondScore extends Score {
     }
 
     @Override
-    public boolean isNotPlayed() {
-        return pinsKnocked == null;
+    public boolean isPlayed() {
+        return pinsKnocked != null;
     }
 
     @Override
     public String toString(boolean allPinsDown) {
-        if (!isNotPlayed()) {
+        if (!isPlayed()) {
             return "  ";
         }
         if (allPinsDown) {

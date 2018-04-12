@@ -2,7 +2,7 @@ package bowling.domain.score;
 
 public abstract class Score {
 
-    public abstract boolean isNotPlayed();
+    public abstract boolean isPlayed();
 
     public abstract int updateScore(int pinsKnocked);
 

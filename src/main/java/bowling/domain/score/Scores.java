@@ -26,23 +26,23 @@ public class Scores {
         throw new IllegalArgumentException("입력된 숫자가 남은 핀의 개수보다 큽니다.");
     }
 
-    public boolean firstThrowIsNotPlayed() {
-        return firstScore.isNotPlayed();
+    public boolean firstThrowIsPlayed() {
+        return firstScore.isPlayed();
     }
 
     public boolean isStrike() {
-        return firstScore.isNotPlayed()
-                && !secondScore.isNotPlayed()
+        return firstScore.isPlayed()
+                && !secondScore.isPlayed()
                 && pinsStanding == NONE;
     }
 
-    public boolean secondThrowIsNotPlayed() {
-        return secondScore.isNotPlayed();
+    public boolean secondThrowIsPlayed() {
+        return secondScore.isPlayed();
     }
 
     public boolean isSpare() {
-        return firstScore.isNotPlayed()
-                && secondScore.isNotPlayed()
+        return firstScore.isPlayed()
+                && secondScore.isPlayed()
                 && pinsStanding == NONE;
     }
 

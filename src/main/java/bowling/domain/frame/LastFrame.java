@@ -7,15 +7,15 @@ public class LastFrame extends Frame {
 
     @Override
     public boolean updateScore(int pinsKnocked) {
-        if (scores.firstThrowIsNotPlayed()) {
+        if (!scores.firstThrowIsPlayed()) {
             scores.updateFirstThrow(pinsKnocked);
             return true;
         }
-        if (scores.secondThrowIsNotPlayed() && !scores.isStrike()) {
+        if (!scores.secondThrowIsPlayed() && !scores.isStrike()) {
             scores.updateSecondThrow(pinsKnocked);
             return true;
         }
-        if (bonusScore.isNotPlayed()) {
+        if (!bonusScore.isPlayed()) {
             bonusScore.updateScore(pinsKnocked);
             return true;
         }
