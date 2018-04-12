@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.domain.Utils.Validator;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

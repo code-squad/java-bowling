@@ -1,8 +1,8 @@
 package bowling;
 
-import bowling.domain.BowlingGame;
+import bowling.view.BowlingGame;
 import bowling.domain.Player;
-import bowling.domain.Validator;
+import bowling.domain.Utils.Validator;
 
 import static bowling.view.Prompter.*;
 

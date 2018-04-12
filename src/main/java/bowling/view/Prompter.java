@@ -1,7 +1,7 @@
 package bowling.view;
 
-import bowling.domain.Formatter;
-import bowling.domain.Validator;
+import static bowling.domain.Utils.Validator.*;
+import static bowling.domain.Utils.Formatter.convertToInt;
 
 import java.util.Scanner;
 
@@ -15,7 +15,8 @@ public class Prompter {
     public static String promptForName() {
         try {
             System.out.print("플레이어 이름은(3 english letters)?: ");
-            return Validator.validateName(takeInput());
+            return validateName(takeInput());
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return promptForName();
@@ -25,7 +26,8 @@ public class Prompter {
     public static int promptForThrow(int frameNumber) {
         try {
             System.out.printf("%d 프레임 투구: ", frameNumber + 1);
-            return Formatter.convertToInt(takeInput());
+            return convertToInt(takeInput());
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return promptForThrow(frameNumber);

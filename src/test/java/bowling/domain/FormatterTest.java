@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.domain.Utils.Formatter;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

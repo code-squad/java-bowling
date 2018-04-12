@@ -1,4 +1,6 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import static bowling.domain.Utils.Formatter.formatLabel;
 
 public class LabelFrame {
     private int frameNumber;
@@ -9,6 +11,6 @@ public class LabelFrame {
 
     @Override
     public String toString() {
-        return "  " + Formatter.formatLabel(frameNumber);
+        return "  " + formatLabel(frameNumber);
     }
 }

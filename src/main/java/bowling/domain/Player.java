@@ -1,5 +1,8 @@
 package bowling.domain;
 
+import bowling.domain.Utils.Formatter;
+import bowling.domain.frame.Frames;
+
 public class Player {
     private final Frames frames = new Frames();
     private final String playerName;

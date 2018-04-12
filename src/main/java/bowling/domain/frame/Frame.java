@@ -1,13 +1,15 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import bowling.domain.score.Scores;
 
 public abstract class Frame {
     Scores scores = new Scores();
 
-    public boolean isStrike() {
+    boolean isStrike() {
         return scores.isStrike();
     }
 
-    public boolean isSpare() {
+    boolean isSpare() {
         return scores.isSpare();
     }
 

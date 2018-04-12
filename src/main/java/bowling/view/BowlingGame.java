@@ -1,6 +1,6 @@
-package bowling.domain;
+package bowling.view;
 
-import bowling.view.ScoreBoard;
+import bowling.domain.Player;
 
 import static bowling.view.Prompter.promptForThrow;
 
@@ -22,10 +22,8 @@ public class BowlingGame {
     private void proceedUntilLastFrame() {
         for (int throwCount = 0; throwCount < NUMBER_OF_THROWS; throwCount++) {
             int frameNumber = throwCount / 2;
-
             getAndUpdateScores(frameNumber);
             SCORE_BOARD.printScoreBoard(player);
-
             if (player.isStrike(frameNumber)) {
                 throwCount++;
             }

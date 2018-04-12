@@ -1,13 +1,13 @@
-package bowling.domain;
+package bowling.domain.score;
 
-import static bowling.domain.Scores.NONE;
+import static bowling.domain.score.Scores.NONE;
 
-public class SecondScore extends Score {
+public class FirstScore extends Score {
     private Integer pinsKnocked;
 
     @Override
     public int updateScore(int pinsKnocked) {
-        if (this.pinsKnocked == null) {
+        if(this.pinsKnocked == null){
             this.pinsKnocked = pinsKnocked;
         }
         return this.pinsKnocked;
@@ -21,14 +21,14 @@ public class SecondScore extends Score {
     @Override
     public String toString(boolean allPinsDown) {
         if (!isPlayed()) {
-            return "  ";
+            return " ";
         }
         if (allPinsDown) {
-            return "|/";
+            return "X";
         }
         if (pinsKnocked == NONE) {
-            return "|-";
+            return "-";
         }
-        return "|" + pinsKnocked;
+        return String.valueOf(pinsKnocked);
     }
 }

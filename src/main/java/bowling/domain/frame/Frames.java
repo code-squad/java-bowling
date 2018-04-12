@@ -1,7 +1,9 @@
-package bowling.domain;
+package bowling.domain.frame;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static bowling.domain.Utils.Formatter.formatFrame;
 
 public class Frames {
     private List<Frame> frames;
@@ -10,7 +12,7 @@ public class Frames {
         this.frames = initializeFrames();
     }
 
-    public List<Frame> initializeFrames() {
+    private List<Frame> initializeFrames() {
         List<Frame> frames = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             frames.add(new NormalFrame());
@@ -36,7 +38,7 @@ public class Frames {
         StringBuilder builder = new StringBuilder();
         builder.append("|");
         for (Frame frame : frames) {
-            builder.append(Formatter.formatFrame(frame.toString()));
+            builder.append(formatFrame(frame.toString()));
             builder.append("|");
         }
         return builder.toString();

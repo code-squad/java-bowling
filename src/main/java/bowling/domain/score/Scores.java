@@ -1,4 +1,4 @@
-package bowling.domain;
+package bowling.domain.score;
 
 public class Scores {
     static final int ALL = 10;
@@ -9,12 +9,21 @@ public class Scores {
     private int pinsStanding = ALL;
 
     public boolean updateFirstThrow(int pinsKnocked) throws IllegalArgumentException {
-        if (Validator.isValidScore(pinsKnocked, pinsKnocked)) {
+        if (isValidScore(pinsKnocked)) {
             firstScore.updateScore(pinsKnocked);
             pinsStanding -= pinsKnocked;
             return true;
         }
         throw new IllegalArgumentException("유효한 숫자가 아닙니다.");
+    }
+
+    public boolean updateSecondThrow(int pinsKnocked) throws IllegalArgumentException {
+        if (isValidScore(pinsKnocked)) {
+            secondScore.updateScore(pinsKnocked);
+            pinsStanding -= pinsKnocked;
+            return true;
+        }
+        throw new IllegalArgumentException("입력된 숫자가 남은 핀의 개수보다 큽니다.");
     }
 
     public boolean firstThrowPlayed() {
@@ -27,15 +36,6 @@ public class Scores {
                 && pinsStanding == NONE;
     }
 
-    public boolean updateSecondThrow(int pinsKnocked) throws IllegalArgumentException {
-        if (Validator.isValidScore(pinsKnocked, pinsStanding)) {
-            secondScore.updateScore(pinsKnocked);
-            pinsStanding -= pinsKnocked;
-            return true;
-        }
-        throw new IllegalArgumentException("입력된 숫자가 남은 핀의 개수보다 큽니다.");
-    }
-
     public boolean secondThrowPlayed() {
         return secondScore.isPlayed();
     }
@@ -44,6 +44,12 @@ public class Scores {
         return firstScore.isPlayed()
                 && secondScore.isPlayed()
                 && pinsStanding == NONE;
+    }
+
+    public boolean isValidScore(int pinsKnocked) {
+        return pinsKnocked > ALL
+                || pinsKnocked < NONE
+                || pinsKnocked > pinsStanding;
     }
 
     @Override

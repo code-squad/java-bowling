@@ -1,7 +1,6 @@
-package bowling.domain;
+package bowling.domain.frame;
 
-public class LastFrame extends Frame {
-    private BonusScore bonusScore = new BonusScore();
+public class NormalFrame extends Frame {
 
     @Override
     public boolean updateScore(int pinsKnocked) {
@@ -13,15 +12,11 @@ public class LastFrame extends Frame {
             scores.updateSecondThrow(pinsKnocked);
             return true;
         }
-        if (!bonusScore.isPlayed()) {
-            bonusScore.updateScore(pinsKnocked);
-            return true;
-        }
         return false;
     }
 
     @Override
     public String toString() {
-        return " " + scores.toString() + bonusScore.toString();
+        return " " + scores.toString();
     }
 }

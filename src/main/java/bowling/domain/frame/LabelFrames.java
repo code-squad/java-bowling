@@ -1,7 +1,9 @@
-package bowling.domain;
+package bowling.domain.frame;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static bowling.domain.Utils.Formatter.formatFrame;
 
 public class LabelFrames {
     private List<LabelFrame> labelFrames;
@@ -23,7 +25,7 @@ public class LabelFrames {
         StringBuilder builder = new StringBuilder();
         builder.append("| NAME |");
         for (LabelFrame frame : labelFrames) {
-            builder.append(Formatter.formatFrame(frame.toString()));
+            builder.append(formatFrame(frame.toString()));
             builder.append("|");
         }
         return builder.toString();

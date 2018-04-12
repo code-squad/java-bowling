@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.domain.score.BonusScore;
 import org.junit.Before;
 import org.junit.Test;
 

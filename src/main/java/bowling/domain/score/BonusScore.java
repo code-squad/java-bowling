@@ -1,7 +1,7 @@
-package bowling.domain;
+package bowling.domain.score;
 
-import static bowling.domain.Scores.ALL;
-import static bowling.domain.Scores.NONE;
+import static bowling.domain.score.Scores.ALL;
+import static bowling.domain.score.Scores.NONE;
 
 public class BonusScore {
     private Integer pinsKnocked;

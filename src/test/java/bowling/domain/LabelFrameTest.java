@@ -1,5 +1,6 @@
 package bowling.domain;
 
+import bowling.domain.frame.LabelFrame;
 import org.junit.Before;
 import org.junit.Test;
 

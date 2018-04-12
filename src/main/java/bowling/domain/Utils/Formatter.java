@@ -1,22 +1,20 @@
-package bowling.domain;
+package bowling.domain.Utils;
 
 public class Formatter {
-    public static final int FRAME_LENGTH = 6;
+    private static final int LAST_FRAME = 10;
 
     public static String formatFrame(String frame) {
-        int diff = FRAME_LENGTH - frame.length();
         return String.format("%-6s", frame);
     }
 
-
     public static String formatLabel(int frameNumber) {
-        if (frameNumber < 10) {
+        if (frameNumber < LAST_FRAME) {
             return "0" + frameNumber;
         }
         return String.valueOf(frameNumber);
     }
 
-    public static int convertToInt(String number) {
+    public static int convertToInt(String number) throws IllegalArgumentException {
         try {
             return Integer.parseInt(number);
         } catch (NumberFormatException e) {
