@@ -4,9 +4,11 @@ import java.util.List;
 
 public class BowlFrame {
     private Score score;
+    private Status status;
 
     public BowlFrame() {
         score = new Score(0);
+        status = new Status();
     }
 
     public List<Integer> shot(int firstShot) {
@@ -15,15 +17,7 @@ public class BowlFrame {
         return score.getNumbers();
     }
 
-    public Boolean strike(List<Integer> numbers) {
-        if (numbers.size() == 1 && numbers.get(0) == 10)
-            return true;
-        return false;
-    }
+    public void next(int i) {
 
-    public Boolean spare(List<Integer> numbers) {
-        if (numbers.size() == 2 && score.scoreSum(numbers) == 10)
-            return true;
-        return false;
     }
 }
