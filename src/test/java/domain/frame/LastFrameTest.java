@@ -82,4 +82,21 @@ public class LastFrameTest {
         testFrame.roll(6);
         assertEquals("6", testFrame.getRecordPinMessage());
     }
+
+    @Test
+    public void 정규투구_스트라이크_다른프레임전환() {
+        assertSame(testFrame, testFrame.roll(10));
+    }
+
+    @Test
+    public void 정규투구_스패어_다른프레임전환() {
+        testFrame.roll(3);
+        assertSame(testFrame, testFrame.roll(7));
+    }
+
+    @Test
+    public void 정규투구_미쓰_다른프레임전환() {
+        testFrame.roll(2);
+        assertSame(testFrame, testFrame.roll(6));
+    }
 }

@@ -55,9 +55,9 @@ public class NormalFrameTest {
 
     @Test
     public void 정규투구_미쓰_점수합계() {
-        testFrame.roll(3);
-        testFrame.roll(5);
-        assertEquals(8, testFrame.getScore().getScore());
+        testFrame.roll(9);
+        testFrame.roll(0);
+        assertEquals(9, testFrame.getScore().getScore());
     }
 
     @Test
@@ -81,5 +81,22 @@ public class NormalFrameTest {
         testFrame.roll(3);
         testFrame.roll(6);
         assertEquals("6", testFrame.getRecordPinMessage());
+    }
+
+    @Test
+    public void 정규투구_스트라이크_다른프레임전환() {
+        assertNotSame(testFrame, testFrame.roll(10));
+    }
+
+    @Test
+    public void 정규투구_스패어_다른프레임전환() {
+        testFrame.roll(3);
+        assertNotSame(testFrame, testFrame.roll(7));
+    }
+
+    @Test
+    public void 정규투구_미쓰_다른프레임전환() {
+        testFrame.roll(2);
+        assertNotSame(testFrame, testFrame.roll(6));
     }
 }

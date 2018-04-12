@@ -21,6 +21,12 @@ public abstract class Frame {
         return doRecord(score, num);
     }
 
+    public void bonusRoll(int num) throws IllegalArgumentException {
+        if (score.isRegularFinish() && score.isBonusFinish()) {
+            score.roll(num);
+        }
+    }
+
     public FrameScore getScore() throws RuntimeException {
         return score.get();
     }
@@ -42,4 +48,12 @@ public abstract class Frame {
     abstract boolean doCheckFinish(FrameScore score);
 
     public abstract boolean isLast();
+
+    public int getFrameNum() {
+        return frameNum;
+    }
+
+    public boolean isDiffFrame(Frame ohterFrame) {
+        return this != ohterFrame;
+    }
 }

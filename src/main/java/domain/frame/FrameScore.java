@@ -62,6 +62,6 @@ public class FrameScore {
     }
 
     public boolean isBeforeBonusRoll() {
-        return status.isBonus() && pins.size() <= Frame.REGULAR_COUNT && getSum() <= Pin.MAX;
+        return status.isFinish() && pins.size() <= Frame.REGULAR_COUNT && getSum() <= Pin.MAX;
     }
 }
