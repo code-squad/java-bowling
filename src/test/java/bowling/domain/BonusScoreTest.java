@@ -21,7 +21,7 @@ public class BonusScoreTest {
 
     @Test
     public void toStringTest_Not_Played() {
-        assertEquals("| ", bonusScore.toString());
+        assertEquals("  ", bonusScore.toString());
     }
 
     @Test

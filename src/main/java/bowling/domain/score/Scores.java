@@ -46,7 +46,7 @@ public class Scores {
                 && pinsStanding == NONE;
     }
 
-    public boolean isValidScore(int pinsKnocked) {
+    boolean isValidScore(int pinsKnocked) {
         if (pinsKnocked > ALL || pinsKnocked < NONE) {
             return false;
         }
