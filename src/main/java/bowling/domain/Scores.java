@@ -14,10 +14,11 @@ public class Scores {
         this.pinsStanding = ALL;
     }
 
-    public void updateFirstThrow(int pinsKnocked) throws IllegalArgumentException {
+    public boolean updateFirstThrow(int pinsKnocked) throws IllegalArgumentException {
         if (Validator.isValidScore(pinsKnocked, pinsKnocked)) {
             firstScore.updateScore(pinsKnocked);
             pinsStanding -= pinsKnocked;
+            return true;
         }
         throw new IllegalArgumentException("유효한 숫자가 아닙니다.");
     }
@@ -32,9 +33,13 @@ public class Scores {
                 && pinsStanding == NONE;
     }
 
-    public void updateSecondThrow(int pinsKnocked) {
-        secondScore.updateScore(pinsKnocked);
-        pinsStanding -= pinsKnocked;
+    public boolean updateSecondThrow(int pinsKnocked) throws IllegalArgumentException {
+        if (Validator.isValidScore(pinsKnocked, pinsStanding)) {
+            secondScore.updateScore(pinsKnocked);
+            pinsStanding -= pinsKnocked;
+            return true;
+        }
+        throw new IllegalArgumentException("입력된 숫자가 남은 핀의 개수보다 큽니다.");
     }
 
     public boolean secondThrowPlayed() {

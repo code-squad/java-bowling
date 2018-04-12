@@ -23,7 +23,7 @@ public class BowlingGame {
             System.out.println(scoreBoard.toString());
 
             if (scoreBoard.isStrike(frameNumber)) {
-                ++throwCount;
+                throwCount++;
             }
         }
         if (scoreBoard.isStrike(LAST_FRAME) || scoreBoard.isSpare(LAST_FRAME)) {

@@ -15,7 +15,7 @@ public abstract class Frame {
         return scores.isSpare();
     }
 
-    public abstract void updateScore(int pinsKnocked);
+    public abstract boolean updateScore(int pinsKnocked);
 
     @Override
     public abstract String toString();
