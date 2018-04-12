@@ -1,44 +1,51 @@
 package bowling.domain;
 
+import bowling.view.ScoreBoard;
+
 import static bowling.view.Prompter.promptForThrow;
 
 public class BowlingGame {
     private static final int NUMBER_OF_THROWS = 20;
     private static final int LAST_FRAME = 9;
-    private final ScoreBoard scoreBoard;
+    private static final ScoreBoard SCORE_BOARD = new ScoreBoard();
+    private final Player player;
 
-    public BowlingGame(ScoreBoard scoreBoard) {
-        this.scoreBoard = scoreBoard;
+    public BowlingGame(Player player) {
+        this.player = player;
     }
 
     public void startGame() {
-        int frameNumber;
-        int pinsKnocked;
+        proceedUntilLastFrame();
+        playLastFrame();
+    }
 
+    private void proceedUntilLastFrame() {
         for (int throwCount = 0; throwCount < NUMBER_OF_THROWS; throwCount++) {
-            frameNumber = throwCount / 2;
+            int frameNumber = throwCount / 2;
 
-            pinsKnocked = getScore(frameNumber);
-            scoreBoard.updateScores(throwCount, pinsKnocked);
-            System.out.println(scoreBoard.toString());
+            getAndUpdateScores(frameNumber);
+            SCORE_BOARD.printScoreBoard(player);
 
-            if (scoreBoard.isStrike(frameNumber)) {
+            if (player.isStrike(frameNumber)) {
                 throwCount++;
             }
         }
-        if (scoreBoard.isStrike(LAST_FRAME) || scoreBoard.isSpare(LAST_FRAME)) {
-            pinsKnocked = getScore(LAST_FRAME);
-            scoreBoard.updateScores(LAST_FRAME, pinsKnocked);
-            System.out.println(scoreBoard.toString());
+    }
+
+    private void playLastFrame() {
+        if (player.isStrike(LAST_FRAME) || player.isSpare(LAST_FRAME)) {
+            getAndUpdateScores(LAST_FRAME);
+            SCORE_BOARD.printScoreBoard(player);
         }
     }
 
-    public int getScore(int frameNumber) {
+    private boolean getAndUpdateScores(int frameNumber) {
         try {
-            return promptForThrow(frameNumber);
+            int pinsKnocked = promptForThrow(frameNumber);
+            return player.updateScores(frameNumber, pinsKnocked);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getScore(frameNumber);
+            return getAndUpdateScores(frameNumber);
         }
     }
 }

@@ -1,11 +1,7 @@
 package bowling.domain;
 
 public abstract class Frame {
-    Scores scores;
-
-    public Frame() {
-        this.scores = new Scores();
-    }
+    Scores scores = new Scores();
 
     public boolean isStrike() {
         return scores.isStrike();

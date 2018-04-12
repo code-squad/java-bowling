@@ -7,7 +7,9 @@ public class FirstScore extends Score {
 
     @Override
     public int updateScore(int pinsKnocked) {
-        this.pinsKnocked = pinsKnocked;
+        if(this.pinsKnocked == null){
+            this.pinsKnocked = pinsKnocked;
+        }
         return this.pinsKnocked;
     }
 

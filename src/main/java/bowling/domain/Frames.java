@@ -19,8 +19,8 @@ public class Frames {
         return frames;
     }
 
-    public void updateFrame(int frameNumber, int pinsKnocked) {
-        frames.get(frameNumber).updateScore(pinsKnocked);
+    public boolean updateFrame(int frameNumber, int pinsKnocked) {
+        return frames.get(frameNumber).updateScore(pinsKnocked);
     }
 
     public boolean isStrike(int frameNumber) {

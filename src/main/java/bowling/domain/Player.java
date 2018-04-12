@@ -1,19 +1,18 @@
 package bowling.domain;
 
 public class Player {
-    private final Frames frames;
+    private final Frames frames = new Frames();
     private final String playerName;
 
     public Player(String playerName) {
-        this.frames = new Frames();
         this.playerName = playerName;
     }
 
-    public void updateFrames(int frameNumber, int pinsKnocked) {
-        frames.updateFrame(frameNumber, pinsKnocked);
+    public boolean updateScores(int frameNumber, int pinsKnocked) {
+        return frames.updateFrame(frameNumber, pinsKnocked);
     }
 
-    public boolean isStrike(int frameNumber){
+    public boolean isStrike(int frameNumber) {
         return frames.isStrike(frameNumber);
     }
 

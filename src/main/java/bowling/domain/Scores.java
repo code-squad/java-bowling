@@ -4,15 +4,9 @@ public class Scores {
     static final int ALL = 10;
     static final int NONE = 0;
 
-    private Score firstScore;
-    private Score secondScore;
-    private int pinsStanding;
-
-    public Scores() {
-        this.firstScore = new FirstScore();
-        this.secondScore = new SecondScore();
-        this.pinsStanding = ALL;
-    }
+    private Score firstScore = new FirstScore();
+    private Score secondScore = new SecondScore();
+    private int pinsStanding = ALL;
 
     public boolean updateFirstThrow(int pinsKnocked) throws IllegalArgumentException {
         if (Validator.isValidScore(pinsKnocked, pinsKnocked)) {

@@ -1,11 +1,7 @@
 package bowling.domain;
 
 public class LastFrame extends Frame {
-    private BonusScore bonusScore;
-
-    public LastFrame() {
-        this.bonusScore = new BonusScore();
-    }
+    private BonusScore bonusScore = new BonusScore();
 
     @Override
     public boolean updateScore(int pinsKnocked) {
