@@ -20,9 +20,20 @@ public class Round {
 
     public void trying(final int score) {
         presentFrameTry(score);
+        System.out.println(score);
+        assignCalculableToFrame();
         if (isPresentFrameEnd()) {
             addNextFrame();
         }
+    }
+
+    private void assignCalculableToFrame() {
+        if (roundFrames.size() == 1) {
+            System.out.println("아직까지 프레임은 한개");
+            roundFrames.get(roundFrames.size() - 1).assignCalculableState();
+            return;
+        }
+        roundFrames.get(roundFrames.size()-1).assignCalculableState(roundFrames.get(roundFrames.size()-2));
     }
 
     private void presentFrameTry(final int score) {

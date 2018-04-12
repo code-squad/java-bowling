@@ -12,6 +12,7 @@ public abstract class Frame {
 
     private Score totalScore;
     private List<Score> scores;
+    private Calculate calculate;
 
     public abstract boolean isFrameEnd();
 
@@ -69,6 +70,10 @@ public abstract class Frame {
         return toScoreString();
     }
 
+    public boolean isCalculateUntilNow() {
+        return !isFirstStrike() && !isSpare();
+    }
+
     @Override
     public String toString() {
         return toFrameString();
@@ -86,4 +91,45 @@ public abstract class Frame {
     public int hashCode() {
         return Objects.hash(scores);
     }
+
+    public void assignCalculableState() {
+        if (!isTrySecond() && !isFirstStrike()) {
+            System.out.println("첫째 조건 통과, 계산 Do");
+            calculate = Calculate.DO;
+            return;
+        }
+        if (isFrameEnd() && (!isSpare() && !isFirstStrike())) {
+            System.out.println("둘째 조건 통과, 계산 Do");
+            calculate = Calculate.DO;
+            return;
+        }
+        System.out.println("마지막 조건 통과, 계산 Do not");
+        calculate = Calculate.DONOT;
+    }
+
+    public void assignCalculableState(Frame beforeFrame) {
+        if (beforeFrame.calculate == Calculate.DONOT) {
+            if (beforeFrame.isFirstStrike()) {
+                System.out.println("이전 프레임이 스트라이크");
+                if (!isTrySecond()) calculate = Calculate.DONOT;
+                if (!isTrySecond() && !isFirstStrike()) calculate = Calculate.DO;
+                if (isSpare()) calculate = Calculate.DONOT;
+                if (!isSpare() && !isFirstStrike()) calculate = Calculate.DO;
+                return;
+            }
+            if (beforeFrame.isSpare()) {
+                System.out.println("이전 프레임이 스페어");
+                if (!isTrySecond() && isFirstStrike()) calculate = Calculate.DONOT;
+                if (!isTrySecond() && !isFirstStrike()) calculate = Calculate.DO;
+                if (isSpare()) calculate = Calculate.DONOT;
+                calculate = Calculate.DO;
+            }
+        }
+        assignCalculableState();
+    }
+
+    public Calculate getCalculate() {
+        return calculate;
+    }
 }
+

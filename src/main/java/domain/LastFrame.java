@@ -49,6 +49,11 @@ public class LastFrame extends Frame {
     }
 
     @Override
+    public boolean isCalculateUntilNow() {
+        return isFrameEnd();
+    }
+
+    @Override
     public String toString() {
         return toFrameString() + FRAMEBAR + toStringLastScore();
     }

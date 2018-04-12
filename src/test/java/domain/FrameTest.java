@@ -80,4 +80,5 @@ public class FrameTest {
         frame.trying(10);
         assertThat(String.format("%-3s", frame.toString()), is("X  "));
     }
+
 }
