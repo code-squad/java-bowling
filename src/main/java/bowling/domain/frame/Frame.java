@@ -1,17 +1,10 @@
 package bowling.domain.frame;
 
-import bowling.domain.score.Scores;
+public interface Frame {
 
-public abstract class Frame {
-    Scores scores = new Scores();
+    public abstract boolean isStrike();
 
-    boolean isStrike() {
-        return scores.isStrike();
-    }
-
-    boolean isSpare() {
-        return scores.isSpare();
-    }
+    public abstract boolean isSpare();
 
     public abstract boolean updateScore(int pinsKnocked);
 

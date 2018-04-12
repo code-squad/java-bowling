@@ -1,8 +1,10 @@
 package bowling.domain.frame;
 
-public class NormalFrame extends Frame {
+import bowling.domain.score.Scores;
 
-    @Override
+public class NormalFrame implements Frame {
+    private Scores scores = new Scores();
+
     public boolean updateScore(int pinsKnocked) {
         if (!scores.firstThrowIsPlayed()) {
             scores.updateFirstThrow(pinsKnocked);
@@ -13,6 +15,14 @@ public class NormalFrame extends Frame {
             return true;
         }
         return false;
+    }
+
+    public boolean isStrike() {
+        return scores.isStrike();
+    }
+
+    public boolean isSpare() {
+        return scores.isSpare();
     }
 
     @Override

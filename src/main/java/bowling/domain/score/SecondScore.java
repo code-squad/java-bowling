@@ -2,7 +2,7 @@ package bowling.domain.score;
 
 import static bowling.domain.score.Scores.NONE;
 
-public class SecondScore extends Score {
+public class SecondScore implements Score {
     private Integer pinsKnocked;
 
     @Override

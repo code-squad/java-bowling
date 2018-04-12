@@ -1,6 +1,6 @@
 package bowling.domain.score;
 
-public abstract class Score {
+public interface Score {
 
     public abstract boolean isPlayed();
 
