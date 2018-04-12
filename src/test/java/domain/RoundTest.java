@@ -83,84 +83,84 @@ public class RoundTest {
     @Test
     public void calculate_do_donot_no_spare_strike() {
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DO));
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DO));
     }
 
     @Test
     public void calculate_do_donot_spare() {
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DO));
         round.trying(9); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
 
     @Test
     public void calculate_do_donot_strike() {
         round.trying(10); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
 
     @Test // 수정해야함.
     public void calculate_do_donot_strike_and_normal() {
         round.trying(10); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(2); // 2frame
-        assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DO));
     }
 
     @Test
     public void calculate_do_donot_spare_and_normal() {
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DO));
         round.trying(9); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(1); // 2frame
-        assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DO));
         round.trying(5); // 2frame
-        assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DO));
     }
 
     @Test
     public void calculate_do_donot_spare_and_spare() {
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DO));
         round.trying(9); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(2); // 2frame
-        assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DO));
         round.trying(8); // 2frame
-        assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
 
     @Test
     public void calculate_do_donot_spare_and_strike() {
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DO));
         round.trying(9); // 2frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(10); // 2frame
-        assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
 
     @Test
     public void calculate_do_donot_strike_and_strike() {
         round.trying(10); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(10); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
 
     @Test
     public void calculate_do_donot_strike_and_spare() {
         round.trying(10); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(1); // 1frame
-        assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
         round.trying(9); // 2frame
-        assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DONOT));
+        assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
 }

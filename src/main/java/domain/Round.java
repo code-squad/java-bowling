@@ -7,10 +7,11 @@ import java.util.Objects;
 
 public class Round {
 
+    private static final int MAX_FRAME = 10;
     private List<Frame> roundFrames;
 
     private Round() {
-        roundFrames = new ArrayList<>(10);
+        roundFrames = new ArrayList<>(MAX_FRAME);
         roundFrames.add(NormalFrame.of());
     }
 
@@ -20,7 +21,6 @@ public class Round {
 
     public void trying(final int score) {
         presentFrameTry(score);
-        System.out.println(score);
         assignCalculableToFrame();
         if (isPresentFrameEnd()) {
             addNextFrame();
@@ -29,33 +29,32 @@ public class Round {
 
     private void assignCalculableToFrame() {
         if (roundFrames.size() == 1) {
-            System.out.println("아직까지 프레임은 한개");
-            roundFrames.get(roundFrames.size() - 1).assignCalculableState();
+            lastFrame().assignCalculableState();
             return;
         }
-        roundFrames.get(roundFrames.size()-1).assignCalculableState(roundFrames.get(roundFrames.size()-2));
+        lastFrame().assignCalculableState(roundFrames.get(roundFrames.size()-2));
     }
 
     private void presentFrameTry(final int score) {
-        roundFrames.get(roundFrames.size() - 1).trying(score);
+        lastFrame().trying(score);
     }
 
     private boolean isPresentFrameEnd() {
-        return roundFrames.get(roundFrames.size() - 1).isFrameEnd();
+        return lastFrame().isFrameEnd();
     }
 
     private void addNextFrame() {
-        if (roundFrames.size() == 9) {
+        if (roundFrames.size() == MAX_FRAME - 1) {
             roundFrames.add(LastFrame.of());
             return;
         }
-        if (roundFrames.size() != 10) {
+        if (roundFrames.size() != MAX_FRAME) {
             roundFrames.add(NormalFrame.of());
         }
     }
 
     public boolean isRoundEnd() {
-        return roundFrames.size() == 10 && isPresentFrameEnd();
+        return roundFrames.size() == MAX_FRAME && isPresentFrameEnd();
     }
 
     public int getFrameNumber() {
@@ -64,6 +63,10 @@ public class Round {
 
     public List<Frame> getRoundFrames() {
         return Collections.unmodifiableList(roundFrames);
+    }
+
+    private Frame lastFrame() {
+        return roundFrames.get(roundFrames.size() - 1);
     }
 
     @Override
