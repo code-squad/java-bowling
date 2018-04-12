@@ -1,5 +1,8 @@
 package bowling.view;
 
+import bowling.domain.Formatter;
+import bowling.domain.Validator;
+
 import java.util.Scanner;
 
 public class Prompter {
@@ -10,12 +13,22 @@ public class Prompter {
     }
 
     public static String promptForName() {
-        System.out.print("플레이어 이름은(3 english letters)?: ");
-        return takeInput();
+        try {
+            System.out.print("플레이어 이름은(3 english letters)?: ");
+            return Validator.validateName(takeInput());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return promptForName();
+        }
     }
 
-    public static String promptForThrow(int frameNumber) {
-        System.out.printf("%d 프레임 투구: ", frameNumber);
-        return takeInput();
+    public static int promptForThrow(int frameNumber) {
+        try {
+            System.out.printf("%d 프레임 투구: ", frameNumber + 1);
+            return Formatter.convertToInt(takeInput());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return promptForThrow(frameNumber);
+        }
     }
 }

@@ -15,4 +15,12 @@ public class Formatter {
         }
         return String.valueOf(frameNumber);
     }
+
+    public static int convertToInt(String number) {
+        try {
+            return Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자만 입력해 주세요.");
+        }
+    }
 }

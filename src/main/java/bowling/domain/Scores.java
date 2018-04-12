@@ -14,9 +14,12 @@ public class Scores {
         this.pinsStanding = ALL;
     }
 
-    public void updateFirstThrow(int pinsKnocked) {
-        firstScore.updateScore(pinsKnocked);
-        pinsStanding -= pinsKnocked;
+    public void updateFirstThrow(int pinsKnocked) throws IllegalArgumentException {
+        if (Validator.isValidScore(pinsKnocked, pinsKnocked)) {
+            firstScore.updateScore(pinsKnocked);
+            pinsStanding -= pinsKnocked;
+        }
+        throw new IllegalArgumentException("유효한 숫자가 아닙니다.");
     }
 
     public boolean firstThrowPlayed() {

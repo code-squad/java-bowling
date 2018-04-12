@@ -23,6 +23,14 @@ public class Frames {
         frames.get(frameNumber).updateScore(pinsKnocked);
     }
 
+    public boolean isStrike(int frameNumber) {
+        return frames.get(frameNumber).isStrike();
+    }
+
+    public boolean isSpare(int frameNumber) {
+        return frames.get(frameNumber).isSpare();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

@@ -9,6 +9,6 @@ public class LabelFrame {
 
     @Override
     public String toString() {
-        return Formatter.formatLabel(frameNumber);
+        return "  " + Formatter.formatLabel(frameNumber);
     }
 }

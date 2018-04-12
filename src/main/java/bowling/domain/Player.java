@@ -1,7 +1,5 @@
 package bowling.domain;
 
-import java.util.List;
-
 public class Player {
     private final Frames frames;
     private final String playerName;
@@ -13,6 +11,14 @@ public class Player {
 
     public void updateFrames(int frameNumber, int pinsKnocked) {
         frames.updateFrame(frameNumber, pinsKnocked);
+    }
+
+    public boolean isStrike(int frameNumber){
+        return frames.isStrike(frameNumber);
+    }
+
+    public boolean isSpare(int frameNumber) {
+        return frames.isSpare(frameNumber);
     }
 
     @Override
