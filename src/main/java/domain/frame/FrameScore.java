@@ -1,6 +1,5 @@
 package domain.frame;
 
-import domain.frame.result.ScoreMessage;
 import domain.frame.status.FrameStatus;
 
 import java.util.ArrayList;
@@ -19,7 +18,9 @@ public class FrameScore {
     public void roll(int num) throws IllegalArgumentException {
         pins.add(new Pin(num));
         leftNumber--;
-        status = status.changeStatus(getSum(), leftNumber);
+        if (!status.isFinish()) {
+            status = status.changeStatus(getSum(), leftNumber);
+        }
     }
 
     public FrameScore get() {
@@ -61,6 +62,6 @@ public class FrameScore {
     }
 
     public boolean isBeforeBonusRoll() {
-        return status.isBonus() && leftNumber <= Frame.REGULAR_COUNT;
+        return status.isBonus() && pins.size() <= Frame.REGULAR_COUNT && getSum() <= Pin.MAX;
     }
 }

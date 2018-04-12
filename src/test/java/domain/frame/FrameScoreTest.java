@@ -69,9 +69,8 @@ public class FrameScoreTest {
         assertEquals("1", frameScore.getLatestSavedPinMessage());
     }
 
-
     @Test
-    public void 보너스점수_진행_문자열() { //상태 체크도
+    public void 보너스점수_진행_문자열() {
         frameScore.roll(3);
         frameScore.roll(7);
         frameScore.increaseLeftCount();

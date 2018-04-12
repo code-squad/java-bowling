@@ -1,6 +1,6 @@
 package domain.frame.status;
 
-import domain.frame.result.ScoreMessage;
+import domain.frame.ScoreMessage;
 
 public class Spare extends FrameStatus {
     private static Spare spare = new Spare();

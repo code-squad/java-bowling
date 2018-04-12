@@ -5,7 +5,6 @@ public abstract class Frame {
     public final int frameNum;
     private FrameScore score;
 
-
     public Frame(int frameNum) {
         this.frameNum = frameNum;
         score = new FrameScore(REGULAR_COUNT);
@@ -22,13 +21,22 @@ public abstract class Frame {
         return doRecord(score, num);
     }
 
-    //보너스 점수가 들어올 때는 어떻게 해? 아 넥스트로부터 가져오고, 그게 다르구나 roll로 호출하는게 아니라 다른걸로 호출하나
-    //여기 자체가 다른거같은데?
+    public FrameScore getScore() throws RuntimeException {
+        return score.get();
+    }
+
+    public String getRecordPinMessage() {
+        return score.getLatestSavedPinMessage();
+    }
 
     abstract Frame doRecord(FrameScore score, int num);
 
     public boolean isFinish() {
         return doCheckFinish(score);
+    }
+
+    public boolean isBonusFinish() {
+        return score.isBonusFinish();
     }
 
     abstract boolean doCheckFinish(FrameScore score);

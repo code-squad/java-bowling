@@ -1,6 +1,6 @@
 package domain.frame.status;
 
-import domain.frame.result.ScoreMessage;
+import domain.frame.ScoreMessage;
 
 public class Ing extends FrameStatus {
     private static Ing ing = new Ing();
