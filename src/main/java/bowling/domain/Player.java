@@ -6,10 +6,10 @@ import java.util.List;
 public class Player {
 
     static final int NAMESIZE = 3;
+    static final int NOMALFRAME = 9;
+
     private String name;
-    private List<Frame> frames = new ArrayList<>();
-    private Frame thisFrame = new Frame();
-    ;
+    private FrameData frameData = new FrameData();
 
     public Player(String name) {
         if (name.length() != NAMESIZE) {
@@ -18,24 +18,31 @@ public class Player {
         this.name = name;
     }
 
-    public int playBowling(int pin) {
-        thisFrame.playOneBall(pin);
-        if (thisFrame.isTwiceBall() || thisFrame.isStrike()) {  // 스트라이크나 한 프레임에 두번을 쳤을 때 다음 프레임으로 전환
-            frames.add(thisFrame);
-            thisFrame = Frame.next();
+    public boolean playBowling(int pin) {
+        if (userFrameNum() <= NOMALFRAME) {
+            frameData.play(pin);
+            return false;
         }
-        return frames.size();
+        return frameData.playLastFrame(pin);
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Frame> getFrames() {
-        return frames;
+    public int userFrameNum(){
+        return frameData.numberOfFrame();
     }
 
-    public Frame getThisFrame() {
-        return thisFrame;
+    public List<NomalFrame> getFrames() {
+        return frameData.getFrames();
+    }
+
+    public NomalFrame getNomalFrame() {
+        return frameData.getNomalFrame();
+    }
+
+    public LastFrame getLastFrame() {
+        return frameData.getLastFrame();
     }
 }

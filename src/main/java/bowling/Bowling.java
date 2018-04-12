@@ -9,10 +9,11 @@ public class Bowling {
     public static void main(String[] args) {
         String name = Input.inputName();
         Player player = new Player(name);
-        int frameNum = 0;
-        while (frameNum < 10) {
-            int pin = Input.inputPinNumber();
-            frameNum = player.playBowling(pin);
+        boolean isLast = false;
+        while (!isLast) {
+            int frameNum = player.userFrameNum();
+            int pin = Input.inputPinNumber(frameNum);
+            isLast = player.playBowling(pin);
             View.numOfFrameView();
             View.scoreView(player);
         }

@@ -1,6 +1,7 @@
 package bowling.view;
 
-import bowling.domain.Frame;
+import bowling.domain.LastFrame;
+import bowling.domain.NomalFrame;
 import bowling.domain.Player;
 
 import java.util.ArrayList;
@@ -18,18 +19,24 @@ public class View {
 
     public static void scoreView(Player player) {
         System.out.print("|  " + player.getName() + " |");
-        List<Frame> frames = player.getFrames();
-        Frame thisFrame = player.getThisFrame();
+        List<NomalFrame> frames = player.getFrames();
+        NomalFrame currentFrame = player.getNomalFrame();
+        LastFrame lastFrame = player.getLastFrame();
 
-        List<Frame> allFrames = new ArrayList<>(frames);
-        allFrames.add(thisFrame);
-        for (Frame frame : allFrames) {
-            oneOrTwoPrint(frame);
+        List<NomalFrame> allFrames = new ArrayList<>(frames);
+        if (frames.size() < 9) {
+            allFrames.add(currentFrame);
         }
-        blankPrint(frames, thisFrame);
+        for (NomalFrame frame : allFrames) {
+            nomalFramePrint(frame);
+        }
+        if (frames.size() == 9) {
+            lastFramePrint(lastFrame);
+        }
+        blankPrint(frames, currentFrame, lastFrame);
     }
 
-    public static void oneOrTwoPrint(Frame frame) {
+    public static void nomalFramePrint(NomalFrame frame) {
         if (frame.isTwiceBall()) {
             twiceBallPrint(frame);
         } else if (!frame.isNewFrame()) {
@@ -37,7 +44,60 @@ public class View {
         }
     }
 
-    public static void twiceBallPrint(Frame frame) {
+    public static void lastFramePrint(LastFrame lastFrame) {
+        if (!lastFrame.isThirdNull()) {
+            lastBallStrike(lastFrame);
+        } else if (lastFrame.isTwiceBall()) {
+            lastFrameTwiceBall(lastFrame);
+        } else if (!lastFrame.isNewFrame()) {
+            lastFrameFirstBall(lastFrame);
+        }
+    }
+
+    public static void lastFrameFirstBall(LastFrame lastFrame) {
+        if (lastFrame.isStrike()) {
+            System.out.printf("  X   |");
+        } else {
+            System.out.print(" " + lastFrame.firstInFrame() + "|");
+            System.out.print("   |");
+        }
+    }
+
+    public static void lastFrameTwiceBall(LastFrame lastFrame) {
+        System.out.print(" " + lastFrame.firstInFrame() + "|");
+        if (lastFrame.isSpare()) {
+            System.out.print("/");
+        } else {
+            System.out.print(lastFrame.secondInFrame());
+        }
+        System.out.print("  |");
+    }
+
+
+    public static void lastBallStrike(LastFrame lastFrame) {
+        if (lastFrame.isStrike()) {
+            System.out.printf("  X |");
+            System.out.print(lastFrame.thirdInFrame());
+            System.out.print(" |");
+        } else {
+            lastBallNotStrike(lastFrame);
+        }
+    }
+
+    public static void lastBallNotStrike(LastFrame lastFrame) {
+        System.out.print(" " + lastFrame.firstInFrame() + "|");
+        if (lastFrame.isSpare()) {
+            System.out.print("/");
+            System.out.print("|");
+            System.out.print(lastFrame.thirdInFrame());
+            System.out.print("|");
+        } else {
+            System.out.print(lastFrame.secondInFrame());
+            System.out.print(" |");
+        }
+    }
+
+    public static void twiceBallPrint(NomalFrame frame) {
         System.out.print(" " + frame.firstInFrame() + "|");
         if (frame.isSpare()) {
             System.out.print("/");
@@ -47,7 +107,7 @@ public class View {
         System.out.print("  |");
     }
 
-    public static void firstOfFramePrint(Frame frame) {
+    public static void firstOfFramePrint(NomalFrame frame) {
         if (frame.isStrike()) {
             System.out.printf("  X   |");
         } else {
@@ -56,17 +116,19 @@ public class View {
         }
     }
 
-    public static void blankPrint(List<Frame> frames, Frame thisFrame) {
-        int size = sizeOfFrame(frames, thisFrame);
+    public static void blankPrint(List<NomalFrame> frames, NomalFrame thisFrame, LastFrame lastFrame) {
+        int size = sizeOfFrame(frames, thisFrame, lastFrame);
         for (int i = 0; i < 9 - size; i++) {
             System.out.print("      |");
         }
         System.out.println();
     }
 
-    public static int sizeOfFrame(List<Frame> frames, Frame thisFrame) {
+    public static int sizeOfFrame(List<NomalFrame> frames, NomalFrame thisFrame, LastFrame lastFrame) {
         if (thisFrame.isNewFrame()) {
             return frames.size() - 1;
+        } else if (!lastFrame.isNewFrame()) {
+            return frames.size();
         }
         return frames.size();
     }
