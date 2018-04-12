@@ -108,7 +108,7 @@ public class RoundTest {
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
         round.trying(1); // 1frame
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
-        round.trying(2); // 1frame
+        round.trying(2); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
     }
 
@@ -118,9 +118,9 @@ public class RoundTest {
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
         round.trying(9); // 1frame
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
-        round.trying(1); // 1frame
+        round.trying(1); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
-        round.trying(5); // 1frame
+        round.trying(5); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
     }
 
@@ -130,9 +130,9 @@ public class RoundTest {
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
         round.trying(9); // 1frame
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
-        round.trying(2); // 1frame
+        round.trying(2); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DO));
-        round.trying(8); // 1frame
+        round.trying(8); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DONOT));
     }
 
@@ -140,9 +140,9 @@ public class RoundTest {
     public void calculate_do_donot_spare_and_strike() {
         round.trying(1); // 1frame
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DO));
-        round.trying(9); // 1frame
+        round.trying(9); // 2frame
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
-        round.trying(10); // 1frame
+        round.trying(10); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DONOT));
     }
 
@@ -160,7 +160,7 @@ public class RoundTest {
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
         round.trying(1); // 1frame
         assertThat(round.getRoundFrames().get(0).getCalculate(), is(Calculate.DONOT));
-        round.trying(9); // 1frame
+        round.trying(9); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculate(), is(Calculate.DONOT));
     }
 }

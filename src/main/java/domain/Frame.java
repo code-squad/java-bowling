@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static domain.Calculate.DO;
+import static domain.Calculate.DONOT;
 import static domain.Figure.FRAMEBAR;
 import static domain.Figure.SPARE;
 
@@ -74,6 +76,53 @@ public abstract class Frame {
         return !isFirstStrike() && !isSpare();
     }
 
+    public void assignCalculableState() {
+        if (!isTrySecond() && !isFirstStrike()) {
+            calculate = DO;
+            return;
+        }
+        if (isFrameEnd() && (!isSpare() && !isFirstStrike())) {
+            calculate = DO;
+            return;
+        }
+        calculate = DONOT;
+    }
+
+    public void assignCalculableState(Frame beforeFrame) {
+        if (beforeFrame.calculate == DONOT) {
+            changeStatusBeforeFrameDoNotCase(beforeFrame);
+        }
+        assignCalculableState();
+    }
+
+    private void changeStatusBeforeFrameDoNotCase(Frame beforeFrame) {
+        if (beforeFrame.isFirstStrike()) {
+            calculate = changeStatusBeforeFrameDoNotAndStrike();
+        }
+        if (beforeFrame.isSpare()) {
+            changeStatusBeforeFrameDoNotAndSpare();
+        }
+    }
+
+    private Calculate changeStatusBeforeFrameDoNotAndSpare() {
+        if (!isTrySecond() && isFirstStrike()) return DONOT;
+        if (!isTrySecond() && !isFirstStrike()) return DO;
+        if (isSpare()) return DONOT;
+        return DO;
+    }
+
+    private Calculate changeStatusBeforeFrameDoNotAndStrike() {
+        if (!isTrySecond()) return DONOT;
+        if (!isTrySecond() && !isFirstStrike()) return DO;
+        if (isSpare()) return DONOT;
+        if (!isSpare() && !isFirstStrike()) return DO;
+        return DO;
+    }
+
+    public Calculate getCalculate() {
+        return calculate;
+    }
+
     @Override
     public String toString() {
         return toFrameString();
@@ -92,44 +141,5 @@ public abstract class Frame {
         return Objects.hash(scores);
     }
 
-    public void assignCalculableState() {
-        if (!isTrySecond() && !isFirstStrike()) {
-            System.out.println("첫째 조건 통과, 계산 Do");
-            calculate = Calculate.DO;
-            return;
-        }
-        if (isFrameEnd() && (!isSpare() && !isFirstStrike())) {
-            System.out.println("둘째 조건 통과, 계산 Do");
-            calculate = Calculate.DO;
-            return;
-        }
-        System.out.println("마지막 조건 통과, 계산 Do not");
-        calculate = Calculate.DONOT;
-    }
-
-    public void assignCalculableState(Frame beforeFrame) {
-        if (beforeFrame.calculate == Calculate.DONOT) {
-            if (beforeFrame.isFirstStrike()) {
-                System.out.println("이전 프레임이 스트라이크");
-                if (!isTrySecond()) calculate = Calculate.DONOT;
-                if (!isTrySecond() && !isFirstStrike()) calculate = Calculate.DO;
-                if (isSpare()) calculate = Calculate.DONOT;
-                if (!isSpare() && !isFirstStrike()) calculate = Calculate.DO;
-                return;
-            }
-            if (beforeFrame.isSpare()) {
-                System.out.println("이전 프레임이 스페어");
-                if (!isTrySecond() && isFirstStrike()) calculate = Calculate.DONOT;
-                if (!isTrySecond() && !isFirstStrike()) calculate = Calculate.DO;
-                if (isSpare()) calculate = Calculate.DONOT;
-                calculate = Calculate.DO;
-            }
-        }
-        assignCalculableState();
-    }
-
-    public Calculate getCalculate() {
-        return calculate;
-    }
 }
 
