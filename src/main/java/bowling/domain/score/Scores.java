@@ -4,8 +4,8 @@ public class Scores {
     static final int ALL = 10;
     static final int NONE = 0;
 
-    private FirstScore firstScore = new FirstScore();
-    private SecondScore secondScore = new SecondScore();
+    private final FirstScore firstScore = new FirstScore();
+    private final SecondScore secondScore = new SecondScore();
 
     public boolean updateFirstThrow(int pinsKnocked) throws IllegalArgumentException {
         if (isValidScore(pinsKnocked)) {

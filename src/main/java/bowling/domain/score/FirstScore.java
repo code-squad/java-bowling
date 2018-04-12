@@ -13,19 +13,19 @@ public class FirstScore {
         return firstScore;
     }
 
-    public boolean isPlayed() {
+    boolean isPlayed() {
         return firstScore != null;
     }
 
-    public boolean isStrike() {
+    boolean isStrike() {
         return firstScore == ALL;
     }
 
-    public boolean isSpare(int secondScore) {
+    boolean isSpare(int secondScore) {
         return firstScore + secondScore == ALL;
     }
 
-    public boolean isMoreThanPinsStanding(int pinsKnocked){
+    boolean isMoreThanPinsStanding(int pinsKnocked){
 
         return pinsKnocked > ALL - firstScore;
     }

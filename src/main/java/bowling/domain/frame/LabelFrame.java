@@ -3,7 +3,7 @@ package bowling.domain.frame;
 import static bowling.domain.Utils.Formatter.formatLabel;
 
 public class LabelFrame {
-    private int frameNumber;
+    private final int frameNumber;
 
     public LabelFrame(int frameNumber) {
         this.frameNumber = frameNumber;

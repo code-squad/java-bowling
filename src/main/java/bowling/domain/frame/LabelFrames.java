@@ -6,7 +6,7 @@ import java.util.List;
 import static bowling.domain.Utils.Formatter.formatFrame;
 
 public class LabelFrames {
-    private List<LabelFrame> labelFrames;
+    private final List<LabelFrame> labelFrames;
 
     public LabelFrames() {
         this.labelFrames = initializeLabels();
