@@ -13,7 +13,7 @@ public class PlayerTest {
 
     @Test
     public void 이름길이2() {
-        new Player("aaaaa");
+        new Player("aaa");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -23,6 +23,6 @@ public class PlayerTest {
 
     @Test
     public void 영어이름() {
-        new Player("colin");
+        new Player("pjh");
     }
 }

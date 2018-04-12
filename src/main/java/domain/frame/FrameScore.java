@@ -22,16 +22,21 @@ public class FrameScore {
         status = status.changeStatus(getSum(), leftNumber);
     }
 
-    public FrameScore getScore() {
+    public FrameScore get() {
         if (!isBonusFinish()) {
-            throw new RuntimeException("완료되지않은 프레임의 점수는 조회할 수 없습니다."); //예외처리 해줘야함
+            // TODO : 예외처리 해줘야함(사용자정의 예외로 변경?)
+            throw new RuntimeException("완료되지않은 프레임의 점수는 조회할 수 없습니다.");
         }
         return this;
     }
 
+    public int getScore() {
+        return getSum();
+    }
+
     public String getLatestSavedPinMessage() {
         Pin latestPin = pins.get(pins.size() - 1);
-        if (status.isBonus()) {
+        if (!isBeforeBonusRoll()) {
             return ScoreMessage.convertMessage(latestPin.getNum());
         }
         return status.convertScore(latestPin.getNum());
@@ -45,7 +50,7 @@ public class FrameScore {
         return status.isFinish();
     }
 
-    public boolean isBonusFinish() { // 이것도 있고 보너스도 있고
+    public boolean isBonusFinish() {
         return leftNumber == 0;
     }
 

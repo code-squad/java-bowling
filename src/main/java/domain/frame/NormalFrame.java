@@ -22,4 +22,9 @@ public class NormalFrame extends Frame {
     boolean doCheckFinish(FrameScore score) {
         return score.isRegularFinish();
     }
+
+    @Override
+    public boolean isLast() {
+        return false;
+    }
 }

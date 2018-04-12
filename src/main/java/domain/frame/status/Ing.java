@@ -1,5 +1,7 @@
 package domain.frame.status;
 
+import domain.frame.result.ScoreMessage;
+
 public class Ing extends FrameStatus {
     private static Ing ing = new Ing();
 
@@ -13,7 +15,7 @@ public class Ing extends FrameStatus {
 
     @Override
     public String convertScore(int score) {
-        return String.valueOf(score);
+        return ScoreMessage.convertMessage(score);
     }
 
     @Override

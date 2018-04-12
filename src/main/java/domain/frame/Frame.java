@@ -32,4 +32,6 @@ public abstract class Frame {
     }
 
     abstract boolean doCheckFinish(FrameScore score);
+
+    public abstract boolean isLast();
 }
