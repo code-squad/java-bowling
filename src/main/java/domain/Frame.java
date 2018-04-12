@@ -71,18 +71,18 @@ public abstract class Frame {
         return toScoreString();
     }
 
-    private CalculateStatus changeStatus(Frame beforeFrame) {
+    private boolean changeStatus(Frame beforeFrame) {
         if (beforeFrame.calculateStatus == DONOT)
             return StatusChanger.beforeFrameDoNotCase(beforeFrame, this);
         return StatusChanger.beforeFrameDoCase(this);
     }
 
     public void assignCalculableState(Frame beforeFrame) {
-        calculateStatus = changeStatus(beforeFrame);
+        calculateStatus = CalculateStatus.of(changeStatus(beforeFrame));
     }
 
     public void assignCalculableState() {
-        calculateStatus = StatusChanger.beforeFrameDoCase(this);
+        calculateStatus = CalculateStatus.of(StatusChanger.beforeFrameDoCase(this));
     }
 
     public CalculateStatus getCalculateStatus() {

@@ -1,39 +1,33 @@
 package domain;
 
-import static domain.CalculateStatus.DO;
-import static domain.CalculateStatus.DONOT;
-
 public class StatusChanger {
 
-    public static CalculateStatus beforeFrameDoNotCase(Frame beforeFrame, Frame presentFrame) {
+    public static boolean beforeFrameDoNotCase(Frame beforeFrame, Frame presentFrame) {
         if (beforeFrame.isFirstStrike()) return changeStatusBeforeFrameDoNotAndStrike(presentFrame);
-        if (beforeFrame.isSpare()) return changeStatusBeforeFrameDoNotAndSpare(presentFrame);
-        return null;
+        return !beforeFrame.isSpare() || changeStatusBeforeFrameDoNotAndSpare(presentFrame);
     }
 
-    private static CalculateStatus changeStatusBeforeFrameDoNotAndSpare(Frame presentFrame) {
-        if (!presentFrame.isTrySecond() && presentFrame.isFirstStrike()) return DONOT;
-        if (!presentFrame.isTrySecond() && !presentFrame.isFirstStrike()) return DO;
-        if (presentFrame.isSpare()) return DONOT;
-        return DO;
+    private static boolean changeStatusBeforeFrameDoNotAndSpare(Frame presentFrame) {
+        if (!presentFrame.isTrySecond()) {
+            return !presentFrame.isFirstStrike();
+        }
+        return !presentFrame.isSpare();
     }
 
-    private static CalculateStatus changeStatusBeforeFrameDoNotAndStrike(Frame presentFrame) {
-        if (!presentFrame.isTrySecond()) return DONOT;
-        if (!presentFrame.isTrySecond() && !presentFrame.isFirstStrike()) return DO;
-        if (presentFrame.isSpare()) return DONOT;
-        if (!presentFrame.isSpare() && !presentFrame.isFirstStrike()) return DO;
-        return null;
+    private static boolean changeStatusBeforeFrameDoNotAndStrike(Frame presentFrame) {
+        if (!presentFrame.isTrySecond()) {
+            return !presentFrame.isFirstStrike();
+        }
+        if (presentFrame.isSpare()) return false;
+        if (!presentFrame.isSpare() && !presentFrame.isFirstStrike()) return true;
+        return true;
     }
 
-    public static CalculateStatus beforeFrameDoCase(Frame presentFrame) {
+    public static boolean beforeFrameDoCase(Frame presentFrame) {
         if (!presentFrame.isTrySecond() && !presentFrame.isFirstStrike()) {
-            return DO;
+            return true;
         }
-        if (presentFrame.isFrameEnd() && (!presentFrame.isSpare() && !presentFrame.isFirstStrike())) {
-            return DO;
-        }
-        return DONOT;
+        return presentFrame.isFrameEnd() && (!presentFrame.isSpare() && !presentFrame.isFirstStrike());
     }
 }
 
