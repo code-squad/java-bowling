@@ -11,8 +11,8 @@ public class Player {
         this.playerName = playerName;
     }
 
-    public boolean updateScores(int frameNumber, int pinsKnocked) {
-        return frames.updateFrame(frameNumber, pinsKnocked);
+    public boolean throwBall(int frameNumber, int pinsKnocked) {
+        return frames.knockPins(frameNumber, pinsKnocked);
     }
 
     public boolean isStrike(int frameNumber) {

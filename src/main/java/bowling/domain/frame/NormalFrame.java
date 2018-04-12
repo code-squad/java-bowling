@@ -5,7 +5,7 @@ import bowling.domain.score.Scores;
 public class NormalFrame implements Frame {
     private Scores scores = new Scores();
 
-    public boolean updateScore(int pinsKnocked) {
+    public boolean knockPins(int pinsKnocked) {
         if (!scores.firstThrowIsPlayed()) {
             scores.updateFirstThrow(pinsKnocked);
             return true;

@@ -22,7 +22,7 @@ public class BowlingGame {
     private void proceedUntilLastFrame() {
         for (int throwCount = 0; throwCount < NUMBER_OF_THROWS; throwCount++) {
             int frameNumber = throwCount / 2;
-            getAndUpdateScores(frameNumber);
+            throwBallAndUpdateScore(frameNumber);
             SCORE_BOARD.printScoreBoard(player);
             if (player.isStrike(frameNumber)) {
                 throwCount++;
@@ -32,18 +32,18 @@ public class BowlingGame {
 
     private void playLastFrame() {
         if (player.isStrike(LAST_FRAME) || player.isSpare(LAST_FRAME)) {
-            getAndUpdateScores(LAST_FRAME);
+            throwBallAndUpdateScore(LAST_FRAME);
             SCORE_BOARD.printScoreBoard(player);
         }
     }
 
-    private boolean getAndUpdateScores(int frameNumber) {
+    private boolean throwBallAndUpdateScore(int frameNumber) {
         try {
             int pinsKnocked = promptForThrow(frameNumber);
-            return player.updateScores(frameNumber, pinsKnocked);
+            return player.throwBall(frameNumber, pinsKnocked);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getAndUpdateScores(frameNumber);
+            return throwBallAndUpdateScore(frameNumber);
         }
     }
 }

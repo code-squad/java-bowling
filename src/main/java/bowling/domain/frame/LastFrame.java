@@ -7,7 +7,7 @@ public class LastFrame implements Frame{
     private Scores scores = new Scores();
     private BonusScore bonusScore = new BonusScore();
 
-    public boolean updateScore(int pinsKnocked) {
+    public boolean knockPins(int pinsKnocked) {
         if (!scores.firstThrowIsPlayed()) {
             scores.updateFirstThrow(pinsKnocked);
             return true;

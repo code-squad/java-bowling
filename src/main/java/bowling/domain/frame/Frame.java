@@ -6,7 +6,7 @@ public interface Frame {
 
     public abstract boolean isSpare();
 
-    public abstract boolean updateScore(int pinsKnocked);
+    public abstract boolean knockPins(int pinsKnocked);
 
     @Override
     public abstract String toString();

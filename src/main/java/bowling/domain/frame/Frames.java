@@ -21,16 +21,20 @@ public class Frames {
         return frames;
     }
 
-    public boolean updateFrame(int frameNumber, int pinsKnocked) {
-        return frames.get(frameNumber).updateScore(pinsKnocked);
+    public boolean knockPins(int frameNumber, int pinsKnocked) {
+        return onFrame(frameNumber).knockPins(pinsKnocked);
     }
 
     public boolean isStrike(int frameNumber) {
-        return frames.get(frameNumber).isStrike();
+        return onFrame(frameNumber).isStrike();
     }
 
     public boolean isSpare(int frameNumber) {
-        return frames.get(frameNumber).isSpare();
+        return onFrame(frameNumber).isSpare();
+    }
+
+    private Frame onFrame(int frameNumber) {
+        return frames.get(frameNumber);
     }
 
     @Override
