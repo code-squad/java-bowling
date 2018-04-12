@@ -1,34 +1,29 @@
 package domain;
 
-public class Frame {
-    private static final int TEN_PINS = 10;
-    private static final String STRIKE = "x";
-    private static final String SPARE = "/";
-    private static final String GUTTER = "-";
-    private static final String MIDDLE = "|";
-    private static final String UNPLAYED = "";
+abstract public class Frame {
+    protected static final int TEN_PINS = 10;
+    protected static final int NO_PINS = 0;
+    protected static final String STRIKE = "x";
+    protected static final String SPARE = "/";
+    protected static final String GUTTER = "-";
+    protected static final String MIDDLE = "|";
+    protected static final int UNPLAYED = -1;
 
-    int frameNo; // n번째 프레임
-    int pins;  //남은 핀 개수
-    int firstThrowing = -1;  //1투구 쓰러트린 핀 개수
-    int secondThrowing = -1; //2투구 쓰러트린 핀 개수
+    private int frameNo;
 
     public Frame(int frameNo) {
         this.frameNo = frameNo;
-        pins = TEN_PINS;
     }
 
-    public int getThrowing(int pinCount) {
-        isValidCount(pinCount);
-        if (this.isFirst()) {
-            firstThrowing = pinCount;
-            return pins = downPin(pinCount);
-        }
-        secondThrowing = pinCount;
-        return pins = downPin(pinCount);
-    }
+    abstract public int getThrowing(int pinCount);
 
-    private boolean isValidCount(int pinCount) {
+    abstract public boolean isFirst();
+
+    abstract public boolean isSecond();
+
+    abstract public boolean isEnd();
+
+    protected boolean isValidCount(int pins, int pinCount) {
         if (pinCount > pins) {
             throw new RuntimeException("넘어진 핀의 개수는 남아있는 핀의 개수보다 클 수 없습니다.");
         }
@@ -38,61 +33,33 @@ public class Frame {
         return true;
     }
 
-    private int downPin(int pinCount) {
+    public int getFrameNo() {
+        return frameNo;
+    }
+
+    protected int getFallenPin(int pins, int pinCount) {
         return pins - pinCount;
     }
 
-
-    public int getFrameNo() {
-        return this.frameNo;
+    protected boolean isGutter(int currPins) {
+        return currPins == NO_PINS;
     }
 
-    public boolean isFirst() {
-        return firstThrowing == -1;
+    protected boolean isSpare(int prevPins, int nextPins) {
+        return !isSecond() && TEN_PINS - (prevPins + nextPins) == NO_PINS;
     }
 
-    public boolean isSecond() {
-        return firstThrowing != -1 && secondThrowing == -1;
-    }
-
-    public boolean isEnd() {
-        if (pins == 0) {
-            return true;
+    // open : spare처리 못한채로 프레임 마감
+    protected boolean isOpen(int prevPins, int nextPins) {
+        if (isFirst()) {
+            return false;
         }
-        if (firstThrowing != -1 && secondThrowing != -1) {
-            return true;
+        if (isSecond()) {
+            return false;
         }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        String first = "";
-        String middle = "|";
-        String second = "";
-        // Strike
-        if (firstThrowing == TEN_PINS) {
-            return STRIKE;
+        if (prevPins == NO_PINS || nextPins == NO_PINS) {
+            return false;
         }
-        // Gutter
-        if (firstThrowing == 0) {
-            first = GUTTER;
-        }
-        if (secondThrowing == 0) {
-            second = GUTTER;
-        }
-        // SPARE
-        if (TEN_PINS - firstThrowing == secondThrowing) {
-            second = SPARE;
-        }
-        // open
-        if (firstThrowing != 0 && firstThrowing != -1) {
-            first = String.valueOf(firstThrowing);
-        }
-        if (secondThrowing != 0 && secondThrowing != -1) {
-            second = String.valueOf(secondThrowing);
-        }
-
-        return first + middle + second;
+        return TEN_PINS - (prevPins + nextPins) > NO_PINS;
     }
 }

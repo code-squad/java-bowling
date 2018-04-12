@@ -15,12 +15,7 @@ public class FrameTest {
     @Before
     public void setup() {
         bowlingGame = new BowlingGame("HTW");
-        frame = new Frame(1);
-    }
-
-    @Test
-    public void frameNo() {
-        assertEquals(1, frame.getFrameNo());
+        frame = new NormalFrame();
     }
 
     @Test

@@ -19,7 +19,11 @@ public class BowlingGame {
     public List<Frame> createFrame() {
         frames = new ArrayList<>();
         for (int frameNo = 1; frameNo <= MAX_NO; frameNo++) {
-            frames.add(new Frame(frameNo));
+            if (frameNo == MAX_NO) {
+                frames.add(new LastFrame(frameNo));
+                break;
+            }
+            frames.add(new NormalFrame(frameNo));
         }
         if (frames.size() != 10) {
             throw new RuntimeException("1~10프레임까지 존재합니다.");

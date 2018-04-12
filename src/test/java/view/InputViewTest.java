@@ -1,6 +1,7 @@
 package view;
 
 import domain.Frame;
+import domain.NormalFrame;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class InputViewTest {
 
     @Test
     public void getFirstThrowing() {
-        Frame frame = new Frame(1);
+        Frame frame = new NormalFrame();
         scanner = new Scanner("10");
         assertEquals(10, InputView.getThrowing(scanner, frame));
     }

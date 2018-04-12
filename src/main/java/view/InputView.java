@@ -13,10 +13,14 @@ public class InputView {
 
     public static int getThrowing(Scanner scanner, Frame frame) {
         if (frame.isFirst()) {
-            System.out.print("1프레임 투구 : ");
+            System.out.print(frame.getFrameNo() + "프레임 투구 : ");
             return scanner.nextInt();
         }
-        System.out.print("2프레임 투구 : ");
+        if (frame.isSecond()) {
+            System.out.print(frame.getFrameNo() + "프레임 투구 : ");
+            return scanner.nextInt();
+        }
+        System.out.println(frame.getFrameNo() + "프레임 투구 : ");
         return scanner.nextInt();
     }
 }
