@@ -4,11 +4,11 @@ public class NormalFrame extends Frame {
 
     @Override
     public boolean updateScore(int pinsKnocked) {
-        if (!scores.firstThrowPlayed()) {
+        if (scores.firstThrowIsNotPlayed()) {
             scores.updateFirstThrow(pinsKnocked);
             return true;
         }
-        if (!scores.secondThrowPlayed()) {
+        if (scores.secondThrowIsNotPlayed()) {
             scores.updateSecondThrow(pinsKnocked);
             return true;
         }

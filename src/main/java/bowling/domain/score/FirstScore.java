@@ -14,13 +14,13 @@ public class FirstScore extends Score {
     }
 
     @Override
-    public boolean isPlayed() {
-        return pinsKnocked != null;
+    public boolean isNotPlayed() {
+        return pinsKnocked == null;
     }
 
     @Override
     public String toString(boolean allPinsDown) {
-        if (!isPlayed()) {
+        if (!isNotPlayed()) {
             return " ";
         }
         if (allPinsDown) {

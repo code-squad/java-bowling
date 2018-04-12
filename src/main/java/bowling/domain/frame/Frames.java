@@ -6,7 +6,7 @@ import java.util.List;
 import static bowling.domain.Utils.Formatter.formatFrame;
 
 public class Frames {
-    private List<Frame> frames;
+    private final List<Frame> frames;
 
     public Frames() {
         this.frames = initializeFrames();
@@ -14,7 +14,7 @@ public class Frames {
 
     private List<Frame> initializeFrames() {
         List<Frame> frames = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int frameNumber = 0; frameNumber < 9; frameNumber++) {
             frames.add(new NormalFrame());
         }
         frames.add(new LastFrame());
