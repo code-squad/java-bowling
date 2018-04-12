@@ -16,4 +16,7 @@ public abstract class Frame {
     }
 
     public abstract void updateScore(int pinsKnocked);
+
+    @Override
+    public abstract String toString();
 }

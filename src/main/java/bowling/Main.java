@@ -1,14 +1,14 @@
 package bowling;
 
-import bowling.domain.BowlingGame;
+import bowling.domain.Player;
 
 public class Main {
     public static void main(String[] args) {
-        BowlingGame game = new BowlingGame();
+        Player game = new Player("JAE");
         System.out.println(game.toString());
     }
 
-//    private static BowlingGame startGame() {
+//    private static Player startGame() {
 //
 //    }
 }

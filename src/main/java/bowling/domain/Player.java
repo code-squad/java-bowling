@@ -2,11 +2,13 @@ package bowling.domain;
 
 import java.util.List;
 
-public class BowlingGame {
-    private Frames frames;
+public class Player {
+    private final Frames frames;
+    private final String playerName;
 
-    public BowlingGame() {
+    public Player(String playerName) {
         this.frames = new Frames();
+        this.playerName = playerName;
     }
 
     public void updateFrames(int frameNumber, int pinsKnocked) {
@@ -15,6 +17,6 @@ public class BowlingGame {
 
     @Override
     public String toString() {
-        return frames.toString();
+        return "|" + Formatter.formatFrame("  " + playerName) + frames.toString();
     }
 }

@@ -15,4 +15,9 @@ public class FormatterTest {
     public void formatFrame_Last_Frame() {
         assertEquals("8|/|5 ", Formatter.formatFrame("8|/|5"));
     }
+
+    @Test
+    public void formatLabel() {
+        assertEquals("01", Formatter.formatLabel(1));
+    }
 }
