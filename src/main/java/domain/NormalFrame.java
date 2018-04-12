@@ -59,17 +59,17 @@ public class NormalFrame extends Frame {
         if (isStrike(firstPins, secondPins)) {
             return STRIKE;
         }
-        if (isGutter(firstPins)) {
-            first = GUTTER;
-        }
-        if (isGutter(secondPins)) {
-            second = GUTTER;
-        }
         if (isSpare(firstPins, secondPins)) {
             second = SPARE;
         }
         if (isOpen(firstPins, secondPins)) {
             second = String.valueOf(secondPins);
+        }
+        if (isGutter(firstPins)) {
+            first = GUTTER;
+        }
+        if (isGutter(secondPins)) {
+            second = GUTTER;
         }
 
         sb.append(first);

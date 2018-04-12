@@ -27,7 +27,7 @@ public class InputViewTest {
 
     @Test
     public void getFirstThrowing() {
-        Frame frame = new NormalFrame();
+        Frame frame = new NormalFrame(1);
         scanner = new Scanner("10");
         assertEquals(10, InputView.getThrowing(scanner, frame));
     }

@@ -57,9 +57,13 @@ abstract public class Frame {
         if (isSecond()) {
             return false;
         }
-        if (prevPins == NO_PINS || nextPins == NO_PINS) {
-            return false;
-        }
+        // -|1 이 안 됨
+//        if (isGutter(prevPins) && !isGutter(nextPins)) {
+//            return false;
+//        }
+//        if (!isGutter(prevPins) && isGutter(nextPins)) {
+//            return false;
+//        }
         return TEN_PINS - (prevPins + nextPins) > NO_PINS;
     }
 }

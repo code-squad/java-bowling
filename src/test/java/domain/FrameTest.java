@@ -15,7 +15,7 @@ public class FrameTest {
     @Before
     public void setup() {
         bowlingGame = new BowlingGame("HTW");
-        frame = new NormalFrame();
+        frame = new NormalFrame(1);
     }
 
     @Test

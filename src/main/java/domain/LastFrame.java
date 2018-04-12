@@ -7,7 +7,14 @@ public class LastFrame extends Frame {
     private int thirdPins = UNPLAYED;  //3투구 쓰러트린 핀 개수
 
     public LastFrame(int frameNo) {
+        this(UNPLAYED, UNPLAYED, UNPLAYED, frameNo);
+    }
+
+    public LastFrame(int firstPins, int secondPins, int thirdPins, int frameNo) {
         super(frameNo);
+        this.firstPins = firstPins;
+        this.secondPins = secondPins;
+        this.thirdPins = thirdPins;
         pins = TEN_PINS;
     }
 
@@ -80,8 +87,14 @@ public class LastFrame extends Frame {
         if (isStrike(secondPins)) {
             second = STRIKE;
         }
-        if (isStrike(thirdPins)) {
+        if (isStrike(thirdPins) && !isOpen(firstPins, secondPins)) {
             third = STRIKE;
+        }
+        if (isSpare(firstPins, secondPins)) {
+            second = SPARE;
+        }
+        if (!isStrike(firstPins) && isOpen(firstPins, secondPins)) {
+            second = String.valueOf(secondPins);
         }
         if (isGutter(firstPins)) {
             first = GUTTER;
@@ -91,12 +104,6 @@ public class LastFrame extends Frame {
         }
         if (isGutter(thirdPins)) {
             third = GUTTER;
-        }
-        if (isSpare(firstPins, secondPins)) {
-            second = SPARE;
-        }
-        if (!isStrike(firstPins) && isOpen(firstPins, secondPins)) {
-            second = String.valueOf(secondPins);
         }
 
         sb.append(first);
