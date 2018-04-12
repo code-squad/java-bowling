@@ -4,14 +4,12 @@ public class Scores {
     static final int ALL = 10;
     static final int NONE = 0;
 
-    private Score firstScore = new FirstScore();
-    private Score secondScore = new SecondScore();
-    private int pinsStanding = ALL;
+    private FirstScore firstScore = new FirstScore();
+    private SecondScore secondScore = new SecondScore();
 
     public boolean updateFirstThrow(int pinsKnocked) throws IllegalArgumentException {
         if (isValidScore(pinsKnocked)) {
             firstScore.updateScore(pinsKnocked);
-            pinsStanding -= pinsKnocked;
             return true;
         }
         throw new IllegalArgumentException("유효한 숫자가 아닙니다.");
@@ -20,7 +18,6 @@ public class Scores {
     public boolean updateSecondThrow(int pinsKnocked) throws IllegalArgumentException {
         if (isValidScore(pinsKnocked)) {
             secondScore.updateScore(pinsKnocked);
-            pinsStanding -= pinsKnocked;
             return true;
         }
         throw new IllegalArgumentException("입력된 숫자가 남은 핀의 개수보다 큽니다.");
@@ -31,9 +28,7 @@ public class Scores {
     }
 
     public boolean isStrike() {
-        return firstScore.isPlayed()
-                && !secondScore.isPlayed()
-                && pinsStanding == NONE;
+        return firstScore.isStrike();
     }
 
     public boolean secondThrowIsPlayed() {
@@ -41,16 +36,14 @@ public class Scores {
     }
 
     public boolean isSpare() {
-        return firstScore.isPlayed()
-                && secondScore.isPlayed()
-                && pinsStanding == NONE;
+        return secondScore.isSpare(firstScore);
     }
 
     boolean isValidScore(int pinsKnocked) {
         if (pinsKnocked > ALL || pinsKnocked < NONE) {
             return false;
         }
-        if (pinsKnocked > pinsStanding) {
+        if (firstScore.isMoreThanPinsStanding(pinsKnocked)) {
             return false;
         }
         return true;
@@ -58,6 +51,6 @@ public class Scores {
 
     @Override
     public String toString() {
-        return firstScore.toString(isStrike()) + secondScore.toString(isSpare());
+        return firstScore.toString() + secondScore.toString(firstScore);
     }
 }

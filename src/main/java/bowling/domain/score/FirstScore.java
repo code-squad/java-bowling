@@ -1,34 +1,45 @@
 package bowling.domain.score;
 
+import static bowling.domain.score.Scores.ALL;
 import static bowling.domain.score.Scores.NONE;
 
-public class FirstScore implements Score {
-    private Integer pinsKnocked;
+public class FirstScore {
+    private Integer firstScore;
 
-    @Override
     public int updateScore(int pinsKnocked) {
-        if(this.pinsKnocked == null){
-            this.pinsKnocked = pinsKnocked;
+        if (firstScore == null) {
+            firstScore = pinsKnocked;
         }
-        return this.pinsKnocked;
+        return firstScore;
     }
 
-    @Override
     public boolean isPlayed() {
-        return pinsKnocked != null;
+        return firstScore != null;
+    }
+
+    public boolean isStrike() {
+        return firstScore == ALL;
+    }
+
+    public boolean isSpare(int secondScore) {
+        return firstScore + secondScore == ALL;
+    }
+
+    public boolean isMoreThanPinsStanding(int pinsKnocked){
+        return pinsKnocked > ALL - firstScore;
     }
 
     @Override
-    public String toString(boolean allPinsDown) {
+    public String toString() {
         if (!isPlayed()) {
             return " ";
         }
-        if (allPinsDown) {
+        if (isStrike()) {
             return "X";
         }
-        if (pinsKnocked == NONE) {
+        if (firstScore == NONE) {
             return "-";
         }
-        return String.valueOf(pinsKnocked);
+        return String.valueOf(firstScore);
     }
 }

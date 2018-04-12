@@ -2,33 +2,34 @@ package bowling.domain.score;
 
 import static bowling.domain.score.Scores.NONE;
 
-public class SecondScore implements Score {
-    private Integer pinsKnocked;
+public class SecondScore {
+    private Integer secondScore;
 
-    @Override
     public int updateScore(int pinsKnocked) {
-        if (this.pinsKnocked == null) {
-            this.pinsKnocked = pinsKnocked;
+        if (secondScore == null) {
+            secondScore = pinsKnocked;
         }
-        return this.pinsKnocked;
+        return secondScore;
     }
 
-    @Override
     public boolean isPlayed() {
-        return pinsKnocked != null;
+        return secondScore != null;
     }
 
-    @Override
-    public String toString(boolean allPinsDown) {
+    public boolean isSpare(FirstScore firstScore) {
+        return firstScore.isSpare(secondScore);
+    }
+
+    public String toString(FirstScore firstScore) {
         if (!isPlayed()) {
             return "  ";
         }
-        if (allPinsDown) {
+        if (isSpare(firstScore)) {
             return "|/";
         }
-        if (pinsKnocked == NONE) {
+        if (secondScore == NONE) {
             return "|-";
         }
-        return "|" + pinsKnocked;
+        return "|" + secondScore;
     }
 }

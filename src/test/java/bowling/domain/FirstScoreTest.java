@@ -21,24 +21,24 @@ public class FirstScoreTest {
 
     @Test
     public void toStringTest_Not_Played_Yet() {
-        assertEquals(" ", firstScore.toString(false));
+        assertEquals(" ", firstScore.toString());
     }
 
     @Test
     public void toStringTest_Strike() {
         firstScore.updateScore(10);
-        assertEquals("X", firstScore.toString(true));
+        assertEquals("X", firstScore.toString());
     }
 
     @Test
     public void toStringTest_Number() {
         firstScore.updateScore(9);
-        assertEquals("9", firstScore.toString(false));
+        assertEquals("9", firstScore.toString());
     }
 
     @Test
     public void toStringTest_Zero() {
         firstScore.updateScore(0);
-        assertEquals("-", firstScore.toString(false));
+        assertEquals("-", firstScore.toString());
     }
 }

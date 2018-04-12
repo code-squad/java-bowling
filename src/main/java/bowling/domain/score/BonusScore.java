@@ -4,17 +4,17 @@ import static bowling.domain.score.Scores.ALL;
 import static bowling.domain.score.Scores.NONE;
 
 public class BonusScore {
-    private Integer pinsKnocked;
+    private Integer bonusScore;
 
     public int updateScore(int pinsKnocked) {
-        if (this.pinsKnocked == null) {
-            this.pinsKnocked = pinsKnocked;
+        if (bonusScore == null) {
+            bonusScore = pinsKnocked;
         }
-        return this.pinsKnocked;
+        return bonusScore;
     }
 
     public boolean isPlayed() {
-        return pinsKnocked != null;
+        return bonusScore != null;
     }
 
     @Override
@@ -22,12 +22,12 @@ public class BonusScore {
         if (!isPlayed()) {
             return "  ";
         }
-        if (pinsKnocked == ALL) {
+        if (bonusScore == ALL) {
             return "|X";
         }
-        if (pinsKnocked == NONE) {
+        if (bonusScore == NONE) {
             return "|-";
         }
-        return "|" + pinsKnocked;
+        return "|" + bonusScore;
     }
 }
