@@ -26,6 +26,7 @@ public class FirstScore {
     }
 
     public boolean isMoreThanPinsStanding(int pinsKnocked){
+
         return pinsKnocked > ALL - firstScore;
     }
 

@@ -16,7 +16,7 @@ public class Scores {
     }
 
     public boolean updateSecondThrow(int pinsKnocked) throws IllegalArgumentException {
-        if (isValidScore(pinsKnocked)) {
+        if (isValidScore(pinsKnocked) && !isMoreThanPinsStanding(pinsKnocked)) {
             secondScore.updateScore(pinsKnocked);
             return true;
         }
@@ -40,13 +40,11 @@ public class Scores {
     }
 
     boolean isValidScore(int pinsKnocked) {
-        if (pinsKnocked > ALL || pinsKnocked < NONE) {
-            return false;
-        }
-        if (firstScore.isMoreThanPinsStanding(pinsKnocked)) {
-            return false;
-        }
-        return true;
+        return !(pinsKnocked > ALL || pinsKnocked < NONE);
+    }
+
+    boolean isMoreThanPinsStanding(int pinsKnocked) {
+        return firstScore.isMoreThanPinsStanding(pinsKnocked);
     }
 
     @Override

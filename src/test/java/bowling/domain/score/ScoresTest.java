@@ -45,13 +45,19 @@ public class ScoresTest {
     }
 
     @Test
-    public void isValidScore_Under_Max() {
+    public void isValidScore_Under_Min() {
         assertFalse(scores.isValidScore(-1));
     }
 
     @Test
-    public void isValidScore_More_Than_Pins_Standing() {
+    public void isMoreThanPinsStanding_True() {
         scores.updateFirstThrow(6);
-        assertFalse(scores.isValidScore(5));
+        assertTrue(scores.isMoreThanPinsStanding(5));
+    }
+
+    @Test
+    public void isMoreThanPinsStanding_False() {
+        scores.updateFirstThrow(6);
+        assertFalse(scores.isMoreThanPinsStanding(4));
     }
 }
