@@ -2,7 +2,6 @@ package domain.frame;
 
 import org.junit.Before;
 import org.junit.Test;
-import utils.FrameFactory;
 
 import static org.junit.Assert.*;
 
@@ -11,51 +10,30 @@ public class NormalFrameTest {
 
     @Before
     public void setUp() throws Exception {
-        testFrame = FrameFactory.of(1);
+        testFrame = Frame.of(1);
     }
 
     @Test
-    public void 프레임_점수_추가() {
-        testFrame.addScore(5);
-        testFrame.addScore(5);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void 프레임_점수_오버추가() {
-        testFrame.addScore(10);
-        testFrame.addScore(2);
+    public void 스트라이크_상태변화() {
+        testFrame.roll(10);
+        assertTrue(testFrame.isFinish());
     }
 
     @Test
-    public void 프레임_종료_체크() {
+    public void 스패어_상태변화() {
+        testFrame.roll(5);
+        testFrame.roll(5);
+        assertTrue(testFrame.isFinish());
+    }
+
+    @Test
+    public void 미쓰_상태변화() {
+        testFrame.roll(3);
         assertFalse(testFrame.isFinish());
     }
 
     @Test
-    public void 스트라이크_결과() {
-        assertEquals("X", testFrame.addScore(10));
-    }
-
-    @Test
-    public void 스패어_결과() {
-        testFrame.addScore(3);
-        assertEquals("/", testFrame.addScore(7));
-    }
-
-    @Test
-    public void 미쓰_결과() {
-        testFrame.addScore(1);
-        assertEquals("5", testFrame.addScore(5));
-    }
-
-    @Test
-    public void 미쓰_0점_포함_결과() {
-        testFrame.addScore(5);
-        assertEquals("-", testFrame.addScore(0));
-    }
-
-    @Test
-    public void 진행중_결과() {
-        assertEquals("5", testFrame.addScore(5));
+    public void 진행중_변화() {
+        assertFalse(testFrame.isFinish());
     }
 }

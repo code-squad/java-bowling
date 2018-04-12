@@ -1,13 +1,12 @@
 package view;
 
 import domain.Player;
-import domain.frame.Frames;
 import domain.frame.result.FrameResults;
 
 public class OutputView {
 
     public static void printResult(Player player) {
-        System.out.println(getTopMessage() + getResultMessage(player.getName(), player.getResults()));
+        /*System.out.println(getTopMessage() + getResultMessage(player.getName(), player.getResults()));*/
     }
 
     private static String getTopMessage() {
@@ -16,13 +15,13 @@ public class OutputView {
 
     private static String getResultMessage(String name, FrameResults results) {
         StringBuilder builder = new StringBuilder();
-        builder.append("|").append(fillArea(name));
+        /*builder.append("|").append(fillArea(name));
         for (int frameIdx = 0; frameIdx < results.getMaxSaveSize(); frameIdx++) {
             builder.append("|").append(buildFrameResultMessage(results, frameIdx));
             if (Frames.isLast(frameIdx + 1)) {
                 builder.append("|");
             }
-        }
+        }*/
         return builder.toString();
     }
 

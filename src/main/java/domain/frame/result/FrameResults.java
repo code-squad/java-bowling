@@ -30,7 +30,7 @@ public class FrameResults {
     }
 
     public int getMaxSaveSize() {
-        return Frames.LIMIT_NUM;
+        return Frames.LIMIT;
     }
 
     public String getFrameResultMessage(int frameIdx) {

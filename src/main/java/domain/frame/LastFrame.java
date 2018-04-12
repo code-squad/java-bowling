@@ -1,48 +1,22 @@
 package domain.frame;
 
-import domain.Score;
-import domain.Scores;
-import domain.frame.result.ScoreMessage;
-import domain.frame.status.FrameStatus;
+public class LastFrame extends Frame {
 
-public class LastFrame implements Frame {
-    private FrameStatus status;
-    private Scores scores;
-    private Score bonusScore;
-
-    public LastFrame() {
-        scores = new Scores();
-        status = FrameStatus.getInitStatus();
+    public LastFrame(int frameNum) {
+        super(frameNum);
     }
 
     @Override
-    public String addScore(int score) throws IllegalArgumentException {
-        if (status.isBonus()) {
-            bonusScore = new Score(score);
-            return convertScore(score);
+    Frame doRecord(FrameScore score, int num) {
+        score.roll(num);
+        if (score.isBeforeBonusRoll()) { //roll을 가지고 다 기록한다는 전제하에 roll이 아닌 다른 인터페이스로 들어오면 isBonus()만 해도 됨 왜? 끝나고 여기 접근 안할거거든
+            score.increaseLeftCount();
         }
-        scores.addScore(score);
-        status = status.changeStatus(scores);
-        return convertScore(score);
+        return this;
     }
 
     @Override
-    public String convertScore(int score) {
-        if (scores.isFinish()) {
-            return ScoreMessage.convertMessage(score);
-        }
-        return status.convertScore(score);
-    }
-
-    @Override
-    public boolean isFinish() {
-        if (!status.isFinish()) {
-            return false;
-        }
-
-        if (!status.isBonus()) {
-            return true;
-        }
-        return bonusScore != null;
+    boolean doCheckFinish(FrameScore score) {
+        return score.isRegularFinish() && score.isBonusFinish();
     }
 }

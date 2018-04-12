@@ -1,6 +1,6 @@
 package domain.frame.status;
 
-import domain.Scores;
+import domain.frame.Pin;
 
 public abstract class FrameStatus {
 
@@ -8,11 +8,11 @@ public abstract class FrameStatus {
         return Ing.of();
     }
 
-    public FrameStatus changeStatus(Scores scores) {
-        if (!scores.isScoreLimit()) {
-            return scores.isLimitSize() ? Miss.of() : Ing.of();
+    public FrameStatus changeStatus(int regularSum, int leftNumber) {
+        if (Pin.isMax(regularSum)) {
+            return leftNumber == 0 ? Spare.of() : Strike.of();
         }
-        return scores.isLimitSize() ? Spare.of() : Strike.of();
+        return leftNumber == 0 ? Miss.of() : Ing.of();
     }
 
     public abstract String convertScore(int score);
