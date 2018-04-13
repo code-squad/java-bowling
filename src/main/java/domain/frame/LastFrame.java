@@ -7,9 +7,9 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    Frame doRecord(FrameScore score, int num) {
+    Frame doRecord(FrameScore score, int num) throws IllegalArgumentException {
         score.roll(num);
-        if (score.isBeforeBonusRoll()) {
+        if (score.isRegularFinish() && score.isBeforeBonusRoll()) {
             score.increaseLeftCount();
         }
         return this;

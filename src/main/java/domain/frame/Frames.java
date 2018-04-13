@@ -16,6 +16,7 @@ public class Frames {
         if (!frames.contains(currentFrame)) {
             frames.add(currentFrame);
         }
+
         Frame frame = currentFrame.roll(num);
         if (currentFrame.isDiffFrame(frame)) {
             currentFrame = frame;

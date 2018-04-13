@@ -23,4 +23,8 @@ public class Pin {
     public static boolean isValidRange(int num) {
         return num >= MIN && num <= MAX;
     }
+
+    public boolean isOverRecordPin(int num) {
+        return this.num + num > MAX;
+    }
 }

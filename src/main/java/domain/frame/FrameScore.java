@@ -18,11 +18,18 @@ public class FrameScore {
     }
 
     public void roll(int num) throws IllegalArgumentException {
+        if (isOverRecordPin(num)) {
+            throw new IllegalArgumentException("한 프레임에 정규 투구 기록할 수 있는 개수는 " + Pin.MAX + "개 입니다.");
+        }
         pins.add(new Pin(num));
         leftNumber--;
         if (!status.isFinish()) {
             status = status.changeStatus(getSum(), leftNumber);
         }
+    }
+
+    public boolean isOverRecordPin(int num) {
+        return !status.isFinish() && pins.size() != 0 && pins.get(0).isOverRecordPin(num);
     }
 
     public FrameScore get() {

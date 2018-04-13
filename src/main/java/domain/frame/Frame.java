@@ -35,7 +35,7 @@ public abstract class Frame {
         return score.getPinMessage();
     }
 
-    abstract Frame doRecord(FrameScore score, int num);
+    abstract Frame doRecord(FrameScore score, int num) throws IllegalArgumentException;
 
     public boolean isFinish() {
         return doCheckFinish(score);
