@@ -1,35 +1,25 @@
 package saru;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Frame {
-    private static final int NORMAL_COUNT = 2;
-    private static final int LAST_COUNT = 3;
-    private List<DownPin> downPins = new ArrayList<>();
-
     private int maxBallCount;
+    private List<DownPin> downPins = new ArrayList<>();
 
     private Frame(int maxBallCount) {
         this.maxBallCount = maxBallCount;
     }
 
     public static Frame of(int maxBallCount) {
-        if (maxBallCount != NORMAL_COUNT && maxBallCount != LAST_COUNT) {
-            throw new IllegalArgumentException("볼카운트가 잘못됨");
-        }
-
         return new Frame(maxBallCount);
     }
 
-    public int getMaxBallCount() {
-        return maxBallCount;
-    }
+    void throwing(DownPin downPinCount) {
+        if (!checkThrowingPossible()) {
+            return;
+        }
 
-    public int getNowBallCount() {
-        return downPins.size();
-    }
-
-    public void throwing(DownPin downPinCount) {
         downPins.add(downPinCount);
     }
 
@@ -37,15 +27,27 @@ public class Frame {
         return downPins.get(downPins.size() - 1);
     }
 
-    DownPin getFirstDownPinCount() {
-        return downPins.get(0);
+    boolean checkThrowingPossible() {
+        if (getNowBallCount() == 0) {
+            return true;
+        }
+
+        if (downPins.get(0).equals(DownPin.of(10))) {
+            return false;
+        }
+
+        if (checkFull()) {
+            return false;
+        }
+
+        return true;
     }
 
-    DownPin getSecondDownPinCount() {
-        return downPins.get(1);
+    private boolean checkFull() {
+        return maxBallCount == getNowBallCount();
     }
 
-    public boolean checkFull() {
-        return maxBallCount == downPins.size();
+    int getNowBallCount() {
+        return downPins.size();
     }
 }

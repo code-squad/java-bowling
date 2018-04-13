@@ -3,31 +3,18 @@ package saru;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BowlingTest {
-    @Test(expected = IllegalArgumentException.class)
-    public void ballCountFail() {
-        DownPin.of(11);
-    }
-
     @Test
-    public void downPinMake() {
-        DownPin.of(0);
+    public void ballOf() {
         DownPin.of(10);
-    }
-
-    @Test
-    public void frameMake() {
         Frame.of(2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void makeBallsOverFour() {
-        Frame.of(4);
-    }
-
     @Test
-    public void throwing() {
+    public void nowPinCount() {
         Frame frame = Frame.of(2);
         frame.throwing(DownPin.of(5));
         assertEquals(DownPin.of(5), frame.getNowDownPinCount());
@@ -40,42 +27,44 @@ public class BowlingTest {
         assertEquals(1, frame.getNowBallCount());
     }
 
+    //==============================================================
+
     @Test
-    public void getFirstSecondDownPinCount() {
+    public void 맨처음십넣었을떄첫프레임() {
         Frame frame = Frame.of(2);
-        frame.throwing(DownPin.of(5));
-        frame.throwing(DownPin.of(4));
-
-        assertEquals(DownPin.of(5), frame.getFirstDownPinCount());
-        assertEquals(DownPin.of(4), frame.getSecondDownPinCount());
+        frame.throwing(DownPin.of(10));
+        assertFalse(frame.checkThrowingPossible());
     }
 
     @Test
-    public void scoreHandlerInit() {
-        ScoreHandler scoreHandler = ScoreHandler.of();
-        scoreHandler.init();
-        assertEquals(0, scoreHandler.getNowPageIndex());
+    public void 그냥하나넣었을때첫프레임() {
+        Frame frame = Frame.of(2);
+        frame.throwing(DownPin.of(3));
+        assertTrue(frame.checkThrowingPossible());
     }
 
     @Test
-    public void scoreHandlerPaginateNotApply() {
-        ScoreHandler scoreHandler = ScoreHandler.of();
-        scoreHandler.init();
-        scoreHandler.pageinate();
-        assertEquals(0, scoreHandler.getNowPageIndex());
+    public void 두개넣어서십이상일때첫프레임() {
+        Frame frame = Frame.of(2);
+        frame.throwing(DownPin.of(3));
+        frame.throwing(DownPin.of(7));
+        assertFalse(frame.checkThrowingPossible());
     }
 
     @Test
-    public void scoreHandlerPaginateApply() {
-        ScoreHandler scoreHandler = ScoreHandler.of();
-        scoreHandler.init();
+    public void 세번넣었을때첫프레임() {
+        Frame frame = Frame.of(2);
+        frame.throwing(DownPin.of(3));
+        frame.throwing(DownPin.of(7));
+        frame.throwing(DownPin.of(7));
+        assertEquals(2, frame.getNowBallCount());
+    }
 
-        // TODO 프레임 이동
-        Frame frame = scoreHandler.getNowFrame();
-        frame.throwing(DownPin.of(5));
-        frame.throwing(DownPin.of(4));
-
-        scoreHandler.pageinate();
-        assertEquals(1, scoreHandler.getNowPageIndex());
+    @Test
+    public void 스트라이크넣고또넣었을떄첫프레임() {
+        Frame frame = Frame.of(2);
+        frame.throwing(DownPin.of(10));
+        frame.throwing(DownPin.of(3));
+        assertEquals(1, frame.getNowBallCount());
     }
 }
