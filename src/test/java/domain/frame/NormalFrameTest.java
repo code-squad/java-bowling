@@ -64,20 +64,20 @@ public class NormalFrameTest {
     public void 스트라이크_투구_미완료_점수합계() {
         testFrame.roll(10);
         testFrame.roll(5);
-        assertEquals(Frame.UN_SCORE_STATE, testFrame.getResult().getScore());
+        assertEquals(Frame.CANNOT_CALC_SCORE_STATE, testFrame.getResult().getScore());
     }
 
     @Test
     public void 스패어_투구_미완료_점수합계() {
         testFrame.roll(5);
         testFrame.roll(5);
-        assertEquals(Frame.UN_SCORE_STATE, testFrame.getResult().getScore());
+        assertEquals(Frame.CANNOT_CALC_SCORE_STATE, testFrame.getResult().getScore());
     }
 
     @Test
     public void 진행중_투구_점수합계() {
         testFrame.roll(9);
-        assertEquals(Frame.UN_SCORE_STATE, testFrame.getResult().getScore());
+        assertEquals(Frame.CANNOT_CALC_SCORE_STATE, testFrame.getResult().getScore());
     }
 
     @Test

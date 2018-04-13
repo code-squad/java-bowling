@@ -1,5 +1,7 @@
 package domain.frame;
 
+import domain.frame.result.Board;
+import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.score.FrameScore;
 
@@ -7,7 +9,7 @@ import static domain.frame.result.Board.isLimit;
 
 public abstract class Frame {
     public static final int REGULAR_COUNT = 2;
-    public static final int UN_SCORE_STATE = -1;
+    public static final int CANNOT_CALC_SCORE_STATE = -1;
 
     final int frameNum;
     private FrameScore score;
@@ -49,11 +51,32 @@ public abstract class Frame {
         return frameNum;
     }
 
+    private int getScore() {
+        try {
+            FrameScore frameScore = score.getScore();
+            return frameScore.get();
+        } catch (CannotCalcException e) {
+            return CANNOT_CALC_SCORE_STATE;
+        }
+    }
+
     public FrameResult getResult() {
         if (!score.isBonusFinish()) {
-            return new FrameResult(score.getScoreMessage(), UN_SCORE_STATE);
+            return new FrameResult(score.getScoreMessage(), CANNOT_CALC_SCORE_STATE);
         }
-        // TODO : 보너스 점수 등록 부분 해결하고 여기 해결하기 뭔가 얹혀지는 느낌인
-        return new FrameResult(score.getScoreMessage(), score.getScore());
+        return new FrameResult(score.getScoreMessage(), getScore());
+    }
+
+    private void addFrameResult(Board board) {
+        board.addResult(getResult());
+        if (nextFrame != null) {
+            nextFrame.addFrameResult(board);
+        }
+    }
+
+    public Board getBoard() {
+        Board board = new Board();
+        addFrameResult(board);
+        return board;
     }
 }

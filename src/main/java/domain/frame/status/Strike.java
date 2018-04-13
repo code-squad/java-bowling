@@ -9,7 +9,6 @@ public class Strike extends FrameStatus {
     private static Strike strike = new Strike();
 
     private Strike() {
-
     }
 
     public static Strike of() {

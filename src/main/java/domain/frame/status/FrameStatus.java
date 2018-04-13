@@ -7,7 +7,7 @@ import java.util.List;
 public abstract class FrameStatus {
 
     public static FrameStatus getInitStatus() {
-        return Ing.of();
+        return Ready.of();
     }
 
     public FrameStatus changeStatus(int regularSum, int leftNumber) {

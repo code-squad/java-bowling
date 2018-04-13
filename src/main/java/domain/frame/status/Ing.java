@@ -9,7 +9,6 @@ public class Ing extends FrameStatus {
     private static Ing ing = new Ing();
 
     private Ing(){
-
     }
 
     public static Ing of() {

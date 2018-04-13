@@ -2,6 +2,7 @@ package domain.frame.score;
 
 import domain.frame.Frame;
 import domain.frame.pin.Pin;
+import domain.frame.result.CannotCalcException;
 import domain.frame.status.FrameStatus;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class FrameScore {
         pins.add(new Pin(num));
         leftNumber--;
         if (!status.isFinish()) {
-            status = status.changeStatus(getSum(), leftNumber);
+            status = status.changeStatus(get(), leftNumber);
         }
     }
 
@@ -34,8 +35,11 @@ public class FrameScore {
         return !status.isFinish() && pins.size() != 0 && pins.get(0).isOverRecordPin(num);
     }
 
-    public int getScore() {
-        return getSum();
+    public FrameScore getScore() throws CannotCalcException {
+        if (!isBonusFinish()) {
+            throw new CannotCalcException("종료되지않은 프레임의 합계점수는 구할 수 없습니다.");
+        }
+        return this;
     }
 
     public String getScoreMessage() {
@@ -53,7 +57,7 @@ public class FrameScore {
         return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
     }
 
-    private int getSum() {
+    public int get() {
         return pins.stream().mapToInt(Pin::getNum).sum();
     }
 

@@ -3,7 +3,6 @@ package domain.frame.result;
 public class FrameResult {
     private String message;
     private int score;
-    private int totalScore = -1;
 
     public FrameResult(String frameMessage, int score) {
         this.message = frameMessage;
@@ -16,5 +15,13 @@ public class FrameResult {
 
     public int getScore() {
         return score;
+    }
+
+    @Override
+    public String toString() {
+        return "FrameResult{" +
+                "message='" + message + '\'' +
+                ", score=" + score +
+                '}';
     }
 }

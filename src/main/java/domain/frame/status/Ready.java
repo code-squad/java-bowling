@@ -1,28 +1,27 @@
 package domain.frame.status;
 
 import domain.frame.pin.Pin;
-import domain.frame.score.ScoreMessage;
 
 import java.util.List;
 
-public class Miss extends FrameStatus {
-    private static Miss miss = new Miss();
+public class Ready extends FrameStatus {
+    private static Ready ready = new Ready();
 
-    private Miss() {
+    private Ready() {
     }
 
-    public static Miss of() {
-        return miss;
+    public static Ready of() {
+        return ready;
     }
 
     @Override
     public String convertScore(List<Pin> pins) {
-        return ScoreMessage.convertMessage(pins.get(0).getNum()) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + ScoreMessage.convertMessage(pins.get(1).getNum());
+        return "";
     }
 
     @Override
     public boolean isFinish() {
-        return true;
+        return false;
     }
 
     @Override
@@ -37,6 +36,6 @@ public class Miss extends FrameStatus {
 
     @Override
     public boolean isRightThrewNum(int threwNum) {
-        return threwNum == 2;
+        return threwNum == 0;
     }
 }
