@@ -22,10 +22,11 @@ public class NormalFrame implements Frame {
     }
 
     public boolean isNotValidInput(int pinsKnocked) {
+
         if (pinsKnocked > ALL || pinsKnocked < 0) {
             return true;
         }
-        return pinsKnocked > ALL - firstScore;
+        return !isStrike() && pinsKnocked > ALL - firstScore;
     }
 
     public Integer throwBall(int pinsKnocked) throws IllegalArgumentException {

@@ -11,6 +11,8 @@ public interface Frame {
 
     boolean isSpare();
 
+    boolean isNotValidInput(int pinsKnocked);
+
     Integer throwBall(int pinsKnocked);
 
     Integer calculateSum();
