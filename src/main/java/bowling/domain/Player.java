@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import bowling.domain.Util.ScoreCalculator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,5 +23,8 @@ public class Player {
         return frames;
     }
 
-
+    public List<Integer> calculateFrameScores(){
+        ScoreCalculator calculator = new ScoreCalculator(frames);
+        return calculator.calculateScores();
+    }
 }

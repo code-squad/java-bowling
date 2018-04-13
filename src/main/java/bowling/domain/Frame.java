@@ -2,6 +2,7 @@ package bowling.domain;
 
 public interface Frame {
     int ALL = 10;
+    int NONE = 0;
 
     boolean firstBallPlayed();
 

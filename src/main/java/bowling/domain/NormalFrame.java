@@ -1,7 +1,6 @@
 package bowling.domain;
 
 public class NormalFrame implements Frame {
-    private static final int ALL = 10;
     private Integer firstScore;
     private Integer secondScore;
 
@@ -23,7 +22,7 @@ public class NormalFrame implements Frame {
 
     public boolean isNotValidInput(int pinsKnocked) {
 
-        if (pinsKnocked > ALL || pinsKnocked < 0) {
+        if (pinsKnocked > ALL || pinsKnocked < NONE) {
             return true;
         }
         return !isStrike() && pinsKnocked > ALL - firstScore;
@@ -43,6 +42,9 @@ public class NormalFrame implements Frame {
     }
 
     public Integer calculateSum() {
+        if (isStrike()) {
+            return firstScore;
+        }
         return firstScore + secondScore;
     }
 }

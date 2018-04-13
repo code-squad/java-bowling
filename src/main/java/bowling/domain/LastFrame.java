@@ -22,7 +22,7 @@ public class LastFrame implements Frame {
     }
 
     public boolean isNotValidInput(int pinsKnocked) {
-        if (pinsKnocked > ALL || pinsKnocked < 0) {
+        if (pinsKnocked > ALL || pinsKnocked < NONE) {
             return true;
         }
         return !secondBallPlayed() && !isStrike() && pinsKnocked > ALL - firstScore;
