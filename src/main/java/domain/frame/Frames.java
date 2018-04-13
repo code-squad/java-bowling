@@ -18,6 +18,7 @@ public class Frames {
         }
 
         Frame frame = currentFrame.roll(num);
+        // 보너스 요청 자리
         if (currentFrame.isDiffFrame(frame)) {
             currentFrame = frame;
         }

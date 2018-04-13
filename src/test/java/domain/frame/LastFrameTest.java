@@ -65,7 +65,7 @@ public class LastFrameTest {
         testFrame.roll(10);
         testFrame.roll(5);
         testFrame.roll(10);
-        assertEquals("X|5|X", testFrame.getPinMessage());
+        assertEquals("X|5|X", testFrame.getScoreMessage());
     }
 
     @Test
@@ -73,20 +73,20 @@ public class LastFrameTest {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(0);
-        assertEquals("5|/|-", testFrame.getPinMessage());
+        assertEquals("5|/|-", testFrame.getScoreMessage());
     }
 
     @Test
     public void 투구_미쓰_출력메세지() {
         testFrame.roll(3);
         testFrame.roll(6);
-        assertEquals("3|6", testFrame.getPinMessage());
+        assertEquals("3|6", testFrame.getScoreMessage());
     }
 
     @Test
     public void 투구_진행중_출력메세지() {
         testFrame.roll(3);
-        assertEquals("3", testFrame.getPinMessage());
+        assertEquals("3", testFrame.getScoreMessage());
     }
 
     @Test

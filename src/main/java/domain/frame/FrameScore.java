@@ -44,7 +44,7 @@ public class FrameScore {
         return getSum();
     }
 
-    public String getPinMessage() {
+    public String getScoreMessage() {
         if (!isBeforeBonusRoll()) {
             return status.convertScore(pins) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + makeBonusPinMessage();
         }
