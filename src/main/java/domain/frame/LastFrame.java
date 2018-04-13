@@ -1,5 +1,7 @@
 package domain.frame;
 
+import domain.frame.score.FrameScore;
+
 public class LastFrame extends Frame {
 
     public LastFrame(int frameNum) {

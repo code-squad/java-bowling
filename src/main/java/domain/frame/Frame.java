@@ -1,5 +1,7 @@
 package domain.frame;
 
+import domain.frame.score.FrameScore;
+
 public abstract class Frame {
     public static final int REGULAR_COUNT = 2;
     public final int frameNum;

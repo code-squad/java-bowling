@@ -1,5 +1,7 @@
-package domain.frame;
+package domain.frame.score;
 
+import domain.frame.Frame;
+import domain.frame.pin.Pin;
 import domain.frame.status.FrameStatus;
 
 import java.util.ArrayList;

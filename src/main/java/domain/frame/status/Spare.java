@@ -1,7 +1,7 @@
 package domain.frame.status;
 
-import domain.frame.Pin;
-import domain.frame.ScoreMessage;
+import domain.frame.pin.Pin;
+import domain.frame.score.ScoreMessage;
 
 import java.util.List;
 

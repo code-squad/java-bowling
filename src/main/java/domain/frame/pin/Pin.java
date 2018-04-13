@@ -1,4 +1,4 @@
-package domain.frame;
+package domain.frame.pin;
 
 public class Pin {
     public static final int MIN = 0;

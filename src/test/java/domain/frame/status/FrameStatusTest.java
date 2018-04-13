@@ -1,6 +1,6 @@
 package domain.frame.status;
 
-import domain.frame.Pin;
+import domain.frame.pin.Pin;
 import org.junit.Before;
 import org.junit.Test;
 

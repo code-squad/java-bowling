@@ -1,5 +1,7 @@
 package domain.frame;
 
+import domain.frame.score.FrameScore;
+
 public class NormalFrame extends Frame {
 
     public NormalFrame(int frameNum) {

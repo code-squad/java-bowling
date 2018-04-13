@@ -1,5 +1,7 @@
-package domain.frame;
+package domain.frame.score;
 
+import domain.frame.Frame;
+import domain.frame.score.FrameScore;
 import org.junit.Before;
 import org.junit.Test;
 
