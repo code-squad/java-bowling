@@ -22,25 +22,50 @@ public class Round {
     public void trying(final int score) {
         presentFrameTry(score);
         assignCalculableToFrame();
+        if (roundFrames.size() != 1 && presentFrame().isDoCalculation()) {
+            beforeFrame().giveMessageFrom(presentFrame());
+        }
         if (isPresentFrameEnd()) {
             addNextFrame();
         }
     }
 
+    public void recursionTestBackward(int i) {
+        Frame presentFrame = roundFrames.get(roundFrames.size() - i);
+        Frame beforeFrame = roundFrames.get(roundFrames.size() - (i+1));
+        if (i != roundFrames.size() && roundFrames.size() != 1) {
+            beforeFrame.giveMessageFrom(presentFrame);
+            i++;
+            recursionTestBackward(i);
+        }
+    }
+
+    public void recursionTestForward(int i) {
+        Frame presentFrame = roundFrames.get(roundFrames.size() - i);
+        Frame beforeFrame = roundFrames.get(roundFrames.size() - (i+1));
+        if (i != 1 && roundFrames.size() != 1) {
+            presentFrame.giveMessageFromBefore(beforeFrame);
+            i--;
+            recursionTestForward(i);
+        }
+    }
+
+
+
     private void assignCalculableToFrame() {
         if (roundFrames.size() == 1) {
-            lastFrame().assignCalculableState();
+            presentFrame().assignCalculableState();
             return;
         }
-        lastFrame().assignCalculableState(roundFrames.get(roundFrames.size()-2));
+        presentFrame().assignCalculableState(roundFrames.get(roundFrames.size()-2));
     }
 
     private void presentFrameTry(final int score) {
-        lastFrame().trying(score);
+        presentFrame().trying(score);
     }
 
     private boolean isPresentFrameEnd() {
-        return lastFrame().isFrameEnd();
+        return presentFrame().isFrameEnd();
     }
 
     private void addNextFrame() {
@@ -65,8 +90,12 @@ public class Round {
         return Collections.unmodifiableList(roundFrames);
     }
 
-    private Frame lastFrame() {
+    private Frame presentFrame() {
         return roundFrames.get(roundFrames.size() - 1);
+    }
+
+    private Frame beforeFrame() {
+        return roundFrames.get(roundFrames.size() - 2);
     }
 
     @Override

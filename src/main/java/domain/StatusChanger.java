@@ -20,7 +20,7 @@ public class StatusChanger {
         }
         if (presentFrame.isSpare()) return false;
         if (!presentFrame.isSpare() && !presentFrame.isFirstStrike()) return true;
-        return true;
+        return false;
     }
 
     public static boolean beforeFrameDoCase(Frame presentFrame) {

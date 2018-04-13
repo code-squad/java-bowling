@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static domain.CalculateStatus.DO;
 import static domain.CalculateStatus.DONOT;
 import static domain.Figure.FRAMEBAR;
 import static domain.Figure.SPARE;
 
 public abstract class Frame {
 
+    private Score frameScore;
     private Score totalScore;
     private List<Score> scores;
     private CalculateStatus calculateStatus;
@@ -19,6 +21,7 @@ public abstract class Frame {
 
     Frame() {
         this.scores = new ArrayList<>();
+        this.frameScore = Score.of();
         this.totalScore = Score.of();
     }
 
@@ -31,6 +34,7 @@ public abstract class Frame {
 
     void addition(final int score) {
         this.scores.add(Score.of(score));
+        this.frameScore.sum(Score.of(score));
         this.totalScore.sum(Score.of(score));
     }
 
@@ -39,7 +43,7 @@ public abstract class Frame {
     }
 
     boolean isSpare() {
-        return totalScore.isTen() && isTrySecond();
+        return frameScore.isTen() && isTrySecond();
     }
 
     boolean isFirstStrike() {
@@ -47,7 +51,7 @@ public abstract class Frame {
     }
 
     Score getFrameScore() {
-        return totalScore;
+        return frameScore;
     }
 
     boolean isValidScore(final int score) {
@@ -55,7 +59,7 @@ public abstract class Frame {
     }
 
     boolean isValidScoreToTotalScore(final int score) {
-        return totalScore.isValidAdditionScore(score);
+        return frameScore.isValidAdditionScore(score);
     }
 
     private String toScoreString() {
@@ -107,5 +111,32 @@ public abstract class Frame {
         return Objects.hash(scores);
     }
 
+    public Score getTotalScore() {
+        return totalScore;
+    }
+
+    public boolean isDoCalculation() {
+        return calculateStatus == DO;
+    }
+
+    public void giveMessageFrom(Frame frame) {
+        if (frame.calculateStatus == DO) {
+            if (!frame.isTrySecond() && this.isSpare()) {
+                frameScore.sum(frame.scores.get(0));
+                this.calculateStatus = DO;
+                return;
+            }
+            if (frame.isTrySecond() && this.isFirstStrike()) {
+                frameScore.sum(frame.frameScore);
+                this.calculateStatus = DO;
+            }
+        }
+    }
+
+    public void giveMessageFromBefore(Frame beforeFrame) {
+        if (isFrameEnd()) {
+            frameScore.sum(beforeFrame.frameScore);
+        }
+    }
 }
 

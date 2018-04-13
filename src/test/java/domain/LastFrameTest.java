@@ -96,5 +96,4 @@ public class LastFrameTest {
         lastFrame.trying(2);
         assertThat(lastFrame.toString(), is("5|/|2"));
     }
-
 }

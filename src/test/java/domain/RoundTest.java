@@ -102,7 +102,7 @@ public class RoundTest {
         assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
 
-    @Test // 수정해야함.
+    @Test
     public void calculate_do_donot_strike_and_normal() {
         round.trying(10); // 1frame
         assertThat(round.getRoundFrames().get(0).getCalculateStatus(), is(CalculateStatus.DONOT));
@@ -163,4 +163,95 @@ public class RoundTest {
         round.trying(9); // 2frame
         assertThat(round.getRoundFrames().get(1).getCalculateStatus(), is(CalculateStatus.DONOT));
     }
+
+    @Test
+    public void calculate_do_donot_last_frame_case_normal() {
+        round.trying(10); // 1frame
+        round.trying(10); // 2frame
+        round.trying(10); // 3frame
+        round.trying(10); // 4frame
+        round.trying(10); // 5frame
+        round.trying(10); // 6frame
+        round.trying(10); // 7frame
+        round.trying(10); // 8frame
+        round.trying(10); // 9frame
+        round.trying(1); // 10frame
+        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DO));
+        round.trying(2); // 10frame
+        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DO));
+    }
+
+    @Test
+    public void calculate_do_donot_last_frame_case_spareBonus() {
+        round.trying(10); // 1frame
+        round.trying(10); // 2frame
+        round.trying(10); // 3frame
+        round.trying(10); // 4frame
+        round.trying(10); // 5frame
+        round.trying(10); // 6frame
+        round.trying(10); // 7frame
+        round.trying(10); // 8frame
+        round.trying(10); // 9frame
+        round.trying(1); // 10frame
+        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DO));
+        round.trying(9); // 10frame
+        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DONOT));
+//        round.trying(5); // 10frame
+//        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DO));
+    }
+
+    @Test
+    public void calculate_do_donot_last_frame_case_strikeBonus() {
+        round.trying(10); // 1frame
+        round.trying(10); // 2frame
+        round.trying(10); // 3frame
+        round.trying(10); // 4frame
+        round.trying(10); // 5frame
+        round.trying(10); // 6frame
+        round.trying(10); // 7frame
+        round.trying(10); // 8frame
+        round.trying(10); // 9frame
+        round.trying(10); // 10frame
+        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DONOT));
+        round.trying(1); // 10frame
+        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DONOT));
+//        round.trying(5); // 10frame
+//        assertThat(round.getRoundFrames().get(9).getCalculateStatus(), is(CalculateStatus.DO));
+    }
+
+    @Test
+    public void calculate_total_score() {
+        round.trying(1);
+        round.trying(2);
+        assertThat(round.getRoundFrames().get(0).getTotalScore().getScore(), is(3));
+    }
+
+    @Test
+    public void calculate_total_score2() {
+        round.trying(1);
+        round.trying(2);
+        round.trying(3);
+        round.trying(4);
+        assertThat(round.getRoundFrames().get(1).getTotalScore().getScore(), is(10));
+    }
+
+    @Test
+    public void calculate_total_score3() {
+        round.trying(1);
+        round.trying(9);
+        round.trying(4);
+        round.trying(4);
+//        assertThat(round.getRoundFrames().get(0).getTotalScore().getScore(), is(14));
+        assertThat(round.getRoundFrames().get(1).getTotalScore().getScore(), is(22));
+    }
+
+    @Test
+    public void calculate_total_score4() {
+        round.trying(10);
+        round.trying(3);
+        round.trying(4);
+        assertThat(round.getRoundFrames().get(0).getTotalScore().getScore(), is(17));
+        assertThat(round.getRoundFrames().get(1).getTotalScore().getScore(), is(24));
+    }
+
 }
