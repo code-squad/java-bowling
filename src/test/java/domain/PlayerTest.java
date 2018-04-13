@@ -8,7 +8,7 @@ public class PlayerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void 이름길이() {
-        new Player("aaaaaa");
+        new Player("abcdef");
     }
 
     @Test

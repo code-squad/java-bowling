@@ -46,21 +46,21 @@ public class FrameScoreTest {
     public void 정규점수_스패어_문자열() {
         frameScore.roll(5);
         frameScore.roll(5);
-        assertEquals("/", frameScore.getScoreMessage());
+        assertEquals("5|/", frameScore.getScoreMessage());
     }
 
     @Test
     public void 정규점수_미쓰_문자열() {
         frameScore.roll(1);
         frameScore.roll(7);
-        assertEquals("7", frameScore.getScoreMessage());
+        assertEquals("1|7", frameScore.getScoreMessage());
     }
 
     @Test
     public void 정규점수_미쓰_0점_문자열() {
         frameScore.roll(1);
         frameScore.roll(0);
-        assertEquals("-", frameScore.getScoreMessage());
+        assertEquals("1|-", frameScore.getScoreMessage());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class FrameScoreTest {
         frameScore.roll(7);
         frameScore.increaseLeftCount();
         frameScore.roll(10);
-        assertEquals("X", frameScore.getScoreMessage());
+        assertEquals("3|/|X", frameScore.getScoreMessage());
     }
 
     @Test
