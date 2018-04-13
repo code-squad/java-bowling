@@ -21,7 +21,17 @@ public class NormalFrame implements Frame {
         return secondScore.equals(ALL - firstScore);
     }
 
-    public Integer throwBall(int pinsKnocked) {
+    public boolean isNotValidInput(int pinsKnocked) {
+        if (pinsKnocked > ALL || pinsKnocked < 0) {
+            return true;
+        }
+        return pinsKnocked > ALL - firstScore;
+    }
+
+    public Integer throwBall(int pinsKnocked) throws IllegalArgumentException {
+        if (isNotValidInput(pinsKnocked)) {
+            throw new IllegalArgumentException("유효한 숫자가 아닙니다.");
+        }
         if (!firstBallPlayed()) {
             return firstScore = pinsKnocked;
         }

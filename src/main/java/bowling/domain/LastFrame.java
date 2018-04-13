@@ -1,6 +1,6 @@
 package bowling.domain;
 
-public class LastFrame implements NormalFrame {
+public class LastFrame implements Frame {
     private Integer firstScore;
     private Integer secondScore;
     private Integer thirdScore;
