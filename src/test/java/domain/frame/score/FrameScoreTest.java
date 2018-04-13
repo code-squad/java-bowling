@@ -7,10 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class FrameScoreTest {
+    private Frame testFrame;
     private FrameScore frameScore;
 
     @Before
     public void setUp() throws Exception {
+        testFrame = Frame.of(1);
         frameScore = new FrameScore(Frame.REGULAR_COUNT);
     }
 
@@ -28,27 +30,27 @@ public class FrameScoreTest {
     public void 정규점수_스패어_문자열() {
         frameScore.roll(5);
         frameScore.roll(5);
-        assertEquals("5|/", frameScore.getScoreMessage());
+        assertEquals("5|/", frameScore.makeScoreMessage(testFrame));
     }
 
     @Test
     public void 정규점수_미쓰_문자열() {
         frameScore.roll(1);
         frameScore.roll(7);
-        assertEquals("1|7", frameScore.getScoreMessage());
+        assertEquals("1|7", frameScore.makeScoreMessage(testFrame));
     }
 
     @Test
     public void 정규점수_미쓰_0점_문자열() {
         frameScore.roll(1);
         frameScore.roll(0);
-        assertEquals("1|-", frameScore.getScoreMessage());
+        assertEquals("1|-", frameScore.makeScoreMessage(testFrame));
     }
 
     @Test
     public void 정규점수_진행_문자열() {
         frameScore.roll(1);
-        assertEquals("1", frameScore.getScoreMessage());
+        assertEquals("1", frameScore.makeScoreMessage(testFrame));
     }
 
     @Test
@@ -57,7 +59,7 @@ public class FrameScoreTest {
         frameScore.roll(7);
         frameScore.increaseLeftCount();
         frameScore.roll(10);
-        assertEquals("3|/|X", frameScore.getScoreMessage());
+        assertEquals("3|/|X", frameScore.makeScoreMessage(testFrame));
     }
 
     @Test

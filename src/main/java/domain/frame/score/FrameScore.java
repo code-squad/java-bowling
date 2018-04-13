@@ -1,6 +1,7 @@
 package domain.frame.score;
 
 import domain.frame.Frame;
+import domain.frame.LastFrame;
 import domain.frame.pin.Pin;
 import domain.frame.result.CannotCalcException;
 import domain.frame.status.FrameStatus;
@@ -42,8 +43,8 @@ public class FrameScore {
         return this;
     }
 
-    public String getScoreMessage() {
-        if (!isBeforeBonusRoll()) {
+    public String makeScoreMessage(Frame frame) {
+        if (frame.isLast() && !isBeforeBonusRoll()) {
             return status.convertScore(pins) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + makeBonusPinMessage();
         }
         return status.convertScore(pins);

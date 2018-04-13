@@ -5,7 +5,8 @@ import domain.Player;
 public class OutputView {
 
     public static void printBoard(Player player) {
-        System.out.println(getTopMessage() + getResultMessage() + getResultScore());
+        System.out.println(player.getResult());
+        //System.out.println(getTopMessage() + getResultMessage() + getResultScore());
     }
 
     private static String getTopMessage() {

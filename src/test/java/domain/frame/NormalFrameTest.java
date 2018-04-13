@@ -85,7 +85,7 @@ public class NormalFrameTest {
         testFrame.roll(10);
         testFrame.roll(5);
         testFrame.roll(10);
-        assertEquals("X|5|X", testFrame.getResult().getMessage());
+        assertEquals("X", testFrame.getResult().getMessage());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class NormalFrameTest {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(0);
-        assertEquals("5|/|-", testFrame.getResult().getMessage());
+        assertEquals("5|/", testFrame.getResult().getMessage());
     }
 
     @Test

@@ -16,7 +16,6 @@ public class Player {
 
     public void roll(int num) throws IllegalArgumentException {
         currentFrame = currentFrame.roll(num);
-        // TODO : 현재 보너스 점수 개념의 점수가 입력되지않다보니 프레임 정상적인 점수도 리프레시 안됨
     }
 
     public boolean isFinish() {

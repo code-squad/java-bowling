@@ -23,6 +23,11 @@ public class LastFrame extends Frame {
     }
 
     @Override
+    public String getScoreMessage(FrameScore score) {
+        return score.makeScoreMessage(this);
+    }
+
+    @Override
     public boolean isLast() {
         return true;
     }

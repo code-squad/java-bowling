@@ -28,7 +28,6 @@ public abstract class Frame {
     }
 
     public Frame roll(int num) throws IllegalArgumentException {
-        // TODO : 보너스 프레임도 다같이 점수 등록되게 여기서 상태 잡아주는 것도(점수 등록 상태가 아닌 경우 넘기고 next가 있으면 doRecord 실행 없으면 자기 반환?
         Frame frame = doRecord(score, num);
         if (this != frame) {
             nextFrame = frame;
@@ -60,11 +59,13 @@ public abstract class Frame {
         }
     }
 
+    public abstract String getScoreMessage(FrameScore score);
+
     public FrameResult getResult() {
         if (!score.isBonusFinish()) {
-            return new FrameResult(score.getScoreMessage(), CANNOT_CALC_SCORE_STATE);
+            return new FrameResult(getScoreMessage(score), CANNOT_CALC_SCORE_STATE);
         }
-        return new FrameResult(score.getScoreMessage(), getScore());
+        return new FrameResult(getScoreMessage(score), getScore());
     }
 
     private void addFrameResult(Board board) {
