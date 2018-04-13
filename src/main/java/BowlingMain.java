@@ -1,8 +1,7 @@
 import domain.Player;
 import view.InputView;
-import view.OutputView;
 
-import static view.InputView.getScore;
+import static view.InputView.getPinNum;
 
 public class BowlingMain {
 
@@ -15,8 +14,11 @@ public class BowlingMain {
 
     private static void doGame(Player player) {
         try {
-            player.recordScore(getScore(player.getCurrentFrameNum()));
-            OutputView.printResult(player);
+            player.roll(getPinNum(player.getCurrentFrameNum()));
+            /*
+                FrameResults results = player.makeResults();
+                OutputView.printResult(results); 결과 객체를 넘겨야해
+            */
         } catch (IllegalArgumentException e) {
             InputView.printMessage(e.getMessage());
             doGame(player);

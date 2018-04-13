@@ -1,6 +1,8 @@
 package domain.frame.status;
 
-import domain.Scores;
+import domain.frame.Pin;
+
+import java.util.List;
 
 public abstract class FrameStatus {
 
@@ -8,17 +10,21 @@ public abstract class FrameStatus {
         return Ing.of();
     }
 
-    public FrameStatus changeStatus(Scores scores) {
-        if (!scores.isScoreLimit()) {
-            return scores.isLimitSize() ? Miss.of() : Ing.of();
+    public FrameStatus changeStatus(int regularSum, int leftNumber) {
+        if (Pin.isMax(regularSum)) {
+            return leftNumber == 0 ? Spare.of() : Strike.of();
         }
-        return scores.isLimitSize() ? Spare.of() : Strike.of();
+        return leftNumber == 0 ? Miss.of() : Ing.of();
     }
 
-    public abstract String convertScore(int score);
+    public abstract String convertScore(List<Pin> pins);
 
     public abstract boolean isFinish();
 
     public abstract boolean isBonus();
+
+    public abstract boolean isStrike();
+
+    public abstract boolean isRightThrewNum(int threwNum);
 }
 

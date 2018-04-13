@@ -23,13 +23,13 @@ public class InputView {
         }
     }
 
-    public static int getScore(int frameNum) {
+    public static int getPinNum(int frameNum) {
         System.out.println(frameNum + "번 프레임 투구 : ");
         try {
             return InputUtils.convertToNumber(scanner.nextLine());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getScore(frameNum);
+            return getPinNum(frameNum);
         }
     }
 }

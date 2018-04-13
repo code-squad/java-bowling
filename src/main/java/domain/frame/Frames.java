@@ -1,52 +1,38 @@
 package domain.frame;
 
-import utils.FrameFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Frames {
-    public static final int LIMIT_NUM = 10;
-    private List<Frame> frames;
-    private int nextFrameIdx;
+    public static final int LIMIT = 10;
+    private List<Frame> frames = new ArrayList<>();
+    private Frame currentFrame;
 
     public Frames() {
-        frames = new ArrayList<>();
-        nextFrameIdx = 0;
+        currentFrame = Frame.of(1);
     }
 
-    public String recordScore(int score) {
-        Frame currentFrame = getCurrentFrame();
-        String convertedScore = currentFrame.addScore(score);
-        if (currentFrame.isFinish()) {
-            nextFrameIdx++;
+    public void roll(int num) throws IllegalArgumentException {
+        if (!frames.contains(currentFrame)) {
+            frames.add(currentFrame);
         }
-        return convertedScore;
-    }
 
-    public Frame getCurrentFrame() {
-        try {
-            return frames.get(nextFrameIdx);
-        } catch (IndexOutOfBoundsException e) {
-            int frameNum = nextFrameIdx + 1;
-            frames.add(FrameFactory.of(frameNum));
-            return frames.get(nextFrameIdx);
+        Frame frame = currentFrame.roll(num);
+        // 보너스 요청 자리
+        if (currentFrame.isDiffFrame(frame)) {
+            currentFrame = frame;
         }
     }
 
-    public int getCurrentFrameIdx() {
-        return nextFrameIdx;
-    }
-
-    public int getCurrentFrameNum() {
-        return nextFrameIdx + 1;
+    public static boolean isLimit(int frameNum) {
+        return frameNum == LIMIT;
     }
 
     public boolean isFinish() {
-        return frames.size() == LIMIT_NUM && frames.stream().allMatch(Frame::isFinish);
+        return currentFrame.isLast() && currentFrame.isFinish();
     }
 
-    public static boolean isLast(int frameNum) {
-        return frameNum == LIMIT_NUM;
+    public int getFrameNum() {
+        return currentFrame.getFrameNum();
     }
 }

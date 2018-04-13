@@ -2,45 +2,107 @@ package domain.frame;
 
 import org.junit.Before;
 import org.junit.Test;
-import utils.FrameFactory;
 
 import static org.junit.Assert.*;
 
 public class LastFrameTest {
-    private Frame lastFrame;
+    private Frame testFrame;
 
     @Before
     public void setUp() throws Exception {
-        lastFrame = FrameFactory.of(Frames.LIMIT_NUM);
+        testFrame = Frame.of(10);
     }
 
     @Test
-    public void 보너스상황() {
-        lastFrame.addScore(10);
-        assertFalse(lastFrame.isFinish());
+    public void 스트라이크_상태변화() {
+        testFrame.roll(10);
+        assertFalse(testFrame.isFinish());
     }
 
     @Test
-    public void 보너스투구() {
-        lastFrame.addScore(10);
-        lastFrame.addScore(10);
-        assertTrue(lastFrame.isFinish());
+    public void 스패어_상태변화() {
+        testFrame.roll(5);
+        testFrame.roll(5);
+        assertFalse(testFrame.isFinish());
     }
 
     @Test
-    public void 스트라이크_보너스10점_결과() {
-        assertEquals("X", lastFrame.addScore(10));
+    public void 미쓰_상태변화() {
+        testFrame.roll(3);
+        assertFalse(testFrame.isFinish());
     }
 
     @Test
-    public void 스패어_보너스10점_결과() {
-        lastFrame.addScore(10);
-        assertEquals("X", lastFrame.addScore(10));
+    public void 진행중_변화() {
+        assertFalse(testFrame.isFinish());
     }
 
     @Test
-    public void 스패어_보너스0점_결과() {
-        lastFrame.addScore(10);
-        assertEquals("-", lastFrame.addScore(0));
+    public void 정규투구_스트라이크_점수합계() {
+        testFrame.roll(10);
+        testFrame.roll(10);
+        testFrame.roll(10);
+        assertEquals(30, testFrame.getScore().getScore());
+    }
+
+    @Test
+    public void 정규투구_스패어_점수합계() {
+        testFrame.roll(5);
+        testFrame.roll(5);
+        testFrame.roll(10);
+        assertEquals(20, testFrame.getScore().getScore());
+    }
+
+    @Test
+    public void 정규투구_미쓰_점수합계() {
+        testFrame.roll(3);
+        testFrame.roll(5);
+        assertEquals(8, testFrame.getScore().getScore());
+    }
+
+    @Test
+    public void 투구_스트라이크_출력메세지() {
+        testFrame.roll(10);
+        testFrame.roll(5);
+        testFrame.roll(10);
+        assertEquals("X|5|X", testFrame.getScoreMessage());
+    }
+
+    @Test
+    public void 투구_스패어_출력메세지() {
+        testFrame.roll(5);
+        testFrame.roll(5);
+        testFrame.roll(0);
+        assertEquals("5|/|-", testFrame.getScoreMessage());
+    }
+
+    @Test
+    public void 투구_미쓰_출력메세지() {
+        testFrame.roll(3);
+        testFrame.roll(6);
+        assertEquals("3|6", testFrame.getScoreMessage());
+    }
+
+    @Test
+    public void 투구_진행중_출력메세지() {
+        testFrame.roll(3);
+        assertEquals("3", testFrame.getScoreMessage());
+    }
+
+    @Test
+    public void 정규투구_스트라이크_다른프레임전환() {
+        assertSame(testFrame, testFrame.roll(10));
+    }
+
+    @Test
+    public void 정규투구_스패어_다른프레임전환() {
+        testFrame.roll(3);
+        assertSame(testFrame, testFrame.roll(7));
+    }
+
+    @Test
+    public void 정규투구_미쓰_다른프레임전환() {
+        testFrame.roll(2);
+        assertSame(testFrame, testFrame.roll(6));
     }
 }

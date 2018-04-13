@@ -1,31 +1,28 @@
 package domain.frame;
 
-import domain.Scores;
-import domain.frame.status.FrameStatus;
+public class NormalFrame extends Frame {
 
-public class NormalFrame implements Frame {
-    private FrameStatus status;
-    private Scores scores;
-
-    public NormalFrame() {
-        scores = new Scores();
-        status = FrameStatus.getInitStatus();
+    public NormalFrame(int frameNum) {
+        super(frameNum);
     }
 
     @Override
-    public String addScore(int score) throws IllegalArgumentException {
-        scores.addScore(score);
-        status = status.changeStatus(scores);
-        return convertScore(score);
+    Frame doRecord(FrameScore score, int num) throws IllegalArgumentException {
+        score.roll(num);
+        if (score.isRegularFinish() && score.isBeforeBonusRoll()) {
+            score.increaseLeftCount();
+            return Frame.of(frameNum + 1);
+        }
+        return this;
     }
 
     @Override
-    public String convertScore(int score) {
-        return status.convertScore(score);
+    boolean doCheckFinish(FrameScore score) {
+        return score.isRegularFinish();
     }
 
     @Override
-    public boolean isFinish() {
-        return status.isFinish();
+    public boolean isLast() {
+        return false;
     }
 }

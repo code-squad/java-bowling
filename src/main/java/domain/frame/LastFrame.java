@@ -1,48 +1,27 @@
 package domain.frame;
 
-import domain.Score;
-import domain.Scores;
-import domain.frame.result.ScoreMessage;
-import domain.frame.status.FrameStatus;
+public class LastFrame extends Frame {
 
-public class LastFrame implements Frame {
-    private FrameStatus status;
-    private Scores scores;
-    private Score bonusScore;
-
-    public LastFrame() {
-        scores = new Scores();
-        status = FrameStatus.getInitStatus();
+    public LastFrame(int frameNum) {
+        super(frameNum);
     }
 
     @Override
-    public String addScore(int score) throws IllegalArgumentException {
-        if (status.isBonus()) {
-            bonusScore = new Score(score);
-            return convertScore(score);
+    Frame doRecord(FrameScore score, int num) throws IllegalArgumentException {
+        score.roll(num);
+        if (score.isRegularFinish() && score.isBeforeBonusRoll()) {
+            score.increaseLeftCount();
         }
-        scores.addScore(score);
-        status = status.changeStatus(scores);
-        return convertScore(score);
+        return this;
     }
 
     @Override
-    public String convertScore(int score) {
-        if (scores.isFinish()) {
-            return ScoreMessage.convertMessage(score);
-        }
-        return status.convertScore(score);
+    boolean doCheckFinish(FrameScore score) {
+        return score.isRegularFinish() && score.isBonusFinish();
     }
 
     @Override
-    public boolean isFinish() {
-        if (!status.isFinish()) {
-            return false;
-        }
-
-        if (!status.isBonus()) {
-            return true;
-        }
-        return bonusScore != null;
+    public boolean isLast() {
+        return true;
     }
 }
