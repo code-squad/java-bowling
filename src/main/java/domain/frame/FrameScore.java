@@ -5,6 +5,8 @@ import domain.frame.status.FrameStatus;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.joining;
+
 public class FrameScore {
     private FrameStatus status;
     private List<Pin> pins = new ArrayList<>();
@@ -35,12 +37,19 @@ public class FrameScore {
         return getSum();
     }
 
-    public String getLatestSavedPinMessage() {
-        Pin latestPin = pins.get(pins.size() - 1);
+    public String getPinMessage() {
         if (!isBeforeBonusRoll()) {
-            return ScoreMessage.convertMessage(latestPin.getNum());
+            return status.convertScore(pins) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + makeBonusPinMessage();
         }
-        return status.convertScore(latestPin.getNum());
+        return status.convertScore(pins);
+    }
+
+    private String makeBonusPinMessage() {
+        if (status.isStrike()) {
+            return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT - 1).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
+        }
+
+        return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
     }
 
     private int getSum() {
@@ -62,6 +71,9 @@ public class FrameScore {
     }
 
     public boolean isBeforeBonusRoll() {
-        return status.isFinish() && pins.size() <= Frame.REGULAR_COUNT && getSum() <= Pin.MAX;
+        if (!status.isBonus()) {
+            return true;
+        }
+        return status.isBonus() && status.isRightThrewNum(pins.size());
     }
 }

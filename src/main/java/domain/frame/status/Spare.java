@@ -1,6 +1,9 @@
 package domain.frame.status;
 
+import domain.frame.Pin;
 import domain.frame.ScoreMessage;
+
+import java.util.List;
 
 public class Spare extends FrameStatus {
     private static Spare spare = new Spare();
@@ -14,8 +17,8 @@ public class Spare extends FrameStatus {
     }
 
     @Override
-    public String convertScore(int score) {
-        return ScoreMessage.getMessage(ScoreMessage.SPARE);
+    public String convertScore(List<Pin> pins) {
+        return ScoreMessage.convertMessage(pins.get(0).getNum()) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + ScoreMessage.getMessage(ScoreMessage.SPARE);
     }
 
     @Override
@@ -26,5 +29,15 @@ public class Spare extends FrameStatus {
     @Override
     public boolean isBonus() {
         return true;
+    }
+
+    @Override
+    public boolean isStrike() {
+        return false;
+    }
+
+    @Override
+    public boolean isRightThrewNum(int threwNum) {
+        return threwNum == 2;
     }
 }

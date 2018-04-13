@@ -39,34 +39,34 @@ public class FrameScoreTest {
     @Test
     public void 정규점수_스트라이크_문자열() {
         frameScore.roll(10);
-        assertEquals("X", frameScore.getLatestSavedPinMessage());
+        assertEquals("X", frameScore.getPinMessage());
     }
 
     @Test
     public void 정규점수_스패어_문자열() {
         frameScore.roll(5);
         frameScore.roll(5);
-        assertEquals("/", frameScore.getLatestSavedPinMessage());
+        assertEquals("/", frameScore.getPinMessage());
     }
 
     @Test
     public void 정규점수_미쓰_문자열() {
         frameScore.roll(1);
         frameScore.roll(7);
-        assertEquals("7", frameScore.getLatestSavedPinMessage());
+        assertEquals("7", frameScore.getPinMessage());
     }
 
     @Test
     public void 정규점수_미쓰_0점_문자열() {
         frameScore.roll(1);
         frameScore.roll(0);
-        assertEquals("-", frameScore.getLatestSavedPinMessage());
+        assertEquals("-", frameScore.getPinMessage());
     }
 
     @Test
     public void 정규점수_진행_문자열() {
         frameScore.roll(1);
-        assertEquals("1", frameScore.getLatestSavedPinMessage());
+        assertEquals("1", frameScore.getPinMessage());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class FrameScoreTest {
         frameScore.roll(7);
         frameScore.increaseLeftCount();
         frameScore.roll(10);
-        assertEquals("X", frameScore.getLatestSavedPinMessage());
+        assertEquals("X", frameScore.getPinMessage());
     }
 
     @Test

@@ -61,26 +61,32 @@ public class LastFrameTest {
     }
 
     @Test
-    public void 정규투구_스트라이크_출력메세지() {
+    public void 투구_스트라이크_출력메세지() {
         testFrame.roll(10);
         testFrame.roll(5);
         testFrame.roll(10);
-        assertEquals("X", testFrame.getRecordPinMessage());
+        assertEquals("X|5|X", testFrame.getPinMessage());
     }
 
     @Test
-    public void 정규투구_스패어_출력메세지() {
+    public void 투구_스패어_출력메세지() {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(0);
-        assertEquals("-", testFrame.getRecordPinMessage());
+        assertEquals("5|/|-", testFrame.getPinMessage());
     }
 
     @Test
-    public void 정규투구_미쓰_출력메세지() {
+    public void 투구_미쓰_출력메세지() {
         testFrame.roll(3);
         testFrame.roll(6);
-        assertEquals("6", testFrame.getRecordPinMessage());
+        assertEquals("3|6", testFrame.getPinMessage());
+    }
+
+    @Test
+    public void 투구_진행중_출력메세지() {
+        testFrame.roll(3);
+        assertEquals("3", testFrame.getPinMessage());
     }
 
     @Test

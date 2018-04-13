@@ -31,8 +31,8 @@ public abstract class Frame {
         return score.get();
     }
 
-    public String getRecordPinMessage() {
-        return score.getLatestSavedPinMessage();
+    public String getPinMessage() {
+        return score.getPinMessage();
     }
 
     abstract Frame doRecord(FrameScore score, int num);

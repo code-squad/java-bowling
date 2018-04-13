@@ -1,6 +1,9 @@
 package domain.frame.status;
 
+import domain.frame.Pin;
 import domain.frame.ScoreMessage;
+
+import java.util.List;
 
 public class Miss extends FrameStatus {
     private static Miss miss = new Miss();
@@ -14,11 +17,8 @@ public class Miss extends FrameStatus {
     }
 
     @Override
-    public String convertScore(int score) {
-        if (score == 0) {
-            return ScoreMessage.getMessage(ScoreMessage.ZERO);
-        }
-        return String.valueOf(score);
+    public String convertScore(List<Pin> pins) {
+        return ScoreMessage.convertMessage(pins.get(0).getNum()) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + ScoreMessage.convertMessage(pins.get(1).getNum());
     }
 
     @Override
@@ -29,5 +29,15 @@ public class Miss extends FrameStatus {
     @Override
     public boolean isBonus() {
         return false;
+    }
+
+    @Override
+    public boolean isStrike() {
+        return false;
+    }
+
+    @Override
+    public boolean isRightThrewNum(int threwNum) {
+        return threwNum == 2;
     }
 }

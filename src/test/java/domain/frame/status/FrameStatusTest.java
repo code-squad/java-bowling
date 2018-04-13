@@ -1,45 +1,22 @@
 package domain.frame.status;
 
+import domain.frame.Pin;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class FrameStatusTest {
     private FrameStatus status;
+    private List<Pin> pins;
 
     @Before
     public void setUp() throws Exception {
         status = FrameStatus.getInitStatus();
     }
-
-    @Test
-    public void 스트라이크_문자() {
-        status = status.changeStatus(10, 1);
-        assertEquals("X", status.convertScore(10));
-    }
-
-    @Test
-    public void 스패어_문자() {
-        status = status.changeStatus(10, 0);
-        assertEquals("/", status.convertScore(5));
-    }
-
-    @Test
-    public void 미쓰_문자() {
-        status = status.changeStatus(3, 0);
-        assertEquals("3", status.convertScore(3));
-    }
-
-    @Test
-    public void 진행중_문자() {
-        status = status.changeStatus(0, 1);
-        assertEquals("-", status.convertScore(0));
-    }
-
-
-
-
 
     @Test
     public void 스트라이크_정규기록끝() {
