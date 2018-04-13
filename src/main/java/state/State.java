@@ -1,12 +1,17 @@
 package state;
 
-import bowling.FrameScore;
+import bowling.FrameInfo;
+import bowling.TotalScore;
 
 public interface State {
 
 	State update(int pinsDown);
 
-	FrameScore getFrameScore();
+	FrameInfo setPinsDown(FrameInfo frameInfo);
+	
+	TotalScore getTotalScore();
+	
+	TotalScore addNextFrameScore(TotalScore totalScore);
 
 	boolean isFrameEnd();
 

@@ -1,20 +1,29 @@
 package bowling;
 
 public class TotalScore {
-	
-	private int score;
-	public static final int MIN = 0;
-	public static final int MAX = 300;
 
-	public TotalScore(int score) {
-		if (MIN > score || MAX < score) {
-			throw new IllegalArgumentException("볼링 점수는 최소 0점 부터 300점 까지 입니다.");
-		}
+	private int score;
+	private int left;
+
+	public TotalScore(int score, int left) {
 		this.score = score;
+		this.left = left;
+	}
+
+	public TotalScore addRoll(int countOfPins) {
+		return new TotalScore(score += countOfPins, left - 1);
 	}
 
 	public int getScore() {
-		return score;
+		if (!canCalculateScore()) {
+			throw new CannotCalculateException();
+			// try catch 해줘야 한다.
+		}
+		return this.score;
 	}
-	
+
+	public boolean canCalculateScore() {
+		return left == 0;
+	}
+
 }

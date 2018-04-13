@@ -4,37 +4,50 @@ import bowling.FrameInfo;
 import bowling.Pins;
 import bowling.TotalScore;
 
-public class Strike implements State {
+public class FirstRoll implements State {
+
+	Pins firstRoll;
+
+	public FirstRoll(int pinsDown) {
+		this.firstRoll = new Pins(pinsDown);
+	}
 
 	@Override
 	public State update(int pinsDown) {
-		return this;
+		if (getPinsDown() + pinsDown == Pins.MAX) {
+			return new Spare(firstRoll);
+		}
+		return new Miss(firstRoll, pinsDown);
 	}
 
 	@Override
 	public FrameInfo setPinsDown(FrameInfo frameInfo) {
-		frameInfo.setFirstRoll(new Pins(10));
+		frameInfo.setFirstRoll(firstRoll);
 		return frameInfo;
 	}
-	
+
 	@Override
 	public TotalScore getTotalScore() {
-		return new TotalScore(Pins.MAX, 2);
+		return null;
 	}
-	
+
 	@Override
 	public TotalScore addNextFrameScore(TotalScore totalScore) {
-		totalScore = totalScore.addRoll(Pins.MAX);
+		totalScore = totalScore.addRoll(getPinsDown());
 		
 		if (totalScore.canCalculateScore()) {
 			return totalScore;
 		}
-		return totalScore;
+		return null;
 	}
 
 	@Override
 	public boolean isFrameEnd() {
-		return true;
+		return false;
+	}
+
+	public int getPinsDown() {
+		return firstRoll.getPinsDown();
 	}
 
 }

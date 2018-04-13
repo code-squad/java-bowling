@@ -1,8 +1,8 @@
 package state;
 
-import bowling.Frame;
-import bowling.FrameScore;
+import bowling.FrameInfo;
 import bowling.Pins;
+import bowling.TotalScore;
 
 public class Ready implements State {
 
@@ -11,11 +11,21 @@ public class Ready implements State {
 		if (pinsDown == Pins.MAX) {
 			return new Strike();
 		}
-		return new NormalRoll(pinsDown);
+		return new FirstRoll(pinsDown);
 	}
 
 	@Override
-	public FrameScore getFrameScore() {
+	public FrameInfo setPinsDown(FrameInfo frameInfo) {
+		return frameInfo;
+	}
+	
+	@Override
+	public TotalScore getTotalScore() {
+		return null;
+	}
+	
+	@Override
+	public TotalScore addNextFrameScore(TotalScore totalScore) {
 		return null;
 	}
 

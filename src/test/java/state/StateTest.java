@@ -5,12 +5,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import bowling.Frame;
-import state.NormalFrame;
-import state.NormalRoll;
-import state.Ready;
-import state.State;
-import state.Strike;
+import frame.Frame;
+import frame.NormalFrame;
 
 public class StateTest {
 
@@ -18,44 +14,44 @@ public class StateTest {
 
 	@Before
 	public void setting() {
-		frame = new Frame();
+		frame = new NormalFrame();
 	}
 
 	@Test
 	public void strike_State_Test() {
-		State state = frame.getState();
+		State state = frame.getFrameInfo().getState();
 		assertTrue(state instanceof Ready);
 		frame.roll(10);
-		state = frame.getState();
+		state = frame.getFrameInfo().getState();
 		assertTrue(state instanceof Strike);
 	}
 
 	@Test
 	public void NormalRoll_State_Test() {
-		State state = frame.getState();
+		State state = frame.getFrameInfo().getState();
 		assertTrue(state instanceof Ready);
 		frame.roll(5);
-		state = frame.getState();
-		assertTrue(state instanceof NormalRoll);
+		state = frame.getFrameInfo().getState();
+		assertTrue(state instanceof FirstRoll);
 	}
 
 	@Test
 	public void NormalFrame_State_Test() {
-		State state = frame.getState();
+		State state = frame.getFrameInfo().getState();
 		assertTrue(state instanceof Ready);
 		frame.roll(5);
 		frame.roll(4);
-		state = frame.getState();
-		assertTrue(state instanceof NormalFrame);
+		state = frame.getFrameInfo().getState();
+		assertTrue(state instanceof Miss);
 	}
 	
 	@Test
 	public void Spare_State_Test() {
-		State state = frame.getState();
+		State state = frame.getFrameInfo().getState();
 		assertTrue(state instanceof Ready);
 		frame.roll(5);
 		frame.roll(5);
-		state = frame.getState();
+		state = frame.getFrameInfo().getState();
 		assertTrue(state instanceof Spare);
 	}
 }
