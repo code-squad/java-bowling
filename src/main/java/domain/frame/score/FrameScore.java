@@ -34,14 +34,6 @@ public class FrameScore {
         return !status.isFinish() && pins.size() != 0 && pins.get(0).isOverRecordPin(num);
     }
 
-    public FrameScore get() {
-        if (!isBonusFinish()) {
-            // TODO : 예외처리 해줘야함(사용자정의 예외로 변경?)
-            throw new RuntimeException("완료되지않은 프레임의 점수는 조회할 수 없습니다.");
-        }
-        return this;
-    }
-
     public int getScore() {
         return getSum();
     }

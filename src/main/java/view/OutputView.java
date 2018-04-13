@@ -4,12 +4,22 @@ import domain.Player;
 
 public class OutputView {
 
-    public static void printResult(Player player) {
-        /*System.out.println(getTopMessage() + getResultMessage(player.getName(), player.getResults()));*/
+    public static void printBoard(Player player) {
+        System.out.println(getTopMessage() + getResultMessage() + getResultScore());
     }
 
     private static String getTopMessage() {
         return "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n";
+    }
+
+    private static String getResultMessage() {
+
+        return null;
+    }
+
+    private static String getResultScore() {
+
+        return null;
     }
 
     private static String fillArea(String content) {

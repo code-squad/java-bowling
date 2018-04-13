@@ -1,7 +1,6 @@
 package domain.frame.score;
 
 import domain.frame.Frame;
-import domain.frame.score.FrameScore;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,25 +22,6 @@ public class FrameScoreTest {
     @Test(expected = IllegalArgumentException.class)
     public void 유효하지않은점수_등록() {
         frameScore.roll(11);
-    }
-
-    @Test
-    public void 점수카운트소진시_점수겟하기() {
-        frameScore.roll(5);
-        frameScore.roll(5);
-        frameScore.get();
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void 점수카운트미소진시_점수겟하기() {
-        frameScore.roll(5);
-        frameScore.get();
-    }
-
-    @Test
-    public void 정규점수_스트라이크_문자열() {
-        frameScore.roll(10);
-        assertEquals("X", frameScore.getScoreMessage());
     }
 
     @Test
@@ -89,14 +69,6 @@ public class FrameScoreTest {
         assertTrue(frameScore.isBonusFinish());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void 보너스점수_스트라이크_진행미완료() {
-        frameScore.roll(10);
-        frameScore.increaseLeftCount();
-        frameScore.roll(10);
-        frameScore.get();
-    }
-
     @Test
     public void 보너스점수_스패어_진행완료() {
         frameScore.roll(5);
@@ -104,14 +76,6 @@ public class FrameScoreTest {
         frameScore.increaseLeftCount();
         frameScore.roll(10);
         assertTrue(frameScore.isBonusFinish());
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void 보너스점수_스패어_진행미완료() {
-        frameScore.roll(5);
-        frameScore.roll(5);
-        frameScore.increaseLeftCount();
-        frameScore.get();
     }
 
     @Test

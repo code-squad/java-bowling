@@ -42,7 +42,7 @@ public class LastFrameTest {
         testFrame.roll(10);
         testFrame.roll(10);
         testFrame.roll(10);
-        assertEquals(30, testFrame.getScore().getScore());
+        assertEquals(30, testFrame.getResult().getScore());
     }
 
     @Test
@@ -50,14 +50,14 @@ public class LastFrameTest {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(10);
-        assertEquals(20, testFrame.getScore().getScore());
+        assertEquals(20, testFrame.getResult().getScore());
     }
 
     @Test
     public void 정규투구_미쓰_점수합계() {
         testFrame.roll(3);
         testFrame.roll(5);
-        assertEquals(8, testFrame.getScore().getScore());
+        assertEquals(8, testFrame.getResult().getScore());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class LastFrameTest {
         testFrame.roll(10);
         testFrame.roll(5);
         testFrame.roll(10);
-        assertEquals("X|5|X", testFrame.getScoreMessage());
+        assertEquals("X|5|X", testFrame.getResult().getMessage());
     }
 
     @Test
@@ -73,20 +73,20 @@ public class LastFrameTest {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(0);
-        assertEquals("5|/|-", testFrame.getScoreMessage());
+        assertEquals("5|/|-", testFrame.getResult().getMessage());
     }
 
     @Test
     public void 투구_미쓰_출력메세지() {
         testFrame.roll(3);
         testFrame.roll(6);
-        assertEquals("3|6", testFrame.getScoreMessage());
+        assertEquals("3|6", testFrame.getResult().getMessage());
     }
 
     @Test
     public void 투구_진행중_출력메세지() {
         testFrame.roll(3);
-        assertEquals("3", testFrame.getScoreMessage());
+        assertEquals("3", testFrame.getResult().getMessage());
     }
 
     @Test
