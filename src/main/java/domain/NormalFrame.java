@@ -1,66 +1,60 @@
 package domain;
 
 public class NormalFrame extends Frame {
-    private Integer firstPins;
-    private Integer secondPins;
-    private Status status;
+    private Pin firstPins;
+    private Pin secondPins;
+    private Status status = Status.NOT_FINISHED;
 
-    public NormalFrame(String name) {
-        super(name);
+    public NormalFrame() {
+
+    }
+//
+//    public NormalFrame(Integer firstPins, Integer secondPins) {
+//        throwing(createPin(firstPins), createPin(secondPins));
+//    }
+//
+//    public void throwing(Pin firstPins, Pin secondPins) {
+//        throwing(firstPins);
+//        throwing(secondPins);
+//    }
+
+    public Pin createPin(Integer pins) {
+        return new Pin(pins);
     }
 
-    public NormalFrame(Integer firstPins, Integer secondPins) {
-        this("Guest");
-        throwing(firstPins, secondPins);
-    }
-
-    public void throwing(int firstPins, int secondPins) {
-        throwing(firstPins);
-        throwing(secondPins);
-    }
-
-    @Override
-    public int throwing(int throwingCount) {
-        isValidThrowing(throwingCount);
+    public int throwing(Pin throwingCount) {
         if (isFirst()) {
             firstPins = throwingCount;
             createStatus();
-            return TEN_PINS - firstPins;
+            return Pin.getSurvivedPin(throwingCount);
         }
         secondPins = throwingCount;
         createStatus();
-        return TEN_PINS - firstPins - secondPins;
-    }
-
-    public boolean isValidThrowing(int throwingCount) {
-        if (throwingCount > TEN_PINS) {
-            throw new RuntimeException("쓰러트린 핀의 개수는 10개를 초과할 수 없습니다.");
-        }
-        if (!isFirst() && TEN_PINS - firstPins < throwingCount) {
-            throw new RuntimeException("한 프레임에서 쓰러트린 모든 핀의 개수는 10개를 초과할 수 없습니다.");
-        }
-//        System.out.println("NormalFrame.isValidThrowing : true");
-        return true;
+        return Pin.getSurvivedPin(firstPins, secondPins);
     }
 
     public boolean isFirst() {
-        return firstPins == null && secondPins == null;
+        return Pin.isBlank(firstPins) && Pin.isBlank(secondPins);
     }
 
     public boolean isSecond() {
-        return firstPins != null && secondPins == null;
+        return !Pin.isBlank(firstPins) && Pin.isBlank(secondPins);
     }
 
     public Status createStatus() {
-        if (firstPins == TEN_PINS) {
+        if (Pin.isStrike(firstPins, secondPins)) {
             status = Status.STRIKE;
             return status;
         }
-        if (!isSecond() && firstPins + secondPins == TEN_PINS) {
+        if (!isSecond() && Pin.getSurvivedPin(firstPins, secondPins) == 0) {
             status = Status.SPARE;
             return status;
         }
-        status = Status.OPEN;
+        if (!isSecond() && Pin.getSurvivedPin(firstPins, secondPins) != 0) {
+            status = Status.OPEN;
+            return status;
+        }
+        status = Status.NOT_FINISHED;
         return status;
     }
 
@@ -68,11 +62,7 @@ public class NormalFrame extends Frame {
         return this.status == status;
     }
 
-    public int getFirst() {
-        return firstPins;
-    }
-
-    public int getSecond() {
-        return secondPins;
+    boolean isEnd() {
+        return status != Status.NOT_FINISHED;
     }
 }

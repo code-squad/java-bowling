@@ -11,7 +11,8 @@ public class NormalFrameTest {
 
     @Before
     public void setup() {
-        normalFrame = new NormalFrame("htw");
+//        normalFrame = new NormalFrame("htw");
+        normalFrame = new NormalFrame();
     }
 
     @Test
@@ -21,19 +22,19 @@ public class NormalFrameTest {
 
     @Test
     public void secondThrowing() {
-        normalFrame.throwing(1);
+        normalFrame.throwing(new Pin(1));
         assertTrue(normalFrame.isSecond());
     }
 
     @Test
     public void firstThrowingPins() {
-        assertEquals(6, normalFrame.throwing(4));
+        assertEquals(6, normalFrame.throwing(new Pin(4)));
     }
 
     @Test
     public void secondThrowingPins() {
-        normalFrame.throwing(4); // 남은 핀 6개
-        assertEquals(1, normalFrame.throwing(5));
+        normalFrame.throwing(new Pin(4)); // 남은 핀 6개
+        assertEquals(1, normalFrame.throwing(new Pin(5)));
     }
 
     @Test
@@ -44,8 +45,8 @@ public class NormalFrameTest {
 
     @Test
     public void isStatus() {
-        normalFrame.throwing(7);
-        normalFrame.throwing(3);
+        normalFrame.throwing(new Pin(7));
+        normalFrame.throwing(new Pin(3));
         assertTrue(normalFrame.isStatus(Status.SPARE));
     }
 }

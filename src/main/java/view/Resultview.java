@@ -24,14 +24,14 @@ public class Resultview {
                 sb.append(String.format("  %-3s |", getIndicator(STRIKE)));
                 continue;
             }
-            String first = String.valueOf(normalFrame.getFirst());
-            String second = String.valueOf(normalFrame.getSecond());
-            if (isGutter(first)) {
-                first = getIndicator(GUTTER);
-            }
-            if (isGutter(second)) {
-                second = getIndicator(GUTTER);
-            }
+//            String first = String.valueOf(normalFrame.getFirst());
+//            String second = String.valueOf(normalFrame.getSecond());
+//            if (isGutter(first)) {
+//                first = getIndicator(GUTTER);
+//            }
+//            if (isGutter(second)) {
+//                second = getIndicator(GUTTER);
+//            }
             if (normalFrame.isStatus(SPARE)) {
                 sb.append(String.format("  %-3s |", first + PIPE + getIndicator(SPARE)));
                 continue;

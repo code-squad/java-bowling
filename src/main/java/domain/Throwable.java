@@ -1,5 +1,6 @@
 package domain;
 
 public interface Throwable {
-    int throwing(int throwingCount);
+    int throwing(Pin throwingCount);
+    boolean isValidThrowing(Pin throwingCount);
 }
