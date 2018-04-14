@@ -36,16 +36,16 @@ public class BowlingOutput {
 
         if (downPins.size() == 3) {
             if (downPins.get(0).getDownPinCount() == 10) {
-                return downPins.get(0).getDownPinCount() + " X " +
-                        downPins.get(1).getDownPinCount() +
+                return "X" + "|" +
+                        downPins.get(1).getDownPinCount() + "|" +
                         downPins.get(2).getDownPinCount();
             }
 
             if (downPins.get(0).addWith(downPins.get(1)) == 10) {
                 if (downPins.get(2).getDownPinCount() == 10) {
 
-                    return downPins.get(0).getDownPinCount() + " | " +
-                            "/" + " X";
+                    return downPins.get(0).getDownPinCount() + "|" +
+                            "/" + "|" + " X";
                 }
 
                 return downPins.get(0).getDownPinCount() + " | " +
@@ -53,9 +53,13 @@ public class BowlingOutput {
                         downPins.get(2).getDownPinCount();
             }
 
-            return downPins.get(0).getDownPinCount() + " | " +
-                    downPins.get(1).getDownPinCount() + " | " +
+            return downPins.get(0).getDownPinCount() + "|" +
+                    downPins.get(1).getDownPinCount() + "|" +
                     downPins.get(2).getDownPinCount();
+        }
+
+        if (downPins.get(0).getDownPinCount() == 10 && downPins.size() == 2) {
+            return "X" + " | " + downPins.get(1).getDownPinCount();
         }
 
         if (downPins.get(0).getDownPinCount() == 10) {
