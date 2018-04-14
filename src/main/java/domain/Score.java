@@ -71,5 +71,12 @@ public class Score {
         return Integer.toString(score);
     }
 
+    public boolean isBonusOverThirty() {
+        return score + 10 >= 30;
+    }
+
+    public void sum(int i) {
+        score += i;
+    }
 }
 

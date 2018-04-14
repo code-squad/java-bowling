@@ -7,27 +7,29 @@ public class StatusChanger {
         return !beforeFrame.isSpare() || changeStatusBeforeFrameDoNotAndSpare(presentFrame);
     }
 
+    public static boolean beforeFrameDoCase(Frame presentFrame) {
+        if (!presentFrame.isTrySecond() && !presentFrame.isFirstStrike()) {
+            return false;
+        }
+        return presentFrame.isFrameEnd() && (!presentFrame.isSpare() && !presentFrame.isFirstStrike());
+    }
+
     private static boolean changeStatusBeforeFrameDoNotAndSpare(Frame presentFrame) {
         if (!presentFrame.isTrySecond()) {
-            return !presentFrame.isFirstStrike();
+            return true;
+//            return !presentFrame.isFirstStrike();
         }
         return !presentFrame.isSpare();
     }
 
     private static boolean changeStatusBeforeFrameDoNotAndStrike(Frame presentFrame) {
         if (!presentFrame.isTrySecond()) {
-            return !presentFrame.isFirstStrike();
+            return false;
         }
         if (presentFrame.isSpare()) return false;
         if (!presentFrame.isSpare() && !presentFrame.isFirstStrike()) return true;
         return false;
     }
 
-    public static boolean beforeFrameDoCase(Frame presentFrame) {
-        if (!presentFrame.isTrySecond() && !presentFrame.isFirstStrike()) {
-            return true;
-        }
-        return presentFrame.isFrameEnd() && (!presentFrame.isSpare() && !presentFrame.isFirstStrike());
-    }
 }
 

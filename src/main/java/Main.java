@@ -22,7 +22,7 @@ public class Main {
         try {
             user.shot(InputView.getNumber());
         } catch (IllegalArgumentException e) {
-            System.out.println("프레임 당 합쳐서 10을 넘길 수 없습니다.");
+            System.out.println("프레임 당 합쳐서 10을 넘길 수 없습니다!!");
             userShotOnce(user);
         }
     }

@@ -1,13 +1,12 @@
 package domain;
 
-import static domain.Figure.FRAMEBAR;
-
 public class LastFrame extends Frame {
 
-    private Score lastScore;
+    private boolean bonus;
 
     private LastFrame() {
         super();
+        changeCalculateDirectionToLeft();
     }
 
     public static Frame of() {
@@ -19,7 +18,8 @@ public class LastFrame extends Frame {
         if (!isValidScore(score))
             throw new IllegalArgumentException("잘못된 입력입니다.");
         if (hasBonusTry()) {
-            lastScore = Score.of(score);
+            bonus = true;
+            addition(score);
             return;
         }
         addition(score);
@@ -38,19 +38,9 @@ public class LastFrame extends Frame {
         return isSpare() || (isTrySecond() && isFirstStrike()) ;
     }
 
-    private String toStringLastScore() {
-        if (lastScore != null) return lastScore.toString();
-        return "";
-    }
-
     @Override
     public boolean isFrameEnd() {
-        return lastScore != null || isTrySecond() && !isSpare() && !isFirstStrike();
-    }
-
-    @Override
-    public String toString() {
-        return toFrameString() + FRAMEBAR + toStringLastScore();
+        return bonus || isTrySecond() && !isSpare() && !isFirstStrike();
     }
 
 }
