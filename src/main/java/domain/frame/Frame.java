@@ -36,6 +36,17 @@ public abstract class Frame {
         return this;
     }
 
+    public void bonusRoll(Frame currentFrame, int num) throws IllegalArgumentException {
+        if (currentFrame == this) {
+            return;
+        }
+
+        doRecord(score, num);
+        if (nextFrame != null) {
+            nextFrame.bonusRoll(currentFrame, num);
+        }
+    }
+
     abstract Frame doRecord(FrameScore score, int num) throws IllegalArgumentException;
 
     public boolean isFinish() {
@@ -59,13 +70,15 @@ public abstract class Frame {
         }
     }
 
-    public abstract String getScoreMessage(FrameScore score);
+    private String getScoreMessage() {
+        return score.makeScoreMessage(this);
+    }
 
     public FrameResult getResult() {
         if (!score.isBonusFinish()) {
-            return new FrameResult(getScoreMessage(score), CANNOT_CALC_SCORE_STATE);
+            return new FrameResult(getScoreMessage(), CANNOT_CALC_SCORE_STATE);
         }
-        return new FrameResult(getScoreMessage(score), getScore());
+        return new FrameResult(getScoreMessage(), getScore());
     }
 
     private void addFrameResult(Board board) {

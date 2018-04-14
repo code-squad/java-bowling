@@ -1,5 +1,4 @@
 import domain.Player;
-import domain.frame.result.Board;
 import view.InputView;
 import view.OutputView;
 

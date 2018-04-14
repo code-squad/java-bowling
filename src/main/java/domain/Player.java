@@ -15,6 +15,7 @@ public class Player {
     }
 
     public void roll(int num) throws IllegalArgumentException {
+        firstFrame.bonusRoll(currentFrame, num);
         currentFrame = currentFrame.roll(num);
     }
 

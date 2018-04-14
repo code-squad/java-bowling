@@ -1,7 +1,6 @@
 package domain.frame.score;
 
 import domain.frame.Frame;
-import domain.frame.LastFrame;
 import domain.frame.pin.Pin;
 import domain.frame.result.CannotCalcException;
 import domain.frame.status.FrameStatus;
@@ -25,8 +24,18 @@ public class FrameScore {
         if (isOverRecordPin(num)) {
             throw new IllegalArgumentException("한 프레임에 정규 투구 기록할 수 있는 개수는 " + Pin.MAX + "개 입니다.");
         }
-        pins.add(new Pin(num));
-        leftNumber--;
+        recordRollPin(num);
+        changeFrameStatus();
+    }
+
+    private void recordRollPin(int num) {
+        if (!isBonusFinish()) {
+            pins.add(new Pin(num));
+            leftNumber--;
+        }
+    }
+
+    private void changeFrameStatus() {
         if (!status.isFinish()) {
             status = status.changeStatus(get(), leftNumber);
         }
