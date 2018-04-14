@@ -29,25 +29,47 @@ public class ScoreBoard {
         return frames.size();
     }
 
-    int throwing(DownPin downPin) {
+    public int throwing(DownPin downPin) {
         Frame normalFrame = frames.get(nowFrameIndex);
         normalFrame.throwing(downPin);
 
+        nextFrame();
+
+        // TODO return downPinsSize
         return normalFrame.getDownPinsSize();
     }
 
-    int getNowFrameIndex() {
+    public int getNowFrameIndex() {
         return nowFrameIndex;
+    }
+
+    public List<Frame> getFrames() {
+        return frames;
     }
 
     Frame getNowFrame() {
         return frames.get(getNowFrameIndex());
     }
 
-    void nextFrame() {
+    private void nextFrame() {
+        if (checkNextFramePossible()) return;
+
         Frame normalFrame = frames.get(nowFrameIndex);
         if (!normalFrame.checkThrowingPossible()) {
             nowFrameIndex++;
         }
     }
+
+    private boolean checkNextFramePossible() {
+        return getNowFrameIndex() == MAX_NORMAL_FRAME;
+    }
+
+    @Override
+    public String toString() {
+        return "ScoreBoard{" +
+                "nowFrameIndex=" + nowFrameIndex +
+                ", frames=\n" + frames +
+                '}';
+    }
+
 }

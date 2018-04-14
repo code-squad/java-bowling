@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class DownPin {
     private static final int MAX_DOWN_PIN = 10;
+
     private int downPinCount;
 
     private DownPin(int downPinCount) {
@@ -18,8 +19,12 @@ public class DownPin {
         return new DownPin(downPinCount);
     }
 
-    int addWith(DownPin downPin) {
+    public int addWith(DownPin downPin) {
         return this.downPinCount + downPin.downPinCount;
+    }
+
+    public int getDownPinCount() {
+        return downPinCount;
     }
 
     @Override
@@ -33,5 +38,12 @@ public class DownPin {
     @Override
     public int hashCode() {
         return Objects.hash(downPinCount);
+    }
+
+    @Override
+    public String toString() {
+        return "DownPin{" +
+                "downPinCount=" + downPinCount +
+                '}';
     }
 }

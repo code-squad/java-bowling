@@ -4,10 +4,11 @@ import java.util.*;
 
 public abstract class Frame {
     static final int MAX_DOWN_PIN = 10;
+
     static final int FIRST_INDEX = 0;
     static final int STRIKE = 10;
-
     List<DownPin> downPins = new ArrayList<>();
+
     private int maxBallCount;
 
     Frame(int maxBallCount) {
@@ -46,7 +47,15 @@ public abstract class Frame {
         return downPins.size();
     }
 
-    List<DownPin> copyDownPins() {
+    public List<DownPin> copyDownPins() {
         return new ArrayList<>(downPins);
+    }
+
+    @Override
+    public String toString() {
+        return "Frame{" +
+                "downPins=" + downPins +
+                ", maxBallCount=" + maxBallCount +
+                '}' + '\n';
     }
 }
