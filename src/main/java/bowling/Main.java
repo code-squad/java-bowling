@@ -1,6 +1,8 @@
 package bowling;
 
-import bowling.domain.Utils.Validator;
+import bowling.domain.Player;
+import bowling.domain.Util.Parser;
+import bowling.view.BowlingGame;
 
 import static bowling.view.Prompter.*;
 
@@ -14,8 +16,7 @@ public class Main {
 
     private static Player getPlayer() {
         try {
-            String playerName = promptForName();
-            Validator.validateName(playerName);
+            String playerName = Parser.parseName(promptForName());
             return new Player(playerName);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

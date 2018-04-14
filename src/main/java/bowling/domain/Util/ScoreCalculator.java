@@ -14,14 +14,21 @@ public class ScoreCalculator {
 
     public List<Integer> calculateScores() {
         List<Integer> scores = new ArrayList<>();
-        int bonusStack = 0;
         for (Frame frame : frames) {
-            bonusStack += frame.calculateSum();
-            scores.add(frame.calculateSum());
+            int currentFrame = frames.indexOf(frame);
+            scores.add(frame.calculateFrameScore(frames, currentFrame));
         }
-        int reversedIndex = scores.size() - 1;
-        for (int score : scores) {
-
-        }
+        return scores;
     }
+
+    /*
+        진행순서:
+        1) 이름 입력
+        2) 투구 값 입력
+        3) 해당 투구 값 업데이트
+        4) 합계 계산
+        5) 프린트
+        6) 반복
+
+     */
 }

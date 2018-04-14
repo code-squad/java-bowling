@@ -8,6 +8,7 @@ import java.util.List;
 public class Player {
     private final String name;
     private final List<Frame> frames;
+    private int previouslyPlayed;
 
     public Player(String name) {
         this.name = name;
@@ -23,8 +24,36 @@ public class Player {
         return frames;
     }
 
-    public List<Integer> calculateFrameScores(){
+    private void updatePreviousFrameNumber() {
+        previouslyPlayed++;
+    }
+
+    private Frame NextFrame() {
+        return frames.get(previouslyPlayed);
+    }
+
+    public List<Integer> calculateFrameScores() {
         ScoreCalculator calculator = new ScoreCalculator(frames);
         return calculator.calculateScores();
+    }
+
+    public void throwBall(int pinsKnocked) {
+        try {
+            Frame frame = NextFrame();
+            frame.throwBall(pinsKnocked);
+            if (frame.isStrike() || frame.secondBallPlayed()) {
+                updatePreviousFrameNumber();
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public int getPreviousFrameNumber() {
+        return previouslyPlayed;
+    }
+
+    public boolean isLastFrame() {
+        return previouslyPlayed == 9;
     }
 }

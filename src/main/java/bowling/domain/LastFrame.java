@@ -1,5 +1,7 @@
 package bowling.domain;
 
+import java.util.List;
+
 public class LastFrame implements Frame {
     private Integer firstScore;
     private Integer secondScore;
@@ -21,11 +23,17 @@ public class LastFrame implements Frame {
         return secondScore.equals(ALL - firstScore);
     }
 
+    private boolean secondIsStrike() {
+        return secondScore.equals(ALL);
+    }
+
     public boolean isNotValidInput(int pinsKnocked) {
         if (pinsKnocked > ALL || pinsKnocked < NONE) {
             return true;
         }
-        return !secondBallPlayed() && !isStrike() && pinsKnocked > ALL - firstScore;
+        return firstBallPlayed() && !isStrike()
+                && !secondBallPlayed()
+                && pinsKnocked > ALL - firstScore; //case where second ball knocks more pins than there are
     }
 
     public Integer throwBall(int pinsKnocked) throws IllegalArgumentException {
@@ -44,7 +52,24 @@ public class LastFrame implements Frame {
         return null;
     }
 
+    public int calculateFrameScore(List<Frame> frames, int frameNumber) {
+        return calculateSum();
+    }
+
     public Integer calculateSum() {
+        if (isStrike() || isSpare()) {
+            return firstScore + secondScore + thirdScore;
+        }
         return firstScore + secondScore;
+    }
+
+    public int calculateBonus(Frame prevFrame) {
+        if (prevFrame.isSpare()) {
+            return firstScore;
+        }
+        if (prevFrame.isStrike()) {
+            return firstScore + secondScore;
+        }
+        return NONE;
     }
 }

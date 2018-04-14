@@ -22,7 +22,8 @@ public class Prompter {
         }
     }
 
-    public static int promptForThrow(int frameNumber) {
+    public static int
+    promptForThrow(int frameNumber) {
         try {
             System.out.printf("%d 프레임 투구: ", frameNumber + 1);
             return Parser.parseToInt(takeInput());
