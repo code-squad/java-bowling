@@ -27,7 +27,11 @@ public class Player {
         return currentFrame.getFrameNum();
     }
 
-    public Board getResult() {
+    public Board getBoard() {
         return firstFrame.getBoard();
+    }
+
+    public String getName() {
+        return name.getName();
     }
 }

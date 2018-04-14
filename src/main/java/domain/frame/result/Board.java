@@ -15,6 +15,22 @@ public class Board {
         results.add(result);
     }
 
+    public List<String> getResultMessages() {
+        List<String> resultMessages = new ArrayList<>();
+        for (FrameResult result : results) {
+            resultMessages.add(result.getMessage());
+        }
+        return resultMessages;
+    }
+
+    public List<Integer> getResultsScores() {
+        List<Integer> resultScores = new ArrayList<>();
+        for (FrameResult result : results) {
+            resultScores.add(result.getScore());
+        }
+        return resultScores;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

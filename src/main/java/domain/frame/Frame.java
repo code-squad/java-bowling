@@ -74,23 +74,24 @@ public abstract class Frame {
         return score.makeScoreMessage(this);
     }
 
-    public FrameResult getResult() {
+    public FrameResult getResult(int baseScore) {
         if (!score.isBonusFinish()) {
             return new FrameResult(getScoreMessage(), CANNOT_CALC_SCORE_STATE);
         }
-        return new FrameResult(getScoreMessage(), getScore());
+        return new FrameResult(getScoreMessage(), baseScore + getScore());
     }
 
-    private void addFrameResult(Board board) {
-        board.addResult(getResult());
+    private void addFrameResult(Board board, int baseScore) {
+        FrameResult result = getResult(baseScore);
+        board.addResult(result);
         if (nextFrame != null) {
-            nextFrame.addFrameResult(board);
+            nextFrame.addFrameResult(board, result.getScore());
         }
     }
 
     public Board getBoard() {
         Board board = new Board();
-        addFrameResult(board);
+        addFrameResult(board, 0);
         return board;
     }
 }
