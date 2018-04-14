@@ -80,7 +80,7 @@ public abstract class Frame {
     }
 
     private boolean changeStatus(Frame beforeFrame) {
-        if (beforeFrame.calculateStatus == DONOT)
+        if (beforeFrame.isBonus())
             return StatusChanger.beforeFrameDoNotCase(beforeFrame, this);
         return StatusChanger.beforeFrameDoCase(this);
     }
@@ -103,7 +103,7 @@ public abstract class Frame {
     }
 
     public void isGivenMessageFromPresentFrameGaveVersion(Frame frame) {
-        if (calculateStatus != DONE || (calculateStatus == DONE && !frame.isBonus())) {
+        if (calculateStatus != DONE || (isBonus() && !frame.isBonus() && calculateStatus == DONE && !frame.isFrameEnd())) {
             System.out.println("통과 체크 DONOT");
             if (frame.totalScore.isBonusOverThirty()) {
                 System.out.println("보너스 까지 합계가 30점이 넘으므로");

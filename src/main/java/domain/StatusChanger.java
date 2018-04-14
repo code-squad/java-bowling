@@ -17,7 +17,6 @@ public class StatusChanger {
     private static boolean changeStatusBeforeFrameDoNotAndSpare(Frame presentFrame) {
         if (!presentFrame.isTrySecond()) {
             return true;
-//            return !presentFrame.isFirstStrike();
         }
         return !presentFrame.isSpare();
     }
