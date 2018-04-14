@@ -57,7 +57,8 @@ public class Round {
             return;
         }
         if (roundFrames.size() == 1) {
-            presentFrame().assignCalculableState();
+//            presentFrame().assignCalculableState();
+            presentFrame().assignFirstState();
             return;
         }
         presentFrame().assignCalculableState(roundFrames.get(roundFrames.size() - 2));

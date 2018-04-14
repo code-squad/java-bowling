@@ -26,7 +26,7 @@ public class StatusChanger {
         if (!presentFrame.isTrySecond()) {
             return false;
         }
-        if (presentFrame.isSpare()) return false;
+        if (presentFrame.isSpare()) return true;
         if (!presentFrame.isSpare() && !presentFrame.isFirstStrike()) return true;
         return false;
     }
