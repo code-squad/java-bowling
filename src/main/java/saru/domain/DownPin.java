@@ -1,8 +1,9 @@
-package saru;
+package saru.domain;
 
 import java.util.Objects;
 
 public class DownPin {
+    private static final int MAX_DOWN_PIN = 10;
     private int downPinCount;
 
     private DownPin(int downPinCount) {
@@ -10,7 +11,15 @@ public class DownPin {
     }
 
     public static DownPin of(int downPinCount) {
+        if (downPinCount < 0 || downPinCount > MAX_DOWN_PIN) {
+            throw new IllegalArgumentException();
+        }
+
         return new DownPin(downPinCount);
+    }
+
+    int addWith(DownPin downPin) {
+        return this.downPinCount + downPin.downPinCount;
     }
 
     @Override
