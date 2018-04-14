@@ -14,9 +14,9 @@ public class LastFrame extends Frame {
 
     @Override
     void throwing(DownPin downPin) {
-        if (!checkThrowingPossible()) {
-            return;
-        }
+//        if (!checkThrowingPossible()) {
+//            return;
+//        }
 
         // 빈 상태가 아니고, 첫투구가 스트라이크가 아니고
         if (!downPins.isEmpty() && checkFirstThrowingIsNotStrike()) {
@@ -27,9 +27,9 @@ public class LastFrame extends Frame {
     }
 
     private void checkUntilSecondThrowingIsOverTen(DownPin downPin) {
-        if (downPins.get(0).getDownPinCount() == MAX_DOWN_PIN) {
-            return;
-        }
+//        if (downPins.get(0).getDownPinCount() == MAX_DOWN_PIN) {
+//            return;
+//        }
 
         if (downPin.addWith(downPins.get(FIRST_INDEX)) > MAX_DOWN_PIN) {
             throw new IllegalArgumentException();

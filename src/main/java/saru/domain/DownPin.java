@@ -39,11 +39,4 @@ public class DownPin {
     public int hashCode() {
         return Objects.hash(downPinCount);
     }
-
-    @Override
-    public String toString() {
-        return "DownPin{" +
-                "downPinCount=" + downPinCount +
-                '}';
-    }
 }

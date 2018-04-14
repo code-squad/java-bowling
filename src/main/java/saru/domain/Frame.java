@@ -49,12 +49,4 @@ public abstract class Frame {
     public List<DownPin> copyDownPins() {
         return new ArrayList<>(downPins);
     }
-
-    @Override
-    public String toString() {
-        return "Frame{" +
-                "downPins=" + downPins +
-                ", maxBallCount=" + maxBallCount +
-                '}' + '\n';
-    }
 }

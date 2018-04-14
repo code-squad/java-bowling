@@ -47,23 +47,10 @@ public class ScoreBoard {
         return frames;
     }
 
-    Frame getNowFrame() {
-        return frames.get(getNowFrameIndex());
-    }
-
     private void nextFrame() {
         Frame frame = frames.get(nowFrameIndex);
         if (!frame.checkThrowingPossible()) {
             nowFrameIndex++;
         }
     }
-
-    @Override
-    public String toString() {
-        return "ScoreBoard{" +
-                "nowFrameIndex=" + nowFrameIndex +
-                ", frames=\n" + frames +
-                '}';
-    }
-
 }
