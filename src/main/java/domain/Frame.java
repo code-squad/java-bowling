@@ -100,16 +100,13 @@ public abstract class Frame {
 
     public void isGivenMessageFromPresentFrameGaveVersion(Frame frame) {
         if (calculateStatus != DONE || (isBonus() && !frame.isBonus() && calculateStatus == DONE && !frame.isFrameEnd())) {
-            System.out.println("통과 체크 DONOT");
+            System.out.println("헬로우");
             if (frame.totalScore.isBonusOverThirty()) {
-                System.out.println("보너스 까지 합계가 30점이 넘으므로");
-                System.out.printf("현재 %s점\n", totalScore);
                 totalScore.sum(20);
-                System.out.printf("이전 프레임이 보너스를 받아야 하니 %s점을 받고 그래서 %s가지고 있음\n", 20, totalScore);
-            } else {
-                totalScore.sum(frame.totalScore);
-                System.out.printf("이전 프레임이 보너스를 받아야 하니 %s점을 받고 그래서 %s가지고 있음\n", frame.totalScore, totalScore);
+                frame.changeCalculateDirectionToLeft();
+                return;
             }
+            totalScore.sum(frame.totalScore);
         }
         frame.changeCalculateDirectionToLeft();
     }
@@ -119,12 +116,11 @@ public abstract class Frame {
     }
 
     public void isGivenMessageFromBeforeFrameGaveVersion(Frame beforeFrame) {
-        System.out.println("점수를 받아야 하는 프레임의 방향은 " + calculationDirection);
+        System.out.println(calculationDirection);
+        System.out.println(calculateStatus);
         if (calculationDirection == LEFT && calculateStatus != DONE && isFrameEnd()) {
-            System.out.printf("현재 프레임 계산 상태는 %s\n", calculateStatus);
-            System.out.printf("현재 %s점을 가지고 있음\n", totalScore);
+            System.out.println("안녕");
             totalScore.sum(beforeFrame.totalScore);
-            System.out.printf("이전프레임으로부터 %s를 받고 \n지금은 %s만큼 가지고 있다.\n", beforeFrame.totalScore, totalScore);
             beforeFrame.changeCalculationStatusToDone();
             changeCalculationStatusToDone();
             changeCalculateDirectionToRight();

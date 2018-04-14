@@ -22,13 +22,11 @@ public class Round {
     public void trying(final int score) {
         presentFrameTry(score);
         assignCalculableToFrame();
-        System.out.println("현재 나는 "+score+"점을 "+(roundFrames.size())+"프레임에 넣었고 계산을 해야할까? : " + presentFrame().getCalculateStatus());
         if (roundFrames.size() != 1 && presentFrame().isCalculationDo()) {
             roundFrames = forloopBackward(roundFrames);
             roundFrames = forloopForward(roundFrames);
         }
         if (isPresentFrameEnd()) {
-            System.out.println("프레임 더할거야");
             addNextFrame();
         }
     }
@@ -36,7 +34,6 @@ public class Round {
     public List<Frame> forloopBackward(List<Frame> roundFrames) {
         int size = roundFrames.size();
         for (int i = 1; i < size; i++) {
-            System.out.println((size - i + 1) + "프레임이 " + (size - (i + 1) + 1) + "프레임에게 자신의 정보를 넘긴다.");
             this.roundFrames.get(size - (i + 1)).isGivenMessageFromPresentFrameGaveVersion(this.roundFrames.get(size - i));
         }
         return roundFrames;
@@ -45,19 +42,18 @@ public class Round {
     public List<Frame> forloopForward(List<Frame> roundFrames) {
         int size = roundFrames.size();
         for (int i = size; i > 1; i--) {
-            System.out.println(size - i + 1 + "번째 프레임이 " + (size - i + 1 + 1) + "프레임에게 자신의 정보를 넘긴다");
             this.roundFrames.get(size - i + 1).isGivenMessageFromBeforeFrameGaveVersion(this.roundFrames.get(size - i));
         }
         return roundFrames;
     }
 
     private void assignCalculableToFrame() {
-        if (roundFrames.size() == 1) {
-            presentFrame().assignFirstState();
-            return;
-        }
         if (isRoundEnd()) {
             roundFrames.get(roundFrames.size() - 1).changeCalculationStatusToDo();
+            return;
+        }
+        if (roundFrames.size() == 1) {
+            presentFrame().assignFirstState();
             return;
         }
         presentFrame().assignCalculableState(roundFrames.get(roundFrames.size() - 2));
