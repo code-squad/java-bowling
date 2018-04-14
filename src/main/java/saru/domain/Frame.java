@@ -4,9 +4,8 @@ import java.util.*;
 
 public abstract class Frame {
     static final int MAX_DOWN_PIN = 10;
-
     static final int FIRST_INDEX = 0;
-    static final int STRIKE = 10;
+    static final int SECOND_INDEX = 1;
     List<DownPin> downPins = new ArrayList<>();
 
     private int maxBallCount;

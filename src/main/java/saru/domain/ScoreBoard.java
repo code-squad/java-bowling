@@ -30,13 +30,13 @@ public class ScoreBoard {
     }
 
     public int throwing(DownPin downPin) {
-        Frame normalFrame = frames.get(nowFrameIndex);
-        normalFrame.throwing(downPin);
+        Frame frame = frames.get(nowFrameIndex);
+        frame.throwing(downPin);
 
         nextFrame();
 
         // TODO return downPinsSize
-        return normalFrame.getDownPinsSize();
+        return frame.getDownPinsSize();
     }
 
     public int getNowFrameIndex() {
@@ -52,16 +52,10 @@ public class ScoreBoard {
     }
 
     private void nextFrame() {
-        if (checkNextFramePossible()) return;
-
-        Frame normalFrame = frames.get(nowFrameIndex);
-        if (!normalFrame.checkThrowingPossible()) {
+        Frame frame = frames.get(nowFrameIndex);
+        if (!frame.checkThrowingPossible()) {
             nowFrameIndex++;
         }
-    }
-
-    private boolean checkNextFramePossible() {
-        return getNowFrameIndex() == MAX_NORMAL_FRAME;
     }
 
     @Override

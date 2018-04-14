@@ -2,6 +2,7 @@ package saru.domain;
 
 public class LastFrame extends Frame {
     private static final int MAX_BALL_COUNT = 3;
+    private static final int SECOND_THROW = 2;
 
     private LastFrame(int maxBallCount) {
         super(maxBallCount);
@@ -26,13 +27,17 @@ public class LastFrame extends Frame {
     }
 
     private void checkUntilSecondThrowingIsOverTen(DownPin downPin) {
+        if (downPins.get(0).getDownPinCount() == MAX_DOWN_PIN) {
+            return;
+        }
+
         if (downPin.addWith(downPins.get(FIRST_INDEX)) > MAX_DOWN_PIN) {
-            throw new IllegalArgumentException(); // 범위초과
+            throw new IllegalArgumentException();
         }
     }
 
     private boolean checkFirstThrowingIsNotStrike() {
-        return !downPins.get(FIRST_INDEX).equals(DownPin.of(STRIKE));
+        return !downPins.get(FIRST_INDEX).equals(DownPin.of(MAX_DOWN_PIN));
     }
 
     @Override
@@ -41,8 +46,8 @@ public class LastFrame extends Frame {
             return true;
         }
 
-        // 투구수가 2 이상이고 두번째까지의 합이 10미만이면
-        if ((downPins.size() >= 2 && checkSumUntilTwoIsUnderTen()) || checkFull()) {
+        // 투구수가 2 이상이고 두번째까지의 합이 10미만이면 || checkFull
+        if ((downPins.size() >= SECOND_THROW && checkSumUntilTwoIsUnderTen()) || checkFull()) {
             return false;
         }
 
@@ -50,6 +55,6 @@ public class LastFrame extends Frame {
     }
 
     private boolean checkSumUntilTwoIsUnderTen() {
-        return downPins.get(FIRST_INDEX).addWith(downPins.get(1)) < MAX_DOWN_PIN;
+        return downPins.get(FIRST_INDEX).addWith(downPins.get(SECOND_INDEX)) < MAX_DOWN_PIN;
     }
 }

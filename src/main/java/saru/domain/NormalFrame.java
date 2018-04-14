@@ -25,6 +25,6 @@ public class NormalFrame extends Frame {
     }
 
     private boolean checkStrike() {
-        return downPins.get(FIRST_INDEX).equals(DownPin.of(STRIKE));
+        return downPins.get(FIRST_INDEX).equals(DownPin.of(MAX_DOWN_PIN));
     }
 }

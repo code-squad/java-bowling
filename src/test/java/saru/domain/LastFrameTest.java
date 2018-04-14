@@ -21,9 +21,8 @@ public class LastFrameTest {
     public void 마지막프레임스페어미만() {
         scoreBoard.throwing(DownPin.of(2));
         scoreBoard.throwing(DownPin.of(3));
-        scoreBoard.throwing(DownPin.of(3));
 
-        assertEquals(2, scoreBoard.getNowFrame().getDownPinsSize());
+        assertEquals(10, scoreBoard.getNowFrameIndex());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -38,7 +37,7 @@ public class LastFrameTest {
         scoreBoard.throwing(DownPin.of(3));
         scoreBoard.throwing(DownPin.of(3));
 
-        assertEquals(3, scoreBoard.getNowFrame().getDownPinsSize());
+        assertEquals(10, scoreBoard.getNowFrameIndex());
     }
 
     @Test
@@ -47,6 +46,6 @@ public class LastFrameTest {
         scoreBoard.throwing(DownPin.of(3));
         scoreBoard.throwing(DownPin.of(3));
 
-        assertEquals(3, scoreBoard.getNowFrame().getDownPinsSize());
+        assertEquals(10, scoreBoard.getNowFrameIndex());
     }
 }
