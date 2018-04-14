@@ -52,13 +52,12 @@ public class Round {
     }
 
     private void assignCalculableToFrame() {
-        if (isRoundEnd()) {
-            roundFrames.get(roundFrames.size() - 1).changeCalculationStatusToDo();
+        if (roundFrames.size() == 1) {
+            presentFrame().assignFirstState();
             return;
         }
-        if (roundFrames.size() == 1) {
-//            presentFrame().assignCalculableState();
-            presentFrame().assignFirstState();
+        if (isRoundEnd()) {
+            roundFrames.get(roundFrames.size() - 1).changeCalculationStatusToDo();
             return;
         }
         presentFrame().assignCalculableState(roundFrames.get(roundFrames.size() - 2));

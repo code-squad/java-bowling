@@ -89,10 +89,6 @@ public abstract class Frame {
         calculateStatus = CalculateStatus.of(changeStatus(beforeFrame));
     }
 
-    public void assignCalculableState() {
-        calculateStatus = CalculateStatus.of(StatusChanger.beforeFrameDoCase(this));
-    }
-
     public CalculateStatus getCalculateStatus() {
         return calculateStatus;
     }
@@ -135,8 +131,36 @@ public abstract class Frame {
         }
     }
 
+    public Score getTotalScore() {
+        return totalScore;
+    }
+
+    public boolean isCalculationDo() {
+        return calculateStatus == DO;
+    }
+
+    public void changeCalculateDirectionToLeft() {
+        calculationDirection = LEFT;
+    }
+
     private void changeCalculateDirectionToRight() {
         calculationDirection = RIGHT;
+    }
+
+    public void changeCalculationStatusToDo() {
+        calculateStatus = DO;
+    }
+
+    public void changeCalculationStatusToDone() {
+        calculateStatus = DONE;
+    }
+
+    public void assignFirstState() {
+        if (isBonus()) {
+            calculateStatus = DONOT;
+            return;
+        }
+        changeCalculationStatusToDone();
     }
 
     @Override
@@ -156,33 +180,6 @@ public abstract class Frame {
         return Objects.hash(frameScore, totalScore, scores, calculateStatus);
     }
 
-    public Score getTotalScore() {
-        return totalScore;
-    }
-
-    public boolean isCalculationDo() {
-        return calculateStatus == DO;
-    }
-
-    public void changeCalculateDirectionToLeft() {
-        calculationDirection = LEFT;
-    }
-
-    public void changeCalculationStatusToDo() {
-        calculateStatus = DO;
-    }
-
-    public void changeCalculationStatusToDone() {
-        calculateStatus = DONE;
-    }
-
-    public void assignFirstState() {
-        if (isBonus()) {
-            calculateStatus = DONOT;
-            return;
-        }
-        calculateStatus = DONE;
-    }
 }
 
 
