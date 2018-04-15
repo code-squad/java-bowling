@@ -1,11 +1,10 @@
 package bowling.domain;
 
-import bowling.domain.Util.ScoreCalculator;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+    private static final int LAST = 9;
     private final String name;
     private final List<Frame> frames;
     private int previouslyPlayed;
@@ -17,11 +16,19 @@ public class Player {
 
     private static List<Frame> initializeFrames() {
         List<Frame> frames = new ArrayList<>();
-        for (int frameCount = 0; frameCount < 8; frameCount++) {
+        for (int frameCount = 0; frameCount < LAST - 1; frameCount++) {
             frames.add(new NormalFrame());
         }
         frames.add(new LastFrame());
         return frames;
+    }
+
+    public int getPreviousFrameNumber() {
+        return previouslyPlayed;
+    }
+
+    public boolean isLastFrame() {
+        return previouslyPlayed == LAST;
     }
 
     private void updatePreviousFrameNumber() {
@@ -30,11 +37,6 @@ public class Player {
 
     private Frame NextFrame() {
         return frames.get(previouslyPlayed);
-    }
-
-    public List<Integer> calculateFrameScores() {
-        ScoreCalculator calculator = new ScoreCalculator(frames);
-        return calculator.calculateScores();
     }
 
     public void throwBall(int pinsKnocked) {
@@ -49,11 +51,19 @@ public class Player {
         }
     }
 
-    public int getPreviousFrameNumber() {
-        return previouslyPlayed;
+    public Integer getFirstScoreOnFrame(int frameNumber) {
+        return frames.get(frameNumber).getFirstScore();
     }
 
-    public boolean isLastFrame() {
-        return previouslyPlayed == 9;
+    public Integer getSecondScoreOnFrame(int frameNumber) {
+        return frames.get(frameNumber).getSecondScore();
+    }
+
+    public Integer getThirdScoreOnLastFrame() {
+        return frames.get(LAST).
+    }
+
+    public boolean isStrikeOnFrame(int frameNumber) {
+        return frames.get(frameNumber).isStrike();
     }
 }

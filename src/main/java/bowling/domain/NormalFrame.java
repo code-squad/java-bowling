@@ -23,7 +23,6 @@ public class NormalFrame implements Frame {
     }
 
     public boolean isNotValidInput(int pinsKnocked) {
-
         if (pinsKnocked > ALL || pinsKnocked < NONE) {
             return true;
         }
@@ -43,13 +42,22 @@ public class NormalFrame implements Frame {
         return null;
     }
 
-    public int calculateFrameScore(List<Frame> frames, int frameNumber) {
+    public Integer calculateFrameScore(List<Frame> frames, int frameNumber) {
         Frame nextFrame = frames.get(frameNumber + 1);
-        return calculateSum() + nextFrame.calculateBonus(this);
+        if (!this.firstBallPlayed() || !this.secondBallPlayed()) {
+            return null;
+        }
+        if ((this.isStrike() || this.isSpare()) && !nextFrame.firstBallPlayed()) {
+            return null;
+        }
+        if ((this.isStrike() && !nextFrame.secondBallPlayed())) {
+            return null;
+        }
+        return calculateBaseSum() + nextFrame.calculateBonus(this);
     }
 
-    public Integer calculateSum() {
-        if (isStrike()) {
+    private Integer calculateBaseSum() {
+        if (this.isStrike()) {
             return firstScore;
         }
         return firstScore + secondScore;
@@ -59,9 +67,14 @@ public class NormalFrame implements Frame {
         if (prevFrame.isSpare()) {
             return firstScore;
         }
-        if (prevFrame.isStrike()) {
-            return calculateSum();
-        }
-        return NONE;
+        return calculateBaseSum();
+    }
+
+    public Integer getFirstScore() {
+        return firstScore;
+    }
+
+    public Integer getSecondScore() {
+        return secondScore;
     }
 }

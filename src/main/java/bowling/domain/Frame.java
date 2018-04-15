@@ -18,9 +18,11 @@ public interface Frame {
 
     Integer throwBall(int pinsKnocked);
 
-    Integer calculateSum();
+    Integer calculateFrameScore(List<Frame> frames, int frameNumber);
 
-    int calculateFrameScore(List<Frame> frames, int frameNumber);
+    Integer calculateBonus(Frame prevFrame);
 
-    int calculateBonus(Frame prevFrame);
+    Integer getFirstScore();
+
+    Integer getSecondScore();
 }

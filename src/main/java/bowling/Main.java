@@ -3,6 +3,7 @@ package bowling;
 import bowling.domain.Player;
 import bowling.domain.Util.Parser;
 import bowling.view.BowlingGame;
+import bowling.view.ScoreBoard;
 
 import static bowling.view.Prompter.*;
 
@@ -12,6 +13,7 @@ public class Main {
         BowlingGame game = new BowlingGame(player);
 
         game.startGame();
+        ScoreBoard scoreBoard = new ScoreBoard(game);
     }
 
     private static Player getPlayer() {

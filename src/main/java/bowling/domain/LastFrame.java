@@ -15,6 +15,10 @@ public class LastFrame implements Frame {
         return secondScore != null;
     }
 
+    private boolean thirdBallPlayed() {
+        return thirdScore != null;
+    }
+
     public boolean isStrike() {
         return firstScore.equals(ALL);
     }
@@ -52,18 +56,18 @@ public class LastFrame implements Frame {
         return null;
     }
 
-    public int calculateFrameScore(List<Frame> frames, int frameNumber) {
-        return calculateSum();
+    public Integer calculateFrameScore(List<Frame> frames, int frameNumber) {
+        return calculateBaseSum();
     }
 
-    public Integer calculateSum() {
-        if (isStrike() || isSpare()) {
-            return firstScore + secondScore + thirdScore;
+    private Integer calculateBaseSum() {
+        if (!this.firstBallPlayed() || !secondBallPlayed() || !thirdBallPlayed()) {
+            return null;
         }
-        return firstScore + secondScore;
+        return firstScore + secondScore + thirdScore;
     }
 
-    public int calculateBonus(Frame prevFrame) {
+    public Integer calculateBonus(Frame prevFrame) {
         if (prevFrame.isSpare()) {
             return firstScore;
         }
@@ -71,5 +75,17 @@ public class LastFrame implements Frame {
             return firstScore + secondScore;
         }
         return NONE;
+    }
+
+    public Integer getFirstScore() {
+        return firstScore;
+    }
+
+    public Integer getSecondScore() {
+        return firstScore;
+    }
+
+    public Integer getThirdScore() {
+        return firstScore;
     }
 }

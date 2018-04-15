@@ -16,7 +16,7 @@ public class BowlingGame {
         }
     }
 
-    private void printFrames(){
-
+    public Player getPlayer() {
+        return player;
     }
 }
