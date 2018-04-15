@@ -11,6 +11,7 @@ public class ScoreBoard {
     private List<Frame> frames = new ArrayList<>(MAX_DOWN_PIN);
 
     private ScoreBoard(User user) {
+        this.user = user;
         init();
     }
 

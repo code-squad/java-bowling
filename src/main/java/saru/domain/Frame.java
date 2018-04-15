@@ -1,5 +1,7 @@
 package saru.domain;
 
+import sun.jvm.hotspot.debugger.InputLexer;
+
 import java.util.*;
 
 public abstract class Frame {
@@ -20,15 +22,24 @@ public abstract class Frame {
         }
 
         if (!downPins.isEmpty()) {
-            checkValidThrowing(downPin);
+            throwingProc(downPin);
         }
 
         downPins.add(downPin);
     }
 
+    private void throwingProc(DownPin downPin) {
+        try {
+            checkValidThrowing(downPin);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     private void checkValidThrowing(DownPin downPin) {
         if (downPin.addWith(downPins.get(0)) > MAX_DOWN_PIN) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("downPin 갯수 합이 10이 넘음");
         }
     }
 

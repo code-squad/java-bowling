@@ -13,7 +13,7 @@ public class DownPin {
 
     public static DownPin of(int downPinCount) {
         if (downPinCount < 0 || downPinCount > MAX_DOWN_PIN) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("DownPin 생성 에러");
         }
 
         return new DownPin(downPinCount);

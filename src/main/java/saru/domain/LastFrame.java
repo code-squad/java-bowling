@@ -14,10 +14,6 @@ public class LastFrame extends Frame {
 
     @Override
     void throwing(DownPin downPin) {
-//        if (!checkThrowingPossible()) {
-//            return;
-//        }
-
         // 빈 상태가 아니고, 첫투구가 스트라이크가 아니고
         if (!downPins.isEmpty() && checkFirstThrowingIsNotStrike()) {
             checkUntilSecondThrowingIsOverTen(downPin);
@@ -27,12 +23,8 @@ public class LastFrame extends Frame {
     }
 
     private void checkUntilSecondThrowingIsOverTen(DownPin downPin) {
-//        if (downPins.get(0).getDownPinCount() == MAX_DOWN_PIN) {
-//            return;
-//        }
-
         if (downPin.addWith(downPins.get(FIRST_INDEX)) > MAX_DOWN_PIN) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("두번째 투구수까지의 합이 10이 넘음");
         }
     }
 
