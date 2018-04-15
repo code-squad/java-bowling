@@ -6,7 +6,7 @@ public class Pin {
     private static  final int MIN_FALL = 0;
 
     public Pin(int pinFall) {
-        if (pinFall > MAX_FALL || pinFall < MIN_FALL)
+        if (pinFall < MIN_FALL || pinFall > MAX_FALL)
             throw new IllegalArgumentException("0~10개를 쓰러트릴 수 있습니다.");
         this.pinFall = pinFall;
     }
@@ -19,5 +19,13 @@ public class Pin {
         if (pinFall == MAX_FALL)
             return true;
         return false;
+    }
+
+    public static int getMaxFall() {
+        return MAX_FALL;
+    }
+
+    public static int getMinFall() {
+        return MIN_FALL;
     }
 }

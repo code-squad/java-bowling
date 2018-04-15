@@ -16,8 +16,8 @@ public class FrameTest {
 
     @Test
     public void 첫번째샷() {
-        firstPin = new Pin(8);
-        System.out.println(firstPin.getPinFall());
+//        firstPin = new Pin(8);
+        frame.shootFirstPin(8);
     }
 
     @Test
@@ -26,12 +26,10 @@ public class FrameTest {
         frame.shootSecondPin(2);
     }
 
-
-
     @Test
     public void 프레임끝() {
-        Pin firstPin = new Pin(8);
-        Pin secondPin = new Pin(2);
+        frame.shootFirstPin(3);
+        frame.shootSecondPin(7);
         boolean result = frame.finishFrame();
         assertTrue(result);
     }
