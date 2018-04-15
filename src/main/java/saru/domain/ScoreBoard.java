@@ -6,10 +6,11 @@ public class ScoreBoard {
     private static final int MAX_DOWN_PIN = 10;
     private static final int MAX_NORMAL_FRAME = 9;
     private int nowFrameIndex = 0;
+    private User user;
 
     private List<Frame> frames = new ArrayList<>(MAX_DOWN_PIN);
 
-    private ScoreBoard() {
+    private ScoreBoard(User user) {
         init();
     }
 
@@ -21,8 +22,8 @@ public class ScoreBoard {
         frames.add(LastFrame.of());
     }
 
-    public static ScoreBoard of() {
-        return new ScoreBoard();
+    public static ScoreBoard of(User user) {
+        return new ScoreBoard(user);
     }
 
     int getFrameSize() {
@@ -52,5 +53,9 @@ public class ScoreBoard {
         if (!frame.checkThrowingPossible()) {
             nowFrameIndex++;
         }
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

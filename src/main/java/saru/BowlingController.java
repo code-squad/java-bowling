@@ -6,21 +6,20 @@ import saru.view.BowlingInput;
 import saru.view.BowlingOutput;
 
 public class BowlingController {
-    public BowlingController() {
-    }
+    private static final int MAX_FRAME_INDEX = 10;
+    private BowlingInput bowlingInput = new BowlingInput();
 
     public static BowlingController of() {
         return new BowlingController();
     }
 
-    public void run() {
-        ScoreBoard scoreBoard = ScoreBoard.of();
-        BowlingInput bowlingInput = new BowlingInput(scoreBoard);
+    void run() {
+        ScoreBoard scoreBoard = ScoreBoard.of(bowlingInput.getUserInput());
         BowlingOutput bowlingOutput = new BowlingOutput(scoreBoard);
 
-        while (scoreBoard.getNowFrameIndex() < 10) {
+        while (scoreBoard.getNowFrameIndex() < MAX_FRAME_INDEX) {
             // 입력 받는다
-            int throwingNum = bowlingInput.getUserInput();
+            int throwingNum = bowlingInput.getThrowNum(scoreBoard);
 
             // 던진다
             scoreBoard.throwing(DownPin.of(throwingNum));

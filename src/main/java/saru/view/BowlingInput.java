@@ -1,18 +1,34 @@
 package saru.view;
 
 import saru.domain.ScoreBoard;
+import saru.domain.User;
 
 import java.util.Scanner;
 
 public class BowlingInput {
-    private ScoreBoard scoureBoard;
+    public User getUserInput() {
+        String userName = getUserName();
+        User user;
 
-    public BowlingInput(ScoreBoard scoreBoard) {
-        this.scoureBoard = scoreBoard;
+        try {
+            user = User.of(userName);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return getUserInput();
+        }
+
+        return user;
     }
 
-    public int getUserInput() {
-        System.out.printf("%d프레임 투구 : ", scoureBoard.getNowFrameIndex());
+    private String getUserName() {
+        System.out.println("플레이어 이름은(3 english letters)?: ");
+
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public int getThrowNum(ScoreBoard scoreBoard) {
+        System.out.printf("%d프레임 투구 : ", scoreBoard.getNowFrameIndex() + 1);
         Scanner scanner = new Scanner(System.in);
 
         int result = scanner.nextInt();

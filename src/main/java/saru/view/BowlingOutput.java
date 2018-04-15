@@ -7,10 +7,12 @@ import java.util.List;
 public class BowlingOutput {
     private ScoreBoard scoreBoard;
     private List<Frame> frames;
+    private User user;
 
     public BowlingOutput(ScoreBoard scoreBoard) {
         this.scoreBoard = scoreBoard;
         this.frames = scoreBoard.getFrames();
+        this.user = scoreBoard.getUser();
     }
 
     String getFrameResult(int frameIndex) {
@@ -78,6 +80,7 @@ public class BowlingOutput {
     }
 
     public void printScore() {
+        String userName = user.getName();
         String frameOne = getFrameResult(0);
         String frameTwo = getFrameResult(1);
         String frameThree = getFrameResult(2);
@@ -91,8 +94,8 @@ public class BowlingOutput {
 
         System.out.printf(
                 "| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |\n" +
-                        "|  PJS |%6s|%6s|%6s|%6s|%6s|%6s|%6s|%6s|%6s|%6s|\n",
-                frameOne, frameTwo, frameThree, frameFour, frameFive, frameSix, frameSeven, frameEight,
+                        "|%6s|%6s|%6s|%6s|%6s|%6s|%6s|%6s|%6s|%6s|%6s|\n",
+                userName, frameOne, frameTwo, frameThree, frameFour, frameFive, frameSix, frameSeven, frameEight,
                 frameNine, frameTen);
     }
 }
