@@ -10,6 +10,10 @@ public class NormalFrame extends Frame {
         return new NormalFrame();
     }
 
+    public ScoreCalculator initScoreCalculator() {
+        return ScoreCalculator.of();
+    }
+
     @Override
     public boolean isFrameEnd() {
         return isFirstStrike() || isTrySecond();

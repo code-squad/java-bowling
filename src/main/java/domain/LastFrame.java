@@ -1,12 +1,13 @@
 package domain;
 
+import static domain.CalculationDirection.LEFT;
+
 public class LastFrame extends Frame {
 
     private boolean bonus;
 
     private LastFrame() {
         super();
-        changeCalculateDirectionToLeft();
     }
 
     public static Frame of() {
@@ -36,6 +37,11 @@ public class LastFrame extends Frame {
 
     private boolean hasBonusTry() {
         return isSpare() || (isTrySecond() && isFirstStrike()) ;
+    }
+
+    @Override
+    protected ScoreCalculator initScoreCalculator() {
+        return ScoreCalculator.of(LEFT);
     }
 
     @Override
