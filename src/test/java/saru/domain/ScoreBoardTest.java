@@ -9,7 +9,7 @@ public class ScoreBoardTest {
 
     @Before
     public void init() {
-        scoreBoard = ScoreBoard.of();
+        scoreBoard = ScoreBoard.of(User.of("ABC"));
     }
 
     @Test

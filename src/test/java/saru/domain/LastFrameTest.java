@@ -9,7 +9,7 @@ public class LastFrameTest {
 
     @Before
     public void init() {
-        scoreBoard = ScoreBoard.of();
+        scoreBoard = ScoreBoard.of(User.of("ABC"));
 
         for (int i = 0; i < 9; i++) {
             scoreBoard.throwing(DownPin.of(5));
