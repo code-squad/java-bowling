@@ -11,7 +11,7 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public Status updateStatus() {
+    public State updateStatus() {
         return null;
     }
 

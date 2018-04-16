@@ -3,7 +3,7 @@ package domain;
 public class NormalFrame extends Frame {
     private Pins first;
     private Pins second;
-    Status status;
+    State state;
 
     public NormalFrame(int no) {
         super(no);
@@ -19,23 +19,22 @@ public class NormalFrame extends Frame {
         }
     }
 
-    public Status updateStatus() {
+    public State updateStatus() {
         if (first.isStrike()) {
-            return status = new Strike();
+            return state = new Strike();
         }
         if (second == null) {
-            return status = new NotFinish();
+            return state = new NotFinish();
         }
         first.isTotal(second);
         if (first.isSpare(second)) {
-            return status = new Spare(first, second);
+            return state = new Spare(first, second);
         }
-        return status = new Open(first, second);
+        return state = new Open(first, second);
     }
 
     @Override
     public boolean isEnd() {
-        System.out.println(status.getClass().toString());
-        return !status.getClass().equals(new NotFinish());
+        return state.isEnd();
     }
 }

@@ -7,6 +7,6 @@
 //public class StatusTest {
 //    @Test
 //    public void strikeIndicator() {
-//        assertEquals("X", Status.getIndicator(Status.STRIKE));
+//        assertEquals("X", State.getIndicator(State.STRIKE));
 //    }
 //}

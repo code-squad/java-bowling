@@ -10,7 +10,7 @@ abstract public class Frame {
     }
 
     abstract public void throwing(int throwing);
-    abstract public Status updateStatus();
+    abstract public State updateStatus();
     abstract public boolean isEnd();
 
     public boolean isValidNo(int no) {

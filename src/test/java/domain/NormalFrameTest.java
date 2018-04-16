@@ -25,18 +25,19 @@ public class NormalFrameTest {
     }
 
     @Test
-    public void createStatus() {
+    public void updateStatus() {
         Frame frame = new NormalFrame(1);
         frame.throwing(5);
         frame.throwing(5);
-        Status status = frame.updateStatus();
-        System.out.println(status.toString());
+        State state = frame.updateStatus();
+        System.out.println(state.toString());
     }
 
     @Test
     public void notFinished() {
         Frame frame = new NormalFrame(1);
         frame.throwing(1);
+        frame.updateStatus();
         assertFalse(frame.isEnd());
     }
 }
