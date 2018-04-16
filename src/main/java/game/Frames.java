@@ -17,6 +17,10 @@ public class Frames {
         return false;
     }
 
+    public int getNoFrame() {
+        return noFrame;
+    }
+
     public ArrayList<Frame> getFrames() {
         return frames;
     }
