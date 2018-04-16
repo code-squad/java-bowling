@@ -5,19 +5,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import bowling.domain.Game;
-import bowling.domain.Score;
+import bowling.domain.Pin;
 
 import static org.hamcrest.CoreMatchers.*;
 
 public class LastFrameTest {
 
 	Game game;
-	Score score;
+	Pin score;
 
 	@Before
 	public void setUp() {
 		game = Game.of();
-		score = Score.of();
+		score = Pin.of();
 	}
 
 	@Test
