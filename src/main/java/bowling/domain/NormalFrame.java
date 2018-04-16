@@ -3,78 +3,70 @@ package bowling.domain;
 import java.util.List;
 
 public class NormalFrame implements Frame {
-    private Integer firstScore;
-    private Integer secondScore;
-
-    public boolean firstBallPlayed() {
-        return firstScore != null;
-    }
-
-    public boolean secondBallPlayed() {
-        return secondScore != null;
-    }
+    private Ball firstBall;
+    private Ball secondBall;
 
     public boolean isStrike() {
-        return firstScore.equals(ALL);
+        return firstBall.getPinsLeft() == NONE;
+    }
+
+    private int calculateTotal() {
+        return ALL - secondBall.getPinsLeft();
     }
 
     public boolean isSpare() {
-        return secondScore.equals(ALL - firstScore);
+        return calculateTotal() == ALL;
     }
 
-    public boolean isNotValidInput(int pinsKnocked) {
-        if (pinsKnocked > ALL || pinsKnocked < NONE) {
+    public boolean firstBallNotPlayed() {
+        return firstBall == null;
+    }
+
+    private boolean secondBallNotPlayed() {
+        return secondBall == null;
+    }
+
+    public boolean throwBall(int pinsKnocked) throws IllegalArgumentException {
+        if (firstBallNotPlayed()) {
+            firstBall = new FirstBall(pinsKnocked);
             return true;
         }
-        return firstBallPlayed() && !isStrike() && pinsKnocked > ALL - firstScore;
-    }
-
-    public Integer throwBall(int pinsKnocked) throws IllegalArgumentException {
-        if (isNotValidInput(pinsKnocked)) {
-            throw new IllegalArgumentException("유효한 숫자가 아닙니다.");
-        }
-        if (!firstBallPlayed()) {
-            return firstScore = pinsKnocked;
-        }
-        if (!secondBallPlayed()) {
-            return secondScore = pinsKnocked;
-        }
-        return null;
+        secondBall = new SecondBall(firstBall.getPinsLeft(), pinsKnocked);
+        return true;
     }
 
     public Integer calculateFrameScore(List<Frame> frames, int frameNumber) {
         Frame nextFrame = frames.get(frameNumber + 1);
-        if (!this.firstBallPlayed() || !this.secondBallPlayed()) {
+        if (firstBallNotPlayed() || secondBallNotPlayed()) {
             return null;
         }
-        if ((this.isStrike() || this.isSpare()) && !nextFrame.firstBallPlayed()) {
+        if (!isStrike() || !isSpare()) {
+            return calculateTotal();
+        }
+        if (isStrike() && nextFrame.firstBallNotPlayed()) {
             return null;
         }
-        if ((this.isStrike() && !nextFrame.secondBallPlayed())) {
+        if (isSpare() && nextFrame.firstBallNotPlayed()) {
             return null;
         }
-        return calculateBaseSum() + nextFrame.calculateBonus(this);
+        return calculateTotal() + nextFrame.calculateBonus(this);
     }
 
-    private Integer calculateBaseSum() {
-        if (this.isStrike()) {
-            return firstScore;
-        }
-        return firstScore + secondScore;
-    }
-
-    public int calculateBonus(Frame prevFrame) {
+    public Integer calculateBonus(Frame prevFrame) {
         if (prevFrame.isSpare()) {
-            return firstScore;
+            return ALL - firstBall.getPinsLeft();
         }
-        return calculateBaseSum();
+        return calculateTotal();
     }
 
-    public Integer getFirstScore() {
-        return firstScore;
-    }
-
-    public Integer getSecondScore() {
-        return secondScore;
+    @Override
+    public String toString() {
+        if (firstBallNotPlayed()) {
+            return "     ";
+        }
+        if (secondBallNotPlayed()) {
+            return " " + firstBall.toString() + "|" + "  ";
+        }
+        return firstBall.toString() + "|" + secondBall.toString() + "| ";
     }
 }

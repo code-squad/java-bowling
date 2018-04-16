@@ -3,89 +3,81 @@ package bowling.domain;
 import java.util.List;
 
 public class LastFrame implements Frame {
-    private Integer firstScore;
-    private Integer secondScore;
-    private Integer thirdScore;
-
-    public boolean firstBallPlayed() {
-        return firstScore != null;
-    }
-
-    public boolean secondBallPlayed() {
-        return secondScore != null;
-    }
-
-    private boolean thirdBallPlayed() {
-        return thirdScore != null;
-    }
+    private Ball firstBall;
+    private Ball secondBall;
+    private Ball bonusBall;
 
     public boolean isStrike() {
-        return firstScore.equals(ALL);
+        return firstBall.getPinsLeft() == NONE;
+    }
+
+    private int calculateTotal() {
+        return ALL - secondBall.getPinsLeft();
     }
 
     public boolean isSpare() {
-        return secondScore.equals(ALL - firstScore);
+        return calculateTotal() == ALL;
     }
 
-    private boolean secondIsStrike() {
-        return secondScore.equals(ALL);
+    public boolean firstBallNotPlayed() {
+        return firstBall == null;
     }
 
-    public boolean isNotValidInput(int pinsKnocked) {
-        if (pinsKnocked > ALL || pinsKnocked < NONE) {
+    private boolean secondBallNotPlayed() {
+        return secondBall == null;
+    }
+
+    private boolean bonusBallNotPlayed() {
+        return bonusBall == null;
+    }
+
+    public boolean throwBall(int pinsKnocked) {
+        if (firstBallNotPlayed()) {
+            firstBall = new FirstBall(pinsKnocked);
             return true;
         }
-        return firstBallPlayed() && !isStrike()
-                && !secondBallPlayed()
-                && pinsKnocked > ALL - firstScore; //case where second ball knocks more pins than there are
-    }
-
-    public Integer throwBall(int pinsKnocked) throws IllegalArgumentException {
-        if (isNotValidInput(pinsKnocked)) {
-            throw new IllegalArgumentException("유효한 숫자가 아닙니다");
+        if (secondBallNotPlayed() && isStrike()) {
+            secondBall = new BonusBall(ALL, pinsKnocked);
+            return true;
         }
-        if (!firstBallPlayed()) {
-            return firstScore = pinsKnocked;
+        if (secondBallNotPlayed() && !isStrike()) {
+            secondBall = new SecondBall(firstBall.getPinsLeft(), pinsKnocked);
         }
-        if (!secondBallPlayed()) {
-            return secondScore = pinsKnocked;
+        if (isStrike()) {
+            bonusBall = new BonusBall(ALL, pinsKnocked);
         }
-        if (secondBallPlayed()) {
-            return thirdScore = pinsKnocked;
-        }
-        return null;
+        bonusBall = new BonusBall(secondBall.getPinsLeft(), pinsKnocked);
+        return true;
     }
 
     public Integer calculateFrameScore(List<Frame> frames, int frameNumber) {
-        return calculateBaseSum();
-    }
-
-    private Integer calculateBaseSum() {
-        if (!this.firstBallPlayed() || !secondBallPlayed() || !thirdBallPlayed()) {
+        if (firstBallNotPlayed() || secondBallNotPlayed()) {
             return null;
         }
-        return firstScore + secondScore + thirdScore;
+        if (bonusBallNotPlayed()) {
+            return calculateTotal();
+        }
+        return calculateTotal() + (ALL - bonusBall.getPinsLeft());
     }
 
     public Integer calculateBonus(Frame prevFrame) {
         if (prevFrame.isSpare()) {
-            return firstScore;
+            return ALL - firstBall.getPinsLeft();
         }
-        if (prevFrame.isStrike()) {
-            return firstScore + secondScore;
+        return calculateTotal();
+    }
+
+    @Override
+    public String toString() {
+        if (firstBallNotPlayed()) {
+            return "     ";
         }
-        return NONE;
-    }
-
-    public Integer getFirstScore() {
-        return firstScore;
-    }
-
-    public Integer getSecondScore() {
-        return firstScore;
-    }
-
-    public Integer getThirdScore() {
-        return firstScore;
+        if (secondBallNotPlayed()) {
+            return firstBall.toString() + "|" + "   ";
+        }
+        if (bonusBallNotPlayed()) {
+            return firstBall.toString() + "|" + secondBall.toString() + "| ";
+        }
+        return firstBall.toString() + "|" + secondBall.toString() + "|" + bonusBall.toString();
     }
 }
