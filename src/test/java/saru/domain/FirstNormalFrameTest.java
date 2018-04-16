@@ -26,14 +26,14 @@ public class FirstNormalFrameTest {
     }
 
     @Test
-    public void nowPinCount() {
+    public void downPinThrowing() {
         normalFrame.throwing(DownPin.of(5));
         assertEquals(DownPin.of(5), normalFrame.getNowDownPin());
         assertEquals(DownPin.of(5).hashCode(), normalFrame.getNowDownPin().hashCode());
     }
 
     @Test
-    public void nowBallCount() {
+    public void downPinCount() {
         normalFrame.throwing(DownPin.of(5));
         assertEquals(1, normalFrame.getDownPinsSize());
     }

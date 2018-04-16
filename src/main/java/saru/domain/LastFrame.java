@@ -2,7 +2,9 @@ package saru.domain;
 
 public class LastFrame extends Frame {
     private static final int MAX_BALL_COUNT = 3;
+    private static final int FIRST_THROW = 1;
     private static final int SECOND_THROW = 2;
+    private static final int MAX_DOWN_PIN = 10;
 
     private LastFrame(int maxBallCount) {
         super(maxBallCount);
@@ -14,22 +16,56 @@ public class LastFrame extends Frame {
 
     @Override
     void throwing(DownPin downPin) {
-        // 빈 상태가 아니고, 첫투구가 스트라이크가 아니고
-        if (!downPins.isEmpty() && checkFirstThrowingIsNotStrike()) {
+        if (!checkThrowingPossible()) {
+            return;
+        }
+
+        checkExceptionProc(downPin);
+
+        addDownPin(downPin);
+    }
+
+    private void checkExceptionProc(DownPin downPin) {
+        // 첫 투구가 있었지만 스트라이크가 아니고
+        // 두번째 투구수까지의 합이 10이 넘음
+        if (getDownPinsSize() == FIRST_THROW) {
             checkUntilSecondThrowingIsOverTen(downPin);
         }
 
-        downPins.add(downPin);
+        // 이미 두번의 투구가 있었고 두번째 투구가 스트라이크가 아니고
+        // 두번째와 세번째 투구의 합이 10이 넘음
+        // TODO 조건이 잘못 되었나?? 너무 꼬인 느낌
+        if (getDownPinsSize() == SECOND_THROW) {
+            checkThirdThrowException(downPin);
+        }
+    }
+
+    private void checkThirdThrowException(DownPin downPin) {
+        if (checkFirstThrowIsStrike() &&
+                checkSecondThrowingIsNotStrike() &&
+                getSecondElementDownPins().addWith(downPin) > MAX_DOWN_PIN) {
+            throw new IllegalArgumentException("두번째 세번째의 합이 10이 넘음");
+
+        }
+    }
+
+    private boolean checkFirstThrowIsStrike() {
+        return getFirstElementDownPins().getDownPinCount() == MAX_DOWN_PIN;
+    }
+
+    private boolean checkFirstThrowingIsNotStrike() {
+        return !getFirstElementDownPins().checkStrike();
     }
 
     private void checkUntilSecondThrowingIsOverTen(DownPin downPin) {
-        if (downPin.addWith(downPins.get(FIRST_INDEX)) > MAX_DOWN_PIN) {
+        if (checkFirstThrowingIsNotStrike() &&
+                downPin.addWith(getFirstElementDownPins()) > MAX_DOWN_PIN) {
             throw new IllegalArgumentException("두번째 투구수까지의 합이 10이 넘음");
         }
     }
 
-    private boolean checkFirstThrowingIsNotStrike() {
-        return !downPins.get(FIRST_INDEX).equals(DownPin.of(MAX_DOWN_PIN));
+    private boolean checkSecondThrowingIsNotStrike() {
+        return !getSecondElementDownPins().checkStrike();
     }
 
     @Override
@@ -39,7 +75,8 @@ public class LastFrame extends Frame {
         }
 
         // 투구수가 2 이상이고 두번째까지의 합이 10미만이면 || checkFull
-        if ((downPins.size() >= SECOND_THROW && checkSumUntilTwoIsUnderTen()) || checkFull()) {
+        if (((getDownPinsSize() >= SECOND_THROW) &&
+                checkSumUntilTwoIsUnderTen()) || checkFull()) {
             return false;
         }
 
@@ -47,6 +84,6 @@ public class LastFrame extends Frame {
     }
 
     private boolean checkSumUntilTwoIsUnderTen() {
-        return downPins.get(FIRST_INDEX).addWith(downPins.get(SECOND_INDEX)) < MAX_DOWN_PIN;
+        return getFirstElementDownPins().addWith(getSecondElementDownPins()) < MAX_DOWN_PIN;
     }
 }

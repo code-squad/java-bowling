@@ -1,15 +1,12 @@
 package saru.domain;
 
-import sun.jvm.hotspot.debugger.InputLexer;
-
 import java.util.*;
 
 public abstract class Frame {
-    static final int MAX_DOWN_PIN = 10;
-    static final int FIRST_INDEX = 0;
-    static final int SECOND_INDEX = 1;
-    List<DownPin> downPins = new ArrayList<>();
-
+    private static final int MAX_DOWN_PIN = 10;
+    private static final int FIRST_INDEX = 0;
+    private static final int SECOND_INDEX = 1;
+    private List<DownPin> downPins = new ArrayList<>();
     private int maxBallCount;
 
     Frame(int maxBallCount) {
@@ -38,11 +35,12 @@ public abstract class Frame {
     }
 
     private void checkValidThrowing(DownPin downPin) {
-        if (downPin.addWith(downPins.get(0)) > MAX_DOWN_PIN) {
+        if (downPin.addWith(downPins.get(FIRST_INDEX)) > MAX_DOWN_PIN) {
             throw new IllegalArgumentException("downPin 갯수 합이 10이 넘음");
         }
     }
 
+    // TODO downPins 이나 pin 리턴할때 new로 새로 생성 후 리턴?
     DownPin getNowDownPin() {
         return downPins.get(downPins.size() - 1);
     }
@@ -55,6 +53,24 @@ public abstract class Frame {
 
     int getDownPinsSize() {
         return downPins.size();
+    }
+
+    boolean checkDownPinsEmpty() {
+        return downPins.isEmpty();
+    }
+
+    DownPin getFirstElementDownPins() {
+        return downPins.get(FIRST_INDEX);
+    }
+
+    DownPin getSecondElementDownPins() {
+        return downPins.get(SECOND_INDEX);
+    }
+
+    boolean addDownPin(DownPin downPin) {
+        downPins.add(downPin);
+
+        return !checkFull();
     }
 
     public List<DownPin> copyDownPins() {

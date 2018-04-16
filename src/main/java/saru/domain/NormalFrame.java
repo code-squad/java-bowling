@@ -2,6 +2,7 @@ package saru.domain;
 
 public class NormalFrame extends Frame {
     private static final int MAX_BALL_COUNT = 2;
+    private static final int MAX_DOWN_PIN = 10;
 
     private NormalFrame(int maxBallCount) {
         super(maxBallCount);
@@ -25,6 +26,6 @@ public class NormalFrame extends Frame {
     }
 
     private boolean checkStrike() {
-        return downPins.get(FIRST_INDEX).equals(DownPin.of(MAX_DOWN_PIN));
+        return getFirstElementDownPins().equals(DownPin.of(MAX_DOWN_PIN));
     }
 }

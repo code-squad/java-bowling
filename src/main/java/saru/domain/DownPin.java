@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class DownPin {
     private static final int MAX_DOWN_PIN = 10;
-
     private int downPinCount;
 
     private DownPin(int downPinCount) {
@@ -25,6 +24,10 @@ public class DownPin {
 
     public int getDownPinCount() {
         return downPinCount;
+    }
+
+    boolean checkStrike() {
+        return downPinCount == MAX_DOWN_PIN;
     }
 
     @Override

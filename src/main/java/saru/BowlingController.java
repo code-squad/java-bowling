@@ -7,13 +7,9 @@ import saru.view.BowlingOutput;
 
 public class BowlingController {
     private static final int MAX_FRAME_INDEX = 10;
-    private BowlingInput bowlingInput = new BowlingInput();
+    private static BowlingInput bowlingInput = new BowlingInput();
 
-    public static BowlingController of() {
-        return new BowlingController();
-    }
-
-    void run() {
+    public static void run() {
         ScoreBoard scoreBoard = ScoreBoard.of(bowlingInput.getUserInput());
         BowlingOutput bowlingOutput = new BowlingOutput(scoreBoard);
 

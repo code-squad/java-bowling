@@ -45,6 +45,10 @@ public class ScoreBoard {
         return nowFrameIndex;
     }
 
+    public Frame getNowFrame() {
+        return frames.get(nowFrameIndex);
+    }
+
     public List<Frame> getFrames() {
         return frames;
     }

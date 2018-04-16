@@ -32,10 +32,28 @@ public class LastFrameTest {
     }
 
     @Test
-    public void 마지막프레임스트라이크() {
+    public void 마지막프레임첫번째스트라이크() {
         scoreBoard.throwing(DownPin.of(10));
         scoreBoard.throwing(DownPin.of(3));
         scoreBoard.throwing(DownPin.of(3));
+
+        assertEquals(10, scoreBoard.getNowFrameIndex());
+    }
+
+    @Test
+    public void 마지막프레임전부스트라이크() {
+        scoreBoard.throwing(DownPin.of(10));
+        scoreBoard.throwing(DownPin.of(10));
+        scoreBoard.throwing(DownPin.of(10));
+
+        assertEquals(10, scoreBoard.getNowFrameIndex());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 마지막프레임스트라이크이후_두세번째합이십이넘는경우() {
+        scoreBoard.throwing(DownPin.of(10));
+        scoreBoard.throwing(DownPin.of(3));
+        scoreBoard.throwing(DownPin.of(10));
 
         assertEquals(10, scoreBoard.getNowFrameIndex());
     }
