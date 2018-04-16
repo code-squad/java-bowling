@@ -22,7 +22,7 @@ public class Round {
     public void trying(final int score) {
         presentFrameTry(score);
         assignCalculableStatus();
-        statusTransfer();
+        transferStatusToOtherFrames();
         addFrame();
     }
 
@@ -33,17 +33,14 @@ public class Round {
     private void assignCalculableStatus() {
         if (isRoundEnd()) {
             presentFrame().changeCalculationStatusToDo();
-//            roundFrames.get(roundFrames.size() - 1).changeCalculationStatusToDo();
             return;
         }
-        if (roundFrames.size() == 1) {
-            presentFrame().assignFirstState();
-            return;
+        if (roundFrames.size() != 1) {
+            presentFrame().assignCalculableState(roundFrames.get(roundFrames.size() - 2));
         }
-        presentFrame().assignCalculableState(roundFrames.get(roundFrames.size() - 2));
     }
 
-    private void statusTransfer() {
+    private void transferStatusToOtherFrames() {
         if (transferCondition()) {
             transferStatusToFrames();
         }
@@ -80,6 +77,7 @@ public class Round {
 
     private List<Frame> transferStatusBackward(List<Frame> roundFrames) {
         final int size = roundFrames.size();
+        presentFrame().changeCalculationStatusToNotYet();
         for (int i = 1; i < size; i++) {
             this.roundFrames.get(size - (i + 1)).isGivenMessageFromPresentFrame(this.roundFrames.get(size - i));
         }

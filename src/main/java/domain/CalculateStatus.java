@@ -1,9 +1,10 @@
 package domain;
 
 public enum CalculateStatus {
-    DONOT(false),
+    NOT_YET(false),
     DO(true),
-    DONE;
+    DONE,
+    BONUS_NOT_COMPLETE;
 
     private boolean status;
 
@@ -18,7 +19,7 @@ public enum CalculateStatus {
 
     public static CalculateStatus of(boolean status) {
         if (status) return DO;
-        return DONOT;
+        return NOT_YET;
     }
 
 }

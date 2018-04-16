@@ -1,33 +1,18 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static domain.CalculateStatus.DO;
 import static domain.CalculateStatus.DONE;
-import static domain.CalculateStatus.DONOT;
-import static domain.CalculationDirection.LEFT;
-import static domain.CalculationDirection.RIGHT;
-import static domain.Figure.FRAMEBAR;
-import static domain.Figure.SPARE;
+import static domain.CalculateStatus.NOT_YET;
 
 public abstract class Frame {
 
-    private Score frameScore;
-    private Score totalScore;
-    private List<Score> scores;
-    private ScoreCalculator scoreCalculator;
-//    private CalculateStatus calculateStatus;
-//    private CalculationDirection calculationDirection = RIGHT;
+    private static final int MAX_ADDITIONAL_BONUS_SCORE = 20;
+    private StatusChanger statusChanger;
+    private ScoreManager scoreManager;
 
     public abstract boolean isFrameEnd();
 
     Frame() {
-        this.scores = new ArrayList<>();
-        this.frameScore = Score.of();
-        this.totalScore = Score.of();
+        this.scoreManager = ScoreManager.of();
     }
 
     public void trying(final int score) {
@@ -35,47 +20,50 @@ public abstract class Frame {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
         addition(score);
-        this.scoreCalculator = initScoreCalculator();
+        this.statusChanger = initScoreCalculator();
     }
 
-    protected abstract ScoreCalculator initScoreCalculator();
-
     void addition(final int score) {
-        this.scores.add(Score.of(score));
-        this.frameScore.sum(Score.of(score));
-        this.totalScore.sum(Score.of(score));
+        scoreManager.add(score);
+    }
+
+    public StatusChanger initScoreCalculator() {
+        if (isBonusFrame()) {
+            return StatusChanger.of(NOT_YET);
+        }
+        return StatusChanger.of(DONE);
     }
 
     boolean isTrySecond() {
-        return scores.size() == 2;
+        return scoreManager.isTrySecond();
     }
 
     boolean isSpare() {
-        return frameScore.isTen() && isTrySecond();
+        return scoreManager.isSpare();
     }
 
-    boolean isFirstStrike() {
-        return scores.get(0).isTen();
+    boolean isStrike(int index) {
+        return scoreManager.isStrike(index);
     }
 
     Score getFrameScore() {
-        return frameScore;
+        return scoreManager.getFrameScore();
     }
 
     boolean isValidScore(final int score) {
-        return isValidScoreToTotalScore(score);
+        return scoreManager.isValidScore(score);
     }
 
-    boolean isValidScoreToTotalScore(final int score) {
-        return frameScore.isValidAdditionScore(score);
+    boolean isValidScoreToTotalScore(final int score, final int compareIndex) {
+        return scoreManager.isValidScoreToTotalScore(score, compareIndex);
     }
 
     private String toScoreString() {
-        return scores.stream().map(Score::toString).collect(Collectors.joining(FRAMEBAR.toString()));
+        return scoreManager.toScoreString();
     }
 
     private String spareString() {
-        return scores.get(0).toString() + FRAMEBAR + SPARE;
+        return scoreManager.spareString();
     }
 
     String toFrameString() {
@@ -83,125 +71,91 @@ public abstract class Frame {
         return toScoreString();
     }
 
-//    private boolean changeStatus(Frame beforeFrame) {
-//        if (beforeFrame.isBonus())
-//            return StatusChanger.beforeFrameDoNotCase(beforeFrame, this);
-//        return StatusChanger.beforeFrameDoCase(this);
-//    }
-
     public void assignCalculableState(Frame beforeFrame) {
-        scoreCalculator = ScoreCalculator.of(this, beforeFrame);
-//        calculateStatus = CalculateStatus.of(changeStatus(beforeFrame));
+        statusChanger = StatusChanger.of(this, beforeFrame);
+    }
+
+    public void isGivenMessageFromPresentFrame(Frame frame) {
+        if (statusChanger.isConditionBackward()) {
+            sumAboutBonusOverCase(frame);
+        }
+        if (!isCalculationDone()) {
+            statusChanger.changeCalculationStatusToNotYet();
+        }
+    }
+
+    private void sumAboutBonusOverCase(Frame frame) {
+        if (frame.scoreManager.isBonusOverThirty()) {
+            sumScore(frame, () -> ScoreManager.totalScoreOf(MAX_ADDITIONAL_BONUS_SCORE));
+            return;
+        }
+        sumScore(frame, () -> frame.scoreManager);
+    }
+
+    private void sumScore(Frame frame, ScoreStrategy strategy) {
+        scoreManager.sum(strategy.scoreToSum());
+        frame.statusChanger.changeCalculationStatusToNotYet();
+        if (isCalculationNotComplete()) {
+            statusChanger.changeCalculationStatusToNotYet();
+        }
+        if (frame.isBonusFrame() && !isBonusFrame() || (frame.isBonusFrame() && isBonusFrame()) || (isSpare() && !frame.isFrameEnd())) {
+            System.out.println("aasdf");
+            frame.statusChanger.changeCalculationStatusToNotComplete();
+        }
+    }
+
+    private interface ScoreStrategy {
+        ScoreManager scoreToSum();
+    }
+
+    boolean isBonusFrame() {
+        return isSpare() || isStrike(0);
+    }
+
+    public void isGivenMessageFromBeforeFrame(Frame beforeFrame) {
+        beforeFrame.statusChanger.changeCalculationStatusToDone();
+        if (statusChanger.isConditionForward(this, beforeFrame)) {
+            scoreManager.sum(beforeFrame.scoreManager);
+            statusChanger.changeCalculationStatusToDone();
+        }
+    }
+
+    public Score getTotalScore() {
+        return scoreManager.getTotalScore();
+    }
+
+    public boolean isCalculationDo() {
+        return statusChanger.isCalculationDo();
+    }
+
+    public void changeCalculationStatusToDo() {
+        statusChanger.changeCalculationStatusToDo();
     }
 
     public CalculateStatus getCalculateStatus() {
-        return
-                scoreCalculator.getCalculateStatus();
+        return statusChanger.getCalculateStatus();
     }
-
-//    public CalculateStatus getCalculateStatus() {
-//        return calculateStatus;
-//    }
 
     @Override
     public String toString() {
         return toFrameString();
     }
 
-    public void isGivenMessageFromPresentFrame(Frame frame) {
-        if (scoreCalculator.isConditionBackward(this, frame)) {
-            if (frame.totalScore.isBonusOverThirty()) {
-                totalScore.sum(20);
-                frame.scoreCalculator.changeCalculateDirectionToLeft();
-                return;
-            }
-            totalScore.sum(frame.totalScore);
-        }
-        frame.scoreCalculator.changeCalculateDirectionToLeft();
+    public boolean isCalculationNotYet() {
+        return statusChanger.isCalculationNotYet();
     }
 
-//    public void isGivenMessageFromPresentFrame(Frame frame) {
-//        if (calculateStatus != DONE || (isBonus() && calculateStatus == DONE && !frame.isBonus() && !frame.isFrameEnd())) {
-//            if (frame.totalScore.isBonusOverThirty()) {
-//                totalScore.sum(20);
-//                frame.changeCalculateDirectionToLeft();
-//                return;
-//            }
-//            totalScore.sum(frame.totalScore);
-//        }
-//        frame.changeCalculateDirectionToLeft();
-//    }
-
-    boolean isBonus() {
-        return isSpare() || isFirstStrike();
+    public boolean isCalculationDone() {
+        return statusChanger.isCalculationDone();
     }
 
-    public void isGivenMessageFromBeforeFrame(Frame beforeFrame) {
-        if (scoreCalculator.isConditionForward(this)) {
-            totalScore.sum(beforeFrame.totalScore);
-            scoreCalculator.changeCalculationStatusToDone();
-        }
-        beforeFrame.scoreCalculator.changeCalculationStatusToDone();
-        scoreCalculator.changeCalculateDirectionToRight();
+    public boolean isCalculationNotComplete() {
+        return statusChanger.isCalculationNotComplete();
     }
 
-//    public void isGivenMessageFromBeforeFrame(Frame beforeFrame) {
-//        if (calculationDirection == LEFT && calculateStatus != DONE && isFrameEnd()) {
-//            totalScore.sum(beforeFrame.totalScore);
-//            changeCalculationStatusToDone();
-//        }
-//        beforeFrame.changeCalculationStatusToDone();
-//        changeCalculateDirectionToRight();
-//    }
-
-    public Score getTotalScore() {
-        return totalScore;
+    public void changeCalculationStatusToNotYet() {
+        statusChanger.changeCalculationStatusToNotYet();
     }
-
-    public boolean isCalculationDo() {
-        return scoreCalculator.isCalculationDo();
-    }
-
-//    public boolean isCalculationDo() {
-//        return calculateStatus == DO;
-//    }
-//
-public void changeCalculateDirectionToLeft() {
-    scoreCalculator.changeCalculateDirectionToLeft();
-}
-
-//    public void changeCalculateDirectionToLeft() {
-//        calculationDirection = LEFT;
-//    }
-//
-//    private void changeCalculateDirectionToRight() {
-//        calculationDirection = RIGHT;
-//    }
-//
-    public void changeCalculationStatusToDo() {
-        scoreCalculator.changeCalculationStatusToDo();
-    }
-//
-//    public void changeCalculationStatusToDone() {
-//        calculateStatus = DONE;
-//    }
-
-    public void assignFirstState() {
-        if (isBonus()) {
-            scoreCalculator = ScoreCalculator.of(DONOT);
-            return;
-        }
-        scoreCalculator = ScoreCalculator.of(DONE);
-    }
-
-//    public void assignFirstState() {
-//        if (isBonus()) {
-//            calculateStatus = DONOT;
-//            return;
-//        }
-//        changeCalculationStatusToDone();
-//    }
-
 }
 
 
