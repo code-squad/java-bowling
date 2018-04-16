@@ -27,4 +27,8 @@ public class Pin {
     public boolean isOverRecordPin(int num) {
         return this.num + num > MAX;
     }
+
+    public boolean isMax() {
+        return this.num == MAX;
+    }
 }

@@ -32,29 +32,8 @@ public class FrameScore {
         if (!isBonusFinish()) {
             pins.add(new Pin(num));
             leftNumber--;
-            /*
-                -> 정규투구 스트라이크일 때만 다름 (X), 상태값으로 알 수 있잖아 저장 인덱스 몇에 끝났는지
-                -> 저장될 때 스트라이크고, 마지막 프레임이라면 첫번째 보너스 투구가 10점이 아니라면
-                -> 아니면 최근 핀을 %10 하고, 지금 점수랑 합쳤을 때 10점이 넘는다면 저장되지못하도록 팅구기
-
-
-
-             */
         }
     }
-
-    /*private boolean isOverRecordPin(int num) {
-        try {
-            Pin pin = pins.get(convertThrowNumToIdx(pins.size()));
-            return (pin.getNum() % 10) + num > Pin.MAX;
-        } catch (IndexOutOfBoundsException e) {
-            return false;
-        }
-    }
-
-    private int convertThrowNumToIdx(int throwNum) {
-        return throwNum -1;
-    } */
 
     private void changeFrameStatus() {
         if (!status.isFinish()) {
@@ -80,7 +59,7 @@ public class FrameScore {
         return status.convertScore(pins);
     }
 
-    /* 여기는 수정 가능성이 있음 */
+    /* TODO : 여기는 수정 가능성이 있음 : make 요청하는 프레임에 따라 달리 만들던지 알아서 니들이 만들던지 */
     private String makeBonusPinMessage() {
         if (status.isStrike()) {
             return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT - 1).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
@@ -114,25 +93,38 @@ public class FrameScore {
         return status.isBonus() && status.isRightThrewNum(pins.size());
     }
 
-    public void addBonusPinNum(Frame nextFrame) {
-        List<Integer> bonusPins = nextFrame.getRecentlyPinNums(leftNumber);
-        if (bonusPins.size() == leftNumber) {
-            bonusPins.forEach(this::roll);
+    public void rollBonusPins(Frame askFrame, Frame frameWithScores) {
+        if (frameWithScores.isLast()) {
+            List<Integer> pins = frameWithScores.getRecentlyPinNums(askFrame, leftNumber);
+            recordLastFrameBonusPin(pins);
+            return;
+        }
+
+        List<Integer> pins = frameWithScores.getRecentlyPinNums(askFrame, leftNumber);
+        if (pins.size() == leftNumber) {
+            pins.forEach(this::roll);
         }
     }
 
-    public boolean isPossibleGettingPins(Frame nextFrame, int amount) {
-        if (pins.size() == amount || checkNextFrame(nextFrame, amount)) {
-            return true;
+    private void recordLastFrameBonusPin(List<Integer> pins) {
+        if (pins.isEmpty()) {
+            return;
         }
-        return false;
+        pins.forEach(this::roll);
+    }
+
+    public boolean isPossibleGettingPins(Frame nextFrame, int amount) {
+        return isPossibleGettingPins(amount) || checkNextFrame(nextFrame, amount);
+    }
+
+    public boolean isPossibleGettingPins(int amount) {
+        return pins.size() == amount;
     }
 
     private boolean checkNextFrame(Frame nextFrame, int amount) {
         if (nextFrame == null) {
             return false;
         }
-
         int diffNum = amount - pins.size();
         return nextFrame.haveTried(diffNum);
     }
@@ -157,7 +149,7 @@ public class FrameScore {
     public List<Integer> getPins(int amount) {
         List<Integer> pinNums = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            Pin pin = pins.get(0);
+            Pin pin = pins.get(i);
             pinNums.add(pin.getNum());
         }
         return pinNums;

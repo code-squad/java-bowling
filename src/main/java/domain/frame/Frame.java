@@ -5,7 +5,6 @@ import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.score.FrameScore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static domain.frame.result.Board.isLimit;
@@ -16,7 +15,6 @@ public abstract class Frame {
 
     final int frameNum;
     private FrameScore score;
-    private Frame nextFrame;
 
     public Frame(int frameNum) {
         this.frameNum = frameNum;
@@ -31,35 +29,22 @@ public abstract class Frame {
     }
 
     public Frame roll(int num) throws IllegalArgumentException {
-        Frame frame = doRecord(score, num);
-        if (this != frame) {
-            nextFrame = frame;
-            return nextFrame;
-        }
-        return this;
+        return doRecord(score, num);
     }
 
     abstract Frame doRecord(FrameScore score, int num) throws IllegalArgumentException;
 
     public void refreshPinNum(Frame currentFrame) {
-        if (currentFrame == this || score.isBonusFinish()) {
-            return;
-        }
-        score.addBonusPinNum(nextFrame);
+        doRefreshPinNum(currentFrame, score);
     }
 
-    public List<Integer> getRecentlyPinNums(int amount) {
-        List<Integer> bonusPins = new ArrayList<>();
-        if (!score.isPossibleGettingPins(nextFrame, amount)) {
-            return bonusPins;
-        }
-        bonusPins.addAll(score.getBonusPins(nextFrame, amount));
-        return bonusPins;
+    abstract void doRefreshPinNum(Frame currentFrame, FrameScore score);
+
+    public List<Integer> getRecentlyPinNums(Frame askFrame, int amount) {
+        return doGetRecentlyPinNums(askFrame, score, amount);
     }
 
-    public boolean isFinish() {
-        return doCheckFinish(score);
-    }
+    abstract List<Integer> doGetRecentlyPinNums(Frame askFrame, FrameScore score, int amount);
 
     public boolean haveTried(int amount) {
         return score.isWithinRollNum(amount);
@@ -68,6 +53,7 @@ public abstract class Frame {
     public List<Integer> getPins(int amount) {
         return score.getPins(amount);
     }
+
 
     abstract boolean doCheckFinish(FrameScore score);
 
@@ -97,18 +83,16 @@ public abstract class Frame {
         return new FrameResult(getScoreMessage(), baseScore + getScore());
     }
 
-    private void addFrameResult(Board board, int baseScore) {
-        FrameResult result = getResult(baseScore);
-        board.addResult(result);
-        if (nextFrame != null) {
-            nextFrame.addFrameResult(board, result.getScore());
-        }
-    }
+    abstract void addFrameResult(Board board, int baseScore);
 
     public Board getBoard() {
         Board board = new Board();
         addFrameResult(board, 0);
         return board;
+    }
+
+    public boolean isFinish() {
+        return doCheckFinish(score);
     }
 
     public boolean isDiff(Frame frame) {
