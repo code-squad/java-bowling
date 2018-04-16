@@ -1,34 +1,31 @@
 package domain;
 
-import domain.frame.Frame;
+import domain.frame.Frames;
 import domain.frame.result.Board;
 
 public class Player {
     private PlayerName name;
-    private Frame firstFrame;
-    private Frame currentFrame;
+    private Frames frames;
 
     public Player(String name) throws IllegalArgumentException {
         this.name = new PlayerName(name);
-        firstFrame = Frame.of(1);
-        currentFrame = firstFrame;
+        frames = new Frames();
     }
 
     public void roll(int num) throws IllegalArgumentException {
-        firstFrame.bonusRoll(currentFrame, num);
-        currentFrame = currentFrame.roll(num);
+        frames.roll(num);
     }
 
     public boolean isFinish() {
-        return currentFrame.isLast() && currentFrame.isFinish();
+        return frames.isFinish();
     }
 
     public int getCurrentFrameNum() {
-        return currentFrame.getFrameNum();
+        return frames.getCurrentFrameNum();
     }
 
     public Board getBoard() {
-        return firstFrame.getBoard();
+        return frames.getBoard();
     }
 
     public String getName() {

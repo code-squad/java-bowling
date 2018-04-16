@@ -5,6 +5,9 @@ import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.score.FrameScore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static domain.frame.result.Board.isLimit;
 
 public abstract class Frame {
@@ -36,21 +39,34 @@ public abstract class Frame {
         return this;
     }
 
-    public void bonusRoll(Frame currentFrame, int num) throws IllegalArgumentException {
-        if (currentFrame == this) {
+    abstract Frame doRecord(FrameScore score, int num) throws IllegalArgumentException;
+
+    public void refreshPinNum(Frame currentFrame) {
+        if (currentFrame == this || score.isBonusFinish()) {
             return;
         }
-
-        doRecord(score, num);
-        if (nextFrame != null) {
-            nextFrame.bonusRoll(currentFrame, num);
-        }
+        score.addBonusPinNum(nextFrame);
     }
 
-    abstract Frame doRecord(FrameScore score, int num) throws IllegalArgumentException;
+    public List<Integer> getRecentlyPinNums(int amount) {
+        List<Integer> bonusPins = new ArrayList<>();
+        if (!score.isPossibleGettingPins(nextFrame, amount)) {
+            return bonusPins;
+        }
+        bonusPins.addAll(score.getBonusPins(nextFrame, amount));
+        return bonusPins;
+    }
 
     public boolean isFinish() {
         return doCheckFinish(score);
+    }
+
+    public boolean haveTried(int amount) {
+        return score.isWithinRollNum(amount);
+    }
+
+    public List<Integer> getPins(int amount) {
+        return score.getPins(amount);
     }
 
     abstract boolean doCheckFinish(FrameScore score);
@@ -93,5 +109,9 @@ public abstract class Frame {
         Board board = new Board();
         addFrameResult(board, 0);
         return board;
+    }
+
+    public boolean isDiff(Frame frame) {
+        return this != frame;
     }
 }

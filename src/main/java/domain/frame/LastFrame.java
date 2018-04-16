@@ -10,6 +10,7 @@ public class LastFrame extends Frame {
 
     @Override
     Frame doRecord(FrameScore score, int num) throws IllegalArgumentException {
+        // 좀 다르지않을까?
         score.roll(num);
         if (score.isRegularFinish() && score.isBeforeBonusRoll()) {
             score.increaseLeftCount();

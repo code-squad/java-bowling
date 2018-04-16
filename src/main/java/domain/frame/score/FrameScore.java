@@ -22,7 +22,7 @@ public class FrameScore {
 
     public void roll(int num) throws IllegalArgumentException {
         if (isOverRecordPin(num)) {
-            throw new IllegalArgumentException("한 프레임에 정규 투구 기록할 수 있는 개수는 " + Pin.MAX + "개 입니다.");
+            throw new IllegalArgumentException(Pin.MAX + "개 까지만 입력가능합니다.");
         }
         recordRollPin(num);
         changeFrameStatus();
@@ -32,8 +32,29 @@ public class FrameScore {
         if (!isBonusFinish()) {
             pins.add(new Pin(num));
             leftNumber--;
+            /*
+                -> 정규투구 스트라이크일 때만 다름 (X), 상태값으로 알 수 있잖아 저장 인덱스 몇에 끝났는지
+                -> 저장될 때 스트라이크고, 마지막 프레임이라면 첫번째 보너스 투구가 10점이 아니라면
+                -> 아니면 최근 핀을 %10 하고, 지금 점수랑 합쳤을 때 10점이 넘는다면 저장되지못하도록 팅구기
+
+
+
+             */
         }
     }
+
+    /*private boolean isOverRecordPin(int num) {
+        try {
+            Pin pin = pins.get(convertThrowNumToIdx(pins.size()));
+            return (pin.getNum() % 10) + num > Pin.MAX;
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+
+    private int convertThrowNumToIdx(int throwNum) {
+        return throwNum -1;
+    } */
 
     private void changeFrameStatus() {
         if (!status.isFinish()) {
@@ -59,6 +80,7 @@ public class FrameScore {
         return status.convertScore(pins);
     }
 
+    /* 여기는 수정 가능성이 있음 */
     private String makeBonusPinMessage() {
         if (status.isStrike()) {
             return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT - 1).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
@@ -90,5 +112,54 @@ public class FrameScore {
             return true;
         }
         return status.isBonus() && status.isRightThrewNum(pins.size());
+    }
+
+    public void addBonusPinNum(Frame nextFrame) {
+        List<Integer> bonusPins = nextFrame.getRecentlyPinNums(leftNumber);
+        if (bonusPins.size() == leftNumber) {
+            bonusPins.forEach(this::roll);
+        }
+    }
+
+    public boolean isPossibleGettingPins(Frame nextFrame, int amount) {
+        if (pins.size() == amount || checkNextFrame(nextFrame, amount)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkNextFrame(Frame nextFrame, int amount) {
+        if (nextFrame == null) {
+            return false;
+        }
+
+        int diffNum = amount - pins.size();
+        return nextFrame.haveTried(diffNum);
+    }
+
+    public boolean isWithinRollNum(int rollNum) {
+        return pins.size() >= rollNum;
+    }
+
+    public List<Integer> getBonusPins(Frame nextFrame, int amount) {
+        List<Integer> bonusPins = new ArrayList<>();
+        for (int i = 0; i < pins.size(); i++) {
+            Pin pin = pins.get(i);
+            bonusPins.add(pin.getNum());
+        }
+        if (bonusPins.size() != amount) {
+            int diffNum = amount - bonusPins.size();
+            bonusPins.addAll(nextFrame.getPins(diffNum));
+        }
+        return bonusPins;
+    }
+
+    public List<Integer> getPins(int amount) {
+        List<Integer> pinNums = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            Pin pin = pins.get(0);
+            pinNums.add(pin.getNum());
+        }
+        return pinNums;
     }
 }
