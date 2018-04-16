@@ -7,30 +7,47 @@ public class LastFrame implements Frame {
     private Ball secondBall;
     private Ball bonusBall;
 
+    @Override
     public boolean isStrike() {
-        return firstBall.getPinsLeft() == NONE;
+        return !firstBallNotPlayed()
+                && firstBall.getPinsLeft() == NONE;
     }
 
     private int calculateTotal() {
         return ALL - secondBall.getPinsLeft();
     }
 
+    @Override
     public boolean isSpare() {
-        return calculateTotal() == ALL;
+        return !secondBallNotPlayed()
+                && calculateTotal() == ALL;
     }
 
+    @Override
     public boolean firstBallNotPlayed() {
         return firstBall == null;
     }
 
-    private boolean secondBallNotPlayed() {
+    @Override
+    public boolean secondBallNotPlayed() {
         return secondBall == null;
+    }
+
+    @Override
+    public boolean isComplete() {
+        if (!bonusBallNotPlayed()) {
+            return true;
+        }
+        return !isStrike()
+                && !isSpare()
+                && !secondBallNotPlayed();
     }
 
     private boolean bonusBallNotPlayed() {
         return bonusBall == null;
     }
 
+    @Override
     public boolean throwBall(int pinsKnocked) {
         if (firstBallNotPlayed()) {
             firstBall = new FirstBall(pinsKnocked);
@@ -42,14 +59,17 @@ public class LastFrame implements Frame {
         }
         if (secondBallNotPlayed() && !isStrike()) {
             secondBall = new SecondBall(firstBall.getPinsLeft(), pinsKnocked);
+            return true;
         }
         if (isStrike()) {
             bonusBall = new BonusBall(ALL, pinsKnocked);
+            return true;
         }
         bonusBall = new BonusBall(secondBall.getPinsLeft(), pinsKnocked);
         return true;
     }
 
+    @Override
     public Integer calculateFrameScore(List<Frame> frames, int frameNumber) {
         if (firstBallNotPlayed() || secondBallNotPlayed()) {
             return null;
@@ -60,6 +80,7 @@ public class LastFrame implements Frame {
         return calculateTotal() + (ALL - bonusBall.getPinsLeft());
     }
 
+    @Override
     public Integer calculateBonus(Frame prevFrame) {
         if (prevFrame.isSpare()) {
             return ALL - firstBall.getPinsLeft();
@@ -70,14 +91,21 @@ public class LastFrame implements Frame {
     @Override
     public String toString() {
         if (firstBallNotPlayed()) {
-            return "     ";
+            return " ";
         }
         if (secondBallNotPlayed()) {
-            return firstBall.toString() + "|" + "   ";
+            return firstBall.toString();
         }
         if (bonusBallNotPlayed()) {
-            return firstBall.toString() + "|" + secondBall.toString() + "| ";
+            return firstBall.toString()
+                    + "|"
+                    + secondBall.toString()
+                    + "|";
         }
-        return firstBall.toString() + "|" + secondBall.toString() + "|" + bonusBall.toString();
+        return firstBall.toString()
+                + "|"
+                + secondBall.toString()
+                + "|"
+                + bonusBall.toString();
     }
 }

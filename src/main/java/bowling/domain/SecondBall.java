@@ -19,7 +19,7 @@ public class SecondBall implements Ball {
 
     @Override
     public String toString() {
-        if (pinsLeftFromFirstBowl + secondBowl == ALL)
+        if (pinsLeftFromFirstBowl - secondBowl == NONE)
             return "/";
         if (secondBowl == NONE)
             return "-";

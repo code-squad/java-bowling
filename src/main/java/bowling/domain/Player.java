@@ -1,10 +1,12 @@
 package bowling.domain;
 
+import bowling.domain.Util.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
-    private static final int LAST = 9;
+public class Player implements Printable {
+    private static final int LAST = 10;
     private final String name;
     private final List<Frame> frames;
     private int previouslyPlayed;
@@ -35,35 +37,29 @@ public class Player {
         previouslyPlayed++;
     }
 
-    private Frame NextFrame() {
+    private Frame getNextFrame() {
         return frames.get(previouslyPlayed);
     }
 
-    public void throwBall(int pinsKnocked) {
-        try {
-            Frame frame = NextFrame();
-            frame.throwBall(pinsKnocked);
-            if (frame.isStrike() || frame.secondBallPlayed()) {
-                updatePreviousFrameNumber();
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+    public boolean throwBall(int pinsKnocked) {
+        Frame frame = getNextFrame();
+        frame.throwBall(pinsKnocked);
+
+        if (frame.isComplete()) {
+            updatePreviousFrameNumber();
+            return true;
         }
+        return false;
     }
 
-    public Integer getFirstScoreOnFrame(int frameNumber) {
-        return frames.get(frameNumber).getFirstScore();
-    }
-
-    public Integer getSecondScoreOnFrame(int frameNumber) {
-        return frames.get(frameNumber).getSecondScore();
-    }
-
-    public Integer getThirdScoreOnLastFrame() {
-        return frames.get(LAST).
-    }
-
-    public boolean isStrikeOnFrame(int frameNumber) {
-        return frames.get(frameNumber).isStrike();
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("|").append(Parser.formatFrame(name));
+        for (Frame frame : frames) {
+            builder.append("|").append(Parser.formatFrame(frame.toString()));
+        }
+        builder.append("|");
+        return builder.toString();
     }
 }

@@ -12,9 +12,13 @@ public interface Frame {
 
     boolean firstBallNotPlayed();
 
+    boolean secondBallNotPlayed();
+
     boolean throwBall(int pinsKnocked);
 
     Integer calculateFrameScore(List<Frame> frames, int frameNumber);
 
     Integer calculateBonus(Frame prevFrame);
+
+    boolean isComplete();
 }

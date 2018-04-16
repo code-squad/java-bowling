@@ -17,4 +17,9 @@ public class Parser {
             throw new IllegalArgumentException("숫자만 입력해 주세요");
         }
     }
+
+    public static String formatFrame(String frame) {
+        String leftPadded = String.format("%4s", frame);
+        return String.format("%-5s", leftPadded);
+    }
 }

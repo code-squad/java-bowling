@@ -2,7 +2,6 @@ package bowling;
 
 import bowling.domain.Player;
 import bowling.domain.Util.Parser;
-import bowling.view.BowlingGame;
 import bowling.view.ScoreBoard;
 
 import static bowling.view.Prompter.*;
@@ -10,10 +9,7 @@ import static bowling.view.Prompter.*;
 public class Main {
     public static void main(String[] args) {
         Player player = getPlayer();
-        BowlingGame game = new BowlingGame(player);
-
-        game.startGame();
-        ScoreBoard scoreBoard = new ScoreBoard(game);
+        startGame(player);
     }
 
     private static Player getPlayer() {
@@ -23,6 +19,14 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return getPlayer();
+        }
+    }
+
+    private static void startGame(Player player) {
+        while(!player.isLastFrame()) {
+            int pinsKnocked = promptForThrow(player.getPreviousFrameNumber());
+            player.throwBall(pinsKnocked);
+            ScoreBoard.printScoreBoard(player);
         }
     }
 }

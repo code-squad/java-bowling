@@ -2,31 +2,43 @@ package bowling.domain;
 
 import java.util.List;
 
-public class NormalFrame implements Frame {
+public class NormalFrame implements Frame, Printable {
     private Ball firstBall;
     private Ball secondBall;
 
+    @Override
     public boolean isStrike() {
-        return firstBall.getPinsLeft() == NONE;
+        return !firstBallNotPlayed()
+                && firstBall.getPinsLeft() == NONE;
     }
 
     private int calculateTotal() {
         return ALL - secondBall.getPinsLeft();
     }
 
+    @Override
     public boolean isSpare() {
-        return calculateTotal() == ALL;
+        return !secondBallNotPlayed()
+                && calculateTotal() == ALL;
     }
 
+    @Override
     public boolean firstBallNotPlayed() {
         return firstBall == null;
     }
 
-    private boolean secondBallNotPlayed() {
+    @Override
+    public boolean secondBallNotPlayed() {
         return secondBall == null;
     }
 
-    public boolean throwBall(int pinsKnocked) throws IllegalArgumentException {
+    @Override
+    public boolean isComplete() {
+        return isStrike() || isSpare() || !secondBallNotPlayed();
+    }
+
+    @Override
+    public boolean throwBall(int pinsKnocked) {
         if (firstBallNotPlayed()) {
             firstBall = new FirstBall(pinsKnocked);
             return true;
@@ -35,6 +47,7 @@ public class NormalFrame implements Frame {
         return true;
     }
 
+    @Override
     public Integer calculateFrameScore(List<Frame> frames, int frameNumber) {
         Frame nextFrame = frames.get(frameNumber + 1);
         if (firstBallNotPlayed() || secondBallNotPlayed()) {
@@ -52,6 +65,7 @@ public class NormalFrame implements Frame {
         return calculateTotal() + nextFrame.calculateBonus(this);
     }
 
+    @Override
     public Integer calculateBonus(Frame prevFrame) {
         if (prevFrame.isSpare()) {
             return ALL - firstBall.getPinsLeft();
@@ -62,11 +76,14 @@ public class NormalFrame implements Frame {
     @Override
     public String toString() {
         if (firstBallNotPlayed()) {
-            return "     ";
+            return " ";
         }
         if (secondBallNotPlayed()) {
-            return " " + firstBall.toString() + "|" + "  ";
+            return firstBall.toString()
+                    + "  ";
         }
-        return firstBall.toString() + "|" + secondBall.toString() + "| ";
+        return firstBall.toString()
+                + "|"
+                + secondBall.toString();
     }
 }
