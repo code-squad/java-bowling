@@ -12,7 +12,6 @@ public enum CalculateStatus {
         this.status = status;
     }
 
-
     CalculateStatus() {
 
     }

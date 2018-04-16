@@ -79,8 +79,5 @@ public class Score {
         score += i;
     }
 
-    public boolean isOverTen() {
-        return score > 10;
-    }
 }
 

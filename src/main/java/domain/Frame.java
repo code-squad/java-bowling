@@ -99,7 +99,6 @@ public abstract class Frame {
             statusChanger.changeCalculationStatusToNotYet();
         }
         if (frame.isBonusFrame() && !isBonusFrame() || (frame.isBonusFrame() && isBonusFrame()) || (isSpare() && !frame.isFrameEnd())) {
-            System.out.println("aasdf");
             frame.statusChanger.changeCalculationStatusToNotComplete();
         }
     }

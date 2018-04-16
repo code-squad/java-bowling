@@ -26,7 +26,7 @@ public class LastFrame extends Frame {
     }
 
     private void addBonus(int score) {
-        if(!isValidBonusScore(score)) {
+        if (!isValidBonusScore(score)) {
             throw new IllegalArgumentException("10, 8, 10 이런 점수는 안됩니다. 10, 8 쳤으면 남은 핀 갯수는 2개입니다.");
         }
         bonus = true;
@@ -48,7 +48,7 @@ public class LastFrame extends Frame {
     }
 
     private boolean hasBonusTry() {
-        return isSpare() || (isTrySecond() && isStrike(0)) ;
+        return isSpare() || (isTrySecond() && isStrike(0));
     }
 
     @Override
