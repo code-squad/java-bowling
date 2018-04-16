@@ -1,6 +1,6 @@
 package domain;
 
-public class Open {
+public class Open extends Status {
     private static final String PIPE = "|";
 
     private Pins first;

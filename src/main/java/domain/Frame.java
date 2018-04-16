@@ -1,6 +1,6 @@
 package domain;
 
-public class Frame {
+abstract public class Frame {
     private static final int MAX_FRAME_NO = 10;
     private final int no;
 
@@ -8,6 +8,10 @@ public class Frame {
         isValidNo(no);
         this.no = no;
     }
+
+    abstract public void throwing(int throwing);
+    abstract public Status updateStatus();
+    abstract public boolean isEnd();
 
     public boolean isValidNo(int no) {
         if ( no < 0 || no > 10 ) {

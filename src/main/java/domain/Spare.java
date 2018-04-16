@@ -1,6 +1,6 @@
 package domain;
 
-public class Spare {
+public class Spare extends Status {
     private static final String PIPE = "|";
     private static final String SPARE = "/";
 
