@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FrameTest {
+public class NormalFrameTest {
 	@Test
 	public void bowlTest() {
 		Frame frame = new NormalFrame(1, 1);
@@ -15,7 +15,4 @@ public class FrameTest {
 		assertThat(nineFrame.bowl(1)).isInstanceOf(FinalFrame.class);
 	}
 	
-	@Test
-	public void get() {
-	}
 }

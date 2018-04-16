@@ -1,24 +1,31 @@
 package domain.frame;
 
+import domain.Pitch;
+
 public class NormalFrame extends Frame {
 	public NormalFrame(int frameNumber, int firstPitch) {
 		super(frameNumber, firstPitch);
-		if(firstPitch == 10) {
-			completeFlag = true;
-		}
 	}
-	
+
 	@Override
 	public Frame bowl(int pinCount) {
-		if(completeFlag) {
-			if(frameNumber < 9) {
-				return new NormalFrame(++frameNumber, pinCount);
-			}
-			return new FinalFrame(++frameNumber, pinCount);
+		if(isComplete()) {
+			return createNextFrame(pinCount);
 		}
-		
-		secondPitch = pinCount;
-		completeFlag = true;
+
+		secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
 		return this;
+	}
+
+	@Override
+	public boolean isComplete() {
+		return firstPitch.isClear() || secondPitch.isClear();
+	}
+
+	private Frame createNextFrame(int firstPitch) {
+		if(frameNumber < MAX_FRAME_NUMBER - 1) {
+			return new NormalFrame(++frameNumber, firstPitch);
+		}
+		return new FinalFrame(++frameNumber, firstPitch);
 	}
 }

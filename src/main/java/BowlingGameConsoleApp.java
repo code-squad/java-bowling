@@ -1,3 +1,4 @@
+import domain.frame.FinalFrame;
 import domain.frame.Frame;
 import domain.frame.NormalFrame;
 import view.InputView;
@@ -10,12 +11,9 @@ public class BowlingGameConsoleApp {
 		String playerName = InputView.showGetPlayerNameView();
 		LinkedList<Frame> frames = new LinkedList<>();
 		
-		while (frames.getLast() instanceof NormalFrame
-			|| !frames.getLast().isComplete()) {
+		while (! (frames.getLast() instanceof FinalFrame && frames.getLast().isComplete())) {
 			Frame currentFrame = InputView.showGetFrameResultView(frames.size(), frames.getLast());
-			if(! frames.getLast().equals(currentFrame)) {
-				frames.add(currentFrame);
-			}
+			frames.set(currentFrame.getFrameNumber() - 1, currentFrame);
 		}
 		OutputView.showStatusBoardView(playerName, frames);
 	}
