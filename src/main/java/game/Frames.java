@@ -2,20 +2,18 @@ package game;
 
 import java.util.ArrayList;
 
-public class XFrame {
-    private Frame frame;
+public class Frames {
     private ArrayList<Frame> frames = new ArrayList<>();
+    private int noFrame = 1;
+    Frame frame = new Frame();
 
     public boolean onFrame(int i) {
-        frame = new Frame();
         frame.shoot(i);
         frames.add(frame);
-        if (frame.finishFrame())
+        if (frame.finishFrame()) {
+            noFrame++;
             return true;
-
-        frame.shoot(i);
-        if (frame.finishFrame())
-            return true;
+        }
         return false;
     }
 

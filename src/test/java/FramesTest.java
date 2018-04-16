@@ -1,19 +1,19 @@
 import game.Frame;
-import game.XFrame;
+import game.Frames;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XFrameTest {
+public class FramesTest {
     private List<Frame> frames;
-    private XFrame xframe;
+    private Frames xframe;
 
     @Before
     public void setUp() {
         frames = new ArrayList<>();
-        xframe = new XFrame();
+        xframe = new Frames();
     }
 
     @Test
