@@ -1,13 +1,10 @@
 import game.Frame;
-import game.Pin;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class FrameTest {
     private Frame frame;
-    private Pin firstPin;
-    private Pin secondPin;
 
     @Before
     public void setUp() {
@@ -15,21 +12,31 @@ public class FrameTest {
     }
 
     @Test
-    public void 첫번째샷() {
-//        firstPin = new Pin(8);
-        frame.shootFirstPin(8);
+    public void 공굴리기1() {
+        frame.shoot(2);
+        frame.shoot(8);
+        System.out.println("first pin is " + frame.getFirstPin() + " on test method");
+        System.out.println("second pin is " + frame.getSecondPin() + " on test method");
     }
 
     @Test
-    public void 두번째샷() {
-        frame.shootFirstPin(8);
-        frame.shootSecondPin(2);
+    public void 프레임스트라이크() {
+        frame.shoot(10);
+        boolean result = frame.finishFrame();
+        assertTrue(result);
+    }
+
+    @Test
+    public void 프레임안끝남() {
+        frame.shoot(3);
+        boolean result = frame.finishFrame();
+        assertFalse(result);
     }
 
     @Test
     public void 프레임끝() {
-        frame.shootFirstPin(3);
-        frame.shootSecondPin(7);
+        frame.shoot(3);
+        frame.shoot(6);
         boolean result = frame.finishFrame();
         assertTrue(result);
     }

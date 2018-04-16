@@ -32,19 +32,4 @@ public class PinTest {
         boolean result = firstPin.checkFinish();
         assertTrue(result);
     }
-
-    @Test
-    public void 프레임아직안끝남() {
-        pin = new Pin(8);
-        boolean result = pin.checkFinish();
-        assertFalse(result);
-    }
-
-    @Test
-    public void 프레임2번만에끝내기() {
-        frame.shootFirstPin(8);
-        frame.shootSecondPin(4);
-        boolean result = frame.finishFrame();
-        assertTrue(result);
-    }
 }

@@ -4,22 +4,27 @@ public class Frame {
     private Pin firstPin;
     private Pin secondPin;
 
-    public void shootFirstPin(int shootpin) {
-        firstPin = new Pin(shootpin);
-        shootSecondPin(shootpin);
-    }
-
-    public void shootSecondPin(int shootPin) {
-        secondPin = new Pin(shootPin);
-
+    public void shoot(int pinFall) {
+        if (firstPin == null) {
+            firstPin = new Pin(pinFall);
+            return;
+        }
+        secondPin = new Pin(pinFall);
     }
 
     public boolean finishFrame() {
-        if (firstPin.getPinFall() >= Pin.getMinFall() && firstPin.checkFinish())
+        if (firstPin.checkFinish())
             return true;
-
-        if (firstPin.getPinFall() >= Pin.getMinFall() && secondPin.getPinFall() >= Pin.getMinFall())
+        if (firstPin != null && secondPin != null)
             return true;
         return false;
+    }
+
+    public Pin getFirstPin() {
+        return firstPin;
+    }
+
+    public Pin getSecondPin() {
+        return secondPin;
     }
 }
