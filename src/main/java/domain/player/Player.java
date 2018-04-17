@@ -1,4 +1,4 @@
-package domain;
+package domain.player;
 
 import domain.frame.Frames;
 import domain.frame.result.Board;
@@ -20,15 +20,15 @@ public class Player {
         return frames.isFinish();
     }
 
-    public int getCurrentFrameNum() {
-        return frames.getCurrentFrameNum();
-    }
-
     public Board getBoard() {
         return frames.getBoard();
     }
 
     public String getName() {
         return name.getName();
+    }
+
+    public boolean isFinishFrame(int frameNum) {
+        return frames.isFinishFrame(frameNum);
     }
 }

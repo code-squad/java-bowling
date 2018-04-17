@@ -1,12 +1,18 @@
 package view;
 
-import domain.Player;
 import domain.frame.Frame;
 import domain.frame.result.Board;
+import domain.frame.result.Boards;
+import domain.player.Player;
+import domain.player.Players;
 
 import java.util.List;
 
 public class OutputView {
+
+    public static void printBoards(Players players) {
+
+    }
 
     public static void printBoard(Player player) {
         Board board = player.getBoard();

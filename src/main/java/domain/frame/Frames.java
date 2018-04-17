@@ -31,12 +31,12 @@ public class Frames {
         return firstFrame.getBoard();
     }
 
-    public int getCurrentFrameNum() {
-        Frame currentFrame = getCurrentFrame();
-        return currentFrame.getFrameNum();
-    }
-
     private Frame getCurrentFrame() {
         return frames.get(frames.size() - 1);
+    }
+
+    public boolean isFinishFrame(int frameNum) {
+        int frameIdx = frameNum - 1;
+        return frames.get(frameIdx).isFinish();
     }
 }

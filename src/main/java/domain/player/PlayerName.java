@@ -1,4 +1,4 @@
-package domain;
+package domain.player;
 
 public class PlayerName {
     public static final int LENGTH = 3;
