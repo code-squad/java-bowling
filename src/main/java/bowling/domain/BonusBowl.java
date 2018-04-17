@@ -1,11 +1,15 @@
 package bowling.domain;
 
-public class SecondBowl {
+public class BonusBowl {
     private Integer pinsLeftFromPrevBowl;
     private Integer pinsDownFromThisBowl;
 
     public boolean isPlayed() {
         return pinsDownFromThisBowl != null;
+    }
+
+    public boolean isStrike() {
+        return isPlayed() && pinsDownFromThisBowl == 10;
     }
 
     public boolean isSpare() {

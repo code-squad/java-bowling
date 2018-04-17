@@ -1,32 +1,17 @@
 package bowling.domain;
 
 public class FirstBowl {
-    private static final int ALL = 10;
-    private final SecondBowl secondBowl = new SecondBowl();
     private Integer pinsDown;
 
-    public boolean firstIsPlayed() {
+    public boolean isPlayed() {
         return pinsDown != null;
     }
 
-    public boolean secondIsPlayed() {
-        return secondBowl.isPlayed();
-    }
-
     public boolean isStrike() {
-        return pinsDown == ALL;
+        return isPlayed() && pinsDown == 10;
     }
 
-    public boolean isSpare() {
-        return secondBowl.isSpare();
+    public int calculatePinsLeft() {
+        return 10 - pinsDown;
     }
-
-    public Integer updateBowl(int pinsDown) {
-        if (!firstIsPlayed()) {
-            return this.pinsDown = pinsDown;
-        }
-        return secondBowl.updateBowl(ALL - pinsDown, pinsDown);
-    }
-
-
 }
