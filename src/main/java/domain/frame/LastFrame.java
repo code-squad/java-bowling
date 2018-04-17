@@ -5,13 +5,11 @@ import domain.frame.result.Board;
 import domain.frame.result.FrameResult;
 import domain.frame.score.FrameScore;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class LastFrame extends Frame {
-    private List<Pin> bonusPins = new ArrayList<>();
-    private int bonusRecordCount = 0;
+    private BonusPin bonusPins = new BonusPin();
 
     public LastFrame(int frameNum) {
         super(frameNum);
@@ -31,28 +29,7 @@ public class LastFrame extends Frame {
             score.roll(num);
             return;
         }
-        recordBonusPin(num);
-    }
-
-    public void recordBonusPin(int num) {
-        if (bonusPins.isEmpty() || isMaxFirstBonusPin()) {
-            bonusPins.add(new Pin(num));
-        }
-
-        Pin firstPin = getFirstBonusPin();
-        if (firstPin.isOverRecordPin(num)) {
-            throw new IllegalArgumentException(Pin.MAX + "개 까지만 입력가능합니다.");
-        }
-        bonusPins.add(new Pin(num));
-    }
-
-    private boolean isMaxFirstBonusPin() {
-        Pin firstBonus = getFirstBonusPin();
-        return firstBonus.isMax();
-    }
-
-    private Pin getFirstBonusPin() {
-        return bonusPins.get(0);
+        bonusPins.saveBonusPin(num);
     }
 
     @Override
@@ -73,14 +50,14 @@ public class LastFrame extends Frame {
     }
 
     private List<Integer> buildRecentlyPinNumsForNormal(FrameScore score, int amount) {
-        if (!score.isPossibleGettingPins(amount) ) {
+        if (!score.isPossibleGettingPins(amount)) {
             return Collections.emptyList();
         }
         return score.getPins(amount);
     }
 
     private List<Integer> buildRecentlyPinNumsForLast() {
-        Pin bonusPin = bonusPins.get(bonusRecordCount++);
+        Pin bonusPin = bonusPins.getBonusPin();
         return Collections.singletonList(bonusPin.getNum());
     }
 

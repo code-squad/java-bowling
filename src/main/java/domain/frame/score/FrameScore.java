@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class FrameScore {
     private FrameStatus status;
@@ -24,15 +25,12 @@ public class FrameScore {
         if (isOverRecordPin(num)) {
             throw new IllegalArgumentException(Pin.MAX + "개 까지만 입력가능합니다.");
         }
-        recordRollPin(num);
-        changeFrameStatus();
-    }
 
-    private void recordRollPin(int num) {
         if (!isBonusFinish()) {
             pins.add(new Pin(num));
             leftNumber--;
         }
+        changeFrameStatus();
     }
 
     private void changeFrameStatus() {
@@ -134,11 +132,7 @@ public class FrameScore {
     }
 
     public List<Integer> getBonusPins(Frame nextFrame, int amount) {
-        List<Integer> bonusPins = new ArrayList<>();
-        for (int i = 0; i < pins.size(); i++) {
-            Pin pin = pins.get(i);
-            bonusPins.add(pin.getNum());
-        }
+        List<Integer> bonusPins = pins.stream().filter(pin -> pins.indexOf(pin) < pins.size()).map(Pin::getNum).collect(toList());
         if (bonusPins.size() != amount) {
             int diffNum = amount - bonusPins.size();
             bonusPins.addAll(nextFrame.getPins(diffNum));
