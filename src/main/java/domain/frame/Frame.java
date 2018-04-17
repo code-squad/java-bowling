@@ -25,4 +25,8 @@ public abstract class Frame {
 	public abstract boolean isComplete();
 
 	public abstract Frame bowl(int pinCount);
+	
+	public boolean hasSecondPitch() {
+		return secondPitch != null;
+	}
 }

@@ -5,7 +5,8 @@ import domain.frame.Frame;
 public enum ResultType {
 	STRIKE("X"),
 	SPARE("%d|/"),
-	MISS("%d|%d");
+	MISS("%d|%d"),
+	EMPTY("");
 	
 	private String pitchDisplayFormat;
 	
@@ -13,10 +14,7 @@ public enum ResultType {
 		this.pitchDisplayFormat = pitchDisplayFormat;
 	}
 
-	/*public static ResultType resultOf(Frame frame) {
-		if(frame.sumFirstSecondPitch() == 10) {
-
-		}
-		return ;
-	}*/
+	public static ResultType resultOf(Frame frame) {
+		return null;
+	}
 }

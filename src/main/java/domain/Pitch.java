@@ -12,10 +12,6 @@ public class Pitch {
         this.pinCount = pinCount;
     }
 
-    public boolean isRemained() {
-        return startPinCount - pinCount > 0;
-    }
-
     public int getRemainPinCount() {
         return startPinCount - pinCount;
     }
