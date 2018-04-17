@@ -9,19 +9,13 @@ public class FrameInfo {
 	private Pins secondRoll;
 	private TotalScore totalScore;
 	private int frameNo;
-	private Frame nextFrame;
-	private State state;
 	
-	public FrameInfo(int frameNo, Frame nextFrame, State state) {
+	public FrameInfo(int frameNo) {
 		this.frameNo = frameNo;
-		this.nextFrame = nextFrame;
-		this.state = state;
 	}
 	
-	public FrameInfo(int frameNo, Frame nextFrame, State state, TotalScore totalScore) {
-		this.frameNo = frameNo;
-		this.nextFrame = nextFrame;
-		this.state = state;
+	public FrameInfo(int frameNo, TotalScore totalScore) {
+		this(frameNo);
 		this.totalScore = totalScore;
 	}
 
@@ -60,26 +54,40 @@ public class FrameInfo {
 	}
 
 	public int getInputFrameNo() {
-		if (state.isFrameEnd()) {
+		if (frameNo == 10) {
+			return frameNo;
+		}
+		
+		if (isFrameEnd()) {
 			return frameNo + 1;
 		}
 		return frameNo;
 	}
 	
+	private boolean isFrameEnd() {
+		if (firstRoll.isStrike()) {
+			return true;
+		}
+		
+		if (isFirstRollNull() && isSecondRollNull()) {
+			return true;
+		}
+		return false;
+	}
+
 	public int getFrameNo() {
 		return frameNo;
 	}
 
-	public Frame getNextFrame() {
-		return nextFrame;
-	}
-
-	public State getState() {
-		return state;
-	}
-
 	public TotalScore getTotalScore() {
 		return totalScore;
+	}
+	
+	public boolean isTotalScoreNull() {
+		if (totalScore == null) {
+			return true;
+		}
+		return false;
 	}
 	
 }

@@ -23,8 +23,8 @@ public class InputScore {
 		return name;
 	}
 
-	public static int inputScore(Scanner scan, int frame) {
-		System.out.print("" + frame + "프레임 투구 : ");
+	public static int inputScore(Scanner scan) {
+//		System.out.print("" + frame + "프레임 투구 : ");
 		int score = scan.nextInt();
 		return score;
 	}

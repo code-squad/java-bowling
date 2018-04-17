@@ -3,6 +3,8 @@ package state;
 import bowling.FrameInfo;
 import bowling.Pins;
 import bowling.TotalScore;
+import frame.Frame;
+import frame.SpareLastFrame;
 
 public class Spare implements State {
 
@@ -51,6 +53,11 @@ public class Spare implements State {
 
 	public int getSecondRoll() {
 		return Pins.MAX - getFirstRoll();
+	}
+
+	@Override
+	public Frame generateLastFrame() {
+		return new SpareLastFrame();
 	}
 
 }

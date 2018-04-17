@@ -21,7 +21,7 @@ public class BowlingGame {
 			Frame allFrame = frame;
 
 			while (!frame.isGameEnd()) {
-				frame = frame.roll(InputScore.inputScore(scan, frame.getFrameInfo().getInputFrameNo()));
+				frame = frame.roll(InputScore.inputScore(scan));
 				OutputScore.printFrameInfo(allFrame, name);
 			}
 			System.out.println("게임 종료");
@@ -30,4 +30,5 @@ public class BowlingGame {
 			log.debug(e.getMessage());
 		}
 	}
+
 }

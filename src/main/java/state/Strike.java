@@ -3,18 +3,14 @@ package state;
 import bowling.FrameInfo;
 import bowling.Pins;
 import bowling.TotalScore;
+import frame.Frame;
+import frame.StrikeLastFrame;
 
 public class Strike implements State {
 
 	@Override
 	public State update(int pinsDown) {
 		return this;
-	}
-
-	@Override
-	public FrameInfo setPinsDown(FrameInfo frameInfo) {
-		frameInfo.setFirstRoll(new Pins(10));
-		return frameInfo;
 	}
 	
 	@Override
@@ -33,8 +29,19 @@ public class Strike implements State {
 	}
 
 	@Override
+	public FrameInfo setPinsDown(FrameInfo frameInfo) {
+		frameInfo.setFirstRoll(new Pins(10));
+		return frameInfo;
+	}
+	
+	@Override
 	public boolean isFrameEnd() {
 		return true;
+	}
+
+	@Override
+	public Frame generateLastFrame() {
+		return new StrikeLastFrame(1);
 	}
 
 }

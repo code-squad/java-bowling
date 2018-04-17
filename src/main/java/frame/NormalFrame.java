@@ -1,10 +1,13 @@
 package frame;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bowling.FrameInfo;
 import bowling.TotalScore;
+import state.Miss;
 import state.Ready;
 import state.State;
 
@@ -36,8 +39,8 @@ public class NormalFrame implements Frame {
 	}
 
 	private Frame setNextFrame() {
-		if (nextFrame == null && frameNo == 10) {
-			return new LastFrame();
+		if (nextFrame == null && isLastFrame() && state.generateLastFrame() == null) {
+			return state.generateLastFrame();
 		}
 
 		if (nextFrame == null) {
@@ -45,18 +48,32 @@ public class NormalFrame implements Frame {
 		}
 		return nextFrame;
 	}
-	
+
 	@Override
-	public FrameInfo getFrameInfo() {
-		if (state.isFrameEnd()) {
-			return state.setPinsDown(new FrameInfo(frameNo, nextFrame, state, getTotalScore()));
+	public List<FrameInfo> getFrameInfo(List<FrameInfo> frameInfoList) {
+		if (state.isFrameEnd() && nextFrame != null) {
+			frameInfoList.add(state.setPinsDown(new FrameInfo(frameNo, getTotalScore())));
+			return nextFrame.getFrameInfo(frameInfoList);
 		}
-		return state.setPinsDown(new FrameInfo(frameNo, nextFrame, state));
+		if (state instanceof Miss && nextFrame == null) {
+			frameInfoList.add(state.setPinsDown(new FrameInfo(frameNo, getTotalScore())));
+			return frameInfoList;
+		}
+		frameInfoList.add(state.setPinsDown(new FrameInfo(frameNo)));
+		return frameInfoList;
 	}
-	
+
 	@Override
 	public boolean isGameEnd() {
+		return isLastFrame() && needExtraFrame();
+	}
+
+	boolean isLastFrame() {
 		return frameNo == 10 && state.isFrameEnd();
+	}
+
+	boolean needExtraFrame() {
+		return state.getTotalScore().canCalculateScore();
 	}
 
 	private TotalScore getTotalScore() {
@@ -68,14 +85,15 @@ public class NormalFrame implements Frame {
 		return totalScore;
 	}
 
+	@Override
 	public TotalScore addBeforeTotal(TotalScore beforeTotal) {
 		TotalScore totalScore = state.addNextFrameScore(beforeTotal);
 
-		if (totalScore == null) {
-			return null;
-		}
-		if (totalScore.canCalculateScore()) {
+		if (totalScore != null && totalScore.canCalculateScore()) {
 			return totalScore;
+		}
+		if (nextFrame == null) {
+			return null;
 		}
 		return nextFrame.addBeforeTotal(totalScore);
 	}

@@ -3,6 +3,7 @@ package state;
 import bowling.FrameInfo;
 import bowling.Pins;
 import bowling.TotalScore;
+import frame.Frame;
 
 public class FirstRoll implements State {
 
@@ -21,12 +22,6 @@ public class FirstRoll implements State {
 	}
 
 	@Override
-	public FrameInfo setPinsDown(FrameInfo frameInfo) {
-		frameInfo.setFirstRoll(firstRoll);
-		return frameInfo;
-	}
-
-	@Override
 	public TotalScore getTotalScore() {
 		return null;
 	}
@@ -40,10 +35,21 @@ public class FirstRoll implements State {
 		}
 		return null;
 	}
-
+	
+	@Override
+	public FrameInfo setPinsDown(FrameInfo frameInfo) {
+		frameInfo.setFirstRoll(firstRoll);
+		return frameInfo;
+	}
+	
 	@Override
 	public boolean isFrameEnd() {
 		return false;
+	}
+	
+	@Override
+	public Frame generateLastFrame() {
+		return null;
 	}
 
 	public int getPinsDown() {

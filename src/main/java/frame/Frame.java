@@ -1,8 +1,9 @@
 package frame;
 
+import java.util.List;
+
 import bowling.FrameInfo;
 import bowling.TotalScore;
-import state.State;
 
 public interface Frame {
 	
@@ -10,7 +11,7 @@ public interface Frame {
 
 	boolean isGameEnd();
 
-	FrameInfo getFrameInfo();
+	List<FrameInfo> getFrameInfo(List<FrameInfo> frameInfoList);
 	
 	TotalScore addBeforeTotal(TotalScore beforeTotal);
 

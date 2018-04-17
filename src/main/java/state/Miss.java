@@ -3,6 +3,7 @@ package state;
 import bowling.FrameInfo;
 import bowling.Pins;
 import bowling.TotalScore;
+import frame.Frame;
 
 public class Miss implements State {
 	
@@ -57,6 +58,11 @@ public class Miss implements State {
 
 	public int getSecondRoll() {
 		return secondRoll.getPinsDown();
+	}
+
+	@Override
+	public Frame generateLastFrame() {
+		return null;
 	}
 	
 }

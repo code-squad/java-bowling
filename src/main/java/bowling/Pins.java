@@ -21,4 +21,8 @@ public class Pins {
 		return new Pins(Pins.MAX - pinsDown);
 	}
 	
+	public boolean isStrike() {
+		return pinsDown == Pins.MAX;
+	}
+	
 }

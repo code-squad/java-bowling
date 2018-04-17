@@ -17,41 +17,41 @@ public class StateTest {
 		frame = new NormalFrame();
 	}
 
-	@Test
-	public void strike_State_Test() {
-		State state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof Ready);
-		frame.roll(10);
-		state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof Strike);
-	}
-
-	@Test
-	public void NormalRoll_State_Test() {
-		State state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof Ready);
-		frame.roll(5);
-		state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof FirstRoll);
-	}
-
-	@Test
-	public void NormalFrame_State_Test() {
-		State state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof Ready);
-		frame.roll(5);
-		frame.roll(4);
-		state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof Miss);
-	}
-	
-	@Test
-	public void Spare_State_Test() {
-		State state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof Ready);
-		frame.roll(5);
-		frame.roll(5);
-		state = frame.getFrameInfo().getState();
-		assertTrue(state instanceof Spare);
-	}
+//	@Test
+//	public void strike_State_Test() {
+//		State state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof Ready);
+//		frame.roll(10);
+//		state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof Strike);
+//	}
+//
+//	@Test
+//	public void NormalRoll_State_Test() {
+//		State state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof Ready);
+//		frame.roll(5);
+//		state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof FirstRoll);
+//	}
+//
+//	@Test
+//	public void NormalFrame_State_Test() {
+//		State state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof Ready);
+//		frame.roll(5);
+//		frame.roll(4);
+//		state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof Miss);
+//	}
+//	
+//	@Test
+//	public void Spare_State_Test() {
+//		State state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof Ready);
+//		frame.roll(5);
+//		frame.roll(5);
+//		state = frame.getFrameInfo().getState();
+//		assertTrue(state instanceof Spare);
+//	}
 }
