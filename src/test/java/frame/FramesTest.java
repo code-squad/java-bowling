@@ -1,5 +1,7 @@
-import game.Frame;
-import game.Frames;
+package frame;
+
+import frame.Frame;
+import frame.Frames;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

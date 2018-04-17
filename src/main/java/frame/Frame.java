@@ -1,15 +1,19 @@
-package game;
+package frame;
+
+import game.Pin;
+import status.Status;
 
 public class Frame {
     private Pin firstPin;
     private Pin secondPin;
 
-    public void shoot(int pinFall) {
+    public boolean shoot(int pinFall) {
         if (firstPin == null) {
             firstPin = new Pin(pinFall);
-            return;
+            return true;
         }
         secondPin = new Pin(pinFall);
+        return true;
     }
 
     public boolean finishFrame() {
@@ -18,6 +22,12 @@ public class Frame {
         if (firstPin != null && secondPin != null)
             return true;
         return false;
+    }
+
+    public Status checkStatus() {
+        if (secondPin == null)
+            return new Status(firstPin);
+        return new Status(getFirstPin(), getSecondPin());
     }
 
     public Pin getFirstPin() {

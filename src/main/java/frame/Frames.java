@@ -1,4 +1,4 @@
-package game;
+package frame;
 
 import java.util.ArrayList;
 

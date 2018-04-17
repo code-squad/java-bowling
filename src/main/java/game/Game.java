@@ -1,11 +1,11 @@
 package game;
 
+import frame.Frames;
 import input.Input;
 
 public class Game {
     public void match() {
         for (int i = 1; i < 10; i++) {
-            System.out.println(i + "번 프레임");
             running(i);
         }
     }

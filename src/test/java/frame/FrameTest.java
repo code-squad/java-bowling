@@ -1,6 +1,9 @@
-import game.Frame;
+package frame;
+
+import frame.Frame;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class FrameTest {
@@ -15,8 +18,8 @@ public class FrameTest {
     public void 공굴리기1() {
         frame.shoot(2);
         frame.shoot(8);
-        System.out.println("first pin is " + frame.getFirstPin() + " on test method");
-        System.out.println("second pin is " + frame.getSecondPin() + " on test method");
+        System.out.println("first pin is " + frame.getFirstPin().getPinFall() + " on test method");
+        System.out.println("second pin is " + frame.getSecondPin().getPinFall() + " on test method");
     }
 
     @Test
