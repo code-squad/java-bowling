@@ -1,21 +1,19 @@
 package frame;
 
-import frame.Frame;
-import frame.Frames;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FramesTest {
+public class FrameManagerTest {
     private List<Frame> frames;
-    private Frames xframe;
+    private FrameManager xframe;
 
     @Before
     public void setUp() {
         frames = new ArrayList<>();
-        xframe = new Frames();
+        xframe = new FrameManager();
     }
 
     @Test

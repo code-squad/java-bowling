@@ -1,6 +1,6 @@
 package game;
 
-import frame.Frames;
+import frame.FrameManager;
 import input.Input;
 
 public class Game {
@@ -11,11 +11,11 @@ public class Game {
     }
 
     public boolean running(int i) {
-        Frames frames = new Frames();
+        FrameManager frameManager = new FrameManager();
         Input input = new Input();
-        if (frames.onFrame(input.inputNum(i))) {
+        if (frameManager.onFrame(input.inputNum(i))) {
             return true;
         }
-        return frames.onFrame(input.inputNum(i));
+        return frameManager.onFrame(input.inputNum(i));
     }
 }
