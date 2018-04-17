@@ -5,7 +5,7 @@ import domain.frame.pin.Pin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BonusPin {
+public class BonusPins {
     private List<Pin> bonusPins = new ArrayList<>();
     private int bonusRecordCount = 0;
 

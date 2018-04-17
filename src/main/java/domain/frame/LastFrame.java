@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class LastFrame extends Frame {
-    private BonusPin bonusPins = new BonusPin();
+    private BonusPins bonusPins = new BonusPins();
 
     public LastFrame(int frameNum) {
         super(frameNum);

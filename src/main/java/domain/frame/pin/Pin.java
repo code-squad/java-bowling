@@ -31,4 +31,8 @@ public class Pin {
     public boolean isMax() {
         return this.num == MAX;
     }
+
+    public boolean isMax(Pin lastBonusPin) {
+        return this.num + lastBonusPin.num == MAX;
+    }
 }

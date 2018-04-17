@@ -35,7 +35,7 @@ public class FrameScore {
 
     private void changeFrameStatus() {
         if (!status.isFinish()) {
-            status = status.changeStatus(get(), leftNumber);
+            status = status.changeStatus(getTotalScore(), leftNumber);
         }
     }
 
@@ -51,22 +51,33 @@ public class FrameScore {
     }
 
     public String makeScoreMessage(Frame frame) {
-        if (frame.isLast() && !isBeforeBonusRoll()) {
-            return status.convertScore(pins) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + makeBonusPinMessage();
+        if (!frame.isLast() || !frame.isFinish()) {
+            return status.convertScore(pins);
         }
-        return status.convertScore(pins);
+        return status.convertScore(pins) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + makeLastFrameBonusMessage();
     }
 
-    /* TODO : 여기는 수정 가능성이 있음 : make 요청하는 프레임에 따라 달리 만들던지 알아서 니들이 만들던지 */
-    private String makeBonusPinMessage() {
-        if (status.isStrike()) {
+    private String makeLastFrameBonusMessage() {
+        if (!status.isStrike()) {
+            return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
+        }
+
+        Pin firstBonusPin = pins.get(Frame.REGULAR_COUNT - 1);
+        if (!isBonusFinish() || firstBonusPin.isMax()) {
             return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT - 1).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
         }
-
-        return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
+        return makeLastFrameBonusSpareMessage(firstBonusPin);
     }
 
-    public int get() {
+    private String makeLastFrameBonusSpareMessage(Pin firstBonusPin) {
+        Pin lastBonusPin = pins.get(pins.size() - 1);
+        if (firstBonusPin.isMax(lastBonusPin)) {
+            return ScoreMessage.convertMessage(firstBonusPin.getNum()) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + ScoreMessage.getMessage(ScoreMessage.SPARE);
+        }
+        return pins.stream().filter(pin -> pins.indexOf(pin) >= Frame.REGULAR_COUNT - 1).map(pin -> ScoreMessage.convertMessage(pin.getNum())).collect(joining(ScoreMessage.getMessage(ScoreMessage.MODIFIER)));
+    }
+
+    public int getTotalScore() {
         return pins.stream().mapToInt(Pin::getNum).sum();
     }
 

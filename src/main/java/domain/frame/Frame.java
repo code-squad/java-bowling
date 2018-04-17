@@ -66,7 +66,7 @@ public abstract class Frame {
     private int getScore() {
         try {
             FrameScore frameScore = score.getScore();
-            return frameScore.get();
+            return frameScore.getTotalScore();
         } catch (CannotCalcException e) {
             return CANNOT_CALC_SCORE_STATE;
         }
