@@ -6,12 +6,13 @@ import java.util.*;
 
 
 public abstract class Frame {
-	int frameNumber;
-	Pitch firstPitch;
-	Pitch secondPitch;
 	public static final int DEFAULT_START_PIN_COUNT = 10;
 	public static final int MIN_FRAME_NUMBER = 1;
 	public static final int MAX_FRAME_NUMBER = 10;
+
+	private int frameNumber;
+	private Pitch firstPitch;
+	private Pitch secondPitch;
 
 	public Frame(int frameNumber, int firstPitch) {
 		this.frameNumber = frameNumber;
@@ -23,6 +24,18 @@ public abstract class Frame {
 	
 	public int getFrameNumber() {
 		return frameNumber;
+	}
+
+	protected Pitch getFirstPitch() {
+		return firstPitch;
+	}
+
+	protected Pitch getSecondPitch() {
+		return secondPitch;
+	}
+
+	protected void setSecondPitch(Pitch secondPitch) {
+		this.secondPitch = secondPitch;
 	}
 
 	public List<Pitch> getPitches() {

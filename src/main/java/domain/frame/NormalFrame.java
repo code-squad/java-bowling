@@ -9,7 +9,7 @@ public class NormalFrame extends Frame {
 
 	@Override
 	public boolean isComplete() {
-		return firstPitch.isClear() || secondPitch != null;
+		return getFirstPitch().isClear() || getSecondPitch() != null;
 	}
 
 	@Override
@@ -18,14 +18,14 @@ public class NormalFrame extends Frame {
 			return createNextFrame(pinCount);
 		}
 
-		secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
+		setSecondPitch(new Pitch(getFirstPitch().getRemainPinCount(), pinCount));
 		return this;
 	}
 
 	private Frame createNextFrame(int firstPitch) {
-		if(frameNumber < MAX_FRAME_NUMBER - 1) {
-			return new NormalFrame(frameNumber + 1, firstPitch);
+		if(getFrameNumber() < MAX_FRAME_NUMBER - 1) {
+			return new NormalFrame(getFrameNumber() + 1, firstPitch);
 		}
-		return new FinalFrame(frameNumber + 1, firstPitch);
+		return new FinalFrame(firstPitch);
 	}
 }

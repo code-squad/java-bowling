@@ -7,8 +7,8 @@ import java.util.List;
 public class FinalFrame extends Frame {
 	private Pitch thirdPitch;
 	
-	public FinalFrame(int frameNumber, int firstPitch) {
-		super(frameNumber, firstPitch);
+	public FinalFrame(int firstPitch) {
+		super(Frame.MAX_FRAME_NUMBER, firstPitch);
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class FinalFrame extends Frame {
 		}
 
 		if(hasSecondPitch()) {
-			return !secondPitch.isClear();
+			return !getSecondPitch().isClear();
 		}
 
 		return false;
@@ -50,8 +50,8 @@ public class FinalFrame extends Frame {
 			return this;
 		}
 
-		if(!firstPitch.isClear() && !hasSecondPitch()) {
-			secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
+		if(!hasSecondPitch() && !getFirstPitch().isClear()) {
+			setSecondPitch(new Pitch(getFirstPitch().getRemainPinCount(), pinCount));
 		}else {
 			thirdPitch = new Pitch(DEFAULT_START_PIN_COUNT , pinCount);
 		}
