@@ -23,14 +23,18 @@ public class Frame {
     public Frame shot(int hitCount) {
         this.round = this.round.next();
         this.pins -= hitCount;
-        this.score = this.round.equals(Round.SECOND) ? this.score + "|" + calculateScore(hitCount) : calculateScore(hitCount);
+        this.score = this.round.isSecond() ? this.score + "|" + calculateScore(this.round, hitCount, this.pins) : calculateScore(this.round, hitCount, this.pins);
 
         // next frame
-        if (this.round.equals(Round.SECOND) || this.pins == 0) {
+        if (isFinish()) {
             return new Frame(++this.current, Round.READY, 10, null);
         }
         // retry frame
         return this;
+    }
+
+    private boolean isFinish() {
+        return round.isSecond() || pins == 0;
     }
 
     public String getScore() {
@@ -41,14 +45,14 @@ public class Frame {
         return this.current;
     }
 
-    private String calculateScore(int hitCount) {
+    private String calculateScore(Round round, int hitCount, int pins) {
         if (hitCount == 0) {
             return "-";
         }
-        if (this.round.equals(Round.FIRST) && this.pins == 0) {
+        if (round.isFirst() && pins == 0) {
             return "X";
         }
-        if (this.round.equals(Round.SECOND) && this.pins == 0) {
+        if (round.isSecond() && pins == 0) {
             return "/";
         }
         return String.valueOf(hitCount);

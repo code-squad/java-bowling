@@ -5,8 +5,8 @@ package bowling;
  */
 public enum Round {
     SECOND(null),
-    FIRST(Round.SECOND),
-    READY(Round.FIRST);
+    FIRST(SECOND),
+    READY(FIRST);
 
     Round(Round next) {
         this.next = next;
@@ -16,5 +16,13 @@ public enum Round {
 
     public Round next() {
         return this.next;
+    }
+
+    public boolean isFirst() {
+        return this.equals(FIRST);
+    }
+
+    public boolean isSecond() {
+        return this.equals(SECOND);
     }
 }
