@@ -4,7 +4,8 @@ import domain.frame.Frame;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FrameScoreTest {
     private Frame testFrame;
@@ -58,8 +59,7 @@ public class FrameScoreTest {
         frameScore.roll(3);
         frameScore.roll(7);
         frameScore.increaseLeftCount();
-        frameScore.roll(10);
-        assertEquals("3|/|X", frameScore.makeScoreMessage(testFrame));
+        assertEquals("3|/", frameScore.makeScoreMessage(testFrame));
     }
 
     @Test

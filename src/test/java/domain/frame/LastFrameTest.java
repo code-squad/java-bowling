@@ -41,7 +41,9 @@ public class LastFrameTest {
     public void 정규투구_스트라이크_점수합계() {
         testFrame.roll(10);
         testFrame.roll(10);
+        testFrame.refreshPinNum(testFrame);
         testFrame.roll(10);
+        testFrame.refreshPinNum(testFrame);
         assertEquals(30, testFrame.getResult(0).getScore());
     }
 
@@ -50,6 +52,7 @@ public class LastFrameTest {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(10);
+        testFrame.refreshPinNum(testFrame);
         assertEquals(20, testFrame.getResult(0).getScore());
     }
 
@@ -64,8 +67,10 @@ public class LastFrameTest {
     public void 투구_스트라이크_출력메세지() {
         testFrame.roll(10);
         testFrame.roll(5);
-        testFrame.roll(10);
-        assertEquals("X|5|X", testFrame.getResult(0).getMessage());
+        testFrame.refreshPinNum(testFrame);
+        testFrame.roll(5);
+        testFrame.refreshPinNum(testFrame);
+        assertEquals("X|5|/", testFrame.getResult(0).getMessage());
     }
 
     @Test
@@ -73,6 +78,7 @@ public class LastFrameTest {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(0);
+        testFrame.refreshPinNum(testFrame);
         assertEquals("5|/|-", testFrame.getResult(0).getMessage());
     }
 

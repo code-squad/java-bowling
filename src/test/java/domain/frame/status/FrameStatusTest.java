@@ -83,7 +83,7 @@ public class FrameStatusTest {
     }
 
     @Test
-    public void 진행중() {
-        assertTrue(status instanceof Ing);
+    public void 대기상태() {
+        assertTrue(status instanceof Ready);
     }
 }
