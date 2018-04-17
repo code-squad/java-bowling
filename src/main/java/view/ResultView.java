@@ -16,6 +16,9 @@ public class ResultView {
         for (int index = 0; index < frames.size(); index++) {
             System.out.print(String.format("  %-3s |", frames.get(index).printState()));
         }
+        for (int index = 0; index < MAX_FRAME - frames.size(); index++) {
+            System.out.print("      |");
+        }
     }
 
     private static void printScoreTitle() {

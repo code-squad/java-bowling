@@ -21,11 +21,12 @@ public class BowlingMain {
         for (int index = 1; index < frames.size() + 1; index++) {
             while (!frame.isEnd()) {
                 frame.throwing(InputView.getThrowing(scanner, index));
-                frame.updateStatus();
                 ResultView.printFrames(frames);
             }
-            frame = frame.next();
-            frames.add(frame);
+            if (index != MAX_FRAME_NO) {
+                frame = frame.next();
+                frames.add(frame);
+            }
         }
     }
 }

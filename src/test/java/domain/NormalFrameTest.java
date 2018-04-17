@@ -25,19 +25,32 @@ public class NormalFrameTest {
     }
 
     @Test
-    public void updateStatus() {
+    public void spareState() {
         Frame frame = new NormalFrame(1);
-        frame.throwing(5);
-        frame.throwing(5);
-        State state = frame.updateStatus();
-        System.out.println(state.toString());
+        frame.throwing(4);
+        frame.throwing(6);
+        assertEquals("4|/", frame.printState());
     }
 
     @Test
-    public void notFinished() {
+    public void firstBowlState() {
         Frame frame = new NormalFrame(1);
-        frame.throwing(1);
-        frame.updateStatus();
-        assertFalse(frame.isEnd());
+        frame.throwing(4);
+        assertEquals("4|", frame.printState());
+    }
+
+    @Test
+    public void OpenState() {
+        Frame frame = new NormalFrame(1);
+        frame.throwing(4);
+        frame.throwing(3);
+        assertEquals("4|3", frame.printState());
+    }
+
+    @Test
+    public void strikeState() {
+        Frame frame = new NormalFrame(1);
+        frame.throwing(10);
+        assertEquals("x", frame.printState());
     }
 }

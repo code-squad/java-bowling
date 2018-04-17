@@ -12,7 +12,7 @@ abstract public class Frame {
     }
 
     abstract public void throwing(int throwing);
-    abstract public State updateStatus();
+    abstract public State updateStatus(int throwing);
     abstract public boolean isEnd();
     abstract public String printState();
 
