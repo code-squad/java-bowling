@@ -11,7 +11,7 @@ public class NormalFrameTest {
 		assertThat(frame.bowl(9).isComplete()).isEqualTo(true);
 		assertThat(frame.bowl(2).getFrameNumber()).isEqualTo(2);
 		
-		Frame nineFrame = new NormalFrame(9, 10);
+		Frame nineFrame = new NormalFrame(Frame.MAX_FRAME_NUMBER - 1, 10);
 		assertThat(nineFrame.bowl(1)).isInstanceOf(FinalFrame.class);
 	}
 	

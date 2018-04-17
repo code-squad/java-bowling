@@ -19,4 +19,8 @@ public class Pitch {
     public boolean isClear() {
         return startPinCount - pinCount == 0;
     }
+
+    public int getPinCount() {
+        return pinCount;
+    }
 }

@@ -11,10 +11,14 @@ public class BowlingGameConsoleApp {
 		String playerName = InputView.showGetPlayerNameView();
 		LinkedList<Frame> frames = new LinkedList<>();
 		
-		while (! (frames.getLast() instanceof FinalFrame && frames.getLast().isComplete())) {
-			Frame currentFrame = InputView.showGetFrameResultView(frames.size(), frames.getLast());
-			frames.set(currentFrame.getFrameNumber() - 1, currentFrame);
-		}
-		OutputView.showStatusBoardView(playerName, frames);
+		do {
+			int pinCount = InputView.showGetPinCountView(frames);
+			Frame currentFrame = frames.isEmpty() ? new NormalFrame(Frame.MIN_FRAME_NUMBER, pinCount) : frames.getLast().bowl(pinCount);
+			if (!frames.contains(currentFrame)) {
+				frames.add(currentFrame);
+			}
+			OutputView.showStatusBoardView(playerName, frames);
+		} while(! (frames.getLast() instanceof FinalFrame && frames.getLast().isComplete()));
+
 	}
 }

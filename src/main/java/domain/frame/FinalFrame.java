@@ -2,6 +2,8 @@ package domain.frame;
 
 import domain.Pitch;
 
+import java.util.List;
+
 public class FinalFrame extends Frame {
 	private Pitch thirdPitch;
 	
@@ -11,14 +13,15 @@ public class FinalFrame extends Frame {
 	
 	@Override
 	public Frame bowl(int pinCount) {
-		if(!isComplete()) {
-			if(!firstPitch.isClear() && !hasSecondPitch()) {
-				secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
-			}else {
-				thirdPitch = new Pitch(DEFAULT_START_PIN_COUNT , pinCount);
-			}
+		if(isComplete()) {
+			return this;
 		}
 		
+		if(!firstPitch.isClear() && !hasSecondPitch()) {
+			secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
+		}else {
+			thirdPitch = new Pitch(DEFAULT_START_PIN_COUNT , pinCount);
+		}
 		return this;
 	}
 
@@ -35,7 +38,23 @@ public class FinalFrame extends Frame {
 		return false;
 	}
 
+	@Override
+	public boolean isPinRemained() {
+		if(hasThirdPitch()) {
+			return !thirdPitch.isClear();
+		}
+
+		return super.isPinRemained();
+	}
+
 	public boolean hasThirdPitch() {
 		return thirdPitch != null;
+	}
+
+	@Override
+	public List<Pitch> getPitches() {
+		List<Pitch> pitches = super.getPitches();
+		pitches.add(thirdPitch);
+		return pitches;
 	}
 }

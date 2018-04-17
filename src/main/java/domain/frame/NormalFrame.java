@@ -24,8 +24,8 @@ public class NormalFrame extends Frame {
 
 	private Frame createNextFrame(int firstPitch) {
 		if(frameNumber < MAX_FRAME_NUMBER - 1) {
-			return new NormalFrame(++frameNumber, firstPitch);
+			return new NormalFrame(frameNumber + 1, firstPitch);
 		}
-		return new FinalFrame(++frameNumber, firstPitch);
+		return new FinalFrame(frameNumber + 1, firstPitch);
 	}
 }
