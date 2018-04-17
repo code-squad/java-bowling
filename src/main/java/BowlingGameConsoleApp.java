@@ -1,4 +1,3 @@
-import domain.frame.FinalFrame;
 import domain.frame.Frame;
 import domain.frame.NormalFrame;
 import view.InputView;
@@ -18,6 +17,6 @@ public class BowlingGameConsoleApp {
 				frames.add(currentFrame);
 			}
 			OutputView.showStatusBoardView(playerName, frames);
-		} while(! (frames.getLast() instanceof FinalFrame && frames.getLast().isComplete()));
+		} while(!frames.getLast().isFinalFrame() || !frames.getLast().isComplete());
 	}
 }

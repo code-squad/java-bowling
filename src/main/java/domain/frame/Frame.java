@@ -56,6 +56,10 @@ public abstract class Frame {
 		return !firstPitch.isClear();
 	}
 
+	public boolean isFinalFrame() {
+		return frameNumber == MAX_FRAME_NUMBER;
+	}
+
 	public abstract Frame bowl(int pinCount);
 
 	public abstract boolean isComplete();
