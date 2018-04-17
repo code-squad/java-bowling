@@ -25,10 +25,13 @@ public abstract class Frame {
 		return frameNumber;
 	}
 
-	public abstract boolean isComplete();
+	public List<Pitch> getPitches() {
+		List<Pitch> pitches = new ArrayList<>();
+		pitches.add(firstPitch);
+		pitches.add(secondPitch);
+		return pitches;
+	}
 
-	public abstract Frame bowl(int pinCount);
-	
 	public boolean hasSecondPitch() {
 		return secondPitch != null;
 	}
@@ -37,14 +40,10 @@ public abstract class Frame {
 		if(hasSecondPitch()) {
 			return !secondPitch.isClear();
 		}
-		return false;
-
+		return !firstPitch.isClear();
 	}
 
-	public List<Pitch> getPitches() {
-		List<Pitch> pitches = new ArrayList<>();
-		pitches.add(firstPitch);
-		pitches.add(secondPitch);
-		return pitches;
-	}
+	public abstract Frame bowl(int pinCount);
+
+	public abstract boolean isComplete();
 }

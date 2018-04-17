@@ -19,6 +19,5 @@ public class BowlingGameConsoleApp {
 			}
 			OutputView.showStatusBoardView(playerName, frames);
 		} while(! (frames.getLast() instanceof FinalFrame && frames.getLast().isComplete()));
-
 	}
 }

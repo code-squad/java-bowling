@@ -8,6 +8,11 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
+	public boolean isComplete() {
+		return firstPitch.isClear() || secondPitch != null;
+	}
+
+	@Override
 	public Frame bowl(int pinCount) {
 		if(isComplete()) {
 			return createNextFrame(pinCount);
@@ -15,11 +20,6 @@ public class NormalFrame extends Frame {
 
 		secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
 		return this;
-	}
-	
-	@Override
-	public boolean isComplete() {
-		return firstPitch.isClear() || secondPitch != null;
 	}
 
 	private Frame createNextFrame(int firstPitch) {

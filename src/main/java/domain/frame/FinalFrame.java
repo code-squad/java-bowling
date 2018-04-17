@@ -12,30 +12,14 @@ public class FinalFrame extends Frame {
 	}
 	
 	@Override
-	public Frame bowl(int pinCount) {
-		if(isComplete()) {
-			return this;
-		}
-		
-		if(!firstPitch.isClear() && !hasSecondPitch()) {
-			secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
-		}else {
-			thirdPitch = new Pitch(DEFAULT_START_PIN_COUNT , pinCount);
-		}
-		return this;
+	public List<Pitch> getPitches() {
+		List<Pitch> pitches = super.getPitches();
+		pitches.add(thirdPitch);
+		return pitches;
 	}
 
-	@Override
-	public boolean isComplete() {
-		if(hasThirdPitch()) {
-			return true;
-		}
-		
-		if(hasSecondPitch()) {
-			return !secondPitch.isClear();
-		}
-		
-		return false;
+	public boolean hasThirdPitch() {
+		return thirdPitch != null;
 	}
 
 	@Override
@@ -47,14 +31,30 @@ public class FinalFrame extends Frame {
 		return super.isPinRemained();
 	}
 
-	public boolean hasThirdPitch() {
-		return thirdPitch != null;
+	@Override
+	public boolean isComplete() {
+		if(hasThirdPitch()) {
+			return true;
+		}
+
+		if(hasSecondPitch()) {
+			return !secondPitch.isClear();
+		}
+
+		return false;
 	}
 
 	@Override
-	public List<Pitch> getPitches() {
-		List<Pitch> pitches = super.getPitches();
-		pitches.add(thirdPitch);
-		return pitches;
+	public Frame bowl(int pinCount) {
+		if(isComplete()) {
+			return this;
+		}
+
+		if(!firstPitch.isClear() && !hasSecondPitch()) {
+			secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
+		}else {
+			thirdPitch = new Pitch(DEFAULT_START_PIN_COUNT , pinCount);
+		}
+		return this;
 	}
 }
