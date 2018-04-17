@@ -1,7 +1,7 @@
 package frame;
 
 import game.Pin;
-import status.Status;
+import status.*;
 
 public class Frame {
     private Pin firstPin;
@@ -26,8 +26,15 @@ public class Frame {
 
     public Status checkStatus() {
         if (secondPin == null)
-            return new Status(firstPin);
-        return new Status(getFirstPin(), getSecondPin());
+            return new Strike(firstPin);
+
+        if ((firstPin.getPinFall() + secondPin.getPinFall() == 10) && firstPin.getPinFall() != Pin.getMaxFall())
+            return new Spare(firstPin, secondPin);
+
+        if (secondPin.getPinFall() == 0)
+            return new Missing(firstPin, secondPin);
+
+        return new Normal(firstPin, secondPin);
     }
 
     public Pin getFirstPin() {

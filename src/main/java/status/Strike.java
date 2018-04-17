@@ -8,7 +8,7 @@ public class Strike extends Status {
     }
 
     public boolean checkStrike() {
-        if (super.getFirstPin().checkFinish() && super.getSecondPin() == null) {
+        if (getFirstPin().checkFinish() && getSecondPin() == null) {
             System.out.println("스트라이크");
             return true;
         }

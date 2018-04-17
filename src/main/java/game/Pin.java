@@ -28,4 +28,5 @@ public class Pin {
     public static int getMinFall() {
         return MIN_FALL;
     }
+
 }

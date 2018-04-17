@@ -10,7 +10,7 @@ public class MissingTest {
 
     @Before
     public void setUp() {
-        missing = new Missing(new Pin(3), new Pin(5));
+        missing = new Missing(new Pin(3), new Pin(0));
     }
 
     @Test

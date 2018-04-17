@@ -9,7 +9,7 @@ public class Missing extends Status {
     }
 
     public boolean checkMissing() {
-        if (super.getFirstPin() != null && super.getSecondPin() != null && (super.getFirstPin().getPinFall() + super.getSecondPin().getPinFall()) != 10) {
+        if (getFirstPin() != null && getSecondPin().getPinFall() == 0) {
             System.out.println("미싱");
             return true;
         }

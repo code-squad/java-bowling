@@ -12,6 +12,4 @@ public class LastFrame extends Frame {
         }
         return false;
     }
-
-
 }

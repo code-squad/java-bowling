@@ -8,7 +8,7 @@ public class Spare extends Status {
     }
 
     public boolean spareCheck() {
-        if (super.getFirstPin().getPinFall() != Pin.getMaxFall() && (super.getFirstPin().getPinFall() + super.getSecondPin().getPinFall() == 10)) {
+        if (getFirstPin().getPinFall() != Pin.getMaxFall() && (getFirstPin().getPinFall() + getSecondPin().getPinFall() == 10)) {
             System.out.println("스페어");
             return true;
         }

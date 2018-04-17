@@ -11,7 +11,7 @@ public class Frames {
         frame.shoot(i);
         frames.add(frame);
         if (frame.finishFrame()) {
-            noFrame++;
+            System.out.println("frame status is " + frame.checkStatus());
             return true;
         }
         return false;

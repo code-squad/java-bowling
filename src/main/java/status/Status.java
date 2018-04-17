@@ -10,9 +10,9 @@ public class Status {
         this.firstPin = firstPin;
     }
 
-    public Status(Pin firstPin, Pin seoncPin) {
+    public Status(Pin firstPin, Pin secondPin) {
         this.firstPin = firstPin;
-        this.secondPin = seoncPin;
+        this.secondPin = secondPin;
     }
 
     public Pin getSecondPin() {
@@ -20,7 +20,6 @@ public class Status {
     }
 
     public Pin getFirstPin() {
-
         return firstPin;
     }
 }

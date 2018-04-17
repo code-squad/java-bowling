@@ -3,6 +3,8 @@ package frame;
 import frame.Frame;
 import org.junit.Before;
 import org.junit.Test;
+import status.Status;
+import status.Strike;
 
 import static org.junit.Assert.*;
 
@@ -42,5 +44,12 @@ public class FrameTest {
         frame.shoot(6);
         boolean result = frame.finishFrame();
         assertTrue(result);
+    }
+
+    @Test
+    public void 상태값테스트스트라이크리턴() {
+        frame.shoot(4);
+        frame.shoot(6);
+        Status status = frame.checkStatus();
     }
 }
