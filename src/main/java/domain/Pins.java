@@ -54,9 +54,9 @@ public class Pins {
             return STRIKE;
         }
         if (isGutter()) {
-            return GUTTER + PIPE;
+            return GUTTER;
         }
-        return falledPins + PIPE;
+        return String.valueOf(falledPins);
     }
 
     public String print(Pins secondPins) {

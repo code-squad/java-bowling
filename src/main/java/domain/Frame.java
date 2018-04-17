@@ -1,5 +1,7 @@
 package domain;
 
+import state.State;
+
 abstract public class Frame {
     private static final int MAX_FRAME_NO = 10;
     private final int no;

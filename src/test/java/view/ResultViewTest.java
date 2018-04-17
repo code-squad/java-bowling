@@ -14,12 +14,12 @@ public class ResultViewTest {
 
     @Before
     public void setup() {
-//        frames = Arrays.asList(
-//                new NormalFrame(1, new Pins(1), new Pins(9)), new NormalFrame(2, new Pins(1), new Pins(9)),
-//                new NormalFrame(3, new Pins(10), new Pins(0)), new NormalFrame(4, new Pins(0), new Pins(10)),
-//                new NormalFrame(5, new Pins(1), new Pins(9)), new NormalFrame(6, new Pins(1), new Pins(9)),
-//                new NormalFrame(7, new Pins(1), new Pins(9)), new NormalFrame(8, new Pins(1), new Pins(9)),
-//                new NormalFrame(9, new Pins(1), new Pins(9)), new NormalFrame(10, new Pins(1), new Pins(9)));
+        frames = Arrays.asList(
+                new NormalFrame(1, new Pins(1), new Pins(9)), new NormalFrame(2, new Pins(1), new Pins(9)),
+                new NormalFrame(3, new Pins(10), new Pins(0)), new NormalFrame(4, new Pins(0), new Pins(10)),
+                new NormalFrame(5, new Pins(1), new Pins(9)), new NormalFrame(6, new Pins(1), new Pins(9)),
+                new NormalFrame(7, new Pins(1), new Pins(9)), new NormalFrame(8, new Pins(1), new Pins(9)),
+                new NormalFrame(9, new Pins(1), new Pins(9)), new NormalFrame(10, new Pins(1), new Pins(9)));
     }
 
     @Test
@@ -30,5 +30,10 @@ public class ResultViewTest {
         frame2.updateStatus();
         List<Frame> frames1 = Arrays.asList(frame1, frame2);
         ResultView.printFrames(frames1);
+    }
+
+    @Test
+    public void lastFrame() {
+
     }
 }

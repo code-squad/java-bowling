@@ -2,7 +2,7 @@ package domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import view.InputView;
+import state.State;
 
 import java.util.Scanner;
 

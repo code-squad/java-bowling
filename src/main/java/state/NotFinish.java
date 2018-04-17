@@ -1,14 +1,18 @@
-package domain;
+package state;
+
+import domain.Pins;
 
 public class NotFinish extends State {
     private static final String PIPE = "|";
 
-    public NotFinish() {
+    Pins first;
+
+    public NotFinish(Pins first) {
         super(false);
     }
 
     @Override
-    public String printState(Pins first, Pins second) {
+    public String printState() {
         return first.print();
     }
 }

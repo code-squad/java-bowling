@@ -1,9 +1,11 @@
 package domain;
 
+import state.*;
+
 public class NormalFrame extends Frame {
     private Pins first;
     private Pins second;
-    State state = new NotFinish();
+    State state = new Ready();
 
     public NormalFrame(int no) {
         this(no, null, null);
@@ -26,17 +28,18 @@ public class NormalFrame extends Frame {
     }
 
     public State updateStatus() {
-        if (first.isStrike()) {
-            return state = new Strike();
-        }
-        if (second == null) {
-            return state = new NotFinish();
-        }
-        first.isTotal(second);
-        if (first.isSpare(second)) {
-            return state = new Spare();
-        }
-        return state = new Open();
+//        if (first.isStrike()) {
+//            return state = new Strike();
+//        }
+//        if (second == null) {
+//            return state = new NotFinish();
+//        }
+//        first.isTotal(second);
+//        if (first.isSpare(second)) {
+//            return state = new Spare();
+//        }
+//        return state = new Open();
+        return null;
     }
 
     @Override
@@ -46,6 +49,6 @@ public class NormalFrame extends Frame {
 
     @Override
     public String printState() {
-        return state.printState(first, second);
+        return state.printState();
     }
 }

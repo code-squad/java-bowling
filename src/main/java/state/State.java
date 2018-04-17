@@ -1,4 +1,4 @@
-package domain;
+package state;
 
 abstract public class State implements Statable {
     boolean state;

@@ -1,5 +1,7 @@
 package domain;
 
+import state.State;
+
 public class LastFrame extends Frame {
     final int TEN_PINS = 10;
 
@@ -13,17 +15,6 @@ public class LastFrame extends Frame {
 
     @Override
     public void throwing(int throwing) {
-//        if (first == null) {
-//            first = new Pins(throwing);
-//            return;
-//        }
-//        if (first != null && second == null) {
-//            second = new Pins(throwing);
-//            return;
-//        }
-//        if (first != null && second != null && third == null) {
-//            third = new Pins(throwing);
-//        }
         if (Pins.isEmpty(first)) {
             first = new Pins(throwing);
             return;
