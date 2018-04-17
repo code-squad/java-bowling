@@ -5,27 +5,27 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class BowlTest {
-    private Bowl bowl;
+public class FirstBowlTest {
+    private FirstBowl firstBowl;
 
     @Before
     public void setUp() throws Exception {
-        bowl = new Bowl();
+        firstBowl = new FirstBowl();
     }
 
     @Test
     public void updateBowl() {
-        assertEquals(new Integer(9), bowl.updateBowl(9));
+        assertEquals(new Integer(9), firstBowl.updateBowl(9));
     }
 
     @Test
     public void isPlayed_True() {
-        bowl.updateBowl(9);
-        assertTrue(bowl.isPlayed());
+        firstBowl.updateBowl(9);
+        assertTrue(firstBowl.firstIsPlayed());
     }
 
     @Test
     public void isPlayed_False() {
-        assertFalse(bowl.isPlayed());
+        assertFalse(firstBowl.firstIsPlayed());
     }
 }

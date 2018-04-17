@@ -2,12 +2,9 @@ package bowling.domain;
 
 public class NormalFrame implements Frame {
     private final Frame nextFrame;
-    private final Bowl first;
-    private final Bowl second;
+    private final FirstBowl first = new FirstBowl();
 
     public NormalFrame(int frameNumber) {
-        this.first = new Bowl();
-        this.second = new Bowl();
         if (frameNumber == 8) {
             this.nextFrame = new LastFrame(frameNumber + 1);
         } else {
@@ -16,11 +13,11 @@ public class NormalFrame implements Frame {
     }
 
     public boolean firstIsPlayed() {
-        return first.isPlayed();
+        return first.firstIsPlayed();
     }
 
     public boolean secondIsPlayed() {
-        return second.isPlayed();
+        return first.secondIsPlayed();
     }
 
     public Integer throwBall(int pinsKnocked) {
@@ -31,9 +28,14 @@ public class NormalFrame implements Frame {
     }
 
     public Integer updateBowls(int pinsKnocked) {
-        if (!firstIsPlayed()) {
-            return first.updateBowl(pinsKnocked);
-        }
-        return second.updateBowl(pinsKnocked);
+        return first.updateBowl(pinsKnocked);
+    }
+
+    public boolean isStrike() {
+        return first.isStrike();
+    }
+
+    public boolean isSpare() {
+        return first.isSpare();
     }
 }
