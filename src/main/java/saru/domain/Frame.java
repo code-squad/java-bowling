@@ -7,6 +7,7 @@ public abstract class Frame {
     private static final int FIRST_INDEX = 0;
     private static final int SECOND_INDEX = 1;
     private List<DownPin> downPins = new ArrayList<>();
+
     private int maxBallCount;
 
     Frame(int maxBallCount) {
@@ -41,10 +42,10 @@ public abstract class Frame {
     }
 
     // TODO downPins 이나 pin 리턴할때 new로 새로 생성 후 리턴?
+
     DownPin getNowDownPin() {
         return downPins.get(downPins.size() - 1);
     }
-
     abstract boolean checkThrowingPossible();
 
     boolean checkFull() {
@@ -53,10 +54,6 @@ public abstract class Frame {
 
     int getDownPinsSize() {
         return downPins.size();
-    }
-
-    boolean checkDownPinsEmpty() {
-        return downPins.isEmpty();
     }
 
     DownPin getFirstElementDownPins() {
@@ -75,5 +72,9 @@ public abstract class Frame {
 
     public List<DownPin> copyDownPins() {
         return new ArrayList<>(downPins);
+    }
+
+    public int getMaxBallCount() {
+        return maxBallCount;
     }
 }
