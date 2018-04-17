@@ -4,17 +4,12 @@ public class Spare extends State {
     private static final String PIPE = "|";
     private static final String SPARE = "/";
 
-    private Pins first;
-    private Pins second;
-
-    public Spare(Pins first, Pins second) {
+    public Spare() {
         super(true);
-        this.first = first;
-        this.second = second;
     }
 
     @Override
-    public String toString() {
-        return first.toString() + PIPE + SPARE;
+    public String printState(Pins first, Pins second) {
+        return first.print(second);
     }
 }

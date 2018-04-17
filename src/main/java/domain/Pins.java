@@ -3,6 +3,10 @@ package domain;
 public class Pins {
     private static final int TEN_PINS = 10;
     private static final int NO_PINS = 0;
+    private static final String PIPE = "|";
+    private static final String GUTTER = "-";
+    private static final String SPARE = "/";
+    private static final String STRIKE = "x";
 
     int falledPins;
 
@@ -18,6 +22,10 @@ public class Pins {
         return true;
     }
 
+    public static boolean isEmpty(Pins pins) {
+        return pins == null;
+    }
+
     public boolean isStrike() {
         return falledPins == TEN_PINS;
     }
@@ -30,18 +38,40 @@ public class Pins {
         return this.falledPins + secondPins.falledPins < TEN_PINS;
     }
 
+    public boolean isGutter() {
+        return falledPins == NO_PINS;
+    }
+
     public boolean isTotal(Pins secondPins) {
         if (this.falledPins + secondPins.falledPins > 10) {
-            throw new IllegalArgumentException("핀의 합개는 10을 넘을 수 없습니다.");
+            throw new IllegalArgumentException("핀의 합개는 10을 넘을 수 없습니다." + this.falledPins + " " + secondPins.falledPins);
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        if (falledPins == NO_PINS) {
-            return "-";
+    public String print() {
+        if (this.isStrike()) {
+            return STRIKE;
         }
-        return String.valueOf(falledPins);
+        if (isGutter()) {
+            return GUTTER + PIPE;
+        }
+        return falledPins + PIPE;
+    }
+
+    public String print(Pins secondPins) {
+        String first = String.valueOf(this.falledPins);
+        String second = String.valueOf(secondPins.falledPins);
+
+        if (this.isGutter()) {
+            first = GUTTER;
+        }
+        if (secondPins.isGutter()) {
+            second = GUTTER;
+        }
+        if (this.isSpare(secondPins)) {
+            return first + PIPE + SPARE;
+        }
+        return first + PIPE + second;
     }
 }

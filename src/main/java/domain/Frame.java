@@ -12,6 +12,7 @@ abstract public class Frame {
     abstract public void throwing(int throwing);
     abstract public State updateStatus();
     abstract public boolean isEnd();
+    abstract public String printState();
 
     public boolean isValidNo(int no) {
         if ( no < 0 || no > 10 ) {

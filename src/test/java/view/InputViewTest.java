@@ -16,6 +16,6 @@ public class InputViewTest {
     @Test
     public void throwing() {
         Scanner scanner = new Scanner("10");
-        assertEquals(10, InputView.getThrowing(scanner));
+        assertEquals(10, InputView.getThrowing(scanner, 1));
     }
 }

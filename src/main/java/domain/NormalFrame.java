@@ -3,10 +3,16 @@ package domain;
 public class NormalFrame extends Frame {
     private Pins first;
     private Pins second;
-    State state;
+    State state = new NotFinish();
 
     public NormalFrame(int no) {
+        this(no, null, null);
+    }
+
+    public NormalFrame(int no, Pins first, Pins second) {
         super(no);
+        this.first = first;
+        this.second = second;
     }
 
     public void throwing(int throwing) {
@@ -28,13 +34,18 @@ public class NormalFrame extends Frame {
         }
         first.isTotal(second);
         if (first.isSpare(second)) {
-            return state = new Spare(first, second);
+            return state = new Spare();
         }
-        return state = new Open(first, second);
+        return state = new Open();
     }
 
     @Override
     public boolean isEnd() {
         return state.isEnd();
+    }
+
+    @Override
+    public String printState() {
+        return state.printState(first, second);
     }
 }

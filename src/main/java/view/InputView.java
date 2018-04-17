@@ -8,7 +8,8 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public static int getThrowing(Scanner scanner) {
+    public static int getThrowing(Scanner scanner, int no) {
+        System.out.print("\n"+no + "프레임 투구 : ");
         return scanner.nextInt();
     }
 }

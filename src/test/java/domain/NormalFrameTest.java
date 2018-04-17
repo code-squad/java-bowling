@@ -21,7 +21,7 @@ public class NormalFrameTest {
     @Test
     public void throwing() {
         Frame frame = new NormalFrame(1);
-        frame.throwing(InputView.getThrowing(scanner));
+        frame.throwing(10);
     }
 
     @Test

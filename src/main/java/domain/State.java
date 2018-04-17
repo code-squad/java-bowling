@@ -1,6 +1,6 @@
 package domain;
 
-public class State {
+abstract public class State implements Statable {
     boolean state;
 
     public State(boolean state) {

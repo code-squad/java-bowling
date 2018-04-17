@@ -7,7 +7,7 @@ public class Strike extends State {
     }
 
     @Override
-    public String toString() {
-        return "x";
+    public String printState(Pins first, Pins second) {
+        return first.print();
     }
 }
