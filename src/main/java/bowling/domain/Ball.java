@@ -2,36 +2,31 @@ package bowling.domain;
 
 public class Ball {
 
-    static final int TEN_PIN = 10;
-    static final int ZERO_PIN = 0;
+    static final int MAX_PIN = 10;
+    static final int MIN_PIN = 0;
+
     private int pin;
 
-    public Ball(int pin) {
-        if (pin < ZERO_PIN || TEN_PIN < pin) {
-            throw new IllegalArgumentException("핀의 개수가 맞지 않습니다.");
+    private Ball(int pin) {
+        if (pin < MIN_PIN || MAX_PIN < pin) {
+            throw new IllegalArgumentException("핀의 개수를 정확히 입력해주세요");
         }
         this.pin = pin;
     }
 
-    public static Ball playOf(int pin) {
+    public static Ball of(int pin) {
         return new Ball(pin);
     }
 
-    public boolean isStrike() {
-        return this.pin == TEN_PIN;
+    public boolean isTenPin() {
+        return pin == 10;
     }
 
-    public boolean isSpare(Ball first) {
-        return (first.pin + this.pin) == TEN_PIN;
+    public boolean isSpare(Ball second) {
+        return (pin + second.getPin()) == 10;
     }
 
     public int getPin() {
         return pin;
-    }
-
-    public void secondPinCheckException(int secondPin) {
-        if (pin + secondPin > 10) {
-            throw new IllegalArgumentException("핀의 합계가 10을 초과 했습니다.");
-        }
     }
 }

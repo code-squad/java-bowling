@@ -4,23 +4,30 @@ public class LastFrame extends Frame {
 
     private Ball third;
 
-    public void playLastBall(int pin) {
-        third = Ball.playOf(pin);
+    public LastFrame(FrameStatus frameStatus) {
+        super(frameStatus);
     }
 
-    public int thirdInFrame() {
-        return third.getPin();
+    public void playBonusBall(int pin) {
+        checkPinException(pin);
+        third = Ball.of(pin);
     }
 
-    public boolean isStrikeOrSpare() {
-        return isStrike() || isSpare();
+    public boolean isThird() {
+        return third == null;
     }
 
     public boolean isLastBall() {
-        return (isTwiceBall() && !isSpare()) || !isThirdNull();
+        return getFrameStatus().isLastBall();
     }
 
-    public boolean isThirdNull() {
-        return third == null;
+    public int getThird() {
+        return third.getPin();
+    }
+
+    public void checkPinException(int pin) {            //마지막 프레임에 스트라이크면 그 이후의 핀 확인
+        if (getFrameStatus().getCount() == 2 &&getFrameStatus().getSecond()!=10 &&getFrameStatus().getSecond() + pin > 10) {
+            throw new IllegalArgumentException("핀의 숫자보다 더 많이 입력하셨습니다.");
+        }
     }
 }

@@ -6,48 +6,66 @@ import java.util.List;
 
 public class FrameData {
 
-    static final int LAST_FRAME = 9;
-
-    private List<NomalFrame> frames = new ArrayList<>();
-    private NomalFrame nomalFrame = new NomalFrame();
-    private LastFrame lastFrame = new LastFrame();
+    private List<Frame> frames = new ArrayList<>();
+    private Scores scores = new Scores();
+    private LastFrame lastFrame;
+    private InCompleteFrame inCompleteFrame = new InCompleteFrame();
 
     public void play(int pin) {
-        nomalFrame.playOneBall(pin);
-        if (nomalFrame.isStrike() || nomalFrame.isTwiceBall()) {
-            frames.add(nomalFrame);
-            nextFrame(frames.size());
+        inCompleteFrame.play(pin);
+        scores.checkCount(pin);
+        if (inCompleteFrame.checkComplete()) {                  // 프레임이 완성 되었는지 확인하고 프레임을 생성
+            FrameStatus frameStatus = inCompleteFrame.check();
+            scores.createScore(frameStatus);
+            frames.add(new Frame(frameStatus));
+            inCompleteFrame = new InCompleteFrame();
         }
     }
 
     public boolean playLastFrame(int pin) {
-        if (lastFrame.isNewFrame() || (lastFrame.isSecondNull() && !lastFrame.isStrike())) {
-            lastFrame.playOneBall(pin);
-        } else if (lastFrame.isStrike() || lastFrame.isSpare()) {
-            lastFrame.playLastBall(pin);
+        scores.checkCount(pin);
+        if (lastFrame == null) {
+            makeLastFrame(pin);
+            scores.createTwoScore(lastFrame, isLastBall());
+            return isLastBall();
+        }
+        lastFrame.playBonusBall(pin);
+        scores.createThreeScore(lastFrame, pin);
+        return true;
+    }
+
+    private void makeLastFrame(int pin) {                    //마지막 프레임을 생성한다.
+        inCompleteFrame.play(pin);
+        if (inCompleteFrame.checkLastFrameComplete()) {
+            FrameStatus frameStatus = inCompleteFrame.check();
+            lastFrame = new LastFrame(frameStatus);
+        }
+    }
+
+    private boolean isLastBall() {
+        if (lastFrame == null) {
+            return false;
         }
         return lastFrame.isLastBall();
     }
 
-    public void nextFrame(int numberOfFrame) {
-        if (numberOfFrame < LAST_FRAME) {
-            nomalFrame = nomalFrame.next();
-        }
+    public int numberOfFrames() {
+        return frames.size();
     }
 
-    public List<NomalFrame> getFrames() {
+    public List<Frame> getFrames() {
         return Collections.unmodifiableList(frames);
-    }
-
-    public NomalFrame getNomalFrame() {
-        return nomalFrame;
     }
 
     public LastFrame getLastFrame() {
         return lastFrame;
     }
 
-    public int numberOfFrame() {
-        return frames.size() + 1;
+    public InCompleteFrame getInCompleteFrame() {
+        return inCompleteFrame;
+    }
+
+    public Scores getScores() {
+        return scores;
     }
 }
