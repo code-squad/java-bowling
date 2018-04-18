@@ -8,19 +8,24 @@ public abstract class Frame {
     private static final int MAX_ADDITIONAL_BONUS_SCORE = 20;
     private StatusChanger statusChanger;
     private ScoreManager scoreManager;
+    private Scores scores;
 
-    public abstract boolean isFrameEnd();
+    public boolean isFrameEnd() {
+        return scores.isEnd();
+    }
 
     Frame() {
-        this.scoreManager = ScoreManager.of();
+        this.scores = Scores.of();
+//        this.scoreManager = ScoreManager.of();
     }
 
     public void trying(final int score) {
         if (!isValidScore(score)) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
-        addition(score);
-        this.statusChanger = initScoreCalculator();
+        scores.assignStatus(score);
+//        addition(score);
+//        this.statusChanger = initScoreCalculator();
     }
 
     void addition(final int score) {
@@ -39,8 +44,12 @@ public abstract class Frame {
     }
 
     boolean isSpare() {
-        return scoreManager.isSpare();
+        return scores.isSpare();
     }
+
+//    boolean isSpare() {
+//        return scoreManager.isSpare();
+//    }
 
     boolean isStrike(int index) {
         return scoreManager.isStrike(index);
@@ -51,28 +60,45 @@ public abstract class Frame {
     }
 
     boolean isValidScore(final int score) {
-        return scoreManager.isValidScore(score);
+        return scores.isValidScore(score);
     }
+
+//    boolean isValidScore(final int score) {
+//        return scoreManager.isValidScore(score);
+//    }
 
     boolean isValidScoreToTotalScore(final int score, final int compareIndex) {
         return scoreManager.isValidScoreToTotalScore(score, compareIndex);
     }
 
     private String toScoreString() {
-        return scoreManager.toScoreString();
+        return scores.toScoreString();
     }
+
+//    private String toScoreString() {
+//        return scoreManager.toScoreString();
+//    }
 
     private String spareString() {
         return scoreManager.spareString();
     }
 
     String toFrameString() {
-        if (isSpare()) return spareString();
+//        if (isSpare()) return spareString();
         return toScoreString();
     }
 
+//    String toFrameString() {
+//        if (isSpare()) return spareString();
+//        return toScoreString();
+//    }
+
     public void assignCalculableState(Frame beforeFrame) {
         statusChanger = StatusChanger.of(this, beforeFrame);
+    }
+
+    public void isGivenMessageFromPresentFrame123123(Frame frame) {
+        scores.takeFromPresent(frame.scores);
     }
 
     public void isGivenMessageFromPresentFrame(Frame frame) {
@@ -119,17 +145,29 @@ public abstract class Frame {
         }
     }
 
-    public Score getTotalScore() {
-        return scoreManager.getTotalScore();
+    public int getTotalScore() {
+        return scores.getTotalScore();
     }
+
+//    public Score getTotalScore() {
+//        return scoreManager.getTotalScore();
+//    }
 
     public boolean isCalculationDo() {
-        return statusChanger.isCalculationDo();
+        return scores.isDo();
     }
 
-    public void changeCalculationStatusToDo() {
-        statusChanger.changeCalculationStatusToDo();
+//    public boolean isCalculationDo() {
+//        return statusChanger.isCalculationDo();
+//    }
+
+    public void changeCalculateStatusToDo() {
+        scores.changeDo();
     }
+
+//    public void changeCalculationStatusToDo() {
+//        statusChanger.changeCalculationStatusToDo();
+//    }
 
     public CalculateStatus getCalculateStatus() {
         return statusChanger.getCalculateStatus();
@@ -153,8 +191,12 @@ public abstract class Frame {
     }
 
     public void changeCalculationStatusToNotYet() {
-        statusChanger.changeCalculationStatusToNotYet();
+        scores.changeNotYet();
     }
+
+//    public void changeCalculationStatusToNotYet() {
+//        statusChanger.changeCalculationStatusToNotYet();
+//    }
 }
 
 

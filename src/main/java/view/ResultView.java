@@ -18,7 +18,7 @@ public class ResultView {
     }
 
     static String toStringScoreState(List<Frame> roundFrames) {
-        return roundFrames.stream().map(i -> String.format("  %-5s", i.getTotalScore().getScore()))
+        return roundFrames.stream().map(i -> String.format("  %-5s", i.getTotalScore()))
                 .collect(Collectors.joining("|"));
     }
 

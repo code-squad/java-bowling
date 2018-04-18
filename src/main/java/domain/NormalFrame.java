@@ -10,9 +10,9 @@ public class NormalFrame extends Frame {
         return new NormalFrame();
     }
 
-    @Override
-    public boolean isFrameEnd() {
-        return isStrike(0) || isTrySecond();
-    }
+//    @Override
+//    public boolean isFrameEnd() {
+//        return isStrike(0) || isTrySecond();
+//    }
 
 }

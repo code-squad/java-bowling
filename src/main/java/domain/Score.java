@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.List;
 import java.util.Objects;
 
 import static domain.Figure.STRIKE;
@@ -36,6 +37,10 @@ public class Score {
 
     public void sum(Score otherScore) {
         this.score += otherScore.score;
+    }
+
+    public int sumPrint(Score otherScore) {
+        return this.score + otherScore.score;
     }
 
     public boolean isTen() {
@@ -79,5 +84,12 @@ public class Score {
         score += i;
     }
 
+    public int sumPrint(List<Score> additionalScore) {
+        int result = score;
+        for (Score addScore : additionalScore) {
+            result += addScore.score;
+        }
+        return result;
+    }
 }
 
