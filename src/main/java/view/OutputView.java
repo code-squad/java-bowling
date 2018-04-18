@@ -17,7 +17,7 @@ public class OutputView {
 		playedFrames.stream()
 				.forEach(frame -> {
 					headerBuilder.append(String.format("  %02d  |", frame.getFrameNumber()));
-					statusBuilder.append(String.format(" %4s |", getFrameStatus(frame)));
+					statusBuilder.append(String.format(" %-4s |", getFrameStatus(frame)));
 				});
 
 		IntStream.range(playedFrames.size(), Frame.MAX_FRAME_NUMBER)
@@ -32,7 +32,7 @@ public class OutputView {
 	private static String getFrameStatus(Frame frame) {
 		List<Pitch> pitches = frame.getPitches();
 		String displayValue = pitches.stream()
-				.map(pitch -> pitch.getDisplayValue())
+				.map(Pitch::getDisplayValue)
 				.collect(Collectors.joining("|"));
 		return displayValue;
 	}
