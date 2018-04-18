@@ -37,7 +37,7 @@ public class JudgeSymbolTest {
         Frame frame = scoreBoard.getNowFrame();
         scoreBoard.throwing(DownPin.of(10));
 
-        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame, 0));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class JudgeSymbolTest {
         Frame frame = scoreBoard.getNowFrame();
         scoreBoard.throwing(DownPin.of(3));
 
-        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame, 0));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class JudgeSymbolTest {
         scoreBoard.throwing(DownPin.of(6));
         scoreBoard.throwing(DownPin.of(4));
 
-        assertEquals(BowlSymbol.SPARE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.SPARE, JudgeSymbol.judge(frame, 1));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class JudgeSymbolTest {
         scoreBoard.throwing(DownPin.of(10));
         scoreBoard.throwing(DownPin.of(10));
 
-        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame, 1));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class JudgeSymbolTest {
         scoreBoard.throwing(DownPin.of(2));
         scoreBoard.throwing(DownPin.of(3));
 
-        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame, 1));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class JudgeSymbolTest {
         scoreBoard.throwing(DownPin.of(0));
         scoreBoard.throwing(DownPin.of(10));
 
-        assertEquals(BowlSymbol.SPARE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.SPARE, JudgeSymbol.judge(frame, 2));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class JudgeSymbolTest {
         scoreBoard.throwing(DownPin.of(10));
         scoreBoard.throwing(DownPin.of(10));
 
-        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame, 2));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class JudgeSymbolTest {
         scoreBoard.throwing(DownPin.of(8));
         scoreBoard.throwing(DownPin.of(10));
 
-        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame, 2));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class JudgeSymbolTest {
         scoreBoard.throwing(DownPin.of(8));
         scoreBoard.throwing(DownPin.of(2));
 
-        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame, 2));
     }
 
     @Test
@@ -126,7 +126,7 @@ public class JudgeSymbolTest {
         normalBoard.throwing(DownPin.of(10));
         Frame frame = normalBoard.getPreFrame();
 
-        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.STRIKE, JudgeSymbol.judge(frame, 0));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class JudgeSymbolTest {
         normalBoard.throwing(DownPin.of(3));
         Frame frame = normalBoard.getNowFrame();
 
-        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame, 0));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class JudgeSymbolTest {
         normalBoard.throwing(DownPin.of(7));
         Frame frame = normalBoard.getPreFrame();
 
-        assertEquals(BowlSymbol.SPARE, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.SPARE, JudgeSymbol.judge(frame, 1));
     }
 
     @Test
@@ -170,7 +170,7 @@ public class JudgeSymbolTest {
         normalBoard.throwing(DownPin.of(4));
         Frame frame = normalBoard.getPreFrame();
 
-        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame));
+        assertEquals(BowlSymbol.NORMAL, JudgeSymbol.judge(frame, 1));
     }
 }
 

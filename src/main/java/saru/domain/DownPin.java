@@ -18,11 +18,11 @@ public class DownPin {
         return new DownPin(downPinCount);
     }
 
-    public int addWith(DownPin downPin) {
+    int addWith(DownPin downPin) {
         return this.downPinCount + downPin.downPinCount;
     }
 
-    public int getDownPinCount() {
+    int getDownPinCount() {
         return downPinCount;
     }
 
@@ -41,5 +41,11 @@ public class DownPin {
     @Override
     public int hashCode() {
         return Objects.hash(downPinCount);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s", downPinCount);
+        // join
     }
 }

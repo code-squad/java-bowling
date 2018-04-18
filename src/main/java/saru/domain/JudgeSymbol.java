@@ -15,30 +15,29 @@ public class JudgeSymbol {
         // empty
     }
 
-    public static BowlSymbol judge(Frame frame) {
+    public static BowlSymbol judge(Frame frame, int index) {
         if (frame.getMaxBallCount() == LAST_FRAME_INDEX) {
-            return getLastFrameBowlSymbol(frame);
+            return getLastFrameBowlSymbol(frame, index);
         }
 
-        return getNormalFrameBowlSymbol(frame);
+        return getNormalFrameBowlSymbol(frame, index);
     }
 
-    private static BowlSymbol getLastFrameBowlSymbol(Frame frame) {
+    private static BowlSymbol getLastFrameBowlSymbol(Frame frame, int index) {
         List<DownPin> downPins = frame.copyDownPins();
 
-        // TODO 일단 라스트프레임 먼저
-        switch (downPins.size()) {
-            case FIRST_INDEX + 1:
-                if (dowinPinFirstTen(downPins)) return BowlSymbol.STRIKE;
+        switch (index) {
+            case FIRST_INDEX:
+                if (downPinFirstTen(downPins)) return BowlSymbol.STRIKE;
 
                 return BowlSymbol.NORMAL;
-            case SECOND_INDEX + 1:
+            case SECOND_INDEX:
                 if (downPinFirstTenSecondTen(downPins)) return BowlSymbol.STRIKE;
 
                 if (downPinUntilSecondSumTen(downPins)) return BowlSymbol.SPARE;
 
                 return BowlSymbol.NORMAL;
-            case THIRD_INDEX + 1:
+            case THIRD_INDEX:
                 if (downPinSecondTenThirdTen(downPins)) return BowlSymbol.STRIKE;
 
                 if (downPinFirstNotTenUntilSecondSumTenThirdTen(downPins)) return BowlSymbol.STRIKE;
@@ -92,23 +91,23 @@ public class JudgeSymbol {
         return false;
     }
 
-    private static boolean dowinPinFirstTen(List<DownPin> downPins) {
+    private static boolean downPinFirstTen(List<DownPin> downPins) {
         if (downPins.get(FIRST_INDEX).getDownPinCount() == MAX_DOWN_PIN) {
             return true;
         }
         return false;
     }
 
-    private static BowlSymbol getNormalFrameBowlSymbol(Frame frame) {
+    private static BowlSymbol getNormalFrameBowlSymbol(Frame frame, int index) {
         List<DownPin> downPins = frame.copyDownPins();
-        switch (downPins.size()) {
-            case FIRST_INDEX + 1:
+        switch (index) {
+            case FIRST_INDEX:
                 if (downPins.get(0).getDownPinCount() == 10) {
                     return BowlSymbol.STRIKE;
                 }
 
                 return BowlSymbol.NORMAL;
-            case SECOND_INDEX + 1:
+            case SECOND_INDEX:
                 if (downPins.get(0).addWith(downPins.get(1)) == 10) {
                     return BowlSymbol.SPARE;
                 }

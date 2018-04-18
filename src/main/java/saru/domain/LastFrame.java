@@ -1,5 +1,10 @@
 package saru.domain;
 
+import saru.BowlSymbol;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class LastFrame extends Frame {
     private static final int MAX_BALL_COUNT = 3;
     private static final int FIRST_THROW = 1;
@@ -85,5 +90,24 @@ public class LastFrame extends Frame {
 
     private boolean checkSumUntilTwoIsUnderTen() {
         return getFirstElementDownPins().addWith(getSecondElementDownPins()) < MAX_DOWN_PIN;
+    }
+
+    @Override
+    public String toString() {
+        List<DownPin> downPins = copyDownPins();
+        List<String> strList = new ArrayList<>();
+
+        for (int i = 0; i < downPins.size(); i++) {
+            BowlSymbol bowlSymbol = JudgeSymbol.judge(this, i);
+
+            if (bowlSymbol != BowlSymbol.NORMAL) {
+                strList.add(bowlSymbol.getSymbol());
+                continue;
+            }
+
+            strList.add(downPins.get(i).toString());
+        }
+
+        return String.join("|", strList);
     }
 }

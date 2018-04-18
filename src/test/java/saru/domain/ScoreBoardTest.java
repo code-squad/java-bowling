@@ -26,7 +26,6 @@ public class ScoreBoardTest {
     @Test
     public void 다음프레임으로넘기기() {
         scoreBoard.throwing(DownPin.of(10));
-        //scoreBoard.nextFrame();
         assertEquals(1, scoreBoard.getNowFrameIndex());
     }
 

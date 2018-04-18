@@ -46,6 +46,7 @@ public abstract class Frame {
     DownPin getNowDownPin() {
         return downPins.get(downPins.size() - 1);
     }
+
     abstract boolean checkThrowingPossible();
 
     boolean checkFull() {
@@ -70,11 +71,11 @@ public abstract class Frame {
         return !checkFull();
     }
 
-    public List<DownPin> copyDownPins() {
+    List<DownPin> copyDownPins() {
         return new ArrayList<>(downPins);
     }
 
-    public int getMaxBallCount() {
+    int getMaxBallCount() {
         return maxBallCount;
     }
 }
