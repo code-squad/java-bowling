@@ -22,20 +22,30 @@ public class FrameScore {
     }
 
     public void roll(int num) throws IllegalArgumentException {
-        if (isOverRecordPin(num)) {
-            throw new IllegalArgumentException(Pin.MAX + "개 까지만 입력가능합니다.");
-        }
-
+        checkOverRecord(num);
         if (!isBonusFinish()) {
             pins.add(new Pin(num));
             leftNumber--;
         }
         changeFrameStatus();
+        checkLeftNumber();
+    }
+
+    private void checkOverRecord(int num) throws IllegalArgumentException {
+        if (isOverRecordPin(num)) {
+            throw new IllegalArgumentException(Pin.MAX + "개 까지만 입력가능합니다.");
+        }
     }
 
     private void changeFrameStatus() {
         if (!status.isFinish()) {
             status = status.changeStatus(getTotalScore(), leftNumber);
+        }
+    }
+
+    private void checkLeftNumber() {
+        if (status.isBonus() && isBeforeBonusRoll()) {
+            leftNumber++;
         }
     }
 

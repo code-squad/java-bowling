@@ -17,8 +17,7 @@ public class NormalFrame extends Frame {
     @Override
     Frame doRecord(FrameScore score, int num) throws IllegalArgumentException {
         score.roll(num);
-        if (score.isRegularFinish() && score.isBeforeBonusRoll()) {
-            score.increaseLeftCount();
+        if (isFinish()) {
             nextFrame = Frame.of(getFrameNum() + 1);
             return nextFrame;
         }

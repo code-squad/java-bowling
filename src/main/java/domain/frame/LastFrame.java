@@ -18,9 +18,6 @@ public class LastFrame extends Frame {
     @Override
     Frame doRecord(FrameScore score, int num) throws IllegalArgumentException {
         recordPin(score, num);
-        if (score.isRegularFinish() && score.isBeforeBonusRoll() && bonusPins.isEmpty()) {
-            score.increaseLeftCount();
-        }
         return this;
     }
 
