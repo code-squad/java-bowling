@@ -14,7 +14,7 @@ public class SecondBowl extends State {
     }
 
     public Score createScore() {
-        return Score.ofNormal(first + second);
+        return Score.ofSecond(first + second);
 
     }
 }

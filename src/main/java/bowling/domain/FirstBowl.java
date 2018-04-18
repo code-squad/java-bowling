@@ -16,6 +16,6 @@ public class FirstBowl extends State {
     }
 
     public Score createScore() {
-        return Score.ofNormal(first);
+        return Score.ofFirst(first);
     }
 }

@@ -11,13 +11,12 @@ public class LastFrame {
 
     public int getScore(Frame nextFrame) {
         if (score.canBeCalculated()) {
-            return score.getScore();
+            return score.getScore() + nextframe.calculateAdditionalScore();
         }
         return score.getScore() + nextFrame.calculateAdditionalScore();
     }
 
-    public int calculateAdditionalScore(Frame nextFrame) {
-        if()
+    public int calculateAdditionalScore() {
         return score.getScore();
     }
 }

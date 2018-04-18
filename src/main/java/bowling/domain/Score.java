@@ -17,7 +17,11 @@ public class Score {
         return new Score(10, 1);
     }
 
-    public static Score ofNormal(int score) {
+    public static Score ofFirst(int score) {
+        return new Score(score, 1);
+    }
+
+    public static Score ofSecond(int score) {
         return new Score(score, 0);
     }
 
@@ -30,9 +34,6 @@ public class Score {
     }
 
     public int getScore() {
-        if (!canBeCalculated()) {
-            throw new CannotBeCalculatedException();
-        }
         return score;
     }
 
