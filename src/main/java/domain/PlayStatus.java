@@ -1,14 +1,16 @@
 package domain;
 
-public enum FrameStatus {
-	STRIKE("X| "),
-	SPARE("%s|/"),
-	MISS("%s|%s"),
-	PLAYING("%s| ");
+public enum PlayStatus {
+	STRIKE("X"),
+	SPARE("/"),
+	MISS("-"),
+	GUTTER("-"),
+	OPEN("%d"),
+	NONE("%d");
 
 	private String displayFormat;
 
-	FrameStatus(String displayFormat) {
+	PlayStatus(String displayFormat) {
 		this.displayFormat = displayFormat;
 	}
 

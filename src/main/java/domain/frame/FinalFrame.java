@@ -1,5 +1,6 @@
 package domain.frame;
 
+import domain.PlayStatus;
 import domain.Pitch;
 
 import java.util.List;
@@ -14,7 +15,9 @@ public class FinalFrame extends Frame {
 	@Override
 	public List<Pitch> getPitches() {
 		List<Pitch> pitches = super.getPitches();
-		pitches.add(thirdPitch);
+		if(hasThirdPitch()) {
+			pitches.add(thirdPitch);
+		}
 		return pitches;
 	}
 

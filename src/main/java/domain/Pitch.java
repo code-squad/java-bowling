@@ -1,5 +1,7 @@
 package domain;
 
+import domain.frame.Frame;
+
 public class Pitch {
     private int pinCount;
     private int startPinCount;
@@ -20,7 +22,31 @@ public class Pitch {
         return startPinCount - pinCount == 0;
     }
 
-    public int getPinCount() {
-        return pinCount;
+    public PlayStatus getStatus() {
+        if(startPinCount == Frame.DEFAULT_START_PIN_COUNT) {
+            if(pinCount == 0) {
+                return PlayStatus.GUTTER;
+            }
+            
+            if(isClear()) {
+                return PlayStatus.STRIKE;
+            }
+            
+            return PlayStatus.NONE;
+        }
+        
+        if(pinCount == 0) {
+            return PlayStatus.MISS;
+        }
+        
+        if(isClear()) {
+            return PlayStatus.SPARE;
+        }
+        
+        return PlayStatus.OPEN;
+    }
+    
+    public String getDisplayValue() {
+        return String.format(getStatus().getDisplayFormat(), pinCount);
     }
 }

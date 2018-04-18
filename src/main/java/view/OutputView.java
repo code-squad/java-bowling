@@ -1,11 +1,12 @@
 package view;
 
 import domain.Pitch;
-import domain.FrameStatus;
+import domain.PlayStatus;
 import domain.frame.FinalFrame;
 import domain.frame.Frame;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class OutputView {
@@ -30,12 +31,9 @@ public class OutputView {
 
 	private static String getFrameStatus(Frame frame) {
 		List<Pitch> pitches = frame.getPitches();
-		String displayValue = String.format(frame.getStatus().getDisplayFormat(), pitches.stream()
-				.map(pitch -> pitch == null ? "" : pitch.getPinCount())
-				.toArray());
-		if(frame.isFinalFrame() && ((FinalFrame) frame).hasThirdPitch()) {
-			displayValue += "|" + (frame.isPinRemained() ? pitches.get(3).getPinCount() : FrameStatus.STRIKE.getDisplayFormat());
-		}
+		String displayValue = pitches.stream()
+				.map(pitch -> pitch.getDisplayValue())
+				.collect(Collectors.joining("|"));
 		return displayValue;
 	}
 }

@@ -1,7 +1,7 @@
 package domain.frame;
 
 import domain.Pitch;
-import domain.FrameStatus;
+import domain.PlayStatus;
 
 import java.util.*;
 
@@ -46,7 +46,10 @@ public abstract class Frame {
 	public List<Pitch> getPitches() {
 		List<Pitch> pitches = new ArrayList<>();
 		pitches.add(firstPitch);
-		pitches.add(secondPitch);
+		
+		if(hasSecondPitch()) {
+			pitches.add(secondPitch);
+		}
 		return pitches;
 	}
 
@@ -79,20 +82,13 @@ public abstract class Frame {
 		return nextFrame = new FinalFrame(firstPitch);
 	}
 	
-	public FrameStatus getStatus() {
-		if(!isComplete()) {
-			return FrameStatus.PLAYING;
-		}
-		
-		if(!hasSecondPitch()) {
-			return FrameStatus.STRIKE;
-		}
-		
-		if(isPinRemained()) {
-			return FrameStatus.MISS;
-		}
-		
-		return FrameStatus.SPARE;
+	public PlayStatus getStatus() {
+		return getLastPitch().getStatus();
+	}
+	
+	public Pitch getLastPitch() {
+		List<Pitch> pitches = getPitches();
+		return pitches.get(pitches.size() - 1);
 	}
 
 	public void resetPin() {

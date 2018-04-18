@@ -1,6 +1,6 @@
 package domain.frame;
 
-import domain.FrameStatus;
+import domain.PlayStatus;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,9 +55,9 @@ public class NormalFrameTest {
 	
 	@Test
 	public void getStatus테스트() {
-		assertThat(new NormalFrame(1, 10).getStatus()).isEqualTo(FrameStatus.STRIKE);
-		assertThat(new NormalFrame(1, 9).bowl(1).getStatus()).isEqualTo(FrameStatus.SPARE);
-		assertThat(new NormalFrame(1, 9).bowl(0).getStatus()).isEqualTo(FrameStatus.MISS);
-		assertThat(new NormalFrame(1, 9).getStatus()).isEqualTo(FrameStatus.PLAYING);
+		assertThat(new NormalFrame(1, 10).getStatus()).isEqualTo(PlayStatus.STRIKE);
+		assertThat(new NormalFrame(1, 9).bowl(1).getStatus()).isEqualTo(PlayStatus.SPARE);
+		assertThat(new NormalFrame(1, 9).bowl(0).getStatus()).isEqualTo(PlayStatus.MISS);
+		assertThat(new NormalFrame(1, 9).getStatus()).isEqualTo(PlayStatus.NONE);
 	}
 }
