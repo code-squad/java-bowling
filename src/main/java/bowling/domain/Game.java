@@ -2,7 +2,6 @@ package bowling.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import bowling.view.Print;
 
 public class Game {
 
@@ -24,34 +23,37 @@ public class Game {
 		this.oneBall = Pin.of();
 	}
 
-	public boolean addScore(int inputScore, int frameNum, String name) {
-		oneBall.addScore(inputScore);
-		updateScore(inputScore, oneBall, frameNum);
-		Print.printFrame(oneBall, name, frameNum, this);
-		return canNextFrame(frameNum, oneBall);
+	public Pin getOneBall() {
+		return oneBall;
 	}
 
-	private Boolean canNextFrame(int frameNum, Pin pin) {
-		if ((frameNum != Game.LAST_FRAME && (Pin.isStrike(pin.getPin(0)) || pin.size() == 2))
-				|| (frameNum == Game.LAST_FRAME && pin.checkNotThird())) {
-			addFrame(frameNum, oneBall);
+	public Pin addScore(int inputScore) {
+		oneBall.addScore(inputScore);
+		updateScore(inputScore);
+		return oneBall;
+	}
+
+	public Boolean canNextFrame(int frameNum) {
+		if ((frameNum != Game.LAST_FRAME && (Pin.isStrike(oneBall.getPin(0)) || oneBall.size() == 2))
+				|| (frameNum == Game.LAST_FRAME && oneBall.checkNotThird())) {
+			addFrame(frameNum);
 			resetPin();
 			return false;
 		}
 		return true;
 	}
 
-	private void updateScore(int inputScore, Pin pin, int frameNum) {
+	private void updateScore(int inputScore) {
 		for (int i = 0; i < frames.size(); i++) {
-			inputScore = canOnlyOneMoreCalculate(i, inputScore, pin);
+			inputScore = canOnlyOneMoreCalculate(i, inputScore);
 			canCalculateScore(i, inputScore);
 		}
 	}
 
-	private int canOnlyOneMoreCalculate(int i, int inputScore, Pin pin) {
+	private int canOnlyOneMoreCalculate(int i, int inputScore) {
 		if (frames.get(i).canOnlyOneMoreCalculate()) {
 			inputScore = calcInputScore(i, inputScore);
-			calcIsBeforeStrike(i, inputScore, pin);
+			calcIsBeforeStrike(i, inputScore);
 		}
 		return inputScore;
 	}
@@ -62,9 +64,9 @@ public class Game {
 		}
 	}
 
-	private void calcIsBeforeStrike(int i, int inputScore, Pin pin) {
+	private void calcIsBeforeStrike(int i, int inputScore) {
 		if (i > 0 && frames.get(i - 1).isStrike()) {
-			frames.get(i).updateScore(inputScore + pin.getPin(0));
+			frames.get(i).updateScore(inputScore + oneBall.getPin(0));
 		}
 	}
 
@@ -75,12 +77,12 @@ public class Game {
 		return inputScore;
 	}
 
-	public void addFrame(int frameNum, Pin pin) {
+	public void addFrame(int frameNum) {
 		if (frameNum == LAST_FRAME) {
-			frames.add(LastFrame.of(pin, beforeScore(frameNum)));
+			frames.add(LastFrame.of(oneBall, beforeScore(frameNum)));
 			return;
 		}
-		frames.add(NormalFrame.of(pin, beforeScore(frameNum)));
+		frames.add(NormalFrame.of(oneBall, beforeScore(frameNum)));
 	}
 
 	public int size() {

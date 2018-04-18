@@ -1,6 +1,7 @@
 package bowling;
 
 import bowling.domain.Game;
+import bowling.domain.Pin;
 import bowling.view.Input;
 import bowling.view.Print;
 
@@ -22,7 +23,9 @@ public class Main {
 
 	public static void throwBall(String name, int frameNum, Game game) {
 		for (int throwTime = 1; throwTime <= checkThrowRange(frameNum); throwTime++) {
-			if (!game.addScore(Input.inputThrowScore(frameNum), frameNum, name)) {
+			Pin pin = game.addScore(Input.inputThrowScore(frameNum));
+			Print.printFrame(pin, name, frameNum, game);
+			if (!game.canNextFrame(frameNum)) {
 				break;
 			}
 		}
