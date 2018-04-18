@@ -3,20 +3,18 @@ package view;
 import domain.Frame;
 import domain.LastFrame;
 import domain.NormalFrame;
-import domain.Pins;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.transform.Result;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ResultViewTest {
-    List<Frame> frames = new ArrayList<>();
+    private List<Frame> frames;
 
     @Before
     public void setup() {
+        frames = new ArrayList<>();
     }
 
     @Test
@@ -30,14 +28,19 @@ public class ResultViewTest {
 
     @Test
     public void lastFrame() {
+        frames = new ArrayList<>();
         for (int index = 0; index < 9; index++) {
-            Frame frame = new NormalFrame(index+1);
+            Frame frame = new NormalFrame(index + 1);
+            frame.throwing(1);
+            frame.throwing(9);
             frames.add(frame);
         }
-        Frame frame = new LastFrame(10);
-        frame.throwing(1);
-        frame.throwing(9);
-        frames.add(frame);
+
+        Frame lastFrame = frames.get(8).next();
+        lastFrame.throwing(9);
+        lastFrame.throwing(1);
+        frames.add(lastFrame);
+
         ResultView.printFrames(frames, "HTW");
     }
 }

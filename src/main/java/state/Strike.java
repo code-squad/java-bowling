@@ -2,6 +2,7 @@ package state;
 
 public class Strike extends State implements Cloneable {
     private static final String STRIKE = "X";
+    private static final int TEN_PINS = 10;
 
     public Strike() {
         super(true);
@@ -13,7 +14,7 @@ public class Strike extends State implements Cloneable {
     }
 
     public State throwing(int throwing) {
-        if (throwing == 10) {
+        if (throwing == TEN_PINS) {
             return new Strike();
         }
 

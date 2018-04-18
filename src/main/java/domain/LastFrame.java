@@ -8,10 +8,10 @@ import java.util.List;
 public class LastFrame extends Frame {
     private static final int FIRST_STATE = 0;
     private static final int MAX = 3;
-    private List<State> states = new ArrayList<>();
 
-    State state = new Ready();
-    int index;
+    private List<State> states = new ArrayList<>();
+    private State state = new Ready();
+    private int index;
 
     public LastFrame(int no) {
         super(no);
@@ -19,7 +19,7 @@ public class LastFrame extends Frame {
 
     @Override
     public void throwing(int throwing) {
-        state = updateStatus(throwing);
+        state = updateState(throwing);
         if (FirstBowl.isFirstBowl(state) || Strike.isStrike(state)) {
             states.add(state);
             return;
@@ -36,7 +36,7 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public State updateStatus(int throwing) {
+    public State updateState(int throwing) {
         return state.throwing(throwing);
     }
 

@@ -1,6 +1,7 @@
 package state;
 
 public class Ready extends State {
+    private static final int TEN_PINS = 10;
     private static final String EMPTY = "";
 
     public Ready() {
@@ -8,7 +9,7 @@ public class Ready extends State {
     }
 
     public State throwing(int throwing) {
-        if (throwing == 10) {
+        if (throwing == TEN_PINS) {
             return new Strike();
         }
         return new FirstBowl(throwing);

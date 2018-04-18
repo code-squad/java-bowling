@@ -3,17 +3,17 @@ package domain;
 import state.*;
 
 public class NormalFrame extends Frame {
-    State state = new Ready();
+    private State state = new Ready();
 
     public NormalFrame(int no) {
         super(no);
     }
 
     public void throwing(int throwing) {
-        state = updateStatus(throwing);
+        state = updateState(throwing);
     }
 
-    public State updateStatus(int throwing) {
+    public State updateState(int throwing) {
         return state.throwing(throwing);
     }
 

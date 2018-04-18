@@ -11,7 +11,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NormalFrameTest {
-    Scanner scanner;
+    private Scanner scanner;
 
     @Before
     public void setup() {
@@ -22,6 +22,13 @@ public class NormalFrameTest {
     public void throwing() {
         Frame frame = new NormalFrame(1);
         frame.throwing(10);
+    }
+
+    @Test
+    public void isEnd() {
+        Frame frame = new NormalFrame(1);
+        frame.throwing(5);
+        assertFalse(frame.isEnd());
     }
 
     @Test

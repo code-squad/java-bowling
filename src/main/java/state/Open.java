@@ -1,13 +1,12 @@
 package state;
 
-import domain.Pins;
-
 public class Open extends State implements Cloneable{
+    private static final int NO_PINS = 0;
     private static final String GUTTER = "-";
     private static final String PIPE = "|";
 
-    int first;
-    int second;
+    private final int first;
+    private final int second;
 
     public Open(int first, int second) {
         super(true);
@@ -19,10 +18,10 @@ public class Open extends State implements Cloneable{
     public String printState() {
         String first = String.valueOf(this.first);
         String second = String.valueOf(this.second);
-        if (this.first == 0) {
+        if (this.first == NO_PINS) {
             first = GUTTER;
         }
-        if (this.second == 0) {
+        if (this.second == NO_PINS) {
             second = GUTTER;
         }
         return first + PIPE + second;

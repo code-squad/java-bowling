@@ -4,9 +4,11 @@ public class Spare extends State {
     private static final String PIPE = "|";
     private static final String SPARE = "/";
     private static final String GUTTER = "-";
+    private static final int TEN_PINS = 10;
+    private static final int NO_PINS = 0;
 
-    int first;
-    int second;
+    private final int first;
+    private final int second;
 
     public Spare(int first, int second) {
         super(true);
@@ -17,14 +19,14 @@ public class Spare extends State {
     @Override
     public String printState() {
         String first = String.valueOf(this.first);
-        if (this.first == 0) {
+        if (this.first == NO_PINS) {
             first = GUTTER;
         }
         return first + PIPE + SPARE;
     }
 
     public State throwing(int throwing) {
-        if (throwing == 10) {
+        if (throwing == TEN_PINS) {
             return new Strike();
         }
         return new FirstBowl(throwing);

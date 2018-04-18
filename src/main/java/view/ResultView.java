@@ -9,7 +9,6 @@ public class ResultView {
     static final private String EMPTY_SCORE = "      |";
     static final private int MAX_FRAME = 10;
 
-
     public static void printFrames(List<Frame> frames, String name) {
         printScoreTitle();
         System.out.print(String.format("| %3s  |", name));
@@ -17,8 +16,9 @@ public class ResultView {
             System.out.print(String.format(" %-5s|", frames.get(index).printState()));
         }
         for (int index = 0; index < MAX_FRAME - frames.size(); index++) {
-            System.out.print("      |");
+            System.out.print(EMPTY_SCORE);
         }
+        System.out.println();
     }
 
     private static void printScoreTitle() {

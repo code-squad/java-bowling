@@ -3,6 +3,7 @@ package state;
 public class FirstBowl extends State {
     private static final String GUTTER = "-";
     private static final String PIPE = "|";
+    private static final int TEN_PINS = 10;
 
     private int falledPins;
 
@@ -12,7 +13,7 @@ public class FirstBowl extends State {
     }
 
     public State throwing(int throwing) {
-        if (falledPins + throwing == 10) {
+        if (falledPins + throwing == TEN_PINS) {
             return new Spare(falledPins, throwing);
         }
         return new Open(falledPins, throwing);

@@ -11,4 +11,12 @@ public class StateTest {
         State state2 = new Ready();
         assertTrue(state1.equals(state2));
     }
+
+    @Test
+    public void isEndAllState() {
+        State open = new Open(1,2);
+        State spare = new Spare(1,9);
+        State strike = new Strike();
+        assertTrue(open.isEnd() && spare.isEnd() && strike.isEnd());
+    }
 }
