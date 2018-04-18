@@ -26,14 +26,4 @@ public class FinalFrameTest {
         assertThat(new FinalFrame(8).bowl(1).isFinalFrame()).isEqualTo(true);
         assertThat(new FinalFrame(1).bowl(9).bowl(10).isFinalFrame()).isEqualTo(true);
     }
-    
-    @Test
-    public void hasThirdPitch테스트() {
-        assertThat(((FinalFrame)new FinalFrame(1).bowl(2)).hasThirdPitch()).isEqualTo(false);
-        assertThat(((FinalFrame)new FinalFrame(1).bowl(9).bowl(2)).hasThirdPitch()).isEqualTo(true);
-        assertThat(((FinalFrame)new FinalFrame(1).bowl(9).bowl(10)).hasThirdPitch()).isEqualTo(true);
-        assertThat(((FinalFrame)new FinalFrame(10).bowl(10)).hasThirdPitch()).isEqualTo(false);
-        assertThat(((FinalFrame)new FinalFrame(10).bowl(1).bowl(2)).hasThirdPitch()).isEqualTo(true);
-        assertThat(((FinalFrame)new FinalFrame(10).bowl(1).bowl(9)).hasThirdPitch()).isEqualTo(true);
-    }
 }

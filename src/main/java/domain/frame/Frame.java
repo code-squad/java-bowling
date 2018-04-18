@@ -1,17 +1,15 @@
 package domain.frame;
 
-import domain.Pitch;
+import domain.pitch.Pitch;
 import domain.PlayStatus;
-
-import java.util.*;
+import domain.pitch.Pitches;
 
 public abstract class Frame {
 	public static final int DEFAULT_START_PIN_COUNT = 10;
 	public static final int MIN_FRAME_NUMBER = 1;
 	public static final int MAX_FRAME_NUMBER = 10;
-	
-	private Pitch firstPitch;
-	private Pitch secondPitch;
+
+	private Pitches pitches;
 	private Frame nextFrame;
 	private int frameNumber;
 	
@@ -21,33 +19,15 @@ public abstract class Frame {
 		if(firstPitch > DEFAULT_START_PIN_COUNT) {
 			throw new IllegalArgumentException("10개 이상의 pinCount는 집계할 수 없습니다.");
 		}
-		this.firstPitch = new Pitch(DEFAULT_START_PIN_COUNT, firstPitch);
+		this.pitches = new Pitches(firstPitch);
 	}
 	
 	public int getFrameNumber() {
 		return frameNumber;
 	}
 
-	protected Pitch getFirstPitch() {
-		return firstPitch;
-	}
-
-	protected Pitch getSecondPitch() {
-		return secondPitch;
-	}
-
-	public List<Pitch> getPitches() {
-		List<Pitch> pitches = new ArrayList<>();
-		pitches.add(firstPitch);
-		
-		if(hasSecondPitch()) {
-			pitches.add(secondPitch);
-		}
+	public Pitches getPitches() {
 		return pitches;
-	}
-
-	public boolean hasSecondPitch() {
-		return secondPitch != null;
 	}
 
 	public boolean isFinalFrame() {
@@ -55,12 +35,7 @@ public abstract class Frame {
 	}
 
 	public Frame bowl(int pinCount) {
-		secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
-		return this;
-	}
-	
-	public Frame resetAndBowl(int pinCount) {
-		secondPitch = new Pitch(DEFAULT_START_PIN_COUNT, pinCount);
+		pitches.add(pinCount);
 		return this;
 	}
 	
@@ -76,13 +51,8 @@ public abstract class Frame {
 	}
 	
 	public PlayStatus getStatus() {
-		return getLastPitch().getStatus();
+		return pitches.getLast().getStatus();
 	}
 	
-	public Pitch getLastPitch() {
-		List<Pitch> pitches = getPitches();
-		return pitches.get(pitches.size() - 1);
-	}
-
 	public abstract boolean isComplete();
 }

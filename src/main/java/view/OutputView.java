@@ -1,6 +1,6 @@
 package view;
 
-import domain.Pitch;
+import domain.pitch.Pitch;
 import domain.frame.Frame;
 
 import java.util.List;
@@ -28,10 +28,8 @@ public class OutputView {
 	}
 
 	private static String getFrameStatus(Frame frame) {
-		List<Pitch> pitches = frame.getPitches();
-		String displayValue = pitches.stream()
+		return frame.getPitches().stream()
 				.map(Pitch::getDisplayValue)
 				.collect(Collectors.joining("|"));
-		return displayValue;
 	}
 }

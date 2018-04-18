@@ -1,5 +1,6 @@
 package domain;
 
+import domain.pitch.Pitch;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

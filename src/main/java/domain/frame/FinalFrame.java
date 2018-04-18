@@ -1,38 +1,20 @@
 package domain.frame;
 
 import domain.PlayStatus;
-import domain.Pitch;
-
-import java.util.List;
 
 public class FinalFrame extends Frame {
-	private Pitch thirdPitch;
-	
 	public FinalFrame(int firstPitch) {
 		super(Frame.MAX_FRAME_NUMBER, firstPitch);
 	}
 	
 	@Override
-	public List<Pitch> getPitches() {
-		List<Pitch> pitches = super.getPitches();
-		if(hasThirdPitch()) {
-			pitches.add(thirdPitch);
-		}
-		return pitches;
-	}
-
-	public boolean hasThirdPitch() {
-		return thirdPitch != null;
-	}
-
-	@Override
 	public boolean isComplete() {
-		if(hasThirdPitch()) {
+		if(getPitches().has(3)) {
 			return true;
 		}
 		
-		if(hasSecondPitch()) {
-			PlayStatus secondPitchStatus = getSecondPitch().getStatus();
+		if(getPitches().has(2)) {
+			PlayStatus secondPitchStatus = getPitches().get(2).getStatus();
 			return secondPitchStatus == PlayStatus.OPEN
 					 || secondPitchStatus == PlayStatus.STRIKE;
 		}
@@ -46,14 +28,6 @@ public class FinalFrame extends Frame {
 			return this;
 		}
 		
-		if(!hasSecondPitch()) {
-			return getLastPitch().isClear() ? super.resetAndBowl(pinCount) : super.bowl(pinCount);
-		}
-
-		if(!hasThirdPitch()) {
-			thirdPitch = new Pitch(getLastPitch().isClear() ? DEFAULT_START_PIN_COUNT : getLastPitch().getRemainPinCount(), pinCount);
-		}
-
-		return this;
+		return super.bowl(pinCount);
 	}
 }

@@ -1,5 +1,6 @@
-package domain;
+package domain.pitch;
 
+import domain.PlayStatus;
 import domain.frame.Frame;
 
 public class Pitch {
