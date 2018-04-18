@@ -5,7 +5,6 @@ import domain.PlayStatus;
 
 import java.util.*;
 
-
 public abstract class Frame {
 	public static final int DEFAULT_START_PIN_COUNT = 10;
 	public static final int MIN_FRAME_NUMBER = 1;
