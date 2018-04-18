@@ -7,7 +7,7 @@ public class Pin {
 	public static final int STRIKE = 10;
 	private List<Integer> pins;
 
-	public Pin(List<Integer> pins) {
+	private Pin(List<Integer> pins) {
 		this.pins = pins;
 	}
 
@@ -22,9 +22,7 @@ public class Pin {
 
 	public boolean checkNotThird() {
 		if (pins.size() == 2) {
-			if (!(isStrike(pins.get(0)) || isSpare())) {
-				return true;
-			}
+			return !(isStrike(pins.get(0)) || isSpare());
 		}
 		return false;
 	}
@@ -49,32 +47,8 @@ public class Pin {
 		return totalScore() + beforeScore;
 	}
 
-	public String checkScore() {
-
-		if (pins.size() == 1) {
-			return checkFirstPin() + "  ";
-		}
-		return checkFirstPin() + "|" + checkSecondPin();
-	}
-
-	public String checkLastScore() {
-		if (pins.size() == 1) {
-			return checkFirstPin() + "|" + " ";
-		}
-
-		if (pins.size() == 2) {
-			return checkFirstPin() + "|" + checkSecondPin();
-		}
-
-		return checkFirstPin() + "|" + checkSecondPin() + "|" + checkThirdPin();
-	}
-
 	public static boolean isStrike(int pin) {
 		return pin == STRIKE;
-	}
-
-	public boolean isStrike() {
-		return isStrike(pins.get(0));
 	}
 
 	public boolean isSpare() {
@@ -85,34 +59,34 @@ public class Pin {
 		return second == STRIKE - first;
 	}
 
+	public String checkPin() {
+		if (pins.size() == 1) {
+			return checkFirstPin() + "  ";
+		}
+		if (pins.size() == 2) {
+			return checkFirstPin() + "|" + checkSecondPin(0);
+		}
+		return checkFirstPin() + "|" + checkSecondPin(0) + "|" + checkSecondPin(1);
+	}
+
 	public String checkFirstPin() {
-		if (isStrike()) {
+		if (isStrike(pins.get(0))) {
 			return "X";
 		}
 		return String.valueOf(pins.get(0));
 	}
 
-	public String checkSecondPin() {
-		if (isSpare()) {
+	public String checkSecondPin(int i) {
+		if (i == 1 && isSpare(pins.get(i - 1), pins.get(i))) {
+			return String.valueOf(pins.get(i + 1));
+		}
+		if (isSpare(pins.get(i), pins.get(i + 1))) {
 			return "/";
 		}
-		if (isStrike(pins.get(1))) {
+		if (isStrike(pins.get(i + 1))) {
 			return "X";
 		}
-		return String.valueOf(pins.get(1));
-	}
-
-	public String checkThirdPin() {
-		if (isSpare()) {
-			return String.valueOf(pins.get(2));
-		}
-		if (isSpare(pins.get(1), pins.get(2))) {
-			return "/";
-		}
-		if (isStrike(pins.get(2))) {
-			return "X";
-		}
-		return String.valueOf(pins.get(2));
+		return String.valueOf(pins.get(i + 1));
 	}
 
 }

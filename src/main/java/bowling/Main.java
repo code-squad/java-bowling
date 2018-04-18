@@ -1,14 +1,11 @@
 package bowling;
 
 import bowling.domain.Game;
-import bowling.domain.Pin;
 import bowling.view.Input;
 import bowling.view.Print;
 
 public class Main {
-
 	public static void main(String[] args) {
-
 		String name = Input.inputName();
 		Print.printBaseUpBoard();
 		Print.printBasePinBoard(name);
@@ -18,39 +15,23 @@ public class Main {
 
 	public static void gameStart(String name) {
 		Game game = Game.of();
-		for (int frameNum = 1; frameNum <= Print.LAST_FRAME; frameNum++) {
-			Pin pin = throwBall(name, frameNum, game);
-			game.addFrame(frameNum, pin);
+		for (int frameNum = 1; frameNum <= Game.LAST_FRAME; frameNum++) {
+			throwBall(name, frameNum, game);
 		}
 	}
 
-	public static Pin throwBall(String name, int frameNum, Game game) {
-		Pin pin = Pin.of();
-
-		int throwRange = 2;
-		if (frameNum == Print.LAST_FRAME) {
-			throwRange = 3;
-		}
-
-		for (int throwTime = 1; throwTime <= throwRange; throwTime++) {
-			int inputScore = Input.inputThrowScore(frameNum);
-			pin.addScore(inputScore);
-			game.updateScore(inputScore, pin, frameNum);
-			Print.printFrame(pin, name, frameNum, game);
-			if (!check(frameNum, pin)) {
-				return pin;
+	public static void throwBall(String name, int frameNum, Game game) {
+		for (int throwTime = 1; throwTime <= checkThrowRange(frameNum); throwTime++) {
+			if (!game.addScore(Input.inputThrowScore(frameNum), frameNum, name)) {
+				break;
 			}
 		}
-		return pin;
 	}
 
-	public static Boolean check(int frameNum, Pin pin) {
-		if (frameNum != Print.LAST_FRAME && pin.isStrike()) {
-			return false;
+	public static int checkThrowRange(int frameNum) {
+		if (frameNum == Game.LAST_FRAME) {
+			return 3;
 		}
-		if (frameNum == Print.LAST_FRAME && pin.checkNotThird()) {
-			return false;
-		}
-		return true;
+		return 2;
 	}
 }

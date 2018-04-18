@@ -21,24 +21,11 @@ public class LastFrameTest {
 	}
 
 	@Test
-	public void 마지막프레임_초구스트라이크() {
-		score.addScore(10);
-		assertThat(score.checkLastScore(), is("X|"));
-	}
-
-	@Test
-	public void 마지막프레임_초구스트라이크_이구() {
-		score.addScore(10);
-		score.addScore(5);
-		assertThat(score.checkLastScore(), is("X|5"));
-	}
-
-	@Test
 	public void 마지막프레임_초구스트라이크_이구_삼구() {
 		score.addScore(10);
 		score.addScore(5);
 		score.addScore(4);
-		assertThat(score.checkLastScore(), is("X|5|4"));
+		assertThat(score.checkPin(), is("X|5|4"));
 	}
 
 	@Test
@@ -46,14 +33,7 @@ public class LastFrameTest {
 		score.addScore(10);
 		score.addScore(5);
 		score.addScore(5);
-		assertThat(score.checkLastScore(), is("X|5|/"));
-	}
-
-	@Test
-	public void 마지막프레임_초구이구스트라이크() {
-		score.addScore(10);
-		score.addScore(10);
-		assertThat(score.checkLastScore(), is("X|X"));
+		assertThat(score.checkPin(), is("X|5|/"));
 	}
 
 	@Test
@@ -61,28 +41,62 @@ public class LastFrameTest {
 		score.addScore(10);
 		score.addScore(10);
 		score.addScore(10);
-		assertThat(score.checkLastScore(), is("X|X|X"));
+		assertThat(score.checkPin(), is("X|X|X"));
 	}
 
 	@Test
-	public void 마지막프레임_초구_이구스트라이크() {
+	public void 마지막프레임_초구_이구스페어_일반() {
 		score.addScore(5);
+		score.addScore(5);
+		score.addScore(5);
+		assertThat(score.checkPin(), is("5|/|5"));
+	}
+
+	@Test
+	public void 마지막프레임_점수계산_스트라이크_스페어() {
 		score.addScore(10);
-		assertThat(score.checkLastScore(), is("5|X"));
+		game.addFrame(1, score);
+		score = Pin.of();
+		score.addScore(10);
+		score.addScore(5);
+		score.addScore(5);
+		game.addFrame(10, score);
+		assertThat(game.getLastScore(), is(30));
 	}
 
 	@Test
-	public void 마지막프레임_초구_이구스페어() {
+	public void 마지막프레임_점수계산일반() {
+		score.addScore(10);
+		game.addFrame(1, score);
+		score = Pin.of();
+		score.addScore(4);
 		score.addScore(5);
-		score.addScore(5);
-		assertThat(score.checkLastScore(), is("5|/"));
+		game.addFrame(10, score);
+		assertThat(game.getLastScore(), is(19));
 	}
 
 	@Test
-	public void 마지막프레임_초구_이구() {
+	public void 마지막프레임_점수계산_스페어_일반() {
+		score.addScore(10);
+		game.addFrame(1, score);
+		score = Pin.of();
+		score.addScore(5);
 		score.addScore(5);
 		score.addScore(4);
-		assertThat(score.checkLastScore(), is("5|4"));
+		game.addFrame(10, score);
+		assertThat(game.getLastScore(), is(24));
+	}
+
+	@Test
+	public void 마지막프레임_점수계산_3연속스트라이크() {
+		score.addScore(10);
+		game.addFrame(1, score);
+		score = Pin.of();
+		score.addScore(10);
+		score.addScore(10);
+		score.addScore(10);
+		game.addFrame(10, score);
+		assertThat(game.getLastScore(), is(40));
 	}
 
 }

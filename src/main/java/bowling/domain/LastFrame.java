@@ -4,22 +4,22 @@ public class LastFrame extends Frame {
 
 	private int thirdDownPin;
 
-	public LastFrame(Pin pin, Score score) {
+	private LastFrame(Pin pin, Score score) {
 		super(pin.getPin(0), pin.getPin(1), score);
 	}
 
-	public LastFrame(Pin pin, int thirdDownPin, Score score) {
+	private LastFrame(Pin pin, int thirdDownPin, Score score) {
 		super(pin.getPin(0), pin.getPin(1), score);
 		this.thirdDownPin = thirdDownPin;
 	}
 
-	public LastFrame(int pin, Score score) {
+	private LastFrame(int pin, Score score) {
 		super(pin, score);
 	}
 
 	public static LastFrame of(Pin pin, int beforeScore) {
 
-		if (pin.isStrike()) {
+		if (Pin.isStrike(pin.getPin(0))) {
 			return new LastFrame(pin.getPin(0), Score.ofStrike(pin.beforePlusNow(beforeScore)));
 		}
 
@@ -41,13 +41,13 @@ public class LastFrame extends Frame {
 		if (isSpare()) {
 			return "/";
 		}
-		if (isStrkeSecondPin()) {
+		if (Pin.isStrike(getSecondDownPin())) {
 			return "X";
 		}
 		return String.valueOf(getSecondDownPin());
 	}
 
-	public String checkThirdPin() {
+	private String checkThirdPin() {
 		if (isSpare()) {
 			return String.valueOf(thirdDownPin);
 		}

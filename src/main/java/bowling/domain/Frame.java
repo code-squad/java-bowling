@@ -36,16 +36,12 @@ abstract public class Frame {
 		return Pin.isStrike(firstDownPin);
 	}
 
-	public Boolean isStrkeSecondPin() {
-		return Pin.isStrike(secondDownPin);
-	}
-
 	public Boolean isSpare() {
 		return Pin.isSpare(firstDownPin, secondDownPin);
 	}
 
 	public Boolean isSpare(int thirdDownPin) {
-		return thirdDownPin == Pin.STRIKE - secondDownPin;
+		return Pin.isSpare(secondDownPin, thirdDownPin);
 	}
 
 	public int getSecondDownPin() {

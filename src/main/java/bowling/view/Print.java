@@ -5,7 +5,6 @@ import bowling.domain.Pin;
 
 public class Print {
 
-	public static final int LAST_FRAME = 10;
 	private static final int MAX_RANGE = 10;
 
 	public static void printFrame(Pin pin, String name, int frameNum, Game game) {
@@ -60,7 +59,7 @@ public class Print {
 			printFirstFrame(pin);
 			return;
 		}
-		if (frameNum == LAST_FRAME) {
+		if (frameNum == Game.LAST_FRAME) {
 			printLastFrame(frameNum, game, pin);
 			return;
 		}
@@ -86,7 +85,7 @@ public class Print {
 
 	public static void printLastFrame(int frameNum, Game game, Pin pin) {
 		printBeforeFrame(game);
-		System.out.print("|   " + pin.checkLastScore() + "    ");
+		System.out.print("|   " + pin.checkPin() + "    ");
 		System.out.print("|\n");
 	}
 
@@ -99,7 +98,7 @@ public class Print {
 	}
 
 	public static void printPin(Pin pin) {
-		System.out.print("|   " + pin.checkScore() + "    ");
+		System.out.print("|   " + pin.checkPin() + "    ");
 	}
 
 	public static void printScore(int score) {
@@ -119,7 +118,7 @@ public class Print {
 		for (int i = 1; i < MAX_RANGE; i++) {
 			System.out.print("|    " + "0" + i + "    ");
 		}
-		System.out.print("|   " + LAST_FRAME + "     ");
+		System.out.print("|   " + Game.LAST_FRAME + "     ");
 		System.out.print("|\n");
 	}
 
