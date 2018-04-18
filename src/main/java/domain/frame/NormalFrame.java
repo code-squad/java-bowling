@@ -19,7 +19,7 @@ public class NormalFrame extends Frame {
         score.roll(num);
         if (score.isRegularFinish() && score.isBeforeBonusRoll()) {
             score.increaseLeftCount();
-            nextFrame = Frame.of(frameNum + 1);
+            nextFrame = Frame.of(getFrameNum() + 1);
             return nextFrame;
         }
         return this;

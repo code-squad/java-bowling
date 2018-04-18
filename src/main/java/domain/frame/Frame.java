@@ -13,7 +13,7 @@ public abstract class Frame {
     public static final int REGULAR_COUNT = 2;
     public static final int CANNOT_CALC_SCORE_STATE = -1;
 
-    final int frameNum;
+    private final int frameNum;
     private FrameScore score;
 
     public Frame(int frameNum) {
