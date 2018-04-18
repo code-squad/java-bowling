@@ -6,8 +6,8 @@ import domain.Score;
 import java.util.ArrayList;
 import java.util.List;
 
-import static domain.CalculateStatus.DO;
-import static domain.CalculateStatus.NOT_YET;
+import static domain.BowlingUtils.totalScore;
+import static domain.CalculateStatus.*;
 
 public abstract class FrameStatus {
 
@@ -22,17 +22,13 @@ public abstract class FrameStatus {
         this.left = left;
     }
 
-    FrameStatus(int left, CalculateStatus calculateStatus) {
-        this.left = left;
-        this.calculateStatus = calculateStatus;
-    }
-
     public boolean isEnd() {
-        System.out.println("남은 시도 횟수 " + left);
         return left == 0;
     }
 
     public abstract void takeAdditionalFromPresent(FrameStatus frameStatus, List<Score> scores);
+
+    public abstract void takeAdditionalFromBefore(FrameStatus frameStatus, List<Score> scores);
 
     public boolean isOpen() {
         return this instanceof Open;
@@ -50,9 +46,19 @@ public abstract class FrameStatus {
         calculateStatus = DO;
     }
 
-    public void addScore(FrameStatus frameStatus, Score score) {
+    public void addWholeScores(FrameStatus frameStatus, List<Score> scores) {
         additionalScore.addAll(frameStatus.additionalScore);
-        additionalScore.add(score);
+        additionalScore.addAll(scores);
+    }
+
+    public void addScore(FrameStatus frameStatus, List<Score> score) {
+        if (frameStatus.additionalScore.size() > 1) {
+            additionalScore.add(frameStatus.additionalScore.get(1));
+            additionalScore.addAll(score);
+            return;
+        }
+        additionalScore.addAll(frameStatus.additionalScore);
+        additionalScore.addAll(score);
     }
 
     public void addScore(Score score) {
@@ -63,12 +69,30 @@ public abstract class FrameStatus {
         return calculateStatus == DO;
     }
 
+    public boolean isNotYet() {
+        return calculateStatus == NOT_YET;
+    }
+
+    public boolean isDone() {
+        return calculateStatus == DONE;
+    }
+
     public void changeNotYet() {
         calculateStatus = NOT_YET;
     }
 
-    public int calcTotal(Score score) {
-        return score.sumPrint(additionalScore);
+    public void changeDone() {
+        calculateStatus = DONE;
     }
 
+    public int calcTotal(List<Score> scores) {
+        List<Score> temp = new ArrayList<>();
+        temp.addAll(scores);
+        temp.addAll(additionalScore);
+        return totalScore(temp);
+    }
+
+    public void changeAddNotComplete() {
+        calculateStatus = BONUS_NOT_COMPLETE;
+    }
 }

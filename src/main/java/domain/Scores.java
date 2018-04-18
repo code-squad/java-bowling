@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static domain.BowlingUtils.totalScore;
 import static domain.Figure.FRAMEBAR;
+import static domain.Figure.SPARE;
 
 public class Scores {
 
@@ -26,39 +28,53 @@ public class Scores {
 
     public void assignStatus(int countOfPins) {
         scores.add(Score.of(countOfPins));
-        if (isStrike(scores)) {
+        System.out.printf("스코어가 추가되었으니 사이즈 증가 : %d\n", scores.size());
+        if (isStrikeCondition(scores)) {
+            System.out.println("스트라이크 상태 할당");
             frameStatus = Strike.of();
             return;
         }
-        if (isSpare(scores)) {
+        if (isSpareCondition(scores)) {
+            System.out.println("스트라이크 상태 할당");
             frameStatus = Spare.of();
             return;
         }
+        if (scores.size() == 2 && scores.get(1).isTen() || scores.size() == 2 && scores.get(0).isTen()) {
+            System.out.println("보너스 상태 할당");
+            frameStatus = Strike.of();
+            return;
+        }
+        if (scores.size() == 3) {
+            System.out.println("보너스 상태 할당");
+            frameStatus = Strike.of();
+            return;
+        }
+        System.out.println("오픈프레임 상태 할당");
         frameStatus = Open.of(2 - scores.size());
     }
 
     public boolean isEnd() {
+        if (frameStatus == null) {
+            System.out.println("frameStatus is null");
+            return false;
+        }
         return frameStatus.isEnd();
     }
 
-    private boolean isSpare(List<Score> scores) {
-        return scores.size() == 2 && totalScore(scores).isTen();
+    private boolean isSpareCondition(List<Score> scores) {
+        return scores.size() == 2 && totalScore(scores) == 10;
     }
 
-    private boolean isStrike(List<Score> scores) {
+    private boolean isStrikeCondition(List<Score> scores) {
         return scores.size() == 1 && scores.get(0).isTen();
-    }
-
-    private Score totalScore(List<Score> scores) {
-        int result = 0;
-        for (Score score : scores) {
-            result += score.getScore();
-        }
-        return Score.of(result);
     }
 
     public void takeFromPresent(Scores presentScores) {
         frameStatus.takeAdditionalFromPresent(presentScores.frameStatus, presentScores.scores);
+    }
+
+    public void takeFromBefore(Scores beforeScores) {
+        frameStatus.takeAdditionalFromBefore(beforeScores.frameStatus, beforeScores.scores);
     }
 
     public void changeDo() {
@@ -77,11 +93,15 @@ public class Scores {
         return frameStatus.isSpare();
     }
 
-    boolean isValidScore(final int score) {
-        return isValidScoreToTotalScore(score, 0);
+    public boolean isStrike() {
+        return frameStatus.isStrike();
     }
 
-    boolean isValidScoreToTotalScore(final int score, final int compareIndex) {
+    public boolean isOpen() {
+        return frameStatus.isOpen();
+    }
+
+    boolean isValidScore(final int score, int compareIndex) {
         if (compareIndex == 0) {
             return Score.of().isValidAdditionScore(score);
         }
@@ -92,10 +112,15 @@ public class Scores {
         return scores.stream().map(Score::toString).collect(Collectors.joining(FRAMEBAR.toString()));
     }
 
+    public String spareString() {
+        return scores.get(0).toString() + FRAMEBAR + SPARE;
+    }
+
     public int getTotalScore() {
         if (frameStatus == null) {
             return 0;
         }
-        return frameStatus.calcTotal(totalScore(scores));
+        return frameStatus.calcTotal(scores);
     }
+
 }

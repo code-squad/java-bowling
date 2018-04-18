@@ -2,6 +2,8 @@ import domain.User;
 import view.InputView;
 import view.ResultView;
 
+import java.util.Arrays;
+
 public class Main {
 
     private static User user;
@@ -23,6 +25,7 @@ public class Main {
             user.shot(InputView.getNumber());
         } catch (IllegalArgumentException e) {
             System.out.println("프레임 당 합쳐서 10을 넘길 수 없습니다!!");
+            System.err.println(Arrays.toString(e.getStackTrace()));
             userShotOnce(user);
         }
     }

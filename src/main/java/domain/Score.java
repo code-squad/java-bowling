@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.List;
 import java.util.Objects;
 
 import static domain.Figure.STRIKE;
@@ -76,20 +75,9 @@ public class Score {
         return Integer.toString(score);
     }
 
-    public boolean isBonusOverThirty() {
-        return score + 10 >= 30;
-    }
-
     public void sum(int i) {
         score += i;
     }
 
-    public int sumPrint(List<Score> additionalScore) {
-        int result = score;
-        for (Score addScore : additionalScore) {
-            result += addScore.score;
-        }
-        return result;
-    }
 }
 

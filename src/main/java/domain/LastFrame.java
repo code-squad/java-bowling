@@ -5,6 +5,7 @@ import java.util.Objects;
 public class LastFrame extends Frame {
 
     private boolean bonus;
+    private int count = 0;
 
     private LastFrame() {
         super();
@@ -18,42 +19,45 @@ public class LastFrame extends Frame {
     public void trying(final int score) {
         if (!isValidScore(score))
             throw new IllegalArgumentException("잘못된 입력입니다.");
+        assign(score);
         if (hasBonusTry()) {
-            addBonus(score);
-            return;
+            addBonus();
         }
-        addition(score);
+        count++;
     }
 
-    private void addBonus(int score) {
-        if (!isValidBonusScore(score)) {
-            throw new IllegalArgumentException("10, 8, 10 이런 점수는 안됩니다. 10, 8 쳤으면 남은 핀 갯수는 2개입니다.");
-        }
+    private void addBonus() {
         bonus = true;
-        addition(score);
-    }
-
-    private boolean isValidBonusScore(int score) {
-        if (isStrike(1)) return true;
-        return isValidScoreToTotalScore(score, 1);
     }
 
     @Override
     public boolean isValidScore(final int score) {
-        try {
-            return hasBonusTry() || isStrike(0) || isValidScoreToTotalScore(score, 0);
-        } catch (RuntimeException e) {
+        if (count == 0) {
             return true;
         }
+        if (count == 1 && bonus) {
+            return true;
+        }
+        if (count == 2) {
+            if (isSpare()) return true;
+            if (isStrike()) return true;
+            return isValidToTotalScore(score, 1);
+        }
+        return true;
     }
 
     private boolean hasBonusTry() {
-        return isSpare() || (isTrySecond() && isStrike(0));
+        return isSpare() || isStrike();
     }
 
     @Override
     public boolean isFrameEnd() {
-        return bonus || isTrySecond() && !isSpare() && !isStrike(0);
+        try {
+            return isOpen() && count == 2 && !bonus || count == 3;
+        } catch (RuntimeException e) {
+            return false;
+        }
+
     }
 
     @Override
@@ -69,4 +73,5 @@ public class LastFrame extends Frame {
 
         return Objects.hash(bonus);
     }
+
 }
