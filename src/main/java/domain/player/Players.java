@@ -16,9 +16,17 @@ public class Players {
         if (players.isEmpty()) {
             throw new IllegalArgumentException("1명 이상은 플레이해야합니다.");
         }
+
+        if (checkDuplicateName(players)) {
+            throw new IllegalArgumentException("중복된 별명이 존재합니다.");
+        }
         this.players = players;
         currentPlayerIdx = 0;
         currentFrameNum = 1;
+    }
+
+    public static boolean checkDuplicateName(List<Player> players) {
+        return Player.isDuplicateName(players);
     }
 
     public void roll(int num) throws IllegalArgumentException {

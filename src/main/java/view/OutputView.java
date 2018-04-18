@@ -10,13 +10,8 @@ import java.util.List;
 
 public class OutputView {
 
-    public static void printBoards(Players players) {
-
-    }
-
-    public static void printBoard(Player player) {
-        Board board = player.getBoard();
-        System.out.println(getTopMessage() + getResultMessage(player.getName(), board.getResultMessages()) + getResultScore(board.getResultsScores()));
+    public static void printBoards(Boards boards) {
+        System.out.println(getTopMessage() + getBoardMessage(boards));
     }
 
     private static String getTopMessage() {
@@ -36,7 +31,19 @@ public class OutputView {
         return String.valueOf("0" + frameNum);
     }
 
-    private static String getResultMessage(String name, List<String> resultMessages) {
+    private static String getBoardMessage(Boards boards) {
+        List<String> playerNameList = boards.getPlayerNameList();
+        StringBuilder builder = new StringBuilder();
+        for (String name : playerNameList) {
+            builder.append(getResultMessage(boards, name));
+            builder.append(getResultScore(boards, name));
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
+    private static String getResultMessage(Boards boards, String name) {
+        List<String> resultMessages = boards.getResultMessage(name);
         StringBuilder builder = new StringBuilder("|" + fillArea(name) + "|");
         for (String resultMessage : resultMessages) {
             builder.append(fillArea(resultMessage));
@@ -47,7 +54,8 @@ public class OutputView {
         return builder.toString();
     }
 
-    private static String getResultScore(List<Integer> resultScores) {
+    private static String getResultScore(Boards boards, String name) {
+        List<Integer> resultScores = boards.getResultScore(name);
         StringBuilder builder = new StringBuilder("|" + fillArea("") + "|");
         for (Integer resultScore : resultScores) {
             builder.append(fillArea(convertScore(resultScore)));
@@ -68,7 +76,6 @@ public class OutputView {
         if (score == Frame.CANNOT_CALC_SCORE_STATE) {
             return "";
         }
-
         return String.valueOf(score);
     }
 

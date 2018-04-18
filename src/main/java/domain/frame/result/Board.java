@@ -15,7 +15,7 @@ public class Board {
         results.add(result);
     }
 
-    public List<String> getResultMessages() {
+    public List<String> getResultMessage() {
         List<String> resultMessages = new ArrayList<>();
         for (FrameResult result : results) {
             resultMessages.add(result.getMessage());
@@ -23,7 +23,7 @@ public class Board {
         return resultMessages;
     }
 
-    public List<Integer> getResultsScores() {
+    public List<Integer> getResultScore() {
         List<Integer> resultScores = new ArrayList<>();
         for (FrameResult result : results) {
             resultScores.add(result.getScore());

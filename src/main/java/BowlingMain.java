@@ -16,7 +16,7 @@ public class BowlingMain {
     private static void doGame(Players players) {
         try {
             players.roll(getPinNum(players.getCurrentPlayer()));
-            OutputView.printBoards(players);
+            OutputView.printBoards(players.getBoards());
         } catch (IllegalArgumentException e) {
             InputView.printMessage(e.getMessage());
             doGame(players);

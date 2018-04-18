@@ -1,5 +1,9 @@
 package domain.player;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+
 public class PlayerName {
     public static final int LENGTH = 3;
     private String name;
@@ -29,7 +33,28 @@ public class PlayerName {
         return true;
     }
 
+    public static boolean isDuplicateName(List<PlayerName> playersName) {
+        return new HashSet<>(playersName).size() != playersName.size();
+    }
+
     public String getName() {
         return name;
+    }
+
+    public boolean isSameName(String checkName) {
+        return this.name.equals(checkName);
+    }
+
+    @Override
+    public boolean equals(Object otherPlayerName) {
+        if (this == otherPlayerName) return true;
+        if (otherPlayerName == null || getClass() != otherPlayerName.getClass()) return false;
+        PlayerName that = (PlayerName) otherPlayerName;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
