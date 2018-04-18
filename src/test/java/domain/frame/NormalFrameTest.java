@@ -30,15 +30,6 @@ public class NormalFrameTest {
 	}
 
 	@Test
-	public void isRemained테스트() {
-		assertThat(new NormalFrame(10, 9).isPinRemained()).isEqualTo(true);
-		assertThat(new NormalFrame(10, 10).isPinRemained()).isEqualTo(false);
-
-		assertThat(new NormalFrame(10, 1).bowl(2).isPinRemained()).isEqualTo(true);
-		assertThat(new NormalFrame(10, 1).bowl(9).isPinRemained()).isEqualTo(false);
-	}
-	
-	@Test
 	public void isFinalFrame테스트() {
 		assertThat(new NormalFrame(2, 8).isFinalFrame()).isEqualTo(false);
 		assertThat(new NormalFrame(3, 10).isFinalFrame()).isEqualTo(false);

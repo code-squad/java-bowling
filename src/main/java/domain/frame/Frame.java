@@ -15,7 +15,6 @@ public abstract class Frame {
 	private Pitch secondPitch;
 	private Frame nextFrame;
 	private int frameNumber;
-	private int remainedPinCount;
 	
 
 	public Frame(int frameNumber, int firstPitch) {
@@ -24,7 +23,6 @@ public abstract class Frame {
 			throw new IllegalArgumentException("10개 이상의 pinCount는 집계할 수 없습니다.");
 		}
 		this.firstPitch = new Pitch(DEFAULT_START_PIN_COUNT, firstPitch);
-		this.remainedPinCount = DEFAULT_START_PIN_COUNT - firstPitch;
 	}
 	
 	public int getFrameNumber() {
@@ -37,10 +35,6 @@ public abstract class Frame {
 
 	protected Pitch getSecondPitch() {
 		return secondPitch;
-	}
-
-	protected int getRemainedPinCount() {
-		return remainedPinCount;
 	}
 
 	public List<Pitch> getPitches() {
@@ -57,20 +51,20 @@ public abstract class Frame {
 		return secondPitch != null;
 	}
 
-	public boolean isPinRemained() {
-		return remainedPinCount > 0;
-	}
-
 	public boolean isFinalFrame() {
 		return frameNumber == MAX_FRAME_NUMBER;
 	}
 
 	public Frame bowl(int pinCount) {
-		secondPitch = new Pitch(remainedPinCount, pinCount);
-		remainedPinCount -= pinCount;
+		secondPitch = new Pitch(firstPitch.getRemainPinCount(), pinCount);
 		return this;
 	}
-
+	
+	public Frame resetAndBowl(int pinCount) {
+		secondPitch = new Pitch(DEFAULT_START_PIN_COUNT, pinCount);
+		return this;
+	}
+	
 	protected Frame createNextFrame(int firstPitch) {
 		if(frameNumber == MAX_FRAME_NUMBER) {
 			throw new IllegalArgumentException("마지막 프레임 이후에는 프레임을 생성할 수 없습니다.");
@@ -91,9 +85,5 @@ public abstract class Frame {
 		return pitches.get(pitches.size() - 1);
 	}
 
-	public void resetPin() {
-		remainedPinCount = DEFAULT_START_PIN_COUNT;
-	}
-	
 	public abstract boolean isComplete();
 }

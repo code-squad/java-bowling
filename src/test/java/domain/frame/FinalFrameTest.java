@@ -13,26 +13,12 @@ public class FinalFrameTest {
     @Test
     public void isComplete테스트() {
         assertThat(new FinalFrame(10).isComplete()).isEqualTo(false);
-        assertThat(new FinalFrame(10).bowl(2).isComplete()).isEqualTo(true);
+        assertThat(new FinalFrame(10).bowl(2).isComplete()).isEqualTo(false);
         assertThat(new FinalFrame(1).bowl(9).isComplete()).isEqualTo(false);
         assertThat(new FinalFrame(2).bowl(8).bowl(3).isComplete()).isEqualTo(true);
         assertThat(new FinalFrame(1).bowl(2).isComplete()).isEqualTo(true);
     }
 
-    @Test
-    public void isPinRemained테스트() {
-        assertThat(new FinalFrame(9).isPinRemained()).isEqualTo(true);
-        assertThat(new FinalFrame(10).isPinRemained()).isEqualTo(false);
-
-        assertThat(new FinalFrame(1).bowl(2).isPinRemained()).isEqualTo(true);
-        assertThat(new FinalFrame(1).bowl(9).isPinRemained()).isEqualTo(false);
-
-        assertThat(new FinalFrame(10).bowl(2).isPinRemained()).isEqualTo(true);
-        assertThat(new FinalFrame(10).bowl(10).isPinRemained()).isEqualTo(false);
-        assertThat(new FinalFrame(2).bowl(8).bowl(3).isPinRemained()).isEqualTo(true);
-        assertThat(new FinalFrame(2).bowl(8).bowl(10).isPinRemained()).isEqualTo(false);
-    }
-    
     @Test
     public void isFinalFrame테스트() {
         assertThat(new FinalFrame(8).isFinalFrame()).isEqualTo(true);

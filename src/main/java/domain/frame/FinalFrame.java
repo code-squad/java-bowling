@@ -26,22 +26,15 @@ public class FinalFrame extends Frame {
 	}
 
 	@Override
-	public boolean isPinRemained() {
-		if(hasThirdPitch()) {
-			return !thirdPitch.isClear();
-		}
-
-		return super.isPinRemained();
-	}
-
-	@Override
 	public boolean isComplete() {
 		if(hasThirdPitch()) {
 			return true;
 		}
-
+		
 		if(hasSecondPitch()) {
-			return !getSecondPitch().isClear();
+			PlayStatus secondPitchStatus = getSecondPitch().getStatus();
+			return secondPitchStatus == PlayStatus.OPEN
+					 || secondPitchStatus == PlayStatus.STRIKE;
 		}
 
 		return false;
@@ -49,16 +42,16 @@ public class FinalFrame extends Frame {
 
 	@Override
 	public Frame bowl(int pinCount) {
-		if(!isComplete() && !isPinRemained()) {
-			resetPin();
+		if(isComplete()) {
+			return this;
 		}
 		
 		if(!hasSecondPitch()) {
-			return super.bowl(pinCount);
+			return getLastPitch().isClear() ? super.resetAndBowl(pinCount) : super.bowl(pinCount);
 		}
 
 		if(!hasThirdPitch()) {
-			thirdPitch = new Pitch(getRemainedPinCount(), pinCount);
+			thirdPitch = new Pitch(getLastPitch().isClear() ? DEFAULT_START_PIN_COUNT : getLastPitch().getRemainPinCount(), pinCount);
 		}
 
 		return this;
