@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastFrame extends Frame {
-    private static final int SECOND_STATE = 1;
+    private static final int FIRST_STATE = 0;
+    private static final int MAX = 3;
     private List<State> states = new ArrayList<>();
 
     State state = new Ready();
     int index;
-//    State state1 = new Ready();
-//    State state2 = new Ready();
-//    State state3 = new Ready();
 
     public LastFrame(int no) {
         super(no);
@@ -24,17 +22,17 @@ public class LastFrame extends Frame {
         state = updateStatus(throwing);
         if (FirstBowl.isFirstBowl(state) || Strike.isStrike(state)) {
             states.add(state);
+            return;
         }
-        if (!FirstBowl.isFirstBowl(state)) {
-            try {
-                states.set(index, state.clone());
-                index++;
+        try {
+            states.set(index, state.clone());
+            index++;
+            if (!Open.isOpen(state)) {
                 state = new Ready();
-            } catch (CloneNotSupportedException e) {
-                e.getMessage();
             }
+        } catch (CloneNotSupportedException e) {
+            e.getMessage();
         }
-
     }
 
     @Override
@@ -44,13 +42,10 @@ public class LastFrame extends Frame {
 
     @Override
     public boolean isEnd() {
-        if (Open.isOpen(state)) {
+        if (Open.isOpen(state) || states.size() == MAX) {
             return true;
         }
-        if (states.size() > 1 && Spare.isSpare(states.get(SECOND_STATE))) {
-            return true;
-        }
-        if (states.size() == 3) {
+        if (Spare.isSpare(states.get(FIRST_STATE)) && states.size() == 2) {
             return true;
         }
         return false;

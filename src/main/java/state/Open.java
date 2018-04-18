@@ -3,6 +3,9 @@ package state;
 import domain.Pins;
 
 public class Open extends State implements Cloneable{
+    private static final String GUTTER = "-";
+    private static final String PIPE = "|";
+
     int first;
     int second;
 
@@ -14,12 +17,20 @@ public class Open extends State implements Cloneable{
 
     @Override
     public String printState() {
-        return first + "|" + second;
+        String first = String.valueOf(this.first);
+        String second = String.valueOf(this.second);
+        if (this.first == 0) {
+            first = GUTTER;
+        }
+        if (this.second == 0) {
+            second = GUTTER;
+        }
+        return first + PIPE + second;
     }
 
     @Override
     public State throwing(int throwing) {
-        return this;
+        throw new RuntimeException("Open 프레임에서는 더이상 투구할 수 없습니다.");
     }
 
     public static boolean isOpen(State state) {

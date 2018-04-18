@@ -36,7 +36,7 @@ public class NormalFrameTest {
     public void firstBowlState() {
         Frame frame = new NormalFrame(1);
         frame.throwing(4);
-        assertEquals("4|", frame.printState());
+        assertEquals("4", frame.printState());
     }
 
     @Test
@@ -51,6 +51,6 @@ public class NormalFrameTest {
     public void strikeState() {
         Frame frame = new NormalFrame(1);
         frame.throwing(10);
-        assertEquals("x", frame.printState());
+        assertEquals("X", frame.printState());
     }
 }

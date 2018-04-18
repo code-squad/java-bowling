@@ -1,13 +1,15 @@
 package state;
 
 public class Strike extends State implements Cloneable {
+    private static final String STRIKE = "X";
+
     public Strike() {
         super(true);
     }
 
     @Override
     public String printState() {
-        return "x";
+        return STRIKE;
     }
 
     public State throwing(int throwing) {

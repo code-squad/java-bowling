@@ -25,7 +25,7 @@ public class ResultViewTest {
         frame.throwing(5);
         frame.throwing(5);
         frames.add(frame);
-        ResultView.printFrames(frames);
+        ResultView.printFrames(frames, "HTW");
     }
 
     @Test
@@ -38,6 +38,6 @@ public class ResultViewTest {
         frame.throwing(1);
         frame.throwing(9);
         frames.add(frame);
-        ResultView.printFrames(frames);
+        ResultView.printFrames(frames, "HTW");
     }
 }

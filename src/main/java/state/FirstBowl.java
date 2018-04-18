@@ -1,6 +1,9 @@
 package state;
 
 public class FirstBowl extends State {
+    private static final String GUTTER = "-";
+    private static final String PIPE = "|";
+
     private int falledPins;
 
     public FirstBowl(int throwing) {
@@ -12,13 +15,16 @@ public class FirstBowl extends State {
         if (falledPins + throwing == 10) {
             return new Spare(falledPins, throwing);
         }
-
         return new Open(falledPins, throwing);
     }
 
     @Override
     public String printState() {
-        return falledPins + "|";
+        String falledPins = String.valueOf(this.falledPins);
+        if (this.falledPins == 0) {
+            falledPins = GUTTER;
+        }
+        return falledPins;
     }
 
     public static boolean isFirstBowl(State state) {

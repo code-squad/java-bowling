@@ -1,6 +1,8 @@
 package state;
 
 public class Ready extends State {
+    private static final String EMPTY = "";
+
     public Ready() {
         super(false);
     }
@@ -14,7 +16,7 @@ public class Ready extends State {
 
     @Override
     public String printState() {
-        return "";
+        return EMPTY;
     }
 
     public static boolean isReady(State state) {

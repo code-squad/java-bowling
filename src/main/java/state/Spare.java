@@ -3,6 +3,7 @@ package state;
 public class Spare extends State {
     private static final String PIPE = "|";
     private static final String SPARE = "/";
+    private static final String GUTTER = "-";
 
     int first;
     int second;
@@ -15,6 +16,10 @@ public class Spare extends State {
 
     @Override
     public String printState() {
+        String first = String.valueOf(this.first);
+        if (this.first == 0) {
+            first = GUTTER;
+        }
         return first + PIPE + SPARE;
     }
 

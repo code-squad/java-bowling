@@ -3,7 +3,9 @@ package state;
 import java.util.Objects;
 
 abstract public class State implements Statable, Cloneable{
-    boolean state;
+
+
+    private final boolean state;
 
     public State(boolean state) {
         this.state = state;
