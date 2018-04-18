@@ -46,12 +46,8 @@ public class FinalFrame extends Frame {
 
 	@Override
 	public Frame bowl(int pinCount) {
-		if(isComplete()) {
-			return this;
-		}
-
 		if(!hasSecondPitch() && !getFirstPitch().isClear()) {
-			setSecondPitch(new Pitch(getFirstPitch().getRemainPinCount(), pinCount));
+			super.bowl(pinCount);
 		}else {
 			thirdPitch = new Pitch(DEFAULT_START_PIN_COUNT , pinCount);
 		}

@@ -32,7 +32,15 @@ public class FinalFrameTest {
         assertThat(new FinalFrame(2).bowl(8).bowl(3).isPinRemained()).isEqualTo(true);
         assertThat(new FinalFrame(2).bowl(8).bowl(10).isPinRemained()).isEqualTo(false);
     }
-
+    
+    @Test
+    public void isFinalFrame테스트() {
+        assertThat(new FinalFrame(8).isFinalFrame()).isEqualTo(true);
+        assertThat(new FinalFrame(10).isFinalFrame()).isEqualTo(true);
+        assertThat(new FinalFrame(8).bowl(1).isFinalFrame()).isEqualTo(true);
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).isFinalFrame()).isEqualTo(true);
+    }
+    
     @Test
     public void hasThirdPitch테스트() {
         assertThat(((FinalFrame)new FinalFrame(2).bowl(8).bowl(3)).hasThirdPitch()).isEqualTo(true);

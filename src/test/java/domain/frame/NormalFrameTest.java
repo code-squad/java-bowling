@@ -36,6 +36,15 @@ public class NormalFrameTest {
 		assertThat(new NormalFrame(10, 1).bowl(2).isPinRemained()).isEqualTo(true);
 		assertThat(new NormalFrame(10, 1).bowl(9).isPinRemained()).isEqualTo(false);
 	}
+	
+	@Test
+	public void isFinalFrame테스트() {
+		assertThat(new NormalFrame(2, 8).isFinalFrame()).isEqualTo(false);
+		assertThat(new NormalFrame(3, 10).isFinalFrame()).isEqualTo(false);
+		assertThat(new NormalFrame(5, 9).bowl(1).isFinalFrame()).isEqualTo(false);
+		assertThat(new NormalFrame(6, 1).bowl(9).bowl(10).isFinalFrame()).isEqualTo(false);
+		assertThat(new NormalFrame(9, 1).bowl(9).bowl(10).isFinalFrame()).isEqualTo(true);
+	}
 
 	@Test
 	public void hasSecondPitch테스트() {

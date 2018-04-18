@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class OutputView {
-	public static void showStatusBoardView(String playerName, LinkedList<Frame> playedFrames) {
+	public static void showStatusBoardView(String playerName, List<Frame> playedFrames) {
 		StringBuilder headerBuilder = new StringBuilder("| NAME |");
 		StringBuilder statusBuilder = new StringBuilder(String.format("| %4s |", playerName));
 		
@@ -34,7 +34,7 @@ public class OutputView {
 		String displayValue = String.format(ResultType.resultOf(frame).getDisplayFormat(), pitches.stream()
 				.map(pitch -> pitch == null ? "" : pitch.getPinCount())
 				.toArray());
-		if(frame instanceof FinalFrame && ((FinalFrame) frame).hasThirdPitch()) {
+		if(frame.isFinalFrame() && ((FinalFrame) frame).hasThirdPitch()) {
 			displayValue += "|" + (frame.isPinRemained() ? pitches.get(3).getPinCount() : ResultType.STRIKE.getDisplayFormat());
 		}
 		return displayValue;

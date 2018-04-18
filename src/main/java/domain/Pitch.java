@@ -11,7 +11,7 @@ public class Pitch {
         this.startPinCount = startPinCount;
         this.pinCount = pinCount;
     }
-
+    
     public int getRemainPinCount() {
         return startPinCount - pinCount;
     }
