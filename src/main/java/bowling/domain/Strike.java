@@ -1,13 +1,32 @@
 package bowling.domain;
 
-public class Strike extends State {
+public class Strike extends Status {
 
-    public State bowl(int pins) {
+    public Status bowl(int pins) {
         return this;
     }
 
-    public Score createScore() {
-        return Score.ofStrike();
+    public void updateScore(Score score) {
+        score.updateScore(10);
+    }
 
+    public boolean isReady() {
+        return false;
+    }
+
+    public boolean isSpare() {
+        return false;
+    }
+
+    public boolean isStrike() {
+        return true;
+    }
+
+    public boolean isIncomplete() {
+        return false;
+    }
+
+    public boolean isComplete() {
+        return false;
     }
 }

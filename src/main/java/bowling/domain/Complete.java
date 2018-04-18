@@ -1,28 +1,28 @@
 package bowling.domain;
 
-public class Spare extends Status {
+public class Complete extends Status {
     private final int first;
     private final int second;
 
-    public Spare(int first, int pins) {
+    public Complete(int first, int pins) {
         this.first = first;
         this.second = pins;
-    }
-
-    public void updateScore(Score score) {
-        score.updateScore(10);
-    }
-
-    public boolean isReady() {
-        return false;
     }
 
     public Status bowl(int pins) {
         return this;
     }
 
+    public void updateScore(Score score) {
+        score.updateScore(first + second);
+    }
+
+    public boolean isReady() {
+        return false;
+    }
+
     public boolean isSpare() {
-        return true;
+        return false;
     }
 
     public boolean isStrike() {
@@ -34,6 +34,6 @@ public class Spare extends Status {
     }
 
     public boolean isComplete() {
-        return false;
+        return true;
     }
 }

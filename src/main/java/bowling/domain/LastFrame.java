@@ -1,22 +1,19 @@
 package bowling.domain;
 
-public class LastFrame {
-    private State state;
+public class LastFrame implements Frame {
+    private Status status;
     private Score score;
 
     public void bowl(int pins) {
-        state = state.bowl(pins);
-        score = state.createScore();
+        status = status.bowl(pins);
+        score = status.createScore();
     }
 
     public int getScore(Frame nextFrame) {
-        if (score.canBeCalculated()) {
-            return score.getScore() + nextframe.calculateAdditionalScore();
-        }
-        return score.getScore() + nextFrame.calculateAdditionalScore();
+        return score.getSum() + nextFrame.calculateAdditionalScore(status);
     }
 
-    public int calculateAdditionalScore() {
-        return score.getScore();
+    public int calculateAdditionalScore(Status status) {
+        return score.getSum();
     }
 }

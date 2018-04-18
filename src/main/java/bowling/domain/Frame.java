@@ -1,4 +1,10 @@
 package bowling.domain;
 
-public class Frame {
+public interface Frame {
+
+    void bowl(int pins);
+
+    int getScore(Frame nextFrame);
+
+    int calculateAdditionalScore(Status prevFrameStatus);
 }
