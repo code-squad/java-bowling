@@ -4,6 +4,14 @@ public class SecondBowl {
     private Integer pinsLeftFromPrevBowl;
     private Integer pinsDownFromThisBowl;
 
+    public Integer bowl(Integer pinsLeftFromPrevBowl, Integer pinsDownFromThisBowl) {
+        if (!isPlayed()) {
+            this.pinsLeftFromPrevBowl = pinsLeftFromPrevBowl;
+            return this.pinsDownFromThisBowl = pinsDownFromThisBowl;
+        }
+        return null;
+    }
+
     public boolean isPlayed() {
         return pinsDownFromThisBowl != null;
     }
@@ -12,11 +20,11 @@ public class SecondBowl {
         return isPlayed() && pinsDownFromThisBowl.equals(pinsLeftFromPrevBowl);
     }
 
-    public Integer bowl(int pinsLeftFromPrevBowl, int pinsDownFromThisBowl) {
-        if (isPlayed()) {
-            this.pinsLeftFromPrevBowl = pinsLeftFromPrevBowl;
-            return this.pinsDownFromThisBowl = pinsDownFromThisBowl;
-        }
-        return null;
+    public boolean isStrike() {
+        return isPlayed() && pinsLeftFromPrevBowl == null && pinsDownFromThisBowl == 10;
+    }
+
+    public int calculatePinsLeft() {
+        return pinsLeftFromPrevBowl - pinsDownFromThisBowl;
     }
 }

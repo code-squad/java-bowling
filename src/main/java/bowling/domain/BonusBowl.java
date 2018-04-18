@@ -1,26 +1,16 @@
 package bowling.domain;
 
 public class BonusBowl {
-    private Integer pinsLeftFromPrevBowl;
-    private Integer pinsDownFromThisBowl;
+    private Integer pinsDown;
 
-    public boolean isPlayed() {
-        return pinsDownFromThisBowl != null;
-    }
-
-    public boolean isStrike() {
-        return isPlayed() && pinsDownFromThisBowl == 10;
-    }
-
-    public boolean isSpare() {
-        return isPlayed() && pinsDownFromThisBowl.equals(pinsLeftFromPrevBowl);
-    }
-
-    public Integer bowl(int pinsLeftFromPrevBowl, int pinsDownFromThisBowl) {
-        if (isPlayed()) {
-            this.pinsLeftFromPrevBowl = pinsLeftFromPrevBowl;
-            return this.pinsDownFromThisBowl = pinsDownFromThisBowl;
+    public Integer bowl(Integer pinsDown) {
+        if (!isPlayed()) {
+            return this.pinsDown = pinsDown;
         }
         return null;
+    }
+
+    public boolean isPlayed() {
+        return pinsDown != null;
     }
 }
