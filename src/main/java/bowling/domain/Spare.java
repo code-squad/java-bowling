@@ -1,10 +1,10 @@
 package bowling.domain;
 
-public class SecondBowl extends State {
+public class Spare extends State {
     private final int first;
     private final int second;
 
-    public SecondBowl(int first, int pins) {
+    public Spare(int first, int pins) {
         this.first = first;
         this.second = pins;
     }
@@ -14,7 +14,6 @@ public class SecondBowl extends State {
     }
 
     public Score createScore() {
-        return Score.ofNormal(first + second);
-
+        return Score.ofSpare();
     }
 }

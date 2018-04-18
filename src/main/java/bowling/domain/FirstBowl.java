@@ -1,24 +1,21 @@
 package bowling.domain;
 
-public class FirstBowl {
-    private Integer pinsDown;
+public class FirstBowl extends State {
+    private final int first;
 
-    public Integer bowl(Integer pinsDown) {
-        if (!isPlayed()) {
-            return this.pinsDown = pinsDown;
+    public FirstBowl(int pins) {
+        this.first = pins;
+    }
+
+    @Override
+    public State bowl(int pins) {
+        if (first + pins == 10) {
+            return new Spare(first, pins);
         }
-        return null;
+        return new SecondBowl(first, pins);
     }
 
-    public boolean isPlayed() {
-        return pinsDown != null;
-    }
-
-    public boolean isStrike() {
-        return isPlayed() && pinsDown == 10;
-    }
-
-    public int calculatePinsLeft() {
-        return 10 - pinsDown;
+    public Score createScore() {
+        return Score.ofNormal(first);
     }
 }
