@@ -39,4 +39,12 @@ public class PlayersTest {
         players.roll(5);
         assertEquals(player2, players.getCurrentPlayer());
     }
+
+    @Test
+    public void 현재플레이어4() {
+        players.roll(10);
+        players.roll(10);
+        players.roll(9);
+        assertEquals(player1, players.getCurrentPlayer());
+    }
 }

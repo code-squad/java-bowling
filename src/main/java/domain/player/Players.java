@@ -3,7 +3,7 @@ package domain.player;
 import domain.frame.result.Board;
 import domain.frame.result.Boards;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public class Players {
         currentFrameNum = 1;
     }
 
-    public static boolean checkDuplicateName(List<Player> players) {
+    private static boolean checkDuplicateName(List<Player> players) {
         return Player.isDuplicateName(players);
     }
 
@@ -47,7 +47,7 @@ public class Players {
     private int calcFrameNum() {
         int lastPlayerIdx = players.size() - 1;
         Player lastPlayer = players.get(lastPlayerIdx);
-        if (currentPlayerIdx == lastPlayerIdx && lastPlayer.isFinishFrame(currentFrameNum)) {
+        if (lastPlayer.isFinishFrame(currentFrameNum)) {
             return currentFrameNum + 1;
         }
         return currentFrameNum;
@@ -62,7 +62,7 @@ public class Players {
     }
 
     public Boards getBoards() {
-        Map<Player, Board> boards = new HashMap<>();
+        Map<Player, Board> boards = new LinkedHashMap<>();
         players.forEach(player -> boards.put(player, player.getBoard()));
         return new Boards(boards);
     }

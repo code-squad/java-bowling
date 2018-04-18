@@ -51,7 +51,7 @@ public class FrameScore {
     }
 
     public String makeScoreMessage(Frame frame) {
-        if (!frame.isLast() || !frame.isFinish() || !status.isBonus()) {
+        if (!frame.isLast() || isBeforeBonusRoll()) {
             return status.convertScore(pins);
         }
         return status.convertScore(pins) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + makeLastFrameBonusMessage();

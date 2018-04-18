@@ -74,6 +74,14 @@ public class LastFrameTest {
     }
 
     @Test
+    public void 투구_스트라이크2_출력메세지() {
+        testFrame.roll(10);
+        testFrame.roll(5);
+        testFrame.refreshPinNum(testFrame);
+        assertEquals("X|5", testFrame.getResult(0).getMessage());
+    }
+
+    @Test
     public void 투구_스패어_출력메세지() {
         testFrame.roll(5);
         testFrame.roll(5);
