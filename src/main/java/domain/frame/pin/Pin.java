@@ -12,8 +12,12 @@ public class Pin {
         this.num = num;
     }
 
-    public static boolean isMax(int regularSum) {
-        return regularSum == MAX;
+    public static boolean isMax(int num) {
+        return num == MAX;
+    }
+
+    public boolean isTotalMax(int num) {
+        return this.num + num == MAX;
     }
 
     public int getNum() {
@@ -28,10 +32,24 @@ public class Pin {
         return this.num + num > MAX;
     }
 
+    public int getTotal(Pin otherPin) {
+        return this.num + otherPin.num;
+    }
+
+
+
+
+
+
+
+
+
+    @Deprecated
     public boolean isMax() {
         return this.num == MAX;
     }
 
+    @Deprecated
     public boolean isMax(Pin lastBonusPin) {
         return this.num + lastBonusPin.num == MAX;
     }

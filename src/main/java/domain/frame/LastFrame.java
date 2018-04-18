@@ -1,66 +1,24 @@
 package domain.frame;
 
-import domain.frame.pin.Pin;
 import domain.frame.result.Board;
 import domain.frame.result.FrameResult;
-import domain.frame.score.FrameScore;
-
-import java.util.Collections;
-import java.util.List;
+import domain.frame.result.Score;
+import domain.frame.status.FrameStatus;
 
 public class LastFrame extends Frame {
-    private BonusPins bonusPins = new BonusPins();
 
     public LastFrame(int frameNum) {
         super(frameNum);
     }
 
     @Override
-    Frame doRecord(FrameScore score, int num) throws IllegalArgumentException {
-        recordPin(score, num);
+    Frame createFrame(FrameStatus status) throws IllegalArgumentException {
         return this;
     }
 
-    private void recordPin(FrameScore score, int num) throws IllegalArgumentException {
-        if (!score.isRegularFinish()) {
-            score.roll(num);
-            return;
-        }
-        bonusPins.saveBonusPin(num);
-    }
-
     @Override
-    void doRefreshPinNum(Frame currentFrame, FrameScore score) {
-        score.rollBonusPins(this, this);
-    }
-
-    @Override
-    List<Integer> doGetRecentlyPinNums(Frame askFrame, FrameScore score, int amount) {
-        if (!askFrame.isLast()) {
-            return buildRecentlyPinNumsForNormal(score, amount);
-        }
-
-        if (bonusPins.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return buildRecentlyPinNumsForLast();
-    }
-
-    private List<Integer> buildRecentlyPinNumsForNormal(FrameScore score, int amount) {
-        if (!score.isPossibleGettingPins(amount)) {
-            return Collections.emptyList();
-        }
-        return score.getPins(amount);
-    }
-
-    private List<Integer> buildRecentlyPinNumsForLast() {
-        Pin bonusPin = bonusPins.getBonusPin();
-        return Collections.singletonList(bonusPin.getNum());
-    }
-
-    @Override
-    boolean doCheckFinish(FrameScore score) {
-        return score.isRegularFinish() && score.isBonusFinish();
+    boolean doCheckFinish(FrameStatus status) {
+        return status.isRegularFinish() && status.isBonusFinish();
     }
 
     @Override
@@ -69,8 +27,13 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    void addFrameResult(Board board, int baseScore) {
-        FrameResult result = getResult(baseScore);
+    void addFrameResult(Board board) {
+        FrameResult result = getResult();
         board.addResult(result);
+    }
+
+    @Override
+    Score doAddBonusScore(Score thisScore) {
+        return null;
     }
 }

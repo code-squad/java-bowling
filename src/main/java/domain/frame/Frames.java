@@ -13,10 +13,11 @@ public class Frames {
     }
 
     public void roll(int num) throws IllegalArgumentException {
-        Frame currentFrame = getCurrentFrame();
-        Frame resultFrame = currentFrame.roll(num);
-        frames.forEach(frame -> frame.refreshPinNum(currentFrame));
-        if (currentFrame.isDiff(resultFrame)) {
+        checkFrameAdd(getCurrentFrame().roll(num));
+    }
+
+    private void checkFrameAdd(Frame resultFrame) {
+        if (getCurrentFrame().isDiff(resultFrame)) {
             frames.add(resultFrame);
         }
     }

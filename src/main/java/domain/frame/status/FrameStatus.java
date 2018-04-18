@@ -1,30 +1,24 @@
 package domain.frame.status;
 
-import domain.frame.pin.Pin;
+import domain.frame.Frame;
+import domain.frame.result.Score;
 
-import java.util.List;
+public interface FrameStatus {
 
-public abstract class FrameStatus {
-
-    public static FrameStatus getInitStatus() {
-        return Ready.of();
+    static FrameStatus getInitStatus() {
+        return new Ready();
     }
 
-    public FrameStatus changeStatus(int regularSum, int leftNumber) {
-        if (Pin.isMax(regularSum)) {
-            return leftNumber == 0 ? Spare.of() : Strike.of();
-        }
-        return leftNumber == 0 ? Miss.of() : Ing.of();
-    }
+    FrameStatus roll(Frame frame, int num) throws IllegalArgumentException;
 
-    public abstract String convertScore(List<Pin> pins);
+    String getResultMessage();
 
-    public abstract boolean isFinish();
+    boolean isRegularFinish();
 
-    public abstract boolean isBonus();
+    boolean isBonusFinish();
 
-    public abstract boolean isStrike();
+    Score getScore();
 
-    public abstract boolean isRightThrewNum(int threwNum);
+    Score addBonusScore(Score otherFrameScore);
 }
 

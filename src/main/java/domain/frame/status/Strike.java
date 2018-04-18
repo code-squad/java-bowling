@@ -1,42 +1,51 @@
 package domain.frame.status;
 
+import domain.frame.Frame;
 import domain.frame.pin.Pin;
+import domain.frame.result.CannotCalcException;
+import domain.frame.result.Score;
 import domain.frame.score.ScoreMessage;
 
-import java.util.List;
+public class Strike implements FrameStatus {
+    private Pin pin;
+    private int leftNum;
 
-public class Strike extends FrameStatus {
-    private static Strike strike = new Strike();
-
-    private Strike() {
-    }
-
-    public static Strike of() {
-        return strike;
+    public Strike(int num) {
+        pin = new Pin(num);
+        leftNum = 2;
     }
 
     @Override
-    public String convertScore(List<Pin> pins) {
+    public FrameStatus roll(Frame frame, int num) throws IllegalArgumentException {
+        if (!frame.isLast()) {
+            return this;
+        }
+        return this;
+    }
+
+    @Override
+    public String getResultMessage() {
         return ScoreMessage.getMessage(ScoreMessage.TEN);
     }
 
     @Override
-    public boolean isFinish() {
+    public boolean isRegularFinish() {
         return true;
     }
 
     @Override
-    public boolean isBonus() {
-        return true;
+    public boolean isBonusFinish() {
+        return false;
     }
 
     @Override
-    public boolean isStrike() {
-        return true;
+    public Score getScore() {
+        return new Score(pin.getNum(), leftNum);
     }
 
     @Override
-    public boolean isRightThrewNum(int threwNum) {
-        return threwNum == 1;
+    public Score addBonusScore(Score otherFrameScore) {
+        otherFrameScore.addBonusScore(pin);
+        return otherFrameScore;
     }
 }

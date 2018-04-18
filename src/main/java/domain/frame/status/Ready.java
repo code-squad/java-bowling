@@ -1,41 +1,46 @@
 package domain.frame.status;
 
+import domain.frame.Frame;
 import domain.frame.pin.Pin;
+import domain.frame.result.CannotCalcException;
+import domain.frame.result.Score;
 
-import java.util.List;
+public class Ready implements FrameStatus {
 
-public class Ready extends FrameStatus {
-    private static Ready ready = new Ready();
+    @Override
+    public FrameStatus roll(Frame frame, int num) throws IllegalArgumentException {
+        if (!Pin.isValidRange(num)) {
+            throw new IllegalArgumentException(Pin.MAX + "개를 넘을 수 없습니다.");
+        }
 
-    private Ready() {
-    }
-
-    public static Ready of() {
-        return ready;
+        if (Pin.isMax(num)) {
+            return new Strike(num);
+        }
+        return new Ing(num);
     }
 
     @Override
-    public String convertScore(List<Pin> pins) {
+    public String getResultMessage() {
         return "";
     }
 
     @Override
-    public boolean isFinish() {
+    public boolean isRegularFinish() {
         return false;
     }
 
     @Override
-    public boolean isBonus() {
-        return false;
+    public boolean isBonusFinish() {
+        return true;
     }
 
     @Override
-    public boolean isStrike() {
-        return false;
+    public Score getScore() {
+        return null;
     }
 
     @Override
-    public boolean isRightThrewNum(int threwNum) {
-        return threwNum == 0;
+    public Score addBonusScore(Score otherFrameScore) throws CannotCalcException {
+        throw new CannotCalcException();
     }
 }
