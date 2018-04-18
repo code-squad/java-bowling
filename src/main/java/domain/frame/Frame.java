@@ -1,6 +1,7 @@
 package domain.frame;
 
 import domain.Pitch;
+import domain.FrameStatus;
 
 import java.util.*;
 
@@ -72,6 +73,22 @@ public abstract class Frame {
 			return nextFrame = new NormalFrame(frameNumber + 1, firstPitch);
 		}
 		return nextFrame = new FinalFrame(firstPitch);
+	}
+	
+	public FrameStatus getStatus() {
+		if(!isComplete()) {
+			return FrameStatus.PLAYING;
+		}
+		
+		if(!hasSecondPitch()) {
+			return FrameStatus.STRIKE;
+		}
+		
+		if(isPinRemained()) {
+			return FrameStatus.MISS;
+		}
+		
+		return FrameStatus.SPARE;
 	}
 	
 	public abstract boolean isComplete();
