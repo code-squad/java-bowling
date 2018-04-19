@@ -123,4 +123,26 @@ public class NormalFrameTest {
         testFrame.roll(2);
         assertNotSame(testFrame, testFrame.roll(6));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 점수_오버추가_합() {
+        testFrame.roll(3);
+        testFrame.roll(8);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 점수_오버추가_1번() {
+        testFrame.roll(11);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 점수_마이너스_추가_합() {
+        testFrame.roll(8);
+        testFrame.roll(-3);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 점수_마이너스_추가_1번() {
+        testFrame.roll(-5);
+    }
 }

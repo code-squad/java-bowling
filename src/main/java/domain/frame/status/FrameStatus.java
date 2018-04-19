@@ -10,9 +10,7 @@ public interface FrameStatus {
 
     String getResultMessage();
 
-    boolean isRegularFinish();
-
-    boolean isBonusFinish();
+    boolean isFinish(Frame frame);
 
     Score getScore();
 

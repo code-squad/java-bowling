@@ -15,16 +15,11 @@ public class NormalFrame extends Frame {
 
     @Override
     Frame createFrame(FrameStatus status) throws IllegalArgumentException {
-        if (status.isRegularFinish()) {
+        if (status.isFinish(this)) {
             nextFrame = Frame.of(getFrameNum() + 1);
             return nextFrame;
         }
         return this;
-    }
-
-    @Override
-    boolean doCheckFinish(FrameStatus status) {
-        return status.isRegularFinish();
     }
 
     @Override
@@ -42,22 +37,11 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    Score doAddBonusScore(Score score) throws CannotCalcException {
-        if (nextFrame == null) {
-            throw new CannotCalcException();
+    int doGetScore(FrameStatus status) throws CannotCalcException {
+        Score score = status.getScore();
+        if (!score.hasBonusCount()) {
+            return score.get();
         }
-        Score totalScore = nextFrame.addBonusScore(score);
-        if (totalScore.hasBonusCount()) {
-            return requestToNextOfNext(totalScore);
-        }
-        return totalScore;
-    }
-
-    private Score requestToNextOfNext(Score totalScore) throws CannotCalcException {
-        if (nextFrame.isLast()) {
-            throw new CannotCalcException();
-        }
-        totalScore = nextFrame.doAddBonusScore(totalScore);
-        return totalScore;
+        return nextFrame.addBonusScore(score);
     }
 }

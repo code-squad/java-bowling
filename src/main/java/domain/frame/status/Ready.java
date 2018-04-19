@@ -21,13 +21,8 @@ public class Ready implements FrameStatus {
     }
 
     @Override
-    public boolean isRegularFinish() {
+    public boolean isFinish(Frame frame) {
         return false;
-    }
-
-    @Override
-    public boolean isBonusFinish() {
-        return true;
     }
 
     @Override

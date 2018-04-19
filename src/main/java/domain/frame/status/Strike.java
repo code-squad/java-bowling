@@ -28,13 +28,8 @@ public class Strike implements FrameStatus {
     }
 
     @Override
-    public boolean isRegularFinish() {
-        return true;
-    }
-
-    @Override
-    public boolean isBonusFinish() {
-        return false;
+    public boolean isFinish(Frame frame) {
+        return !frame.isLast();
     }
 
     @Override

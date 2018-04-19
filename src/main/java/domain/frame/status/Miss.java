@@ -25,12 +25,7 @@ public class Miss implements FrameStatus {
     }
 
     @Override
-    public boolean isRegularFinish() {
-        return true;
-    }
-
-    @Override
-    public boolean isBonusFinish() {
+    public boolean isFinish(Frame frame) {
         return true;
     }
 

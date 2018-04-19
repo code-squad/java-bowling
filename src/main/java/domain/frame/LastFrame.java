@@ -1,6 +1,7 @@
 package domain.frame;
 
 import domain.frame.result.Board;
+import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.result.Score;
 import domain.frame.status.FrameStatus;
@@ -17,11 +18,6 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    boolean doCheckFinish(FrameStatus status) {
-        return status.isRegularFinish() && status.isBonusFinish();
-    }
-
-    @Override
     public boolean isLast() {
         return true;
     }
@@ -33,7 +29,8 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    Score doAddBonusScore(Score thisScore) {
-        return null;
+    int doGetScore(FrameStatus status) throws CannotCalcException {
+        Score score = status.getScore();
+        return score.get();
     }
 }

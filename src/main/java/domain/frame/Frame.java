@@ -34,8 +34,6 @@ public abstract class Frame {
 
     abstract Frame createFrame(FrameStatus status) throws IllegalArgumentException;
 
-    abstract boolean doCheckFinish(FrameStatus status);
-
     public abstract boolean isLast();
 
     public int getFrameNum() {
@@ -43,7 +41,7 @@ public abstract class Frame {
     }
 
     public boolean isFinish() {
-        return doCheckFinish(status);
+        return status.isFinish(this);
     }
 
     public boolean isDiff(Frame frame) {
@@ -70,21 +68,21 @@ public abstract class Frame {
     }
 
     private int getScore() {
-        Score score = status.getScore();
-        if (!score.hasBonusCount()) {
-            return score.get();
-        }
-
         try {
-            return doAddBonusScore(score).get();
+            return doGetScore(status);
         } catch (CannotCalcException e) {
             return CANNOT_CALC_SCORE_STATE;
         }
     }
 
-    abstract Score doAddBonusScore(Score score) throws CannotCalcException;
+    abstract int doGetScore(FrameStatus status);
 
-    Score addBonusScore(Score otherFrameScore) {
-        return status.addBonusScore(otherFrameScore);
+    public int addBonusScore(Score beforeFrameScore) {
+        try {
+            return status.addBonusScore(beforeFrameScore).get();
+        } catch (CannotCalcException e) {
+            return CANNOT_CALC_SCORE_STATE;
+        }
     }
+
 }

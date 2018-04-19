@@ -30,12 +30,7 @@ public class Ing implements FrameStatus {
     }
 
     @Override
-    public boolean isRegularFinish() {
-        return false;
-    }
-
-    @Override
-    public boolean isBonusFinish() {
+    public boolean isFinish(Frame frame) {
         return false;
     }
 

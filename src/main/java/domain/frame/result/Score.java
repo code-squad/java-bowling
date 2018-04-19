@@ -23,7 +23,10 @@ public class Score {
         return leftNum != 0;
     }
 
-    public int get() {
+    public int get() throws CannotCalcException {
+        if (hasBonusCount()) {
+            throw new CannotCalcException();
+        }
         return score;
     }
 }
