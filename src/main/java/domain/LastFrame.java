@@ -50,6 +50,11 @@ public class LastFrame extends Frame {
         return isSpare() || isStrike();
     }
 
+    public boolean canToss() {
+        if (count == 0) return true;
+        return isFrameEnd();
+    }
+
     @Override
     public boolean isFrameEnd() {
         try {

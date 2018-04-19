@@ -124,4 +124,8 @@ public class Scores {
     public FrameStatus getFrameStatus() {
         return frameStatus;
     }
+
+    public boolean isStatusNull() {
+        return frameStatus == null;
+    }
 }

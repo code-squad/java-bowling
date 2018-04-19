@@ -33,4 +33,8 @@ public class User {
     public int getFrameNumber() {
         return round.getFrameNumber();
     }
+
+    public boolean tossNextTurn() {
+        return round.isFrameStatusNull();
+    }
 }
