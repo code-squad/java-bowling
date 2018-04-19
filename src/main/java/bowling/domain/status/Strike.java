@@ -12,7 +12,7 @@ public class Strike extends Complete {
         return Score.ofStrike();
     }
 
-    public void updateScore(Score score) {
-        score.bowl(10);
+    public int updateScore(Score score) {
+        return score.bowl(10);
     }
 }
