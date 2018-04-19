@@ -3,21 +3,10 @@ package bowling.domain.frame;
 import bowling.domain.score.Score;
 import bowling.domain.status.Status;
 
-public class NormalFrame extends Frame {
+public class LastFrame extends Frame {
     private Frame nextFrame;
     private Status status;
     private Score score;
-
-    public NormalFrame(int frameNumber) {
-        this.nextFrame = createNextFrame(frameNumber);
-    }
-
-    private Frame createNextFrame(int frameNumber) {
-        if (frameNumber == 9) {
-            return new LastFrame();
-        }
-        return new NormalFrame(frameNumber + 1);
-    }
 
     private Score createScore() {
         if (score == null) {
