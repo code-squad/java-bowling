@@ -7,13 +7,26 @@ public class Frame {
     private Pin firstPin;
     private Pin secondPin;
 
-    public boolean shoot(int pinFall) {
+    private Status status =  new Default();
+
+//    public boolean shoot(int pinFall) {
+//        if (firstPin == null) {
+//            firstPin = new Pin(pinFall);
+//            return true;
+//        }
+//        secondPin = new Pin(pinFall);
+//
+//        status = status.shoot(pinFall);
+//        return true;
+//    }
+
+    public Status shoot(int pinFall) {
         if (firstPin == null) {
             firstPin = new Pin(pinFall);
-            return true;
+            return new Default(firstPin);
         }
         secondPin = new Pin(pinFall);
-        return true;
+        return new Default(firstPin, secondPin);
     }
 
     public boolean finishFrame() {

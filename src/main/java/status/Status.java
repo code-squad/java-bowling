@@ -6,6 +6,11 @@ public class Status {
     private Pin firstPin;
     private Pin secondPin;
 
+    public Status() {
+        this.firstPin = null;
+        this.secondPin = null;
+    }
+
     public Status(Pin firstPin) {
         this.firstPin = firstPin;
     }
