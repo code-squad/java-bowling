@@ -6,6 +6,10 @@ public class Score {
     private int score;
     private int left;
 
+    public Score(int score) {
+        this(score, 0);
+    }
+
     public Score(int score, int left) {
         this.score = score;
         this.left = left;
@@ -24,6 +28,18 @@ public class Score {
 
     public boolean canCalculateScore() {
         return left == 0;
+    }
+
+    public static Score strike() {
+        return new Score(10, 2);
+    }
+
+    public static Score spare() {
+        return new Score(10, 1);
+    }
+
+    public static Score miss(int totalPins) {
+        return new Score(totalPins, 0);
     }
 
     @Override

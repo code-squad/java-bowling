@@ -30,19 +30,19 @@ public class Frame {
         return no;
     }
 
-    private int getScore() {
+    private Score getScore() {
         Score score = state.getScore();
         if (score.canCalculateScore()) {
-            return score.getScore();
+            return score;
         }
 
         return next.calculateAdditionalScore(score);
     }
 
-    private int calculateAdditionalScore(Score beforeScore) {
+    private Score calculateAdditionalScore(Score beforeScore) {
         Score score = state.calculateAdditionalScore(beforeScore);
         if (score.canCalculateScore()) {
-            return score.getScore();
+            return score;
         }
         return next.calculateAdditionalScore(score);
     }
@@ -53,7 +53,7 @@ public class Frame {
         }
 
         try {
-            return new FrameResult(state.getDesc(), getScore());
+            return new FrameResult(state.getDesc(), getScore().getScore());
         } catch (CannotCalculateException e) {
             return new FrameResult(state.getDesc(), UN_SCORE_STATE);
         }
