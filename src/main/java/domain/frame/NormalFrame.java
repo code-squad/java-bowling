@@ -11,7 +11,7 @@ public class NormalFrame extends Frame {
 	
 	@Override
 	public boolean isComplete() {
-		return getPitches().get(1).isClear() || getPitches().get(2) != null;
+		return getPitches().get(1).isClear() || getPitches().has(2);
 	}
 
 	@Override

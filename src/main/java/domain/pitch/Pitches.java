@@ -17,7 +17,7 @@ public class Pitches {
     }
 
     public boolean has(int pitchNumber) {
-        if(pitchNumber < pitches.size()) {
+        if(pitchNumber <= pitches.size()) {
             return true;
         }
         return false;
