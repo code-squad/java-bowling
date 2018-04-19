@@ -9,7 +9,6 @@ public class Score {
         if (count < Miss.COUNT_ZERO || Strike.COUNT_TWO < count) {
             throw new IllegalArgumentException("보너스 볼의 수가 맞지 않습니다.");
         }
-
         this.score = score;
         this.count = count;
     }

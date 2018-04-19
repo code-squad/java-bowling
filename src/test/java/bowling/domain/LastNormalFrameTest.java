@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class LastFrameTest {
+public class LastNormalFrameTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void checkPinExceptionTest() { // 스트라이크 후 2번째 3번째 핀의 합이 10초과

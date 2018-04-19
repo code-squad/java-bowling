@@ -1,27 +1,24 @@
 package bowling.domain;
 
-public class Frame {
+public interface Frame {
 
-    private FrameStatus frameStatus;
-    private Score score;
+    void updateFrameStatus(int pin);
 
-    public Frame(FrameStatus frameStatus) {
-        this.frameStatus = frameStatus;
-    }
+    FrameStatus makeFrame(Ball ball);
 
-    public int firstInFrame() {
-        return frameStatus.getFirst();
-    }
+    boolean checkComplete();
 
-    public int secondInFrame() {
-        return frameStatus.getSecond();
-    }
+    boolean isSpare(Ball second);
 
-    public FrameStatus getFrameStatus() {
-        return frameStatus;
-    }
+    void createScore(NormalFrame frame);
 
-    public String frameStatusPrint() {
-        return frameStatus.nomalPrint();
-    }
+    void updateScore(Score updateScore);
+
+    Score getScore();
+
+    int totalScore();
+
+//    FrameStatus getFrameStatus();
+
+    String toString();
 }

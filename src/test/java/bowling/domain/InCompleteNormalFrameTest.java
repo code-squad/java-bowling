@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class InCompleteFrameTest {
+public class InCompleteNormalFrameTest {
 
     private InCompleteFrame inCompleteFrame;
 

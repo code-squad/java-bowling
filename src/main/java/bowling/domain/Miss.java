@@ -16,6 +16,10 @@ public class Miss extends FrameStatus {
         return true;
     }
 
+    public boolean checkComplete() {
+        return true;
+    }
+
     public int pinOfFrame(){
         return getFirst()+getSecond();
     }
@@ -24,7 +28,19 @@ public class Miss extends FrameStatus {
         return COUNT_ZERO;
     }
 
-    public String nomalPrint() {
+    public Score getScore(int score){
+        return Score.of(score + pinOfFrame(), COUNT_ZERO);
+    }
+
+    @Override
+    public String toString() {
         return "  " + getFirst() + "|" + getSecond() + " |";
+    }
+
+    public String lastFramePrint(Ball third){
+        if(third!=null){
+            return getFirst() + "|" + getSecond() + "|" + third.getPin() + "|";
+        }
+        return toString();
     }
 }

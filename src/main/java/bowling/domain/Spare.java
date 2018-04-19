@@ -20,11 +20,27 @@ public class Spare extends FrameStatus {
         return PIN_TEN;
     }
 
+    public boolean checkComplete() {
+        return true;
+    }
+
     public int getCount() {
         return COUNT_ONE;
     }
 
-    public String nomalPrint() {
+    public Score getScore(int score){
+        return Score.of(score + pinOfFrame(), COUNT_ONE);
+    }
+
+    @Override
+    public String toString() {
         return "  " + getFirst() + "|/ |";
+    }
+
+    public String lastFramePrint(Ball third){
+        if(third!=null){
+            return " "+getFirst() + "|" +  "/|" + third.getPin() + "|";
+        }
+        return toString();
     }
 }

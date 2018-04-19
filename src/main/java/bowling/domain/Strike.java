@@ -8,26 +8,42 @@ public class Strike extends FrameStatus {
         super(first, second);
     }
 
-    public static Strike of(Ball first, Ball second){
-        return new Strike(first,second);
+    public static Strike of(Ball first, Ball second) {
+        return new Strike(first, second);
     }
 
-    public boolean isLastBall(){
+    public boolean isLastBall() {
         return false;
     }
 
     public int pinOfFrame() {
-        if (!isTwiceBall()){
+        if (!isTwiceBall()) {
             return 10;
-    }
-    return getFirst()+getSecond();
+        }
+        return getFirst() + getSecond();
     }
 
-    public int getCount(){
+    public boolean checkComplete() {
+        return true;
+    }
+
+    public int getCount() {
         return COUNT_TWO;
     }
 
-    public String nomalPrint(){
+    public Score getScore(int score){
+        return Score.of(score + pinOfFrame(), COUNT_TWO);
+    }
+
+    @Override
+    public String toString() {
         return "   X  |";
+    }
+
+    public String lastFramePrint(Ball third){
+        if(third!=null){
+            return " X|" + getSecond() + "|" + third.getPin() + "|";
+        }
+        return "  " + "X|" + getSecond() + " |";
     }
 }
