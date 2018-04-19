@@ -8,7 +8,7 @@ public interface Frame {
 
     void calculateScore(Frame next, Frame nextNext);
 
-    void calculateAdditionalScore(Score score);
+    int calculateAdditionalScore(Score score);
 
     boolean isStrike();
 

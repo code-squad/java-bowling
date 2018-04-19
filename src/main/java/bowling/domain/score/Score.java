@@ -25,11 +25,8 @@ public class Score {
         this.score += score;
         if (!countUntilCalcIsZero()) {
             countUntilCalculation--;
-        }
-    }
 
-    public void decreaseCountUntilCalculation() {
-        countUntilCalculation--;
+        }
     }
 
     public boolean countUntilCalcIsZero() {

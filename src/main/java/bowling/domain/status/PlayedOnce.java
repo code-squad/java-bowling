@@ -2,7 +2,7 @@ package bowling.domain.status;
 
 import bowling.domain.score.Score;
 
-public class PlayedOnce extends Status {
+public class PlayedOnce extends Incomplete {
     private final int first;
 
     public PlayedOnce(int pins) {
@@ -17,39 +17,11 @@ public class PlayedOnce extends Status {
         return new AllPlayed(first, pins);
     }
 
-    public boolean isNotPlayed() {
-        return false;
-    }
-
-    public boolean isSpare() {
-        return false;
-    }
-
-    public boolean isStrike() {
-        return false;
-    }
-
-    public boolean isPlayedOnce() {
-        return true;
-    }
-
-    public boolean isAllPlayed() {
-        return false;
-    }
-
-    public boolean isComplete() {
-        return false;
-    }
-
     public Score createScore() {
         return Score.ofNormal(first);
     }
 
-    public int getFirstBowl() {
-        return first;
-    }
-
-    public int getBothBowl() {
-        return first;
+    public void updateScore(Score score) {
+        score.bowl(first);
     }
 }

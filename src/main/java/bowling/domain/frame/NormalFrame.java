@@ -19,25 +19,35 @@ public class NormalFrame implements Frame {
         }
     }
 
-    public void calculateScore(Frames frames) {
+    public int calculateScore(Frames frames) { //TODO: exception for frame number = 8,
+        if (score.countUntilCalcIsTwo) {
+            frames.getNext(frameNumber).calculateAdditionalScore(score);
+            frames.getNextNext(frameNumber).calculateAdditionalScore(score);
+        }
         if (score.countUntilCalcIsZero()) {
-            status.getBothBowl();
+            //score.bowl(status.getBothBowl());
+            return status.updateScore(score);
         }
         if (score.countUntilCalcIsOne()) {
-            frames.getNext(frameNumber).calculateAdditionalScore(score);
+            return status.updateScore(score) + frames.getNext(frameNumber).calculateAdditionalScore(score);
         }
-        frames.getNextNext(frameNumber).calculateAdditionalScore(score);
+        //if count == 2
+        int first = frames.getNext(frameNumber).calculateAdditionalScore(score);
+        int second = frames.getNextNext(frameNumber).calculateAdditionalScore(score);
+        return status.updateScore(score) + first + second;
     }
 
-    public void calculateAdditionalScore(Score prevScore) {
-        if (!status.isComplete()) {
+    public int calculateAdditionalScore(Score prevScore) {
+        if (!status.isComplete()) { //프레임이 끝나야 되는게 아니라 count가 0이면!!
             throw new FrameNotCompleteException();
         }
         if (prevScore.countUntilCalcIsOne()) {
-            prevScore.bowl(status.getFirstBowl());
+            //prevScore.bowl(status.getFirstBowl());
+            status.updateScore(prevScore); //만약 count = 1이면 하나만..
         }
         //if (prevScore.countUntilCalcIsZero()) {
-        prevScore.bowl(status.getBothBowl());
+        //prevScore.bowl(status.getBothBowl());
+        status.updateScore(prevScore);
         //}
     }
 }
