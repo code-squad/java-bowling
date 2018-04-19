@@ -1,13 +1,12 @@
 package domain.status;
 
-import domain.CalculateStatus;
 import domain.Score;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static domain.BowlingUtils.totalScore;
-import static domain.CalculateStatus.*;
+import static domain.status.CalculateStatus.*;
 
 public abstract class FrameStatus {
 
@@ -93,6 +92,10 @@ public abstract class FrameStatus {
     }
 
     public void changeAddNotComplete() {
-        calculateStatus = BONUS_NOT_COMPLETE;
+        calculateStatus = ADDITION_NOT_COMPLETE;
+    }
+
+    public CalculateStatus getCalculateStatus() {
+        return calculateStatus;
     }
 }

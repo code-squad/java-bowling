@@ -1,9 +1,9 @@
-package domain;
+package domain.status;
 
 public enum CalculateStatus {
     NOT_YET,
     DO,
     DONE,
-    BONUS_NOT_COMPLETE;
+    ADDITION_NOT_COMPLETE
 
 }

@@ -1,5 +1,7 @@
 package domain;
 
+import domain.status.CalculateStatus;
+
 public abstract class Frame {
 
     private Scores scores;
@@ -32,7 +34,6 @@ public abstract class Frame {
     }
 
     public void assign(int score) {
-        System.out.printf("%d점이 들어옴\n", score);
         scores.assignStatus(score);
     }
 
@@ -61,11 +62,11 @@ public abstract class Frame {
         return toScoreString();
     }
 
-    public void isGivenMessageFromPresentFrame123123(Frame frame) {
+    public void isGivenMessageFromPresentFrame(Frame frame) {
         scores.takeFromPresent(frame.scores);
     }
 
-    public void isGivenMessageFromBeforeFrame123123(Frame beforeFrame) {
+    public void isGivenMessageFromBeforeFrame(Frame beforeFrame) {
         scores.takeFromBefore(beforeFrame.scores);
     }
 
@@ -90,6 +91,9 @@ public abstract class Frame {
         scores.changeNotYet();
     }
 
+    public CalculateStatus getCalculateStatus() {
+        return scores.getCalculateStatus();
+    }
 }
 
 

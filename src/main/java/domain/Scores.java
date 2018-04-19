@@ -1,9 +1,6 @@
 package domain;
 
-import domain.status.FrameStatus;
-import domain.status.Open;
-import domain.status.Spare;
-import domain.status.Strike;
+import domain.status.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,34 +25,23 @@ public class Scores {
 
     public void assignStatus(int countOfPins) {
         scores.add(Score.of(countOfPins));
-        System.out.printf("스코어가 추가되었으니 사이즈 증가 : %d\n", scores.size());
         if (isStrikeCondition(scores)) {
-            System.out.println("스트라이크 상태 할당");
             frameStatus = Strike.of();
             return;
         }
         if (isSpareCondition(scores)) {
-            System.out.println("스트라이크 상태 할당");
             frameStatus = Spare.of();
             return;
         }
-        if (scores.size() == 2 && scores.get(1).isTen() || scores.size() == 2 && scores.get(0).isTen()) {
-            System.out.println("보너스 상태 할당");
+        if (isBonusCondition()) {
             frameStatus = Strike.of();
             return;
         }
-        if (scores.size() == 3) {
-            System.out.println("보너스 상태 할당");
-            frameStatus = Strike.of();
-            return;
-        }
-        System.out.println("오픈프레임 상태 할당");
         frameStatus = Open.of(2 - scores.size());
     }
 
     public boolean isEnd() {
         if (frameStatus == null) {
-            System.out.println("frameStatus is null");
             return false;
         }
         return frameStatus.isEnd();
@@ -67,6 +53,10 @@ public class Scores {
 
     private boolean isStrikeCondition(List<Score> scores) {
         return scores.size() == 1 && scores.get(0).isTen();
+    }
+
+    private boolean isBonusCondition() {
+        return scores.size() == 2 && scores.get(1).isTen() || scores.size() == 2 && scores.get(0).isTen() || scores.size() == 3;
     }
 
     public void takeFromPresent(Scores presentScores) {
@@ -90,7 +80,11 @@ public class Scores {
     }
 
     public boolean isSpare() {
-        return frameStatus.isSpare();
+        try {
+            return frameStatus.isSpare();
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
     public boolean isStrike() {
@@ -123,4 +117,11 @@ public class Scores {
         return frameStatus.calcTotal(scores);
     }
 
+    public CalculateStatus getCalculateStatus() {
+        return frameStatus.getCalculateStatus();
+    }
+
+    public FrameStatus getFrameStatus() {
+        return frameStatus;
+    }
 }

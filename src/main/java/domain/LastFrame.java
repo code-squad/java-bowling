@@ -57,7 +57,6 @@ public class LastFrame extends Frame {
         } catch (RuntimeException e) {
             return false;
         }
-
     }
 
     @Override

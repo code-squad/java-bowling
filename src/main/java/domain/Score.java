@@ -75,9 +75,5 @@ public class Score {
         return Integer.toString(score);
     }
 
-    public void sum(int i) {
-        score += i;
-    }
-
 }
 

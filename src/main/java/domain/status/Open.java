@@ -18,9 +18,8 @@ public class Open extends FrameStatus {
         return new Open();
     }
 
-    public static Open of(int tryNum) {
-        System.out.println("오픈프레임 생성");
-        return new Open(tryNum);
+    public static Open of(int left) {
+        return new Open(left);
     }
 
     public void takeAdditionalFromPresent(FrameStatus frameStatus, List<Score> scores) {

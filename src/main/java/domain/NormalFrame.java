@@ -10,4 +10,9 @@ public class NormalFrame extends Frame {
         return new NormalFrame();
     }
 
+    @Override
+    public String toString() {
+        return toFrameString();
+    }
+
 }
