@@ -1,5 +1,7 @@
 package state;
 
+import domain.Score;
+
 public class FirstBowl extends State {
     private static final String GUTTER = "-";
     private static final String PIPE = "|";
@@ -26,6 +28,11 @@ public class FirstBowl extends State {
             falledPins = GUTTER;
         }
         return falledPins;
+    }
+
+    @Override
+    public Score getScore() {
+        throw new RuntimeException("FirstBowl : 현재 상태에서는 점수를 구할 수 없습니다.");
     }
 
     public static boolean isFirstBowl(State state) {

@@ -1,5 +1,7 @@
 package state;
 
+import domain.Score;
+
 public class Spare extends State {
     private static final String PIPE = "|";
     private static final String SPARE = "/";
@@ -34,6 +36,11 @@ public class Spare extends State {
 
     public static boolean isSpare(State state) {
         return state instanceof Spare;
+    }
+
+    @Override
+    public Score getScore() {
+        return Score.ofSpare();
     }
 
     @Override

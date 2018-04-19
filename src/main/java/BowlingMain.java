@@ -25,6 +25,7 @@ public class BowlingMain {
                 ResultView.printFrames(frames, player.getName());
             } while (!frame.isEnd());
             if (index != MAX_FRAME_NO) {
+                frame.createScore(); // 다음 프레임이 생성되기 전 호출
                 frame = frame.next();
                 frames.add(frame);
             }

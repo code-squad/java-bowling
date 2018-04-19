@@ -19,6 +19,17 @@ public class NormalFrameTest {
     }
 
     @Test
+    public void generate() {
+        Frame frame = new NormalFrame(1, null);
+    }
+
+    @Test
+    public void createScore() {
+        Frame frame = new NormalFrame(1, null);
+        Score score = frame.createScore();
+    }
+
+    @Test
     public void throwing() {
         Frame frame = new NormalFrame(1);
         frame.throwing(10);

@@ -1,5 +1,7 @@
 package state;
 
+import domain.Score;
+
 public class Open extends State implements Cloneable{
     private static final int NO_PINS = 0;
     private static final String GUTTER = "-";
@@ -34,6 +36,11 @@ public class Open extends State implements Cloneable{
 
     public static boolean isOpen(State state) {
         return state instanceof Open;
+    }
+
+    @Override
+    public Score getScore() {
+        return Score.ofOpen(first, second);
     }
 
     @Override

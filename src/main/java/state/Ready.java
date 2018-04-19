@@ -1,5 +1,7 @@
 package state;
 
+import domain.Score;
+
 public class Ready extends State {
     private static final int TEN_PINS = 10;
     private static final String EMPTY = "";
@@ -18,6 +20,11 @@ public class Ready extends State {
     @Override
     public String printState() {
         return EMPTY;
+    }
+
+    @Override
+    public Score getScore() {
+        throw new RuntimeException("Ready : 현재 상태에서는 점수를 구할 수 없습니다.");
     }
 
     public static boolean isReady(State state) {

@@ -4,17 +4,21 @@ import state.State;
 
 abstract public class Frame {
     private static final int MAX_FRAME_NO = 10;
+//    private Score score;
+    private Score beforeScore;
     private final int no;
 
-    public Frame(int no) {
+    public Frame(int no, Score beforeScore) {
         isValidNo(no);
         this.no = no;
+        this.beforeScore = beforeScore;
     }
 
     abstract public void throwing(int throwing);
     abstract public State updateState(int throwing);
     abstract public boolean isEnd();
     abstract public String printState();
+    abstract public String printScore();
 
     public boolean isValidNo(int no) {
         if ( no < 0 || no > 10 ) {
@@ -29,4 +33,6 @@ abstract public class Frame {
         }
         return new NormalFrame(no + 1);
     }
+
+    public abstract Score createScore();
 }

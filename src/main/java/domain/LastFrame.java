@@ -12,9 +12,10 @@ public class LastFrame extends Frame {
     private List<State> states = new ArrayList<>();
     private State state = new Ready();
     private int index;
+    private Score score;
 
-    public LastFrame(int no) {
-        super(no);
+    public LastFrame(int no, Score beforeScore) {
+        super(no, beforeScore);
     }
 
     @Override
@@ -58,5 +59,15 @@ public class LastFrame extends Frame {
             sb.append(state.printState());
         }
         return sb.toString();
+    }
+
+    @Override
+    public String printScore() {
+        return null;
+    }
+
+    @Override
+    public Score createScore() {
+        return null;
     }
 }

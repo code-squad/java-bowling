@@ -10,18 +10,23 @@ public class ResultView {
     static final private int MAX_FRAME = 10;
 
     public static void printFrames(List<Frame> frames, String name) {
-        printScoreTitle();
-        System.out.print(String.format("| %3s  |", name));
-        for (int index = 0; index < frames.size(); index++) {
-            System.out.print(String.format(" %-5s|", frames.get(index).printState()));
-        }
-        for (int index = 0; index < MAX_FRAME - frames.size(); index++) {
-            System.out.print(EMPTY_SCORE);
-        }
-        System.out.println();
+        printHeader();
+        printSymbol(frames, name);
     }
 
-    private static void printScoreTitle() {
+    private static void printSymbol(List<Frame> frames, String name) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("| %3s  |", name));
+        for (int index = 0; index < frames.size(); index++) {
+           sb.append(String.format(" %-5s|", frames.get(index).printState()));
+        }
+        for (int index = 0; index < MAX_FRAME - frames.size(); index++) {
+            sb.append(EMPTY_SCORE);
+        }
+        System.out.println(sb.toString());
+    }
+
+    private static void printHeader() {
         StringBuilder sb = new StringBuilder();
         sb.append(NAME_TITLE);
         for (int index = 0; index < 10; index++) {
@@ -30,10 +35,16 @@ public class ResultView {
         System.out.println(sb.toString());
     }
 
+    private static void printScore() {
+
+    }
+
     public static void printEmptyScore() {
-        printScoreTitle();
+        printHeader();
+        StringBuilder sb = new StringBuilder();
         for (int index = 0; index < 10; index++) {
-            System.out.print(EMPTY_SCORE);
+            sb.append(EMPTY_SCORE);
         }
+        System.out.println(sb.toString());
     }
 }
