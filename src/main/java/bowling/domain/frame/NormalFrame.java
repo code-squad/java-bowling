@@ -1,27 +1,43 @@
 package bowling.domain.frame;
 
+import bowling.domain.score.Score;
 import bowling.domain.status.Status;
 
 public class NormalFrame implements Frame {
+    private final int frameNumber;
     private Status status;
+    private Score score;
 
-    public int getScore() {
-        return status.getScore();
+    public NormalFrame(int frameNumber) {
+        this.frameNumber = frameNumber;
     }
 
-    //너무 복잡해 진다.. 다른 방법은?
-    public int calculateAdditionalScore(Frame prevFrame) {
-        if (prevFrame.isStrike() && this.isStrike()) { //연속 스트라이크일 경우 다음다음 점수의 첫번째 점수만 가져와야 하는데
-            // nextFrame.getScore()를 하면 해당 상태의 점수(첫번째, 두번째)의 종합이 리턴되기 때문에
-            // 따로 나눠야 할 필요가 있다?
-            return getScore() +
+    public void bowl(int pins) {
+        status = status.bowl(pins);
+        if (status.isComplete()) {
+            score = status.createScore();
         }
-        if (prevFrame.isStrike() && this.isAllPlayed()) {
+    }
 
+    public void calculateScore(Frames frames) {
+        if (score.countUntilCalcIsZero()) {
+            status.getBothBowl();
         }
-        if (prevFrame.isSpare() && this.isPlayedOnce()) {
+        if (score.countUntilCalcIsOne()) {
+            frames.getNext(frameNumber).calculateAdditionalScore(score);
+        }
+        frames.getNextNext(frameNumber).calculateAdditionalScore(score);
+    }
 
+    public void calculateAdditionalScore(Score prevScore) {
+        if (!status.isComplete()) {
+            throw new FrameNotCompleteException();
         }
-        throw new CannotCalculateAdditionalScoreException();
+        if (prevScore.countUntilCalcIsOne()) {
+            prevScore.bowl(status.getFirstBowl());
+        }
+        //if (prevScore.countUntilCalcIsZero()) {
+        prevScore.bowl(status.getBothBowl());
+        //}
     }
 }

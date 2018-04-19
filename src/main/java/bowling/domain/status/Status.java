@@ -14,9 +14,13 @@ public abstract class Status {
 
     public abstract boolean isAllPlayed();
 
-    public abstract void updateScore(Score score);
-
     public abstract boolean isNotPlayed();
 
-    public abstract int getScore();
+    public abstract boolean isComplete();
+
+    public abstract Score createScore();
+
+    public abstract int getFirstBowl();
+
+    public abstract int getBothBowl();
 }

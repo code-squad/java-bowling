@@ -21,10 +21,6 @@ public class PlayedOnce extends Status {
         return false;
     }
 
-    public void updateScore(Score score) {
-        score.updateScore(first);
-    }
-
     public boolean isSpare() {
         return false;
     }
@@ -39,5 +35,21 @@ public class PlayedOnce extends Status {
 
     public boolean isAllPlayed() {
         return false;
+    }
+
+    public boolean isComplete() {
+        return false;
+    }
+
+    public Score createScore() {
+        return Score.ofNormal(first);
+    }
+
+    public int getFirstBowl() {
+        return first;
+    }
+
+    public int getBothBowl() {
+        return first;
     }
 }

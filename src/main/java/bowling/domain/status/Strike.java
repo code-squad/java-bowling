@@ -8,10 +8,6 @@ public class Strike extends Status {
         return this;
     }
 
-    public void updateScore(Score score) {
-        score.updateScore(10);
-    }
-
     public boolean isNotPlayed() {
         return false;
     }
@@ -30,5 +26,21 @@ public class Strike extends Status {
 
     public boolean isAllPlayed() {
         return false;
+    }
+
+    public boolean isComplete() {
+        return true;
+    }
+
+    public Score createScore() {
+        return Score.ofStrike();
+    }
+
+    public int getFirstBowl() {
+        return 10;
+    }
+
+    public int getBothBowl() {
+        return 10;
     }
 }

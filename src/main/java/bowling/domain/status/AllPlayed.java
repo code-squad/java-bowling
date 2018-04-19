@@ -15,9 +15,6 @@ public class AllPlayed extends Status {
         return this;
     }
 
-    public void updateScore(Score score) {
-        score.updateScore(first + second);
-    }
 
     public boolean isNotPlayed() {
         return false;
@@ -37,5 +34,21 @@ public class AllPlayed extends Status {
 
     public boolean isAllPlayed() {
         return true;
+    }
+
+    public boolean isComplete() {
+        return true;
+    }
+
+    public Score createScore() {
+        return Score.ofNormal(first + second);
+    }
+
+    public int getFirstBowl() {
+        return first;
+    }
+
+    public int getBothBowl() {
+        return first + second;
     }
 }

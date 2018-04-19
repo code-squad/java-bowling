@@ -11,10 +11,6 @@ public class Spare extends Status {
         this.second = pins;
     }
 
-    public void updateScore(Score score) {
-        score.updateScore(10);
-    }
-
     public boolean isNotPlayed() {
         return false;
     }
@@ -37,5 +33,21 @@ public class Spare extends Status {
 
     public boolean isAllPlayed() {
         return false;
+    }
+
+    public boolean isComplete() {
+        return true;
+    }
+
+    public Score createScore() {
+        return Score.ofSpare();
+    }
+
+    public int getFirstBowl() {
+        return first;
+    }
+
+    public int getBothBowl() {
+        return first + second;
     }
 }

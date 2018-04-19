@@ -11,10 +11,6 @@ public class NotPlayed extends Status {
         return new PlayedOnce(pins);
     }
 
-    public void updateScore(Score score) {
-        score.updateScore(0);
-    }
-
     public boolean isNotPlayed() {
         return true;
     }
@@ -33,5 +29,21 @@ public class NotPlayed extends Status {
 
     public boolean isAllPlayed() {
         return false;
+    }
+
+    public boolean isComplete() {
+        return false;
+    }
+
+    public Score createScore() {
+        return null;
+    }
+
+    public int getFirstBowl() {
+        return 0;
+    }
+
+    public int getBothBowl() {
+        return 0;
     }
 }
