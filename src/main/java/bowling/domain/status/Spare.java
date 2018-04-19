@@ -25,4 +25,8 @@ public class Spare extends Complete {
         }
         return score.bowl(first + second);
     }
+
+    public boolean isStrike() {
+        return false;
+    }
 }

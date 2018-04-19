@@ -2,15 +2,13 @@ package bowling.domain.frame;
 
 import bowling.domain.score.Score;
 
-public interface Frame {
+public abstract class Frame {
 
-    void bowl(int pins);
+    public abstract void bowl(int pins);
 
-    void calculateScore(Frame next, Frame nextNext);
+    public abstract int calculateScore();
 
-    int calculateAdditionalScore(Score score);
+    abstract int calculateAdditionalScore(Score score);
 
-    boolean isStrike();
-
-    boolean isPlayedOnce();
+    abstract int updateScoreFromPrevPrev(Score prevPrev);
 }

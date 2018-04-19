@@ -11,4 +11,6 @@ public interface Status {
     Score createScore();
 
     int updateScore(Score score);
+
+    boolean isStrike();
 }

@@ -11,4 +11,8 @@ public abstract class Incomplete implements Status {
     }
 
     public abstract int updateScore(Score score);
+
+    public boolean isStrike() {
+        return false;
+    }
 }

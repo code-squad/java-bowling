@@ -22,6 +22,9 @@ public class PlayedOnce extends Incomplete {
     }
 
     public int updateScore(Score score) {
+        if (score.twoMoreBowlsNeeded()) { //점수 두 개를 필요로 하는데 현 상태는 incomplete
+            throw new FrameNotCompleteException();
+        }
         return score.bowl(first);
     }
 }

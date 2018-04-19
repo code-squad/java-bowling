@@ -11,4 +11,6 @@ public abstract class Complete implements Status {
     }
 
     public abstract int updateScore(Score score);
+
+    public abstract boolean isStrike();
 }

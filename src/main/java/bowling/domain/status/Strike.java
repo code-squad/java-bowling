@@ -15,4 +15,8 @@ public class Strike extends Complete {
     public int updateScore(Score score) {
         return score.bowl(10);
     }
+
+    public boolean isStrike() {
+        return true;
+    }
 }
