@@ -5,6 +5,9 @@ import domain.frame.pin.Pin;
 import domain.frame.result.Score;
 import domain.frame.result.ScoreMessage;
 
+import static domain.frame.result.ScoreMessage.convertMessage;
+import static domain.frame.result.ScoreMessage.getMessage;
+
 public class Miss implements FrameStatus {
     private Pin pin1;
     private Pin pin2;
@@ -21,7 +24,7 @@ public class Miss implements FrameStatus {
 
     @Override
     public String getResultMessage() {
-        return ScoreMessage.convertMessage(pin1.getNum()) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + ScoreMessage.convertMessage(pin2.getNum());
+        return convertMessage(pin1.getNum()) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin2.getNum());
     }
 
     @Override
@@ -37,7 +40,9 @@ public class Miss implements FrameStatus {
     @Override
     public Score addBonusScore(Score otherFrameScore) {
         otherFrameScore.addBonusScore(pin1);
-        otherFrameScore.addBonusScore(pin2);
+        if (otherFrameScore.hasBonusCount()) {
+            otherFrameScore.addBonusScore(pin2);
+        }
         return otherFrameScore;
     }
 }

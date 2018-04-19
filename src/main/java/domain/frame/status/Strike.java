@@ -5,6 +5,8 @@ import domain.frame.pin.Pin;
 import domain.frame.result.Score;
 import domain.frame.result.ScoreMessage;
 
+import static domain.frame.result.ScoreMessage.getMessage;
+
 public class Strike implements FrameStatus {
     private Pin pin;
     private int leftNum;
@@ -19,12 +21,16 @@ public class Strike implements FrameStatus {
         if (!frame.isLast()) {
             return this;
         }
-        return null;
+
+        if (newPin.isMax()) {
+            return new BonusStrike(pin, newPin);
+        }
+        return new BonusIng(pin, newPin);
     }
 
     @Override
     public String getResultMessage() {
-        return ScoreMessage.getMessage(ScoreMessage.TEN);
+        return getMessage(ScoreMessage.TEN);
     }
 
     @Override

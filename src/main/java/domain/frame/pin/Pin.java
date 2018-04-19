@@ -32,20 +32,11 @@ public class Pin {
         return this.num + otherPin.num > MAX;
     }
 
-    public int getTotal(Pin otherPin) {
-        return this.num + otherPin.num;
-    }
-
-
-
-
-
-
-
-
-
-    @Deprecated
-    public static boolean isMax(int num) {
-        return num == MAX;
+    public int getTotal(Pin... otherPins) {
+        int sum = this.num;
+        for (Pin otherPin : otherPins) {
+            sum += otherPin.num;
+        }
+        return sum;
     }
 }

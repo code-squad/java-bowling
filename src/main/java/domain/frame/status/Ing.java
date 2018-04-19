@@ -3,7 +3,8 @@ package domain.frame.status;
 import domain.frame.Frame;
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
-import domain.frame.result.ScoreMessage;
+
+import static domain.frame.result.ScoreMessage.convertMessage;
 
 public class Ing implements FrameStatus {
     private Pin pin;
@@ -26,7 +27,7 @@ public class Ing implements FrameStatus {
 
     @Override
     public String getResultMessage() {
-        return ScoreMessage.convertMessage(pin.getNum());
+        return convertMessage(pin.getNum());
     }
 
     @Override

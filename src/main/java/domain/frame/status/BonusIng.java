@@ -8,38 +8,36 @@ import domain.frame.result.ScoreMessage;
 import static domain.frame.result.ScoreMessage.convertMessage;
 import static domain.frame.result.ScoreMessage.getMessage;
 
-public class Spare implements FrameStatus {
+public class BonusIng implements FrameStatus {
     private Pin pin1;
     private Pin pin2;
-    private int leftNum;
 
-    public Spare(Pin pin, Pin newPin) {
-        pin1 = pin;
+    public BonusIng(Pin pin1, Pin newPin) {
+        this.pin1 = pin1;
         pin2 = newPin;
-        leftNum = 1;
     }
 
     @Override
-    public FrameStatus roll(Frame frame, Pin newPin) throws IllegalArgumentException {
-        if (!frame.isLast()) {
-            return this;
+    public FrameStatus roll(Frame frame, Pin newPin) {
+        if (pin2.isOverRecordPin(newPin)) {
+            throw new IllegalArgumentException(Pin.MAX + "개 까지만 기록 가능합니다.");
         }
         return new BonusCompletion(pin1, pin2, newPin);
     }
 
     @Override
     public String getResultMessage() {
-        return convertMessage(pin1.getNum()) + getMessage(ScoreMessage.MODIFIER) + getMessage(ScoreMessage.SPARE);
+        return convertMessage(pin1.getNum()) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin2.getNum());
     }
 
     @Override
     public boolean isFinish(Frame frame) {
-        return !frame.isLast();
+        return false;
     }
 
     @Override
     public Score getScore() {
-        return new Score(pin1.getTotal(pin2), leftNum);
+        return null;
     }
 
     @Override
