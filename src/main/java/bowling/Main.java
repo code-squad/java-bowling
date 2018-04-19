@@ -1,31 +1,34 @@
 package bowling;
 
 import bowling.domain.Game;
-import bowling.domain.Pin;
+import bowling.domain.Users;
 import bowling.view.Input;
 import bowling.view.Print;
 
 public class Main {
 	public static void main(String[] args) {
-		String name = Input.inputName();
-		Print.printBaseUpBoard();
-		Print.printBasePinBoard(name);
-		Print.printBaseScoreBoard();
-		gameStart(name);
+		Users users = Input.makeUsers();
+		Print.printBaseAllBoard(users);
+		gameStart(users);
 	}
 
-	public static void gameStart(String name) {
-		Game game = Game.of();
+	public static void gameStart(Users users) {
 		for (int frameNum = 1; frameNum <= Game.LAST_FRAME; frameNum++) {
-			throwBall(name, frameNum, game);
+			throwBall(users, frameNum);
 		}
 	}
 
-	public static void throwBall(String name, int frameNum, Game game) {
+	public static void throwBall(Users users, int frameNum) {
+		for (int i = 0; i < users.size(); i++) {
+			throwBall(users, frameNum, i);
+		}
+	}
+
+	public static void throwBall(Users users, int frameNum, int i) {
 		for (int throwTime = 1; throwTime <= checkThrowRange(frameNum); throwTime++) {
-			Pin pin = game.addScore(Input.inputThrowScore(frameNum));
-			Print.printFrame(pin, name, frameNum, game);
-			if (!game.canNextFrame(frameNum)) {
+			users.addScore(i, Input.inputThrowScore(users.getName(i), frameNum));
+			Print.printFrame(users, frameNum);
+			if (!users.getGame(i).canNextFrame(frameNum)) {
 				break;
 			}
 		}

@@ -3,6 +3,8 @@ package bowling.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import bowling.view.Print;
+
 public class Pin {
 	public static final int STRIKE = 10;
 	private List<Integer> pins;
@@ -60,6 +62,10 @@ public class Pin {
 	}
 
 	public String checkPin() {
+		if(pins.size()==0) {
+			Print.printEmptyFrame();
+			return "";
+		}
 		if (pins.size() == 1) {
 			return checkFirstPin() + "  ";
 		}
