@@ -1,67 +1,60 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static domain.Figure.FRAMEBAR;
-import static domain.Figure.SPARE;
+import domain.status.CalculateStatus;
 
 public abstract class Frame {
 
-    private Score totalScore;
-    private List<Score> scores;
+    private Scores scores;
 
-    public abstract boolean isFrameEnd();
+    public boolean isFrameEnd() {
+        return statusEnd();
+    }
+
+    public boolean statusEnd() {
+        return scores.isEnd();
+    }
 
     Frame() {
-        this.scores = new ArrayList<>();
-        this.totalScore = Score.of();
+        this.scores = Scores.of();
     }
 
     public void trying(final int score) {
         if (!isValidScore(score)) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
-        addition(score);
-    }
-
-    void addition(final int score) {
-        this.scores.add(Score.of(score));
-        this.totalScore.sum(Score.of(score));
-    }
-
-    boolean isTrySecond() {
-        return scores.size() == 2;
-    }
-
-    boolean isSpare() {
-        return totalScore.isTen() && isTrySecond();
-    }
-
-    boolean isFirstStrike() {
-        return scores.get(0).isTen();
-    }
-
-    Score getFrameScore() {
-        return totalScore;
+        assign(score);
     }
 
     boolean isValidScore(final int score) {
-        return isValidScoreToTotalScore(score);
+        return isValidToTotalScore(score, 0);
     }
 
-    boolean isValidScoreToTotalScore(final int score) {
-        return totalScore.isValidAdditionScore(score);
+    public boolean isValidToTotalScore(int score, int compareIndex) {
+        return scores.isValidScore(score, compareIndex);
+    }
+
+    public void assign(int score) {
+        scores.assignStatus(score);
+    }
+
+    boolean isSpare() {
+        return scores.isSpare();
+    }
+
+    boolean isStrike() {
+        return scores.isStrike();
+    }
+
+    boolean isOpen() {
+        return scores.isOpen();
     }
 
     private String toScoreString() {
-        return scores.stream().map(Score::toString).collect(Collectors.joining(FRAMEBAR.toString()));
+        return scores.toScoreString();
     }
 
-    private String spareString() {
-        return scores.get(0).toString() + FRAMEBAR + SPARE;
+    public String spareString() {
+        return scores.spareString();
     }
 
     String toFrameString() {
@@ -69,21 +62,38 @@ public abstract class Frame {
         return toScoreString();
     }
 
+    public void isGivenMessageFromPresentFrame(Frame frame) {
+        scores.takeFromPresent(frame.scores);
+    }
+
+    public void isGivenMessageFromBeforeFrame(Frame beforeFrame) {
+        scores.takeFromBefore(beforeFrame.scores);
+    }
+
+    public int getTotalScore() {
+        return scores.getTotalScore();
+    }
+
+    public boolean isCalculationDo() {
+        return scores.isDo();
+    }
+
+    public void changeCalculateStatusToDo() {
+        scores.changeDo();
+    }
+
     @Override
     public String toString() {
         return toFrameString();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Frame frame = (Frame) o;
-        return Objects.equals(scores, frame.scores);
+    public void changeCalculationStatusToNotYet() {
+        scores.changeNotYet();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(scores);
+    public CalculateStatus getCalculateStatus() {
+        return scores.getCalculateStatus();
     }
 }
+
+

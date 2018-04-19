@@ -7,10 +7,11 @@ import java.util.Objects;
 
 public class Round {
 
+    private static final int MAX_FRAME = 10;
     private List<Frame> roundFrames;
 
     private Round() {
-        roundFrames = new ArrayList<>(10);
+        roundFrames = new ArrayList<>(MAX_FRAME);
         roundFrames.add(NormalFrame.of());
     }
 
@@ -20,31 +21,80 @@ public class Round {
 
     public void trying(final int score) {
         presentFrameTry(score);
+        transferStatusToOtherFrames();
+        addFrame();
+    }
+
+    private void presentFrameTry(final int score) {
+        presentFrame().trying(score);
+        if (roundFrames.size() != 1) {
+            changeStatusDoSpareCase();
+        }
+    }
+
+    private void changeStatusDoSpareCase() {
+        if (roundFrames.get(roundFrames.size() - 2).isSpare()) {
+            presentFrame().changeCalculateStatusToDo();
+        }
+    }
+
+    private void transferStatusToOtherFrames() {
+        if (roundFrames.size() == 10 && presentFrame().isFrameEnd()) {
+            presentFrame().changeCalculateStatusToDo();
+        }
+        if (transferCondition()) {
+            transferStatusToFrames();
+        }
+    }
+
+    private void addFrame() {
         if (isPresentFrameEnd()) {
             addNextFrame();
         }
     }
 
-    private void presentFrameTry(final int score) {
-        roundFrames.get(roundFrames.size() - 1).trying(score);
+    private boolean transferCondition() {
+        return roundFrames.size() != 1 && presentFrame().isCalculationDo();
+    }
+
+    private void transferStatusToFrames() {
+        roundFrames = transferStatusBackward(roundFrames);
+        roundFrames = transferStatusForward(roundFrames);
     }
 
     private boolean isPresentFrameEnd() {
-        return roundFrames.get(roundFrames.size() - 1).isFrameEnd();
+        return presentFrame().isFrameEnd();
     }
 
     private void addNextFrame() {
-        if (roundFrames.size() == 9) {
+        if (roundFrames.size() == MAX_FRAME - 1) {
             roundFrames.add(LastFrame.of());
             return;
         }
-        if (roundFrames.size() != 10) {
+        if (roundFrames.size() != MAX_FRAME) {
             roundFrames.add(NormalFrame.of());
         }
     }
 
+    private List<Frame> transferStatusBackward(List<Frame> roundFrames) {
+        final int size = roundFrames.size();
+        presentFrame().changeCalculationStatusToNotYet();
+        for (int i = 1; i < size; i++) {
+            this.roundFrames.get(size - (i + 1)).isGivenMessageFromPresentFrame(this.roundFrames.get(size - i));
+        }
+        return roundFrames;
+    }
+
+    private List<Frame> transferStatusForward(List<Frame> roundFrames) {
+        final int size = roundFrames.size();
+        for (int i = size; i > 1; i--) {
+            this.roundFrames.get(size - i + 1).isGivenMessageFromBeforeFrame(this.roundFrames.get(size - i));
+        }
+        return roundFrames;
+    }
+
     public boolean isRoundEnd() {
-        return roundFrames.size() == 10 && isPresentFrameEnd();
+        return roundFrames.size() == MAX_FRAME && isPresentFrameEnd();
     }
 
     public int getFrameNumber() {
@@ -53,6 +103,10 @@ public class Round {
 
     public List<Frame> getRoundFrames() {
         return Collections.unmodifiableList(roundFrames);
+    }
+
+    private Frame presentFrame() {
+        return roundFrames.get(roundFrames.size() - 1);
     }
 
     @Override

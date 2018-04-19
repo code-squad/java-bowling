@@ -19,7 +19,7 @@ public class FrameTest {
     public void calculate_total_score_at_one_frame() {
         frame.trying(1);
         frame.trying(6);
-        assertThat(frame.getFrameScore(), is(Score.of(7)));
+        assertThat(frame.getTotalScore(), is(7));
     }
 
     @Test
@@ -80,4 +80,5 @@ public class FrameTest {
         frame.trying(10);
         assertThat(String.format("%-3s", frame.toString()), is("X  "));
     }
+
 }

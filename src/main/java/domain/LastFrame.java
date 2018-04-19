@@ -1,10 +1,11 @@
 package domain;
 
-import static domain.Figure.FRAMEBAR;
+import java.util.Objects;
 
 public class LastFrame extends Frame {
 
-    private Score lastScore;
+    private boolean bonus;
+    private int count = 0;
 
     private LastFrame() {
         super();
@@ -18,39 +19,58 @@ public class LastFrame extends Frame {
     public void trying(final int score) {
         if (!isValidScore(score))
             throw new IllegalArgumentException("잘못된 입력입니다.");
+        assign(score);
         if (hasBonusTry()) {
-            lastScore = Score.of(score);
-            return;
+            addBonus();
         }
-        addition(score);
+        count++;
+    }
+
+    private void addBonus() {
+        bonus = true;
     }
 
     @Override
     public boolean isValidScore(final int score) {
-        try {
-            return hasBonusTry() || isFirstStrike() || isValidScoreToTotalScore(score);
-        } catch (RuntimeException e) {
+        if (count == 0) {
             return true;
         }
+        if (count == 1 && bonus) {
+            return true;
+        }
+        if (count == 2) {
+            if (isSpare()) return true;
+            if (isStrike()) return true;
+            return isValidToTotalScore(score, 1);
+        }
+        return true;
     }
 
     private boolean hasBonusTry() {
-        return isSpare() || (isTrySecond() && isFirstStrike()) ;
-    }
-
-    private String toStringLastScore() {
-        if (lastScore != null) return lastScore.toString();
-        return "";
+        return isSpare() || isStrike();
     }
 
     @Override
     public boolean isFrameEnd() {
-        return lastScore != null || isTrySecond() && !isSpare() && !isFirstStrike();
+        try {
+            return isOpen() && count == 2 && !bonus || count == 3;
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
     @Override
-    public String toString() {
-        return toFrameString() + FRAMEBAR + toStringLastScore();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LastFrame lastFrame = (LastFrame) o;
+        return bonus == lastFrame.bonus;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(bonus);
     }
 
 }

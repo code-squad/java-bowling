@@ -11,8 +11,8 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public boolean isFrameEnd() {
-        return isFirstStrike() || isTrySecond();
+    public String toString() {
+        return toFrameString();
     }
 
 }

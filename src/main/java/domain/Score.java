@@ -8,9 +8,11 @@ import static domain.Figure.ZERO;
 public class Score {
 
     private int score;
+    private static final int MAX_FRAME_SCORE = 10;
+    private static final int MIN_FRAME_SCORE = 0;
 
     private Score() {
-        this.score = 0;
+        this.score = MIN_FRAME_SCORE;
     }
 
     private Score(final int n) {
@@ -29,19 +31,23 @@ public class Score {
     }
 
     private static boolean isValidScore(final int n) {
-        return 0 <= n && n <= 10;
+        return MIN_FRAME_SCORE <= n && n <= MAX_FRAME_SCORE;
     }
 
     public void sum(Score otherScore) {
         this.score += otherScore.score;
     }
 
+    public int sumPrint(Score otherScore) {
+        return this.score + otherScore.score;
+    }
+
     public boolean isTen() {
-        return score == 10;
+        return score == MAX_FRAME_SCORE;
     }
 
     public boolean isValidAdditionScore(final int score) {
-        return score <= 10 - this.score;
+        return score <= MAX_FRAME_SCORE - this.score;
     }
 
     public int getScore() {
@@ -64,8 +70,8 @@ public class Score {
 
     @Override
     public String toString() {
-        if (score == 0) return ZERO.toString();
-        if (score == 10) return STRIKE.toString();
+        if (score == MIN_FRAME_SCORE) return ZERO.toString();
+        if (score == MAX_FRAME_SCORE) return STRIKE.toString();
         return Integer.toString(score);
     }
 
