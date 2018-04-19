@@ -19,11 +19,11 @@ public class InputView {
 	}
 
 	private static int getNextFrameNumber(List<Frame> frames) {
-		if(frames.isEmpty()) {
+		if (frames.isEmpty()) {
 			return Frame.MIN_FRAME_NUMBER;
 		}
 
-		if(frames.get(frames.size() - 1).isComplete()) {
+		if (frames.get(frames.size() - 1).isComplete()) {
 			return frames.size() + 1;
 		}
 

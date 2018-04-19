@@ -2,17 +2,18 @@ package domain.pitch;
 
 import domain.PlayStatus;
 
+import java.util.Optional;
+
 public class Pitch {
     private static final int DEFAULT_START_PIN_COUNT = 10;
     
-    private int pinCount;
-    private int startPinCount;
+    private Integer pinCount;
+    private Integer startPinCount;
     
     public Pitch(int pinCount) {
         if (DEFAULT_START_PIN_COUNT < pinCount) {
             throw new IllegalArgumentException("쓰러뜨린 핀수는 투구 시작 전 남아있는 핀수보다 작거나 같아야 한다.");
         }
-        this.startPinCount = DEFAULT_START_PIN_COUNT;
         this.pinCount = pinCount;
     }
 
@@ -24,27 +25,37 @@ public class Pitch {
         this.pinCount = pinCount;
     }
     
+    public boolean isClear() {
+        if(isRefreshPitch()) {
+            return pinCount.equals(DEFAULT_START_PIN_COUNT);
+        }
+        return pinCount.equals(startPinCount);
+    }
+    
     public int getRemainPinCount() {
+        if(isRefreshPitch()) {
+            return DEFAULT_START_PIN_COUNT - pinCount;
+        }
         return startPinCount - pinCount;
     }
 
-    public boolean isClear() {
-        return startPinCount - pinCount == 0;
-    }
-
     public PlayStatus getStatus() {
-        if(pinCount == 0) {
-            return startPinCount == DEFAULT_START_PIN_COUNT ? PlayStatus.GUTTER : PlayStatus.MISS;
+        if (pinCount == 0) {
+            return isRefreshPitch() ? PlayStatus.GUTTER : PlayStatus.MISS;
         }
         
-        if(isClear()) {
-            return startPinCount == DEFAULT_START_PIN_COUNT ? PlayStatus.STRIKE : PlayStatus.SPARE;
+        if (isClear()) {
+            return isRefreshPitch() ? PlayStatus.STRIKE : PlayStatus.SPARE;
         }
         
-        return startPinCount == DEFAULT_START_PIN_COUNT ? PlayStatus.NONE : PlayStatus.OPEN;
+        return isRefreshPitch() ? PlayStatus.NONE : PlayStatus.OPEN;
     }
     
     public String getDisplayValue() {
         return String.format(getStatus().getDisplayFormat(), pinCount);
+    }
+    
+    private boolean isRefreshPitch() {
+        return startPinCount == null;
     }
 }

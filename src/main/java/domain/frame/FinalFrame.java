@@ -9,16 +9,21 @@ public class FinalFrame extends Frame {
 	
 	@Override
 	public boolean isComplete() {
-		if(getPitches().has(3)) {
+		if (getPitches().has(3)) {
 			return true;
 		}
 		
-		if(getPitches().has(2)) {
+		if (getPitches().has(2)) {
 			PlayStatus secondPitchStatus = getPitches().get(2).getStatus();
-			return secondPitchStatus == PlayStatus.OPEN
-					 || secondPitchStatus == PlayStatus.STRIKE;
+			return PlayStatus.OPEN.equals(secondPitchStatus)
+					 || PlayStatus.STRIKE.equals(secondPitchStatus);
 		}
 
 		return false;
+	}
+	
+	@Override
+	public boolean canScore() {
+		return isComplete();
 	}
 }

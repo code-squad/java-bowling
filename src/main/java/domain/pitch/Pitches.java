@@ -15,16 +15,13 @@ public class Pitches {
     public Pitch get(int pitchNumber) {
         return pitches.get(pitchNumber - 1);
     }
-
-    public boolean has(int pitchNumber) {
-        if(pitchNumber <= pitches.size()) {
-            return true;
-        }
-        return false;
-    }
-
+    
     public Pitch getLast() {
         return pitches.get(pitches.size() - 1);
+    }
+
+    public boolean has(int pitchNumber) {
+        return pitchNumber <= pitches.size();
     }
 
     public Pitches add(int pinCount) {
