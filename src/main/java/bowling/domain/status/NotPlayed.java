@@ -15,7 +15,7 @@ public class NotPlayed extends Incomplete {
         return null;
     }
 
-    public void updateScore(Score score) {
-        score.bowl(0);
+    public int updateScore(Score score) {
+        throw new FrameNotPlayedException();
     }
 }

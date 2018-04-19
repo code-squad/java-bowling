@@ -21,19 +21,26 @@ public class Score {
         return new Score(score, 0);
     }
 
-    public void bowl(int score) {
-        this.score += score;
-        if (!countUntilCalcIsZero()) {
+    public int bowl(int score) {
+        if (!noMoreBowlNeeded()) {
             countUntilCalculation--;
-
         }
+        return this.score += score;
     }
 
-    public boolean countUntilCalcIsZero() {
+    public boolean noMoreBowlNeeded() {
         return countUntilCalculation == 0;
     }
 
-    public boolean countUntilCalcIsOne() {
+    public boolean oneMoreBowlNeeded() {
         return countUntilCalculation == 1;
+    }
+
+    public boolean twoMoreBowlsNeeded() {
+        return countUntilCalculation == 2;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

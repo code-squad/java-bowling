@@ -19,7 +19,10 @@ public class Spare extends Complete {
         return Score.ofSpare();
     }
 
-    public void updateScore(Score score) {
-        score.bowl(first + second);
+    public int updateScore(Score score) {
+        if (score.oneMoreBowlNeeded()) {
+            return score.bowl(first);
+        }
+        return score.bowl(first + second);
     }
 }

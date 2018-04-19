@@ -21,7 +21,7 @@ public class PlayedOnce extends Incomplete {
         return Score.ofNormal(first);
     }
 
-    public void updateScore(Score score) {
-        score.bowl(first);
+    public int updateScore(Score score) {
+        return score.bowl(first);
     }
 }

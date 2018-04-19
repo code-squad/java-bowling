@@ -19,7 +19,10 @@ public class AllPlayed extends Complete {
         return Score.ofNormal(first + second);
     }
 
-    public void updateScore(Score score) {
-        score.bowl(first + second);
+    public int updateScore(Score score) {
+        if (score.oneMoreBowlNeeded()) {
+            return score.bowl(first);
+        }
+        return score.bowl(first + second);
     }
 }
