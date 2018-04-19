@@ -1,10 +1,10 @@
 package domain.pitch;
 
 import domain.PlayStatus;
-import domain.frame.Frame;
 
 public class Pitch {
     private static final int DEFAULT_START_PIN_COUNT = 10;
+    
     private int pinCount;
     private int startPinCount;
     
@@ -33,27 +33,15 @@ public class Pitch {
     }
 
     public PlayStatus getStatus() {
-        if(startPinCount == DEFAULT_START_PIN_COUNT) {
-            if(pinCount == 0) {
-                return PlayStatus.GUTTER;
-            }
-            
-            if(isClear()) {
-                return PlayStatus.STRIKE;
-            }
-            
-            return PlayStatus.NONE;
-        }
-        
         if(pinCount == 0) {
-            return PlayStatus.MISS;
+            return startPinCount == DEFAULT_START_PIN_COUNT ? PlayStatus.GUTTER : PlayStatus.MISS;
         }
         
         if(isClear()) {
-            return PlayStatus.SPARE;
+            return startPinCount == DEFAULT_START_PIN_COUNT ? PlayStatus.STRIKE : PlayStatus.SPARE;
         }
         
-        return PlayStatus.OPEN;
+        return startPinCount == DEFAULT_START_PIN_COUNT ? PlayStatus.NONE : PlayStatus.OPEN;
     }
     
     public String getDisplayValue() {

@@ -13,13 +13,4 @@ public class NormalFrame extends Frame {
 	public boolean isComplete() {
 		return getPitches().get(1).isClear() || getPitches().has(2);
 	}
-
-	@Override
-	public Frame bowl(int pinCount) {
-		if(isComplete()) {
-			return createNextFrame(pinCount);
-		}
-
-		return super.bowl(pinCount);
-	}
 }

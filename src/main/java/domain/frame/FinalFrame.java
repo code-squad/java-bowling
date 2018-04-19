@@ -21,13 +21,4 @@ public class FinalFrame extends Frame {
 
 		return false;
 	}
-
-	@Override
-	public Frame bowl(int pinCount) {
-		if(isComplete()) {
-			return this;
-		}
-		
-		return super.bowl(pinCount);
-	}
 }
