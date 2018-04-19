@@ -1,6 +1,7 @@
 import frame.Frame;
 import game.Game;
 import input.Input;
+import view.ResultView;
 
 import java.util.List;
 
@@ -12,9 +13,7 @@ public class Running {
             game.running(i);
         }
 
-        System.out.println("player name is " + name);
-        for (Frame frame : game.getFrames()) {
-            System.out.println("firstPin value is " + frame.getFirstPin().getPinFall());
-        }
+        ResultView.upperBar(game.getFrames(), name);
+
     }
 }

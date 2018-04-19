@@ -18,6 +18,8 @@ public class FrameManagerTest {
 
     @Test
     public void 스트라이크테스트() {
-        boolean result = xframe.onFrame(10);
+        Frame result = xframe.onFrame(10);
+        int num = result.getFirstPin().getPinFall();
+        assertEquals(10, num);
     }
 }

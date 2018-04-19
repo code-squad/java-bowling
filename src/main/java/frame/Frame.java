@@ -44,4 +44,12 @@ public class Frame {
     public Pin getSecondPin() {
         return secondPin;
     }
+
+    public void getResult() {
+        if (getFirstPin().checkFinish())
+            System.out.print("  " + checkStatus().toString() + "   ");
+
+        if (!(getFirstPin().checkFinish()))
+        System.out.print("  " + getFirstPin().getPinFall() + "|" + checkStatus().toString() + " ");
+    }
 }

@@ -19,12 +19,12 @@ public class Game {
     public List<Frame> running(int i) {
         FrameManager manager = new FrameManager();
         Input input = new Input();
-        Frame frame = manager.onFrame2(input.inputNum(i));
+        Frame frame = manager.onFrame(input.inputNum(i));
         if (frame.finishFrame()) {
             frames.add(frame);
             return frames;
         }
-        frame = manager.onFrame2(input.inputNum(i));
+        frame = manager.onFrame(input.inputNum(i));
         frames.add(frame);
         return frames;
     }
