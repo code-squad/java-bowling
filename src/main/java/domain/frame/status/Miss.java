@@ -3,19 +3,19 @@ package domain.frame.status;
 import domain.frame.Frame;
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
-import domain.frame.score.ScoreMessage;
+import domain.frame.result.ScoreMessage;
 
 public class Miss implements FrameStatus {
     private Pin pin1;
     private Pin pin2;
 
-    public Miss(Pin pin, int num) {
+    public Miss(Pin pin, Pin newPin) {
         pin1 = pin;
-        pin2 = new Pin(num);
+        pin2 = newPin;
     }
 
     @Override
-    public FrameStatus roll(Frame frame, int num) throws IllegalArgumentException {
+    public FrameStatus roll(Frame frame, Pin newPin) throws IllegalArgumentException {
         return this;
     }
 

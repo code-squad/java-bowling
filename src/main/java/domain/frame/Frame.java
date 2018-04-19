@@ -1,22 +1,23 @@
 package domain.frame;
 
+import domain.frame.pin.Pin;
 import domain.frame.result.Board;
 import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.result.Score;
 import domain.frame.status.FrameStatus;
+import domain.frame.status.Ready;
 
 import static domain.frame.result.Board.isLimit;
 
 public abstract class Frame {
     public static final int CANNOT_CALC_SCORE_STATE = -1;
     private FrameStatus status;
-
     private final int frameNum;
 
     public Frame(int frameNum) {
         this.frameNum = frameNum;
-        status = FrameStatus.getInitStatus();
+        status = new Ready();
     }
 
     public static Frame of(int frameNum) {
@@ -27,7 +28,7 @@ public abstract class Frame {
     }
 
     public Frame roll(int num) throws IllegalArgumentException {
-        status = status.roll(this, num);
+        status = status.roll(this, new Pin(num));
         return createFrame(status);
     }
 

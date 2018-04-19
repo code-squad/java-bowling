@@ -1,15 +1,12 @@
 package domain.frame.status;
 
 import domain.frame.Frame;
+import domain.frame.pin.Pin;
 import domain.frame.result.Score;
 
 public interface FrameStatus {
 
-    static FrameStatus getInitStatus() {
-        return new Ready();
-    }
-
-    FrameStatus roll(Frame frame, int num) throws IllegalArgumentException;
+    FrameStatus roll(Frame frame, Pin newPin);
 
     String getResultMessage();
 

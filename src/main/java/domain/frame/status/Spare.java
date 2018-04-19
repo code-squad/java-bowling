@@ -2,29 +2,26 @@ package domain.frame.status;
 
 import domain.frame.Frame;
 import domain.frame.pin.Pin;
-import domain.frame.result.CannotCalcException;
 import domain.frame.result.Score;
-import domain.frame.score.ScoreMessage;
+import domain.frame.result.ScoreMessage;
 
 public class Spare implements FrameStatus {
     private Pin pin1;
     private Pin pin2;
     private int leftNum;
 
-    public Spare(Pin pin1, int num) {
-        this.pin1 = pin1;
-        pin2 = new Pin(num);
+    public Spare(Pin pin, Pin newPin) {
+        pin1 = pin;
+        pin2 = newPin;
         leftNum = 1;
     }
 
     @Override
-    public FrameStatus roll(Frame frame, int num) throws IllegalArgumentException {
+    public FrameStatus roll(Frame frame, Pin newPin) throws IllegalArgumentException {
         if (!frame.isLast()) {
             return this;
         }
-
-        /* 여기도 좀 다름 - 라스트일때 */
-        return this;
+        return null;
     }
 
     @Override

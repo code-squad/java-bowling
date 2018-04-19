@@ -5,29 +5,30 @@ import domain.frame.pin.Pin;
 import domain.frame.result.CannotCalcException;
 import domain.frame.result.Score;
 
-public class Ready implements FrameStatus {
+public class LastBonusReady extends LastBonusStatus {
+
+    public LastBonusReady() {
+
+    }
 
     @Override
     public FrameStatus roll(Frame frame, Pin newPin) throws IllegalArgumentException {
-        if (newPin.isMax()) {
-            return new Strike(newPin);
-        }
-        return new Ing(newPin);
+        return null;
     }
 
     @Override
     public String getResultMessage() {
-        return "";
+        return null;
     }
 
     @Override
     public boolean isRegularFinish() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isBonusFinish() {
-        return true;
+        return false;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class Ready implements FrameStatus {
     }
 
     @Override
-    public Score addBonusScore(Score otherFrameScore) throws CannotCalcException {
+    public Score addBonusScore(Score otherFrameScore) {
         throw new CannotCalcException();
     }
 }

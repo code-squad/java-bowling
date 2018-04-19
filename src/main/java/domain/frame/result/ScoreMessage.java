@@ -1,4 +1,4 @@
-package domain.frame.score;
+package domain.frame.result;
 
 public enum ScoreMessage {
     TEN("X"),

@@ -2,27 +2,26 @@ package domain.frame.status;
 
 import domain.frame.Frame;
 import domain.frame.pin.Pin;
-import domain.frame.result.CannotCalcException;
 import domain.frame.result.Score;
-import domain.frame.score.ScoreMessage;
+import domain.frame.result.ScoreMessage;
 
 public class Ing implements FrameStatus {
     private Pin pin;
 
-    public Ing(int num) {
-        pin = new Pin(num);
+    public Ing(Pin newPin) {
+        pin = newPin;
     }
 
     @Override
-    public FrameStatus roll(Frame frame, int num) throws IllegalArgumentException {
-        if (pin.isOverRecordPin(num)) {
+    public FrameStatus roll(Frame frame, Pin newPin) throws IllegalArgumentException {
+        if (pin.isOverRecordPin(newPin)) {
             throw new IllegalArgumentException(Pin.MAX + "개 초과 기록할 수 없습니다");
         }
 
-        if (pin.isTotalMax(num)) {
-            return new Spare(pin, num);
+        if (pin.isMax(newPin)) {
+            return new Spare(pin, newPin);
         }
-        return new Miss(pin, num);
+        return new Miss(pin, newPin);
     }
 
     @Override
