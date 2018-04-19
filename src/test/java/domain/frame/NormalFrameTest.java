@@ -23,10 +23,10 @@ public class NormalFrameTest {
 	
 	@Test
 	public void isComplete테스트() {
-		assertThat(new NormalFrame(1, 10).isComplete()).isEqualTo(true);
-		assertThat(new NormalFrame(1, 1).bowl(9).isComplete()).isEqualTo(true);
-		assertThat(new NormalFrame(1, 1).bowl(2).isComplete()).isEqualTo(true);
-		assertThat(new NormalFrame(1, 10).bowl(2).isComplete()).isEqualTo(false);
+		assertThat(new NormalFrame(10).isComplete()).isEqualTo(true);
+		assertThat(new NormalFrame(1).bowl(9).isComplete()).isEqualTo(true);
+		assertThat(new NormalFrame(1).bowl(2).isComplete()).isEqualTo(true);
+		assertThat(new NormalFrame(10).bowl(2).isComplete()).isEqualTo(false);
 	}
 
 	@Test
@@ -39,16 +39,57 @@ public class NormalFrameTest {
 	}
 
 	@Test
-	public void hasSecondPitch테스트() {
-		assertThat(new NormalFrame(10, 10).hasSecondPitch()).isEqualTo(false);
-		assertThat(new NormalFrame(10, 1).bowl(2).hasSecondPitch()).isEqualTo(true);
+	public void getStatus테스트() {
+		assertThat(new NormalFrame(10).getStatus()).isEqualTo(PlayStatus.STRIKE);
+		assertThat(new NormalFrame(9).bowl(1).getStatus()).isEqualTo(PlayStatus.SPARE);
+		assertThat(new NormalFrame(9).bowl(0).getStatus()).isEqualTo(PlayStatus.MISS);
+		assertThat(new NormalFrame(9).getStatus()).isEqualTo(PlayStatus.NONE);
 	}
 	
 	@Test
-	public void getStatus테스트() {
-		assertThat(new NormalFrame(1, 10).getStatus()).isEqualTo(PlayStatus.STRIKE);
-		assertThat(new NormalFrame(1, 9).bowl(1).getStatus()).isEqualTo(PlayStatus.SPARE);
-		assertThat(new NormalFrame(1, 9).bowl(0).getStatus()).isEqualTo(PlayStatus.MISS);
-		assertThat(new NormalFrame(1, 9).getStatus()).isEqualTo(PlayStatus.NONE);
+	public void canScore테스트() {
+		assertThat(new NormalFrame(10).canScore()).isEqualTo(false);
+		assertThat(new NormalFrame(1).bowl(9).canScore()).isEqualTo(false);
+		assertThat(new NormalFrame(1).canScore()).isEqualTo(false);
+		assertThat(new NormalFrame(2).bowl(5).canScore()).isEqualTo(true);
+		assertThat(new NormalFrame(0).canScore()).isEqualTo(false);
+		assertThat(new NormalFrame(0).bowl(0).canScore()).isEqualTo(true);
+		
+		Frame frame = new NormalFrame(10);
+		frame.bowl(2);
+		assertThat(frame.canScore()).isEqualTo(false);
+		frame.bowl(2).bowl(8);
+		assertThat(frame.canScore()).isEqualTo(true);
+		
+		frame = new NormalFrame(8).bowl(2);
+		frame.bowl(10);
+		assertThat(frame.canScore()).isEqualTo(true);
+
+		frame = new NormalFrame(10);
+		frame.bowl(10);
+		assertThat(frame.canScore()).isEqualTo(false);
+		frame.bowl(10).bowl(10);
+		assertThat(frame.canScore()).isEqualTo(true);
+		frame.bowl(10).bowl(2);
+		assertThat(frame.canScore()).isEqualTo(true);
+	}
+	
+	@Test
+	public void score테스트() {
+		NormalFrame frame = new NormalFrame(10);
+		frame.bowl(2).bowl(3);
+		assertThat(frame.score()).isEqualTo(15);
+		frame.bowl(10).bowl(10).bowl(10);
+		assertThat(frame.score()).isEqualTo(30);
+		frame.bowl(10).bowl(1).bowl(9);
+		assertThat(frame.score()).isEqualTo(21);
+
+		frame = new NormalFrame(1);
+		frame.bowl(9).bowl(1).bowl(2);
+		assertThat(frame.score()).isEqualTo(11);
+
+		frame = new NormalFrame(1);
+		frame.bowl(8).bowl(1).bowl(2);
+		assertThat(frame.score()).isEqualTo(9);
 	}
 }

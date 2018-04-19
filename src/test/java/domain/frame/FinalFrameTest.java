@@ -12,11 +12,22 @@ public class FinalFrameTest {
 
     @Test
     public void isComplete테스트() {
+        assertThat(new FinalFrame(0).isComplete()).isEqualTo(false);
+        assertThat(new FinalFrame(0).bowl(1).isComplete()).isEqualTo(true);
+        assertThat(new FinalFrame(0).bowl(10).isComplete()).isEqualTo(false);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).isComplete()).isEqualTo(true);
+    
+        assertThat(new FinalFrame(8).isComplete()).isEqualTo(false);
+        assertThat(new FinalFrame(8).bowl(1).isComplete()).isEqualTo(true);
+    
+        assertThat(new FinalFrame(1).bowl(9).isComplete()).isEqualTo(false);
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).isComplete()).isEqualTo(true);
+    
         assertThat(new FinalFrame(10).isComplete()).isEqualTo(false);
         assertThat(new FinalFrame(10).bowl(2).isComplete()).isEqualTo(false);
-        assertThat(new FinalFrame(1).bowl(9).isComplete()).isEqualTo(false);
-        assertThat(new FinalFrame(2).bowl(8).bowl(3).isComplete()).isEqualTo(true);
-        assertThat(new FinalFrame(1).bowl(2).isComplete()).isEqualTo(true);
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).isComplete()).isEqualTo(true);
+        assertThat(new FinalFrame(10).bowl(10).isComplete()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).isComplete()).isEqualTo(true);
     }
 
     @Test
@@ -28,12 +39,35 @@ public class FinalFrameTest {
     }
     
     @Test
-    public void hasThirdPitch테스트() {
-        assertThat(((FinalFrame)new FinalFrame(1).bowl(2)).hasThirdPitch()).isEqualTo(false);
-        assertThat(((FinalFrame)new FinalFrame(1).bowl(9).bowl(2)).hasThirdPitch()).isEqualTo(true);
-        assertThat(((FinalFrame)new FinalFrame(1).bowl(9).bowl(10)).hasThirdPitch()).isEqualTo(true);
-        assertThat(((FinalFrame)new FinalFrame(10).bowl(10)).hasThirdPitch()).isEqualTo(false);
-        assertThat(((FinalFrame)new FinalFrame(10).bowl(1).bowl(2)).hasThirdPitch()).isEqualTo(true);
-        assertThat(((FinalFrame)new FinalFrame(10).bowl(1).bowl(9)).hasThirdPitch()).isEqualTo(true);
+    public void canScore테스트() {
+        assertThat(new FinalFrame(0).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(0).bowl(1).canScore()).isEqualTo(true);
+        assertThat(new FinalFrame(0).bowl(10).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).canScore()).isEqualTo(true);
+        
+        assertThat(new FinalFrame(8).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(8).bowl(1).canScore()).isEqualTo(true);
+        
+        assertThat(new FinalFrame(1).bowl(9).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).canScore()).isEqualTo(true);
+        
+        assertThat(new FinalFrame(10).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(2).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).canScore()).isEqualTo(true);
+        assertThat(new FinalFrame(10).bowl(10).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).canScore()).isEqualTo(true);
+    }
+
+    @Test
+    public void score테스트() {
+        assertThat(new FinalFrame(0).bowl(1).score()).isEqualTo(1);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).score()).isEqualTo(20);
+
+        assertThat(new FinalFrame(8).bowl(1).score()).isEqualTo(9);
+
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).score()).isEqualTo(20);
+
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).score()).isEqualTo(20);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).score()).isEqualTo(30);
     }
 }

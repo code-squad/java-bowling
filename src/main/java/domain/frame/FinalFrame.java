@@ -1,59 +1,37 @@
 package domain.frame;
 
 import domain.PlayStatus;
-import domain.Pitch;
-
-import java.util.List;
 
 public class FinalFrame extends Frame {
-	private Pitch thirdPitch;
-	
 	public FinalFrame(int firstPitch) {
 		super(Frame.MAX_FRAME_NUMBER, firstPitch);
 	}
 	
 	@Override
-	public List<Pitch> getPitches() {
-		List<Pitch> pitches = super.getPitches();
-		if(hasThirdPitch()) {
-			pitches.add(thirdPitch);
-		}
-		return pitches;
-	}
-
-	public boolean hasThirdPitch() {
-		return thirdPitch != null;
-	}
-
-	@Override
 	public boolean isComplete() {
-		if(hasThirdPitch()) {
+		if (getPitches().has(3)) {
 			return true;
 		}
 		
-		if(hasSecondPitch()) {
-			PlayStatus secondPitchStatus = getSecondPitch().getStatus();
-			return secondPitchStatus == PlayStatus.OPEN
-					 || secondPitchStatus == PlayStatus.STRIKE;
+		if (getPitches().has(2)) {
+			PlayStatus secondPitchStatus = getPitches().get(2).getStatus();
+			return PlayStatus.OPEN.equals(secondPitchStatus)
+					|| PlayStatus.MISS.equals(secondPitchStatus);
 		}
 
 		return false;
 	}
+	
+	@Override
+	public boolean canScore() {
+		return isComplete();
+	}
 
 	@Override
-	public Frame bowl(int pinCount) {
-		if(isComplete()) {
-			return this;
+	public int score() {
+		if (!canScore()) {
+			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
 		}
-		
-		if(!hasSecondPitch()) {
-			return getLastPitch().isClear() ? super.resetAndBowl(pinCount) : super.bowl(pinCount);
-		}
-
-		if(!hasThirdPitch()) {
-			thirdPitch = new Pitch(getLastPitch().isClear() ? DEFAULT_START_PIN_COUNT : getLastPitch().getRemainPinCount(), pinCount);
-		}
-
-		return this;
+		return getPitches().sum();
 	}
 }
