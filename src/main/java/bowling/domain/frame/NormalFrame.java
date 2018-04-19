@@ -28,9 +28,13 @@ public class NormalFrame extends Frame {
 
     @Override
     public void bowl(int pins) {
-        status = status.bowl(pins);
         if (status.isComplete()) {
-            score = createScore();
+            nextFrame.bowl(pins);
+        } else {
+            status = status.bowl(pins);
+            if (status.isComplete()) {
+                score = createScore();
+            }
         }
     }
 
