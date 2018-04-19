@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Pitches {
-    private static final int DEFAULT_START_PIN_COUNT = 10;
     private List<Pitch> pitches;
 
     public Pitches(int firstPitch) {
-        pitches = new ArrayList<>(Arrays.asList(new Pitch(DEFAULT_START_PIN_COUNT, firstPitch)));
+        pitches = new ArrayList<>(Arrays.asList(new Pitch(firstPitch)));
     }
 
     public Pitch get(int pitchNumber) {
@@ -30,7 +29,7 @@ public class Pitches {
 
     public Pitches add(int pinCount) {
         int remainPinCount = getLast().getRemainPinCount();
-        pitches.add(new Pitch(remainPinCount == 0 ? DEFAULT_START_PIN_COUNT : remainPinCount, pinCount));
+        pitches.add(remainPinCount == 0 ? new Pitch(pinCount) : new Pitch(remainPinCount, pinCount));
         return this;
     }
 

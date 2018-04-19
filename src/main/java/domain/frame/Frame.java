@@ -5,7 +5,6 @@ import domain.PlayStatus;
 import domain.pitch.Pitches;
 
 public abstract class Frame {
-	public static final int DEFAULT_START_PIN_COUNT = 10;
 	public static final int MIN_FRAME_NUMBER = 1;
 	public static final int MAX_FRAME_NUMBER = 10;
 
@@ -16,9 +15,6 @@ public abstract class Frame {
 
 	public Frame(int frameNumber, int firstPitch) {
 		this.frameNumber = frameNumber;
-		if(firstPitch > DEFAULT_START_PIN_COUNT) {
-			throw new IllegalArgumentException("10개 이상의 pinCount는 집계할 수 없습니다.");
-		}
 		this.pitches = new Pitches(firstPitch);
 	}
 	

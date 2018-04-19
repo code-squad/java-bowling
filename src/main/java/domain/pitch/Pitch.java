@@ -4,8 +4,17 @@ import domain.PlayStatus;
 import domain.frame.Frame;
 
 public class Pitch {
+    private static final int DEFAULT_START_PIN_COUNT = 10;
     private int pinCount;
     private int startPinCount;
+    
+    public Pitch(int pinCount) {
+        if (DEFAULT_START_PIN_COUNT < pinCount) {
+            throw new IllegalArgumentException("쓰러뜨린 핀수는 투구 시작 전 남아있는 핀수보다 작거나 같아야 한다.");
+        }
+        this.startPinCount = DEFAULT_START_PIN_COUNT;
+        this.pinCount = pinCount;
+    }
 
     public Pitch(int startPinCount, int pinCount) {
         if (startPinCount < pinCount) {
@@ -24,7 +33,7 @@ public class Pitch {
     }
 
     public PlayStatus getStatus() {
-        if(startPinCount == Frame.DEFAULT_START_PIN_COUNT) {
+        if(startPinCount == DEFAULT_START_PIN_COUNT) {
             if(pinCount == 0) {
                 return PlayStatus.GUTTER;
             }
