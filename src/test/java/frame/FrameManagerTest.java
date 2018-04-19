@@ -19,16 +19,5 @@ public class FrameManagerTest {
     @Test
     public void 스트라이크테스트() {
         boolean result = xframe.onFrame(10);
-        System.out.println("size of frames is " + xframe.getFrames().size());
-        System.out.println("firstPin is " + xframe.getFrames().get(0).getFirstPin().getPinFall());
-    }
-
-    @Test
-    public void 플레이프레임테스트() {
-        boolean result = xframe.onFrame(3);
-        System.out.println("size of frames is " + xframe.getFrames().size());
-        System.out.println("firstPin is " + xframe.getFrames().get(0).getFirstPin().getPinFall());
-        System.out.println("secondPin is " + xframe.getFrames().get(0).getSecondPin().getPinFall());
-        assertTrue(result);
     }
 }
