@@ -2,19 +2,24 @@ package bowling.domain;
 
 public class NormalFrame extends Frame {
 
-	public NormalFrame(int frameNum, Score score) {
-		super(frameNum, score.getScore(0), score.getScore(1));
+	private NormalFrame(Pin pin, Score score) {
+		super(pin.getPin(0), pin.getPin(1), score);
 	}
 
-	public NormalFrame(int frameNum, int firstDownPin) {
-		super(frameNum, firstDownPin);
+	private NormalFrame(int firstDownPin, Score score) {
+		super(firstDownPin, score);
 	}
 
-	public static NormalFrame of(int frameNum, Score score) {
-		if (score.size() == 1) {
-			return new NormalFrame(frameNum, score.getScore(0));
+	public static NormalFrame of(Pin pin, int beforeScore) {
+		if (Pin.isStrike(pin.getPin(0))) {
+			return new NormalFrame(pin.getPin(0), Score.ofStrike(pin.beforePlusNow(beforeScore)));
 		}
-		return new NormalFrame(frameNum, score);
+
+		if (pin.isSpare()) {
+			return new NormalFrame(pin, Score.ofSpare(pin.beforePlusNow(beforeScore)));
+		}
+
+		return new NormalFrame(pin, Score.of(pin.beforePlusNow(beforeScore)));
 	}
 
 	public String getDownPin() {
