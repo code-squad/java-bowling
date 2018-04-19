@@ -17,6 +17,7 @@ public class FrameManager {
             System.out.println("frame status is " + frame.checkStatus().toString());
             return frame;
         }
-        throw new IllegalArgumentException();
+        System.out.println("Not strike 다시 굴리세요");
+        return frame;
     }
 }

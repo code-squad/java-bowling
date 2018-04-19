@@ -10,6 +10,7 @@ public class Input {
 
     public Integer inputNum() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("투구를 하시오 ");
         return scanner.nextInt();
     }
 }

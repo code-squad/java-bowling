@@ -16,16 +16,7 @@ public class Game {
         }
     }
 
-    public boolean running() {
-        FrameManager frameManager = new FrameManager();
-        Input input = new Input();
-        if (frameManager.onFrame(input.inputNum())) {
-            return true;
-        }
-        return frameManager.onFrame(input.inputNum());
-    }
-
-    public List<Frame> matching(int i) {
+    public List<Frame> running() {
         FrameManager manager = new FrameManager();
         Input input = new Input();
         Frame frame = manager.onFrame2(input.inputNum());
@@ -33,7 +24,12 @@ public class Game {
             frames.add(frame);
             return frames;
         }
-        frames.add(manager.onFrame2(input.inputNum()));
+        frame = manager.onFrame2(input.inputNum());
+        frames.add(frame);
+        return frames;
+    }
+
+    public List<Frame> getFrames() {
         return frames;
     }
 }
