@@ -123,4 +123,11 @@ public class Round {
         return Objects.hash(roundFrames);
     }
 
+    public boolean frameEnd() {
+        return presentFrame().isFrameEnd();
+    }
+
+    public boolean isFrameStatusNull() {
+        return presentFrame().canToss();
+    }
 }

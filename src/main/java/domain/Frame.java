@@ -94,6 +94,10 @@ public abstract class Frame {
     public CalculateStatus getCalculateStatus() {
         return scores.getCalculateStatus();
     }
+
+    public boolean canToss() {
+        return scores.isStatusNull();
+    }
 }
 
 
