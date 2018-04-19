@@ -40,7 +40,7 @@ public class BonusCompletion implements FrameStatus {
         if (pin2.isMax(pin3)) {
             return getMessage(ScoreMessage.TEN) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin2.getNum()) + getMessage(ScoreMessage.MODIFIER) + getMessage(ScoreMessage.SPARE);
         }
-        return getMessage(ScoreMessage.TEN) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin2.getNum()) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin2.getNum());
+        return getMessage(ScoreMessage.TEN) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin2.getNum()) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin3.getNum());
     }
 
     @Override

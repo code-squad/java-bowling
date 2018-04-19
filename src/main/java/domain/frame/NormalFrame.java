@@ -42,6 +42,15 @@ public class NormalFrame extends Frame {
         if (!score.hasBonusCount()) {
             return score.get();
         }
-        return nextFrame.addBonusScore(score);
+        score = nextFrame.addBonusScore(score);
+        return score.get();
+    }
+
+    @Override
+    Score doAddAdditionalBonusScore(Score unFinishedScore) throws CannotCalcException {
+        if (nextFrame == null) {
+            throw new CannotCalcException();
+        }
+        return nextFrame.addBonusScore(unFinishedScore);
     }
 }

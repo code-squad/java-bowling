@@ -33,4 +33,9 @@ public class LastFrame extends Frame {
         Score score = status.getScore();
         return score.get();
     }
+
+    @Override
+    Score doAddAdditionalBonusScore(Score unFinishedScore) throws CannotCalcException {
+        throw new CannotCalcException();
+    }
 }

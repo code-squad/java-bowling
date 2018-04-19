@@ -73,9 +73,21 @@ public class FrameStatusTest {
         assertFalse(status.isFinish(lastFrame));
     }
 
+    @Test
+    public void 상태변화_스트라이크_보너스_라스트프레임() {
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(5));
+        status = status.roll(lastFrame, new Pin(5));
+        assertTrue(status.isFinish(lastFrame));
+    }
 
-    /* TODO : 라스트프레임 상태 변화 테스트 해야함 */
-
+    @Test
+    public void 상태변화_스패어_보너스_라스트프레임() {
+        status = status.roll(lastFrame, new Pin(9));
+        status = status.roll(lastFrame, new Pin(1));
+        status = status.roll(lastFrame, new Pin(1));
+        assertTrue(status.isFinish(lastFrame));
+    }
 
     @Test
     public void 상태메세지_스트라이크_노말프레임() {
@@ -98,8 +110,8 @@ public class FrameStatusTest {
 
     @Test
     public void 상태메세지_스패어_라스트프레임() {
-        status = status.roll(normalFrame, new Pin(3));
-        status = status.roll(normalFrame, new Pin(7));
+        status = status.roll(lastFrame, new Pin(3));
+        status = status.roll(lastFrame, new Pin(7));
         assertEquals("3|/", status.getResultMessage());
     }
 
@@ -112,8 +124,8 @@ public class FrameStatusTest {
 
     @Test
     public void 상태메세지_미쓰_라스트프레임() {
-        status = status.roll(normalFrame, new Pin(6));
-        status = status.roll(normalFrame, new Pin(0));
+        status = status.roll(lastFrame, new Pin(6));
+        status = status.roll(lastFrame, new Pin(0));
         assertEquals("6|-", status.getResultMessage());
     }
 
@@ -125,15 +137,49 @@ public class FrameStatusTest {
 
     @Test
     public void 상태메세지_진행중_라스트프레임() {
-        status = status.roll(normalFrame, new Pin(4));
+        status = status.roll(lastFrame, new Pin(4));
         assertEquals("4", status.getResultMessage());
     }
 
+    @Test
+    public void 상태메세지_보너스_라스트프레임() {
+        status = status.roll(lastFrame, new Pin(4));
+        status = status.roll(lastFrame, new Pin(6));
+        status = status.roll(lastFrame, new Pin(10));
+        assertEquals("4|/|X", status.getResultMessage());
+    }
 
+    @Test
+    public void 상태메세지_보너스2_라스트프레임() {
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(5));
+        status = status.roll(lastFrame, new Pin(5));
+        assertEquals("X|5|/", status.getResultMessage());
+    }
 
-    /* TODO : 라스트 프레임 상태메세지 추가해야함 */
+    @Test
+    public void 상태메세지_보너스3_라스트프레임() {
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(10));
+        assertEquals("X|X|X", status.getResultMessage());
+    }
 
+    @Test
+    public void 상태메세지_보너스4_라스트프레임() {
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(0));
+        assertEquals("X|X|-", status.getResultMessage());
+    }
 
+    @Test
+    public void 상태메세지_보너스5_라스트프레임() {
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(5));
+        status = status.roll(lastFrame, new Pin(3));
+        assertEquals("X|5|3", status.getResultMessage());
+    }
 
     @Test(expected = CannotCalcException.class)
     public void 노말프레임_스트라이크_대기상태프레임에게_점수_건네받기() {
@@ -167,15 +213,36 @@ public class FrameStatusTest {
         assertEquals(16, totalScore.get());
     }
 
-
-
-
-
-    /* TODO : 여기부터 만들어야함 */
     @Test(expected = CannotCalcException.class)
     public void 라스트프레임_스트라이크_추가점수없이_보너스점수_합산하기() {
         status = status.roll(lastFrame, new Pin(10));
         Score score = status.getScore();
         score.get();
+    }
+
+    @Test(expected = CannotCalcException.class)
+    public void 라스트프레임_스패어_추가점수없이_보너스점수_합산하기() {
+        status = status.roll(lastFrame, new Pin(5));
+        status = status.roll(lastFrame, new Pin(5));
+        Score score = status.getScore();
+        score.get();
+    }
+
+    @Test
+    public void 라스트프레임_스트라이크_보너스점수_합산하기() {
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(10));
+        status = status.roll(lastFrame, new Pin(10));
+        Score score = status.getScore();
+        assertEquals(30, score.get());
+    }
+
+    @Test
+    public void 라스트프레임_스패어_보너스점수_합산하기() {
+        status = status.roll(lastFrame, new Pin(5));
+        status = status.roll(lastFrame, new Pin(5));
+        status = status.roll(lastFrame, new Pin(10));
+        Score score = status.getScore();
+        assertEquals(20, score.get());
     }
 }

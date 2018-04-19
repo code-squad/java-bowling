@@ -77,12 +77,13 @@ public abstract class Frame {
 
     abstract int doGetScore(FrameStatus status);
 
-    public int addBonusScore(Score beforeFrameScore) {
-        try {
-            return status.addBonusScore(beforeFrameScore).get();
-        } catch (CannotCalcException e) {
-            return CANNOT_CALC_SCORE_STATE;
+    public Score addBonusScore(Score beforeFrameScore) {
+        Score totalScore = status.addBonusScore(beforeFrameScore);
+        if (totalScore.hasBonusCount()) {
+            return doAddAdditionalBonusScore(totalScore);
         }
+        return totalScore;
     }
 
+    abstract Score doAddAdditionalBonusScore(Score unFinishedScore);
 }
