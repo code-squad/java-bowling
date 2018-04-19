@@ -27,7 +27,8 @@ public class FinalFrameTest {
         assertThat(new FinalFrame(10).isComplete()).isEqualTo(false);
         assertThat(new FinalFrame(10).bowl(2).isComplete()).isEqualTo(false);
         assertThat(new FinalFrame(10).bowl(2).bowl(8).isComplete()).isEqualTo(true);
-        assertThat(new FinalFrame(10).bowl(10).isComplete()).isEqualTo(true);
+        assertThat(new FinalFrame(10).bowl(10).isComplete()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).isComplete()).isEqualTo(true);
     }
 
     @Test
@@ -54,6 +55,7 @@ public class FinalFrameTest {
         assertThat(new FinalFrame(10).canScore()).isEqualTo(false);
         assertThat(new FinalFrame(10).bowl(2).canScore()).isEqualTo(false);
         assertThat(new FinalFrame(10).bowl(2).bowl(8).canScore()).isEqualTo(true);
-        assertThat(new FinalFrame(10).bowl(10).canScore()).isEqualTo(true);
+        assertThat(new FinalFrame(10).bowl(10).canScore()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).canScore()).isEqualTo(true);
     }
 }

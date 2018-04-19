@@ -16,7 +16,7 @@ public class FinalFrame extends Frame {
 		if (getPitches().has(2)) {
 			PlayStatus secondPitchStatus = getPitches().get(2).getStatus();
 			return PlayStatus.OPEN.equals(secondPitchStatus)
-					 || PlayStatus.STRIKE.equals(secondPitchStatus);
+					|| PlayStatus.MISS.equals(secondPitchStatus);
 		}
 
 		return false;

@@ -68,9 +68,13 @@ public class NormalFrameTest {
 	}
 	
 	@Test
-	public void getBonusScore테스트() {
+	public void score테스트() {
 		NormalFrame frame = new NormalFrame(10);
-		frame.bowl(2);
-		
+		frame.bowl(2).bowl(3);
+		//assertThat(frame.score()).isEqualTo(15);
+
+		frame = new NormalFrame(10);
+		frame.bowl(10).bowl(10).bowl(10);
+
 	}
 }
