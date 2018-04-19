@@ -2,11 +2,11 @@ package bowling.domain.status;
 
 import bowling.domain.score.Score;
 
-public class Complete extends Status {
+public class AllPlayed extends Status {
     private final int first;
     private final int second;
 
-    public Complete(int first, int pins) {
+    public AllPlayed(int first, int pins) {
         this.first = first;
         this.second = pins;
     }
@@ -19,7 +19,7 @@ public class Complete extends Status {
         score.updateScore(first + second);
     }
 
-    public boolean isReady() {
+    public boolean isNotPlayed() {
         return false;
     }
 
@@ -31,11 +31,11 @@ public class Complete extends Status {
         return false;
     }
 
-    public boolean isIncomplete() {
+    public boolean isPlayedOnce() {
         return false;
     }
 
-    public boolean isComplete() {
+    public boolean isAllPlayed() {
         return true;
     }
 }

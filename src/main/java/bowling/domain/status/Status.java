@@ -6,15 +6,17 @@ public abstract class Status {
 
     public abstract Status bowl(int pins);
 
-    public abstract boolean isIncomplete();
+    public abstract boolean isPlayedOnce();
 
     public abstract boolean isStrike();
 
     public abstract boolean isSpare();
 
-    public abstract boolean isComplete();
+    public abstract boolean isAllPlayed();
 
     public abstract void updateScore(Score score);
 
-    public abstract boolean isReady();
+    public abstract boolean isNotPlayed();
+
+    public abstract int getScore();
 }

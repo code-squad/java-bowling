@@ -12,7 +12,7 @@ public class Strike extends Status {
         score.updateScore(10);
     }
 
-    public boolean isReady() {
+    public boolean isNotPlayed() {
         return false;
     }
 
@@ -24,11 +24,11 @@ public class Strike extends Status {
         return true;
     }
 
-    public boolean isIncomplete() {
+    public boolean isPlayedOnce() {
         return false;
     }
 
-    public boolean isComplete() {
+    public boolean isAllPlayed() {
         return false;
     }
 }

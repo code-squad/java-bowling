@@ -15,7 +15,7 @@ public class Spare extends Status {
         score.updateScore(10);
     }
 
-    public boolean isReady() {
+    public boolean isNotPlayed() {
         return false;
     }
 
@@ -31,11 +31,11 @@ public class Spare extends Status {
         return false;
     }
 
-    public boolean isIncomplete() {
+    public boolean isPlayedOnce() {
         return false;
     }
 
-    public boolean isComplete() {
+    public boolean isAllPlayed() {
         return false;
     }
 }

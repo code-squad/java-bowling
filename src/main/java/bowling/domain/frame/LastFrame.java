@@ -1,7 +1,7 @@
 package bowling.domain.frame;
 
 import bowling.domain.score.Score;
-import bowling.domain.status.Ready;
+import bowling.domain.status.NotPlayed;
 import bowling.domain.status.Status;
 
 public class LastFrame implements Frame {
@@ -10,24 +10,24 @@ public class LastFrame implements Frame {
     private Bonus bonus;
 
     public LastFrame() {
-        this.status = new Ready();
+        this.status = new NotPlayed();
         this.score = new Score();
     }
 
     public void bowl(int pins) {
         //check status:
         //if ready -> update,
-        if (status.isReady()) {
+        if (status.isNotPlayed()) {
             status.bowl(pins);
             status.updateScore(score);
         }
         // incomplete -> update,
-        if (status.isIncomplete()) {
+        if (status.isPlayedOnce()) {
             status.bowl(pins);
             status.updateScore(score);
         }
         // complete/spare/strike -> don't update and decrease hold count
-        if (status.isComplete() || status.isSpare() || status.isStrike()) {
+        if (status.isAllPlayed() || status.isSpare() || status.isStrike()) {
             score.decreaseCountUntilCalculation();
         }
     }
