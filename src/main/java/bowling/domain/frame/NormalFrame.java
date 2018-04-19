@@ -1,9 +1,12 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import bowling.domain.score.Score;
+import bowling.domain.status.Ready;
+import bowling.domain.status.Status;
 
 public class NormalFrame implements Frame {
     private Status status;
     private Score score;
-    private int countUntilCalculation;
 
     public NormalFrame() {
         this.status = new Ready();
@@ -26,10 +29,18 @@ public class NormalFrame implements Frame {
         if (status.isComplete() || status.isSpare() || status.isStrike()) {
             score.decreaseCountUntilCalculation();
         }
-
     }
 
+    public int calculateFrameScore(Frame nextFrame) {
+        if (status.isStrike() && nextFrame.status ) {
+
+        }
+        if (status.isSpare()) {
+
+        }
+    }
+
+    public int calculateAdditionalScore() {
+
+    }
 }
-/*
-Score 객체는 전 스코어 + 현재 스코어만 가지면 된다?
- */

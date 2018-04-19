@@ -1,10 +1,10 @@
-package bowling.domain;
+package bowling.domain.frame;
+
+import bowling.domain.status.Status;
 
 public interface Frame {
 
     void bowl(int pins);
-
-    int getScore(Frame nextFrame);
 
     int calculateAdditionalScore(Status prevFrameStatus);
 }

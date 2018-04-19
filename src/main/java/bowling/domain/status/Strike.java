@@ -1,20 +1,15 @@
-package bowling.domain;
+package bowling.domain.status;
 
-public class Complete extends Status {
-    private final int first;
-    private final int second;
+import bowling.domain.score.Score;
 
-    public Complete(int first, int pins) {
-        this.first = first;
-        this.second = pins;
-    }
+public class Strike extends Status {
 
     public Status bowl(int pins) {
         return this;
     }
 
     public void updateScore(Score score) {
-        score.updateScore(first + second);
+        score.updateScore(10);
     }
 
     public boolean isReady() {
@@ -26,7 +21,7 @@ public class Complete extends Status {
     }
 
     public boolean isStrike() {
-        return false;
+        return true;
     }
 
     public boolean isIncomplete() {
@@ -34,6 +29,6 @@ public class Complete extends Status {
     }
 
     public boolean isComplete() {
-        return true;
+        return false;
     }
 }

@@ -1,4 +1,6 @@
-package bowling.domain;
+package bowling.domain.status;
+
+import bowling.domain.score.Score;
 
 public class Ready extends Status {
 

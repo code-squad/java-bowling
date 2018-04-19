@@ -1,4 +1,4 @@
-package bowling.domain;
+package bowling.domain.score;
 
 public class Score {
     private int score;
@@ -10,5 +10,13 @@ public class Score {
 
     public void updateScore(int score) {
         this.score = score;
+    }
+
+    public boolean readyForCalculation() {
+        return countUntilCalculation >= 0;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
