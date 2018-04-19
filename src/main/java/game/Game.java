@@ -12,19 +12,19 @@ public class Game {
 
     public void match() {
         for (int i = 1; i < 10; i++) {
-            running();
+            running(i);
         }
     }
 
-    public List<Frame> running() {
+    public List<Frame> running(int i) {
         FrameManager manager = new FrameManager();
         Input input = new Input();
-        Frame frame = manager.onFrame2(input.inputNum());
+        Frame frame = manager.onFrame2(input.inputNum(i));
         if (frame.finishFrame()) {
             frames.add(frame);
             return frames;
         }
-        frame = manager.onFrame2(input.inputNum());
+        frame = manager.onFrame2(input.inputNum(i));
         frames.add(frame);
         return frames;
     }

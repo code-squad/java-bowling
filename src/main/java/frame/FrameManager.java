@@ -17,7 +17,6 @@ public class FrameManager {
             System.out.println("frame status is " + frame.checkStatus().toString());
             return frame;
         }
-        System.out.println("Not strike 다시 굴리세요");
         return frame;
     }
 }
