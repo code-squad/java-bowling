@@ -19,12 +19,16 @@ public class Boards {
         return boards.keySet().stream().map(Player::getName).collect(toList());
     }
 
-    public List<String> getResultMessage(String name) {
-        return findBoardByName(name).getResultMessage();
+    public String getFrameMessage(String name, int frameNum) {
+        return findBoardByName(name).getFrameMessage(frameNum);
     }
 
-    public List<Integer> getResultScore(String name) {
-        return findBoardByName(name).getResultScore();
+    public int getFrameTotalScore(String name, int frameNum) {
+        return findBoardByName(name).getFrameTotalScore(frameNum);
+    }
+
+    public int getCurrentFrameNum(String name) {
+        return findBoardByName(name).getCurrentFrameNum();
     }
 
     private Board findBoardByName(String name) {

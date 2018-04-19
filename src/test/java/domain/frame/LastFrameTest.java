@@ -33,27 +33,6 @@ public class LastFrameTest {
     }
 
     @Test
-    public void 정규투구_스트라이크_점수합계() {
-        testFrame.roll(10);
-        testFrame.roll(10);
-        assertEquals(Frame.CANNOT_CALC_SCORE_STATE, testFrame.getResult().getScore());
-    }
-
-    @Test
-    public void 정규투구_스패어_점수합계() {
-        testFrame.roll(5);
-        testFrame.roll(5);
-        assertEquals(Frame.CANNOT_CALC_SCORE_STATE, testFrame.getResult().getScore());
-    }
-
-    @Test
-    public void 정규투구_미쓰_점수합계() {
-        testFrame.roll(9);
-        testFrame.roll(0);
-        assertEquals(9, testFrame.getResult().getScore());
-    }
-
-    @Test
     public void 스트라이크_투구_미완료_점수합계() {
         testFrame.roll(10);
         testFrame.roll(5);
@@ -73,20 +52,27 @@ public class LastFrameTest {
         assertEquals(Frame.CANNOT_CALC_SCORE_STATE, testFrame.getResult().getScore());
     }
 
-    @Test
-    public void 투구_스트라이크_출력메세지() {
+    @Test(expected = IllegalArgumentException.class)
+    public void 투구_스트라이크시_보너스_오류() {
         testFrame.roll(10);
-        testFrame.roll(5);
+        testFrame.roll(3);
         testFrame.roll(10);
-        assertEquals("X", testFrame.getResult().getMessage());
     }
 
     @Test
-    public void 투구_스패어_출력메세지() {
+    public void 투구_스트라이크_보너스_출력메세지() {
+        testFrame.roll(10);
+        testFrame.roll(5);
+        testFrame.roll(5);
+        assertEquals("X|5|/", testFrame.getResult().getMessage());
+    }
+
+    @Test
+    public void 투구_스패어_보너스_출력메세지() {
         testFrame.roll(5);
         testFrame.roll(5);
         testFrame.roll(0);
-        assertEquals("5|/", testFrame.getResult().getMessage());
+        assertEquals("5|/|-", testFrame.getResult().getMessage());
     }
 
     @Test
@@ -103,19 +89,18 @@ public class LastFrameTest {
     }
 
     @Test
-    public void 정규투구_스트라이크_다른프레임전환() {
-        assertNotSame(testFrame, testFrame.roll(10));
+    public void 다른프레임_미전환() {
+        assertSame(testFrame, testFrame.roll(10));
     }
 
     @Test
-    public void 정규투구_스패어_다른프레임전환() {
+    public void 다른프레임_미전환2() {
         testFrame.roll(3);
-        assertNotSame(testFrame, testFrame.roll(7));
+        assertSame(testFrame, testFrame.roll(7));
     }
 
     @Test
-    public void 정규투구_미쓰_다른프레임전환() {
-        testFrame.roll(2);
-        assertNotSame(testFrame, testFrame.roll(6));
+    public void 다른프레임_미전환3() {
+        assertSame(testFrame, testFrame.roll(7));
     }
 }

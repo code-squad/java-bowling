@@ -3,8 +3,6 @@ package view;
 import domain.frame.Frame;
 import domain.frame.result.Board;
 import domain.frame.result.Boards;
-import domain.player.Player;
-import domain.player.Players;
 
 import java.util.List;
 
@@ -43,25 +41,23 @@ public class OutputView {
     }
 
     private static String getResultMessage(Boards boards, String name) {
-        List<String> resultMessages = boards.getResultMessage(name);
         StringBuilder builder = new StringBuilder("|" + fillArea(name) + "|");
-        for (String resultMessage : resultMessages) {
-            builder.append(fillArea(resultMessage));
+        for (int frameNum = 1; frameNum <= boards.getCurrentFrameNum(name); frameNum++) {
+            builder.append(fillArea(boards.getFrameMessage(name, frameNum)));
             builder.append("|");
         }
-        fillEmptyArea(builder, Board.LIMIT - resultMessages.size());
+        fillEmptyArea(builder, Board.LIMIT - boards.getCurrentFrameNum(name));
         builder.append("\n");
         return builder.toString();
     }
 
     private static String getResultScore(Boards boards, String name) {
-        List<Integer> resultScores = boards.getResultScore(name);
         StringBuilder builder = new StringBuilder("|" + fillArea("") + "|");
-        for (Integer resultScore : resultScores) {
-            builder.append(fillArea(convertScore(resultScore)));
+        for (int frameNum = 1; frameNum <= boards.getCurrentFrameNum(name); frameNum++) {
+            builder.append(fillArea(convertScore(boards.getFrameTotalScore(name, frameNum))));
             builder.append("|");
         }
-        fillEmptyArea(builder, Board.LIMIT - resultScores.size());
+        fillEmptyArea(builder, Board.LIMIT - boards.getCurrentFrameNum(name));
         return builder.toString();
     }
 

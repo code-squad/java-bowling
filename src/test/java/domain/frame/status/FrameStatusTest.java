@@ -129,7 +129,11 @@ public class FrameStatusTest {
         assertEquals("4", status.getResultMessage());
     }
 
+
+
     /* TODO : 라스트 프레임 상태메세지 추가해야함 */
+
+
 
     @Test(expected = CannotCalcException.class)
     public void 노말프레임_스트라이크_대기상태프레임에게_점수_건네받기() {
@@ -163,9 +167,13 @@ public class FrameStatusTest {
         assertEquals(16, totalScore.get());
     }
 
+
+
+
+
     /* TODO : 여기부터 만들어야함 */
     @Test(expected = CannotCalcException.class)
-    public void 라스트프레임_스트라이크_추가점수없이_보너스점수_합산하기() { //상태를 따로 줘버리면 못구함
+    public void 라스트프레임_스트라이크_추가점수없이_보너스점수_합산하기() {
         status = status.roll(lastFrame, new Pin(10));
         Score score = status.getScore();
         score.get();

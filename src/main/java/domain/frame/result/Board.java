@@ -1,5 +1,7 @@
 package domain.frame.result;
 
+import domain.frame.Frame;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,20 +17,30 @@ public class Board {
         results.add(result);
     }
 
-    public List<String> getResultMessage() {
-        List<String> resultMessages = new ArrayList<>();
-        for (FrameResult result : results) {
-            resultMessages.add(result.getMessage());
-        }
-        return resultMessages;
+    public String getFrameMessage(int frameNum) {
+        int frameIdx = convertToFrameIdx(frameNum);
+        return results.get(frameIdx).getMessage();
     }
 
-    public List<Integer> getResultScore() {
-        List<Integer> resultScores = new ArrayList<>();
-        for (FrameResult result : results) {
-            resultScores.add(result.getScore());
+    public int getFrameTotalScore(int frameNum) {
+        int frameIdx = convertToFrameIdx(frameNum);
+        int frameScore = results.get(frameIdx).getScore();
+        if (frameScore == Frame.CANNOT_CALC_SCORE_STATE) {
+            return frameScore;
         }
-        return resultScores;
+
+        for (int i = frameIdx - 1; i >= 0; i--) {
+            frameScore += results.get(i).getScore();
+        }
+        return frameScore;
+    }
+
+    private int convertToFrameIdx(int frameNum) {
+        return frameNum - 1;
+    }
+
+    public int getCurrentFrameNum() {
+        return results.size();
     }
 
     @Override
