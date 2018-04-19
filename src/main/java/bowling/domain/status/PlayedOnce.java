@@ -1,5 +1,6 @@
 package bowling.domain.status;
 
+import bowling.domain.exception.FrameNotPlayedException;
 import bowling.domain.score.Score;
 
 public class PlayedOnce extends Incomplete {
@@ -17,13 +18,15 @@ public class PlayedOnce extends Incomplete {
         return new AllPlayed(first, pins);
     }
 
+    @Override
     public Score createScore() {
         return Score.ofNormal(first);
     }
 
+    @Override
     public int updateScore(Score score) {
         if (score.twoMoreBowlsNeeded()) { //점수 두 개를 필요로 하는데 현 상태는 incomplete
-            throw new FrameNotCompleteException();
+            throw new FrameNotPlayedException();
         }
         return score.bowl(first);
     }

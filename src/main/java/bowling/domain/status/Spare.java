@@ -11,14 +11,17 @@ public class Spare extends Complete {
         this.second = pins;
     }
 
+    @Override
     public Status bowl(int pins) {
         return this;
     }
 
+    @Override
     public Score createScore() {
         return Score.ofSpare();
     }
 
+    @Override
     public int updateScore(Score score) {
         if (score.oneMoreBowlNeeded()) {
             return score.bowl(first);
@@ -26,6 +29,7 @@ public class Spare extends Complete {
         return score.bowl(first + second);
     }
 
+    @Override
     public boolean isStrike() {
         return false;
     }
