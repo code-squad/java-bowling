@@ -21,7 +21,7 @@ public class FrameResult {
     }
 
     boolean isUnScore() {
-        return this.score == Frame.UN_SCORE_STATE;
+        return this.score == NormalFrame.UN_SCORE_STATE;
     }
 
     public int getTotalScore() {
