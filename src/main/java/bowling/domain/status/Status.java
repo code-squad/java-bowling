@@ -13,4 +13,7 @@ public interface Status {
     int updateScore(Score score);
 
     boolean isStrike();
+
+    @Override
+    String toString();
 }

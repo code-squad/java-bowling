@@ -19,4 +19,7 @@ public abstract class Incomplete implements Status {
     public boolean isStrike() {
         return false;
     }
+
+    @Override
+    public abstract String toString();
 }

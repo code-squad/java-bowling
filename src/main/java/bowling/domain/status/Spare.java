@@ -33,4 +33,9 @@ public class Spare extends Complete {
     public boolean isStrike() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return first + "|/";
+    }
 }

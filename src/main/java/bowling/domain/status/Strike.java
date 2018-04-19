@@ -23,4 +23,9 @@ public class Strike extends Complete {
     public boolean isStrike() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "X";
+    }
 }

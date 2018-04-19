@@ -17,4 +17,7 @@ public abstract class Complete implements Status {
 
     @Override
     public abstract boolean isStrike();
+
+    @Override
+    public abstract String toString();
 }

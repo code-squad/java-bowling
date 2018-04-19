@@ -22,4 +22,9 @@ public class NotPlayed extends Incomplete {
     public int updateScore(Score score) {
         throw new FrameNotPlayedException();
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

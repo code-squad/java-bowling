@@ -33,4 +33,9 @@ public class AllPlayed extends Complete {
     public boolean isStrike() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return first+ "|" + second;
+    }
 }

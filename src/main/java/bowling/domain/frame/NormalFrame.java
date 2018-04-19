@@ -58,4 +58,9 @@ public class NormalFrame extends Frame {
     int updateScoreFromPrevPrev(Score prevPrev) {
         return status.updateScore(prevPrev);
     }
+
+    @Override
+    public String toString() {
+        return status.toString();
+    }
 }

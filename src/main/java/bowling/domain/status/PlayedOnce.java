@@ -30,4 +30,9 @@ public class PlayedOnce extends Incomplete {
         }
         return score.bowl(first);
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(first);
+    }
 }
