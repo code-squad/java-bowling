@@ -2,14 +2,18 @@ package frame;
 
 import game.Pin;
 
-public class LastFrame extends Frame {
+public class LastFrame {
     private Pin thirdPin;
 
-    public boolean shoot(int pinFall) {
-        if (getFirstPin() != null && getSecondPin().checkFinish()) {
-            thirdPin = new Pin(pinFall);
+    public boolean thirdShoot(int pinBall) {
+        if (checkStatus().toString() == "X" && checkStatus().toString() == "/") {
+            thirdPin = new Pin(pinBall);
             return true;
         }
         return false;
+    }
+
+    public Pin getThirdPin() {
+        return thirdPin;
     }
 }
