@@ -4,7 +4,6 @@ import domain.pitch.Pitch;
 import domain.frame.Frame;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,14 +12,14 @@ public class OutputView {
 		StringBuilder headerBuilder = new StringBuilder("| NAME |");
 		StringBuilder statusBuilder = new StringBuilder(String.format("| %4s |", playerName));
 		StringBuilder scoreBuilder = new StringBuilder("|      |");
-		AtomicInteger scoreSum = new AtomicInteger();
-		
-		playedFrames.forEach(frame -> {
-					scoreSum.addAndGet(frame.canScore() ? frame.score() : 0);
-					headerBuilder.append(String.format(frame.isFinalFrame() ? "  %02d    |" : "  %02d  |", frame.getFrameNumber()));
-					statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", getFrameStatus(frame)));
-					scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.canScore() ? scoreSum : ""));
-				});
+		int scoreSum = 0;
+
+		for(Frame frame : playedFrames) {
+			scoreSum += frame.canScore() ? frame.score() : 0;
+			headerBuilder.append(String.format(frame.isFinalFrame() ? "  %02d    |" : "  %02d  |", frame.getFrameNumber()));
+			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", getFrameStatus(frame)));
+			scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.canScore() ? scoreSum : ""));
+		}
 
 		IntStream.range(playedFrames.size(), Frame.MAX_FRAME_NUMBER)
 				.forEach(frameNumber -> {
