@@ -4,7 +4,7 @@ public enum PlayStatus {
 	STRIKE("X"),
 	SPARE("/"),
 	MISS("-"),
-	GUTTER("-"),
+	GUTTER("G"),
 	OPEN("%d"),
 	NONE("%d");
 

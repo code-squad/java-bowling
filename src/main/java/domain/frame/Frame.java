@@ -63,4 +63,6 @@ public abstract class Frame {
 	}
 	
 	public abstract boolean canScore();
+
+	public abstract int score();
 }

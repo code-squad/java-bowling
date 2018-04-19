@@ -26,4 +26,12 @@ public class FinalFrame extends Frame {
 	public boolean canScore() {
 		return isComplete();
 	}
+
+	@Override
+	public int score() {
+		if (!canScore()) {
+			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
+		}
+		return getPitches().sum();
+	}
 }

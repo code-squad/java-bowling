@@ -2,8 +2,6 @@ package domain.pitch;
 
 import domain.PlayStatus;
 
-import java.util.Optional;
-
 public class Pitch {
     private static final int DEFAULT_START_PIN_COUNT = 10;
     
@@ -30,6 +28,10 @@ public class Pitch {
             return pinCount.equals(DEFAULT_START_PIN_COUNT);
         }
         return pinCount.equals(startPinCount);
+    }
+
+    public Integer getPinCount() {
+        return pinCount;
     }
     
     public int getRemainPinCount() {

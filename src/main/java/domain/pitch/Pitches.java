@@ -33,4 +33,10 @@ public class Pitches {
     public Stream<Pitch> stream() {
         return pitches.stream();
     }
+
+    public int sum() {
+        return pitches.stream()
+                .mapToInt(Pitch::getPinCount)
+                .sum();
+    }
 }

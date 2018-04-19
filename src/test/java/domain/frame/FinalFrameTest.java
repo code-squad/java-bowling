@@ -3,7 +3,6 @@ package domain.frame;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.filter;
 
 public class FinalFrameTest {
     @Test(expected = IllegalArgumentException.class)
@@ -57,5 +56,18 @@ public class FinalFrameTest {
         assertThat(new FinalFrame(10).bowl(2).bowl(8).canScore()).isEqualTo(true);
         assertThat(new FinalFrame(10).bowl(10).canScore()).isEqualTo(false);
         assertThat(new FinalFrame(10).bowl(10).bowl(10).canScore()).isEqualTo(true);
+    }
+
+    @Test
+    public void score테스트() {
+        assertThat(new FinalFrame(0).bowl(1).score()).isEqualTo(1);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).score()).isEqualTo(20);
+
+        assertThat(new FinalFrame(8).bowl(1).score()).isEqualTo(9);
+
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).score()).isEqualTo(20);
+
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).score()).isEqualTo(20);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).score()).isEqualTo(30);
     }
 }
