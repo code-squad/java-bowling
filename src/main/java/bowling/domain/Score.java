@@ -33,7 +33,11 @@ public class Score {
         return this.count == 0;
     }
 
-    public boolean canCalculateStrike() {
+    public boolean isCountOne() {
+        return this.count == 1;
+    }
+
+    public boolean isCountTwo() {
         return this.count == 2;
     }
 }

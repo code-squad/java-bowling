@@ -17,20 +17,15 @@ public class View {
     public static void framePrint(Player player) {
         namePrint(player.getName());
         FrameData frameData = player.getFrameData();
-        List<NormalFrame> frames = frameData.getFrames();
-        InCompleteFrame inCompleteFrame = frameData.getInCompleteFrame();
-        LastFrame lastFrame = frameData.getLastFrame();
+        List<Frame> frames = frameData.getFrames();
+        Frame frame = frameData.getFrame();
 
         printComplete(frames);
-        if (frames.size() < 9)
-            printInCompleteFrame(inCompleteFrame);
-        if (player.userFrameNumber() == 10) {
-            printLastFrame(lastFrame, inCompleteFrame);
-        } else {
-            printEmpty(frames.size());
-        }
+        if (frames.size() <= 9)
+            printInCompleteFrame(frame);
+        printEmpty(frames.size());
         System.out.println();
-        printScore(frames, lastFrame);
+        printScore(frames, frame);
     }
 
     private static void printEmpty(int size) {
@@ -39,36 +34,28 @@ public class View {
         }
     }
 
-    public static void printComplete(List<NormalFrame> frames) {
-        for (NormalFrame frame : frames) {
+    public static void printComplete(List<Frame> frames) {
+        for (Frame frame : frames) {
             System.out.print(frame.toString());
         }
     }
 
-    public static void printInCompleteFrame(InCompleteFrame inCompleteFrame) {
-        if (inCompleteFrame.isFirst()) {
-            System.out.print("      |");
-        } else {
-            System.out.print("  " + isStrike(inCompleteFrame.firstInFrame()) + "|  |");
-        }
+    public static void printInCompleteFrame(Frame frame) {
+        System.out.print(frame.toString());
     }
 
-    public static void printLastFrame(LastFrame lastFrame, InCompleteFrame inCompleteFrame) {
-        System.out.print(lastFrame.lastFramePrint());
-    }
-
-    public static void printScore(List<NormalFrame> frames, LastFrame lastFrame) {
+    public static void printScore(List<Frame> frames, Frame Frame) {
         System.out.print("|      |");
-        for (NormalFrame frame : frames) {
+        for (Frame frame : frames) {
+            if(frame.getScore().canCalculateScore())
             System.out.printf("  %3d |", frame.getScore().getScore());
+            else {
+                System.out.print("      |");
+            }
         }
-        for (int i = 0; i < 9 - frames.size(); i++) {
+        for (int i = 0; i < 10 - frames.size(); i++) {
             System.out.print("      |");
         }
-        if (lastFrame.getScore()!= null) {
-            System.out.printf("  %3d |", lastFrame.getScore().getScore());
-        }
-
         System.out.println();
     }
 

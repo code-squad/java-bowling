@@ -1,25 +1,22 @@
 package bowling.domain;
 
-public class LastFrame implements Frame{
+public class LastFrame implements Frame {
 
-    private FrameStatus frameStatus;
+    private Status status;
     private Ball third;
     private Score score;
 
-    public LastFrame(FrameStatus frameStatus) {
-        this.frameStatus = frameStatus;
+    public LastFrame(Status status) {
+        this.status = status;
     }
 
     public void updateFrameStatus(int pin) {
-        Ball ball = Ball.of(pin);
-        frameStatus = makeFrame(ball);
-    }
-
-    public FrameStatus makeFrame(Ball ball) {
-        if (frameStatus.isNew()) {
-            return InComplete.of(ball, null);
+        if (!status.checkComplete()) {
+            Ball ball = Ball.of(pin);
+            status = makeFrame(ball);
+            return;
         }
-        return ofSecond(ball);
+        playBonusBall(pin);
     }
 
     public void playBonusBall(int pin) {
@@ -27,52 +24,54 @@ public class LastFrame implements Frame{
         third = Ball.of(pin);
     }
 
+    public Status makeFrame(Ball ball) {
+        if (status.isNew()) {
+            return InComplete.of(ball, null);
+        }
+        return ofSecond(ball);
+    }
+
+    public Status ofSecond(Ball ball) {
+        if (isStrike()) {
+            return Strike.of(status.getFirstBall(), ball);
+        }
+        if (isSpare(ball)) {
+            return Spare.of(status.getFirstBall(), ball);
+        }
+        return Miss.of(status.getFirstBall(), ball);
+    }
+
+    public boolean checkComplete() {
+        if (isLastBall() || !isThird()) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean isThird() {
         return third == null;
     }
 
     public boolean isLastBall() {
-        return frameStatus.isLastBall();
-    }
-
-    public int getThird() {
-        return third.getPin();
-    }
-
-    public FrameStatus ofSecond(Ball ball) {
-        if (isStrike()) {
-            return Strike.of(frameStatus.getFirstBall(), ball);
-        }
-        if (isSpare(ball)) {
-            return Spare.of(frameStatus.getFirstBall(), ball);
-        }
-        return Miss.of(frameStatus.getFirstBall(), ball);
-    }
-
-    public boolean checkComplete() {
-        return frameStatus.checkComplete();
+        return status.isLastBall();
     }
 
     public boolean isStrike() {
-        return frameStatus.getFirst() == 10;
+        return status.getFirst() == Ball.MAX_PIN;
     }
 
     public boolean isSpare(Ball second) {
-        return frameStatus.getFirst() + second.getPin() == 10;
+        return status.getFirst() + second.getPin() == Ball.MAX_PIN;
     }
 
-    public void createScore(NormalFrame frame) {
-        score = frameStatus.getScore(frame.totalScore());
-    }
-
-    public void createTwoScore(NormalFrame frame) {
+    public void createScore(Frame frame) {
         if (isLastBall()) {
-            score = frameStatus.getScore(frame.totalScore());
+            score = status.getScore(frame.totalScore());
+            return;
         }
-    }
-
-    public void createThreeScore(NormalFrame frame, int pin) {
-        score = frameStatus.getScore(frame.totalScore() + pin);
+        if (!isThird()) {
+            score = status.getScore(frame.totalScore() + third.getPin());
+        }
     }
 
     public void updateScore(Score updateScore) {
@@ -87,13 +86,21 @@ public class LastFrame implements Frame{
         return score.getScore();
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public String toString() {
-        return frameStatus.lastFramePrint(third);
+        return status.lastFramePrint(third);
     }
 
     public void checkPinException(int pin) {            //마지막 프레임에 스트라이크면 그 이후의 핀 확인
-        if (frameStatus.getCount() == 2 && frameStatus.getSecond() != 10 && frameStatus.getSecond() + pin > 10) {
+        if (status.getCount() == 2 && status.getSecond() != 10 && status.getSecond() + pin > 10) {
             throw new IllegalArgumentException("핀의 숫자보다 더 많이 입력하셨습니다.");
         }
+    }
+
+    public static LastFrame ofInComplete() {
+        return new LastFrame(InComplete.of(null, null));
     }
 }

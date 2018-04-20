@@ -3,33 +3,33 @@ package bowling.domain;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class InCompleteNormalFrameTest {
+public class NormalFrameTest {
 
-    private InCompleteFrame inCompleteFrame;
+    private Frame normalFrame;
 
     @Before
     public void setup() {
-        inCompleteFrame = new InCompleteFrame();
+        normalFrame = NormalFrame.ofInComplete();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void checkSecondBallExceptionTest() { //두번째 핀과의 합이 10 초과 일때
-        inCompleteFrame.play(5);
-        inCompleteFrame.play(6);
+        normalFrame.updateFrameStatus(5);
+        normalFrame.updateFrameStatus(6);
     }
 
     @Test
     public void checkCompleteTest() { //스트라이크이거나 2번 쳤을때 true
-        inCompleteFrame.play(5);
-        inCompleteFrame.play(4);
-        assertEquals(inCompleteFrame.checkComplete(), true);
+        normalFrame.updateFrameStatus(5);
+        normalFrame.updateFrameStatus(4);
+        assertEquals(normalFrame.checkComplete(), true);
     }
 
     @Test
     public void checkCompleteTest2() { //스트라이크이거나 2번 쳤을때 true
-        inCompleteFrame.play(10);
-        assertEquals(inCompleteFrame.checkComplete(), true);
+        normalFrame.updateFrameStatus(10);
+        assertEquals(normalFrame.checkComplete(), true);
     }
 }

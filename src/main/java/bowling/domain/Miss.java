@@ -1,15 +1,14 @@
 package bowling.domain;
 
-public class Miss extends FrameStatus {
+public class Miss extends Status {
 
     static final int COUNT_ZERO = 0;
 
     private Miss(Ball first, Ball second) {
         super(first, second);
-    }
-
-    public static Miss of(Ball first, Ball second) {
-        return new Miss(first, second);
+        if(first.getPin() + second.getPin() > Ball.MAX_PIN){
+            throw new IllegalArgumentException("핀의 개수를 초과 했습니다.");
+        }
     }
 
     public boolean isLastBall() {
@@ -42,5 +41,9 @@ public class Miss extends FrameStatus {
             return getFirst() + "|" + getSecond() + "|" + third.getPin() + "|";
         }
         return toString();
+    }
+
+    public static Miss of(Ball first, Ball second) {
+        return new Miss(first, second);
     }
 }

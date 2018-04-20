@@ -1,15 +1,11 @@
 package bowling.domain;
 
-public class Spare extends FrameStatus {
+public class Spare extends Status {
 
     static final int COUNT_ONE = 1;
 
     private Spare(Ball first, Ball second) {
         super(first, second);
-    }
-
-    public static Spare of(Ball first, Ball second) {
-        return new Spare(first, second);
     }
 
     public boolean isLastBall() {
@@ -42,5 +38,9 @@ public class Spare extends FrameStatus {
             return " "+getFirst() + "|" +  "/|" + third.getPin() + "|";
         }
         return toString();
+    }
+
+    public static Spare of(Ball first, Ball second) {
+        return new Spare(first, second);
     }
 }

@@ -1,15 +1,23 @@
 package bowling.domain;
 
-public abstract class FrameStatus {
+public abstract class Status {
 
     static final int PIN_TEN = 10;
 
     private Ball first;
     private Ball second;
 
-    public FrameStatus(Ball first, Ball second){
+    public Status(Ball first, Ball second){
         this.first = first;
         this.second = second;
+    }
+
+    public boolean isNew(){
+        return first == null;
+    }
+
+    public boolean isTwiceBall() {
+        return second != null;
     }
 
     public int getFirst() {
@@ -22,14 +30,6 @@ public abstract class FrameStatus {
 
     public int getSecond() {
         return second.getPin();
-    }
-
-    public boolean isNew(){
-        return first == null;
-    }
-
-    public boolean isTwiceBall() {
-        return second != null;
     }
 
     public abstract boolean isLastBall();

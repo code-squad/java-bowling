@@ -4,21 +4,19 @@ public interface Frame {
 
     void updateFrameStatus(int pin);
 
-    FrameStatus makeFrame(Ball ball);
+    Status makeFrame(Ball ball);
 
     boolean checkComplete();
 
-    boolean isSpare(Ball second);
-
-    void createScore(NormalFrame frame);
+    void createScore(Frame frame);
 
     void updateScore(Score updateScore);
 
     Score getScore();
 
-    int totalScore();
+    Status getStatus();
 
-//    FrameStatus getFrameStatus();
+    int totalScore();
 
     String toString();
 }

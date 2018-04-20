@@ -2,53 +2,49 @@ package bowling.domain;
 
 public class NormalFrame implements Frame {
 
-    private FrameStatus frameStatus;
+    private Status status;
     private Score score;
 
-    public NormalFrame(FrameStatus frameStatus) {
-        this.frameStatus = frameStatus;
+    public NormalFrame(Status status) {
+        this.status = status;
     }
 
     public void updateFrameStatus(int pin) {
         Ball ball = Ball.of(pin);
-        frameStatus = makeFrame(ball);
+        status = makeFrame(ball);
     }
 
-    public FrameStatus makeFrame(Ball ball) {
-        if (frameStatus.isNew()) {
+    public Status makeFrame(Ball ball) {
+        if (status.isNew()) {
             return ofFirst(ball);
         }
         return ofSecond(ball);
     }
 
-    public FrameStatus ofFirst(Ball ball) {
+    public Status ofFirst(Ball ball) {
         if (ball.isTenPin()) {
             return Strike.of(ball, null);
         }
         return new InComplete(ball, null);
     }
 
-    public FrameStatus ofSecond(Ball ball) {
+    public Status ofSecond(Ball ball) {
         if (isSpare(ball)) {
-            return Spare.of(frameStatus.getFirstBall(), ball);
+            return Spare.of(status.getFirstBall(), ball);
         }
-        return Miss.of(frameStatus.getFirstBall(), ball);
+        return Miss.of(status.getFirstBall(), ball);
     }
 
     public boolean checkComplete() {
-        return frameStatus.checkComplete();
+        return status.checkComplete();
     }
 
     public boolean isSpare(Ball second) {
-        return frameStatus.getFirst() + second.getPin() == 10;
+        return status.getFirst() + second.getPin() == 10;
     }
 
-    public void createScore(NormalFrame frame) {
-        score = frameStatus.getScore(frame.totalScore());
-    }
-
-    public void createScoreZero() {
-        score = frameStatus.getScore(0);
+    public void createScore(Frame frame) {
+        score = status.getScore(frame.totalScore());
     }
 
     public void updateScore(Score updateScore) {
@@ -63,60 +59,15 @@ public class NormalFrame implements Frame {
         return score.getScore();
     }
 
-    public FrameStatus getFrameStatus() {
-        return frameStatus;
-    }
-
-    public int firstInFrame() {
-        return frameStatus.getFirst();
-    }
-
-    public int secondInFrame() {
-        return frameStatus.getSecond();
+    public Status getStatus() {
+        return status;
     }
 
     public String toString() {
-        return frameStatus.toString();
+        return status.toString();
     }
 
     public static NormalFrame ofInComplete() {
         return new NormalFrame(InComplete.of(null, null));
     }
-
-
-//    public boolean checkComplete() {
-//        if (first.isTenPin() || isTwiceBall()) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean checkLastFrameComplete() {
-//        if (isTwiceBall()) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public void checkSecondBallException(int pin) {
-//        if (!isStrike() && firstInFrame() + pin > 10) {
-//            throw new IllegalArgumentException("핀의 합이 10을 초과하였습니다.");
-//        }
-//    }
-//
-//    public boolean isStrike() {
-//        return first.isTenPin();
-//    }
-//
-//    public boolean isSpare(Ball second) {
-//        return frameStatus.getFirst()+second.getPin()==10;
-//    }
-//
-//    public boolean isNew() {
-//        return first == null;
-//    }
-//
-//    public boolean isTwiceBall() {
-//        return second != null;
-//    }
 }

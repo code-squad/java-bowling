@@ -2,7 +2,7 @@ package bowling.domain;
 
 import bowling.view.View;
 
-public class InComplete extends FrameStatus {
+public class InComplete extends Status {
 
     public InComplete(Ball first, Ball second) {
         super(first, second);
