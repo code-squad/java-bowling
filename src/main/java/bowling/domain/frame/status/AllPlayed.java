@@ -1,8 +1,10 @@
 package bowling.domain.frame.status;
 
 import bowling.domain.frame.score.Score;
+import bowling.domain.frame.status.normal.NormalComplete;
+import bowling.domain.frame.status.normal.NormalFrameStatus;
 
-public class AllPlayed extends Complete {
+public class AllPlayed extends NormalComplete {
     private final int first;
     private final int second;
 
@@ -12,7 +14,7 @@ public class AllPlayed extends Complete {
     }
 
     @Override
-    public Status bowl(int pins) {
+    public NormalFrameStatus bowl(int pins) {
         return this;
     }
 

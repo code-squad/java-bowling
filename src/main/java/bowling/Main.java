@@ -6,7 +6,7 @@ import bowling.view.UserPrompt;
 public class Main {
     public static void main(String[] args) {
         Player player = new Player("Jae");
-        System.out.println(player.convertToPrintable());
+        bowl(player);
     }
 
     private static String getUserName() {
@@ -19,9 +19,11 @@ public class Main {
         }
     }
 
-//    private static void bowl(Player player) {
-//        while (!player.isDone()) {
-//
-//        }
-//    }
+    private static void bowl(Player player) {
+        while (!player.isDone()) {
+            int pins = UserPrompt.promptUserForBowl();
+            player.bowl(pins);
+            System.out.println(player.convertToPrintable());
+        }
+    }
 }

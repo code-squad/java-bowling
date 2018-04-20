@@ -1,11 +1,13 @@
 package bowling.domain.frame.status;
 
 import bowling.domain.frame.score.Score;
+import bowling.domain.frame.status.normal.NormalComplete;
+import bowling.domain.frame.status.normal.NormalFrameStatus;
 
-public class Strike extends Complete {
+public class Strike extends NormalComplete {
 
     @Override
-    public Status bowl(int pins) {
+    public NormalFrameStatus bowl(int pins) {
         return this;
     }
 

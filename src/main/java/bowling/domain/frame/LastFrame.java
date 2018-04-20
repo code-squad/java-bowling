@@ -1,12 +1,12 @@
 package bowling.domain.frame;
 
 import bowling.domain.frame.score.Score;
+import bowling.domain.frame.status.last.LastFrameStatus;
 import bowling.domain.frame.status.NotPlayed;
-import bowling.domain.frame.status.Status;
 import bowling.domain.util.Formatter;
 
 public class LastFrame extends Frame {
-    private Status status;
+    private LastFrameStatus status;
     private Score score;
 
     public LastFrame() {
@@ -21,11 +21,14 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public void bowl(int pins) {
+    public Frame bowl(int pins) {
         status = status.bowl(pins);
+        if()
+
         if (status.isComplete()) {
             score = createScore();
         }
+        return null;
     }
 
     @Override
@@ -47,6 +50,11 @@ public class LastFrame extends Frame {
     @Override
     int updateScoreFromPrevPrev(Score prevPrev) {
         return status.updateScore(prevPrev);
+    }
+
+    @Override
+    public boolean isLast() {
+        return status.isComplete();
     }
 
     @Override

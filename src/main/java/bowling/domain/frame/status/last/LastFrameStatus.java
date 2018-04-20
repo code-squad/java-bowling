@@ -1,18 +1,14 @@
-package bowling.domain.frame.status;
+package bowling.domain.frame.status.last;
 
 import bowling.domain.frame.score.Score;
 
-public interface Status {
-
-    Status bowl(int pins);
+public interface LastFrameStatus {
 
     boolean isComplete();
 
     Score createScore();
 
     int updateScore(Score score);
-
-    boolean isStrike();
 
     @Override
     String toString();

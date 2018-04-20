@@ -1,8 +1,8 @@
-package bowling.domain.frame.status;
+package bowling.domain.frame.status.normal;
 
 import bowling.domain.frame.score.Score;
 
-public abstract class Incomplete implements Status {
+public abstract class NormalIncomplete implements NormalFrameStatus {
 
     @Override
     public abstract Score createScore();

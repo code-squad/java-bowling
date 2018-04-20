@@ -10,12 +10,14 @@ public class UserPrompt {
     }
 
     public static String promptUserForName() {
+        System.out.print("이름을 입력해 주세요: ");
         return takeInput();
     }
 
     public static int promptUserForBowl() {
-        String input = takeInput();
         try {
+            System.out.println("투구: ");
+            String input = takeInput();
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             System.out.println("숫자가 아닙니다.");
