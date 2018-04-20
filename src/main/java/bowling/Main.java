@@ -1,12 +1,14 @@
 package bowling;
 
 import bowling.domain.Player;
+import bowling.view.ResultView;
 import bowling.view.UserPrompt;
 
 public class Main {
     public static void main(String[] args) {
-        Player player = new Player("Jae");
-        bowl(player);
+        String name = getUserName();
+        Player player = new Player(name);
+        startBowl(player);
     }
 
     private static String getUserName() {
@@ -19,11 +21,11 @@ public class Main {
         }
     }
 
-    private static void bowl(Player player) {
+    private static void startBowl(Player player) {
         while (!player.isDone()) {
-            int pins = UserPrompt.promptUserForBowl(); //TODO: 유효성 검사 (프레임 안에서)
+            int pins = UserPrompt.promptUserForBowl(player.getCurrentFrameNumber()); //TODO: 유효성 검사 (프레임 안에서)
             player.bowl(pins);
-            System.out.println(player.convertToPrintable());
+            ResultView.printScoreBoard(player);
         }
     }
 }

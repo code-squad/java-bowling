@@ -38,4 +38,8 @@ public class Player implements Printable {
     public String convertToPrintable() {
         return "|" + Formatter.formatFrame(name) + "|" + frames.get(0);
     }
+
+    public int getCurrentFrameNumber() {
+        return currentFrameIndex + 1;
+    }
 }

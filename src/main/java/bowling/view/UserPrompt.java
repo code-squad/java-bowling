@@ -14,14 +14,14 @@ public class UserPrompt {
         return takeInput();
     }
 
-    public static int promptUserForBowl() {
+    public static int promptUserForBowl(int frameNumber) {
         try {
-            System.out.println("투구: ");
+            System.out.printf("%d프레임 투구: ", frameNumber);
             String input = takeInput();
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             System.out.println("숫자가 아닙니다.");
-            return promptUserForBowl();
+            return promptUserForBowl(frameNumber);
         }
     }
 }
