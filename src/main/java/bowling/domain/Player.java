@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Player implements Printable {
     private final String name;
-    private final List<Frame> frames = new ArrayList<>();
+    private final List<Frame> frames = new ArrayList<>(); //TODO: wrapper class -> Frames
     private int currentFrameIndex;
 
     public Player(String name) {

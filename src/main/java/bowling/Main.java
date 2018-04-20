@@ -11,7 +11,7 @@ public class Main {
 
     private static String getUserName() {
         try {
-            String name = UserPrompt.promptUserForName();
+            String name = UserPrompt.promptUserForName(); //TODO: 유효성 검사
             return name;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -21,7 +21,7 @@ public class Main {
 
     private static void bowl(Player player) {
         while (!player.isDone()) {
-            int pins = UserPrompt.promptUserForBowl();
+            int pins = UserPrompt.promptUserForBowl(); //TODO: 유효성 검사 (프레임 안에서)
             player.bowl(pins);
             System.out.println(player.convertToPrintable());
         }

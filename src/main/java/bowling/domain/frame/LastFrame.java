@@ -22,11 +22,7 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public int calculateAdditionalScore(Score prevScore) { //TODO: 만약 다음 프레임에서 다 해결 된다면?? 다다음까지 갈 필요가 없다.
-        if (status.isStrike()) {
-            status.updateScore(prevScore);
-            return 0;//nextFrame.updateScoreFromPrevPrev(prevScore); //TODO: 만약 다음 프레임까지 가야한다면..
-        }
+    public int calculateAdditionalScore(Score prevScore) {
         return status.updateScore(prevScore);
     }
 

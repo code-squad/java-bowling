@@ -25,7 +25,7 @@ public class Score {
         return this.score += score;
     }
 
-    public boolean noMoreBowlNeeded() {
+    public boolean noMoreBowlNeeded() { //TODO: Needed??
         return countUntilCalculation == 0;
     }
 
