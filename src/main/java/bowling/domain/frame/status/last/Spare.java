@@ -7,6 +7,7 @@ public class Spare implements Status {
         this.pins = pins;
     }
 
+    @Override
     public Status bowl(int pins) {
         if (pins == 10) {
             return new Strike();
@@ -14,14 +15,17 @@ public class Spare implements Status {
         return new Miss(pins);
     }
 
+    @Override
     public boolean isStrike() {
         return false;
     }
 
+    @Override
     public boolean isSpare() {
         return true;
     }
 
+    @Override
     public int getScore() {
         return pins;
     }
