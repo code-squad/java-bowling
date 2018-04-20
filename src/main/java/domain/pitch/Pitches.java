@@ -20,6 +20,10 @@ public class Pitches {
         return pitches.get(pitches.size() - 1);
     }
 
+    public List<Pitch> getList() {
+        return pitches;
+    }
+
     public boolean has(int pitchNumber) {
         return pitchNumber <= pitches.size();
     }

@@ -17,7 +17,7 @@ public class NormalFrame extends Frame {
 	}
 	
 	@Override
-	public boolean canScore() {
+	public boolean getScoreFlag() {
 		PlayStatus currentStatus = getStatus();
 		
 		if (!isComplete()) {
@@ -45,8 +45,8 @@ public class NormalFrame extends Frame {
 	}
 
 	@Override
-	public int score() {
-		if (!canScore()) {
+	public int getScore() {
+		if (!getScoreFlag()) {
 			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
 		}
 
