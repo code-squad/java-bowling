@@ -1,7 +1,6 @@
 package bowling.frame.state;
 
-import bowling.frame.pin.Pins;
-import bowling.frame.pin.Score;
+import bowling.frame.Score;
 
 class Strike extends Finished {
     @Override
@@ -9,6 +8,7 @@ class Strike extends Finished {
         return new Score(Pins.MAX_PINS, 2);
     }
 
+    @Override
     public Score calculateAdditionalScore(Score score) {
         if (score.canCalculateScore()) {
             return score;

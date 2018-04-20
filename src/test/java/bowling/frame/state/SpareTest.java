@@ -4,8 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import bowling.frame.pin.Pins;
-import bowling.frame.pin.Score;
+import bowling.frame.Score;
 
 public class SpareTest {
     @Test(expected = IllegalArgumentException.class)
@@ -15,7 +14,7 @@ public class SpareTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void bowl() {
-        new Spare(Pins.bowl(8), Pins.bowl(2)).bowl(Pins.bowl(8));
+        new Spare(Pins.bowl(8), Pins.bowl(2)).bowl(8);
     }
 
     @Test

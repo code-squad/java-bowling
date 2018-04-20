@@ -1,7 +1,5 @@
 package bowling.frame;
 
-import bowling.frame.pin.Pins;
-import bowling.frame.pin.Score;
 import bowling.frame.state.State;
 import bowling.frame.state.StateFactory;
 
@@ -30,7 +28,7 @@ public class LastFrame implements Frame {
         }
 
         states.removeLast();
-        states.add(currentState.bowl(Pins.bowl(countOfPin)));
+        states.add(currentState.bowl(countOfPin));
         return this;
     }
 

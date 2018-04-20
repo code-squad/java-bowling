@@ -1,6 +1,5 @@
 package bowling.frame;
 
-import bowling.frame.pin.Score;
 import org.junit.Before;
 import org.junit.Test;
 

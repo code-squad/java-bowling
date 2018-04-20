@@ -1,7 +1,5 @@
 package bowling.frame;
 
-import bowling.frame.pin.Pins;
-import bowling.frame.pin.Score;
 import bowling.frame.state.State;
 import bowling.frame.state.StateFactory;
 
@@ -18,7 +16,7 @@ public class NormalFrame implements Frame {
     }
 
     public Frame bowl(int countOfPin) {
-        state = state.bowl(Pins.bowl(countOfPin));
+        state = state.bowl(countOfPin);
         if (state.isFinish()) {
             next = createFrame();
             return next;

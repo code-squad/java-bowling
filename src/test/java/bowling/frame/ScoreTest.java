@@ -1,11 +1,11 @@
-package bowling.frame.pin;
+package bowling.frame;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import bowling.frame.CannotCalculateException;
-import bowling.frame.pin.Score;
+import bowling.frame.Score;
 
 public class ScoreTest {
     @Test(expected = CannotCalculateException.class)

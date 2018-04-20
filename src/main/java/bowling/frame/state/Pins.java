@@ -1,6 +1,8 @@
-package bowling.frame.pin;
+package bowling.frame.state;
 
-public class Pins {
+import bowling.frame.Score;
+
+class Pins {
     private static final int MIN_PINS = 0;
     public static final int MAX_PINS = 10;
     
@@ -22,35 +24,35 @@ public class Pins {
         }
     }
 
-    public static Pins bowl(int falledPins) {
+    static Pins bowl(int falledPins) {
         validPins(falledPins);
         
         return new Pins(falledPins);
     }
       
-    public boolean isStrike() {
+    boolean isStrike() {
         return this.falledPins == MAX_PINS;
     }
     
-    public int totalPins(Pins secondPins) {
+    int totalPins(Pins secondPins) {
         int totalPins = this.falledPins + secondPins.falledPins;
         validPins(totalPins);
         return totalPins;
     }
 
-    public boolean isSpare(Pins secondPins) {
+    boolean isSpare(Pins secondPins) {
         return totalPins(secondPins) == MAX_PINS;
     }
 
-    public boolean isMiss(Pins secondPins) {
+    boolean isMiss(Pins secondPins) {
         return totalPins(secondPins) < MAX_PINS;
     }
 
-    public Score sumScore(Score score) {
+    Score sumScore(Score score) {
         return score.bowl(this.falledPins);
     }
 
-    public String getDesc() {
+    String getDesc() {
         if (isStrike()) {
             return "X";
         }
@@ -58,7 +60,7 @@ public class Pins {
         return falledPins + " | ";
     }
 
-    public String getDesc(Pins secondPins) {
+    String getDesc(Pins secondPins) {
         if (isSpare(secondPins)) {
             return falledPins + " | /";
         }

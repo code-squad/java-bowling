@@ -1,7 +1,8 @@
-package bowling.frame.pin;
+package bowling.frame.state;
 
 import static org.junit.Assert.*;
 
+import bowling.frame.Score;
 import org.junit.Test;
 
 public class PinsTest {

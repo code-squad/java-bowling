@@ -1,8 +1,7 @@
 package bowling.frame.state;
 
 import bowling.frame.CannotCalculateException;
-import bowling.frame.pin.Pins;
-import bowling.frame.pin.Score;
+import bowling.frame.Score;
 
 class FirstBowl extends Running {
     private final Pins firstPins;
@@ -12,12 +11,12 @@ class FirstBowl extends Running {
     }
 
     @Override
-    public State bowl(Pins falledPins) {
-        if (firstPins.isSpare(falledPins)) {
-            return new Spare(firstPins, falledPins);
+    public State bowl(int falledPins) {
+        Pins pins = Pins.bowl(falledPins);
+        if (firstPins.isSpare(pins)) {
+            return new Spare(firstPins, pins);
         }
-
-        return new Miss(firstPins, falledPins);
+        return new Miss(firstPins, pins);
     }
 
     public Score calculateAdditionalScore(Score score) {

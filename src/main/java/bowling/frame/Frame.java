@@ -1,7 +1,5 @@
 package bowling.frame;
 
-import bowling.frame.pin.Score;
-
 public interface Frame {
     Frame bowl(int countOfPin);
 

@@ -1,6 +1,4 @@
-package bowling.frame.pin;
-
-import bowling.frame.CannotCalculateException;
+package bowling.frame;
 
 public class Score {
     private final int score;

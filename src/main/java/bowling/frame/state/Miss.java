@@ -1,7 +1,6 @@
 package bowling.frame.state;
 
-import bowling.frame.pin.Pins;
-import bowling.frame.pin.Score;
+import bowling.frame.Score;
 
 class Miss extends Finished {
     private final Pins firstPins;

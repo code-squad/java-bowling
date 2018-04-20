@@ -1,13 +1,12 @@
 package bowling.frame.state;
 
-import bowling.frame.pin.Pins;
-import bowling.frame.pin.Score;
+import bowling.frame.Score;
 
 class Spare extends Finished {
     private final Pins firstPins;
     private final Pins secondPins;
 
-    public Spare(Pins firstPins, Pins secondPins) {
+    Spare(Pins firstPins, Pins secondPins) {
         if (!firstPins.isSpare(secondPins)) {
             throw new IllegalArgumentException();
         }
@@ -16,6 +15,7 @@ class Spare extends Finished {
         this.secondPins = secondPins;
     }
 
+    @Override
     public Score calculateAdditionalScore(Score score) {
         score = firstPins.sumScore(score);
         if (score.canCalculateScore()) {
