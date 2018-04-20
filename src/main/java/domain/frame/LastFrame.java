@@ -29,13 +29,13 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    int doGetScore(FrameStatus status) throws CannotCalcException {
+    int doGetRemainingPin(FrameStatus status) throws CannotCalcException {
         Score score = status.getScore();
         return score.get();
     }
 
     @Override
-    Score doAddAdditionalBonusScore(Score unFinishedScore) throws CannotCalcException {
+    Score doAddAdditionalRemainingPin(Score unFinishedScore) throws CannotCalcException {
         throw new CannotCalcException();
     }
 }

@@ -17,8 +17,8 @@ public class Strike implements FrameStatus {
     }
 
     @Override
-    public FrameStatus roll(Frame frame, Pin newPin) throws IllegalArgumentException {
-        if (!frame.isLast()) {
+    public FrameStatus roll(boolean isLast, Pin newPin) throws IllegalArgumentException {
+        if (!isLast) {
             return this;
         }
 

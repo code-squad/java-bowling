@@ -6,7 +6,7 @@ import domain.frame.result.Score;
 
 public interface FrameStatus {
 
-    FrameStatus roll(Frame frame, Pin newPin);
+    FrameStatus roll(boolean isLast, Pin newPin);
 
     String getResultMessage();
 

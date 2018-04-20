@@ -37,20 +37,20 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    int doGetScore(FrameStatus status) throws CannotCalcException {
+    int doGetRemainingPin(FrameStatus status) throws CannotCalcException {
         Score score = status.getScore();
         if (!score.hasBonusCount()) {
             return score.get();
         }
-        score = nextFrame.addBonusScore(score);
+        score = nextFrame.addRemainingPin(score);
         return score.get();
     }
 
     @Override
-    Score doAddAdditionalBonusScore(Score unFinishedScore) throws CannotCalcException {
+    Score doAddAdditionalRemainingPin(Score unFinishedScore) throws CannotCalcException {
         if (nextFrame == null) {
             throw new CannotCalcException();
         }
-        return nextFrame.addBonusScore(unFinishedScore);
+        return nextFrame.addRemainingPin(unFinishedScore);
     }
 }

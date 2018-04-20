@@ -18,7 +18,7 @@ public class Miss implements FrameStatus {
     }
 
     @Override
-    public FrameStatus roll(Frame frame, Pin newPin) throws IllegalArgumentException {
+    public FrameStatus roll(boolean isLast, Pin newPin) throws IllegalArgumentException {
         return this;
     }
 

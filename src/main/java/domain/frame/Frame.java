@@ -28,7 +28,7 @@ public abstract class Frame {
     }
 
     public Frame roll(int num) throws IllegalArgumentException {
-        status = status.roll(this, new Pin(num));
+        status = status.roll(isLast(), new Pin(num));
         return createFrame();
     }
 
@@ -69,21 +69,21 @@ public abstract class Frame {
 
     private int getScore() {
         try {
-            return doGetScore(status);
+            return doGetRemainingPin(status);
         } catch (CannotCalcException e) {
             return CANNOT_CALC_SCORE_STATE;
         }
     }
 
-    abstract int doGetScore(FrameStatus status);
+    abstract int doGetRemainingPin(FrameStatus status);
 
-    public Score addBonusScore(Score beforeFrameScore) {
+    public Score addRemainingPin(Score beforeFrameScore) {
         Score totalScore = status.addBonusScore(beforeFrameScore);
         if (totalScore.hasBonusCount()) {
-            return doAddAdditionalBonusScore(totalScore);
+            return doAddAdditionalRemainingPin(totalScore);
         }
         return totalScore;
     }
 
-    abstract Score doAddAdditionalBonusScore(Score unFinishedScore);
+    abstract Score doAddAdditionalRemainingPin(Score unFinishedScore);
 }

@@ -20,7 +20,7 @@ public class BonusStrike implements FrameStatus {
     }
 
     @Override
-    public FrameStatus roll(Frame frame, Pin newPin) {
+    public FrameStatus roll(boolean isLast, Pin newPin) {
         return new BonusCompletion(pin1, pin2, newPin);
     }
 

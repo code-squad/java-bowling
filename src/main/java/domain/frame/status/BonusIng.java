@@ -18,7 +18,7 @@ public class BonusIng implements FrameStatus {
     }
 
     @Override
-    public FrameStatus roll(Frame frame, Pin newPin) {
+    public FrameStatus roll(boolean isLast, Pin newPin) {
         if (pin2.isOverRecordPin(newPin)) {
             throw new IllegalArgumentException(Pin.MAX + "개 까지만 기록 가능합니다.");
         }
