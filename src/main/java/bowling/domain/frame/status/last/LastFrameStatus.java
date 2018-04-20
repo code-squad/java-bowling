@@ -1,5 +1,6 @@
 package bowling.domain.frame.status.last;
 
+import bowling.domain.frame.score.LastFrameScore;
 import bowling.domain.frame.score.Score;
 
 public class LastFrameStatus {
@@ -60,10 +61,14 @@ public class LastFrameStatus {
         return "";
     }
 
-    public int updateScore(Score prevPrev) {
+    public int updateScoresFromPreviousFrames(Score prevPrev) {
         if (prevPrev.oneMoreBowlNeeded()) {
             return first.getScore();
         }
         return first.getScore() + second.getScore();
+    }
+
+    public void updateLastFrameScore(LastFrameScore score) {
+        score.updateScore(calculateScore());
     }
 }

@@ -74,11 +74,15 @@ public class NormalFrame extends Frame {
 
     @Override
     public String convertStatusToPrintable() {
-        return Formatter.formatFrame(status.toString()) + "|" + Formatter.formatFrame(nextFrame.convertStatusToPrintable());
+        return Formatter.formatFrame(status.toString())
+                + "|"
+                + Formatter.formatFrame(nextFrame.convertStatusToPrintable());
     }
 
     @Override
     public String convertScoreToPrintable() {
-        return Formatter.formatFrame(score.toString()) + "|" + Formatter.formatFrame(nextFrame.convertScoreToPrintable());
+        return Formatter.formatFrame(score.toString())
+                + "|"
+                + Formatter.formatFrame(nextFrame.convertScoreToPrintable());
     }
 }
