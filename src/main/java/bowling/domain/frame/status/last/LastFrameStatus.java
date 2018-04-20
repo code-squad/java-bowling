@@ -7,35 +7,39 @@ public class LastFrameStatus {
     private Status second;
     private Status third;
 
+    public LastFrameStatus() {
+        this.first = new NotPlayed();
+        this.second = new NotPlayed();
+        this.third = new NotPlayed();
+    }
+
     private boolean firstIsNotPlayed() {
-        return first == null;
+        return first.isNotPlayed();
     }
 
     private boolean secondIsNotPlayed() {
-        return second == null;
+        return second.isNotPlayed();
     }
 
     private boolean thirdIsNotPlayed() {
-        return third == null;
+        return third.isNotPlayed();
     }
 
-    public void bowl(int pins) {
+    public Status bowl(int pins) {
         if (firstIsNotPlayed()) {
-            first = new NotPlayed();
+            return first = first.bowl(pins);
         }
         if (secondIsNotPlayed()) {
-            second = first.bowl(pins);
+            return second = first.bowl(pins);
         }
-        if (thirdIsNotPlayed()) {
-            third = second.bowl(pins);
-        }
+        return third = second.bowl(pins);
     }
 
     public boolean isComplete() {
-        if (!secondIsNotPlayed() && (!first.isStrike() || !second.isSpare())) { //null pointer?
+        if (!secondIsNotPlayed() && (!first.isStrike() && !second.isSpare())) {
             return true;
         }
-        return !thirdIsNotPlayed();
+        return (first.isStrike() || second.isSpare()) && !thirdIsNotPlayed();
     }
 
     public int calculateScore() {
@@ -44,10 +48,16 @@ public class LastFrameStatus {
 
     @Override
     public String toString() {
-        if (thirdIsNotPlayed()) {
-            return first + "|" + second;
+        if (!thirdIsNotPlayed()) {
+            return first.toString() + "|" + second.toString() + "|" + third.toString();
         }
-        return first + "|" + second + "|" + third;
+        if (!secondIsNotPlayed()) {
+            return first.toString() + "|" + second.toString();
+        }
+        if (!firstIsNotPlayed()) {
+            return first.toString();
+        }
+        return "";
     }
 
     public int updateScore(Score prevPrev) {

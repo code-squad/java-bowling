@@ -21,6 +21,11 @@ public class NotPlayed implements Status {
     }
 
     @Override
+    public boolean isNotPlayed() {
+        return true;
+    }
+
+    @Override
     public int getScore() {
         return 0;
     }

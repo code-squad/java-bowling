@@ -21,6 +21,11 @@ public class Strike implements Status {
     }
 
     @Override
+    public boolean isNotPlayed() {
+        return false;
+    }
+
+    @Override
     public int getScore() {
         return 10;
     }

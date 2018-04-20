@@ -26,6 +26,11 @@ public class Spare implements Status {
     }
 
     @Override
+    public boolean isNotPlayed() {
+        return false;
+    }
+
+    @Override
     public int getScore() {
         return pins;
     }

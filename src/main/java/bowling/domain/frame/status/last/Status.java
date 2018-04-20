@@ -6,7 +6,9 @@ public interface Status {
 
     boolean isStrike();
 
-    boolean isSpare();
+    boolean isSpare(); //TODO: remove duplicate code through inheritance/interface?
+
+    boolean isNotPlayed(); //TODO: remove duplicate code through inheritance/interface?
 
     int getScore();
 

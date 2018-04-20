@@ -26,6 +26,11 @@ public class Miss implements Status {
     }
 
     @Override
+    public boolean isNotPlayed() {
+        return false;
+    }
+
+    @Override
     public int getScore() {
         return pins;
     }
