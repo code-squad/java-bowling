@@ -25,6 +25,16 @@ public class NormalFrame extends Frame {
         setFallingPinNum(fallingPinNum);
     }
 
+    public boolean isEndFrame() {
+        if (firstRoll != null && firstRoll.isStrike()) {
+            return true;
+        }
+        if (firstRoll != null && secondRoll != null) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public Frame getCurrentFrame() {
         if (isEndFrame()) {
@@ -36,11 +46,6 @@ public class NormalFrame extends Frame {
     @Override
     public boolean isEndGame() {
         return false;
-    }
-
-    @Override
-    public int getCurrentFrameNo() {
-        return getCurrentFrame().getFrameNo();
     }
 
     @Override

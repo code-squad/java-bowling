@@ -40,11 +40,6 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public int getCurrentFrameNo() {
-        return getCurrentFrame().getFrameNo();
-    }
-
-    @Override
     public Frame getNextFrame() {
         return this;
     }

@@ -2,8 +2,8 @@ package domain;
 
 public abstract class Frame {
     private FrameNo frameNo;
-    private Pin firstRoll;
-    private Pin secondRoll;
+    protected Pin firstRoll;
+    protected Pin secondRoll;
 
     public Frame(FrameNo frameNo) {
         this.frameNo = frameNo;
@@ -11,15 +11,7 @@ public abstract class Frame {
 
     public abstract void roll(int fallingPinNum);
 
-    public boolean isEndFrame() {
-        if (firstRoll != null && firstRoll.isStrike()) {
-            return true;
-        }
-        if (firstRoll != null && secondRoll != null) {
-            return true;
-        }
-        return false;
-    }
+    public abstract boolean isEndFrame();
 
     public void setFallingPinNum(int fallingPinNum) {
         if (firstRoll == null) {
@@ -30,7 +22,7 @@ public abstract class Frame {
     }
 
 
-    public void setSecondFallingPinNum(int fallingPinNum) {
+    private void setSecondFallingPinNum(int fallingPinNum) {
         if (secondRoll == null) {
             secondRoll = new Pin(fallingPinNum);
             if (!secondRoll.isValid(firstRoll)) {
@@ -52,7 +44,7 @@ public abstract class Frame {
 
 
     public int getFrameScore() {
-        return getFirstRoll() + getSecondRoll();
+        return firstRoll.totalPins(secondRoll);
     }
 
     public int getFirstRoll() {
@@ -71,8 +63,9 @@ public abstract class Frame {
         return secondRoll == null;
     }
 
-    public abstract int getCurrentFrameNo();
-
+    public int getCurrentFrameNo() {
+        return getCurrentFrame().getFrameNo();
+    }
 
     public int getFrameNo() {
         return frameNo.getNo();

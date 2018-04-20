@@ -39,4 +39,8 @@ public class Pin {
         }
         return false;
     }
+
+    public int totalPins(Pin secondRoll) {
+        return fallingPinNum + secondRoll.getFallingPinNum();
+    }
 }
