@@ -10,7 +10,7 @@ public class Player implements Printable {
 
     public Player(String name) {
         this.name = name;
-        this.frame = new NormalFrame(0);
+        this.frame = new NormalFrame(1);
     }
 
     public void bowl(int pins) {
@@ -22,7 +22,7 @@ public class Player implements Printable {
         return "|" + Formatter.formatFrame(name) + "|" + frame.toString();
     }
 
-    public boolean isDone() {
-        return frame.nextIsLastFrame();
-    }
+//    public boolean isDone() {
+//        return frame.nextIsLastFrame();
+//    }
 }

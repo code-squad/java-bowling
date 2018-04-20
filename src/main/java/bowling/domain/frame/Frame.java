@@ -12,5 +12,4 @@ public abstract class Frame {
 
     abstract int updateScoreFromPrevPrev(Score prevPrev);
 
-    public abstract boolean nextIsLastFrame();
 }

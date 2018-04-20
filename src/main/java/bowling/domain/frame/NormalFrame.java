@@ -64,11 +64,7 @@ public class NormalFrame extends Frame {
 
     @Override
     public String toString() {
-        return Formatter.formatFrame(status.toString()) + "|";
+        return Formatter.formatFrame(status.toString()) + "|" + Formatter.formatFrame(nextFrame.toString());
     }
 
-    @Override
-    public boolean nextIsLastFrame() {
-        return ;
-    }
 }

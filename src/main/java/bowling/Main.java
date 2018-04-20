@@ -19,9 +19,9 @@ public class Main {
         }
     }
 
-    private static void bowl(Player player) {
-        while (!player.isDone()) {
-
-        }
-    }
+//    private static void bowl(Player player) {
+//        while (!player.isDone()) {
+//
+//        }
+//    }
 }
