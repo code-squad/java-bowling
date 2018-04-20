@@ -2,7 +2,7 @@ package bowling.domain.frame.status.normal;
 
 import bowling.domain.frame.score.Score;
 
-public abstract class NormalIncomplete implements NormalFrameStatus {
+public abstract class Incomplete implements Status {
 
     @Override
     public abstract Score createScore();

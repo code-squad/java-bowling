@@ -1,26 +1,24 @@
-package bowling.domain.frame.status;
+package bowling.domain.frame.status.normal;
 
 import bowling.domain.frame.score.Score;
-import bowling.domain.frame.status.normal.NormalComplete;
-import bowling.domain.frame.status.normal.NormalFrameStatus;
 
-public class AllPlayed extends NormalComplete {
+public class Spare extends Complete {
     private final int first;
     private final int second;
 
-    public AllPlayed(int first, int pins) {
+    public Spare(int first, int pins) {
         this.first = first;
         this.second = pins;
     }
 
     @Override
-    public NormalFrameStatus bowl(int pins) {
+    public Status bowl(int pins) {
         return this;
     }
 
     @Override
     public Score createScore() {
-        return Score.ofNormal(first + second);
+        return Score.ofSpare();
     }
 
     @Override
@@ -38,6 +36,6 @@ public class AllPlayed extends NormalComplete {
 
     @Override
     public String toString() {
-        return first+ "|" + second;
+        return first + "|/";
     }
 }

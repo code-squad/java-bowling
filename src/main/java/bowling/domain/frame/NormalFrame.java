@@ -1,13 +1,13 @@
 package bowling.domain.frame;
 
 import bowling.domain.frame.score.Score;
-import bowling.domain.frame.status.NotPlayed;
-import bowling.domain.frame.status.normal.NormalFrameStatus;
+import bowling.domain.frame.status.normal.NotPlayed;
+import bowling.domain.frame.status.normal.Status;
 import bowling.domain.util.Formatter;
 
 public class NormalFrame extends Frame {
     private Frame nextFrame;
-    private NormalFrameStatus status;
+    private Status status;
     private Score score;
 
     public NormalFrame(int frameNumber) {

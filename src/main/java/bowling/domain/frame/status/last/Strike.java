@@ -1,6 +1,6 @@
 package bowling.domain.frame.status.last;
 
-public class Spare implements Status {
+public class Strike implements Status {
 
     public Status bowl(int pins) {
         if (pins == 10) {
@@ -10,15 +10,15 @@ public class Spare implements Status {
     }
 
     public boolean isStrike() {
-        return false;
+        return true;
     }
 
     public boolean isSpare() {
-        return true;
+        return false;
     }
 
     @Override
     public String toString() {
-        return "/";
+        return "X";
     }
 }

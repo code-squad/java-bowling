@@ -2,40 +2,23 @@ package bowling.domain.frame;
 
 import bowling.domain.frame.score.Score;
 import bowling.domain.frame.status.last.LastFrameStatus;
-import bowling.domain.frame.status.NotPlayed;
 import bowling.domain.util.Formatter;
 
 public class LastFrame extends Frame {
-    private LastFrameStatus status;
-    private Score score;
+    private final LastFrameStatus status;
 
     public LastFrame() {
-        this.status = new NotPlayed();
-    }
-
-    private Score createScore() {
-        if (score == null) {
-            return status.createScore();
-        }
-        return this.score;
+        this.status = new LastFrameStatus();
     }
 
     @Override
     public Frame bowl(int pins) {
-        status = status.bowl(pins);
-        if()
-
-        if (status.isComplete()) {
-            score = createScore();
-        }
         return null;
     }
 
     @Override
     public int calculateScore() { //TODO: Exception for frame number = 8
-        status.updateScore(score);
-        //nextFrame.calculateAdditionalScore(score);
-        return score.getScore();
+        return status.
     }
 
     @Override

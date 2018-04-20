@@ -2,9 +2,9 @@ package bowling.domain.frame.status.normal;
 
 import bowling.domain.frame.score.Score;
 
-public interface NormalFrameStatus {
+public interface Status {
 
-    NormalFrameStatus bowl(int pins);
+    Status bowl(int pins);
 
     boolean isComplete();
 

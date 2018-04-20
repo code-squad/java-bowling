@@ -1,15 +1,50 @@
 package bowling.domain.frame.status.last;
 
-import bowling.domain.frame.score.Score;
+public class LastFrameStatus {
+    private Status first;
+    private Status second;
+    private Status third;
 
-public interface LastFrameStatus {
+    private boolean firstIsNotPlayed() {
+        return first == null;
+    }
 
-    boolean isComplete();
+    private boolean secondIsNotPlayed() {
+        return second == null;
+    }
 
-    Score createScore();
+    private boolean thirdIsNotPlayed() {
+        return third == null;
+    }
 
-    int updateScore(Score score);
+    public void bowl(int pins) {
+        if (firstIsNotPlayed()) {
+            first = new NotPlayed();
+        }
+        if (secondIsNotPlayed()) {
+            second = first.bowl(pins);
+        }
+        if (thirdIsNotPlayed()) {
+            third = second.bowl(pins);
+        }
+    }
+
+    public boolean isComplete() {
+        if (!secondIsNotPlayed() && (!first.isStrike() || !second.isSpare())) { //null pointer?
+            return true;
+        }
+        return !thirdIsNotPlayed();
+    }
+
+    public int calculateScore() {
+
+    }
 
     @Override
-    String toString();
+    public String toString() {
+        if (thirdIsNotPlayed()) {
+            return first + "|" + second;
+        }
+        return first + "|" + second + "|" + third;
+    }
 }

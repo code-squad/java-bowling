@@ -1,11 +1,9 @@
-package bowling.domain.frame.status;
+package bowling.domain.frame.status.normal;
 
 import bowling.domain.exception.FrameNotPlayedException;
 import bowling.domain.frame.score.Score;
-import bowling.domain.frame.status.normal.NormalIncomplete;
-import bowling.domain.frame.status.normal.NormalFrameStatus;
 
-public class PlayedOnce extends NormalIncomplete {
+public class PlayedOnce extends Incomplete {
     private final int first;
 
     public PlayedOnce(int pins) {
@@ -13,7 +11,7 @@ public class PlayedOnce extends NormalIncomplete {
     }
 
     @Override
-    public NormalFrameStatus bowl(int pins) {
+    public Status bowl(int pins) {
         if (first + pins == 10) {
             return new Spare(first, pins);
         }

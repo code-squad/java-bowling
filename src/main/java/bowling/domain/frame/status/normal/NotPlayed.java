@@ -1,14 +1,12 @@
-package bowling.domain.frame.status;
+package bowling.domain.frame.status.normal;
 
 import bowling.domain.exception.FrameNotPlayedException;
 import bowling.domain.frame.score.Score;
-import bowling.domain.frame.status.normal.NormalIncomplete;
-import bowling.domain.frame.status.normal.NormalFrameStatus;
 
-public class NotPlayed extends NormalIncomplete {
+public class NotPlayed extends Incomplete {
 
     @Override
-    public NormalFrameStatus bowl(int pins) {
+    public Status bowl(int pins) {
         if (pins == 10) {
             return new Strike();
         }
