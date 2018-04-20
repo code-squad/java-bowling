@@ -3,6 +3,7 @@ package bowling;
 import bowling.domain.Player;
 import bowling.view.Input;
 import bowling.view.View;
+//import bowling.view.View;
 
 public class Bowling {
 
@@ -11,11 +12,11 @@ public class Bowling {
         Player player = new Player(name);
         boolean isLast = false;
         while (!isLast) {
-            int frameNum = player.userFrameNum();
+            int frameNum = player.userFrameNumber();
             int pin = Input.inputPinNumber(frameNum);
             isLast = player.playBowling(pin);
-            View.numOfFrameView();
-            View.scoreView(player);
+            View.numberOfFrameView();
+            View.framePrint(player);
         }
     }
 }

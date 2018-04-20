@@ -1,61 +1,22 @@
 package bowling.domain;
 
-public abstract class Frame {
+public interface Frame {
 
-    private Ball first;
-    private Ball second;
+    void updateFrameStatus(int pin);
 
-    public void playOneBall(int pin) {
-        if (isFirstNull()) {
-            first = Ball.playOf(pin);
-        } else {
-            frameCheckException();
-            first.secondPinCheckException(pin);
-            second = Ball.playOf(pin);
-        }
-    }
+    Status makeFrame(Ball ball);
 
-    public boolean isTwiceBall() {  //한 프레임에 두번쳤는지 확인
-        if (!isSecondNull()) {
-            return true;
-        }
-        return false;
-    }
+    boolean checkComplete();
 
-    public boolean isNewFrame() { //빈 프레임인지 확인
-        if (isFirstNull()) {
-            return true;
-        }
-        return false;
-    }
+    void createScore(Frame frame);
 
-    public int firstInFrame() {
-        return first.getPin();
-    }
+    void updateScore(Score updateScore);
 
-    public int secondInFrame() {
-        return second.getPin();
-    }
+    Score getScore();
 
-    public boolean isStrike() {
-        return first.isStrike();
-    }
+    Status getStatus();
 
-    public boolean isSpare() {
-        return first.isSpare(second);
-    }
+    int totalScore();
 
-    public boolean isFirstNull() {
-        return first == null;
-    }
-
-    public boolean isSecondNull() {
-        return second == null;
-    }
-
-    public void frameCheckException() {
-        if (!isSecondNull()) {
-            throw new IllegalArgumentException("한 프레임에 두번 이상 쳤습니다.");
-        }
-    }
+    String toString();
 }

@@ -5,44 +5,37 @@ import java.util.List;
 
 public class Player {
 
-    static final int NAMESIZE = 3;
-    static final int NOMALFRAME = 9;
+    private final int NORMAL_FRAME = 9;
+    private final int NAME_MIN = 2;
+    private final int NAME_MAX = 4;
 
     private String name;
     private FrameData frameData = new FrameData();
 
-    public Player(String name) {
-        if (name.length() != NAMESIZE) {
-            throw new IllegalArgumentException("3자의 이름으로 입력 해주세요.");
+    public Player(String name){
+        if(name.length()<NAME_MIN||NAME_MAX<name.length()){
+            throw new IllegalArgumentException("2~4자의 이름을 입력해주세요.");
         }
         this.name = name;
     }
 
     public boolean playBowling(int pin) {
-        if (userFrameNum() <= NOMALFRAME) {
+        if (frameData.numberOfFrames() < NORMAL_FRAME) {
             frameData.play(pin);
             return false;
         }
-        return frameData.playLastFrame(pin);
+       return frameData.playLastFrame(pin);
+    }
+
+    public int userFrameNumber(){
+        return frameData.numberOfFrames()+1;
+    }
+
+    public FrameData getFrameData() {
+        return frameData;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int userFrameNum(){
-        return frameData.numberOfFrame();
-    }
-
-    public List<NomalFrame> getFrames() {
-        return frameData.getFrames();
-    }
-
-    public NomalFrame getNomalFrame() {
-        return frameData.getNomalFrame();
-    }
-
-    public LastFrame getLastFrame() {
-        return frameData.getLastFrame();
     }
 }
