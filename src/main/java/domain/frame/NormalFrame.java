@@ -14,8 +14,8 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    Frame createFrame(FrameStatus status) throws IllegalArgumentException {
-        if (status.isFinish(this)) {
+    Frame createFrame() throws IllegalArgumentException {
+        if (isFinish()) {
             nextFrame = Frame.of(getFrameNum() + 1);
             return nextFrame;
         }

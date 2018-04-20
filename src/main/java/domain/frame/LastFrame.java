@@ -13,7 +13,7 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    Frame createFrame(FrameStatus status) throws IllegalArgumentException {
+    Frame createFrame() throws IllegalArgumentException {
         return this;
     }
 

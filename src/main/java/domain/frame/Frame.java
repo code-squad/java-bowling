@@ -29,10 +29,10 @@ public abstract class Frame {
 
     public Frame roll(int num) throws IllegalArgumentException {
         status = status.roll(this, new Pin(num));
-        return createFrame(status);
+        return createFrame();
     }
 
-    abstract Frame createFrame(FrameStatus status) throws IllegalArgumentException;
+    abstract Frame createFrame() throws IllegalArgumentException;
 
     public abstract boolean isLast();
 
