@@ -1,37 +1,36 @@
 package bowling.domain;
 
-import bowling.domain.frame.Frame;
-import bowling.domain.frame.NormalFrame;
+import bowling.domain.frame.Frames;
 import bowling.domain.util.Formatter;
 
-public class Player implements Printable{
+public class Player implements Printable {
     private final String name;
-    private final Frame initialFrame;
-    private Frame currentFrame;
+    private final Frames frames;
 
     public Player(String name) {
         this.name = name;
-        this.initialFrame = new NormalFrame(1);
+        this.frames = new Frames();
+    }
+
+    public int getCurrentFrameNumber() {
+        return frames.getCurrentFrameNumber();
     }
 
     public void bowl(int pins) {
-        Frame newFrame = currentFrame.bowl(pins);
-        if (newFrame != null) {
-            currentFrame = newFrame;
-        }
+        frames.bowl(pins);
     }
 
     public boolean isDone() {
-        return currentFrame.isLast();
+        return frames.isDone();
     }
 
     @Override
     public String convertStatusToPrintable() {
-        return "|" + Formatter.formatFrame(name) + "|" + initialFrame.convertStatusToPrintable();
+        return "|" + Formatter.formatFrame(name) + "|" + frames.convertStatusToPrintable();
     }
 
     @Override
     public String convertScoreToPrintable() {
-        return initialFrame.convertScoreToPrintable();
+        return "|" + Formatter.formatFrame("") + "|" + frames.convertScoreToPrintable();
     }
 }

@@ -1,5 +1,7 @@
 package bowling.domain.frame.score;
 
+import bowling.domain.util.Formatter;
+
 public class Score {
     private int countUntilCalculation;
     private int score;
@@ -39,5 +41,10 @@ public class Score {
 
     public int getScore() {
         return score;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(score);
     }
 }
