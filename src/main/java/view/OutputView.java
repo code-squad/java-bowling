@@ -15,10 +15,10 @@ public class OutputView {
 		int scoreSum = 0;
 
 		for(Frame frame : playedFrames) {
-			scoreSum += frame.canScore() ? frame.score() : 0;
+			scoreSum += frame.getScoreFlag() ? frame.getScore() : 0;
 			headerBuilder.append(String.format(frame.isFinalFrame() ? "  %02d    |" : "  %02d  |", frame.getFrameNumber()));
 			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", getFrameStatus(frame)));
-			scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.canScore() ? scoreSum : ""));
+			scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.getScoreFlag() ? scoreSum : ""));
 		}
 
 		IntStream.range(playedFrames.size(), Frame.MAX_FRAME_NUMBER)

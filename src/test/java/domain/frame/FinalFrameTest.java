@@ -40,34 +40,34 @@ public class FinalFrameTest {
     
     @Test
     public void canScore테스트() {
-        assertThat(new FinalFrame(0).canScore()).isEqualTo(false);
-        assertThat(new FinalFrame(0).bowl(1).canScore()).isEqualTo(true);
-        assertThat(new FinalFrame(0).bowl(10).canScore()).isEqualTo(false);
-        assertThat(new FinalFrame(0).bowl(10).bowl(10).canScore()).isEqualTo(true);
+        assertThat(new FinalFrame(0).getScoreFlag()).isEqualTo(false);
+        assertThat(new FinalFrame(0).bowl(1).getScoreFlag()).isEqualTo(true);
+        assertThat(new FinalFrame(0).bowl(10).getScoreFlag()).isEqualTo(false);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).getScoreFlag()).isEqualTo(true);
         
-        assertThat(new FinalFrame(8).canScore()).isEqualTo(false);
-        assertThat(new FinalFrame(8).bowl(1).canScore()).isEqualTo(true);
+        assertThat(new FinalFrame(8).getScoreFlag()).isEqualTo(false);
+        assertThat(new FinalFrame(8).bowl(1).getScoreFlag()).isEqualTo(true);
         
-        assertThat(new FinalFrame(1).bowl(9).canScore()).isEqualTo(false);
-        assertThat(new FinalFrame(1).bowl(9).bowl(10).canScore()).isEqualTo(true);
+        assertThat(new FinalFrame(1).bowl(9).getScoreFlag()).isEqualTo(false);
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).getScoreFlag()).isEqualTo(true);
         
-        assertThat(new FinalFrame(10).canScore()).isEqualTo(false);
-        assertThat(new FinalFrame(10).bowl(2).canScore()).isEqualTo(false);
-        assertThat(new FinalFrame(10).bowl(2).bowl(8).canScore()).isEqualTo(true);
-        assertThat(new FinalFrame(10).bowl(10).canScore()).isEqualTo(false);
-        assertThat(new FinalFrame(10).bowl(10).bowl(10).canScore()).isEqualTo(true);
+        assertThat(new FinalFrame(10).getScoreFlag()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(2).getScoreFlag()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).getScoreFlag()).isEqualTo(true);
+        assertThat(new FinalFrame(10).bowl(10).getScoreFlag()).isEqualTo(false);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).getScoreFlag()).isEqualTo(true);
     }
 
     @Test
     public void score테스트() {
-        assertThat(new FinalFrame(0).bowl(1).score()).isEqualTo(1);
-        assertThat(new FinalFrame(0).bowl(10).bowl(10).score()).isEqualTo(20);
+        assertThat(new FinalFrame(0).bowl(1).getScore()).isEqualTo(1);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).getScore()).isEqualTo(20);
 
-        assertThat(new FinalFrame(8).bowl(1).score()).isEqualTo(9);
+        assertThat(new FinalFrame(8).bowl(1).getScore()).isEqualTo(9);
 
-        assertThat(new FinalFrame(1).bowl(9).bowl(10).score()).isEqualTo(20);
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).getScore()).isEqualTo(20);
 
-        assertThat(new FinalFrame(10).bowl(2).bowl(8).score()).isEqualTo(20);
-        assertThat(new FinalFrame(10).bowl(10).bowl(10).score()).isEqualTo(30);
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).getScore()).isEqualTo(20);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).getScore()).isEqualTo(30);
     }
 }

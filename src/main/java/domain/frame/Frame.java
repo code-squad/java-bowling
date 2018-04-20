@@ -62,7 +62,7 @@ public abstract class Frame {
 		return pitches.getLast().getStatus();
 	}
 	
-	public abstract boolean canScore();
+	public abstract boolean getScoreFlag();
 
-	public abstract int score();
+	public abstract int getScore();
 }
