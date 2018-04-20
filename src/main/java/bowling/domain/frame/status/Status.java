@@ -1,6 +1,6 @@
-package bowling.domain.status;
+package bowling.domain.frame.status;
 
-import bowling.domain.score.Score;
+import bowling.domain.frame.score.Score;
 
 public interface Status {
 

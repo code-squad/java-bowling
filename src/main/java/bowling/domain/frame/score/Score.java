@@ -1,4 +1,4 @@
-package bowling.domain.score;
+package bowling.domain.frame.score;
 
 public class Score {
     private int countUntilCalculation;
@@ -22,9 +22,6 @@ public class Score {
     }
 
     public int bowl(int score) {
-        if (!noMoreBowlNeeded()) {
-            countUntilCalculation--;
-        }
         return this.score += score;
     }
 

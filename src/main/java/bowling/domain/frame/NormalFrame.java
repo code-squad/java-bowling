@@ -1,7 +1,9 @@
 package bowling.domain.frame;
 
-import bowling.domain.score.Score;
-import bowling.domain.status.Status;
+import bowling.domain.frame.score.Score;
+import bowling.domain.frame.status.NotPlayed;
+import bowling.domain.frame.status.Status;
+import bowling.domain.util.Formatter;
 
 public class NormalFrame extends Frame {
     private Frame nextFrame;
@@ -10,6 +12,7 @@ public class NormalFrame extends Frame {
 
     public NormalFrame(int frameNumber) {
         this.nextFrame = createNextFrame(frameNumber);
+        this.status = new NotPlayed();
     }
 
     private Frame createNextFrame(int frameNumber) {
@@ -61,6 +64,11 @@ public class NormalFrame extends Frame {
 
     @Override
     public String toString() {
-        return status.toString();
+        return Formatter.formatFrame(status.toString()) + "|";
+    }
+
+    @Override
+    public boolean nextIsLastFrame() {
+        return ;
     }
 }

@@ -1,24 +1,22 @@
-package bowling.domain.status;
+package bowling.domain.frame.status;
 
-import bowling.domain.score.Score;
+import bowling.domain.frame.score.Score;
 
-public abstract class Incomplete implements Status {
+public abstract class Complete implements Status {
 
     @Override
     public abstract Score createScore();
 
     @Override
     public boolean isComplete() {
-        return false;
+        return true;
     }
 
     @Override
     public abstract int updateScore(Score score);
 
     @Override
-    public boolean isStrike() {
-        return false;
-    }
+    public abstract boolean isStrike();
 
     @Override
     public abstract String toString();

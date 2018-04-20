@@ -1,7 +1,7 @@
 package bowling.domain.frame;
 
-import bowling.domain.score.Score;
-import bowling.domain.status.Status;
+import bowling.domain.frame.score.Score;
+import bowling.domain.frame.status.Status;
 
 public class LastFrame extends Frame {
     private Frame nextFrame;

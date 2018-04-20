@@ -2,22 +2,27 @@ package bowling.domain;
 
 import bowling.domain.frame.Frame;
 import bowling.domain.frame.NormalFrame;
+import bowling.domain.util.Formatter;
 
 public class Player implements Printable {
     private final String name;
-    private final Frame initialFrame;
+    private final Frame frame;
 
     public Player(String name) {
         this.name = name;
-        this.initialFrame = new NormalFrame(0);
+        this.frame = new NormalFrame(0);
     }
 
     public void bowl(int pins) {
-        initialFrame.bowl(pins);
+        frame.bowl(pins);
     }
 
     @Override
     public String convertToPrintable() {
-        return initialFrame.toString();
+        return "|" + Formatter.formatFrame(name) + "|" + frame.toString();
+    }
+
+    public boolean isDone() {
+        return frame.nextIsLastFrame();
     }
 }

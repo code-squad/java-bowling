@@ -1,6 +1,6 @@
 package bowling.domain.frame;
 
-import bowling.domain.score.Score;
+import bowling.domain.frame.score.Score;
 
 public abstract class Frame {
 
@@ -11,4 +11,6 @@ public abstract class Frame {
     abstract int calculateAdditionalScore(Score score);
 
     abstract int updateScoreFromPrevPrev(Score prevPrev);
+
+    public abstract boolean nextIsLastFrame();
 }

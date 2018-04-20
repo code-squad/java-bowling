@@ -1,7 +1,7 @@
-package bowling.domain.status;
+package bowling.domain.frame.status;
 
 import bowling.domain.exception.FrameNotPlayedException;
-import bowling.domain.score.Score;
+import bowling.domain.frame.score.Score;
 
 public class NotPlayed extends Incomplete {
 
@@ -25,6 +25,6 @@ public class NotPlayed extends Incomplete {
 
     @Override
     public String toString() {
-        return "";
+        return " ";
     }
 }
