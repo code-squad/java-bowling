@@ -3,7 +3,7 @@ package bowling.frame.state;
 import bowling.frame.CannotCalculateException;
 import bowling.frame.pin.Score;
 
-public abstract class Running implements State {
+abstract class Running implements State {
     @Override
     public boolean isFinish() {
         return false;

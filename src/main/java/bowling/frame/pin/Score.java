@@ -3,8 +3,8 @@ package bowling.frame.pin;
 import bowling.frame.CannotCalculateException;
 
 public class Score {
-    private int score;
-    private int left;
+    private final int score;
+    private final int left;
 
     public Score(int score) {
         this(score, 0);
@@ -16,7 +16,7 @@ public class Score {
     }
 
     public Score bowl(int countOfPins) {
-        return new Score(score += countOfPins, left - 1);
+        return new Score(score + countOfPins, left - 1);
     }
 
     public int getScore() {

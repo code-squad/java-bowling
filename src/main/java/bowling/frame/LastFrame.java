@@ -2,8 +2,8 @@ package bowling.frame;
 
 import bowling.frame.pin.Pins;
 import bowling.frame.pin.Score;
-import bowling.frame.state.Ready;
 import bowling.frame.state.State;
+import bowling.frame.state.StateFactory;
 
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ public class LastFrame implements Frame {
     private LinkedList<State> states = new LinkedList<>();
 
     public LastFrame() {
-        states.add(new Ready());
+        states.add(StateFactory.ready());
     }
 
     public LastFrame bowl(int countOfPin) {
@@ -23,10 +23,9 @@ public class LastFrame implements Frame {
         }
 
         State currentState = states.getLast();
-        System.out.println("Current State : " + currentState);
 
         if (currentState.isFinish()) {
-            states.add(new Ready().bowl(Pins.bowl(countOfPin)));
+            states.add(StateFactory.firstBowl(countOfPin));
             return this;
         }
 

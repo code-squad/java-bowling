@@ -4,7 +4,7 @@ import bowling.frame.CannotCalculateException;
 import bowling.frame.pin.Pins;
 import bowling.frame.pin.Score;
 
-public class Ready extends Running {
+class Ready extends Running {
     @Override
     public State bowl(Pins falledPins) {
         if (falledPins.isStrike()) {

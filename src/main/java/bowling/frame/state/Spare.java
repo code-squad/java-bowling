@@ -4,8 +4,8 @@ import bowling.frame.pin.Pins;
 import bowling.frame.pin.Score;
 
 class Spare extends Finished {
-    private Pins firstPins;
-    private Pins secondPins;
+    private final Pins firstPins;
+    private final Pins secondPins;
 
     public Spare(Pins firstPins, Pins secondPins) {
         if (!firstPins.isSpare(secondPins)) {

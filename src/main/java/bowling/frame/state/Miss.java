@@ -4,8 +4,8 @@ import bowling.frame.pin.Pins;
 import bowling.frame.pin.Score;
 
 class Miss extends Finished {
-    private Pins firstPins;
-    private Pins secondPins;
+    private final Pins firstPins;
+    private final Pins secondPins;
 
     Miss(Pins firstPins, Pins secondPins) {
         this.firstPins = firstPins;

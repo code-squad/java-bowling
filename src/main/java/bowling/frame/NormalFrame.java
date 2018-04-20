@@ -2,8 +2,8 @@ package bowling.frame;
 
 import bowling.frame.pin.Pins;
 import bowling.frame.pin.Score;
-import bowling.frame.state.Ready;
 import bowling.frame.state.State;
+import bowling.frame.state.StateFactory;
 
 public class NormalFrame implements Frame {
     public static final int UN_SCORE_STATE = -1;
@@ -13,7 +13,7 @@ public class NormalFrame implements Frame {
     private int no;
 
     public NormalFrame(int no) {
-        this.state = new Ready();
+        this.state = StateFactory.ready();
         this.no = no;
     }
 

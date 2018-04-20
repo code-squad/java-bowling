@@ -5,7 +5,7 @@ import bowling.frame.pin.Pins;
 import bowling.frame.pin.Score;
 
 class FirstBowl extends Running {
-    private Pins firstPins;
+    private final Pins firstPins;
 
     FirstBowl(Pins falledPins) {
         this.firstPins = falledPins;
