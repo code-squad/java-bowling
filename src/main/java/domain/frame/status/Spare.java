@@ -20,11 +20,8 @@ public class Spare implements FrameStatus {
     }
 
     @Override
-    public FrameStatus roll(boolean isLast, Pin newPin) throws IllegalArgumentException {
-        if (!isLast) {
-            return this;
-        }
-        return new BonusCompletion(pin1, pin2, newPin);
+    public FrameStatus roll(Pin newPin) throws IllegalArgumentException {
+        return this;
     }
 
     @Override
@@ -33,8 +30,8 @@ public class Spare implements FrameStatus {
     }
 
     @Override
-    public boolean isFinish(Frame frame) {
-        return !frame.isLast();
+    public boolean isFinish() {
+        return true;
     }
 
     @Override

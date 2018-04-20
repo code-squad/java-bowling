@@ -1,89 +1,40 @@
 package domain.frame;
 
-import domain.frame.pin.Pin;
 import domain.frame.result.Board;
-import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.result.Score;
-import domain.frame.status.FrameStatus;
-import domain.frame.status.Ready;
 
 import static domain.frame.result.Board.isLimit;
 
-public abstract class Frame {
-    public static final int CANNOT_CALC_SCORE_STATE = -1;
-    private FrameStatus status;
-    private final int frameNum;
+public interface Frame {
+    int CANNOT_CALC_SCORE_STATE = -1;
 
-    public Frame(int frameNum) {
-        this.frameNum = frameNum;
-        status = new Ready();
-    }
-
-    public static Frame of(int frameNum) {
-        if (isLimit(frameNum)) {
+    static Frame of(int frameNum) {
+        if (frameNum == Board.LIMIT) {
             return new LastFrame(frameNum);
         }
         return new NormalFrame(frameNum);
     }
 
-    public Frame roll(int num) throws IllegalArgumentException {
-        status = status.roll(isLast(), new Pin(num));
-        return createFrame();
-    }
+    Frame roll(int num) throws IllegalArgumentException;
 
-    abstract Frame createFrame() throws IllegalArgumentException;
+    boolean isLast();
 
-    public abstract boolean isLast();
+    int getFrameNum();
 
-    public int getFrameNum() {
-        return frameNum;
-    }
+    boolean isFinish();
 
-    public boolean isFinish() {
-        return status.isFinish(this);
-    }
+    boolean isDiff(Frame frame);
 
-    public boolean isDiff(Frame frame) {
-        return this != frame;
-    }
+    Board getBoard();
 
-    public Board getBoard() {
-        Board board = new Board();
-        addFrameResult(board);
-        return board;
-    }
+    void addFrameResult(Board board);
 
-    abstract void addFrameResult(Board board);
+    FrameResult getResult();
 
-    public FrameResult getResult() {
-        if (!isFinish()) {
-            return new FrameResult(getScoreMessage(), CANNOT_CALC_SCORE_STATE);
-        }
-        return new FrameResult(getScoreMessage(), getScore());
-    }
+    int getRemainingPin();
 
-    private String getScoreMessage() {
-        return status.getResultMessage();
-    }
+    Score addRemainingPin(Score beforeFrameScore);
 
-    private int getScore() {
-        try {
-            return doGetRemainingPin(status);
-        } catch (CannotCalcException e) {
-            return CANNOT_CALC_SCORE_STATE;
-        }
-    }
-
-    abstract int doGetRemainingPin(FrameStatus status);
-
-    public Score addRemainingPin(Score beforeFrameScore) {
-        Score totalScore = status.addBonusScore(beforeFrameScore);
-        if (totalScore.hasBonusCount()) {
-            return doAddAdditionalRemainingPin(totalScore);
-        }
-        return totalScore;
-    }
-
-    abstract Score doAddAdditionalRemainingPin(Score unFinishedScore);
+    Score AddAdditionalRemainingPin(Score unFinishedScore);
 }

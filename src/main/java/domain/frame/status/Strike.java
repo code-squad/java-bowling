@@ -17,15 +17,8 @@ public class Strike implements FrameStatus {
     }
 
     @Override
-    public FrameStatus roll(boolean isLast, Pin newPin) throws IllegalArgumentException {
-        if (!isLast) {
-            return this;
-        }
-
-        if (newPin.isMax()) {
-            return new BonusStrike(pin, newPin);
-        }
-        return new BonusIng(pin, newPin);
+    public FrameStatus roll(Pin newPin) throws IllegalArgumentException {
+        return this;
     }
 
     @Override
@@ -34,8 +27,8 @@ public class Strike implements FrameStatus {
     }
 
     @Override
-    public boolean isFinish(Frame frame) {
-        return !frame.isLast();
+    public boolean isFinish() {
+        return true;
     }
 
     @Override

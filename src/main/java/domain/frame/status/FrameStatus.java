@@ -1,16 +1,15 @@
 package domain.frame.status;
 
-import domain.frame.Frame;
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
 
 public interface FrameStatus {
 
-    FrameStatus roll(boolean isLast, Pin newPin);
+    FrameStatus roll(Pin newPin);
 
     String getResultMessage();
 
-    boolean isFinish(Frame frame);
+    boolean isFinish();
 
     Score getScore();
 

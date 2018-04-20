@@ -14,7 +14,7 @@ public class Ing implements FrameStatus {
     }
 
     @Override
-    public FrameStatus roll(boolean isLast, Pin newPin) throws IllegalArgumentException {
+    public FrameStatus roll(Pin newPin) throws IllegalArgumentException {
         if (pin.isOverRecordPin(newPin)) {
             throw new IllegalArgumentException(Pin.MAX + "개 초과 기록할 수 없습니다");
         }
@@ -31,7 +31,7 @@ public class Ing implements FrameStatus {
     }
 
     @Override
-    public boolean isFinish(Frame frame) {
+    public boolean isFinish() {
         return false;
     }
 
