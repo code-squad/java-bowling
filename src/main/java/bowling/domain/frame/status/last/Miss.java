@@ -9,7 +9,7 @@ public class Miss implements Status {
 
     public Status bowl(int pins) {
         if (this.pins + pins == 10) {
-            return new Spare();
+            return new Spare(pins);
         }
         return new Miss(pins);
     }
@@ -20,6 +20,10 @@ public class Miss implements Status {
 
     public boolean isSpare() {
         return false;
+    }
+
+    public int getScore() {
+        return pins;
     }
 
     @Override

@@ -8,5 +8,8 @@ public interface Status {
 
     boolean isSpare();
 
+    int getScore();
+
+    @Override
     String toString();
 }

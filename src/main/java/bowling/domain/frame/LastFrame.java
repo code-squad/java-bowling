@@ -18,7 +18,7 @@ public class LastFrame extends Frame {
 
     @Override
     public int calculateScore() { //TODO: Exception for frame number = 8
-        return status.
+        return status.calculateScore();
     }
 
     @Override

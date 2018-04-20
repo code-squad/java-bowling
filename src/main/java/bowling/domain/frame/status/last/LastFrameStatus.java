@@ -37,7 +37,7 @@ public class LastFrameStatus {
     }
 
     public int calculateScore() {
-
+        return first.getScore() + second.getScore() + third.getScore();
     }
 
     @Override

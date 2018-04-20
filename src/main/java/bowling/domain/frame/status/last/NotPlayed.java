@@ -17,6 +17,10 @@ public class NotPlayed implements Status {
         return false;
     }
 
+    public int getScore() {
+        return 0;
+    }
+
     @Override
     public String toString() {
         return " ";

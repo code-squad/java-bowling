@@ -1,6 +1,11 @@
 package bowling.domain.frame.status.last;
 
 public class Spare implements Status {
+    private final int pins;
+
+    public Spare(int pins) {
+        this.pins = pins;
+    }
 
     public Status bowl(int pins) {
         if (pins == 10) {
@@ -15,6 +20,10 @@ public class Spare implements Status {
 
     public boolean isSpare() {
         return true;
+    }
+
+    public int getScore() {
+        return pins;
     }
 
     @Override
