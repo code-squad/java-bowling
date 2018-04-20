@@ -2,5 +2,7 @@ package bowling.domain;
 
 public interface Printable {
 
-    String convertToPrintable();
+    String convertStatusToPrintable();
+
+    String convertScoreToPrintable();
 }

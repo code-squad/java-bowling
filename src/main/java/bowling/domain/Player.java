@@ -4,42 +4,34 @@ import bowling.domain.frame.Frame;
 import bowling.domain.frame.NormalFrame;
 import bowling.domain.util.Formatter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Player implements Printable {
+public class Player implements Printable{
     private final String name;
-    private final List<Frame> frames = new ArrayList<>(); //TODO: wrapper class -> Frames
-    private int currentFrameIndex;
+    private final Frame initialFrame;
+    private Frame currentFrame;
 
     public Player(String name) {
         this.name = name;
-        this.currentFrameIndex = 0;
-        frames.add(new NormalFrame(1));
-    }
-
-    private Frame getCurrentFrame() {
-        return frames.get(currentFrameIndex);
+        this.initialFrame = new NormalFrame(1);
     }
 
     public void bowl(int pins) {
-        Frame newFrame = getCurrentFrame().bowl(pins);
+        Frame newFrame = currentFrame.bowl(pins);
         if (newFrame != null) {
-            frames.add(newFrame);
-            currentFrameIndex++;
+            currentFrame = newFrame;
         }
     }
 
     public boolean isDone() {
-        return getCurrentFrame().isLast();
+        return currentFrame.isLast();
     }
 
     @Override
-    public String convertToPrintable() {
-        return "|" + Formatter.formatFrame(name) + "|" + frames.get(0);
+    public String convertStatusToPrintable() {
+        return "|" + Formatter.formatFrame(name) + "|" + initialFrame.convertStatusToPrintable();
     }
 
-    public int getCurrentFrameNumber() {
-        return currentFrameIndex + 1;
+    @Override
+    public String convertScoreToPrintable() {
+        return initialFrame.convertScoreToPrintable();
     }
 }

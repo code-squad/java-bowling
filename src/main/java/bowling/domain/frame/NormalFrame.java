@@ -22,6 +22,10 @@ public class NormalFrame extends Frame {
         return new NormalFrame(frameNumber + 1);
     }
 
+    private boolean scoreIsInitialized() {
+        return score != null;
+    }
+
     private Score createScore() {
         if (score == null) {
             return status.createScore();
@@ -32,9 +36,12 @@ public class NormalFrame extends Frame {
     @Override
     public Frame bowl(int pins) {
         status = status.bowl(pins);
-        if (status.isComplete()) {
+        if (status.isComplete() && !scoreIsInitialized()) {
             score = createScore();
             return nextFrame;
+        }
+        if (status.isComplete() && scoreIsInitialized()) {
+            calculateScore();
         }
         return null;
     }
@@ -61,12 +68,17 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public String toString() {
-        return Formatter.formatFrame(status.toString()) + "|" + Formatter.formatFrame(nextFrame.toString());
+    public boolean isLast() {
+        return false;
     }
 
     @Override
-    public boolean isLast() {
-        return false;
+    public String convertStatusToPrintable() {
+        return Formatter.formatFrame(status.toString()) + "|" + Formatter.formatFrame(nextFrame.convertStatusToPrintable());
+    }
+
+    @Override
+    public String convertScoreToPrintable() {
+        return Formatter.formatFrame(score.toString()) + "|" + Formatter.formatFrame(nextFrame.convertScoreToPrintable());
     }
 }
