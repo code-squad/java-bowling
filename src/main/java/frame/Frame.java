@@ -7,17 +7,6 @@ public class Frame {
     private Pin firstPin;
     private Pin secondPin;
 
-//    public boolean shoot(int pinFall) {
-//        if (firstPin == null) {
-//            firstPin = new Pin(pinFall);
-//            return true;
-//        }
-//        secondPin = new Pin(pinFall);
-//
-//        status = status.shoot(pinFall);
-//        return true;
-//    }
-
     public Status shoot(int pinFall) {
         if (firstPin == null) {
             firstPin = new Pin(pinFall);
@@ -39,7 +28,7 @@ public class Frame {
         if (firstPin.getPinFall() != Pin.getMaxFall() && secondPin == null)
             return new Default(firstPin);
 
-        if (secondPin == null)
+        if (firstPin.getPinFall() == Pin.getMaxFall() && secondPin == null)
             return new Strike(firstPin);
 
         if ((firstPin.getPinFall() + secondPin.getPinFall() == 10) && firstPin.getPinFall() != Pin.getMaxFall())
@@ -57,13 +46,5 @@ public class Frame {
 
     public Pin getSecondPin() {
         return secondPin;
-    }
-
-    public void getResult() {
-        if (getFirstPin().checkFinish())
-            System.out.print("  " + checkStatus().toString() + "   ");
-
-        if (!(getFirstPin().checkFinish()))
-        System.out.print("  " + getFirstPin().getPinFall() + "|" + checkStatus().toString() + " ");
     }
 }

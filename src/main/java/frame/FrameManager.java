@@ -6,7 +6,6 @@ public class FrameManager {
     public Frame onFrame(int i) {
         frame.shoot(i);
         if (frame.finishFrame()) {
-            System.out.println("frame status is " + frame.checkStatus().toString());
             return frame;
         }
         return frame;

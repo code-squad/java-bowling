@@ -18,6 +18,6 @@ public class Missing extends Status {
 
     @Override
     public String toString() {
-        return "|" + "-";
+        return "- ";
     }
 }
