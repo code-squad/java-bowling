@@ -40,9 +40,6 @@ public class Frames {
 
     public String convertStatusToPrintable() {
         StringBuilder builder = new StringBuilder();
-        builder.append("|");
-        builder.append(Formatter.formatFrame(""));
-        builder.append("|");
         for (Frame frame : frames) {
             builder.append(frame.convertStatusToPrintable());
             builder.append("|");

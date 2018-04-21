@@ -1,6 +1,5 @@
 package bowling.domain.frame.status.normal;
 
-import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public abstract class Incomplete implements Status {
@@ -10,14 +9,13 @@ public abstract class Incomplete implements Status {
         return Score.ofNotPlayed();
     }
 
-
-//    @Override
-//    public boolean isComplete() {
-//        return false;
-//    }
+    @Override
+    public boolean isComplete() {
+        return false;
+    }
 
     @Override
-    public abstract boolean updateScore(NormalScore normalScore);
+    public abstract boolean updateScore(Score score); //TODO: don't need this since there's nothing to update
 
     @Override
     public boolean isStrike() {

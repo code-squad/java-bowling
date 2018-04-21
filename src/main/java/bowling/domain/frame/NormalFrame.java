@@ -34,23 +34,23 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public void calculateScore() { //TODO: Exception for frame number = 8
-        status.updateScore(score); //add base normalScore
+    public boolean calculateScore() { //TODO: Exception for frame number = 8
         nextFrame.calculateAdditionalScore(score); //add bonus normalScore for strike/spare
+        return true;
     }
 
     @Override
-    public void calculateAdditionalScore(Score prevScore) { //TODO: 만약 다음 프레임에서 다 해결 된다면?? 다다음까지 갈 필요가 없다.
+    public boolean calculateAdditionalScore(Score prevScore) { //TODO: 만약 다음 프레임에서 다 해결 된다면?? 다다음까지 갈 필요가 없다.
         if (status.isStrike()) {
             status.updateScore(prevScore);
-            nextFrame.updateScoreFromPrevPrev(prevScore); //TODO: 만약 다음 프레임까지 가야한다면..
+            return nextFrame.updateScoreFromPrevPrev(prevScore); //TODO: 만약 다음 프레임까지 가야한다면..
         }
-        status.updateScore(prevScore);
+        return status.updateScore(prevScore);
     }
 
     @Override
-    public void updateScoreFromPrevPrev(Score prevPrev) {
-        status.updateScore(prevPrev);
+    public boolean updateScoreFromPrevPrev(Score prevPrev) {
+        return status.updateScore(prevPrev);
     }
 
     @Override
@@ -60,15 +60,11 @@ public class NormalFrame extends Frame {
 
     @Override
     public String convertStatusToPrintable() {
-        return Formatter.formatFrame(status.toString())
-                + "|"
-                + Formatter.formatFrame(nextFrame.convertStatusToPrintable());
+        return Formatter.formatFrame(status.toString());
     }
 
     @Override
     public String convertScoreToPrintable() {
-        return Formatter.formatFrame(score.toString())
-                + "|"
-                + Formatter.formatFrame(nextFrame.convertScoreToPrintable());
+        return Formatter.formatFrame(score.toString());
     }
 }

@@ -1,6 +1,5 @@
 package bowling.domain.frame.status.normal;
 
-import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public class Spare extends Complete {
@@ -23,12 +22,12 @@ public class Spare extends Complete {
     }
 
     @Override
-    public boolean updateScore(NormalScore normalScore) {
-        if (normalScore.oneMoreBowlNeeded()) {
-            normalScore.bowl(first);
+    public boolean updateScore(Score score) {
+        if (score.onlyFirstBowlNeeded()) {
+            score.bowl(first);
             return true;
         }
-        normalScore.bowl(first + second);
+        score.bowl(first + second);
         return true;
 
     }

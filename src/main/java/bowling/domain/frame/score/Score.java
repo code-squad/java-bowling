@@ -1,7 +1,5 @@
 package bowling.domain.frame.score;
 
-import bowling.domain.frame.status.normal.Status;
-
 public class Score {
     private int score;
     private int count;
@@ -27,23 +25,39 @@ public class Score {
         return new Score(0, -1);
     }
 
-    public void bowl(int score) {
+    public static Score ofPlayedOnce(int score) {
+        return new Score(score, 1);
+    }
+
+    public boolean bowl(int score) {
         if (count == 2) {
             this.score += score;
             this.count = 1;
+            return true;
         }
         if (count == 1) {
             this.score += score;
             this.count = 0;
+            return true;
         }
-        if (count == -1) {
+        return false;
+    }
 
-        }
+    public boolean onlyFirstBowlNeeded() {
+        return count == 1;
+    }
+
+    public boolean twoMoreBowlsNeeded() {
+        return count == 2;
+    }
+
+    public void updateLastFrameScore(int score) {
+        this.score = score;
     }
 
     @Override
     public String toString() {
-        if (count == -1) {
+        if (count != 0) {
             return "";
         }
         return String.valueOf(score);

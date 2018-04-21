@@ -1,17 +1,16 @@
 package bowling.domain.frame;
 
-import bowling.domain.frame.score.LastFrameScore;
-import bowling.domain.frame.score.NormalScore;
+import bowling.domain.frame.score.Score;
 import bowling.domain.frame.status.last.LastFrameStatus;
 import bowling.domain.util.Formatter;
 
 public class LastFrame extends Frame {
     private final LastFrameStatus status; //TODO: Refactoring needed - maybe could implement an interface?
-    private final LastFrameScore score;
+    private final Score score;
 
     public LastFrame() {
         this.status = new LastFrameStatus();
-        this.score = new LastFrameScore();
+        this.score = Score.ofNotPlayed();
     }
 
     @Override
@@ -24,18 +23,18 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public void calculateScore() { //TODO: Exception for frame number = 8
-        status.calculateScore(); //TODO: Do I even need this?? - NormalScore is updated each time bowl() is called.
+    public boolean calculateScore() { //TODO: Exception for frame number = 8
+        return status.updateLastFrameScore(score);
     }
 
     @Override
-    public void calculateAdditionalScore(NormalScore prevNormalScore) {
-        status.updateScoresFromPreviousFrames(prevNormalScore);
+    public boolean calculateAdditionalScore(Score prevScore) {
+        return status.updateScoresFromPreviousFrames(prevScore);
     }
 
     @Override
-    void updateScoreFromPrevPrev(NormalScore prevPrev) {
-        status.updateScoresFromPreviousFrames(prevPrev);
+    public boolean updateScoreFromPrevPrev(Score prevPrev) {
+        return status.updateScoresFromPreviousFrames(prevPrev);
     }
 
     @Override
@@ -44,17 +43,12 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public String toString() {
-        return Formatter.formatFrame(status.toString()) + "|";
-    }
-
-    @Override
     public String convertStatusToPrintable() {
-        return Formatter.formatFrame(status.toString()) + "|";
+        return Formatter.formatFrame(status.toString());
     }
 
     @Override
     public String convertScoreToPrintable() {
-        return Formatter.formatFrame(score.toString()) + "|";
+        return Formatter.formatFrame(score.toString());
     }
 }

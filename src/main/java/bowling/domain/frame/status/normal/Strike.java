@@ -1,6 +1,5 @@
 package bowling.domain.frame.status.normal;
 
-import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public class Strike extends Complete {
@@ -16,8 +15,8 @@ public class Strike extends Complete {
     }
 
     @Override
-    public boolean updateScore(NormalScore normalScore) {
-        normalScore.bowl(10);
+    public boolean updateScore(Score score) {
+        score.bowl(10);
         return true;
     }
 

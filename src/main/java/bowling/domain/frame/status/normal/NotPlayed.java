@@ -1,6 +1,5 @@
 package bowling.domain.frame.status.normal;
 
-import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public class NotPlayed extends Incomplete {
@@ -19,7 +18,7 @@ public class NotPlayed extends Incomplete {
     }
 
     @Override
-    public boolean updateScore(NormalScore normalScore) {
+    public boolean updateScore(Score score) {
         return false;
     }
 

@@ -39,5 +39,6 @@ public class Player implements Printable {
     @Override
     public String convertScoreToPrintable() {
         return frames.convertScoreToPrintable();
+
     }
 }
