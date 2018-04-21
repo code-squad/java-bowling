@@ -2,7 +2,6 @@ package domain.frame;
 
 import domain.frame.pin.Pin;
 import domain.frame.result.Board;
-import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.result.Score;
 import domain.frame.status.FrameStatus;
@@ -39,11 +38,6 @@ public class NormalFrame implements Frame {
     }
 
     @Override
-    public boolean isDiff(Frame frame) {
-        return this == frame;
-    }
-
-    @Override
     public int getFrameNum() {
         return frameNum;
     }
@@ -67,47 +61,29 @@ public class NormalFrame implements Frame {
     @Override
     public FrameResult getResult() {
         if (!isFinish()) {
-            return new FrameResult(getScoreMessage(), CANNOT_CALC_SCORE_STATE);
+            return new FrameResult(status.getResultMessage(), CANNOT_CALC_SCORE_STATE);
         }
-        return new FrameResult(getScoreMessage(), getScore());
-    }
-
-    private String getScoreMessage() {
-        return status.getResultMessage();
+        return new FrameResult(status.getResultMessage(), getScore());
     }
 
     private int getScore() {
-        try {
-            return getRemainingPin();
-        } catch (CannotCalcException e) {
-            return CANNOT_CALC_SCORE_STATE;
-        }
-    }
-
-    @Override
-    public int getRemainingPin() throws CannotCalcException {
         Score score = status.getScore();
         if (!score.hasBonusCount()) {
             return score.get();
         }
         score = nextFrame.addRemainingPin(score);
+        if (score.hasBonusCount()) {
+            return Frame.CANNOT_CALC_SCORE_STATE;
+        }
         return score.get();
     }
 
     @Override
     public Score addRemainingPin(Score beforeFrameScore) {
         Score totalScore = status.addBonusScore(beforeFrameScore);
-        if (totalScore.hasBonusCount()) {
-            return nextFrame.AddAdditionalRemainingPin(totalScore);
+        if (nextFrame != null && totalScore.hasBonusCount()) {
+            return nextFrame.addRemainingPin(totalScore);
         }
         return totalScore;
-    }
-
-    @Override
-    public Score AddAdditionalRemainingPin(Score unFinishedScore) throws CannotCalcException {
-        if (nextFrame == null) {
-            throw new CannotCalcException();
-        }
-        return nextFrame.addRemainingPin(unFinishedScore);
     }
 }

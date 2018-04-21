@@ -17,7 +17,7 @@ public class Frames {
     }
 
     private void checkFrameAdd(Frame resultFrame) {
-        if (getCurrentFrame().isDiff(resultFrame)) {
+        if (getCurrentFrame() != resultFrame) {
             frames.add(resultFrame);
         }
     }

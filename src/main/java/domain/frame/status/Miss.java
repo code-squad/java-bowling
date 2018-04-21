@@ -1,6 +1,5 @@
 package domain.frame.status;
 
-import domain.frame.Frame;
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
 import domain.frame.result.ScoreMessage;

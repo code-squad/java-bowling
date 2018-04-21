@@ -1,8 +1,6 @@
 package domain.frame.status;
 
-import domain.frame.Frame;
 import domain.frame.pin.Pin;
-import domain.frame.result.CannotCalcException;
 import domain.frame.result.Score;
 
 public class Ready implements FrameStatus {
@@ -12,7 +10,7 @@ public class Ready implements FrameStatus {
         if (newPin.isMax()) {
             return new Strike(newPin);
         }
-        return new Ing(newPin);
+        return new FirstBowl(newPin);
     }
 
     @Override
@@ -27,11 +25,11 @@ public class Ready implements FrameStatus {
 
     @Override
     public Score getScore() {
-        return null;
+        return new Score(0, 0);
     }
 
     @Override
-    public Score addBonusScore(Score otherFrameScore) throws CannotCalcException {
-        throw new CannotCalcException();
+    public Score addBonusScore(Score otherFrameScore) {
+        return otherFrameScore;
     }
 }

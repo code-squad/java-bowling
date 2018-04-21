@@ -1,6 +1,5 @@
 package domain.frame.status;
 
-import domain.frame.Frame;
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
 import domain.frame.result.ScoreMessage;
@@ -9,11 +8,9 @@ import static domain.frame.result.ScoreMessage.getMessage;
 
 public class Strike implements FrameStatus {
     private Pin pin;
-    private int leftNum;
 
     public Strike(Pin newPin) {
         pin = newPin;
-        leftNum = 2;
     }
 
     @Override
@@ -33,7 +30,7 @@ public class Strike implements FrameStatus {
 
     @Override
     public Score getScore() {
-        return new Score(pin.getNum(), leftNum);
+        return new Score(pin.getNum(), 2);
     }
 
     @Override

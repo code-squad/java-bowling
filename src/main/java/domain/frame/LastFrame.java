@@ -2,38 +2,51 @@ package domain.frame;
 
 import domain.frame.pin.Pin;
 import domain.frame.result.Board;
-import domain.frame.result.CannotCalcException;
 import domain.frame.result.FrameResult;
 import domain.frame.result.Score;
+import domain.frame.result.ScoreMessage;
 import domain.frame.status.FrameStatus;
 import domain.frame.status.Ready;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+
+import static domain.frame.result.ScoreMessage.getMessage;
+import static java.util.stream.Collectors.joining;
 
 public class LastFrame implements Frame {
-    private final int frameNum;
-    // 사실상 BonusStatus 중복이었음
-    private ArrayList<FrameStatus> states = new ArrayList<>();
+    private LinkedList<FrameStatus> states = new LinkedList<>();
 
-    public LastFrame(int frameNum) {
-        this.frameNum = frameNum;
+    public LastFrame() {
         states.add(new Ready());
     }
 
     @Override
     public Frame roll(int num) throws IllegalArgumentException {
-        FrameStatus status = getRecentlyStatus();
-        status = status.roll(new Pin(num));
-        if (status.isFinish()) {
-            states.add(status);
-            return this;
+        FrameStatus resultStatus = getRecentlyStatus().roll(new Pin(num));
+        replaceRecentlyStatus(resultStatus);
+        if (getRecentlyScore().hasBonusCount()) {
+            addReadyStatus(num);
         }
-        states.add(0, status);
         return this;
     }
 
-    public FrameStatus getRecentlyStatus() {
-        return states.get(states.size() - 1);
+    private void replaceRecentlyStatus(FrameStatus status) {
+        states.set(states.indexOf(getRecentlyStatus()), status);
+    }
+
+    private void addReadyStatus(int num) { // pin num과 status로 충분히 평가 가능한거 같은데 Pin.isMax가 있으니
+        if (states.size() > 2 || (states.size() == 2 && !Pin.isMax(num))) {
+            return;
+        }
+        states.add(new Ready());
+    }
+
+    private FrameStatus getRecentlyStatus() {
+        return states.getLast();
+    }
+
+    private Score getRecentlyScore() {
+        return states.getLast().getScore();
     }
 
     @Override
@@ -43,25 +56,17 @@ public class LastFrame implements Frame {
 
     @Override
     public boolean isFinish() {
-        FrameStatus recentlyStatus = getRecentlyStatus();
-        return recentlyStatus.isFinish();
-    }
-
-    @Override
-    public boolean isDiff(Frame frame) {
-        return this == frame;
+        return getRecentlyStatus().isFinish();
     }
 
     @Override
     public int getFrameNum() {
-        return frameNum;
+        return 10;
     }
-
-    /************ 여기부터 다시 구현 **************/
 
     @Override
     public Board getBoard() {
-        throw new UnsupportedOperationException(); // 다음 넥스트 프레임이 없음
+        throw new UnsupportedOperationException(); // 다음 프레임이 없으니깐
     }
 
     @Override
@@ -72,22 +77,26 @@ public class LastFrame implements Frame {
 
     @Override
     public FrameResult getResult() {
-        return null;
+        if (!isFinish()) {
+            return new FrameResult(getResultMessage(), Frame.CANNOT_CALC_SCORE_STATE);
+        }
+        return new FrameResult(getResultMessage(), getScore());
     }
 
-    @Override
-    public int getRemainingPin() {
-        Score score = getRecentlyStatus().getScore();
-        return score.get();
+    private String getResultMessage() {
+        return states.stream().filter(status -> !status.getResultMessage().equals("")).map(FrameStatus::getResultMessage).collect(joining(getMessage(ScoreMessage.MODIFIER)));
+    }
+
+    private int getScore() {
+        return states.stream().mapToInt(frameStatus -> frameStatus.getScore().get()).sum();
     }
 
     @Override
     public Score addRemainingPin(Score beforeFrameScore) {
-        return null;
-    }
-
-    @Override
-    public Score AddAdditionalRemainingPin(Score unFinishedScore) {
-        throw new CannotCalcException();
+        Score score = beforeFrameScore;
+        for (FrameStatus status : states) {
+            score = status.addBonusScore(beforeFrameScore);
+        }
+        return score;
     }
 }

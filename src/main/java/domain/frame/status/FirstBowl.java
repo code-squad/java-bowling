@@ -1,15 +1,14 @@
 package domain.frame.status;
 
-import domain.frame.Frame;
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
 
 import static domain.frame.result.ScoreMessage.convertMessage;
 
-public class Ing implements FrameStatus {
+public class FirstBowl implements FrameStatus {
     private Pin pin;
 
-    public Ing(Pin newPin) {
+    public FirstBowl(Pin newPin) {
         pin = newPin;
     }
 
@@ -37,7 +36,7 @@ public class Ing implements FrameStatus {
 
     @Override
     public Score getScore() {
-        return null;
+        return new Score(pin.getNum());
     }
 
     @Override

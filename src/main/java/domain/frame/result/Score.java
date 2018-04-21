@@ -6,6 +6,10 @@ public class Score {
     private int score;
     private int leftNum;
 
+    public Score(int score) {
+        this(score, 0);
+    }
+
     public Score(int score, int leftNum) {
         this.score = score;
         this.leftNum = leftNum;
@@ -23,10 +27,7 @@ public class Score {
         return leftNum != 0;
     }
 
-    public int get() throws CannotCalcException {
-        if (hasBonusCount()) {
-            throw new CannotCalcException();
-        }
+    public int get() {
         return score;
     }
 }

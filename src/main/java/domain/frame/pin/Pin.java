@@ -12,6 +12,10 @@ public class Pin {
         this.num = num;
     }
 
+    public static boolean isMax(int num) {
+        return num == MAX;
+    }
+
     public boolean isMax() {
         return this.num == MAX;
     }
