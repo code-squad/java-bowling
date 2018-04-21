@@ -18,6 +18,11 @@ public class Ready extends State {
     }
 
     @Override
+    public Score updateScore(Score beforeScore) {
+        throw new RuntimeException("Ready : 계산할 수 없는 상태입니다.");
+    }
+
+    @Override
     public String printState() {
         return EMPTY;
     }

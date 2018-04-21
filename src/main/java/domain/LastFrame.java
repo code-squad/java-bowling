@@ -14,8 +14,8 @@ public class LastFrame extends Frame {
     private int index;
     private Score score;
 
-    public LastFrame(int no, Score beforeScore) {
-        super(no, beforeScore);
+    public LastFrame(int no) {
+        super(no);
     }
 
     @Override
@@ -69,5 +69,20 @@ public class LastFrame extends Frame {
     @Override
     public Score createScore() {
         return null;
+    }
+
+    @Override
+    public int getScore() {
+        return 0;
+    }
+
+    @Override
+    public Frame next() {
+        throw new RuntimeException("마지막 프레임에서는 다음 프레임을 생성할 수 없습니다.");
+    }
+
+    @Override
+    public int calculateAdditionalScore(Score beforeScore) {
+        return 0;
     }
 }

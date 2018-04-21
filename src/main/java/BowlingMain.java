@@ -15,19 +15,18 @@ public class BowlingMain {
         Scanner scanner = new Scanner(System.in);
         Player player = new Player(InputView.getUserName(scanner));
         List<Frame> frames = new ArrayList<>();
-        ResultView.printFrames(frames, player.getName());
+
 
         Frame frame = new NormalFrame(1);
-        frames.add(frame);
+        ResultView.printFrames(frames, frame, player.getName());
         for (int index = 1; index < MAX_FRAME_NO + 1; index++) {
             do {
                 frame.throwing(InputView.getThrowing(scanner, index));
-                ResultView.printFrames(frames, player.getName());
+                ResultView.printFrames(frames, frame, player.getName());
             } while (!frame.isEnd());
             if (index != MAX_FRAME_NO) {
-                frame.createScore(); // 다음 프레임이 생성되기 전 호출
-                frame = frame.next();
                 frames.add(frame);
+                frame = frame.next();
             }
         }
     }

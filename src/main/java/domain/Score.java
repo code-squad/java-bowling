@@ -23,26 +23,37 @@ public class Score {
     }
 
     public Score throwing(int pins) {
-        return new Score(score += pins, left - 1);
+//        return new Score(score += pins, left - 1);
+        return new Score(score += pins, left -= 1);
+//        score = score + pins;
+//        left = left - 1;
+//        return this;
     }
 
     public int getScore() {
-        if (!canCalculateScore()) {
-            throw new RuntimeException("더이상 계산할 수 없습니다.");
-        }
-
+//        if (!canCalculateScore()) {
+//            throw new RuntimeException("Score : 계산할 수 없는 상태입니다.");
+//        }
         return this.score;
     }
+
+//    public int getScore() {
+//        return this.score;
+//    }
 
     public int getLeft() {
         return this.left;
     }
 
-    private boolean canCalculateScore() {
-        return left != NO_LEFT;
+    public boolean canCalculateScore() {
+        return left == NO_LEFT;
     }
 
-    private String printScore() {
+    public Score calculateScore(int score) {
+        return new Score(this.score + score, left);
+    }
+
+    public String printScore() {
         return String.valueOf(score);
     }
 }

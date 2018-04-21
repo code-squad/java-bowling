@@ -47,4 +47,13 @@ public class Spare extends State {
     public State clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
+    @Override
+    public Score updateScore(Score beforeScore) {
+        beforeScore.throwing(first);
+        if (!beforeScore.canCalculateScore()) {
+            return beforeScore.throwing(second);
+        }
+        return beforeScore;
+    }
 }

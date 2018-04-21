@@ -1,5 +1,7 @@
 package state;
 
+import domain.Score;
+
 import java.util.Objects;
 
 abstract public class State implements Statable, Cloneable{
@@ -33,4 +35,6 @@ abstract public class State implements Statable, Cloneable{
     public State clone() throws CloneNotSupportedException {
         return (State)super.clone();
     }
+
+    abstract public Score updateScore(Score beforeScore);
 }

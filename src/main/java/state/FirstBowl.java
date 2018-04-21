@@ -22,6 +22,12 @@ public class FirstBowl extends State {
     }
 
     @Override
+    public Score updateScore(Score beforeScore) {
+//        throw new RuntimeException("FirstBowl : 계산할 수 없는 상태입니다.");
+        return beforeScore.throwing(falledPins);
+    }
+
+    @Override
     public String printState() {
         String falledPins = String.valueOf(this.falledPins);
         if (this.falledPins == 0) {

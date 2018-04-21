@@ -5,13 +5,9 @@ import state.State;
 abstract public class Frame {
     private static final int MAX_FRAME_NO = 10;
 //    private Score score;
-    private Score beforeScore;
-    private final int no;
-
-    public Frame(int no, Score beforeScore) {
+//    private Score beforeScore;
+    public Frame(int no) {
         isValidNo(no);
-        this.no = no;
-        this.beforeScore = beforeScore;
     }
 
     abstract public void throwing(int throwing);
@@ -19,6 +15,9 @@ abstract public class Frame {
     abstract public boolean isEnd();
     abstract public String printState();
     abstract public String printScore();
+    abstract public Score createScore();
+    abstract public int getScore();
+    abstract public Frame next();
 
     public boolean isValidNo(int no) {
         if ( no < 0 || no > 10 ) {
@@ -27,12 +26,7 @@ abstract public class Frame {
         return true;
     }
 
-    public Frame next() {
-        if (no == MAX_FRAME_NO - 1) {
-            return new LastFrame(no + 1);
-        }
-        return new NormalFrame(no + 1);
-    }
 
-    public abstract Score createScore();
+
+    abstract public int calculateAdditionalScore(Score beforeScore);
 }

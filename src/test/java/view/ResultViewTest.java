@@ -19,28 +19,28 @@ public class ResultViewTest {
 
     @Test
     public void printScore() {
-        Frame frame = new NormalFrame(1);
-        frame.throwing(5);
-        frame.throwing(5);
-        frames.add(frame);
-        ResultView.printFrames(frames, "HTW");
+//        Frame frame = new NormalFrame(1);
+//        frame.throwing(5);
+//        frame.throwing(5);
+//        frames.add(frame);
+//        ResultView.printFrames(frames, "HTW");
     }
 
     @Test
     public void lastFrame() {
-        frames = new ArrayList<>();
-        for (int index = 0; index < 9; index++) {
-            Frame frame = new NormalFrame(index + 1);
-            frame.throwing(1);
-            frame.throwing(9);
-            frames.add(frame);
-        }
-
-        Frame lastFrame = frames.get(8).next();
-        lastFrame.throwing(9);
-        lastFrame.throwing(1);
-        frames.add(lastFrame);
-
-        ResultView.printFrames(frames, "HTW");
+//        frames = new ArrayList<>();
+//        for (int index = 0; index < 9; index++) {
+//            Frame frame = new NormalFrame(index + 1);
+//            frame.throwing(1);
+//            frame.throwing(9);
+//            frames.add(frame);
+//        }
+//
+//        Frame lastFrame = frames.get(8).next();
+//        lastFrame.throwing(9);
+//        lastFrame.throwing(1);
+//        frames.add(lastFrame);
+//
+//        ResultView.printFrames(frames, "HTW");
     }
 }

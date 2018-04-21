@@ -2,7 +2,7 @@ package state;
 
 import domain.Score;
 
-public class Open extends State implements Cloneable{
+public class Open extends State implements Cloneable {
     private static final int NO_PINS = 0;
     private static final String GUTTER = "-";
     private static final String PIPE = "|";
@@ -46,5 +46,14 @@ public class Open extends State implements Cloneable{
     @Override
     public State clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public Score updateScore(Score beforeScore) {
+        beforeScore.throwing(first);
+        if (beforeScore.canCalculateScore()) {  // left == 0
+            return beforeScore;
+        }
+        return beforeScore.throwing(second);
     }
 }

@@ -36,4 +36,9 @@ public class Strike extends State implements Cloneable {
     public State clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
+    @Override
+    public Score updateScore(Score beforeScore) {
+        return beforeScore.throwing(TEN_PINS);
+    }
 }

@@ -32,10 +32,10 @@ public class LastFrameTest {
 
     @Test
     public void throwing() {
-        lastFrame.throwing(1);
-        lastFrame.throwing(8);
-        frames.add(lastFrame);
-        ResultView.printFrames(frames, "HTW");
+//        lastFrame.throwing(1);
+//        lastFrame.throwing(8);
+//        frames.add(lastFrame);
+//        ResultView.printFrames(frames, "HTW");
     }
 
     @Test
