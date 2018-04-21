@@ -27,7 +27,6 @@ public class NormalFrame extends Frame {
     public Frame bowl(int pins) {
         status = status.bowl(pins);
         if (status.isComplete()) {
-            score = status.createScore();
             return nextFrame;
         }
         return null;
@@ -35,14 +34,17 @@ public class NormalFrame extends Frame {
 
     @Override
     public boolean calculateScore() { //TODO: Exception for frame number = 8
-        nextFrame.calculateAdditionalScore(score); //add bonus normalScore for strike/spare
+        score = status.createScore();
+        nextFrame.calculateAdditionalScore(score); //add bonus score for strike/spare
         return true;
     }
 
     @Override
     public boolean calculateAdditionalScore(Score prevScore) { //TODO: 만약 다음 프레임에서 다 해결 된다면?? 다다음까지 갈 필요가 없다.
         if (status.isStrike()) {
+            System.out.println(prevScore.toString());
             status.updateScore(prevScore);
+            System.out.println(prevScore.toString());
             return nextFrame.updateScoreFromPrevPrev(prevScore); //TODO: 만약 다음 프레임까지 가야한다면..
         }
         return status.updateScore(prevScore);

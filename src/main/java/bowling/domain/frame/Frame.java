@@ -14,7 +14,8 @@ public abstract class Frame {
 
     public abstract boolean isLast();
 
-    public abstract String convertStatusToPrintable();
+    public abstract String
+    convertStatusToPrintable();
 
     public abstract String convertScoreToPrintable();
 }
