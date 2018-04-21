@@ -17,10 +17,4 @@ public class StrikeTest {
         boolean result = strike.checkStrike();
         assertTrue(result);
     }
-
-    @Test
-    public void 스트라이크문자출력() {
-        String str = strike.toString();
-        assertEquals("X", str);
-    }
 }

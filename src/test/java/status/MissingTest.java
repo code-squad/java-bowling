@@ -18,10 +18,4 @@ public class MissingTest {
         boolean result = missing.checkMissing();
         assertTrue(result);
     }
-
-    @Test
-    public void 미싱기호확인() {
-        String str = missing.toString();
-        assertEquals("-", str);
-    }
 }

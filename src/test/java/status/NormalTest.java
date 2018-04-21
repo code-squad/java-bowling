@@ -32,10 +32,4 @@ public class NormalTest {
         boolean result = normal.checkNormal();
         assertFalse(result);
     }
-
-    @Test
-    public void 노말값체크() {
-        String str = normal.toString();
-        assertEquals("2", str);
-    }
 }

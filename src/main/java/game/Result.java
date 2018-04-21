@@ -1,3 +1,5 @@
+package game;
+
 import frame.Frame;
 import status.Status;
 
@@ -5,7 +7,7 @@ public class Result {
     private Status status;
     private Frame frame;
 
-    Result(Status status, Frame frame) {
+    public Result(Status status, Frame frame) {
         this.status = status;
         this.frame = frame;
     }

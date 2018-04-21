@@ -18,11 +18,5 @@ public class SpareTest {
         boolean result = spare.spareCheck();
         assertTrue(result);
     }
-
-    @Test
-    public void 스페어문자확인() {
-        String str = spare.toString();
-        assertEquals("/", str);
-    }
 }
 
