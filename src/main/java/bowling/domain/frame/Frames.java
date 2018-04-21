@@ -14,15 +14,15 @@ public class Frames {
         frames.add(new NormalFrame(1));
     }
 
-    private Frame getCurrentFrame() {
-        return frames.get(currentFrameIndex);
+    private Frame getFrame(int frameIndex) {
+        return frames.get(frameIndex);
     }
 
     public void bowl(int pins) {
-        Frame newFrame = getCurrentFrame().bowl(pins);
+        Frame newFrame = getFrame(currentFrameIndex).bowl(pins);
         if (newFrame != null) {
             frames.add(newFrame);
-            currentFrameIndex++;
+            currentFrameIndex++; //TODO: BUG - 새로운 프레임이 생겼을 때만 인덱스가 늘어난다. 그러니 당연히 마지막 프레임이 생기는 시점인 9번프레임에서 인덱스가 멈추게 된다.
         }
     }
 
@@ -31,7 +31,7 @@ public class Frames {
     }
 
     public boolean isDone() {
-        return currentFrameIndex == 9;
+        return getFrame(currentFrameIndex).isLast();
     }
 
     public int getCurrentFrameNumber() {

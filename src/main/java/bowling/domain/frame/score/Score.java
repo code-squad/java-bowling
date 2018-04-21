@@ -2,7 +2,7 @@ package bowling.domain.frame.score;
 
 public class Score {
     private int score;
-    private int count;
+    public int count;
 
     private Score(int score, int count) {
         this.score = score;
@@ -47,7 +47,7 @@ public class Score {
     }
 
     public void updateLastFrameScore(int score) {
-        this.score = score;
+        this.score += score;
     }
 
     @Override

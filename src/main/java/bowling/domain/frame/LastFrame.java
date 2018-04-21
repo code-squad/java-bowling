@@ -16,9 +16,6 @@ public class LastFrame extends Frame {
     @Override
     public Frame bowl(int pins) {
         status.bowl(pins);
-        if (status.isComplete()) {
-            status.updateLastFrameScore(score);
-        }
         return null;
     }
 

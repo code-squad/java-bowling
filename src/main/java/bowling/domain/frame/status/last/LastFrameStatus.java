@@ -57,23 +57,29 @@ public class LastFrameStatus {
     }
 
     public boolean updateScoresFromPreviousFrames(Score prevPrev) {
-        if (prevPrev == null) {
-            return false;
-        }
         if (prevPrev.onlyFirstBowlNeeded()) {
+            System.out.println(prevPrev.count); //2
             prevPrev.bowl(first.getScore());
+            System.out.println(prevPrev.count); //1
             return true;
         }
-        prevPrev.bowl(first.getScore() + second.getScore());
-        return true;
+        if (prevPrev.twoMoreBowlsNeeded()) {
+            prevPrev.bowl(first.getScore());
+            prevPrev.bowl(second.getScore());
+            return true;
+        }
+        return false;
     }
 
     public boolean updateLastFrameScore(Score score) {
         if (thirdIsNotPlayed()) {
-            score.updateLastFrameScore(first.getScore() + second.getScore());
+            score.updateLastFrameScore(first.getScore());
+            score.updateLastFrameScore(second.getScore());
             return true;
         }
-        score.updateLastFrameScore(first.getScore() + second.getScore() + third.getScore());
+        score.updateLastFrameScore(first.getScore());
+        score.updateLastFrameScore(second.getScore());
+        score.updateLastFrameScore(third.getScore());
         return true;
     }
 }
