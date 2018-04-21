@@ -30,14 +30,9 @@ public class Score {
     }
 
     public boolean bowl(int score) {
-        if (count == 2) {
+        if (count != 0) {
             this.score += score;
-            this.count = 1;
-            return true;
-        }
-        if (count == 1) {
-            this.score += score;
-            this.count = 0;
+            count--;
             return true;
         }
         return false;

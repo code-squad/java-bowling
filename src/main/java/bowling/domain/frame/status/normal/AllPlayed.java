@@ -27,7 +27,8 @@ public class AllPlayed extends Complete {
             score.bowl(first);
             return true;
         }
-        score.bowl(first + second);
+        score.bowl(first);
+        score.bowl(second);
         return true;
     }
 
