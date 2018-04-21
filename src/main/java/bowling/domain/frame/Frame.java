@@ -6,11 +6,11 @@ public abstract class Frame {
 
     public abstract Frame bowl(int pins);
 
-    public abstract int calculateScore();
+    public abstract void calculateScore();
 
-    abstract int calculateAdditionalScore(Score score);
+    abstract void calculateAdditionalScore(Score normalScore);
 
-    abstract int updateScoreFromPrevPrev(Score prevPrev);
+    abstract void updateScoreFromPrevPrev(Score prevPrev);
 
     public abstract boolean isLast();
 

@@ -1,12 +1,14 @@
 package bowling.domain.frame.score;
 
-public class Score {
-    private int countUntilCalculation;
-    private int score;
+import bowling.domain.frame.status.normal.Status;
 
-    private Score(int score, int countUntilCalculation) {
+public class Score {
+    private int score;
+    private int count;
+
+    private Score(int score, int count) {
         this.score = score;
-        this.countUntilCalculation = countUntilCalculation;
+        this.count = count;
     }
 
     public static Score ofStrike() {
@@ -17,32 +19,33 @@ public class Score {
         return new Score(10, 1);
     }
 
-    public static Score ofNormal(int score) {
+    public static Score ofMiss(int score) {
         return new Score(score, 0);
     }
 
-    public int bowl(int score) {
-        return this.score += score;
+    public static Score ofNotPlayed() {
+        return new Score(0, -1);
     }
 
-    public boolean noMoreBowlNeeded() { //TODO: Needed??
-        return countUntilCalculation == 0;
-    }
+    public void bowl(int score) {
+        if (count == 2) {
+            this.score += score;
+            this.count = 1;
+        }
+        if (count == 1) {
+            this.score += score;
+            this.count = 0;
+        }
+        if (count == -1) {
 
-    public boolean oneMoreBowlNeeded() {
-        return countUntilCalculation == 1;
-    }
-
-    public boolean twoMoreBowlsNeeded() {
-        return countUntilCalculation == 2;
-    }
-
-    public int getScore() {
-        return score;
+        }
     }
 
     @Override
     public String toString() {
+        if (count == -1) {
+            return "";
+        }
         return String.valueOf(score);
     }
 }

@@ -20,17 +20,24 @@ public class Player implements Printable {
         frames.bowl(pins);
     }
 
+    public void calculateScores() {
+        frames.calculateScores();
+    }
+
     public boolean isDone() {
         return frames.isDone();
     }
 
     @Override
     public String convertStatusToPrintable() {
-        return "|" + Formatter.formatFrame(name) + "|" + frames.convertStatusToPrintable();
+        return "|"
+                + Formatter.formatFrame(name)
+                + "|"
+                + frames.convertStatusToPrintable();
     }
 
     @Override
     public String convertScoreToPrintable() {
-        return "|" + Formatter.formatFrame("") + "|" + frames.convertScoreToPrintable();
+        return frames.convertScoreToPrintable();
     }
 }

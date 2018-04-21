@@ -1,12 +1,12 @@
 package bowling.domain.frame;
 
 import bowling.domain.frame.score.LastFrameScore;
-import bowling.domain.frame.score.Score;
+import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.status.last.LastFrameStatus;
 import bowling.domain.util.Formatter;
 
 public class LastFrame extends Frame {
-    private final LastFrameStatus status;
+    private final LastFrameStatus status; //TODO: Refactoring needed - maybe could implement an interface?
     private final LastFrameScore score;
 
     public LastFrame() {
@@ -24,18 +24,18 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public int calculateScore() { //TODO: Exception for frame number = 8
-        return status.calculateScore();
+    public void calculateScore() { //TODO: Exception for frame number = 8
+        status.calculateScore(); //TODO: Do I even need this?? - NormalScore is updated each time bowl() is called.
     }
 
     @Override
-    public int calculateAdditionalScore(Score prevScore) {
-        return status.updateScoresFromPreviousFrames(prevScore);
+    public void calculateAdditionalScore(NormalScore prevNormalScore) {
+        status.updateScoresFromPreviousFrames(prevNormalScore);
     }
 
     @Override
-    int updateScoreFromPrevPrev(Score prevPrev) {
-        return status.updateScoresFromPreviousFrames(prevPrev);
+    void updateScoreFromPrevPrev(NormalScore prevPrev) {
+        status.updateScoresFromPreviousFrames(prevPrev);
     }
 
     @Override

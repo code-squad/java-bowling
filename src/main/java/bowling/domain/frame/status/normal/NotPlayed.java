@@ -1,6 +1,6 @@
 package bowling.domain.frame.status.normal;
 
-import bowling.domain.exception.FrameNotPlayedException;
+import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public class NotPlayed extends Incomplete {
@@ -15,12 +15,12 @@ public class NotPlayed extends Incomplete {
 
     @Override
     public Score createScore() {
-        return null;
+        return Score.ofNotPlayed();
     }
 
     @Override
-    public int updateScore(Score score) {
-        throw new FrameNotPlayedException();
+    public boolean updateScore(NormalScore normalScore) {
+        return false;
     }
 
     @Override

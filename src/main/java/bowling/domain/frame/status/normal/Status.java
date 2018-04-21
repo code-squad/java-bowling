@@ -1,5 +1,6 @@
 package bowling.domain.frame.status.normal;
 
+import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public interface Status {
@@ -10,7 +11,7 @@ public interface Status {
 
     Score createScore();
 
-    int updateScore(Score score);
+    boolean updateScore(Score normalScore);
 
     boolean isStrike();
 

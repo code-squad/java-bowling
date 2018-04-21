@@ -1,5 +1,6 @@
 package bowling.domain.frame.status.normal;
 
+import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public abstract class Complete implements Status {
@@ -13,7 +14,7 @@ public abstract class Complete implements Status {
     }
 
     @Override
-    public abstract int updateScore(Score score);
+    public abstract boolean updateScore(NormalScore normalScore);
 
     @Override
     public abstract boolean isStrike();

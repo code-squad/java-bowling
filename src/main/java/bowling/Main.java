@@ -25,6 +25,7 @@ public class Main {
         while (!player.isDone()) {
             int pins = UserPrompt.promptUserForBowl(player.getCurrentFrameNumber()); //TODO: 유효성 검사 (프레임 안에서)
             player.bowl(pins);
+            player.calculateScores();
             ResultView.printScoreBoard(player);
         }
     }

@@ -1,5 +1,6 @@
 package bowling.domain.frame.status.normal;
 
+import bowling.domain.frame.score.NormalScore;
 import bowling.domain.frame.score.Score;
 
 public class AllPlayed extends Complete {
@@ -18,15 +19,17 @@ public class AllPlayed extends Complete {
 
     @Override
     public Score createScore() {
-        return Score.ofNormal(first + second);
+        return Score.ofMiss(first + second);
     }
 
     @Override
-    public int updateScore(Score score) {
-        if (score.oneMoreBowlNeeded()) {
-            return score.bowl(first);
+    public boolean updateScore(NormalScore normalScore) {
+        if (normalScore.oneMoreBowlNeeded()) {
+            normalScore.bowl(first);
+            return true;
         }
-        return score.bowl(first + second);
+        normalScore.bowl(first + second);
+        return true;
     }
 
     @Override
