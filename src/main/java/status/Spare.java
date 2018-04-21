@@ -17,6 +17,6 @@ public class Spare extends Status {
 
     @Override
     public String toString() {
-        return "/";
+        return "|" + "/";
     }
 }

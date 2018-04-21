@@ -17,6 +17,6 @@ public class Normal extends Status {
 
     @Override
     public String toString() {
-        return String.valueOf(getSecondPin().getPinFall());
+        return "|" + String.valueOf(getSecondPin().getPinFall());
     }
 }

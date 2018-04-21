@@ -7,8 +7,6 @@ public class Frame {
     private Pin firstPin;
     private Pin secondPin;
 
-    private Status status =  new Default();
-
 //    public boolean shoot(int pinFall) {
 //        if (firstPin == null) {
 //            firstPin = new Pin(pinFall);
@@ -26,7 +24,7 @@ public class Frame {
             return new Default(firstPin);
         }
         secondPin = new Pin(pinFall);
-        return new Default(firstPin, secondPin);
+        return checkStatus();
     }
 
     public boolean finishFrame() {
@@ -38,6 +36,9 @@ public class Frame {
     }
 
     public Status checkStatus() {
+        if (firstPin.getPinFall() != Pin.getMaxFall() && secondPin == null)
+            return new Default(firstPin);
+
         if (secondPin == null)
             return new Strike(firstPin);
 
