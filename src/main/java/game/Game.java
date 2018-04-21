@@ -19,40 +19,22 @@ public class Game {
         }
     }
 
-//    public List<Frame> running(int i, String name) {
-//        FrameManager manager = new FrameManager();
-//        Input input = new Input();
-//        Frame frame = manager.onFrame(input.inputNum(i));
-//        statuses.add(frame.checkStatus());
-//        ResultView.upperBar(statuses, name);
-//        if (frame.finishFrame()) {
-//            frames.add(frame);
-//            ResultView.upperBar(statuses, name);
-//            return frames;
-//        }
-//        frame = manager.onFrame(input.inputNum(i));
-//        frames.add(frame);
-//        statuses.add(frame.checkStatus());
-//        ResultView.upperBar(statuses, name);
-//        return frames;
-//    }
-
     public List<Frame> running(int i, String name) {
         FrameManager manager = new FrameManager();
         Input input = new Input();
         Frame frame = manager.onFrame(input.inputNum(i));
         Result result = new Result(frame.checkStatus(), frame);
         results.add(result);
-        ResultView.upperBar(results, name);
+        ResultView.upperBar(results, name, i);
         if (frame.finishFrame()) {
             frames.add(frame);
-            ResultView.upperBar(results, name);
+            ResultView.upperBar(results, name, i);
             return frames;
         }
         frame = manager.onFrame(input.inputNum(i));
         result = new Result(frame.checkStatus(), frame);
         results.add(result);
-        ResultView.upperBar(results, name);
+        ResultView.upperBar(results, name, i);
         return frames;
     }
 

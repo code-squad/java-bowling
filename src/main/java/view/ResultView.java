@@ -7,19 +7,19 @@ import status.Status;
 import java.util.List;
 
 public class ResultView {
-    public static void upperBar(List<Result> results , String name) {
+    public static void upperBar(List<Result> results , String name, int j) {
         System.out.println("| NAME |  01  |  02  |  03  |  04  |  05  |  06  |  07  |  08  |  09  |  10  |");
-        underBar(results, name);
+        underBar(results, name, j);
         System.out.println();
     }
 
-    public static void underBar(List<Result> results , String name) {
+    public static void underBar(List<Result> results , String name, int j) {
         System.out.print("|  " + name +" |");
         for (Result result : results) {
             System.out.print(result.getStatus().toString());
             System.out.print("|");
         }
-//        for (int i = 0; i < 10 - frames.size(); i++)
-//            System.out.print("      |");
+        for (int i = 0; i < 10 - j; i++)
+            System.out.print("      |");
     }
 }
