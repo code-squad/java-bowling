@@ -3,12 +3,12 @@ package domain.frame;
 import domain.PlayStatus;
 
 public class NormalFrame extends Frame {
-	public NormalFrame(int frameNumber, int firstPitch) {
-		super(frameNumber, firstPitch);
+	public NormalFrame(int frameNumber, int firstPin) {
+		super(frameNumber, firstPin);
 	}
 	
-	public NormalFrame(int firstPitch) {
-		super(MIN_FRAME_NUMBER, firstPitch);
+	public NormalFrame(int firstPin) {
+		super(MIN_FRAME_NUMBER, firstPin);
 	}
 	
 	@Override
@@ -18,18 +18,18 @@ public class NormalFrame extends Frame {
 	
 	@Override
 	public boolean getScoreFlag() {
-		PlayStatus currentStatus = getStatus();
+		PlayStatus nowStatus = getStatus();
 		
 		if (!isComplete()) {
 			return false;
 		}
 		
-		if (!PlayStatus.STRIKE.equals(currentStatus)
-				&& !PlayStatus.SPARE.equals(currentStatus)) {
+		if (!PlayStatus.STRIKE.equals(nowStatus)
+				&& !PlayStatus.SPARE.equals(nowStatus)) {
 			return true;
 		}
 		
-		if (PlayStatus.SPARE.equals(currentStatus)) {
+		if (PlayStatus.SPARE.equals(nowStatus)) {
 			return hasNextFrame();
 		}
 		
@@ -51,16 +51,16 @@ public class NormalFrame extends Frame {
 		}
 
 		int baseScore = getPitches().sum();
-		PlayStatus currentStatus = getStatus();
+		PlayStatus nowStatus = getStatus();
 
-		if (!PlayStatus.STRIKE.equals(currentStatus)
-				&& !PlayStatus.SPARE.equals(currentStatus)) {
+		if (!PlayStatus.STRIKE.equals(nowStatus)
+				&& !PlayStatus.SPARE.equals(nowStatus)) {
 			return baseScore;
 		}
 
-		if (PlayStatus.SPARE.equals(currentStatus)) {
+		if (PlayStatus.SPARE.equals(nowStatus)) {
 			return baseScore
-					+ getNextFrame().getPitches().get(1).getPinCount();
+					+ getNextFrame().getPitches().get(1).getPin();
 		}
 
 		if (!PlayStatus.STRIKE.equals(getNextFrame().getStatus())) {
@@ -70,6 +70,6 @@ public class NormalFrame extends Frame {
 
 		return baseScore
 				+ getNextFrame().getPitches().sum()
-				+ getNextFrame().getNextFrame().getPitches().get(1).getPinCount();
+				+ getNextFrame().getNextFrame().getPitches().get(1).getPin();
 	}
 }

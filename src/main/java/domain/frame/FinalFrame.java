@@ -3,8 +3,8 @@ package domain.frame;
 import domain.PlayStatus;
 
 public class FinalFrame extends Frame {
-	public FinalFrame(int firstPitch) {
-		super(Frame.MAX_FRAME_NUMBER, firstPitch);
+	public FinalFrame(int firstPin) {
+		super(MAX_FRAME_NUMBER, firstPin);
 	}
 	
 	@Override

@@ -5,59 +5,59 @@ import domain.PlayStatus;
 public class Pitch {
     private static final int DEFAULT_START_PIN_COUNT = 10;
     
-    private Integer pinCount;
-    private Integer beforeRemainedPinCount;
+    private Integer pin;
+    private Integer leftPin;
     
-    public Pitch(int pinCount) {
-        if (DEFAULT_START_PIN_COUNT < pinCount) {
+    public Pitch(int pin) {
+        if (DEFAULT_START_PIN_COUNT < pin) {
             throw new IllegalArgumentException("쓰러뜨린 핀수는 투구 시작 전 남아있는 핀수보다 작거나 같아야 한다.");
         }
-        this.pinCount = pinCount;
+        this.pin = pin;
     }
 
-    public Pitch(int beforeRemainedPinCount, int pinCount) {
-        if (beforeRemainedPinCount < pinCount) {
+    public Pitch(int leftPin, int pin) {
+        if (leftPin < pin) {
             throw new IllegalArgumentException("쓰러뜨린 핀수는 투구 시작 전 남아있는 핀수보다 작거나 같아야 한다.");
         }
-        this.beforeRemainedPinCount = beforeRemainedPinCount;
-        this.pinCount = pinCount;
+        this.leftPin = leftPin;
+        this.pin = pin;
     }
     
     public boolean isClear() {
-        if(isNewStartPitch()) {
-            return pinCount.equals(DEFAULT_START_PIN_COUNT);
+        if(isNewStart()) {
+            return pin.equals(DEFAULT_START_PIN_COUNT);
         }
-        return pinCount.equals(beforeRemainedPinCount);
+        return pin.equals(leftPin);
     }
 
-    public Integer getPinCount() {
-        return pinCount;
+    public Integer getPin() {
+        return pin;
     }
     
-    public int getRemainPinCount() {
-        if(isNewStartPitch()) {
-            return DEFAULT_START_PIN_COUNT - pinCount;
+    public int getLeftPin() {
+        if(isNewStart()) {
+            return DEFAULT_START_PIN_COUNT - pin;
         }
-        return beforeRemainedPinCount - pinCount;
+        return leftPin - pin;
     }
 
     public PlayStatus getStatus() {
-        if (pinCount == 0) {
-            return isNewStartPitch() ? PlayStatus.GUTTER : PlayStatus.MISS;
+        if (pin == 0) {
+            return isNewStart() ? PlayStatus.GUTTER : PlayStatus.MISS;
         }
         
         if (isClear()) {
-            return isNewStartPitch() ? PlayStatus.STRIKE : PlayStatus.SPARE;
+            return isNewStart() ? PlayStatus.STRIKE : PlayStatus.SPARE;
         }
         
-        return isNewStartPitch() ? PlayStatus.NONE : PlayStatus.OPEN;
+        return isNewStart() ? PlayStatus.NONE : PlayStatus.OPEN;
     }
     
     public String getDisplayValue() {
-        return String.format(getStatus().getDisplayFormat(), pinCount);
+        return String.format(getStatus().getDisplayFormat(), pin);
     }
     
-    private boolean isNewStartPitch() {
-        return beforeRemainedPinCount == null;
+    private boolean isNewStart() {
+        return leftPin == null;
     }
 }

@@ -11,9 +11,9 @@ public abstract class Frame {
 	private Frame nextFrame;
 	private int frameNumber;
 	
-	public Frame(int frameNumber, int firstPitch) {
+	public Frame(int frameNumber, int firstPin) {
 		this.frameNumber = frameNumber;
-		this.pitches = new Pitches(firstPitch);
+		this.pitches = new Pitches(firstPin);
 	}
 	
 	public Frame getNextFrame() {
@@ -38,24 +38,24 @@ public abstract class Frame {
 		return frameNumber == MAX_FRAME_NUMBER;
 	}
 	
-	public Frame bowl(int pinCount) {
+	public Frame bowl(int pin) {
 		if (isComplete()) {
-			return createNextFrame(pinCount);
+			return createNextFrame(pin);
 		}
 		
-		pitches.add(pinCount);
+		pitches.add(pin);
 		return this;
 	}
 	
-	protected Frame createNextFrame(int firstPitch) {
+	protected Frame createNextFrame(int firstPin) {
 		if (frameNumber == MAX_FRAME_NUMBER) {
 			throw new IllegalArgumentException("마지막 프레임 이후에는 프레임을 생성할 수 없습니다.");
 		}
 		
 		if (frameNumber < MAX_FRAME_NUMBER - 1) {
-			return nextFrame = new NormalFrame(frameNumber + 1, firstPitch);
+			return nextFrame = new NormalFrame(frameNumber + 1, firstPin);
 		}
-		return nextFrame = new FinalFrame(firstPitch);
+		return nextFrame = new FinalFrame(firstPin);
 	}
 	
 	public PlayStatus getStatus() {

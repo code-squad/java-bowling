@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 public class Pitches {
     private List<Pitch> pitches;
 
-    public Pitches(int firstPitch) {
-        pitches = new ArrayList<>(Arrays.asList(new Pitch(firstPitch)));
+    public Pitches(int firstPin) {
+        pitches = new ArrayList<>(Arrays.asList(new Pitch(firstPin)));
     }
 
     public Pitch get(int pitchNumber) {
@@ -28,9 +28,9 @@ public class Pitches {
         return pitchNumber <= pitches.size();
     }
 
-    public Pitches add(int pinCount) {
-        int remainPinCount = getLast().getRemainPinCount();
-        pitches.add(remainPinCount == 0 ? new Pitch(pinCount) : new Pitch(remainPinCount, pinCount));
+    public Pitches add(int pin) {
+        int leftPin = getLast().getLeftPin();
+        pitches.add(leftPin == 0 ? new Pitch(pin) : new Pitch(leftPin, pin));
         return this;
     }
 
@@ -40,7 +40,7 @@ public class Pitches {
 
     public int sum() {
         return pitches.stream()
-                .mapToInt(Pitch::getPinCount)
+                .mapToInt(Pitch::getPin)
                 .sum();
     }
 }

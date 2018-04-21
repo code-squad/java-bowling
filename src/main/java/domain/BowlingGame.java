@@ -18,15 +18,27 @@ public class BowlingGame {
     public List<Frame> getFrames() {
         return frames;
     }
+    
+    public int getNextFrameNumber() {
+        if (frames.isEmpty()) {
+            return Frame.MIN_FRAME_NUMBER;
+        }
+    
+        if (frames.get(frames.size() - 1).isComplete()) {
+            return frames.size() + 1;
+        }
+    
+        return frames.size();
+    }
 
     public String getPlayerName() {
         return playerName;
     }
 
-    public List<Frame> play(int pinCount) {
-        Frame currentFrame = frames.isEmpty() ? new NormalFrame(pinCount) : frames.get(frames.size() - 1).bowl(pinCount);
-        if (!frames.contains(currentFrame)) {
-            frames.add(currentFrame);
+    public List<Frame> play(int pin) {
+        Frame nowFrame = frames.isEmpty() ? new NormalFrame(pin) : frames.get(frames.size() - 1).bowl(pin);
+        if (!frames.contains(nowFrame)) {
+            frames.add(nowFrame);
         }
         return frames;
     }

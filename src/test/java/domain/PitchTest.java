@@ -12,8 +12,8 @@ public class PitchTest {
     }
 
     @Test
-    public void getRemainPinCount테스트() {
-        assertThat(new Pitch(10, 7).getRemainPinCount()).isEqualTo(3);
+    public void getLeftPin테스트() {
+        assertThat(new Pitch(10, 7).getLeftPin()).isEqualTo(3);
     }
 
     @Test
