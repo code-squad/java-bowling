@@ -5,7 +5,7 @@ import bowling.domain.frame.last.score.Score;
 import bowling.domain.frame.last.status.Statuses;
 import bowling.domain.util.Formatter;
 
-public class LastFrame extends Frame {
+public class LastFrame implements Frame {
     private final Statuses status;
     private Score score;
 
