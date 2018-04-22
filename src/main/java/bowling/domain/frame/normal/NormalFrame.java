@@ -1,8 +1,10 @@
-package bowling.domain.frame;
+package bowling.domain.frame.normal;
 
-import bowling.domain.frame.score.Score;
-import bowling.domain.frame.status.normal.NotPlayed; //TODO: use void where possible
-import bowling.domain.frame.status.normal.Status; //TODO: restructure packages
+import bowling.domain.frame.Frame;
+import bowling.domain.frame.last.LastFrame;
+import bowling.domain.frame.normal.score.Score;
+import bowling.domain.frame.normal.status.NotPlayed; //TODO: use void where possible
+import bowling.domain.frame.normal.status.Status; //TODO: restructure packages
 import bowling.domain.util.Formatter; //TODO: abstract class -> interface
 
 public class NormalFrame extends Frame {

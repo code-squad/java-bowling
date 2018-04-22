@@ -1,6 +1,11 @@
-package bowling.domain.frame.status.last;
+package bowling.domain.frame.last.status;
 
-public class Strike implements Status {
+public class Spare implements Status {
+    private final int pins;
+
+    public Spare(int pins) {
+        this.pins = pins;
+    }
 
     @Override
     public Status bowl(int pins) {
@@ -12,12 +17,12 @@ public class Strike implements Status {
 
     @Override
     public boolean isStrike() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isSpare() {
-        return false;
+        return true;
     }
 
     @Override
@@ -27,11 +32,11 @@ public class Strike implements Status {
 
     @Override
     public int getScore() {
-        return ALL;
+        return pins;
     }
 
     @Override
     public String toString() {
-        return "X";
+        return "/";
     }
 }

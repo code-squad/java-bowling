@@ -1,6 +1,6 @@
-package bowling.domain.frame.status.normal;
+package bowling.domain.frame.normal.status;
 
-import bowling.domain.frame.score.Score;
+import bowling.domain.frame.normal.score.Score;
 
 public class Strike extends Complete {
 

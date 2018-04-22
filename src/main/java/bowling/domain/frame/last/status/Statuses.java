@@ -1,14 +1,13 @@
-package bowling.domain.frame.status.last;
+package bowling.domain.frame.last.status;
 
-import bowling.domain.frame.score.LastFrameScore;
-import bowling.domain.frame.score.Score;
+import bowling.domain.frame.last.score.Score;
 
-public class LastFrameStatus {
+public class Statuses {
     private Status first;
     private Status second;
     private Status third;
 
-    public LastFrameStatus() {
+    public Statuses() {
         this.first = new NotPlayed();
         this.second = new NotPlayed();
         this.third = new NotPlayed();
@@ -39,14 +38,14 @@ public class LastFrameStatus {
                 + third.getScore();
     }
 
-    public LastFrameScore createScore() {
+    public Score createScore() {
         if (isComplete()) {
-            return LastFrameScore.ofReady(getScores());
+            return Score.ofReady(getScores());
         }
-        return LastFrameScore.ofNotReady(getScores());
+        return Score.ofNotReady(getScores());
     }
 
-    public boolean updateScoresFromPreviousFrames(Score prevPrev) {
+    public boolean updateScoresFromPreviousFrames(bowling.domain.frame.normal.score.Score prevPrev) {
         if (prevPrev.onlyFirstBowlNeeded()) {
             prevPrev.bowl(first.getScore());
             return true;

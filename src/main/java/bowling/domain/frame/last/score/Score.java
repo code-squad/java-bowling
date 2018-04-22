@@ -1,21 +1,21 @@
-package bowling.domain.frame.score;
+package bowling.domain.frame.last.score;
 
-public class LastFrameScore {
+public class Score {
     private int accumulativeScore;
     private final int score;
     private final boolean readyForCalc;
 
-    private LastFrameScore(int score, boolean readyForCalc) {
+    private Score(int score, boolean readyForCalc) {
         this.score = score;
         this.readyForCalc = readyForCalc;
     }
 
-    public static LastFrameScore ofReady(int score) {
-        return new LastFrameScore(score, true);
+    public static Score ofReady(int score) {
+        return new Score(score, true);
     }
 
-    public static LastFrameScore ofNotReady(int score) {
-        return new LastFrameScore(score, false);
+    public static Score ofNotReady(int score) {
+        return new Score(score, false);
     }
 
     public void accumulateScore(int accumulative) {

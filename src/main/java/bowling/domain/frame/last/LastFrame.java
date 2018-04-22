@@ -1,16 +1,16 @@
-package bowling.domain.frame;
+package bowling.domain.frame.last;
 
-import bowling.domain.frame.score.LastFrameScore;
-import bowling.domain.frame.score.Score;
-import bowling.domain.frame.status.last.LastFrameStatus;
+import bowling.domain.frame.Frame;
+import bowling.domain.frame.last.score.Score;
+import bowling.domain.frame.last.status.Statuses;
 import bowling.domain.util.Formatter;
 
 public class LastFrame extends Frame {
-    private final LastFrameStatus status;
-    private LastFrameScore score;
+    private final Statuses status;
+    private Score score;
 
     public LastFrame() {
-        this.status = new LastFrameStatus();
+        this.status = new Statuses();
     }
 
     @Override
@@ -27,12 +27,12 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public boolean calculateAdditionalScore(Score prevScore) {
+    public boolean calculateAdditionalScore(bowling.domain.frame.normal.score.Score prevScore) {
         return status.updateScoresFromPreviousFrames(prevScore);
     }
 
     @Override
-    public boolean updateScoreFromPrevPrev(Score prevPrev) {
+    public boolean updateScoreFromPrevPrev(bowling.domain.frame.normal.score.Score prevPrev) {
         return status.updateScoresFromPreviousFrames(prevPrev);
     }
 

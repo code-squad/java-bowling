@@ -1,12 +1,12 @@
-package bowling.domain.frame.status.normal;
+package bowling.domain.frame.normal.status;
 
-import bowling.domain.frame.score.Score;
+import bowling.domain.frame.normal.score.Score;
 
-public class AllPlayed extends Complete {
+public class Miss extends Complete {
     private final int first;
     private final int second;
 
-    public AllPlayed(int first, int pins) {
+    public Miss(int first, int pins) {
         this.first = first;
         this.second = pins;
     }

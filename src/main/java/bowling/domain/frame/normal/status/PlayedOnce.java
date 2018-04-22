@@ -1,6 +1,6 @@
-package bowling.domain.frame.status.normal;
+package bowling.domain.frame.normal.status;
 
-import bowling.domain.frame.score.Score;
+import bowling.domain.frame.normal.score.Score;
 
 public class PlayedOnce extends Incomplete {
     private final int first;
@@ -14,7 +14,7 @@ public class PlayedOnce extends Incomplete {
         if (first + pins == ALL) {
             return new Spare(first, pins);
         }
-        return new AllPlayed(first, pins);
+        return new Miss(first, pins);
     }
 
     @Override

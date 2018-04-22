@@ -1,4 +1,4 @@
-package bowling.domain.frame.status.last;
+package bowling.domain.frame.last.status;
 
 public interface Status {
     int ALL = 10;

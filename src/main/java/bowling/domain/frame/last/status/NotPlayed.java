@@ -1,16 +1,11 @@
-package bowling.domain.frame.status.last;
+package bowling.domain.frame.last.status;
 
-public class Miss implements Status {
-    private final int pins;
-
-    public Miss(int pins) {
-        this.pins = pins;
-    }
+public class NotPlayed implements Status {
 
     @Override
     public Status bowl(int pins) {
-        if (this.pins + pins == ALL) {
-            return new Spare(pins);
+        if (pins == ALL) {
+            return new Strike();
         }
         return new Miss(pins);
     }
@@ -27,16 +22,16 @@ public class Miss implements Status {
 
     @Override
     public boolean isPlayed() {
-        return true;
+        return false;
     }
 
     @Override
     public int getScore() {
-        return pins;
+        return NONE;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(pins);
+        return " ";
     }
 }

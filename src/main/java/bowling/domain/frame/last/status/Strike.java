@@ -1,6 +1,6 @@
-package bowling.domain.frame.status.last;
+package bowling.domain.frame.last.status;
 
-public class NotPlayed implements Status {
+public class Strike implements Status {
 
     @Override
     public Status bowl(int pins) {
@@ -12,7 +12,7 @@ public class NotPlayed implements Status {
 
     @Override
     public boolean isStrike() {
-        return false;
+        return true;
     }
 
     @Override
@@ -22,16 +22,16 @@ public class NotPlayed implements Status {
 
     @Override
     public boolean isPlayed() {
-        return false;
+        return true;
     }
 
     @Override
     public int getScore() {
-        return NONE;
+        return ALL;
     }
 
     @Override
     public String toString() {
-        return " ";
+        return "X";
     }
 }

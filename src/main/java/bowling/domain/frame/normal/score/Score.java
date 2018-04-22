@@ -1,4 +1,4 @@
-package bowling.domain.frame.score;
+package bowling.domain.frame.normal.score;
 
 public class Score {
     private int accumulativeScore;

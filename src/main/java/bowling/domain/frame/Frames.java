@@ -1,5 +1,7 @@
 package bowling.domain.frame;
 
+import bowling.domain.frame.normal.NormalFrame;
+
 public class Frames {
     private static final int FIRST = 1;
     private static final int INITIAL = 0;
