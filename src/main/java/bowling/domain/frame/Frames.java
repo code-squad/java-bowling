@@ -1,61 +1,38 @@
 package bowling.domain.frame;
 
-import bowling.domain.util.Formatter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Frames {
-    private final List<Frame> frames;
-    private int currentFrameIndex;
+    private final Frame frames;
+    private Frame currentFrame;
+    private int currentFrameNumber;
 
     public Frames() {
-        this.frames = new ArrayList<>();
-        frames.add(new NormalFrame(1));
-    }
-
-    private Frame getFrame(int frameIndex) {
-        return frames.get(frameIndex);
+        this.frames = new NormalFrame(1);
+        this.currentFrame = frames;
+        this.currentFrameNumber = 1;
     }
 
     public void bowl(int pins) {
-        Frame newFrame = getFrame(currentFrameIndex).bowl(pins);
+        Frame newFrame = currentFrame.bowl(pins);
+        frames.calculateScore(0);
         if (newFrame != null) {
-            frames.add(newFrame);
-            currentFrameIndex++; //TODO: BUG - 새로운 프레임이 생겼을 때만 인덱스가 늘어난다. 그러니 당연히 마지막 프레임이 생기는 시점인 9번프레임에서 인덱스가 멈추게 된다.
+            currentFrame = newFrame;
+            currentFrameNumber++;
         }
-    }
-
-    public void calculateScores() {
-        frames.forEach(Frame::calculateScore);
     }
 
     public boolean isDone() {
-        return getFrame(currentFrameIndex).isLast();
+        return currentFrame.isLast();
     }
 
     public int getCurrentFrameNumber() {
-        return currentFrameIndex + 1;
+        return currentFrameNumber;
     }
 
     public String convertStatusToPrintable() {
-        StringBuilder builder = new StringBuilder();
-        for (Frame frame : frames) {
-            builder.append(frame.convertStatusToPrintable());
-            builder.append("|");
-        }
-        return builder.toString();
+        return frames.convertStatusToPrintable();
     }
 
     public String convertScoreToPrintable() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("|");
-        builder.append(Formatter.formatFrame(""));
-        builder.append("|");
-        for (Frame frame : frames) {
-            builder.append(frame.convertScoreToPrintable());
-            builder.append("|");
-        }
-        return builder.toString();
+        return frames.convertScoreToPrintable();
     }
 }

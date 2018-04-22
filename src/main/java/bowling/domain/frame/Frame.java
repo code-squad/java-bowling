@@ -6,7 +6,7 @@ public abstract class Frame {
 
     public abstract Frame bowl(int pins);
 
-    public abstract boolean calculateScore();
+    public abstract boolean calculateScore(int accumulative);
 
     abstract boolean calculateAdditionalScore(Score score);
 

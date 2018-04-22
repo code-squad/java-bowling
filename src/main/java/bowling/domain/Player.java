@@ -20,10 +20,6 @@ public class Player implements Printable {
         frames.bowl(pins);
     }
 
-    public void calculateScores() {
-        frames.calculateScores();
-    }
-
     public boolean isDone() {
         return frames.isDone();
     }
@@ -38,7 +34,10 @@ public class Player implements Printable {
 
     @Override
     public String convertScoreToPrintable() {
-        return frames.convertScoreToPrintable();
+        return "|"
+                + Formatter.formatFrame("")
+                + "|"
+                + frames.convertScoreToPrintable();
 
     }
 }

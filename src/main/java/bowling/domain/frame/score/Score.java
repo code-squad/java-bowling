@@ -1,12 +1,21 @@
 package bowling.domain.frame.score;
 
 public class Score {
+    public int accumulativeScore;
     private int score;
-    public int count;
+    private int count;
 
     private Score(int score, int count) {
         this.score = score;
         this.count = count;
+    }
+
+    public void accumulateScore(int score) {
+        accumulativeScore = score;
+    }
+
+    public int calculateTotal() {
+        return accumulativeScore + score;
     }
 
     public static Score ofStrike() {
@@ -51,6 +60,6 @@ public class Score {
         if (count != 0) {
             return "";
         }
-        return String.valueOf(score);
+        return String.valueOf(calculateTotal());
     }
 }

@@ -1,6 +1,7 @@
 package bowling.domain.frame.score;
 
 public class LastFrameScore {
+    private int accumulativeScore;
     private final int score;
     private final boolean readyForCalc;
 
@@ -15,6 +16,10 @@ public class LastFrameScore {
 
     public static LastFrameScore ofNotReady(int score) {
         return new LastFrameScore(score, false);
+    }
+
+    public void accumulateScore(int accumulative) {
+        accumulativeScore = accumulative;
     }
 
     @Override
