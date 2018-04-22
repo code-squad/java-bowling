@@ -1,15 +1,13 @@
 package bowling.domain.frame.status.last;
 
 public class Strike implements Status {
-    private static final int ALL = 10;
-    private Status nextStatus;
 
     @Override
     public Status bowl(int pins) {
         if (pins == ALL) {
-            return nextStatus = new Strike();
+            return new Strike();
         }
-        return nextStatus = new Miss(pins);
+        return new Miss(pins);
     }
 
     @Override
@@ -23,8 +21,8 @@ public class Strike implements Status {
     }
 
     @Override
-    public boolean isNotPlayed() {
-        return false;
+    public boolean isPlayed() {
+        return true;
     }
 
     @Override

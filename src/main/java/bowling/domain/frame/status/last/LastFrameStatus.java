@@ -14,49 +14,35 @@ public class LastFrameStatus {
         this.third = new NotPlayed();
     }
 
-    private boolean firstIsNotPlayed() {
-        return first.isNotPlayed();
+    private boolean firstIsPlayed() {
+        return first.isPlayed();
     }
 
-    private boolean secondIsNotPlayed() {
-        return second.isNotPlayed();
+    private boolean secondIsPlayed() {
+        return second.isPlayed();
     }
 
-    private boolean thirdIsNotPlayed() {
-        return third.isNotPlayed();
+    private boolean thirdIsPlayed() {
+        return third.isPlayed();
     }
 
     public Status bowl(int pins) {
-        if (firstIsNotPlayed()) {
+        if (!firstIsPlayed()) {
             return first = first.bowl(pins);
         }
-        if (secondIsNotPlayed()) {
+        if (!secondIsPlayed()) {
             return second = first.bowl(pins);
         }
         return third = second.bowl(pins);
     }
 
     public boolean isComplete() {
-        if (!secondIsNotPlayed() &&
+        if (secondIsPlayed() &&
                 (!first.isStrike() && !second.isSpare())) {
             return true;
         }
         return (first.isStrike() || second.isSpare())
-                && !thirdIsNotPlayed();
-    }
-
-    @Override
-    public String toString() {
-        if (!thirdIsNotPlayed()) {
-            return first.toString() + "|" + second.toString() + "|" + third.toString();
-        }
-        if (!secondIsNotPlayed()) {
-            return first.toString() + "|" + second.toString();
-        }
-        if (!firstIsNotPlayed()) {
-            return first.toString();
-        }
-        return "";
+                && thirdIsPlayed();
     }
 
     private int getScores() {
@@ -74,9 +60,7 @@ public class LastFrameStatus {
 
     public boolean updateScoresFromPreviousFrames(Score prevPrev) {
         if (prevPrev.onlyFirstBowlNeeded()) {
-            System.out.println(prevPrev.count); //2
             prevPrev.bowl(first.getScore());
-            System.out.println(prevPrev.count); //1
             return true;
         }
         if (prevPrev.twoMoreBowlsNeeded()) {
@@ -85,5 +69,25 @@ public class LastFrameStatus {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        if (thirdIsPlayed()) {
+            return first.toString()
+                    + "|"
+                    + second.toString()
+                    + "|"
+                    + third.toString();
+        }
+        if (secondIsPlayed()) {
+            return first.toString()
+                    + "|"
+                    + second.toString();
+        }
+        if (firstIsPlayed()) {
+            return first.toString();
+        }
+        return "";
     }
 }

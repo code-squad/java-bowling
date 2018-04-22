@@ -16,7 +16,7 @@ public class Strike extends Complete {
 
     @Override
     public boolean updateScore(Score score) {
-        score.bowl(10);
+        score.bowl(ALL);
         return true;
     }
 

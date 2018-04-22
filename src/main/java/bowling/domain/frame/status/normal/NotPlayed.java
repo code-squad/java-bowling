@@ -6,7 +6,7 @@ public class NotPlayed extends Incomplete {
 
     @Override
     public Status bowl(int pins) {
-        if (pins == 10) {
+        if (pins == ALL) {
             return new Strike();
         }
         return new PlayedOnce(pins);

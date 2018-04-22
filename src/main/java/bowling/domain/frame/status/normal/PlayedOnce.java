@@ -11,7 +11,7 @@ public class PlayedOnce extends Incomplete {
 
     @Override
     public Status bowl(int pins) {
-        if (first + pins == 10) {
+        if (first + pins == ALL) {
             return new Spare(first, pins);
         }
         return new AllPlayed(first, pins);

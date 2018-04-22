@@ -19,6 +19,9 @@ public class LastFrameScore {
 
     @Override
     public String toString() {
-        return String.valueOf(score);
+        if (readyForCalc) {
+            return String.valueOf(score);
+        }
+        return "";
     }
 }

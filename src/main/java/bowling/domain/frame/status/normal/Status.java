@@ -3,6 +3,7 @@ package bowling.domain.frame.status.normal;
 import bowling.domain.frame.score.Score;
 
 public interface Status {
+    int ALL = 10;
 
     Status bowl(int pins);
 

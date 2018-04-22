@@ -6,7 +6,7 @@ import bowling.domain.frame.status.last.LastFrameStatus;
 import bowling.domain.util.Formatter;
 
 public class LastFrame extends Frame {
-    private final LastFrameStatus status; //TODO: Refactoring needed - maybe could implement an interface?
+    private final LastFrameStatus status;
     private LastFrameScore score;
 
     public LastFrame() {

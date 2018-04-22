@@ -35,15 +35,15 @@ public class NormalFrame extends Frame {
     @Override
     public boolean calculateScore() { //TODO: Exception for frame number = 8
         score = status.createScore();
-        nextFrame.calculateAdditionalScore(score); //add bonus score for strike/spare
+        nextFrame.calculateAdditionalScore(score);
         return true;
     }
 
     @Override
-    public boolean calculateAdditionalScore(Score prevScore) { //TODO: 만약 다음 프레임에서 다 해결 된다면?? 다다음까지 갈 필요가 없다.
+    public boolean calculateAdditionalScore(Score prevScore) {
         if (status.isStrike()) {
             status.updateScore(prevScore);
-            return nextFrame.updateScoreFromPrevPrev(prevScore); //TODO: 만약 다음 프레임까지 가야한다면..
+            return nextFrame.updateScoreFromPrevPrev(prevScore);
         }
         return status.updateScore(prevScore);
     }

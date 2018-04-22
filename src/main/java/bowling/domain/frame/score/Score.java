@@ -46,10 +46,6 @@ public class Score {
         return count == 2;
     }
 
-    public void updateLastFrameScore(int score) {
-        this.score += score;
-    }
-
     @Override
     public String toString() {
         if (count != 0) {
