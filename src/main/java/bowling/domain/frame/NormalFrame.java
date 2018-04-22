@@ -1,9 +1,9 @@
 package bowling.domain.frame;
 
 import bowling.domain.frame.score.Score;
-import bowling.domain.frame.status.normal.NotPlayed;
-import bowling.domain.frame.status.normal.Status;
-import bowling.domain.util.Formatter;
+import bowling.domain.frame.status.normal.NotPlayed; //TODO: use void where possible
+import bowling.domain.frame.status.normal.Status; //TODO: restructure packages
+import bowling.domain.util.Formatter; //TODO: abstract class -> interface
 
 public class NormalFrame extends Frame {
     private Frame nextFrame;
@@ -13,11 +13,11 @@ public class NormalFrame extends Frame {
     public NormalFrame(int frameNumber) {
         this.nextFrame = createNextFrame(frameNumber);
         this.status = new NotPlayed();
-        this.score = Score.ofNotPlayed(); //TODO: is ofNotPlayed() needed?? don't think so
+        this.score = Score.ofNotPlayed();
     }
 
     private Frame createNextFrame(int frameNumber) {
-        if (frameNumber == 9) {
+        if (frameNumber == ONE_BEFORE_LAST) {
             return new LastFrame();
         }
         return new NormalFrame(frameNumber + 1);
@@ -48,7 +48,7 @@ public class NormalFrame extends Frame {
             status.updateScore(prevScore);
             return nextFrame.updateScoreFromPrevPrev(prevScore);
         }
-        return status.updateScore(prevScore); //TODO: change to void?
+        return status.updateScore(prevScore); //TODO: change to void using if/else?
     }
 
     @Override

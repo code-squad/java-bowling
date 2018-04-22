@@ -3,6 +3,7 @@ package bowling.domain.frame;
 import bowling.domain.frame.score.Score;
 
 public abstract class Frame {
+    public static final int ONE_BEFORE_LAST = 9;
 
     public abstract Frame bowl(int pins);
 

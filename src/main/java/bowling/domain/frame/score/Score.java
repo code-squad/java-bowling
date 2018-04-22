@@ -1,7 +1,7 @@
 package bowling.domain.frame.score;
 
 public class Score {
-    public int accumulativeScore;
+    private int accumulativeScore;
     private int score;
     private int count;
 

@@ -15,7 +15,7 @@ public abstract class Incomplete implements Status {
     }
 
     @Override
-    public abstract boolean updateScore(Score score); //TODO: don't need this since there's nothing to update
+    public abstract boolean updateScore(Score score);
 
     @Override
     public boolean isStrike() {

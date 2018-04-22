@@ -2,14 +2,15 @@ package bowling.domain.frame.status.last;
 
 public interface Status {
     int ALL = 10;
+    int NONE = 0;
 
     Status bowl(int pins);
 
     boolean isStrike();
 
-    boolean isSpare(); //TODO: remove duplicate code through inheritance/interface?
+    boolean isSpare();
 
-    boolean isPlayed(); //TODO: remove duplicate code through inheritance/interface?
+    boolean isPlayed();
 
     int getScore();
 

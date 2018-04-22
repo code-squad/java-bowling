@@ -1,19 +1,22 @@
 package bowling.domain.frame;
 
 public class Frames {
+    private static final int FIRST = 1;
+    private static final int INITIAL = 0;
+
     private final Frame frames;
     private Frame currentFrame;
     private int currentFrameNumber;
 
     public Frames() {
-        this.frames = new NormalFrame(1);
+        this.frames = new NormalFrame(FIRST);
         this.currentFrame = frames;
-        this.currentFrameNumber = 1;
+        this.currentFrameNumber = FIRST;
     }
 
     public void bowl(int pins) {
         Frame newFrame = currentFrame.bowl(pins);
-        frames.calculateScore(0);
+        frames.calculateScore(INITIAL);
         if (newFrame != null) {
             currentFrame = newFrame;
             currentFrameNumber++;

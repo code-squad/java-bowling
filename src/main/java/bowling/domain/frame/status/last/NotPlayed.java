@@ -27,7 +27,7 @@ public class NotPlayed implements Status {
 
     @Override
     public int getScore() {
-        return 0;
+        return NONE;
     }
 
     @Override

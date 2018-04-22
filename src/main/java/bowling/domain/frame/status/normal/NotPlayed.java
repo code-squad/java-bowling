@@ -13,11 +13,6 @@ public class NotPlayed extends Incomplete {
     }
 
     @Override
-    public Score createScore() {
-        return Score.ofNotPlayed();
-    }
-
-    @Override
     public boolean updateScore(Score score) {
         return false;
     }

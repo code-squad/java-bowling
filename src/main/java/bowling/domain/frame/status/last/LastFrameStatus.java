@@ -14,35 +14,23 @@ public class LastFrameStatus {
         this.third = new NotPlayed();
     }
 
-    private boolean firstIsPlayed() {
-        return first.isPlayed();
-    }
-
-    private boolean secondIsPlayed() {
-        return second.isPlayed();
-    }
-
-    private boolean thirdIsPlayed() {
-        return third.isPlayed();
-    }
-
     public Status bowl(int pins) {
-        if (!firstIsPlayed()) {
+        if (!first.isPlayed()) {
             return first = first.bowl(pins);
         }
-        if (!secondIsPlayed()) {
+        if (!second.isPlayed()) {
             return second = first.bowl(pins);
         }
         return third = second.bowl(pins);
     }
 
     public boolean isComplete() {
-        if (secondIsPlayed() &&
+        if (second.isPlayed() &&
                 (!first.isStrike() && !second.isSpare())) {
             return true;
         }
         return (first.isStrike() || second.isSpare())
-                && thirdIsPlayed();
+                && third.isPlayed();
     }
 
     private int getScores() {
@@ -73,19 +61,19 @@ public class LastFrameStatus {
 
     @Override
     public String toString() {
-        if (thirdIsPlayed()) {
+        if (third.isPlayed()) {
             return first.toString()
                     + "|"
                     + second.toString()
                     + "|"
                     + third.toString();
         }
-        if (secondIsPlayed()) {
+        if (second.isPlayed()) {
             return first.toString()
                     + "|"
                     + second.toString();
         }
-        if (firstIsPlayed()) {
+        if (first.isPlayed()) {
             return first.toString();
         }
         return "";
