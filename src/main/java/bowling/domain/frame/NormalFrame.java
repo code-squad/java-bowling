@@ -13,7 +13,7 @@ public class NormalFrame extends Frame {
     public NormalFrame(int frameNumber) {
         this.nextFrame = createNextFrame(frameNumber);
         this.status = new NotPlayed();
-        this.score = Score.ofNotPlayed();
+        this.score = Score.ofNotPlayed(); //TODO: is ofNotPlayed() needed?? don't think so
     }
 
     private Frame createNextFrame(int frameNumber) {
@@ -39,7 +39,7 @@ public class NormalFrame extends Frame {
         score.accumulateScore(accumulative);
         nextFrame.calculateAdditionalScore(score);
         nextFrame.calculateScore(score.calculateTotal());
-        return true;
+        return true; //TODO: change to void?
     }
 
     @Override
@@ -48,12 +48,12 @@ public class NormalFrame extends Frame {
             status.updateScore(prevScore);
             return nextFrame.updateScoreFromPrevPrev(prevScore);
         }
-        return status.updateScore(prevScore);
+        return status.updateScore(prevScore); //TODO: change to void?
     }
 
     @Override
     public boolean updateScoreFromPrevPrev(Score prevPrev) {
-        return status.updateScore(prevPrev);
+        return status.updateScore(prevPrev); //TODO: change to void?
     }
 
     @Override

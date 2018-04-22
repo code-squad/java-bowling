@@ -22,10 +22,14 @@ public class LastFrameScore {
         accumulativeScore = accumulative;
     }
 
+    private int calculateTotal() {
+        return accumulativeScore + score;
+    }
+
     @Override
     public String toString() {
         if (readyForCalc) {
-            return String.valueOf(score);
+            return String.valueOf(calculateTotal());
         }
         return "";
     }

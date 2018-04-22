@@ -38,6 +38,5 @@ public class Player implements Printable {
                 + Formatter.formatFrame("")
                 + "|"
                 + frames.convertScoreToPrintable();
-
     }
 }
