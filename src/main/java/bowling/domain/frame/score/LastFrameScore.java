@@ -1,10 +1,20 @@
 package bowling.domain.frame.score;
 
 public class LastFrameScore {
-    private int score;
+    private final int score;
+    private final boolean readyForCalc;
 
-    public void updateScore(int score) {
-        this.score += score;
+    private LastFrameScore(int score, boolean readyForCalc) {
+        this.score = score;
+        this.readyForCalc = readyForCalc;
+    }
+
+    public static LastFrameScore ofReady(int score) {
+        return new LastFrameScore(score, true);
+    }
+
+    public static LastFrameScore ofNotReady(int score) {
+        return new LastFrameScore(score, false);
     }
 
     @Override

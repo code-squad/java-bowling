@@ -1,5 +1,6 @@
 package bowling.domain.frame.status.last;
 
+import bowling.domain.frame.score.LastFrameScore;
 import bowling.domain.frame.score.Score;
 
 public class LastFrameStatus {
@@ -36,10 +37,12 @@ public class LastFrameStatus {
     }
 
     public boolean isComplete() {
-        if (!secondIsNotPlayed() && (!first.isStrike() && !second.isSpare())) {
+        if (!secondIsNotPlayed() &&
+                (!first.isStrike() && !second.isSpare())) {
             return true;
         }
-        return (first.isStrike() || second.isSpare()) && !thirdIsNotPlayed();
+        return (first.isStrike() || second.isSpare())
+                && !thirdIsNotPlayed();
     }
 
     @Override
@@ -56,6 +59,19 @@ public class LastFrameStatus {
         return "";
     }
 
+    private int getScores() {
+        return first.getScore()
+                + second.getScore()
+                + third.getScore();
+    }
+
+    public LastFrameScore createScore() {
+        if (isComplete()) {
+            return LastFrameScore.ofReady(getScores());
+        }
+        return LastFrameScore.ofNotReady(getScores());
+    }
+
     public boolean updateScoresFromPreviousFrames(Score prevPrev) {
         if (prevPrev.onlyFirstBowlNeeded()) {
             System.out.println(prevPrev.count); //2
@@ -69,17 +85,5 @@ public class LastFrameStatus {
             return true;
         }
         return false;
-    }
-
-    public boolean updateLastFrameScore(Score score) {
-        if (thirdIsNotPlayed()) {
-            score.updateLastFrameScore(first.getScore());
-            score.updateLastFrameScore(second.getScore());
-            return true;
-        }
-        score.updateLastFrameScore(first.getScore());
-        score.updateLastFrameScore(second.getScore());
-        score.updateLastFrameScore(third.getScore());
-        return true;
     }
 }

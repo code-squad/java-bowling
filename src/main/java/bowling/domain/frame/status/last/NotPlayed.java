@@ -1,13 +1,14 @@
 package bowling.domain.frame.status.last;
 
 public class NotPlayed implements Status {
+    private Status nextStatus;
 
     @Override
     public Status bowl(int pins) {
         if (pins == 10) {
-            return new Strike();
+            return nextStatus = new Strike();
         }
-        return new Miss(pins);
+        return nextStatus = new Miss(pins);
     }
 
     @Override

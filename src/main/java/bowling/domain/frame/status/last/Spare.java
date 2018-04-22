@@ -2,6 +2,7 @@ package bowling.domain.frame.status.last;
 
 public class Spare implements Status {
     private final int pins;
+    private Status nextStatus;
 
     public Spare(int pins) {
         this.pins = pins;
@@ -10,9 +11,9 @@ public class Spare implements Status {
     @Override
     public Status bowl(int pins) {
         if (pins == 10) {
-            return new Strike();
+            return nextStatus = new Strike();
         }
-        return new Miss(pins);
+        return nextStatus = new Miss(pins);
     }
 
     @Override

@@ -1,16 +1,16 @@
 package bowling.domain.frame;
 
+import bowling.domain.frame.score.LastFrameScore;
 import bowling.domain.frame.score.Score;
 import bowling.domain.frame.status.last.LastFrameStatus;
 import bowling.domain.util.Formatter;
 
 public class LastFrame extends Frame {
     private final LastFrameStatus status; //TODO: Refactoring needed - maybe could implement an interface?
-    private final Score score;
+    private LastFrameScore score;
 
     public LastFrame() {
         this.status = new LastFrameStatus();
-        this.score = Score.ofNotPlayed();
     }
 
     @Override
@@ -21,7 +21,8 @@ public class LastFrame extends Frame {
 
     @Override
     public boolean calculateScore() { //TODO: Exception for frame number = 8
-        return status.updateLastFrameScore(score);
+        score = status.createScore();
+        return true;
     }
 
     @Override

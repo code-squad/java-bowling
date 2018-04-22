@@ -2,6 +2,7 @@ package bowling.domain.frame.status.last;
 
 public class Miss implements Status {
     private final int pins;
+    private Status nextStatus;
 
     public Miss(int pins) {
         this.pins = pins;
@@ -10,9 +11,9 @@ public class Miss implements Status {
     @Override
     public Status bowl(int pins) {
         if (this.pins + pins == 10) {
-            return new Spare(pins);
+            return nextStatus = new Spare(pins);
         }
-        return new Miss(pins);
+        return nextStatus = new Miss(pins);
     }
 
     @Override
