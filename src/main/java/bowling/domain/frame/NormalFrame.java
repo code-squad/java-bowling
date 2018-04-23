@@ -7,7 +7,7 @@ import bowling.domain.util.Formatter;
 
 public class NormalFrame implements frame {
     private final int frameNumber;
-    private frame nextFrame;
+    private final frame nextFrame;
     private Status status;
 
     public NormalFrame(int frameNumber) {
@@ -25,7 +25,7 @@ public class NormalFrame implements frame {
 
     public int getFrameNumber() {
         if (status.isComplete()) {
-            nextFrame.getFrameNumber();
+            return nextFrame.getFrameNumber();
         }
         return frameNumber;
     }
@@ -55,7 +55,7 @@ public class NormalFrame implements frame {
     }
 
     @Override
-    public String getPrintableScore(int accumulative) { //TODO: Exception for frame number = 8
+    public String getPrintableScore(int accumulative) {
         Score score = status.createScore();
         score.accumulateScore(accumulative);
         nextFrame.calculateAdditionalScore(score);

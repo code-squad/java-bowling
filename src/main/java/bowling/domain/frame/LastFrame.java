@@ -30,7 +30,7 @@ public class LastFrame implements frame {
     }
 
     @Override
-    public String getPrintableScore(int accumulative) { //TODO: Exception for frame number = 8
+    public String getPrintableScore(int accumulative) {
         Score score = status.createScore();
         score.accumulateScore(accumulative);
         return score.toString() + "|";

@@ -9,18 +9,18 @@ public class LastFrameStatus {
 
     public void bowl(int pins) {
         if (!first.isPlayed()) {
-            first.bowl(pins);
+            first = first.bowl(pins);
             return;
         }
         if (!second.isPlayed()) {
-            second.bowl(pins);
+            second = second.bowl(pins);
             return;
         }
-        third.bowl(pins);
+        third = third.bowl(pins);
     }
 
     public boolean isComplete() {
-        if (first.isPlayed() &&
+        if (second.isPlayed() &&
                 (!first.isStrike() && !second.isSpare())) {
             return true;
         }
@@ -29,7 +29,10 @@ public class LastFrameStatus {
     }
 
     public Score createScore() {
-        return first.createScore();
+        Score score = first.createScore();
+        second.updateScore(score);
+        third.updateScore(score);
+        return score;
     }
 
     public void updateScoresFromPreviousFrames(Score prevPrev) {

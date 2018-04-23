@@ -30,6 +30,7 @@ class PlayedOnce extends Incomplete {
     @Override
     public boolean updateScore(Score score) {
         if (score.twoMoreBowlsNeeded()) { //다음프레임이 전프레임 점수 계산할 때, 점수 두 개를 필요로 하는데 현 상태는 incomplete
+            //TODO: exception?
             return false;
         }
         score.bowl(first); //점수 하나만 필요로 하면

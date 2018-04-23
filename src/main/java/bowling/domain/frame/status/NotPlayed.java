@@ -19,7 +19,7 @@ public class NotPlayed extends Incomplete {
 
     @Override
     public boolean updateScore(Score score) {
-        return false;
+        return false; //TODO: exception?
     }
 
     @Override
