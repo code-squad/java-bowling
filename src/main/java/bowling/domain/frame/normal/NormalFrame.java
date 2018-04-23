@@ -22,7 +22,7 @@ public class NormalFrame implements Frame {
         if (frameNumber == ONE_BEFORE_LAST) {
             return new LastFrame();
         }
-        return new NormalFrame(frameNumber + 1);
+        return new NormalFrame(++frameNumber);
     }
 
     @Override
@@ -60,16 +60,23 @@ public class NormalFrame implements Frame {
 
     @Override
     public boolean isLast() {
+        if (status.isComplete()) {
+            return nextFrame.isLast();
+        }
         return false;
     }
 
     @Override
     public String convertStatusToPrintable() {
-        return Formatter.formatFrame(status.toString()) + "|" + nextFrame.convertStatusToPrintable();
+        return Formatter.formatFrame(status.toString())
+                + "|"
+                + nextFrame.convertStatusToPrintable();
     }
 
     @Override
     public String convertScoreToPrintable() {
-        return Formatter.formatFrame(score.toString()) + "|" + nextFrame.convertScoreToPrintable();
+        return Formatter.formatFrame(score.toString())
+                + "|"
+                + nextFrame.convertScoreToPrintable();
     }
 }
