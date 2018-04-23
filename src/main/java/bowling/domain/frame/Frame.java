@@ -7,7 +7,7 @@ public interface Frame {
 
     Frame bowl(int pins);
 
-    boolean calculateScore(int accumulative);
+    String calculateScore(int accumulative);
 
     boolean calculateAdditionalScore(Score score);
 
@@ -17,5 +17,5 @@ public interface Frame {
 
     String convertStatusToPrintable();
 
-    String convertScoreToPrintable();
+//    String convertScoreToPrintable();
 }

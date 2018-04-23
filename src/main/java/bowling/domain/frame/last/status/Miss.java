@@ -1,9 +1,9 @@
 package bowling.domain.frame.last.status;
 
-public class Miss implements Status {
+class Miss implements Status {
     private final int pins;
 
-    public Miss(int pins) {
+    Miss(int pins) {
         this.pins = pins;
     }
 

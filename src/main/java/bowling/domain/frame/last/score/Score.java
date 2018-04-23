@@ -1,5 +1,7 @@
 package bowling.domain.frame.last.score;
 
+import bowling.domain.util.Formatter;
+
 public class Score {
     private int accumulativeScore;
     private final int score;
@@ -29,8 +31,8 @@ public class Score {
     @Override
     public String toString() {
         if (readyForCalc) {
-            return String.valueOf(calculateTotal());
+            return Formatter.formatFrame(calculateTotal() + "");
         }
-        return "";
+        return Formatter.formatFrame("");
     }
 }

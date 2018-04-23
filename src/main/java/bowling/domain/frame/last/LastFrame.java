@@ -20,10 +20,10 @@ public class LastFrame implements Frame {
     }
 
     @Override
-    public boolean calculateScore(int accumulative) { //TODO: Exception for frame number = 8
+    public String calculateScore(int accumulative) { //TODO: Exception for frame number = 8
         score = status.createScore();
         score.accumulateScore(accumulative);
-        return true;
+        return score.toString() + "|";
     }
 
     @Override
@@ -45,9 +45,9 @@ public class LastFrame implements Frame {
     public String convertStatusToPrintable() {
         return Formatter.formatFrame(status.toString()) + "|";
     }
-
-    @Override
-    public String convertScoreToPrintable() {
-        return Formatter.formatFrame(score.toString()) + "|";
-    }
+//
+//    @Override
+//    public String convertScoreToPrintable() {
+//        return Formatter.formatFrame(score.toString()) + "|";
+//    }
 }

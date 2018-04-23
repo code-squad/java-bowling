@@ -2,10 +2,10 @@ package bowling.domain.frame.normal.status;
 
 import bowling.domain.frame.normal.score.Score;
 
-public class PlayedOnce extends Incomplete {
+class PlayedOnce extends Incomplete {
     private final int first;
 
-    public PlayedOnce(int pins) {
+    PlayedOnce(int pins) {
         this.first = pins;
     }
 

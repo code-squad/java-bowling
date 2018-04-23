@@ -2,7 +2,7 @@ package bowling.domain.frame.normal.status;
 
 import bowling.domain.frame.normal.score.Score;
 
-public class Strike extends Complete {
+class Strike extends Complete {
 
     @Override
     public Status bowl(int pins) {

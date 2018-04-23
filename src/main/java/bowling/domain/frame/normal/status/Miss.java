@@ -2,11 +2,11 @@ package bowling.domain.frame.normal.status;
 
 import bowling.domain.frame.normal.score.Score;
 
-public class Miss extends Complete {
+class Miss extends Complete {
     private final int first;
     private final int second;
 
-    public Miss(int first, int pins) {
+    Miss(int first, int pins) {
         this.first = first;
         this.second = pins;
     }

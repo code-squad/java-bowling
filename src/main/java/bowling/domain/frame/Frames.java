@@ -1,6 +1,10 @@
 package bowling.domain.frame;
 
 import bowling.domain.frame.normal.NormalFrame;
+import bowling.domain.frame.normal.score.Score;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Frames {
     private static final int FIRST = 1;
@@ -16,7 +20,6 @@ public class Frames {
 
     public void bowl(int pins) {
         Frame newFrame = frames.bowl(pins);
-        frames.calculateScore(INITIAL);
         if (newFrame != null) {
             currentFrameNumber++;
         }
@@ -35,6 +38,6 @@ public class Frames {
     }
 
     public String convertScoreToPrintable() {
-        return frames.convertScoreToPrintable();
+        return frames.calculateScore(INITIAL);
     }
 }

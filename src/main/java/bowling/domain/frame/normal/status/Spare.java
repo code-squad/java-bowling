@@ -2,11 +2,11 @@ package bowling.domain.frame.normal.status;
 
 import bowling.domain.frame.normal.score.Score;
 
-public class Spare extends Complete {
+class Spare extends Complete {
     private final int first;
     private final int second;
 
-    public Spare(int first, int pins) {
+    Spare(int first, int pins) {
         this.first = first;
         this.second = pins;
     }

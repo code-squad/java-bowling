@@ -1,9 +1,9 @@
 package bowling.domain.frame.last.status;
 
-public class Spare implements Status {
+class Spare implements Status {
     private final int pins;
 
-    public Spare(int pins) {
+    Spare(int pins) {
         this.pins = pins;
     }
 

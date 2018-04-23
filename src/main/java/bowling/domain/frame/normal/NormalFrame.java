@@ -10,12 +10,11 @@ import bowling.domain.util.Formatter;
 public class NormalFrame implements Frame {
     private Frame nextFrame;
     private Status status;
-    private Score score;
+
 
     public NormalFrame(int frameNumber) {
         this.nextFrame = createNextFrame(frameNumber);
         this.status = new NotPlayed();
-        this.score = Score.ofNotPlayed();
     }
 
     private Frame createNextFrame(int frameNumber) {
@@ -36,12 +35,11 @@ public class NormalFrame implements Frame {
     }
 
     @Override
-    public boolean calculateScore(int accumulative) { //TODO: Exception for frame number = 8
-        score = status.createScore();
+    public String calculateScore(int accumulative) { //TODO: Exception for frame number = 8
+        Score score = status.createScore();
         score.accumulateScore(accumulative);
         nextFrame.calculateAdditionalScore(score);
-        nextFrame.calculateScore(score.calculateTotal());
-        return true; //TODO: change to void?
+        return score.toString() + "|" + nextFrame.calculateScore(score.calculateTotal());
     }
 
     @Override
@@ -71,12 +69,5 @@ public class NormalFrame implements Frame {
         return Formatter.formatFrame(status.toString())
                 + "|"
                 + nextFrame.convertStatusToPrintable();
-    }
-
-    @Override
-    public String convertScoreToPrintable() {
-        return Formatter.formatFrame(score.toString())
-                + "|"
-                + nextFrame.convertScoreToPrintable();
     }
 }

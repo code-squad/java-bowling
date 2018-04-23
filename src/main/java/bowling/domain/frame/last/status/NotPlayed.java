@@ -1,6 +1,6 @@
 package bowling.domain.frame.last.status;
 
-public class NotPlayed implements Status {
+class NotPlayed implements Status {
 
     @Override
     public Status bowl(int pins) {
