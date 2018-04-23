@@ -13,8 +13,7 @@ public class Main {
 
     private static String getUserName() {
         try {
-            String name = UserPrompt.promptUserForName(); //TODO: 유효성 검사
-            return name;
+            return UserPrompt.promptUserForName();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return getUserName();
@@ -23,9 +22,13 @@ public class Main {
 
     private static void startBowl(Player player) {
         while (!player.isDone()) {
-            int pins = UserPrompt.promptUserForBowl(player.getCurrentFrameNumber()); //TODO: 유효성 검사 (프레임 안에서)
-            player.bowl(pins);
-            ResultView.printScoreBoard(player);
+            try {
+                int pins = UserPrompt.promptUserForBowl(player.getCurrentFrameNumber());
+                player.bowl(pins);
+                ResultView.printScoreBoard(player);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

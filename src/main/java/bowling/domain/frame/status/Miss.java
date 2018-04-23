@@ -1,14 +1,15 @@
 package bowling.domain.frame.status;
 
 import bowling.domain.frame.score.Score;
+import bowling.domain.frame.status.pins.Pins;
 
 class Miss extends Complete {
-    private final int first;
-    private final int second;
+    private final Pins first;
+    private final Pins second;
 
     Miss(int first, int pins) {
-        this.first = first;
-        this.second = pins;
+        this.first = Pins.ofFirstBowl(first);
+        this.second = Pins.ofSecondBowl(first, pins);
     }
 
     @Override
@@ -18,17 +19,17 @@ class Miss extends Complete {
 
     @Override
     public Score createScore() {
-        return Score.ofMiss(first + second);
+        return Score.ofMiss(first.getPins() + second.getPins());
     }
 
     @Override
     public void updateScore(Score score) {
         if (score.onlyFirstBowlNeeded()) {
-            score.bowl(first);
+            score.bowl(first.getPins());
             return;
         }
-        score.bowl(first);
-        score.bowl(second);
+        score.bowl(first.getPins());
+        score.bowl(second.getPins());
     }
 
     @Override
@@ -43,6 +44,6 @@ class Miss extends Complete {
 
     @Override
     public String toString() {
-        return first+ "|" + second;
+        return first.getPins() + "|" + second.getPins();
     }
 }
