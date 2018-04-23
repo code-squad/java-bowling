@@ -1,22 +1,36 @@
 package status;
 
-import game.Pin;
-
-public class Strike extends Status {
-    public Strike(Pin firstPin) {
-        super(firstPin);
-    }
-
-    public boolean checkStrike() {
-        if (getFirstPin().checkFinish() && getSecondPin() == null) {
-            System.out.println("스트라이크");
-            return true;
-        }
-        return false;
+public class Strike implements State {
+    @Override
+    public String displayText() {
+        return "|" + "X";
     }
 
     @Override
-    public String toString() {
-        return "  X   ";
+    public State bowl(int first) {
+        throw new IllegalArgumentException();
     }
+
+    @Override
+    public boolean isFinish() {
+        return true;
+    }
+
+
+//    public Strike(Pin firstPin) {
+//        super(firstPin);
+//    }
+//
+//    public boolean checkStrike() {
+//        if (getFirstPin().checkFinish() && getSecondPin() == null) {
+//            System.out.println("스트라이크");
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "  X   ";
+//    }
 }
