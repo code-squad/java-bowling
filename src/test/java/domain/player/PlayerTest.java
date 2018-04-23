@@ -1,8 +1,11 @@
-package domain;
+package domain.player;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class PlayerTest {
 
@@ -24,5 +27,11 @@ public class PlayerTest {
     @Test
     public void 영어이름() {
         new Player("pjh");
+    }
+
+    @Test
+    public void 중복된이름체크() {
+        List<Player> players = Arrays.asList(new Player("aaa"), new Player("bbb"), new Player("aaa"));
+        assertTrue(Player.isDuplicateName(players));
     }
 }

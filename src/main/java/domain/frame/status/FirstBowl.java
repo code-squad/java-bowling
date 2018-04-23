@@ -2,35 +2,41 @@ package domain.frame.status;
 
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
-import domain.frame.result.ScoreMessage;
 
-import static domain.frame.result.ScoreMessage.getMessage;
+import static domain.frame.result.ScoreMessage.convertMessage;
 
-public class Strike implements FrameStatus {
+public class FirstBowl implements FrameStatus {
     private Pin pin;
 
-    public Strike(Pin newPin) {
+    public FirstBowl(Pin newPin) {
         pin = newPin;
     }
 
     @Override
     public FrameStatus roll(Pin newPin) throws IllegalArgumentException {
-        return this;
+        if (pin.isOverRecordPin(newPin)) {
+            throw new IllegalArgumentException(Pin.MAX + "개 초과 기록할 수 없습니다");
+        }
+
+        if (pin.isMax(newPin)) {
+            return new Spare(pin, newPin);
+        }
+        return new Miss(pin, newPin);
     }
 
     @Override
     public String getResultMessage() {
-        return getMessage(ScoreMessage.TEN);
+        return convertMessage(pin.getNum());
     }
 
     @Override
     public boolean isFinish() {
-        return true;
+        return false;
     }
 
     @Override
     public Score getScore() {
-        return new Score(pin.getNum(), 2);
+        return new Score(pin.getNum());
     }
 
     @Override

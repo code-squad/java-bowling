@@ -2,40 +2,34 @@ package domain.frame.status;
 
 import domain.frame.pin.Pin;
 import domain.frame.result.Score;
-import domain.frame.result.ScoreMessage;
 
-import static domain.frame.result.ScoreMessage.getMessage;
-
-public class Strike implements FrameStatus {
-    private Pin pin;
-
-    public Strike(Pin newPin) {
-        pin = newPin;
-    }
+public class Ready implements FrameStatus {
 
     @Override
     public FrameStatus roll(Pin newPin) throws IllegalArgumentException {
-        return this;
+        if (newPin.isMax()) {
+            return new Strike(newPin);
+        }
+        return new FirstBowl(newPin);
     }
 
     @Override
     public String getResultMessage() {
-        return getMessage(ScoreMessage.TEN);
+        return "";
     }
 
     @Override
     public boolean isFinish() {
-        return true;
+        return false;
     }
 
     @Override
     public Score getScore() {
-        return new Score(pin.getNum(), 2);
+        return new Score(0, 0);
     }
 
     @Override
     public Score addBonusScore(Score otherFrameScore) {
-        otherFrameScore.addBonusScore(pin);
         return otherFrameScore;
     }
 }

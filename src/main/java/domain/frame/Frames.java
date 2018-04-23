@@ -1,38 +1,43 @@
 package domain.frame;
 
+import domain.frame.result.Board;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Frames {
-    public static final int LIMIT = 10;
     private List<Frame> frames = new ArrayList<>();
-    private Frame currentFrame;
 
     public Frames() {
-        currentFrame = Frame.of(1);
+        frames.add(Frame.of(1));
     }
 
     public void roll(int num) throws IllegalArgumentException {
-        if (!frames.contains(currentFrame)) {
-            frames.add(currentFrame);
-        }
-
-        Frame frame = currentFrame.roll(num);
-        // 보너스 요청 자리
-        if (currentFrame.isDiffFrame(frame)) {
-            currentFrame = frame;
-        }
+        checkFrameAdd(getCurrentFrame().roll(num));
     }
 
-    public static boolean isLimit(int frameNum) {
-        return frameNum == LIMIT;
+    private void checkFrameAdd(Frame resultFrame) {
+        if (getCurrentFrame() != resultFrame) {
+            frames.add(resultFrame);
+        }
     }
 
     public boolean isFinish() {
+        Frame currentFrame = getCurrentFrame();
         return currentFrame.isLast() && currentFrame.isFinish();
     }
 
-    public int getFrameNum() {
-        return currentFrame.getFrameNum();
+    public Board getBoard() {
+        Frame firstFrame = frames.get(0);
+        return firstFrame.getBoard();
+    }
+
+    private Frame getCurrentFrame() {
+        return frames.get(frames.size() - 1);
+    }
+
+    public boolean isFinishFrame(int frameNum) {
+        int frameIdx = frameNum - 1;
+        return frames.get(frameIdx).isFinish();
     }
 }

@@ -1,59 +1,32 @@
 package domain.frame;
 
-public abstract class Frame {
-    public static final int REGULAR_COUNT = 2;
-    public final int frameNum;
-    private FrameScore score;
+import domain.frame.result.Board;
+import domain.frame.result.FrameResult;
+import domain.frame.result.Score;
 
-    public Frame(int frameNum) {
-        this.frameNum = frameNum;
-        score = new FrameScore(REGULAR_COUNT);
-    }
+public interface Frame {
+    int CANNOT_CALC_SCORE_STATE = -1;
 
-    public static Frame of(int frameNum) {
-        if (Frames.isLimit(frameNum)) {
-            return new LastFrame(frameNum);
+    static Frame of(int frameNum) {
+        if (frameNum == Board.LIMIT) {
+            return new LastFrame();
         }
         return new NormalFrame(frameNum);
     }
 
-    public Frame roll(int num) throws IllegalArgumentException {
-        return doRecord(score, num);
-    }
+    Frame roll(int num) throws IllegalArgumentException;
 
-    public void bonusRoll(int num) throws IllegalArgumentException {
-        if (score.isRegularFinish() && score.isBonusFinish()) {
-            score.roll(num);
-        }
-    }
+    boolean isLast();
 
-    public FrameScore getScore() throws RuntimeException {
-        return score.get();
-    }
+    int getFrameNum();
 
-    public String getScoreMessage() {
-        return score.getScoreMessage();
-    }
+    boolean isFinish();
 
-    abstract Frame doRecord(FrameScore score, int num) throws IllegalArgumentException;
+    Board getBoard();
 
-    public boolean isFinish() {
-        return doCheckFinish(score);
-    }
+    void addFrameResult(Board board);
 
-    public boolean isBonusFinish() {
-        return score.isBonusFinish();
-    }
+    FrameResult getResult();
 
-    abstract boolean doCheckFinish(FrameScore score);
-
-    public abstract boolean isLast();
-
-    public int getFrameNum() {
-        return frameNum;
-    }
-
-    public boolean isDiffFrame(Frame ohterFrame) {
-        return this != ohterFrame;
-    }
+    Score addRemainingPin(Score beforeFrameScore);
 }

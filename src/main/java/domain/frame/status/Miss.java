@@ -1,24 +1,29 @@
 package domain.frame.status;
 
-import domain.frame.Pin;
-import domain.frame.ScoreMessage;
+import domain.frame.pin.Pin;
+import domain.frame.result.Score;
+import domain.frame.result.ScoreMessage;
 
-import java.util.List;
+import static domain.frame.result.ScoreMessage.convertMessage;
+import static domain.frame.result.ScoreMessage.getMessage;
 
-public class Miss extends FrameStatus {
-    private static Miss miss = new Miss();
+public class Miss implements FrameStatus {
+    private Pin pin1;
+    private Pin pin2;
 
-    private Miss() {
-
-    }
-
-    public static Miss of() {
-        return miss;
+    public Miss(Pin pin, Pin newPin) {
+        pin1 = pin;
+        pin2 = newPin;
     }
 
     @Override
-    public String convertScore(List<Pin> pins) {
-        return ScoreMessage.convertMessage(pins.get(0).getNum()) + ScoreMessage.getMessage(ScoreMessage.MODIFIER) + ScoreMessage.convertMessage(pins.get(1).getNum());
+    public FrameStatus roll(Pin newPin) throws IllegalArgumentException {
+        return this;
+    }
+
+    @Override
+    public String getResultMessage() {
+        return convertMessage(pin1.getNum()) + getMessage(ScoreMessage.MODIFIER) + convertMessage(pin2.getNum());
     }
 
     @Override
@@ -27,17 +32,16 @@ public class Miss extends FrameStatus {
     }
 
     @Override
-    public boolean isBonus() {
-        return false;
+    public Score getScore() {
+        return new Score(pin1.getTotal(pin2), 0);
     }
 
     @Override
-    public boolean isStrike() {
-        return false;
-    }
-
-    @Override
-    public boolean isRightThrewNum(int threwNum) {
-        return threwNum == 2;
+    public Score addBonusScore(Score otherFrameScore) {
+        otherFrameScore.addBonusScore(pin1);
+        if (otherFrameScore.hasBonusCount()) {
+            otherFrameScore.addBonusScore(pin2);
+        }
+        return otherFrameScore;
     }
 }
