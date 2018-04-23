@@ -1,17 +1,17 @@
 package bowling.domain.frame.status.last;
 
-import bowling.domain.frame.last.status.Statuses;
+import bowling.domain.frame.status.LastFrameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class StatusesTest {
-    private Statuses status;
+public class LastFrameStatusTest {
+    private LastFrameStatus status;
 
     @Before
     public void setUp() throws Exception {
-        status = new Statuses();
+        status = new LastFrameStatus();
     }
 
     @Test

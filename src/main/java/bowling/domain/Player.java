@@ -1,19 +1,19 @@
 package bowling.domain;
 
-import bowling.domain.frame.Frames;
+import bowling.domain.frame.frame;
+import bowling.domain.frame.NormalFrame;
 import bowling.domain.util.Formatter;
 
 public class Player implements Printable {
+    private static final int FIRST = 1;
+    private static final int INITIAL = 0;
+
     private final String name;
-    private final Frames frames;
+    private final frame frames;
 
     public Player(String name) {
         this.name = name;
-        this.frames = new Frames();
-    }
-
-    public int getCurrentFrameNumber() {
-        return frames.getCurrentFrameNumber();
+        this.frames = new NormalFrame(FIRST);
     }
 
     public void bowl(int pins) {
@@ -21,7 +21,11 @@ public class Player implements Printable {
     }
 
     public boolean isDone() {
-        return frames.isDone();
+        return frames.isLast();
+    }
+
+    public int getCurrentFrameNumber() {
+        return frames.getFrameNumber();
     }
 
     @Override
@@ -29,7 +33,7 @@ public class Player implements Printable {
         return "|"
                 + Formatter.formatFrame(name)
                 + "|"
-                + frames.convertStatusToPrintable();
+                + frames.getPrintableStatus();
     }
 
     @Override
@@ -37,6 +41,6 @@ public class Player implements Printable {
         return "|"
                 + Formatter.formatFrame("")
                 + "|"
-                + frames.convertScoreToPrintable();
+                + frames.getPrintableScore(INITIAL);
     }
 }

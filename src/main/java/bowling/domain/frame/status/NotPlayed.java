@@ -1,6 +1,6 @@
-package bowling.domain.frame.normal.status;
+package bowling.domain.frame.status;
 
-import bowling.domain.frame.normal.score.Score;
+import bowling.domain.frame.score.Score;
 
 public class NotPlayed extends Incomplete {
 
@@ -10,6 +10,11 @@ public class NotPlayed extends Incomplete {
             return new Strike();
         }
         return new PlayedOnce(pins);
+    }
+
+    @Override
+    public boolean isPlayed() {
+        return false;
     }
 
     @Override

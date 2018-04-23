@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class UserPrompt {
 
-    public static String takeInput() {
+    private static String takeInput() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }

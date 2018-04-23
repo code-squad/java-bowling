@@ -1,6 +1,6 @@
-package bowling.domain.frame.normal.status;
+package bowling.domain.frame.status;
 
-import bowling.domain.frame.normal.score.Score;
+import bowling.domain.frame.score.Score;
 
 abstract class Complete implements Status {
 
@@ -13,10 +13,18 @@ abstract class Complete implements Status {
     }
 
     @Override
+    public boolean isPlayed() {
+        return true;
+    }
+
+    @Override
     public abstract boolean updateScore(Score score);
 
     @Override
     public abstract boolean isStrike();
+
+    @Override
+    public abstract boolean isSpare();
 
     @Override
     public abstract String toString();

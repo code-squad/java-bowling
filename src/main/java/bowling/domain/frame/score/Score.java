@@ -1,4 +1,4 @@
-package bowling.domain.frame.normal.score;
+package bowling.domain.frame.score;
 
 import bowling.domain.util.Formatter;
 

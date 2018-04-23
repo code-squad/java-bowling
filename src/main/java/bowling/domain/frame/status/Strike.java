@@ -1,6 +1,6 @@
-package bowling.domain.frame.normal.status;
+package bowling.domain.frame.status;
 
-import bowling.domain.frame.normal.score.Score;
+import bowling.domain.frame.score.Score;
 
 class Strike extends Complete {
 
@@ -23,6 +23,11 @@ class Strike extends Complete {
     @Override
     public boolean isStrike() {
         return true;
+    }
+
+    @Override
+    public boolean isSpare() {
+        return false;
     }
 
     @Override
