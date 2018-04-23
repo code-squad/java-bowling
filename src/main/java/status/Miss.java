@@ -11,7 +11,7 @@ public class Miss implements State {
 
     @Override
     public String displayText() {
-        return "|" + String.valueOf(second);
+        return "|" + String.valueOf(second) + " |";
     }
 
     @Override

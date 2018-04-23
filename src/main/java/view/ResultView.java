@@ -41,7 +41,6 @@ public class ResultView {
         System.out.print("|  " + name +" |");
         for (State state : states) {
             System.out.print(state.displayText());
-//            System.out.print("|");
         }
     }
 }

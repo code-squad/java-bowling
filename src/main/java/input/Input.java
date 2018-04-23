@@ -9,7 +9,7 @@ public class Input {
         return scanner.next();
     }
 
-    public Integer inputNum(int i) {
+    public static Integer inputNum(int i) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(i + "프레임 투구 : ");
         return scanner.nextInt();
