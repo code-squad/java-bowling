@@ -1,6 +1,6 @@
 //package frame;
 //
-//import frame.Frame;
+//import frame.Game;
 //import org.junit.Before;
 //import org.junit.Test;
 //import status.Status;
@@ -9,11 +9,11 @@
 //import static org.junit.Assert.*;
 //
 //public class FrameTest {
-//    private Frame frame;
+//    private Game frame;
 //
 //    @Before
 //    public void setUp() {
-//        frame = new Frame();
+//        frame = new Game();
 //    }
 //
 //    @Test

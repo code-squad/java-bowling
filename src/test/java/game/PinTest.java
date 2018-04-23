@@ -1,18 +1,18 @@
 //package game;
 //
-//import frame.Frame;
+//import frame.Game;
 //import org.junit.Before;
 //import org.junit.Test;
 //import static org.junit.Assert.*;
 //
 //public class PinTest {
 //    private Pin pin;
-//    private Frame frame;
+//    private Game frame;
 //
 //    @Before
 //    public void setUp() {
 //        pin = new Pin(0);
-//        frame = new Frame();
+//        frame = new Game();
 //    }
 //
 //    @Test(expected = IllegalArgumentException.class)

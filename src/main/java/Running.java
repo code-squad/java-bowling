@@ -7,11 +7,11 @@
 //        game.match();
 //    }
 //}
-import game.Game2;
+import game.Game;
 
 public class Running {
     public static void main(String[] args) {
-        Game2 game = new Game2();
+        Game game = new Game();
         game.match();
     }
 }

@@ -9,7 +9,7 @@
 //
 //    @Before
 //    public void setUp() {
-//       Frame frame = new Frame();
+//       Game frame = new Game();
 //       frame.shoot(3);
 //       frame.shoot(7);
 //       result = new Result(frame.checkStatus(), frame);
