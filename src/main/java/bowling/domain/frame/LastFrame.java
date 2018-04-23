@@ -30,10 +30,9 @@ public class LastFrame implements frame {
     }
 
     @Override
-    public String getPrintableScore(int accumulative) {
+    public String getPrintableScore(int total) {
         Score score = status.createScore();
-        score.accumulateScore(accumulative);
-        return score.toString() + "|";
+        return score.getScore(total) + "|";
     }
 
     @Override

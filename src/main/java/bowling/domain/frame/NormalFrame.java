@@ -55,13 +55,12 @@ public class NormalFrame implements frame {
     }
 
     @Override
-    public String getPrintableScore(int accumulative) {
+    public String getPrintableScore(int total) {
         Score score = status.createScore();
-        score.accumulateScore(accumulative);
         nextFrame.calculateAdditionalScore(score);
-        return score.toString()
+        return score.getScore(total)
                 + "|"
-                + nextFrame.getPrintableScore(score.calculateTotal());
+                + nextFrame.getPrintableScore(score.calculateNewTotal(total));
     }
 
     @Override

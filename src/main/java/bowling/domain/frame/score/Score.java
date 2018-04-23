@@ -3,7 +3,6 @@ package bowling.domain.frame.score;
 import bowling.domain.util.Formatter;
 
 public class Score {
-    private int accumulativeScore;
     private int score;
     private int count;
 
@@ -12,12 +11,8 @@ public class Score {
         this.count = count;
     }
 
-    public void accumulateScore(int score) {
-        accumulativeScore = score;
-    }
-
-    public int calculateTotal() {
-        return accumulativeScore + score;
+    public int calculateNewTotal(int total) {
+        return total + score;
     }
 
     public static Score ofStrike() {
@@ -57,11 +52,10 @@ public class Score {
         return count == 2;
     }
 
-    @Override
-    public String toString() {
+    public String getScore(int total) {
         if (count != 0) {
             return Formatter.formatFrame("");
         }
-        return Formatter.formatFrame(calculateTotal() + "");
+        return Formatter.formatFrame(calculateNewTotal(total) + "");
     }
 }
