@@ -4,6 +4,8 @@ import frame.Frame;
 import input.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import status.Ready;
+import status.Spare;
 import status.State;
 import view.ResultView;
 
@@ -35,5 +37,18 @@ public class Game {
         states.add(state);
         ResultView.upperBar(states, name, i);
         return states;
+    }
+
+    public List<State> runLastFrame(String name) {
+        Frame frame = new Frame();
+        State state = frame.bowl(Input.inputNum(10));
+        states.add(state);
+        ResultView.upperBar(states, name, 10);
+        if (state.isFinish()) {
+            state = new Ready();
+            state.bowl(Input.inputNum(10));
+            states.add(state);
+            ResultView.upperBar(states, name, 10);
+        }
     }
 }

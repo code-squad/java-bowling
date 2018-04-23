@@ -1,39 +1,44 @@
 package status;
 
 import frame.Frame;
+import static org.junit.Assert.*;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
 public class StateTest {
+    private Frame frame;
+
+    @Before
+    public void setUp() {
+        frame = new Frame();
+    }
+
     @Test
     public void 스트라이크() {
-        Frame frame = new Frame();
-        String result = frame.bowl(10).displayText();
-        Assert.assertThat("X", is(result));
+        State strike = frame.bowl(10);
+        assertEquals(strike instanceof Strike, true);
     }
 
     @Test
     public void ready테스트() {
-        Frame frame = new Frame();
         String result = frame.state.displayText();
         Assert.assertThat(null, is(result));
     }
 
     @Test
     public void 스페어테스트() {
-        Frame frame = new Frame();
         frame.bowl(8);
-        String result = frame.state.bowl(2).displayText();
-        Assert.assertThat("/", is(result));
+        State spare = frame.state.bowl(2);
+        assertEquals(spare instanceof Spare, true);
     }
 
     @Test
     public void 미싱테스트() {
-        Frame frame = new Frame();
         frame.bowl(5);
-        String result = frame.state.bowl(4).displayText();
-        Assert.assertThat("5|4", is(result));
+        State miss = frame.state.bowl(4);
+        assertEquals(miss instanceof Miss, true);
     }
 }

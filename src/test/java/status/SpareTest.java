@@ -1,22 +1,31 @@
-//package status;
-//
-//import game.Pin;
-//import org.junit.Before;
-//import org.junit.Test;
-//import static org.junit.Assert.*;
-//
-//public class SpareTest {
-//    private Spare spare;
-//
-//    @Before
-//    public void setUp() {
-//        spare = new Spare(new Pin(3), new Pin(7));
-//    }
-//
-//    @Test
-//    public void 스페어확인() {
-//        boolean result = spare.spareCheck();
-//        assertTrue(result);
-//    }
-//}
-//
+package status;
+
+import frame.Frame;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class SpareTest {
+    private Frame frame;
+
+    @Before
+    public void setUp() {
+        frame = new Frame();
+    }
+
+    @Test
+    public void 스페어확인() {
+        frame.bowl(4);
+        State spare = frame.bowl(6);
+        assertEquals(spare instanceof Spare, true);
+    }
+
+    @Test
+    public void 출력확인() {
+        frame.bowl(4);
+        State spare = frame.bowl(6);
+        String result = spare.displayText();
+        assertEquals("|" + "/ |", result);
+    }
+}
+
