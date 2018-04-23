@@ -18,7 +18,7 @@ abstract class Incomplete implements Status {
     public abstract boolean isPlayed();
 
     @Override
-    public abstract boolean updateScore(Score score);
+    public abstract void updateScore(Score score);
 
     @Override
     public boolean isStrike() {

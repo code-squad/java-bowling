@@ -18,7 +18,7 @@ abstract class Complete implements Status {
     }
 
     @Override
-    public abstract boolean updateScore(Score score);
+    public abstract void updateScore(Score score);
 
     @Override
     public abstract boolean isStrike();

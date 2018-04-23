@@ -13,7 +13,7 @@ public interface Status {
 
     Score createScore();
 
-    boolean updateScore(Score score);
+    void updateScore(Score score);
 
     boolean isStrike();
 

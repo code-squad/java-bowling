@@ -18,12 +18,11 @@ public class NotPlayed extends Incomplete {
     }
 
     @Override
-    public boolean updateScore(Score score) {
-        return false; //TODO: exception?
+    public void updateScore(Score score) {
     }
 
     @Override
     public String toString() {
-        return " ";
+        return "";
     }
 }

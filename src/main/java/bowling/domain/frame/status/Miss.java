@@ -22,14 +22,13 @@ class Miss extends Complete {
     }
 
     @Override
-    public boolean updateScore(Score score) {
+    public void updateScore(Score score) {
         if (score.onlyFirstBowlNeeded()) {
             score.bowl(first);
-            return true;
+            return;
         }
         score.bowl(first);
         score.bowl(second);
-        return true;
     }
 
     @Override

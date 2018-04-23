@@ -3,6 +3,12 @@ package bowling.domain.frame.score;
 import bowling.domain.util.Formatter;
 
 public class Score {
+    private static final int TWO_BOWLS_AWAY = 2;
+    private static final int ONE_BOWL_AWAY = 1;
+    private static final int READY_FOR_DISPLAY = 0;
+    private static final int MAX = 10;
+    private static final int NONE = 0;
+
     private int score;
     private int count;
 
@@ -16,46 +22,48 @@ public class Score {
     }
 
     public static Score ofStrike() {
-        return new Score(10, 2);
+        return new Score(MAX, TWO_BOWLS_AWAY);
     }
 
     public static Score ofSpare() {
-        return new Score(10, 1);
+        return new Score(MAX, ONE_BOWL_AWAY);
     }
 
     public static Score ofMiss(int score) {
-        return new Score(score, 0);
+        return new Score(score, READY_FOR_DISPLAY);
     }
 
     public static Score ofNotPlayed() {
-        return new Score(0, -1);
+        return new Score(NONE, -1);
     }
 
     public static Score ofPlayedOnce(int score) {
-        return new Score(score, 1);
+        return new Score(score, ONE_BOWL_AWAY);
     }
 
-    public boolean bowl(int score) {
-        if (count != 0) {
+    private boolean isReadyForDisplay() {
+        return count == READY_FOR_DISPLAY;
+    }
+
+    public void bowl(int score) {
+        if (!isReadyForDisplay()) {
             this.score += score;
             count--;
-            return true;
         }
-        return false;
     }
 
     public boolean onlyFirstBowlNeeded() {
-        return count == 1;
+        return count == ONE_BOWL_AWAY;
     }
 
     public boolean twoMoreBowlsNeeded() {
-        return count == 2;
+        return count == TWO_BOWLS_AWAY;
     }
 
     public String getScore(int total) {
-        if (count != 0) {
-            return Formatter.formatFrame("");
+        if (isReadyForDisplay()) {
+            return Formatter.formatFrame(calculateNewTotal(total) + "");
         }
-        return Formatter.formatFrame(calculateNewTotal(total) + "");
+        return Formatter.formatFrame("");
     }
 }
