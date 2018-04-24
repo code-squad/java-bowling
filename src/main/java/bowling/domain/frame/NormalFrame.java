@@ -5,9 +5,9 @@ import bowling.domain.frame.status.NotPlayed;
 import bowling.domain.frame.status.Status;
 import bowling.domain.util.Formatter;
 
-public class NormalFrame implements frame {
+public class NormalFrame implements Frame {
     private final int frameNumber;
-    private final frame nextFrame;
+    private final Frame nextFrame;
     private Status status;
 
     public NormalFrame(int frameNumber) {
@@ -16,7 +16,7 @@ public class NormalFrame implements frame {
         this.status = new NotPlayed();
     }
 
-    private frame createNextFrame() {
+    private Frame createNextFrame() {
         if (frameNumber == ONE_BEFORE_LAST) {
             return new LastFrame();
         }

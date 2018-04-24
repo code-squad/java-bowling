@@ -1,6 +1,6 @@
 package bowling.domain;
 
-import bowling.domain.frame.frame;
+import bowling.domain.frame.Frame;
 import bowling.domain.frame.NormalFrame;
 import bowling.domain.util.Formatter;
 
@@ -9,7 +9,7 @@ public class Player implements Printable {
     private static final int INITIAL = 0;
 
     private final String name;
-    private final frame frames;
+    private final Frame frames;
 
     public Player(String name) {
         this.name = name;

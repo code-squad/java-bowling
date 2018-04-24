@@ -4,7 +4,7 @@ import bowling.domain.frame.status.LastFrameStatus;
 import bowling.domain.frame.score.Score;
 import bowling.domain.util.Formatter;
 
-public class LastFrame implements frame {
+public class LastFrame implements Frame {
     private static final int LAST = 10;
 
     private final LastFrameStatus status = new LastFrameStatus();
