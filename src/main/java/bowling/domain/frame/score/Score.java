@@ -41,7 +41,7 @@ public class Score {
         return new Score(score, ONE_BOWL_AWAY);
     }
 
-    private boolean isReadyForDisplay() {
+    public boolean isReadyForDisplay() {
         return count == READY_FOR_DISPLAY;
     }
 
@@ -52,11 +52,11 @@ public class Score {
         }
     }
 
-    public boolean onlyFirstBowlNeeded() {
+    public boolean isOneBowlAway() {
         return count == ONE_BOWL_AWAY;
     }
 
-    public boolean twoMoreBowlsNeeded() {
+    public boolean isTwoBowlsAway() {
         return count == TWO_BOWLS_AWAY;
     }
 

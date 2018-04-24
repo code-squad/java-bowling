@@ -36,7 +36,7 @@ public class LastFrameStatus {
     }
 
     public void updateScoresFromPreviousFrames(Score prevPrev) {
-        if (prevPrev.onlyFirstBowlNeeded()) {
+        if (prevPrev.isOneBowlAway()) {
             first.updateScore(prevPrev);
             return;
         }

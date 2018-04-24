@@ -1,49 +1,44 @@
 package bowling.domain.frame.score;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class ScoreTest {
+    private Score score;
 
-    @Before
-    public void setUp() throws Exception {
+    @Test
+    public void oneBowlAway_True_Spare() {
+        score = Score.ofSpare();
+        assertTrue(score.isOneBowlAway());
+    }
+
+    @Test
+    public void twoBowlsAway_Strike() {
+        score = Score.ofStrike();
+        assertTrue(score.isTwoBowlsAway());
+    }
+
+    @Test
+    public void bowl_readyForDisplay() {
+        score = Score.ofStrike();
+        score.bowl(8);
+        score.bowl(1);
+        assertTrue(score.isReadyForDisplay());
+    }
+
+    @Test
+    public void bowl_oneBowlAway() {
+        score = Score.ofStrike();
+        score.bowl(8);
+        assertTrue(score.isOneBowlAway());
     }
 
     @Test
     public void calculateNewTotal() {
-    }
-
-    @Test
-    public void ofStrike() {
-    }
-
-    @Test
-    public void ofSpare() {
-    }
-
-    @Test
-    public void ofMiss() {
-    }
-
-    @Test
-    public void ofNotPlayed() {
-    }
-
-    @Test
-    public void ofPlayedOnce() {
-    }
-
-    @Test
-    public void bowl() {
-    }
-
-    @Test
-    public void onlyFirstBowlNeeded() {
-    }
-
-    @Test
-    public void twoMoreBowlsNeeded() {
+        score = Score.ofStrike(); //10
+        score.bowl(5); //+5
+        score.bowl(3); //+3
+        assertEquals(28, score.calculateNewTotal(10)); //+10 = 28
     }
 }

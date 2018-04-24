@@ -24,7 +24,7 @@ class Spare extends Complete {
 
     @Override
     public void updateScore(Score score) {
-        if (score.onlyFirstBowlNeeded()) {
+        if (score.isOneBowlAway()) {
             score.bowl(first.getPins());
             return;
         }

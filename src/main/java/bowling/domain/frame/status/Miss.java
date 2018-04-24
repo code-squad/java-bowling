@@ -24,7 +24,7 @@ class Miss extends Complete {
 
     @Override
     public void updateScore(Score score) {
-        if (score.onlyFirstBowlNeeded()) {
+        if (score.isOneBowlAway()) {
             score.bowl(first.getPins());
             return;
         }
@@ -46,4 +46,5 @@ class Miss extends Complete {
     public String toString() {
         return first.getPins() + "|" + second.getPins();
     }
+
 }
