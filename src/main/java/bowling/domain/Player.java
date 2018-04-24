@@ -1,30 +1,46 @@
 package bowling.domain;
 
-import bowling.domain.Utils.Formatter;
-import bowling.domain.frame.Frames;
+import bowling.domain.frame.frame;
+import bowling.domain.frame.NormalFrame;
+import bowling.domain.util.Formatter;
 
-public class Player {
-    private final Frames frames = new Frames();
-    private final String playerName;
+public class Player implements Printable {
+    private static final int FIRST = 1;
+    private static final int INITIAL = 0;
 
-    public Player(String playerName) {
-        this.playerName = playerName;
+    private final String name;
+    private final frame frames;
+
+    public Player(String name) {
+        this.name = name;
+        this.frames = new NormalFrame(FIRST);
     }
 
-    public boolean throwBall(int frameNumber, int pinsKnocked) {
-        return frames.knockPins(frameNumber, pinsKnocked);
+    public void bowl(int pins) {
+        frames.bowl(pins);
     }
 
-    public boolean isStrike(int frameNumber) {
-        return frames.isStrike(frameNumber);
+    public boolean isDone() {
+        return frames.isLast();
     }
 
-    public boolean isSpare(int frameNumber) {
-        return frames.isSpare(frameNumber);
+    public int getCurrentFrameNumber() {
+        return frames.getFrameNumber();
     }
 
     @Override
-    public String toString() {
-        return "|" + Formatter.formatFrame("  " + playerName) + frames.toString();
+    public String convertStatusToPrintable() {
+        return "|"
+                + Formatter.formatFrame(name)
+                + "|"
+                + frames.getPrintableStatus();
+    }
+
+    @Override
+    public String convertScoreToPrintable() {
+        return "|"
+                + Formatter.formatFrame("")
+                + "|"
+                + frames.getPrintableScore(INITIAL);
     }
 }

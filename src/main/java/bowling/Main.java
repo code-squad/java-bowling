@@ -1,27 +1,34 @@
 package bowling;
 
-import bowling.view.BowlingGame;
 import bowling.domain.Player;
-import bowling.domain.Utils.Validator;
-
-import static bowling.view.Prompter.*;
+import bowling.view.ResultView;
+import bowling.view.UserPrompt;
 
 public class Main {
     public static void main(String[] args) {
-        Player player = getPlayer();
-        BowlingGame game = new BowlingGame(player);
-
-        game.startGame();
+        String name = getUserName();
+        Player player = new Player(name);
+        startBowl(player);
     }
 
-    private static Player getPlayer() {
+    private static String getUserName() {
         try {
-            String playerName = promptForName();
-            Validator.validateName(playerName);
-            return new Player(playerName);
+            return UserPrompt.promptUserForName();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getPlayer();
+            return getUserName();
+        }
+    }
+
+    private static void startBowl(Player player) {
+        while (!player.isDone()) {
+            try {
+                int pins = UserPrompt.promptUserForBowl(player.getCurrentFrameNumber());
+                player.bowl(pins);
+                ResultView.printScoreBoard(player);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

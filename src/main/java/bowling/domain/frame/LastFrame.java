@@ -1,38 +1,47 @@
 package bowling.domain.frame;
 
-import bowling.domain.score.BonusScore;
-import bowling.domain.score.Scores;
+import bowling.domain.frame.status.LastFrameStatus;
+import bowling.domain.frame.score.Score;
+import bowling.domain.util.Formatter;
 
-public class LastFrame implements Frame{
-    private Scores scores = new Scores();
-    private BonusScore bonusScore = new BonusScore();
+public class LastFrame implements frame {
+    private static final int LAST = 10;
 
-    public boolean knockPins(int pinsKnocked) {
-        if (!scores.firstThrowIsPlayed()) {
-            scores.updateFirstThrow(pinsKnocked);
-            return true;
-        }
-        if (!scores.secondThrowIsPlayed() && !scores.isStrike()) {
-            scores.updateSecondThrow(pinsKnocked);
-            return true;
-        }
-        if (!bonusScore.isPlayed()) {
-            bonusScore.updateScore(pinsKnocked);
-            return true;
-        }
-        return false;
-    }
+    private final LastFrameStatus status = new LastFrameStatus();
 
-    public boolean isStrike() {
-        return scores.isStrike();
-    }
-
-    public boolean isSpare() {
-        return scores.isSpare();
+    @Override
+    public int getFrameNumber() {
+        return LAST;
     }
 
     @Override
-    public String toString() {
-        return " " + scores.toString() + bonusScore.toString();
+    public void bowl(int pins) {
+        status.bowl(pins);
+    }
+
+    @Override
+    public boolean isLast() {
+        return status.isComplete();
+    }
+
+    @Override
+    public String getPrintableStatus() {
+        return Formatter.formatFrame(status.toString()) + "|";
+    }
+
+    @Override
+    public String getPrintableScore(int total) {
+        Score score = status.createScore();
+        return score.getScore(total) + "|";
+    }
+
+    @Override
+    public void calculateAdditionalScore(Score prevScore) {
+        status.updateScoresFromPreviousFrames(prevScore);
+    }
+
+    @Override
+    public void updateScoreFromPrevPrev(Score prevPrev) {
+        status.updateScoresFromPreviousFrames(prevPrev);
     }
 }
