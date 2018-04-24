@@ -6,6 +6,7 @@ class Strike extends Complete {
 
     @Override
     public Status bowl(int pins) {
+
         return this;
     }
 

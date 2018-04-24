@@ -57,7 +57,9 @@ public class NormalFrame implements Frame {
     @Override
     public String getPrintableScore(int total) {
         Score score = status.createScore();
-        nextFrame.calculateAdditionalScore(score);
+        if (status.isStrike() || status.isSpare()) {
+            nextFrame.calculateAdditionalScore(score);
+        }
         return score.getScore(total)
                 + "|"
                 + nextFrame.getPrintableScore(score.calculateNewTotal(total));
