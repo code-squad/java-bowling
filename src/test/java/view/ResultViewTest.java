@@ -20,8 +20,8 @@ public class ResultViewTest {
     @Test
     public void printScore() {
 //        Frame frame = new NormalFrame(1);
-//        frame.throwing(5);
-//        frame.throwing(5);
+//        frame.bowl(5);
+//        frame.bowl(5);
 //        frames.add(frame);
 //        ResultView.printFrames(frames, "HTW");
     }
@@ -31,14 +31,14 @@ public class ResultViewTest {
 //        frames = new ArrayList<>();
 //        for (int index = 0; index < 9; index++) {
 //            Frame frame = new NormalFrame(index + 1);
-//            frame.throwing(1);
-//            frame.throwing(9);
+//            frame.bowl(1);
+//            frame.bowl(9);
 //            frames.add(frame);
 //        }
 //
 //        Frame lastFrame = frames.get(8).next();
-//        lastFrame.throwing(9);
-//        lastFrame.throwing(1);
+//        lastFrame.bowl(9);
+//        lastFrame.bowl(1);
 //        frames.add(lastFrame);
 //
 //        ResultView.printFrames(frames, "HTW");

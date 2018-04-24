@@ -1,5 +1,7 @@
 package domain;
 
+import state.State;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,7 @@ public class BowlingGame {
     private static final int FIRST = 1;
     private List<Player> players;
 
-    public BowlingGame(List<String> names) {
-        createPlayer(names);
+    public BowlingGame() {
     }
 
     public List<Player> createPlayer(List<String> names) {
@@ -19,9 +20,16 @@ public class BowlingGame {
         return players;
     }
 
-    public Frame createFirstFrame() {
-        return new NormalFrame(FIRST);
+    public State bowl(int falledPins) {
+        return players.get(0).bowl(falledPins);
     }
 
-    public
+    public boolean isEndFrame() {
+        // 다수 고려하지 않음, 우선 한 명만.
+        return players.get(0).isEnd();
+    }
+
+    public Frame nextFrame() {
+        return players.get(0).nextFrame();
+    }
 }

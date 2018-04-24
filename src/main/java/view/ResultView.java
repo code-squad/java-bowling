@@ -41,7 +41,7 @@ public class ResultView {
         StringBuilder sb = new StringBuilder();
         sb.append("|"+EMPTY_SCORE);
         for (int index = 0; index < frames.size(); index++) {
-            sb.append(String.format(" %-3s  |", frames.get(index).printScore()));
+//            sb.append(String.format(" %-3s  |", frames.get(index).printScore()));
         }
         for (int index = 0; index < MAX_FRAME - frames.size(); index++) {
             sb.append(EMPTY_SCORE);

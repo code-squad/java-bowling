@@ -2,11 +2,15 @@ package domain;
 
 import org.junit.Before;
 import org.junit.Test;
+import view.InputView;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BowlingGameTest {
     List<String> names;
@@ -15,22 +19,30 @@ public class BowlingGameTest {
     @Before
     public void setUp() {
         names = Arrays.asList("htw");
+        bowlingGame = new BowlingGame();
     }
 
     @Test
     public void generateGame() {
-        bowlingGame = new BowlingGame(names);
+        bowlingGame = new BowlingGame();
     }
 
     @Test
     public void createPlayer() {
-        bowlingGame = new BowlingGame(names);
         List<Player> players = bowlingGame.createPlayer(names);
         assertEquals(1, players.size());
     }
 
     @Test
-    public void createFirstFrame() {
-        bowlingGame.createFirstFrame(1);
+    public void bowl() {
+        Scanner scanner = new Scanner("10");
+        Player player = new Player("htw");
+        bowlingGame.bowl(InputView.getThrowing(scanner, 1));
+    }
+
+    @Test
+    public void isEndFrame() {
+        bowlingGame.bowl(10);
+        assertTrue(bowlingGame.isEndFrame());
     }
 }

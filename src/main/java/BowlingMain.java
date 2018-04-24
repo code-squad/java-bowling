@@ -18,11 +18,11 @@ public class BowlingMain {
 
 
         Frame frame = new NormalFrame(1);
-        ResultView.printFrames(frames, frame, player.getName());
+        ResultView.printFrames(frames, frame, player.printName());
         for (int index = 1; index < MAX_FRAME_NO + 1; index++) {
             do {
-                frame.throwing(InputView.getThrowing(scanner, index));
-                ResultView.printFrames(frames, frame, player.getName());
+                frame.bowl(InputView.getThrowing(scanner, index));
+                ResultView.printFrames(frames, frame, player.printName());
             } while (!frame.isEnd());
             if (index != MAX_FRAME_NO) {
                 frames.add(frame);

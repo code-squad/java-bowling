@@ -56,4 +56,9 @@ public class Score {
     public String printScore() {
         return String.valueOf(score);
     }
+
+    @Override
+    public String toString() {
+        return "score : " + score + " left : " + left;
+    }
 }

@@ -38,7 +38,7 @@ public class FirstBowl extends State {
 
     @Override
     public Score getScore() {
-        throw new RuntimeException("FirstBowl : 현재 상태에서는 점수를 구할 수 없습니다.");
+        return new Score(falledPins, 0);
     }
 
     public static boolean isFirstBowl(State state) {

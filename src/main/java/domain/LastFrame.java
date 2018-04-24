@@ -19,11 +19,11 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public void throwing(int throwing) {
-        state = updateState(throwing);
+    public State bowl(int falledPins) {
+        state = updateState(falledPins);
         if (FirstBowl.isFirstBowl(state) || Strike.isStrike(state)) {
             states.add(state);
-            return;
+            return state;
         }
         try {
             states.set(index, state.clone());
@@ -34,6 +34,7 @@ public class LastFrame extends Frame {
         } catch (CloneNotSupportedException e) {
             e.getMessage();
         }
+        return state;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class LastFrame extends Frame {
         if (Open.isOpen(state) || states.size() == MAX) {
             return true;
         }
-        if (Spare.isSpare(states.get(FIRST_STATE)) && states.size() == 2) {
+        if (states.size() == 2 && Spare.isSpare(states.get(FIRST_STATE))) {
             return true;
         }
         return false;
@@ -62,23 +63,23 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public String printScore() {
+    public Score createScore(int beforeScore) {
         return null;
     }
 
     @Override
-    public Score createScore() {
-        return null;
-    }
-
-    @Override
-    public int getScore() {
+    public int getScore(int beforeScore) {
         return 0;
     }
 
     @Override
     public Frame next() {
         throw new RuntimeException("마지막 프레임에서는 다음 프레임을 생성할 수 없습니다.");
+    }
+
+    @Override
+    public boolean isLastFrame() {
+        return true;
     }
 
     @Override

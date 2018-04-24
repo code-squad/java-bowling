@@ -10,14 +10,15 @@ abstract public class Frame {
         isValidNo(no);
     }
 
-    abstract public void throwing(int throwing);
+    abstract public State bowl(int falledPins);
     abstract public State updateState(int throwing);
     abstract public boolean isEnd();
     abstract public String printState();
-    abstract public String printScore();
-    abstract public Score createScore();
-    abstract public int getScore();
+//    abstract public String printScore();
+    abstract public Score createScore(int beforeScore);
+    abstract public int getScore(int beforeScore);
     abstract public Frame next();
+    abstract public boolean isLastFrame();
 
     public boolean isValidNo(int no) {
         if ( no < 0 || no > 10 ) {
