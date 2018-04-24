@@ -23,4 +23,24 @@ public class FirstBowl implements State {
     public boolean isFinish() {
         return false;
     }
+
+    @Override
+    public boolean isStrike() {
+        return false;
+    }
+
+    @Override
+    public boolean isSpare() {
+        return false;
+    }
+
+    @Override
+    public boolean isMiss() {
+        return false;
+    }
+
+    @Override
+    public boolean isFirstBowl() {
+        return true;
+    }
 }

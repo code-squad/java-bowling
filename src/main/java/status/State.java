@@ -6,4 +6,12 @@ public interface State {
     State bowl(int first);
 
     boolean isFinish();
+
+    boolean isStrike();
+
+    boolean isSpare();
+
+    boolean isMiss();
+
+    boolean isFirstBowl();
 }

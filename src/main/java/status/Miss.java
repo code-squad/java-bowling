@@ -23,4 +23,24 @@ public class Miss implements State {
     public boolean isFinish() {
         return true;
     }
+
+    @Override
+    public boolean isStrike() {
+        return false;
+    }
+
+    @Override
+    public boolean isSpare() {
+        return false;
+    }
+
+    @Override
+    public boolean isMiss() {
+        return true;
+    }
+
+    @Override
+    public boolean isFirstBowl() {
+        return false;
+    }
 }

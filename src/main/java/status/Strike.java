@@ -15,4 +15,24 @@ public class Strike implements State {
     public boolean isFinish() {
         return true;
     }
+
+    @Override
+    public boolean isStrike() {
+        return true;
+    }
+
+    @Override
+    public boolean isSpare() {
+        return false;
+    }
+
+    @Override
+    public boolean isMiss() {
+        return false;
+    }
+
+    @Override
+    public boolean isFirstBowl() {
+        return false;
+    }
 }
