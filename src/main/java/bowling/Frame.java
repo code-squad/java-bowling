@@ -5,10 +5,32 @@ public class Frame {
     private Integer second;
 
     public void bowl(int throwPin) {
+        verifyOverTwoBowlEx();
+        verifyThrowPinEx(throwPin);
+
         if (isReady()) {
             this.first = throwPin;
         } else {
             this.second = throwPin;
+            verifyTotalPinEx();
+        }
+    }
+
+    private void verifyTotalPinEx() {
+        if (first + second > 10) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void verifyThrowPinEx(int throwPin) {
+        if (throwPin < 0 || throwPin > 10) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void verifyOverTwoBowlEx() {
+        if (isFinish()) {
+            throw new IllegalArgumentException();
         }
     }
 

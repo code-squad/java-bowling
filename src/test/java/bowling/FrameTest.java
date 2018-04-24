@@ -67,4 +67,27 @@ public class FrameTest {
         frame.bowl(1);
         assertThat(frame.isFinish()).isTrue();
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void bowl_when_finish() {
+        frame.bowl(8);
+        frame.bowl(2);
+        frame.bowl(9);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void bowl_under_pin() {
+        frame.bowl(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void bowl_over_pin() {
+        frame.bowl(11);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void bowl_over_totalpin() {
+        frame.bowl(8);
+        frame.bowl(3);
+    }
 }
