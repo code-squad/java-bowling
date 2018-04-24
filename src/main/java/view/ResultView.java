@@ -16,8 +16,5 @@ public class ResultView {
         for (State state : states) {
             System.out.print(state.displayText());
         }
-
-//        for (int i = 0; i < 10 - j; i++)
-//            System.out.print("      |");
     }
 }

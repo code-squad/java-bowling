@@ -15,7 +15,7 @@ public class LastFrameTest {
 
     @Before
     public void setUp() {
-        lastFrame = new LastFrame();
+        lastFrame = new LastFrame(new ArrayList<>());
     }
 
     @Test

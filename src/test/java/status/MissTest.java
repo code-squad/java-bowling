@@ -17,7 +17,7 @@ public class MissTest {
     public void 미싱확인() {
         frame.bowl(4);
         State miss = frame.bowl(4);
-        assertEquals(miss instanceof Miss, true);
+        assertEquals(miss.isMiss(), true);
     }
 
     @Test

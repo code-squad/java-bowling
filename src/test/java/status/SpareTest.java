@@ -17,7 +17,7 @@ public class SpareTest {
     public void 스페어확인() {
         frame.bowl(4);
         State spare = frame.bowl(6);
-        assertEquals(spare instanceof Spare, true);
+        assertEquals(spare.isSpare(), true);
     }
 
     @Test

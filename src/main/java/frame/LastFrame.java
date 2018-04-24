@@ -2,14 +2,15 @@ package frame;
 
 import status.Ready;
 import status.State;
-import status.Strike;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class LastFrame {
     private State state = new Ready();
-    private List<State> states = new ArrayList<>();
+    private List<State> states;
+
+    public LastFrame(List<State> states) {
+        this.states = states;
+    }
 
     public List<State> bowl(int pin) {
         state = state.bowl(pin);

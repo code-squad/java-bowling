@@ -23,6 +23,7 @@ public class Game {
         for (int i = 1; i < 10; i++) {
             running(i, name);
         }
+        lastRunning(name);
     }
 
     public List<State> running(int i, String name) {
@@ -33,6 +34,7 @@ public class Game {
             ResultView.upperBar(states, name, i);
             return states;
         }
+
         ResultView.upperBar(states, name, i);
         state = frame.bowl(Input.inputNum(i));
         states.add(state);
@@ -41,32 +43,31 @@ public class Game {
     }
 
     public List<State> lastRunning(String name) {
-        LastFrame lastFrame = new LastFrame();
+        LastFrame lastFrame = new LastFrame(getStates());
         states = lastFrame.bowl(Input.inputNum(10));
         if (states.get(0).isStrike()) {
-            // 첫번째 스트라이크 출력
             ResultView.upperBar(states, name, 10);
-            // 두번째 스트라이크
             states = lastFrame.bowl(Input.inputNum(10));
             ResultView.upperBar(states, name, 10);
-            // 세번째 스트라이크
             states = lastFrame.bowl(Input.inputNum(10));
             ResultView.upperBar(states, name, 10);
             return states;
         }
-        // FirstBowl 출력
+
         ResultView.upperBar(states, name, 10);
         states = lastFrame.bowl(Input.inputNum(10));
         if (states.get(1).isSpare()) {
-            // 스페어출력
             ResultView.upperBar(states, name, 10);
-            // 3번째샷
             states = lastFrame.bowl(Input.inputNum(10));
             ResultView.upperBar(states, name, 10);
             return states;
         }
-        // 스페어가 아닌 경우
+
         ResultView.upperBar(states, name, 10);
+        return states;
+    }
+
+    public List<State> getStates() {
         return states;
     }
 }
