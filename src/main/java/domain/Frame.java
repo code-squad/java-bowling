@@ -10,7 +10,6 @@ abstract public class Frame {
     }
 
     abstract public State bowl(Pins falledPins);
-    abstract public State updateState(Pins falledPins);
     abstract public boolean isEnd();
     abstract public String printState();
     abstract public Score createScore(int beforeScore);

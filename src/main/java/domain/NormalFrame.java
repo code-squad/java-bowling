@@ -18,12 +18,7 @@ public class NormalFrame extends Frame {
 
     @Override
     public State bowl(Pins falledPins) {
-        return state = updateState(falledPins);
-    }
-
-    @Override
-    public State updateState(Pins falledPins) {
-        return state.bowl(falledPins);
+        return state = state.bowl(falledPins);
     }
 
     @Override
@@ -75,5 +70,10 @@ public class NormalFrame extends Frame {
             return next.calculateAdditionalScore(beforeScore);
         }
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "no : " + no + ", next : " + next.toString() + ", state : " + state.printState();
     }
 }

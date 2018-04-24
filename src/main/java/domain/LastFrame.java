@@ -19,7 +19,7 @@ public class LastFrame extends Frame {
 
     @Override
     public State bowl(Pins falledPins) {
-        state = updateState(falledPins);
+        state = state.bowl(falledPins);
         if (FirstBowl.isFirstBowl(state) || Strike.isStrike(state)) {
             states.add(state);
             return state;
@@ -34,11 +34,6 @@ public class LastFrame extends Frame {
             e.getMessage();
         }
         return state;
-    }
-
-    @Override
-    public State updateState(Pins falledPins) {
-        return state.bowl(falledPins);
     }
 
     @Override

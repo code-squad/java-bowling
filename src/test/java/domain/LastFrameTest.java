@@ -2,10 +2,7 @@ package domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import state.Open;
-import state.Spare;
-import state.State;
-import state.Strike;
+import state.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,22 +27,23 @@ public class LastFrameTest {
 
     @Test
     public void updateStateToStrike() {
-        State state = lastFrame.updateState(new Pins(10));
+        State state = lastFrame.bowl(new Pins(10));
         assertTrue(Strike.isStrike(state));
     }
 
     @Test
     public void updateStateToOpen() {
         lastFrame.bowl(new Pins(1)); // 초구
-        State state = lastFrame.updateState(new Pins(8));
+        State state = lastFrame.bowl(new Pins(8));
         assertTrue(Open.isOpen(state));
     }
 
     @Test
-    public void updateStateToSpare() {
-        lastFrame.bowl(new Pins(1));
-        State state = lastFrame.updateState(new Pins(9));
-        assertTrue(Spare.isSpare(state));
+    public void updateState() {
+        // 내부적으로 다음 상태를 위해 Open을 제외한 나머지의 경우 Ready로 초기화
+        State state = lastFrame.bowl(new Pins(1));
+        state = lastFrame.bowl(new Pins(9));
+        assertTrue(Ready.isReady(state));
     }
 
     @Test
