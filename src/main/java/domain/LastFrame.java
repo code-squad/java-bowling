@@ -64,11 +64,25 @@ public class LastFrame extends Frame {
 
     @Override
     public Score createScore(int beforeScore) {
-        return null;
+        return state.getScore().calculateScore(beforeScore);
     }
 
     @Override
     public int getScore(int beforeScore) {
+        Score score = createScore(beforeScore);
+        if (score.canCalculateScore()) {
+            return score.getScore();
+        }
+        return calculateAdditionalScore(score);
+    }
+
+    public int calculateAdditionalScore(Score beforeScore) {
+        for (State state :states) {
+            beforeScore = state.updateScore(beforeScore);
+            if (beforeScore.canCalculateScore()) {
+                return beforeScore.getScore();
+            }
+        }
         return 0;
     }
 
@@ -80,10 +94,5 @@ public class LastFrame extends Frame {
     @Override
     public boolean isLastFrame() {
         return true;
-    }
-
-    @Override
-    public int calculateAdditionalScore(Score beforeScore) {
-        return 0;
     }
 }

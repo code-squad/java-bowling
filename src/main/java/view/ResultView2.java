@@ -32,8 +32,12 @@ public class ResultView2 {
         for (int index = 0; index < player.getFinishedFrame(); index++) {
             sb.append(String.format(" %3s  |", player.printFramesState(index)));
         }
-        if (!currentState.isEnd()) {
+        if (!player.isLastFrame() && !currentState.isEnd()) {
             sb.append(String.format(" %3s  |", currentState.printState()));
+            offset = -1;
+        }
+        if (player.isLastFrame() && !player.isEnd()) {
+            sb.append(String.format(" %3s  |", player.printLastFrameState()));
             offset = -1;
         }
         for (int index = 0; index < MAX_FRAME - player.getFinishedFrame() + offset; index++) {
@@ -52,11 +56,14 @@ public class ResultView2 {
             beforeScore = player.printFramesScore(index, beforeScore);
             sb.append(String.format(" %-3s  |", beforeScore));
         }
+//        if (player.isLastFrame() && !player.isEnd()) {
+//            beforeScore = player.printFramesScore(9, beforeScore);
+//            sb.append(String.format(" %-3s  |", beforeScore));
+//        }
         for (int index = 0; index < MAX_FRAME - player.getFinishedFrame(); index++) {
             sb.append(EMPTY_SCORE);
         }
         System.out.println(sb.toString());
-//        System.out.println(player.printFramesScore());
     }
 
     public static void printEmptyScore() {

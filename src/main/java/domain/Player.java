@@ -56,4 +56,15 @@ public class Player {
     public Frame nextFrame() {
         return frame = frame.next();
     }
+
+    public boolean isLastFrame() {
+        return frame.isLastFrame();
+    }
+
+    public String printLastFrameState() {
+        if (frame.isLastFrame()) {
+            return frame.printState();
+        }
+        throw new RuntimeException("마지막 프레임이 아닙니다.");
+    }
 }

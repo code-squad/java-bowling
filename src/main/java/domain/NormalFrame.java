@@ -51,7 +51,7 @@ public class NormalFrame extends Frame {
     @Override
     public Frame next() {
         if (no == MAX_FRAME_NO - 1) {
-            return new LastFrame(no + 1);
+            return next = new LastFrame(no + 1);
         }
         return next = new NormalFrame(no + 1);
     }
@@ -88,7 +88,6 @@ public class NormalFrame extends Frame {
         return 0;
     }
 
-    @Override
     public int calculateAdditionalScore(Score beforeScore) {
         beforeScore = state.updateScore(beforeScore);
         if (beforeScore.canCalculateScore()) {
