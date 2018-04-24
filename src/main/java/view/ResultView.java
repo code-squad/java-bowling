@@ -1,6 +1,7 @@
 package view;
 
-import domain.Frame;
+import domain.Player;
+import state.State;
 
 import java.util.List;
 
@@ -8,25 +9,6 @@ public class ResultView {
     static final private String NAME_TITLE = "| NAME |";
     static final private String EMPTY_SCORE = "      |";
     static final private int MAX_FRAME = 10;
-
-    public static void printFrames(List<Frame> frames, Frame frame, String name) {
-        printHeader();
-        printSymbol(frames, frame, name);
-        printScore(frames);
-    }
-
-    private static void printSymbol(List<Frame> frames, Frame frame, String name) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("| %3s  |", name));
-        for (int index = 0; index < frames.size(); index++) {
-           sb.append(String.format(" %-5s|", frames.get(index).printState()));
-        }
-        sb.append(String.format(" %-5s|", frame.printState()));
-        for (int index = 0; index < MAX_FRAME - frames.size() - 1; index++) {
-            sb.append(EMPTY_SCORE);
-        }
-        System.out.println(sb.toString());
-    }
 
     private static void printHeader() {
         StringBuilder sb = new StringBuilder();
@@ -37,18 +19,42 @@ public class ResultView {
         System.out.println(sb.toString());
     }
 
-    public static void printScore(List<Frame> frames) {
+    private static void printSymbol(Player player, State currentState) {
         StringBuilder sb = new StringBuilder();
-        sb.append("|"+EMPTY_SCORE);
-        for (int index = 0; index < frames.size(); index++) {
-//            sb.append(String.format(" %-3s  |", frames.get(index).printScore()));
+        int offset = 0; // 현재 상태 출력시 공백 조절
+        sb.append(String.format("| %3s  |", player.printName()));
+        for (int index = 0; index < player.getFinishedFrame(); index++) {
+            sb.append(String.format(" %4s |", player.printFramesState(index)));
         }
-        for (int index = 0; index < MAX_FRAME - frames.size(); index++) {
+        if (!player.isLastFrame() && !currentState.isEnd()) {
+            sb.append(String.format(" %4s |", currentState.printState()));
+            offset = -1;
+        }
+        if (player.isLastFrame() && !player.isEnd()) {
+            sb.append(String.format(" %4s |", player.printLastFrameState()));
+            offset = -1;
+        }
+        for (int index = 0; index < MAX_FRAME - player.getFinishedFrame() + offset; index++) {
+            sb.append(EMPTY_SCORE);
+        }
+        offset = 0;
+        System.out.println(sb.toString());
+    }
+
+    public static void printScore(Player player) {
+        int beforeScore = 0;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("|" + EMPTY_SCORE);
+        for (int index = 0; index < player.getFinishedFrame(); index++) {
+            beforeScore = player.printFramesScore(index, beforeScore);
+            sb.append(String.format(" %-3s  |", beforeScore));
+        }
+        for (int index = 0; index < MAX_FRAME - player.getFinishedFrame(); index++) {
             sb.append(EMPTY_SCORE);
         }
         System.out.println(sb.toString());
     }
-
 
     public static void printEmptyScore() {
         printHeader();
@@ -57,5 +63,13 @@ public class ResultView {
             sb.append(EMPTY_SCORE);
         }
         System.out.println(sb.toString());
+    }
+
+    public static void printScoreBoard(List<Player> players, State currentState) {
+        for (Player player : players) {
+            printHeader();
+            printSymbol(player, currentState);
+            printScore(player);
+        }
     }
 }

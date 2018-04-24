@@ -16,7 +16,6 @@ public class PlayerTest {
         player = new Player("htw");
     }
 
-
     @Test
     public void name() {
         assertEquals("htw", player.printName());
@@ -24,35 +23,32 @@ public class PlayerTest {
 
     @Test
     public void bowl() {
-        assertTrue(Strike.isStrike(player.bowl(10)));
+        assertTrue(Strike.isStrike(player.bowl(new Pins(10))));
     }
 
     @Test
     public void isEnd() {
-        player.bowl(10);
+        player.bowl(new Pins(10));
         assertTrue(player.isEnd());
     }
 
     @Test
     public void getFinishedFrame() {
-        player.bowl(10);
-        if (player.isEnd()) {
-            player.saveFrameData();
-        }
+        player.bowl(new Pins(10));
         assertEquals(1, player.getFinishedFrame());
     }
 
     @Test
     public void saveFrameData() {
         while (!player.isEnd()) {
-            player.bowl(10);
+            player.bowl(new Pins(10));
         }
         player.saveFrameData();
     }
 
     @Test
     public void printPlayingFrameState() {
-        player.bowl(8);
+        player.bowl(new Pins(8));
         assertEquals("8", player.printPlayingFrameState());
     }
 }

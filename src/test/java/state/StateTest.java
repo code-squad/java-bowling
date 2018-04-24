@@ -1,5 +1,6 @@
 package state;
 
+import domain.Pins;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -14,8 +15,8 @@ public class StateTest {
 
     @Test
     public void isEndAllState() {
-        State open = new Open(1,2);
-        State spare = new Spare(1,9);
+        State open = new Open(new Pins(1), new Pins(2));
+        State spare = new Spare(new Pins(1), new Pins(9));
         State strike = new Strike();
         assertTrue(open.isEnd() && spare.isEnd() && strike.isEnd());
     }

@@ -1,32 +1,29 @@
-import domain.Frame;
-import domain.NormalFrame;
+import domain.BowlingGame;
 import domain.Player;
+import state.Ready;
+import state.State;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class BowlingMain {
     public static void main(String[] args) {
-        final int MAX_FRAME_NO = 10;
-
         Scanner scanner = new Scanner(System.in);
-        Player player = new Player(InputView.getUserName(scanner));
-        List<Frame> frames = new ArrayList<>();
+        BowlingGame bowlingGame = new BowlingGame();
+        List<Player> players = bowlingGame.createPlayer(Arrays.asList(InputView.getUserName(scanner)));
+        State currentState = new Ready();
 
-
-        Frame frame = new NormalFrame(1);
-        ResultView.printFrames(frames, frame, player.printName());
-        for (int index = 1; index < MAX_FRAME_NO + 1; index++) {
-            do {
-                frame.bowl(InputView.getThrowing(scanner, index));
-                ResultView.printFrames(frames, frame, player.printName());
-            } while (!frame.isEnd());
-            if (index != MAX_FRAME_NO) {
-                frames.add(frame);
-                frame = frame.next();
+        ResultView.printScoreBoard(players, currentState);
+        for (int index = 1; index < 11; index++) {
+            while (!bowlingGame.isEndFrame()) {
+                currentState = bowlingGame.bowl(InputView.getThrowing(scanner, index));
+                ResultView.printScoreBoard(players, currentState);
+            }
+            if (index < 10) {
+                bowlingGame.nextFrame();
             }
         }
     }

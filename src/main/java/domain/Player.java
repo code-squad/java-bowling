@@ -1,6 +1,5 @@
 package domain;
 
-import state.FirstBowl;
 import state.State;
 
 public class Player {
@@ -23,9 +22,8 @@ public class Player {
         return frame.printState();
     }
 
-    public State bowl(int falledPin) {
-        State state = frame.bowl(falledPin);
-        System.out.println(FirstBowl.isFirstBowl(state));
+    public State bowl(Pins falledPins) {
+        State state = frame.bowl(falledPins);
         if (frame.isEnd()) {
             saveFrameData();
             return state;

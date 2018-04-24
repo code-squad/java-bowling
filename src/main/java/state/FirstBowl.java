@@ -1,36 +1,38 @@
 package state;
 
+import domain.Pins;
 import domain.Score;
 
 public class FirstBowl extends State {
     private static final String GUTTER = "-";
     private static final String PIPE = "|";
-    private static final int TEN_PINS = 10;
+    private static final int MAX_PINS = 10;
+    private static final int NO_LEFT = 0;
 
-    private int falledPins;
+    private Pins falledPins;
 
-    public FirstBowl(int throwing) {
+    public FirstBowl(Pins falledPins) {
         super(false);
-        falledPins = throwing;
+        this.falledPins = falledPins;
     }
 
-    public State throwing(int throwing) {
-        if (falledPins + throwing == TEN_PINS) {
-            return new Spare(falledPins, throwing);
+    @Override
+    public State bowl(Pins falledPins) {
+        if (this.falledPins.isSpare(falledPins)) {
+            return new Spare(this.falledPins, falledPins);
         }
-        return new Open(falledPins, throwing);
+        return new Open(this.falledPins, falledPins);
     }
 
     @Override
     public Score updateScore(Score beforeScore) {
-//        throw new RuntimeException("FirstBowl : 계산할 수 없는 상태입니다.");
-        return beforeScore.throwing(falledPins);
+        return beforeScore.bowl(falledPins);
     }
 
     @Override
     public String printState() {
         String falledPins = String.valueOf(this.falledPins);
-        if (this.falledPins == 0) {
+        if (this.falledPins.isGutter()) {
             falledPins = GUTTER;
         }
         return falledPins;
@@ -38,7 +40,7 @@ public class FirstBowl extends State {
 
     @Override
     public Score getScore() {
-        return new Score(falledPins, 0);
+        return falledPins.createFirstBowlScore(NO_LEFT);
     }
 
     public static boolean isFirstBowl(State state) {

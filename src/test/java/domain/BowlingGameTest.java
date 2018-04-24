@@ -36,12 +36,13 @@ public class BowlingGameTest {
     @Test
     public void bowl() {
         Scanner scanner = new Scanner("10");
-        Player player = new Player("htw");
+        createPlayer();
         bowlingGame.bowl(InputView.getThrowing(scanner, 1));
     }
 
     @Test
     public void isEndFrame() {
+        createPlayer();
         bowlingGame.bowl(10);
         assertTrue(bowlingGame.isEndFrame());
     }

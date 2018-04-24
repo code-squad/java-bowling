@@ -8,44 +8,22 @@ public class NormalFrame extends Frame {
     private static final int MAX_FRAME_NO = 10;
 
     private final int no;
-    //    private Score score;
     private Frame next;
     private State state = new Ready(); // strike;
-
-//    private Score beforeScore;
-//
-//    직전스코어계산() {
-//        strike : beforeScore.bowl(firstPins+secondPins);
-//        spare : beforeScore.bowl(firstPins);
-//    }
-//
-//    전전스코어계산(Sore bbefore) {
-//        bbefore.bowl(firstPins);
-//    }
-
 
     public NormalFrame(int no) {
         super(no);
         this.no = no;
     }
 
-//    public NormalFrame(int no, Score beforeScore) {
-//        super(no, beforeScore);
-//    }
-
-//    public NormalFrame(int no, Score beforeScore) {
-//        super(no);
-//    }
-
-    public State bowl(int falledPins) {
+    @Override
+    public State bowl(Pins falledPins) {
         return state = updateState(falledPins);
-//        if (isEnd()) {
-//            score = createScore();
-//        }
     }
 
-    public State updateState(int throwing) {
-        return state.throwing(throwing);
+    @Override
+    public State updateState(Pins falledPins) {
+        return state.bowl(falledPins);
     }
 
     @Override

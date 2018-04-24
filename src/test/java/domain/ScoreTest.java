@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class ScoreTest {
     @Test
@@ -15,7 +14,7 @@ public class ScoreTest {
     @Test
     public void throwing() {
         Score myScore = new Score(10, 2);
-        Score renewScore = myScore.throwing(10);
+        Score renewScore = myScore.bowl(new Pins(10));
         assertThat(1, is(renewScore.getLeft()));
     }
 

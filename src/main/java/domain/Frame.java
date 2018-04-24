@@ -4,21 +4,20 @@ import state.State;
 
 abstract public class Frame {
     private static final int MAX_FRAME_NO = 10;
-//    private Score score;
-//    private Score beforeScore;
+
     public Frame(int no) {
         isValidNo(no);
     }
 
-    abstract public State bowl(int falledPins);
-    abstract public State updateState(int throwing);
+    abstract public State bowl(Pins falledPins);
+    abstract public State updateState(Pins falledPins);
     abstract public boolean isEnd();
     abstract public String printState();
-//    abstract public String printScore();
     abstract public Score createScore(int beforeScore);
     abstract public int getScore(int beforeScore);
     abstract public Frame next();
     abstract public boolean isLastFrame();
+    abstract public int calculateAdditionalScore(Score beforeScore);
 
     public boolean isValidNo(int no) {
         if ( no < 0 || no > 10 ) {
@@ -26,8 +25,4 @@ abstract public class Frame {
         }
         return true;
     }
-
-
-
-    abstract public int calculateAdditionalScore(Score beforeScore);
 }

@@ -9,9 +9,6 @@ public class BowlingGame {
     private static final int FIRST = 1;
     private List<Player> players;
 
-    public BowlingGame() {
-    }
-
     public List<Player> createPlayer(List<String> names) {
         players = new ArrayList<>();
         for (String name : names) {
@@ -20,8 +17,12 @@ public class BowlingGame {
         return players;
     }
 
+    public Pins createPins(int falledPins) {
+        return new Pins(falledPins);
+    }
+
     public State bowl(int falledPins) {
-        return players.get(0).bowl(falledPins);
+        return players.get(0).bowl(createPins(falledPins));
     }
 
     public boolean isEndFrame() {

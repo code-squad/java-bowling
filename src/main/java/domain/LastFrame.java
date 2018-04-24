@@ -12,14 +12,13 @@ public class LastFrame extends Frame {
     private List<State> states = new ArrayList<>();
     private State state = new Ready();
     private int index;
-    private Score score;
 
     public LastFrame(int no) {
         super(no);
     }
 
     @Override
-    public State bowl(int falledPins) {
+    public State bowl(Pins falledPins) {
         state = updateState(falledPins);
         if (FirstBowl.isFirstBowl(state) || Strike.isStrike(state)) {
             states.add(state);
@@ -38,8 +37,8 @@ public class LastFrame extends Frame {
     }
 
     @Override
-    public State updateState(int throwing) {
-        return state.throwing(throwing);
+    public State updateState(Pins falledPins) {
+        return state.bowl(falledPins);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class LastFrame extends Frame {
 
     @Override
     public Score createScore(int beforeScore) {
-        return state.getScore().calculateScore(beforeScore);
+        return states.get(0).getScore().calculateScore(beforeScore);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class LastFrame extends Frame {
     }
 
     public int calculateAdditionalScore(Score beforeScore) {
-        for (State state :states) {
+        for (State state : states) {
             beforeScore = state.updateScore(beforeScore);
             if (beforeScore.canCalculateScore()) {
                 return beforeScore.getScore();

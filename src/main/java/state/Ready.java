@@ -1,20 +1,21 @@
 package state;
 
+import domain.Pins;
 import domain.Score;
 
 public class Ready extends State {
-    private static final int TEN_PINS = 10;
     private static final String EMPTY = "";
 
     public Ready() {
         super(false);
     }
 
-    public State throwing(int throwing) {
-        if (throwing == TEN_PINS) {
+    @Override
+    public State bowl(Pins falledPins) {
+        if (falledPins.isStrike()) {
             return new Strike();
         }
-        return new FirstBowl(throwing);
+        return new FirstBowl(falledPins);
     }
 
     @Override

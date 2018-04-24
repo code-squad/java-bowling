@@ -2,6 +2,8 @@ package domain;
 
 public class Score {
     private static final int NO_LEFT = 0;
+    private static final int MAX_PINS = 10;
+
     private int score;
     private int left;
 
@@ -10,36 +12,25 @@ public class Score {
         this.left = left;
     }
 
-    public static Score ofOpen(int first, int second) {
-        return new Score(first + second, 0);
+    public static Score ofOpen(Pins first, Pins second) {
+        return new Score(Pins.sumPins(first, second), 0);
     }
 
     public static Score ofSpare() {
-        return new Score(10, 1);
+        return new Score(MAX_PINS, 1);
     }
 
     public static Score ofStrike() {
-        return new Score(10, 2);
+        return new Score(MAX_PINS, 2);
     }
 
-    public Score throwing(int pins) {
-//        return new Score(score += pins, left - 1);
-        return new Score(score += pins, left -= 1);
-//        score = score + pins;
-//        left = left - 1;
-//        return this;
+    public Score bowl(Pins falledPins) {
+        return new Score(score = falledPins.sumScore(score), left -= 1);
     }
 
     public int getScore() {
-//        if (!canCalculateScore()) {
-//            throw new RuntimeException("Score : 계산할 수 없는 상태입니다.");
-//        }
         return this.score;
     }
-
-//    public int getScore() {
-//        return this.score;
-//    }
 
     public int getLeft() {
         return this.left;
@@ -51,10 +42,6 @@ public class Score {
 
     public Score calculateScore(int score) {
         return new Score(this.score + score, left);
-    }
-
-    public String printScore() {
-        return String.valueOf(score);
     }
 
     @Override

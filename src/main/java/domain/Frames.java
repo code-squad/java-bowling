@@ -9,10 +9,6 @@ public class Frames {
 
     private List<Frame> frames = new ArrayList<>();
 
-    public Frames() {
-
-    }
-
     public Frame createFirstFrame() {
         return new NormalFrame(FIRST);
     }
@@ -26,7 +22,7 @@ public class Frames {
     }
 
     public void add(Frame frame) {
-        if (frames.size() >  MAX_FRAME) {
+        if (frames.size() > MAX_FRAME) {
             throw new RuntimeException("1경기당 최대 10프레임입니다.");
         }
         frames.add(frame);

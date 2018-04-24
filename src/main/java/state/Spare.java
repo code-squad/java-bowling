@@ -1,18 +1,17 @@
 package state;
 
+import domain.Pins;
 import domain.Score;
 
 public class Spare extends State {
     private static final String PIPE = "|";
     private static final String SPARE = "/";
     private static final String GUTTER = "-";
-    private static final int TEN_PINS = 10;
-    private static final int NO_PINS = 0;
 
-    private final int first;
-    private final int second;
+    private final Pins first;
+    private final Pins second;
 
-    public Spare(int first, int second) {
+    public Spare(Pins first, Pins second) {
         super(true);
         this.first = first;
         this.second = second;
@@ -20,18 +19,11 @@ public class Spare extends State {
 
     @Override
     public String printState() {
-        String first = String.valueOf(this.first);
-        if (this.first == NO_PINS) {
+        String first = this.first.toString();
+        if (this.first.isGutter()) {
             first = GUTTER;
         }
         return first + PIPE + SPARE;
-    }
-
-    public State throwing(int throwing) {
-        if (throwing == TEN_PINS) {
-            return new Strike();
-        }
-        return new FirstBowl(throwing);
     }
 
     public static boolean isSpare(State state) {
@@ -39,9 +31,15 @@ public class Spare extends State {
     }
 
     @Override
+    public State bowl(Pins falledPins) {
+        throw new RuntimeException("Spare.java : 해당 상태에서는 투구할 수 없습니다.");
+    }
+
+    @Override
     public Score getScore() {
         return Score.ofSpare();
     }
+
 
     @Override
     public State clone() throws CloneNotSupportedException {
@@ -50,9 +48,9 @@ public class Spare extends State {
 
     @Override
     public Score updateScore(Score beforeScore) {
-        beforeScore.throwing(first);
+        beforeScore.bowl(first);
         if (!beforeScore.canCalculateScore()) {
-            return beforeScore.throwing(second);
+            return beforeScore.bowl(second);
         }
         return beforeScore;
     }
