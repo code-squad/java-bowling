@@ -8,9 +8,9 @@ import static org.junit.Assert.assertEquals;
 
 public class InputViewTest {
     @Test
-    public void userName() {
-        Scanner scanner = new Scanner("htw");
-        assertEquals("htw", InputView.getUserName(scanner));
+    public void userCount() {
+        Scanner scanner = new Scanner("2");
+        assertEquals(2, InputView.getUserCount(scanner));
     }
 
     @Test

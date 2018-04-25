@@ -62,7 +62,9 @@ public class NormalFrame extends Frame {
     }
 
     public int calculateAdditionalScore(Score beforeScore) {
-        beforeScore = state.updateScore(beforeScore);
+        if (!Ready.isReady(state)) {
+            beforeScore = state.updateScore(beforeScore);
+        }
         if (beforeScore.canCalculateScore()) {
             return beforeScore.getScore();
         }
