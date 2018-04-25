@@ -20,6 +20,8 @@ public interface Status {
 
     boolean isSpare();
 
+    boolean isMiss();
+
     @Override
     String toString();
 }

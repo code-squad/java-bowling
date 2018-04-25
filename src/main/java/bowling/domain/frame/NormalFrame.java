@@ -6,28 +6,19 @@ import bowling.domain.frame.status.Status;
 import bowling.domain.util.Formatter;
 
 public class NormalFrame implements Frame {
-    private final int frameNumber;
     private final Frame nextFrame;
     private Status status;
 
     public NormalFrame(int frameNumber) {
-        this.frameNumber = frameNumber;
-        this.nextFrame = createNextFrame();
+        this.nextFrame = createNextFrame(frameNumber);
         this.status = new NotPlayed();
     }
 
-    private Frame createNextFrame() {
+    private Frame createNextFrame(int frameNumber) {
         if (frameNumber == ONE_BEFORE_LAST) {
             return new LastFrame();
         }
         return new NormalFrame(frameNumber + 1);
-    }
-
-    public int getFrameNumber() {
-        if (status.isComplete()) {
-            return nextFrame.getFrameNumber();
-        }
-        return frameNumber;
     }
 
     @Override
@@ -40,11 +31,16 @@ public class NormalFrame implements Frame {
     }
 
     @Override
-    public boolean isLast() {
-        if (status.isComplete()) {
-            return nextFrame.isLast();
-        }
+    public boolean isLastFrame() {
         return false;
+    }
+
+    @Override
+    public boolean isNewFrame() {
+        if (status.isComplete()) {
+            return nextFrame.isNewFrame();
+        }
+        return !status.isPlayed();
     }
 
     @Override
@@ -60,9 +56,11 @@ public class NormalFrame implements Frame {
         if (status.isStrike() || status.isSpare()) {
             nextFrame.calculateAdditionalScore(score);
         }
-        return score.getScore(total)
+
+        int newTotal = score.calculateNewTotal(total);
+        return score.getScore(newTotal)
                 + "|"
-                + nextFrame.getPrintableScore(score.calculateNewTotal(total));
+                + nextFrame.getPrintableScore(newTotal);
     }
 
     @Override

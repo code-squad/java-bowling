@@ -4,43 +4,46 @@ import bowling.domain.frame.Frame;
 import bowling.domain.frame.NormalFrame;
 import bowling.domain.util.Formatter;
 
-public class Player implements Printable {
+public class Player {
     private static final int FIRST = 1;
     private static final int INITIAL = 0;
 
     private final String name;
-    private final Frame frames;
+    private final Frame headFrame;
 
-    public Player(String name) {
+    Player(String name) {
         this.name = name;
-        this.frames = new NormalFrame(FIRST);
+        this.headFrame = new NormalFrame(FIRST);
     }
 
     public void bowl(int pins) {
-        frames.bowl(pins);
+        headFrame.bowl(pins);
     }
 
-    public boolean isDone() {
-        return frames.isLast();
+    boolean turnIsOver() {
+        return headFrame.isNewFrame();
     }
 
-    public int getCurrentFrameNumber() {
-        return frames.getFrameNumber();
+    boolean hasPlayedAllBowls() {
+        return headFrame.isLastFrame()
+                && headFrame.isNewFrame();
     }
 
-    @Override
-    public String convertStatusToPrintable() {
+    String convertStatusToPrintable() {
         return "|"
                 + Formatter.formatFrame(name)
                 + "|"
-                + frames.getPrintableStatus();
+                + headFrame.getPrintableStatus();
     }
 
-    @Override
-    public String convertScoreToPrintable() {
+    String convertScoreToPrintable() {
         return "|"
                 + Formatter.formatFrame("")
                 + "|"
-                + frames.getPrintableScore(INITIAL);
+                + headFrame.getPrintableScore(INITIAL);
+    }
+
+    String getPlayerName() {
+        return name;
     }
 }

@@ -6,7 +6,6 @@ class Strike extends Complete {
 
     @Override
     public Status bowl(int pins) {
-
         return this;
     }
 
@@ -27,6 +26,11 @@ class Strike extends Complete {
 
     @Override
     public boolean isSpare() {
+        return false;
+    }
+
+    @Override
+    public boolean isMiss() {
         return false;
     }
 

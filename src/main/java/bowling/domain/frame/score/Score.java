@@ -46,8 +46,10 @@ public class Score {
     }
 
     public void bowl(int score) {
-        this.score += score;
-        count--;
+        if (count != 0) {
+            this.score += score;
+            count--;
+        }
     }
 
     public boolean isOneBowlAway() {
@@ -60,7 +62,7 @@ public class Score {
 
     public String getScore(int total) {
         if (isReadyForDisplay()) {
-            return Formatter.formatFrame(calculateNewTotal(total) + "");
+            return Formatter.formatFrame(total + "");
         }
         return Formatter.formatFrame("");
     }

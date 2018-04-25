@@ -43,6 +43,11 @@ class Miss extends Complete {
     }
 
     @Override
+    public boolean isMiss() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return first.getPins() + "|" + second.getPins();
     }

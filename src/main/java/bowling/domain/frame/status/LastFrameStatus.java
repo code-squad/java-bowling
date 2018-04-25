@@ -2,65 +2,93 @@ package bowling.domain.frame.status;
 
 import bowling.domain.frame.score.Score;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class LastFrameStatus {
-    private Status first = new NotPlayed();
-    private Status second = new NotPlayed();
-    private Status third = new NotPlayed();
+    private static final int MAX_BOWL = 3;
+    private final List<Status> status = new ArrayList<>();
+
+    public LastFrameStatus() {
+        status.add(new NotPlayed());
+    }
 
     public void bowl(int pins) {
-        if (!first.isPlayed()) {
-            first = first.bowl(pins);
-            return;
+        getCurrentStatus().bowl(pins);
+    }
+
+    private Status getCurrentStatus() {
+        for (Status status : status) {
+            if (!status.isComplete()) {
+                return status;
+            }
         }
-        if (!second.isPlayed()) {
-            second = second.bowl(pins);
-            return;
+        Status newStatus = new NotPlayed();
+        status.add(newStatus);
+        return newStatus;
+    }
+
+    private Status getFirst() {
+        return status.get(0);
+    }
+
+    private Status getSecond() {
+        return status.get(1);
+    }
+
+    private boolean firstIsMiss() {
+        return getFirst().isMiss();
+    }
+
+    private boolean bothAreNotStrike() {
+        return !getFirst().isStrike()
+                && !getSecond().isStrike();
+    }
+
+    private boolean twoAreComplete() {
+        if (status.size() != 2) {
+            return false;
         }
-        third = third.bowl(pins);
+        return getFirst().isComplete()
+                && getSecond().isComplete();
     }
 
     public boolean isComplete() {
-        if (second.isPlayed() &&
-                (!first.isStrike() && !second.isSpare())) {
+        if (firstIsMiss()) {
             return true;
         }
-        return (first.isStrike() || second.isSpare())
-                && third.isPlayed();
+        if (twoAreComplete() && bothAreNotStrike()) {
+            return true;
+        }
+        return status.size() == MAX_BOWL;
+    }
+
+    public boolean firstIsPlayed() {
+        return getFirst().isPlayed();
     }
 
     public Score createScore() {
-        Score score = first.createScore();
-        second.updateScore(score);
-        third.updateScore(score);
-        return score;
+        return getFirst().createScore();
     }
 
-    public void updateScoresFromPreviousFrames(Score prevPrev) {
-        if (prevPrev.isOneBowlAway()) {
-            first.updateScore(prevPrev);
-            return;
+    public void updateScore(Score score) {
+        for (Status status : status) {
+            status.updateScore(score);
         }
-        first.updateScore(prevPrev);
-        second.updateScore(prevPrev);
+    }
+
+    public void updateScoresFromPreviousFrames(Score prevScore) {
+        for (Status status : status) {
+            status.updateScore(prevScore);
+        }
     }
 
     @Override
     public String toString() {
-        if (third.isPlayed()) {
-            return first.toString()
-                    + "|"
-                    + second.toString()
-                    + "|"
-                    + third.toString();
-        }
-        if (second.isPlayed()) {
-            return first.toString()
-                    + "|"
-                    + second.toString();
-        }
-        if (first.isPlayed()) {
-            return first.toString();
-        }
-        return "";
+        return status
+                .stream()
+                .map(Status::toString)
+                .collect(Collectors.joining("|"));
     }
 }

@@ -27,5 +27,8 @@ abstract class Complete implements Status {
     public abstract boolean isSpare();
 
     @Override
+    public abstract boolean isMiss();
+
+    @Override
     public abstract String toString();
 }
