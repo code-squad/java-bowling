@@ -1,8 +1,11 @@
 package state;
 
+import domain.Pins;
+import domain.Score;
+
 import java.util.Objects;
 
-abstract public class State implements Statable, Cloneable{
+abstract public class State implements Statable, Cloneable {
     private final boolean state;
 
     public State(boolean state) {
@@ -13,7 +16,7 @@ abstract public class State implements Statable, Cloneable{
         return state;
     }
 
-    abstract public State throwing(int throwing);
+    abstract public State bowl(Pins falledPins);
 
     @Override
     public boolean equals(Object o) {
@@ -25,12 +28,13 @@ abstract public class State implements Statable, Cloneable{
 
     @Override
     public int hashCode() {
-
         return Objects.hash(this);
     }
 
     @Override
     public State clone() throws CloneNotSupportedException {
-        return (State)super.clone();
+        return (State) super.clone();
     }
+
+    abstract public Score updateScore(Score beforeScore);
 }

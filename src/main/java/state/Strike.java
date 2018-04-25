@@ -1,8 +1,11 @@
 package state;
 
+import domain.Pins;
+import domain.Score;
+
 public class Strike extends State implements Cloneable {
     private static final String STRIKE = "X";
-    private static final int TEN_PINS = 10;
+    private static final int MAX_PINS = 10;
 
     public Strike() {
         super(true);
@@ -13,12 +16,12 @@ public class Strike extends State implements Cloneable {
         return STRIKE;
     }
 
-    public State throwing(int throwing) {
-        if (throwing == TEN_PINS) {
+    @Override
+    public State bowl(Pins falledPins) {
+        if (falledPins.isStrike()) {
             return new Strike();
         }
-
-        return new FirstBowl(throwing);
+        return new FirstBowl(falledPins);
     }
 
     public static boolean isStrike(State state) {
@@ -26,7 +29,17 @@ public class Strike extends State implements Cloneable {
     }
 
     @Override
+    public Score getScore() {
+        return Score.ofStrike();
+    }
+
+    @Override
     public State clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public Score updateScore(Score beforeScore) {
+        return beforeScore.bowl(new Pins(MAX_PINS));
     }
 }

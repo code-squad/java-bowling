@@ -2,62 +2,32 @@ package domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import state.State;
+import state.Ready;
+import state.Strike;
 
-import java.util.Scanner;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class NormalFrameTest {
-    private Scanner scanner;
+    Frame frame;
 
     @Before
-    public void setup() {
-        scanner = new Scanner(System.in);
+    public void setUp() {
+        frame = new NormalFrame(1);
     }
 
     @Test
-    public void throwing() {
-        Frame frame = new NormalFrame(1);
-        frame.throwing(10);
+    public void bowl() {
+        assertTrue(Strike.isStrike(frame.bowl(new Pins(10))));
+    }
+
+    @Test
+    public void isLastFrame() {
+        assertFalse(frame.isLastFrame());
     }
 
     @Test
     public void isEnd() {
-        Frame frame = new NormalFrame(1);
-        frame.throwing(5);
-        assertFalse(frame.isEnd());
-    }
-
-    @Test
-    public void spareState() {
-        Frame frame = new NormalFrame(1);
-        frame.throwing(4);
-        frame.throwing(6);
-        assertEquals("4|/", frame.printState());
-    }
-
-    @Test
-    public void firstBowlState() {
-        Frame frame = new NormalFrame(1);
-        frame.throwing(4);
-        assertEquals("4", frame.printState());
-    }
-
-    @Test
-    public void OpenState() {
-        Frame frame = new NormalFrame(1);
-        frame.throwing(4);
-        frame.throwing(3);
-        assertEquals("4|3", frame.printState());
-    }
-
-    @Test
-    public void strikeState() {
-        Frame frame = new NormalFrame(1);
-        frame.throwing(10);
-        assertEquals("X", frame.printState());
+        frame.bowl(new Pins(10));
+        assertTrue(frame.isEnd());
     }
 }
