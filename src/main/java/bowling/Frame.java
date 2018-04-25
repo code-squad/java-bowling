@@ -6,10 +6,10 @@ public class Frame {
 
     public void bowl(int throwPin) {
         verifyOverTwoBowlEx();
-        verifyThrowPinEx(throwPin);
 
         if (isReady()) {
             this.first = throwPin;
+            verifyThrowPinEx(throwPin);
         } else {
             this.second = throwPin;
             verifyTotalPinEx();
