@@ -19,15 +19,15 @@ public class ResultView {
         System.out.println(sb.toString());
     }
 
-    private static void printSymbol(Player player, State currentState) {
+    private static void printSymbol(Player player) {
         StringBuilder sb = new StringBuilder();
         int offset = 0; // 현재 상태 출력시 공백 조절
-        sb.append(String.format("| %3s  |", player.printName()));
+        sb.append(String.format("| %3s  |", player.getName()));
         for (int index = 0; index < player.getFinishedFrame(); index++) {
             sb.append(String.format(" %4s |", player.printFramesState(index)));
         }
-        if (!player.isLastFrame() && !currentState.isEnd()) {
-            sb.append(String.format(" %4s |", currentState.printState()));
+        if (!player.isLastFrame() && !player.isEnd()) {
+            sb.append(String.format(" %4s |", player.printPlayingFrameState()));
             offset = -1;
         }
         if (player.isLastFrame() && !player.isEnd()) {
@@ -65,10 +65,10 @@ public class ResultView {
         System.out.println(sb.toString());
     }
 
-    public static void printScoreBoard(List<Player> players, State currentState) {
+    public static void printScoreBoard(List<Player> players) {
+        printHeader();
         for (Player player : players) {
-            printHeader();
-            printSymbol(player, currentState);
+            printSymbol(player);
             printScore(player);
         }
     }
