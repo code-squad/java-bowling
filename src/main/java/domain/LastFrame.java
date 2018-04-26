@@ -63,17 +63,20 @@ public class LastFrame extends Frame {
 
     @Override
     public int getScore(int beforeScore) {
-        System.out.println(states.get(0).getClass() + " " + states.get(1).getClass());
         Score score = createScore(beforeScore);
-        System.out.println(score.toString());
         if (score.canCalculateScore()) {
             return score.getScore();
         }
-        return calculateAdditionalScore(score);
+        return calculateAdditionalScore(score, 1);
     }
 
     public int calculateAdditionalScore(Score beforeScore) {
-        for (State state : states) {
+        return calculateAdditionalScore(beforeScore, 0);
+    }
+
+    public int calculateAdditionalScore(Score beforeScore, int index) {
+        for (int i = index; i < states.size(); i++) {
+            state = states.get(index);
             beforeScore = state.updateScore(beforeScore);
             if (beforeScore.canCalculateScore()) {
                 return beforeScore.getScore();
