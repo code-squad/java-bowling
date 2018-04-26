@@ -1,5 +1,6 @@
 package bowling.domain.frame.status;
 
+import bowling.domain.frame.FrameCompleteException;
 import bowling.domain.frame.score.Score;
 
 import java.util.ArrayList;
@@ -7,74 +8,92 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LastFrameStatus {
-    private static final int MAX_BOWL = 3;
     private final List<Status> status = new ArrayList<>();
-
-    public LastFrameStatus() {
-        status.add(new NotPlayed());
-    }
+    private Status currentStatus = new NotPlayed();
 
     public void bowl(int pins) {
-        getCurrentStatus().bowl(pins);
-    }
-
-    private Status getCurrentStatus() {
-        for (Status status : status) {
-            if (!status.isComplete()) {
-                return status;
-            }
+        currentStatus = currentStatus.bowl(pins);
+        if (currentStatus.isComplete()) {
+            status.add(currentStatus);
+            currentStatus = new NotPlayed();
         }
-        Status newStatus = new NotPlayed();
-        status.add(newStatus);
-        return newStatus;
+        if (firstIsSpare() && currentStatus.isPlayed()) {
+            status.add(new Bonus(pins));
+        }
+//        if (isComplete()) {
+//            throw new FrameCompleteException();
+//        }
     }
 
-    private Status getFirst() {
-        return status.get(0);
+    public boolean bowlStarted() {
+        if (status.size() == 0) {
+            return currentStatus.isPlayed();
+        }
+        return firstIsPlayed();
     }
 
-    private Status getSecond() {
-        return status.get(1);
+    private boolean firstIsPlayed() {
+        return status.size() > 0;
+    }
+
+    private boolean secondIsPlayed() {
+        return status.size() > 1;
+    }
+
+    private boolean thirdIsPlayed() {
+        return status.size() == 3;
+    }
+
+    private boolean firstIsSpare() {
+        return firstIsPlayed()
+                && status.get(0).isSpare();
     }
 
     private boolean firstIsMiss() {
-        return getFirst().isMiss();
+        return firstIsPlayed()
+                && status.get(0).isMiss();
     }
 
-    private boolean bothAreNotStrike() {
-        return !getFirst().isStrike()
-                && !getSecond().isStrike();
+    private boolean firstIsStrike() {
+        return firstIsPlayed()
+                && status.get(0).isStrike();
     }
 
-    private boolean twoAreComplete() {
-        if (status.size() != 2) {
-            return false;
-        }
-        return getFirst().isComplete()
-                && getSecond().isComplete();
+    private boolean secondIsStrike() {
+        return secondIsPlayed()
+                && status.get(1).isStrike();
+    }
+
+    private boolean twoBowlsComplete() {
+        return secondIsPlayed()
+                && status.get(1).isComplete();
     }
 
     public boolean isComplete() {
         if (firstIsMiss()) {
             return true;
         }
-        if (twoAreComplete() && bothAreNotStrike()) {
+        if (twoBowlsComplete()
+                && !firstIsStrike()
+                && secondIsStrike()) {
             return true;
         }
-        return status.size() == MAX_BOWL;
-    }
-
-    public boolean firstIsPlayed() {
-        return getFirst().isPlayed();
+        return thirdIsPlayed();
     }
 
     public Score createScore() {
-        return getFirst().createScore();
+        if (firstIsPlayed()) {
+            return status.get(0).createScore();
+        }
+        return currentStatus.createScore();
     }
 
-    public void updateScore(Score score) {
-        for (Status status : status) {
-            status.updateScore(score);
+    public void updateLastFrameScore(Score score) {
+        if (secondIsPlayed()) {
+            status.get(1).updateScore(score);
+        }
+        if (thirdIsPlayed()) {
+            status.get(2).updateScore(score);
         }
     }
 

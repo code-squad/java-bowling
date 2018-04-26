@@ -14,13 +14,13 @@ public class LastFrame implements Frame {
     }
 
     @Override
-    public boolean isLastFrame() {
-        return true;
+    public boolean allBowlsPlayed() {
+        return status.isComplete();
     }
 
     @Override
     public boolean isNewFrame() {
-        return status.firstIsPlayed() || status.isComplete();
+        return !status.bowlStarted() || status.isComplete();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LastFrame implements Frame {
     @Override
     public String getPrintableScore(int total) {
         Score score = status.createScore();
-        status.updateScore(score);
+        status.updateLastFrameScore(score);
         int newTotal = score.calculateNewTotal(total);
         return score.getScore(newTotal) + "|";
     }

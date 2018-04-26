@@ -25,8 +25,7 @@ public class Player {
     }
 
     boolean hasPlayedAllBowls() {
-        return headFrame.isLastFrame()
-                && headFrame.isNewFrame();
+        return headFrame.allBowlsPlayed();
     }
 
     String convertStatusToPrintable() {

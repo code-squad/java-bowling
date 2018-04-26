@@ -41,6 +41,10 @@ public class Score {
         return new Score(score, ONE_BOWL_AWAY);
     }
 
+    public static Score ofBonus(int score) {
+        return new Score(score, READY_FOR_DISPLAY);
+    }
+
     public boolean isReadyForDisplay() {
         return count == READY_FOR_DISPLAY;
     }

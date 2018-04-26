@@ -31,7 +31,10 @@ public class NormalFrame implements Frame {
     }
 
     @Override
-    public boolean isLastFrame() {
+    public boolean allBowlsPlayed() {
+        if (status.isComplete()) {
+            return nextFrame.allBowlsPlayed();
+        }
         return false;
     }
 

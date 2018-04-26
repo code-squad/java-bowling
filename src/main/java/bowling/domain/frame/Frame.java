@@ -15,7 +15,7 @@ public interface Frame {
 
     String getPrintableScore(int accumulative);
 
-    boolean isLastFrame();
+    boolean allBowlsPlayed();
 
     boolean isNewFrame();
 }
