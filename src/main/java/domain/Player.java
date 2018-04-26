@@ -14,7 +14,7 @@ public class Player {
     }
 
     // getter와 동일한 역할인데, 어떻게 변경해주면 좋을까
-    public String printName() {
+    public String getName() {
         return name;
     }
 

@@ -36,14 +36,14 @@ public class BowlingGameTest {
     @Test
     public void bowl() {
         Scanner scanner = new Scanner("10");
-        createPlayer();
-        bowlingGame.bowl(InputView.getThrowing(scanner, 1));
+        List<Player> players = bowlingGame.createPlayer(Arrays.asList("htw", "pjs"));
+        bowlingGame.bowl(players.get(0), InputView.getThrowing(scanner, players.get(0).getName()));
     }
 
     @Test
     public void isEndFrame() {
-        createPlayer();
-        bowlingGame.bowl(10);
-        assertTrue(bowlingGame.isEndFrame());
+//        Scanner scanner = new Scanner("10");
+//        List<Player> players = bowlingGame.createPlayer(Arrays.asList("htw", "pjs"));
+//        assertTrue(bowlingGame.isEndFrame(players.get));
     }
 }

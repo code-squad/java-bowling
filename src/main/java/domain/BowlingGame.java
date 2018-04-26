@@ -21,16 +21,16 @@ public class BowlingGame {
         return new Pins(falledPins);
     }
 
-    public State bowl(int falledPins) {
-        return players.get(0).bowl(createPins(falledPins));
+    public State bowl(Player player, int falledPins) {
+        return player.bowl(createPins(falledPins));
     }
 
-    public boolean isEndFrame() {
+    public boolean isEndFrame(Player player) {
         // 다수 고려하지 않음, 우선 한 명만.
-        return players.get(0).isEnd();
+        return player.isEnd();
     }
 
-    public Frame nextFrame() {
-        return players.get(0).nextFrame();
+    public Frame nextFrame(Player player) {
+        return player.nextFrame();
     }
 }
