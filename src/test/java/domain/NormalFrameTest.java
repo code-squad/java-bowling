@@ -30,4 +30,6 @@ public class NormalFrameTest {
         frame.bowl(new Pins(10));
         assertTrue(frame.isEnd());
     }
+
+
 }
