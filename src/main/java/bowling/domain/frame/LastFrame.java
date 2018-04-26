@@ -4,15 +4,9 @@ import bowling.domain.frame.status.LastFrameStatus;
 import bowling.domain.frame.score.Score;
 import bowling.domain.util.Formatter;
 
-public class LastFrame implements frame {
-    private static final int LAST = 10;
+public class LastFrame implements Frame {
 
     private final LastFrameStatus status = new LastFrameStatus();
-
-    @Override
-    public int getFrameNumber() {
-        return LAST;
-    }
 
     @Override
     public void bowl(int pins) {
@@ -20,8 +14,13 @@ public class LastFrame implements frame {
     }
 
     @Override
-    public boolean isLast() {
+    public boolean allBowlsPlayed() {
         return status.isComplete();
+    }
+
+    @Override
+    public boolean isNewFrame() {
+        return !status.bowlStarted() || status.isComplete();
     }
 
     @Override
@@ -32,7 +31,10 @@ public class LastFrame implements frame {
     @Override
     public String getPrintableScore(int total) {
         Score score = status.createScore();
-        return score.getScore(total) + "|";
+        status.updateLastFrameScore(score);
+        int newTotal = score.calculateNewTotal(total);
+
+        return score.getScore(newTotal) + "|";
     }
 
     @Override

@@ -1,31 +1,28 @@
 package bowling;
 
-import bowling.domain.Player;
+import bowling.domain.Players;
 import bowling.view.ResultView;
 import bowling.view.UserPrompt;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        String name = getUserName();
-        Player player = new Player(name);
-        startBowl(player);
+        List<String> playerNames = getUserName();
+        Players players = new Players(playerNames);
+        startBowl(players);
     }
 
-    private static String getUserName() {
-        try {
-            return UserPrompt.promptUserForName();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return getUserName();
-        }
+    private static List<String> getUserName() {
+        return UserPrompt.promptUserForNames();
     }
 
-    private static void startBowl(Player player) {
-        while (!player.isDone()) {
+    private static void startBowl(Players players) {
+        while (!players.allPlayersAreDone()) {
             try {
-                int pins = UserPrompt.promptUserForBowl(player.getCurrentFrameNumber());
-                player.bowl(pins);
-                ResultView.printScoreBoard(player);
+                int pins = UserPrompt.promptUserForBowl(players.getPlayerName());
+                players.bowl(pins);
+                ResultView.printScoreBoard(players);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

@@ -2,10 +2,8 @@ package bowling.domain.frame;
 
 import bowling.domain.frame.score.Score;
 
-public interface frame {
+public interface Frame {
     int ONE_BEFORE_LAST = 9;
-
-    int getFrameNumber();
 
     void bowl(int pins);
 
@@ -13,9 +11,11 @@ public interface frame {
 
     void updateScoreFromPrevPrev(Score prevPrev);
 
-    boolean isLast();
-
     String getPrintableStatus();
 
     String getPrintableScore(int accumulative);
+
+    boolean allBowlsPlayed();
+
+    boolean isNewFrame();
 }

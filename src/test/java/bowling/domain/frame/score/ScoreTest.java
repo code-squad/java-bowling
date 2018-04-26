@@ -8,30 +8,29 @@ public class ScoreTest {
     private Score score;
 
     @Test
-    public void oneBowlAway_True_Spare() {
+    public void isReadyForDisplay_oneBowlAway_Spare() {
         score = Score.ofSpare();
-        assertTrue(score.isOneBowlAway());
+        assertFalse(score.isReadyForDisplay());
     }
 
     @Test
-    public void twoBowlsAway_Strike() {
+    public void isReadyForDisplay_oneBowlAway_PlayedOnce() {
+        score = Score.ofPlayedOnce(9);
+        assertFalse(score.isReadyForDisplay());
+    }
+
+    @Test
+    public void isReadyForDisplay_twoBowlsAway() {
         score = Score.ofStrike();
-        assertTrue(score.isTwoBowlsAway());
+        assertFalse(score.isReadyForDisplay());
     }
 
     @Test
-    public void bowl_readyForDisplay() {
+    public void isReadyForDisplay() {
         score = Score.ofStrike();
         score.bowl(8);
         score.bowl(1);
         assertTrue(score.isReadyForDisplay());
-    }
-
-    @Test
-    public void bowl_oneBowlAway() {
-        score = Score.ofStrike();
-        score.bowl(8);
-        assertTrue(score.isOneBowlAway());
     }
 
     @Test

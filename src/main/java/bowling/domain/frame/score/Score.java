@@ -41,28 +41,24 @@ public class Score {
         return new Score(score, ONE_BOWL_AWAY);
     }
 
+    public static Score ofBonus(int score) {
+        return new Score(score, READY_FOR_DISPLAY);
+    }
+
     public boolean isReadyForDisplay() {
         return count == READY_FOR_DISPLAY;
     }
 
     public void bowl(int score) {
-        if (!isReadyForDisplay()) {
+        if (count != 0) {
             this.score += score;
             count--;
         }
     }
 
-    public boolean isOneBowlAway() {
-        return count == ONE_BOWL_AWAY;
-    }
-
-    public boolean isTwoBowlsAway() {
-        return count == TWO_BOWLS_AWAY;
-    }
-
     public String getScore(int total) {
         if (isReadyForDisplay()) {
-            return Formatter.formatFrame(calculateNewTotal(total) + "");
+            return Formatter.formatFrame(total + "");
         }
         return Formatter.formatFrame("");
     }

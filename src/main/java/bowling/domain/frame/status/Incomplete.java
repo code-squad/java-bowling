@@ -31,5 +31,10 @@ abstract class Incomplete implements Status {
     }
 
     @Override
+    public boolean isMiss() {
+        return false;
+    }
+
+    @Override
     public abstract String toString();
 }

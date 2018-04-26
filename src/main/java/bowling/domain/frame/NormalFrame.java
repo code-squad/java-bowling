@@ -5,29 +5,20 @@ import bowling.domain.frame.status.NotPlayed;
 import bowling.domain.frame.status.Status;
 import bowling.domain.util.Formatter;
 
-public class NormalFrame implements frame {
-    private final int frameNumber;
-    private final frame nextFrame;
+public class NormalFrame implements Frame {
+    private final Frame nextFrame;
     private Status status;
 
     public NormalFrame(int frameNumber) {
-        this.frameNumber = frameNumber;
-        this.nextFrame = createNextFrame();
+        this.nextFrame = createNextFrame(frameNumber);
         this.status = new NotPlayed();
     }
 
-    private frame createNextFrame() {
+    private Frame createNextFrame(int frameNumber) {
         if (frameNumber == ONE_BEFORE_LAST) {
             return new LastFrame();
         }
         return new NormalFrame(frameNumber + 1);
-    }
-
-    public int getFrameNumber() {
-        if (status.isComplete()) {
-            return nextFrame.getFrameNumber();
-        }
-        return frameNumber;
     }
 
     @Override
@@ -40,11 +31,19 @@ public class NormalFrame implements frame {
     }
 
     @Override
-    public boolean isLast() {
+    public boolean allBowlsPlayed() {
         if (status.isComplete()) {
-            return nextFrame.isLast();
+            return nextFrame.allBowlsPlayed();
         }
         return false;
+    }
+
+    @Override
+    public boolean isNewFrame() {
+        if (status.isComplete()) {
+            return nextFrame.isNewFrame();
+        }
+        return !status.isPlayed();
     }
 
     @Override
@@ -57,10 +56,14 @@ public class NormalFrame implements frame {
     @Override
     public String getPrintableScore(int total) {
         Score score = status.createScore();
-        nextFrame.calculateAdditionalScore(score);
-        return score.getScore(total)
+        if (status.isStrike() || status.isSpare()) {
+            nextFrame.calculateAdditionalScore(score);
+        }
+
+        int newTotal = score.calculateNewTotal(total);
+        return score.getScore(newTotal)
                 + "|"
-                + nextFrame.getPrintableScore(score.calculateNewTotal(total));
+                + nextFrame.getPrintableScore(newTotal);
     }
 
     @Override

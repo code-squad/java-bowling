@@ -2,65 +2,107 @@ package bowling.domain.frame.status;
 
 import bowling.domain.frame.score.Score;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class LastFrameStatus {
-    private Status first = new NotPlayed();
-    private Status second = new NotPlayed();
-    private Status third = new NotPlayed();
+    private final List<Status> status = new ArrayList<>();
+    private Status currentStatus = new NotPlayed();
 
     public void bowl(int pins) {
-        if (!first.isPlayed()) {
-            first = first.bowl(pins);
-            return;
+        currentStatus = currentStatus.bowl(pins);
+        if (currentStatus.isComplete()) {
+            status.add(currentStatus);
+            currentStatus = new NotPlayed();
         }
-        if (!second.isPlayed()) {
-            second = second.bowl(pins);
-            return;
+        if (firstIsSpare() && currentStatus.isPlayed()) {
+            status.add(new Bonus(pins));
         }
-        third = third.bowl(pins);
+    }
+
+    public boolean bowlStarted() {
+        if (status.size() == 0) {
+            return currentStatus.isPlayed();
+        }
+        return firstIsPlayed();
+    }
+
+    private boolean firstIsPlayed() {
+        return status.size() > 0;
+    }
+
+    private boolean secondIsPlayed() {
+        return status.size() > 1;
+    }
+
+    private boolean thirdIsPlayed() {
+        return status.size() == 3;
+    }
+
+    private boolean firstIsSpare() {
+        return firstIsPlayed()
+                && status.get(0).isSpare();
+    }
+
+    private boolean firstIsMiss() {
+        return firstIsPlayed()
+                && status.get(0).isMiss();
+    }
+
+    private boolean firstIsStrike() {
+        return firstIsPlayed()
+                && status.get(0).isStrike();
+    }
+
+    private boolean secondIsStrike() {
+        return secondIsPlayed()
+                && status.get(1).isStrike();
+    }
+
+    private boolean twoBowlsComplete() {
+        return secondIsPlayed()
+                && status.get(1).isComplete();
     }
 
     public boolean isComplete() {
-        if (second.isPlayed() &&
-                (!first.isStrike() && !second.isSpare())) {
+        if (firstIsMiss()) {
             return true;
         }
-        return (first.isStrike() || second.isSpare())
-                && third.isPlayed();
+        if (twoBowlsComplete()
+                && !firstIsStrike()) {
+            return true;
+        }
+        return thirdIsPlayed();
     }
 
     public Score createScore() {
-        Score score = first.createScore();
-        second.updateScore(score);
-        third.updateScore(score);
-        return score;
+        if (firstIsPlayed()) {
+            return status.get(0).createScore();
+        }
+        return currentStatus.createScore();
     }
 
-    public void updateScoresFromPreviousFrames(Score prevPrev) {
-        if (prevPrev.isOneBowlAway()) {
-            first.updateScore(prevPrev);
-            return;
+    public void updateLastFrameScore(Score score) {
+        if (secondIsPlayed()) {
+            status.get(1).updateScore(score);
         }
-        first.updateScore(prevPrev);
-        second.updateScore(prevPrev);
+        if (thirdIsPlayed()) {
+            status.get(2).updateScore(score);
+        }
+    }
+
+    public void updateScoresFromPreviousFrames(Score prevScore) {
+        for (Status status : status) {
+            status.updateScore(prevScore);
+        }
     }
 
     @Override
     public String toString() {
-        if (third.isPlayed()) {
-            return first.toString()
-                    + "|"
-                    + second.toString()
-                    + "|"
-                    + third.toString();
-        }
-        if (second.isPlayed()) {
-            return first.toString()
-                    + "|"
-                    + second.toString();
-        }
-        if (first.isPlayed()) {
-            return first.toString();
-        }
-        return "";
+        return status
+                .stream()
+                .map(Status::toString)
+                .collect(Collectors.joining("|"));
     }
 }
