@@ -5,8 +5,6 @@ import domain.Score;
 
 public class FirstBowl extends State {
     private static final String GUTTER = "-";
-    private static final String PIPE = "|";
-    private static final int MAX_PINS = 10;
     private static final int NO_LEFT = 0;
 
     private Pins falledPins;

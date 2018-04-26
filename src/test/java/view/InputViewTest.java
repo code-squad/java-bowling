@@ -1,6 +1,5 @@
 package view;
 
-import domain.Player;
 import org.junit.Test;
 
 import java.util.Scanner;

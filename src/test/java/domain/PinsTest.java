@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class PinsTest {
-    Pins pins;
+    private Pins pins;
 
     @Before
     public void setUp() {

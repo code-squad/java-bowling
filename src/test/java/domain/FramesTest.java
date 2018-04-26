@@ -6,10 +6,9 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class FramesTest {
-    Frames frames;
+    private Frames frames;
 
     @Before
     public void setUp() {
@@ -45,7 +44,7 @@ public class FramesTest {
         frame.bowl(new Pins(3));
         frame.bowl(new Pins(7));
         frames.add(frame);
-        assertThat(frames.printFramesState(0),is("3|/"));
+        assertThat(frames.printFramesState(0), is("3|/"));
     }
 
     @Test
@@ -59,6 +58,6 @@ public class FramesTest {
         frame2.bowl(new Pins(10));
         frames.add(frame2);
 
-        assertThat(frames.printFramesScore(0, 0),is(20));
+        assertThat(frames.printFramesScore(0, 0), is(20));
     }
 }

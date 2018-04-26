@@ -4,7 +4,6 @@ import state.Ready;
 import state.State;
 
 public class NormalFrame extends Frame {
-    private static final String EMPTY = "";
     private static final int MAX_FRAME_NO = 10;
 
     private final int no;

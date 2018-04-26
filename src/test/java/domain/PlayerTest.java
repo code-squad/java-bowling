@@ -8,8 +8,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PlayerTest {
-    Player player;
-    Frames frames;
+    private Player player;
+    private Frames frames;
 
     @Before
     public void setUp() {

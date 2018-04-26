@@ -1,7 +1,6 @@
 package view;
 
 import domain.Player;
-import state.State;
 
 import java.util.List;
 
