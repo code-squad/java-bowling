@@ -14,34 +14,42 @@ public class NormalFrameTest {
     }
 
     @Test
-    public void isComplete_False_Not_Played() {
-        assertFalse(frame.isNewFrame());
+    public void allBowlsPlayed_Not_Played() {
+        assertFalse(frame.allBowlsPlayed());
     }
 
     @Test
-    public void isComplete_False_Played_And_Not_Strike() {
+    public void allBowlsPlayed_Played_Once() {
         frame.bowl(9);
-        assertFalse(frame.isNewFrame());
+        assertFalse(frame.allBowlsPlayed());
     }
 
     @Test
-    public void isComplete_False_Strike() { //nextFrame.isNewFrame() = false
+    public void allBowlsPlayed_One_Strike() {
         frame.bowl(10);
-        assertFalse(frame.isNewFrame());
+        assertFalse(frame.allBowlsPlayed());
     }
 
     @Test
-    public void isComplete_False_Spare() { //nextFrame.isNewFrame() = false
+    public void allBowlsPlayed_Two_Strikes() {
+        frame.bowl(10);
+        frame.bowl(10);
+        assertFalse(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_Three_Strikes() {
+        frame.bowl(10);
+        frame.bowl(10);
+        frame.bowl(10);
+        assertFalse(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_One_Spare() {
         frame.bowl(9);
         frame.bowl(1);
-        assertFalse(frame.isNewFrame());
-    }
-
-    @Test
-    public void isComplete_False_Miss() { //nextFrame.isNewFrame() = false
-        frame.bowl(8);
-        frame.bowl(1);
-        assertFalse(frame.isNewFrame());
+        assertFalse(frame.allBowlsPlayed());
     }
 
     @Test

@@ -14,25 +14,65 @@ public class LastFrameTest {
     }
 
     @Test
-    public void isComplete_Bonus_Not_Played() {
-        frame.bowl(10);
-        frame.bowl(10);
-        assertFalse(frame.isNewFrame());
+    public void allBowlsPlayed_Not_Played() {
+        assertFalse(frame.allBowlsPlayed());
     }
 
     @Test
-    public void isComplete_Bonus_Played() {
-        frame.bowl(10);
-        frame.bowl(10);
-        frame.bowl(10);
-        assertTrue(frame.isNewFrame());
+    public void allBowlsPlayed_Played_Once() {
+        frame.bowl(9);
+        assertFalse(frame.allBowlsPlayed());
     }
 
     @Test
-    public void isComplete_Bonus_Not_Given() {
+    public void allBowlsPlayed_One_Strike() {
+        frame.bowl(10);
+        assertFalse(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_Two_Strikes() {
+        frame.bowl(10);
+        frame.bowl(10);
+        assertFalse(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_Three_Strikes() {
+        frame.bowl(10);
+        frame.bowl(10);
+        frame.bowl(10);
+        assertTrue(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_One_Spare() {
+        frame.bowl(9);
+        frame.bowl(1);
+        assertFalse(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_Spare_Number() {
+        frame.bowl(9);
+        frame.bowl(1);
+        frame.bowl(9);
+        assertTrue(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_Spare_Strike() {
+        frame.bowl(9);
+        frame.bowl(1);
+        frame.bowl(10);
+        assertTrue(frame.allBowlsPlayed());
+    }
+
+    @Test
+    public void allBowlsPlayed_Miss() {
         frame.bowl(8);
         frame.bowl(1);
-        assertTrue(frame.isNewFrame());
+        assertTrue(frame.allBowlsPlayed());
     }
 
     @Test
@@ -58,28 +98,5 @@ public class LastFrameTest {
         frame.bowl(9);
         frame.bowl(1);
         assertFalse(frame.isNewFrame());
-    }
-
-    @Test
-    public void isNewFrame_True_Played_Complete_Without_Bonus() {
-        frame.bowl(8);
-        frame.bowl(1);
-        assertTrue(frame.isNewFrame());
-    }
-
-    @Test
-    public void isNewFrame_True_Played_Complete_With_Strike_Bonus() {
-        frame.bowl(10);
-        frame.bowl(10);
-        frame.bowl(10);
-        assertTrue(frame.isNewFrame());
-    }
-
-    @Test
-    public void isNewFrame_True_Played_Complete_With_Spare_Bonus() {
-        frame.bowl(9);
-        frame.bowl(1);
-        frame.bowl(9);
-        assertTrue(frame.isNewFrame());
     }
 }

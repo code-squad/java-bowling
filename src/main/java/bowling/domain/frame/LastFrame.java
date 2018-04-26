@@ -33,6 +33,7 @@ public class LastFrame implements Frame {
         Score score = status.createScore();
         status.updateLastFrameScore(score);
         int newTotal = score.calculateNewTotal(total);
+
         return score.getScore(newTotal) + "|";
     }
 

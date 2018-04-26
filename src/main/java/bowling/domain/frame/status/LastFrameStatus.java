@@ -1,6 +1,5 @@
 package bowling.domain.frame.status;
 
-import bowling.domain.frame.FrameCompleteException;
 import bowling.domain.frame.score.Score;
 
 import java.util.ArrayList;
@@ -20,9 +19,6 @@ public class LastFrameStatus {
         if (firstIsSpare() && currentStatus.isPlayed()) {
             status.add(new Bonus(pins));
         }
-//        if (isComplete()) {
-//            throw new FrameCompleteException();
-//        }
     }
 
     public boolean bowlStarted() {
@@ -74,8 +70,7 @@ public class LastFrameStatus {
             return true;
         }
         if (twoBowlsComplete()
-                && !firstIsStrike()
-                && secondIsStrike()) {
+                && !firstIsStrike()) {
             return true;
         }
         return thirdIsPlayed();

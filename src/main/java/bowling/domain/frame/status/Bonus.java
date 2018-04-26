@@ -32,7 +32,6 @@ public class Bonus extends Complete {
 
     @Override
     public Score createScore() {
-//        throw new NoScoreRequiredException();
         return Score.ofBonus(pins.getPins());
     }
 
