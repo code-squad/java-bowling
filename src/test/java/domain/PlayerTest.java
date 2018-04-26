@@ -18,42 +18,7 @@ public class PlayerTest {
 
     @Test
     public void name() {
-<<<<<<< HEAD
-        assertEquals("htw", player.printName());
-    }
-
-    @Test
-    public void bowl() {
-        assertTrue(Strike.isStrike(player.bowl(new Pins(10))));
-    }
-
-    @Test
-    public void isEnd() {
-        player.bowl(new Pins(10));
-        assertTrue(player.isEnd());
-    }
-
-    @Test
-    public void getFinishedFrame() {
-        player.bowl(new Pins(10));
-        assertEquals(1, player.getFinishedFrame());
-    }
-
-    @Test
-    public void saveFrameData() {
-        while (!player.isEnd()) {
-            player.bowl(new Pins(10));
-        }
-        player.saveFrameData();
-    }
-
-    @Test
-    public void printPlayingFrameState() {
-        player.bowl(new Pins(8));
-        assertEquals("8", player.printPlayingFrameState());
-=======
         assertEquals("htw", player.getName());
->>>>>>> multi-user
     }
 
     @Test

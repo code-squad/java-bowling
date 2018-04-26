@@ -1,11 +1,8 @@
 import domain.BowlingGame;
 import domain.Player;
-import state.Ready;
-import state.State;
 import view.InputView;
 import view.ResultView;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,7 +15,7 @@ public class BowlingMain {
         ResultView.printScoreBoard(players);
         for (int index = 1; index < 11; index++) {
             for (Player player : players) {
-                while(!bowlingGame.isEndFrame(player)) {
+                while (!bowlingGame.isEndFrame(player)) {
                     bowlingGame.bowl(player, InputView.getThrowing(scanner, player.getName()));
                     ResultView.printScoreBoard(players);
                 }

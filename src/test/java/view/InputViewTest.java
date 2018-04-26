@@ -1,5 +1,6 @@
 package view;
 
+import domain.Player;
 import org.junit.Test;
 
 import java.util.Scanner;
@@ -11,11 +12,5 @@ public class InputViewTest {
     public void userCount() {
         Scanner scanner = new Scanner("2");
         assertEquals(2, InputView.getUserCount(scanner));
-    }
-
-    @Test
-    public void throwing() {
-        Scanner scanner = new Scanner("10");
-        assertEquals(10, InputView.getThrowing(scanner, 1));
     }
 }
