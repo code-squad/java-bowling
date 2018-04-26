@@ -67,11 +67,16 @@ public class LastFrame extends Frame {
         if (score.canCalculateScore()) {
             return score.getScore();
         }
-        return calculateAdditionalScore(score);
+        return calculateAdditionalScore(score, 1);
     }
 
     public int calculateAdditionalScore(Score beforeScore) {
-        for (State state : states) {
+        return calculateAdditionalScore(beforeScore, 0);
+    }
+
+    public int calculateAdditionalScore(Score beforeScore, int index) {
+        for (int i = index; i < states.size(); i++) {
+            state = states.get(index);
             beforeScore = state.updateScore(beforeScore);
             if (beforeScore.canCalculateScore()) {
                 return beforeScore.getScore();

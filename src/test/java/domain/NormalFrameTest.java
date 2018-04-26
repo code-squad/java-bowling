@@ -2,13 +2,13 @@ package domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import state.Ready;
 import state.Strike;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class NormalFrameTest {
-    Frame frame;
+    private Frame frame;
 
     @Before
     public void setUp() {
