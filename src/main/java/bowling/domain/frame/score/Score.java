@@ -56,14 +56,6 @@ public class Score {
         }
     }
 
-    public boolean isOneBowlAway() {
-        return count == ONE_BOWL_AWAY;
-    }
-
-    public boolean isTwoBowlsAway() {
-        return count == TWO_BOWLS_AWAY;
-    }
-
     public String getScore(int total) {
         if (isReadyForDisplay()) {
             return Formatter.formatFrame(total + "");
