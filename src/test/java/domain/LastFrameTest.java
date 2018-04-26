@@ -136,4 +136,14 @@ public class LastFrameTest {
         lastFrame.bowl(new Pins(10));
         assertThat(lastFrame.getScore(10), is(30));
     }
+
+    @Test(expected = RuntimeException.class)
+    public void cannotGenerateNextFrame() {
+        lastFrame.next();
+    }
+
+    @Test
+    public void isLastFrame() {
+        assertThat(lastFrame.isLastFrame(), is(true));
+    }
 }

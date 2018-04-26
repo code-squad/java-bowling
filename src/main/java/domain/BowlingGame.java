@@ -26,7 +26,6 @@ public class BowlingGame {
     }
 
     public boolean isEndFrame(Player player) {
-        // 다수 고려하지 않음, 우선 한 명만.
         return player.isEnd();
     }
 

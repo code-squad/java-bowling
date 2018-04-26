@@ -42,8 +42,11 @@ public class BowlingGameTest {
 
     @Test
     public void isEndFrame() {
-//        Scanner scanner = new Scanner("10");
-//        List<Player> players = bowlingGame.createPlayer(Arrays.asList("htw", "pjs"));
-//        assertTrue(bowlingGame.isEndFrame(players.get));
+        List<Player> players = bowlingGame.createPlayer(Arrays.asList("htw", "pjs"));
+        bowlingGame.bowl(players.get(0), 4);
+        bowlingGame.bowl(players.get(0), 6);
+        assertTrue(bowlingGame.isEndFrame(players.get(0)));
     }
+
+
 }
