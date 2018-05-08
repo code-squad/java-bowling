@@ -3,7 +3,7 @@ package bowling.status;
 /**
  * @author sangsik.kim
  */
-public class Running implements Status {
+public class Running extends RunningStatus implements Status {
     private int first;
 
     public Running(int pin) {

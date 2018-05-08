@@ -3,7 +3,7 @@ package bowling.status;
 /**
  * @author sangsik.kim
  */
-public class Gutter implements Status {
+public class Gutter extends RunningStatus implements Status {
     @Override
     public Status bowl(int pin) {
         if (pin == 10) {

@@ -8,18 +8,18 @@ import static org.junit.Assert.assertThat;
 /**
  * @author sangsik.kim
  */
-public class FrameTest {
+public class NormalFrameTest {
 
     @Test
     public void ready() {
-        Frame frame = new Frame();
+        Frame frame = new NormalFrame();
 
         assertThat(frame.status(), is("Ready"));
     }
 
     @Test
     public void miss() {
-        Frame frame = new Frame();
+        Frame frame = new NormalFrame();
 
         frame.bowl(5);
         frame.bowl(2);
@@ -29,7 +29,7 @@ public class FrameTest {
 
     @Test
     public void strike() {
-        Frame frame = new Frame();
+        Frame frame = new NormalFrame();
 
         frame.bowl(10);
 
@@ -38,7 +38,7 @@ public class FrameTest {
 
     @Test
     public void spare() {
-        Frame frame = new Frame();
+        Frame frame = new NormalFrame();
 
         frame.bowl(5);
         frame.bowl(5);
@@ -48,7 +48,7 @@ public class FrameTest {
 
     @Test
     public void gutter() {
-        Frame frame = new Frame();
+        Frame frame = new NormalFrame();
 
         frame.bowl(0);
 

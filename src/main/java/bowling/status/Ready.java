@@ -3,8 +3,7 @@ package bowling.status;
 /**
  * @author sangsik.kim
  */
-public class Ready implements Status {
-
+public class Ready extends RunningStatus implements Status {
     @Override
     public Status bowl(int pin) {
         if (pin == 10) {

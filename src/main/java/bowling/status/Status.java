@@ -7,4 +7,6 @@ public interface Status {
     Status bowl(int pin);
 
     String getScore();
+
+    boolean isFinish();
 }

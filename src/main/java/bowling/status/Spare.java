@@ -3,16 +3,14 @@ package bowling.status;
 /**
  * @author sangsik.kim
  */
-public class Spare implements Status {
+public class Spare extends FinishedStatus implements Status {
     private int first;
-    private int second;
 
     public Spare(int first, int second) {
         if (first + second > 10) {
             throw new IllegalArgumentException("쓰러진 핀의 갯수가 올바르지 않습니다.");
         }
         this.first = first;
-        this.second = second;
     }
 
     @Override
