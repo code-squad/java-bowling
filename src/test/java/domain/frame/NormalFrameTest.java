@@ -1,6 +1,10 @@
 package domain.frame;
 
 import domain.PlayStatus;
+import domain.status.Miss;
+import domain.status.None;
+import domain.status.Spare;
+import domain.status.Strike;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,10 +44,10 @@ public class NormalFrameTest {
 
 	@Test
 	public void getStatus테스트() {
-		assertThat(new NormalFrame(10).getStatus()).isEqualTo(PlayStatus.STRIKE);
-		assertThat(new NormalFrame(9).bowl(1).getStatus()).isEqualTo(PlayStatus.SPARE);
-		assertThat(new NormalFrame(9).bowl(0).getStatus()).isEqualTo(PlayStatus.MISS);
-		assertThat(new NormalFrame(9).getStatus()).isEqualTo(PlayStatus.NONE);
+		assertThat(new NormalFrame(10).getStatus()).isInstanceOf(Strike.class);
+		assertThat(new NormalFrame(9).bowl(1).getStatus()).isInstanceOf(Spare.class);
+		assertThat(new NormalFrame(9).bowl(0).getStatus()).isInstanceOf(Miss.class);
+		assertThat(new NormalFrame(9).getStatus()).isInstanceOf(None.class);
 	}
 	
 	@Test

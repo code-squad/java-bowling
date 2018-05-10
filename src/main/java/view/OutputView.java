@@ -1,8 +1,8 @@
 package view;
 
 import domain.BowlingGame;
-import domain.pitch.Pitch;
 import domain.frame.Frame;
+import domain.status.Status;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -31,8 +31,8 @@ public class OutputView {
 	}
 
 	private static String getFrameStatus(Frame frame) {
-		return frame.getPitches().stream()
-				.map(Pitch::getDisplayValue)
+		return frame.getStatusHistory().stream()
+				.map(Status::display)
 				.collect(Collectors.joining("|"));
 	}
 }

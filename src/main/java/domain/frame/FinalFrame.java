@@ -1,7 +1,5 @@
 package domain.frame;
 
-import domain.PlayStatus;
-
 public class FinalFrame extends Frame {
 	public FinalFrame(int firstPin) {
 		super(MAX_FRAME_NUMBER, firstPin);
@@ -13,10 +11,8 @@ public class FinalFrame extends Frame {
 			return true;
 		}
 		
-		if (getPitches().has(2)) {
-			PlayStatus secondPitchStatus = getPitches().get(2).getStatus();
-			return PlayStatus.OPEN.equals(secondPitchStatus)
-					|| PlayStatus.MISS.equals(secondPitchStatus);
+		if (getStatus().isClear()) {
+			return true;
 		}
 
 		return false;

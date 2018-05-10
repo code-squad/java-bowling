@@ -1,6 +1,9 @@
 package domain.frame;
 
 import domain.PlayStatus;
+import domain.status.Spare;
+import domain.status.Status;
+import domain.status.Strike;
 
 public class NormalFrame extends Frame {
 	public NormalFrame(int frameNumber, int firstPin) {
@@ -13,19 +16,19 @@ public class NormalFrame extends Frame {
 	
 	@Override
 	public boolean isComplete() {
-		return getPitches().get(1).isClear() || getPitches().has(2);
+		return getStatus().isClear();
 	}
 	
 	@Override
 	public boolean getScoreFlag() {
-		PlayStatus nowStatus = getStatus();
+		Status nowStatus = getStatus();
 		
 		if (!isComplete()) {
 			return false;
 		}
 		
-		if (!PlayStatus.STRIKE.equals(nowStatus)
-				&& !PlayStatus.SPARE.equals(nowStatus)) {
+		if (!(nowStatus instanceof Strike)
+				&& !(nowStatus instanceof Spare)) {
 			return true;
 		}
 		
@@ -50,26 +53,27 @@ public class NormalFrame extends Frame {
 			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
 		}
 
-		int baseScore = getPitches().sum();
-		PlayStatus nowStatus = getStatus();
-
-		if (!PlayStatus.STRIKE.equals(nowStatus)
-				&& !PlayStatus.SPARE.equals(nowStatus)) {
-			return baseScore;
-		}
-
-		if (PlayStatus.SPARE.equals(nowStatus)) {
-			return baseScore
-					+ getNextFrame().getPitches().get(1).getPin();
-		}
-
-		if (!PlayStatus.STRIKE.equals(getNextFrame().getStatus())) {
-			return baseScore
-					+ getNextFrame().getPitches().sum();
-		}
-
-		return baseScore
-				+ getNextFrame().getPitches().sum()
-				+ getNextFrame().getNextFrame().getPitches().get(1).getPin();
+//		int baseScore = getPitches().sum();
+//		PlayStatus nowStatus = getStatus();
+//
+//		if (!PlayStatus.STRIKE.equals(nowStatus)
+//				&& !PlayStatus.SPARE.equals(nowStatus)) {
+//			return baseScore;
+//		}
+//
+//		if (PlayStatus.SPARE.equals(nowStatus)) {
+//			return baseScore
+//					+ getNextFrame().getPitches().get(1).getPin();
+//		}
+//
+//		if (!PlayStatus.STRIKE.equals(getNextFrame().getStatus())) {
+//			return baseScore
+//					+ getNextFrame().getPitches().sum();
+//		}
+//
+//		return baseScore
+//				+ getNextFrame().getPitches().sum()
+//				+ getNextFrame().getNextFrame().getPitches().get(1).getPin();
+		return 0;
 	}
 }

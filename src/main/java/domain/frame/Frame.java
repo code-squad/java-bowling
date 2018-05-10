@@ -1,19 +1,25 @@
 package domain.frame;
 
-import domain.PlayStatus;
-import domain.pitch.Pitches;
+import domain.pin.Pins;
+import domain.status.Ready;
+import domain.status.Status;
+
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Frame {
 	public static final int MIN_FRAME_NUMBER = 1;
 	public static final int MAX_FRAME_NUMBER = 10;
-
-	private Pitches pitches;
+	
+	private Pins pins;
 	private Frame nextFrame;
 	private int frameNumber;
+	private List<Status> statusHistory;
 	
 	public Frame(int frameNumber, int firstPin) {
 		this.frameNumber = frameNumber;
-		this.pitches = new Pitches(firstPin);
+		this.pins = new Pins(firstPin);
+		statusHistory = Arrays.asList(new Ready().next(firstPin));
 	}
 	
 	public Frame getNextFrame() {
@@ -28,8 +34,12 @@ public abstract class Frame {
 		return frameNumber;
 	}
 	
-	public Pitches getPitches() {
-		return pitches;
+	public Status getStatus() {
+		return statusHistory.get(statusHistory.size() - 1);
+	}
+	
+	public List<Status> getStatusHistory() {
+		return statusHistory;
 	}
 	
 	public abstract boolean isComplete();
@@ -43,7 +53,8 @@ public abstract class Frame {
 			return createNextFrame(pin);
 		}
 		
-		pitches.add(pin);
+		pins.add(pin);
+		statusHistory.add(getStatus().next(pin));
 		return this;
 	}
 	
@@ -56,10 +67,6 @@ public abstract class Frame {
 			return nextFrame = new NormalFrame(frameNumber + 1, firstPin);
 		}
 		return nextFrame = new FinalFrame(firstPin);
-	}
-	
-	public PlayStatus getStatus() {
-		return pitches.getLast().getStatus();
 	}
 	
 	public abstract boolean getScoreFlag();
