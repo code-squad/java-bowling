@@ -1,6 +1,6 @@
 package domain.status;
 
-public class Strike implements Status {
+public class Strike extends Status {
 	@Override
 	public String display() {
 		return "X";

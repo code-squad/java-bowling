@@ -2,7 +2,7 @@ package domain.status;
 
 import domain.pin.Pins;
 
-public class Open implements Status {
+public class Open extends Status {
 	private int startPin;
 	private int pin;
 	

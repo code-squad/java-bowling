@@ -1,9 +1,6 @@
 package domain.frame;
 
-import domain.PlayStatus;
-import domain.status.Spare;
-import domain.status.Status;
-import domain.status.Strike;
+import domain.status.*;
 
 public class NormalFrame extends Frame {
 	public NormalFrame(int frameNumber, int firstPin) {
@@ -16,7 +13,7 @@ public class NormalFrame extends Frame {
 	
 	@Override
 	public boolean isComplete() {
-		return getStatus().isClear();
+		return getStatus().isClear() || getStatus().ofInstance(Open.class) || getStatus().ofInstance(Miss.class) || getStatus().ofInstance(None.class);
 	}
 	
 	@Override
@@ -27,12 +24,12 @@ public class NormalFrame extends Frame {
 			return false;
 		}
 		
-		if (!(nowStatus instanceof Strike)
-				&& !(nowStatus instanceof Spare)) {
+		if (!nowStatus.ofInstance(Strike.class)
+				&& !nowStatus.ofInstance(Spare.class)) {
 			return true;
 		}
 		
-		if (PlayStatus.SPARE.equals(nowStatus)) {
+		if (nowStatus.ofInstance(Spare.class)) {
 			return hasNextFrame();
 		}
 		
@@ -40,7 +37,7 @@ public class NormalFrame extends Frame {
 			return false;
 		}
 
-		if (!PlayStatus.STRIKE.equals(getNextFrame().getStatus())) {
+		if (!getNextFrame().getStatus().ofInstance(Strike.class)) {
 			return getNextFrame().isComplete();
 		}
 
@@ -53,20 +50,20 @@ public class NormalFrame extends Frame {
 			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
 		}
 
-//		int baseScore = getPitches().sum();
-//		PlayStatus nowStatus = getStatus();
-//
-//		if (!PlayStatus.STRIKE.equals(nowStatus)
-//				&& !PlayStatus.SPARE.equals(nowStatus)) {
-//			return baseScore;
-//		}
-//
-//		if (PlayStatus.SPARE.equals(nowStatus)) {
+		int baseScore = getPins().sum();
+		Status nowStatus = getStatus();
+
+		if (!nowStatus.ofInstance(Strike.class)
+				&& !nowStatus.ofInstance(Spare.class)) {
+			return baseScore;
+		}
+
+//		if (nowStatus.ofInstance(Spare.class)) {
 //			return baseScore
 //					+ getNextFrame().getPitches().get(1).getPin();
 //		}
 //
-//		if (!PlayStatus.STRIKE.equals(getNextFrame().getStatus())) {
+//		if (!getNextFrame().getStatus().ofInstance(Strike.class)) {
 //			return baseScore
 //					+ getNextFrame().getPitches().sum();
 //		}

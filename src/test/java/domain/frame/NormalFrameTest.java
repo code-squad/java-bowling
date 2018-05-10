@@ -1,6 +1,5 @@
 package domain.frame;
 
-import domain.PlayStatus;
 import domain.status.Miss;
 import domain.status.None;
 import domain.status.Spare;

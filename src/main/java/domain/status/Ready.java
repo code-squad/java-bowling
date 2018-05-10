@@ -2,7 +2,7 @@ package domain.status;
 
 import domain.pin.Pins;
 
-public class Ready implements Status{
+public class Ready extends Status{
 	@Override
 	public String display() {
 		return "";

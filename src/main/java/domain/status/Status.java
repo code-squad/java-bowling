@@ -1,8 +1,11 @@
 package domain.status;
 
-public interface Status {
-	String display();
-	boolean isClear();
-	Status next(int pin);
-	int getLeftPin();
+public abstract class Status {
+	public abstract String display();
+	public abstract boolean isClear();
+	public abstract Status next(int pin);
+	abstract int getLeftPin();
+	public boolean ofInstance(Object status) {
+		return ((Class) status).getName().equals(this.getClass().getName());
+	}
 }

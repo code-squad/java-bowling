@@ -1,6 +1,6 @@
 package domain.status;
 
-public class Spare implements Status {
+public class Spare extends Status {
 	@Override
 	public String display() {
 		return "/";

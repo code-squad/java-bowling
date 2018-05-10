@@ -1,6 +1,6 @@
 package domain.status;
 
-public class Miss implements Status {
+public class Miss extends Status {
 	private int leftPin;
 	
 	public Miss(int leftPin) {

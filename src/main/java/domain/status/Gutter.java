@@ -2,7 +2,7 @@ package domain.status;
 
 import domain.pin.Pins;
 
-public class Gutter implements Status {
+public class Gutter extends Status {
 	@Override
 	public String display() {
 		return "G";

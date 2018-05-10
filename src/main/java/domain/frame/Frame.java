@@ -4,6 +4,7 @@ import domain.pin.Pins;
 import domain.status.Ready;
 import domain.status.Status;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public abstract class Frame {
 	public Frame(int frameNumber, int firstPin) {
 		this.frameNumber = frameNumber;
 		this.pins = new Pins(firstPin);
-		statusHistory = Arrays.asList(new Ready().next(firstPin));
+		statusHistory = new ArrayList<>(Arrays.asList(new Ready().next(firstPin)));
 	}
 	
 	public Frame getNextFrame() {
@@ -68,8 +69,13 @@ public abstract class Frame {
 		}
 		return nextFrame = new FinalFrame(firstPin);
 	}
+
+	public Pins getPins() {
+	    return pins;
+    }
 	
 	public abstract boolean getScoreFlag();
 
 	public abstract int getScore();
+
 }

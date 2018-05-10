@@ -2,7 +2,7 @@ package domain.status;
 
 import domain.pin.Pins;
 
-public class None implements Status {
+public class None extends Status {
 	private int pin;
 	
 	public None(int pin) {
