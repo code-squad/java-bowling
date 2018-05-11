@@ -10,7 +10,7 @@ public class BowlingGameConsoleApp {
 	public static void main(String[] args) {
 		bowlingGame = new BowlingGame(InputView.showGetPlayerNameView());
 		do {
-			bowlingGame.play(InputView.showGetPinCountView(bowlingGame.getNextFrameNumber()));
+			bowlingGame.play(InputView.showGetPinCountView(bowlingGame.getFrames().getNextFrameNumber()));
 			OutputView.showStatusBoardView(bowlingGame);
 		} while(bowlingGame.canPlay());
 	}

@@ -1,12 +1,8 @@
 package domain.frame;
 
 import domain.pin.Pins;
-import domain.status.Ready;
 import domain.status.Status;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import domain.status.StatusHistory;
 
 public abstract class Frame {
 	public static final int MIN_FRAME_NUMBER = 1;
@@ -15,12 +11,11 @@ public abstract class Frame {
 	private Pins pins;
 	private Frame nextFrame;
 	private int frameNumber;
-	private List<Status> statusHistory;
+	private StatusHistory statusHistory;
 	
 	public Frame(int frameNumber, int firstPin) {
 		this.frameNumber = frameNumber;
 		this.pins = new Pins(firstPin);
-		statusHistory = new ArrayList<>(Arrays.asList(new Ready().next(firstPin)));
 	}
 	
 	public Frame getNextFrame() {
@@ -36,10 +31,10 @@ public abstract class Frame {
 	}
 	
 	public Status getStatus() {
-		return statusHistory.get(statusHistory.size() - 1);
+		return statusHistory.getLatest();
 	}
 	
-	public List<Status> getStatusHistory() {
+	public StatusHistory getStatusHistory() {
 		return statusHistory;
 	}
 	
@@ -54,8 +49,8 @@ public abstract class Frame {
 			return createNextFrame(pin);
 		}
 		
+		statusHistory.add(pin);
 		pins.add(pin);
-		statusHistory.add(getStatus().next(pin));
 		return this;
 	}
 	

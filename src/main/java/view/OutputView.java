@@ -2,9 +2,6 @@ package view;
 
 import domain.BowlingGame;
 import domain.frame.Frame;
-import domain.status.Status;
-
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class OutputView {
@@ -13,9 +10,9 @@ public class OutputView {
 		StringBuilder statusBuilder = new StringBuilder(String.format("| %4s |", bowlingGame.getPlayerName()));
 		StringBuilder scoreBuilder = new StringBuilder("|      |");
 
-		bowlingGame.getFrames().forEach(frame -> {
+		bowlingGame.getFrames().stream().forEach(frame -> {
 			headerBuilder.append(String.format(frame.isFinalFrame() ? "  %02d    |" : "  %02d  |", frame.getFrameNumber()));
-			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", getFrameStatus(frame)));
+			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.getStatusHistory().display()));
 			scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.getScoreFlag() ? frame.getScore() : ""));
 		});
 
@@ -28,11 +25,5 @@ public class OutputView {
 		System.out.println(headerBuilder);
 		System.out.println(statusBuilder);
 		System.out.println(scoreBuilder);
-	}
-
-	private static String getFrameStatus(Frame frame) {
-		return frame.getStatusHistory().stream()
-				.map(Status::display)
-				.collect(Collectors.joining("|"));
 	}
 }
