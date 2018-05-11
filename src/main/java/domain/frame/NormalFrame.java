@@ -13,7 +13,7 @@ public class NormalFrame extends Frame {
 	
 	@Override
 	public boolean isComplete() {
-		return getStatus().isClear() || getStatus().ofInstance(Open.class) || getStatus().ofInstance(Miss.class) || getStatus().ofInstance(None.class);
+		return getStatus().isComplete();
 	}
 	
 	@Override
@@ -24,8 +24,7 @@ public class NormalFrame extends Frame {
 			return false;
 		}
 		
-		if (!nowStatus.ofInstance(Strike.class)
-				&& !nowStatus.ofInstance(Spare.class)) {
+		if (!nowStatus.ofInstance(Strike.class, Spare.class)) {
 			return true;
 		}
 		
@@ -58,19 +57,18 @@ public class NormalFrame extends Frame {
 			return baseScore;
 		}
 
-//		if (nowStatus.ofInstance(Spare.class)) {
-//			return baseScore
-//					+ getNextFrame().getPitches().get(1).getPin();
-//		}
-//
-//		if (!getNextFrame().getStatus().ofInstance(Strike.class)) {
-//			return baseScore
-//					+ getNextFrame().getPitches().sum();
-//		}
-//
-//		return baseScore
-//				+ getNextFrame().getPitches().sum()
-//				+ getNextFrame().getNextFrame().getPitches().get(1).getPin();
-		return 0;
+		if (nowStatus.ofInstance(Spare.class)) {
+			return baseScore
+					+ getNextFrame().getPins().getFirst().getPin();
+		}
+
+		if (!getNextFrame().getStatus().ofInstance(Strike.class)) {
+			return baseScore
+					+ getNextFrame().getPins().sum();
+		}
+
+		return baseScore
+				+ getNextFrame().getPins().sum()
+				+ getNextFrame().getNextFrame().getPins().getFirst().getPin();
 	}
 }

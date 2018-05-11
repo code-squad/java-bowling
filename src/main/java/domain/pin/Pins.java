@@ -1,18 +1,25 @@
 package domain.pin;
 
+import domain.status.Status;
+
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Pins {
-	public static final int DEFAULT_START_PIN_COUNT = 10;
-	
 	private List<Pin> pins;
 	
 	public Pins(int pin) {
 		pins = new ArrayList<>(Arrays.asList(new Pin(pin)));
 	}
 	
-	public void add(int pin) {
-		pins.add(new Pin(pin));
+	public Pins add(int pin) {
+		if(getLastStatus().isClear()) {
+			pins.add(new Pin(pin));
+			return this;
+		}
+		
+		pins.add(new Pin(pin, getLastStatus().next(pin)));
+		return this;
 	}
 
 	public int sum() {
@@ -24,4 +31,20 @@ public class Pins {
     public int size() {
 		return pins.size();
     }
+    
+    public Pin getLast() {
+		return pins.get(pins.size() - 1);
+    }
+    
+    public Status getLastStatus() {
+		return getLast().getStatus();
+    }
+	
+	public Stream<Pin> stream() {
+		return pins.stream();
+	}
+	
+	public Pin getFirst() {
+		return pins.get(0);
+	}
 }

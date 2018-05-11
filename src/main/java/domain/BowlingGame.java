@@ -4,9 +4,6 @@ import domain.frame.Frame;
 import domain.frame.Frames;
 import domain.frame.NormalFrame;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BowlingGame {
     private String playerName;
     private Frames frames;

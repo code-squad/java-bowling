@@ -1,6 +1,6 @@
 package domain.status;
 
-import domain.pin.Pins;
+import domain.pin.Pin;
 
 public class Gutter extends Status {
 	@Override
@@ -14,8 +14,14 @@ public class Gutter extends Status {
 	}
 	
 	@Override
+	public boolean isComplete() {
+		return false;
+	}
+	
+	@Override
 	public Status next(int pin) {
-		if(pin == Pins.DEFAULT_START_PIN_COUNT) {
+		validNext(pin);
+		if(pin == Pin.DEFAULT_START_PIN_COUNT) {
 			return new Spare();
 		}
 		
@@ -28,6 +34,6 @@ public class Gutter extends Status {
 	
 	@Override
 	public int getLeftPin() {
-		return Pins.DEFAULT_START_PIN_COUNT;
+		return Pin.DEFAULT_START_PIN_COUNT;
 	}
 }

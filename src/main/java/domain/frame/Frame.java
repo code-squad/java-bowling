@@ -1,8 +1,10 @@
 package domain.frame;
 
+import domain.pin.Pin;
 import domain.pin.Pins;
 import domain.status.Status;
-import domain.status.StatusHistory;
+
+import java.util.stream.Collectors;
 
 public abstract class Frame {
 	public static final int MIN_FRAME_NUMBER = 1;
@@ -11,7 +13,6 @@ public abstract class Frame {
 	private Pins pins;
 	private Frame nextFrame;
 	private int frameNumber;
-	private StatusHistory statusHistory;
 	
 	public Frame(int frameNumber, int firstPin) {
 		this.frameNumber = frameNumber;
@@ -31,11 +32,7 @@ public abstract class Frame {
 	}
 	
 	public Status getStatus() {
-		return statusHistory.getLatest();
-	}
-	
-	public StatusHistory getStatusHistory() {
-		return statusHistory;
+		return pins.getLastStatus();
 	}
 	
 	public abstract boolean isComplete();
@@ -49,7 +46,6 @@ public abstract class Frame {
 			return createNextFrame(pin);
 		}
 		
-		statusHistory.add(pin);
 		pins.add(pin);
 		return this;
 	}
@@ -72,5 +68,11 @@ public abstract class Frame {
 	public abstract boolean getScoreFlag();
 
 	public abstract int getScore();
-
+	
+	public String displayStatus() {
+		return pins.stream()
+				.map(Pin::getStatus)
+				.map(Status::display)
+				.collect(Collectors.joining("|"));
+	}
 }

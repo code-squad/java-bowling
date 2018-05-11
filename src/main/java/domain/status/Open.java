@@ -1,13 +1,13 @@
 package domain.status;
 
-import domain.pin.Pins;
+import domain.pin.Pin;
 
 public class Open extends Status {
 	private int startPin;
 	private int pin;
 	
 	public Open(int pin) {
-		this.startPin = Pins.DEFAULT_START_PIN_COUNT;
+		this.startPin = Pin.DEFAULT_START_PIN_COUNT;
 		this.pin = pin;
 	}
 	
@@ -24,6 +24,11 @@ public class Open extends Status {
 	@Override
 	public boolean isClear() {
 		return false;
+	}
+	
+	@Override
+	public boolean isComplete() {
+		return true;
 	}
 	
 	@Override

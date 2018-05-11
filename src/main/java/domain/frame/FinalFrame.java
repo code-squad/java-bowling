@@ -1,5 +1,8 @@
 package domain.frame;
 
+import domain.status.Spare;
+import domain.status.Strike;
+
 public class FinalFrame extends Frame {
 	public FinalFrame(int firstPin) {
 		super(MAX_FRAME_NUMBER, firstPin);
@@ -11,11 +14,8 @@ public class FinalFrame extends Frame {
 			return true;
 		}
 		
-		if (getStatus().isClear()) {
-			return true;
-		}
-
-		return false;
+		return getStatus().isComplete() && !getStatus().ofInstance(Spare.class, Strike.class);
+		
 	}
 	
 	@Override

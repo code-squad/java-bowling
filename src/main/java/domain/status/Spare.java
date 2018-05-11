@@ -12,6 +12,11 @@ public class Spare extends Status {
 	}
 	
 	@Override
+	public boolean isComplete() {
+		return true;
+	}
+	
+	@Override
 	public Status next(int pin) {
 		throw new RuntimeException("다음 상태를 가질 수 없습니다.");
 	}

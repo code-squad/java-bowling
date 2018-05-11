@@ -1,6 +1,6 @@
 package domain.status;
 
-import domain.pin.Pins;
+import domain.pin.Pin;
 
 public class None extends Status {
 	private int pin;
@@ -20,8 +20,14 @@ public class None extends Status {
 	}
 	
 	@Override
+	public boolean isComplete() {
+		return false;
+	}
+	
+	@Override
 	public Status next(int pin) {
-		if(this.pin + pin == Pins.DEFAULT_START_PIN_COUNT) {
+		validNext(pin);
+		if(this.pin + pin == Pin.DEFAULT_START_PIN_COUNT) {
 			return new Spare();
 		}
 		
@@ -34,6 +40,6 @@ public class None extends Status {
 	
 	@Override
 	public int getLeftPin() {
-		return Pins.DEFAULT_START_PIN_COUNT - pin;
+		return Pin.DEFAULT_START_PIN_COUNT - pin;
 	}
 }

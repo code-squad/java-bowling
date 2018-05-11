@@ -12,7 +12,7 @@ public class OutputView {
 
 		bowlingGame.getFrames().stream().forEach(frame -> {
 			headerBuilder.append(String.format(frame.isFinalFrame() ? "  %02d    |" : "  %02d  |", frame.getFrameNumber()));
-			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.getStatusHistory().display()));
+			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.displayStatus()));
 			scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.getScoreFlag() ? frame.getScore() : ""));
 		});
 
