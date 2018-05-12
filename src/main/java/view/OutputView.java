@@ -12,8 +12,8 @@ public class OutputView {
 
 		bowlingGame.getFrames().stream().forEach(frame -> {
 			headerBuilder.append(String.format(frame.isFinalFrame() ? "  %02d    |" : "  %02d  |", frame.getFrameNumber()));
-			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.displayStatus()));
-			scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.score().canScore() ? frame.score().getScore() : ""));
+			statusBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.getDisplayStatus()));
+			scoreBuilder.append(String.format(frame.isFinalFrame() ? "  %-5s |" : "  %-3s |", frame.getScore().getScoreFlag() ? frame.getScore().getScore() : ""));
 		});
 
 		IntStream.range(bowlingGame.getFrames().size(), Frame.MAX_FRAME_NUMBER)

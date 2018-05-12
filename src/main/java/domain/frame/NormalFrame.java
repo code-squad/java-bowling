@@ -1,7 +1,6 @@
 package domain.frame;
 
 import domain.Score;
-import domain.status.*;
 
 public class NormalFrame extends Frame {
 	public NormalFrame(int frameNumber, int firstPin) {
@@ -18,19 +17,19 @@ public class NormalFrame extends Frame {
 	}
 	
 	@Override
-	public Score score() {
+	public Score getScore() {
 		Score score = Score.ofStatus(getStatus(), getPins());
-		if(!score.canScore() && hasNextFrame()) {
-			return getNextFrame().scoreWith(score);
+		if(!score.getScoreFlag() && hasNextFrame()) {
+			return getNextFrame().getScoreWith(score);
 		}
 		return score;
 	}
 	
 	@Override
-	protected Score scoreWith(Score beforeScore) {
+	protected Score getScoreWith(Score beforeScore) {
 		Score score = getPins().scoreWith(beforeScore);
-		if(hasNextFrame() && !score.canScore()) {
-			return getNextFrame().scoreWith(score);
+		if(hasNextFrame() && !score.getScoreFlag()) {
+			return getNextFrame().getScoreWith(score);
 		}
 		
 		return score;

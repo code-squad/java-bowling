@@ -52,7 +52,7 @@ public class Pins {
 	public Score scoreWith(Score beforeScore) {
 		Score tempScore = beforeScore;
 		Iterator iterator = pins.iterator();
-		while (iterator.hasNext() && !tempScore.canScore()) {
+		while (iterator.hasNext() && !tempScore.getScoreFlag()) {
 			Pin pin = (Pin) iterator.next();
 			tempScore = tempScore.next(pin.getPin());
 		}

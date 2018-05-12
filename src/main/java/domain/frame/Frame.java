@@ -68,13 +68,13 @@ public abstract class Frame {
 		return nextFrame = new FinalFrame(firstPin);
 	}
 
-	public String displayStatus() {
+	public String getDisplayStatus() {
 		return pins.stream()
 				.map(Pin::getStatus)
 				.map(Status::display)
 				.collect(Collectors.joining("|"));
 	}
 	
-	public abstract Score score();
-	protected abstract Score scoreWith(Score score);
+	public abstract Score getScore();
+	protected abstract Score getScoreWith(Score score);
 }

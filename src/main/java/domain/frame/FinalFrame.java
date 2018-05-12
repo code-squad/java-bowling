@@ -20,7 +20,7 @@ public class FinalFrame extends Frame {
 	}
 	
 	@Override
-	public Score score() {
+	public Score getScore() {
 		if(isComplete()) {
 			return Score.ofNone(getPins().sum());
 		}
@@ -29,7 +29,7 @@ public class FinalFrame extends Frame {
 	}
 	
 	@Override
-	protected Score scoreWith(Score beforeScore) {
+	protected Score getScoreWith(Score beforeScore) {
 		return getPins().scoreWith(beforeScore);
 	}
 }

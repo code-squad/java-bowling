@@ -91,14 +91,14 @@ body {
     {{#bowlingGames}}
       <tr>
         <th rowspan=2 class="text-center">{{playerName}}</th>
-        {{#frames}}
-        <td class="text-center">{{#pitches.list}}{{displayValue}} {{/pitches.list}}</td>
-        {{/frames}}
+        {{#frames.frames}}
+        <td class="text-center">{{displayStatus}}</td>
+        {{/frames.frames}}
       </tr>
       <tr>
-        {{#frames}}
-        <td class="text-center">{{#if scoreFlag}}{{score}}{{/if}}</td>
-        {{/frames}}
+        {{#frames.frames}}
+        <td class="text-center">{{#if score.scoreFlag}}{{score.score}}{{/if}}</td>
+        {{/frames.frames}}
       </tr>
     {{/bowlingGames}}
     </tbody>

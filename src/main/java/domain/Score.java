@@ -38,7 +38,7 @@ public class Score {
 	}
 	
 	public int getScore() {
-		if(!canScore()) {
+		if(!getScoreFlag()) {
 			throw new IllegalStateException("점수를 구할 수 없는 상태인 프레임의 점수를 합산시도하였습니다.");
 		}
 		
@@ -49,7 +49,7 @@ public class Score {
 		return new Score(score + pin, canScoreCount - 1);
 	}
 	
-	public boolean canScore() {
+	public boolean getScoreFlag() {
 		return canScoreCount == 0;
 	}
 }

@@ -41,18 +41,18 @@ public class FinalFrameTest {
     
     @Test
     public void score테스트() {
-        assertThat(new FinalFrame(0).bowl(1).score().getScore()).isEqualTo(1);
-        assertThat(new FinalFrame(0).bowl(10).bowl(10).score().getScore()).isEqualTo(20);
+        assertThat(new FinalFrame(0).bowl(1).getScore().getScore()).isEqualTo(1);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).getScore().getScore()).isEqualTo(20);
 
-        assertThat(new FinalFrame(8).bowl(1).score().getScore()).isEqualTo(9);
+        assertThat(new FinalFrame(8).bowl(1).getScore().getScore()).isEqualTo(9);
 
-        assertThat(new FinalFrame(1).bowl(9).bowl(10).score().getScore()).isEqualTo(20);
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).getScore().getScore()).isEqualTo(20);
 
-        assertThat(new FinalFrame(10).bowl(2).bowl(8).score().getScore()).isEqualTo(20);
-        assertThat(new FinalFrame(10).bowl(10).bowl(10).score().getScore()).isEqualTo(30);
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).getScore().getScore()).isEqualTo(20);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).getScore().getScore()).isEqualTo(30);
     
-        assertFalse(new FinalFrame(1).score().canScore());
-        assertFalse(new FinalFrame(10).score().canScore());
-        assertFalse(new FinalFrame(10).bowl(1).score().canScore());
+        assertFalse(new FinalFrame(1).getScore().getScoreFlag());
+        assertFalse(new FinalFrame(10).getScore().getScoreFlag());
+        assertFalse(new FinalFrame(10).bowl(1).getScore().getScoreFlag());
     }
 }

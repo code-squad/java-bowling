@@ -54,19 +54,19 @@ public class NormalFrameTest {
 	public void score테스트() {
 		NormalFrame frame = new NormalFrame(10);
 		frame.bowl(2).bowl(3);
-		assertThat(frame.score().getScore()).isEqualTo(15);
+		assertThat(frame.getScore().getScore()).isEqualTo(15);
 		frame.bowl(10).bowl(10).bowl(10);
-		assertThat(frame.score().getScore()).isEqualTo(30);
+		assertThat(frame.getScore().getScore()).isEqualTo(30);
 		frame.bowl(10).bowl(1).bowl(9);
-		assertThat(frame.score().getScore()).isEqualTo(21);
+		assertThat(frame.getScore().getScore()).isEqualTo(21);
 
 		frame = new NormalFrame(1);
-		assertFalse(frame.score().canScore());
+		assertFalse(frame.getScore().getScoreFlag());
 		frame.bowl(9).bowl(1).bowl(2);
-		assertThat(frame.score().getScore()).isEqualTo(11);
+		assertThat(frame.getScore().getScore()).isEqualTo(11);
 
 		frame = new NormalFrame(1);
 		frame.bowl(8).bowl(1).bowl(2);
-		assertThat(frame.score().getScore()).isEqualTo(9);
+		assertThat(frame.getScore().getScore()).isEqualTo(9);
 	}
 }
