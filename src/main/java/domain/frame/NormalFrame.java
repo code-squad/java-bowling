@@ -1,75 +1,37 @@
 package domain.frame;
 
-import domain.PlayStatus;
+import domain.Score;
 
 public class NormalFrame extends Frame {
-	public NormalFrame(int frameNumber, int firstPitch) {
-		super(frameNumber, firstPitch);
+	public NormalFrame(int frameNumber, int firstPin) {
+		super(frameNumber, firstPin);
 	}
 	
-	public NormalFrame(int firstPitch) {
-		super(MIN_FRAME_NUMBER, firstPitch);
+	public NormalFrame(int firstPin) {
+		super(MIN_FRAME_NUMBER, firstPin);
 	}
 	
 	@Override
 	public boolean isComplete() {
-		return getPitches().get(1).isClear() || getPitches().has(2);
+		return getStatus().isComplete();
 	}
 	
 	@Override
-	public boolean getScoreFlag() {
-		PlayStatus currentStatus = getStatus();
-		
-		if (!isComplete()) {
-			return false;
+	public Score getScore() {
+		Score score = Score.ofStatus(getStatus(), getPins());
+		if(!score.getScoreFlag() && hasNextFrame()) {
+			return getNextFrame().getScoreWith(score);
 		}
-		
-		if (!PlayStatus.STRIKE.equals(currentStatus)
-				&& !PlayStatus.SPARE.equals(currentStatus)) {
-			return true;
-		}
-		
-		if (PlayStatus.SPARE.equals(currentStatus)) {
-			return hasNextFrame();
-		}
-		
-		if (!hasNextFrame()) {
-			return false;
-		}
-
-		if (!PlayStatus.STRIKE.equals(getNextFrame().getStatus())) {
-			return getNextFrame().isComplete();
-		}
-
-		return getNextFrame().hasNextFrame();
+		return score;
 	}
-
+	
 	@Override
-	public int getScore() {
-		if (!getScoreFlag()) {
-			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
+	protected Score getScoreWith(Score beforeScore) {
+		Score score = getPins().scoreWith(beforeScore);
+		if(hasNextFrame() && !score.getScoreFlag()) {
+			return getNextFrame().getScoreWith(score);
 		}
-
-		int baseScore = getPitches().sum();
-		PlayStatus currentStatus = getStatus();
-
-		if (!PlayStatus.STRIKE.equals(currentStatus)
-				&& !PlayStatus.SPARE.equals(currentStatus)) {
-			return baseScore;
-		}
-
-		if (PlayStatus.SPARE.equals(currentStatus)) {
-			return baseScore
-					+ getNextFrame().getPitches().get(1).getPinCount();
-		}
-
-		if (!PlayStatus.STRIKE.equals(getNextFrame().getStatus())) {
-			return baseScore
-					+ getNextFrame().getPitches().sum();
-		}
-
-		return baseScore
-				+ getNextFrame().getPitches().sum()
-				+ getNextFrame().getNextFrame().getPitches().get(1).getPinCount();
+		
+		return score;
 	}
 }

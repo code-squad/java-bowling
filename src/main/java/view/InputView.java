@@ -1,8 +1,5 @@
 package view;
 
-import domain.frame.Frame;
-
-import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
@@ -13,20 +10,8 @@ public class InputView {
 		return scanner.nextLine();
 	}
 
-	public static int showGetPinCountView(List<Frame> frames) {
-		System.out.print(getNextFrameNumber(frames) + "프레임 투구 : ");
+	public static int showGetPinCountView(int nextFrameNumber) {
+		System.out.print(nextFrameNumber + "프레임 투구 : ");
 		return Integer.parseInt(scanner.nextLine());
-	}
-
-	private static int getNextFrameNumber(List<Frame> frames) {
-		if (frames.isEmpty()) {
-			return Frame.MIN_FRAME_NUMBER;
-		}
-
-		if (frames.get(frames.size() - 1).isComplete()) {
-			return frames.size() + 1;
-		}
-
-		return frames.size();
 	}
 }

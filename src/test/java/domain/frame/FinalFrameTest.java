@@ -3,6 +3,7 @@ package domain.frame;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 
 public class FinalFrameTest {
     @Test(expected = IllegalArgumentException.class)
@@ -39,35 +40,19 @@ public class FinalFrameTest {
     }
     
     @Test
-    public void canScore테스트() {
-        assertThat(new FinalFrame(0).getScoreFlag()).isEqualTo(false);
-        assertThat(new FinalFrame(0).bowl(1).getScoreFlag()).isEqualTo(true);
-        assertThat(new FinalFrame(0).bowl(10).getScoreFlag()).isEqualTo(false);
-        assertThat(new FinalFrame(0).bowl(10).bowl(10).getScoreFlag()).isEqualTo(true);
-        
-        assertThat(new FinalFrame(8).getScoreFlag()).isEqualTo(false);
-        assertThat(new FinalFrame(8).bowl(1).getScoreFlag()).isEqualTo(true);
-        
-        assertThat(new FinalFrame(1).bowl(9).getScoreFlag()).isEqualTo(false);
-        assertThat(new FinalFrame(1).bowl(9).bowl(10).getScoreFlag()).isEqualTo(true);
-        
-        assertThat(new FinalFrame(10).getScoreFlag()).isEqualTo(false);
-        assertThat(new FinalFrame(10).bowl(2).getScoreFlag()).isEqualTo(false);
-        assertThat(new FinalFrame(10).bowl(2).bowl(8).getScoreFlag()).isEqualTo(true);
-        assertThat(new FinalFrame(10).bowl(10).getScoreFlag()).isEqualTo(false);
-        assertThat(new FinalFrame(10).bowl(10).bowl(10).getScoreFlag()).isEqualTo(true);
-    }
-
-    @Test
     public void score테스트() {
-        assertThat(new FinalFrame(0).bowl(1).getScore()).isEqualTo(1);
-        assertThat(new FinalFrame(0).bowl(10).bowl(10).getScore()).isEqualTo(20);
+        assertThat(new FinalFrame(0).bowl(1).getScore().getScore()).isEqualTo(1);
+        assertThat(new FinalFrame(0).bowl(10).bowl(10).getScore().getScore()).isEqualTo(20);
 
-        assertThat(new FinalFrame(8).bowl(1).getScore()).isEqualTo(9);
+        assertThat(new FinalFrame(8).bowl(1).getScore().getScore()).isEqualTo(9);
 
-        assertThat(new FinalFrame(1).bowl(9).bowl(10).getScore()).isEqualTo(20);
+        assertThat(new FinalFrame(1).bowl(9).bowl(10).getScore().getScore()).isEqualTo(20);
 
-        assertThat(new FinalFrame(10).bowl(2).bowl(8).getScore()).isEqualTo(20);
-        assertThat(new FinalFrame(10).bowl(10).bowl(10).getScore()).isEqualTo(30);
+        assertThat(new FinalFrame(10).bowl(2).bowl(8).getScore().getScore()).isEqualTo(20);
+        assertThat(new FinalFrame(10).bowl(10).bowl(10).getScore().getScore()).isEqualTo(30);
+    
+        assertFalse(new FinalFrame(1).getScore().getScoreFlag());
+        assertFalse(new FinalFrame(10).getScore().getScoreFlag());
+        assertFalse(new FinalFrame(10).bowl(1).getScore().getScoreFlag());
     }
 }

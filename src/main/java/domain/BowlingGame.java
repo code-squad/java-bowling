@@ -1,21 +1,19 @@
 package domain;
 
 import domain.frame.Frame;
+import domain.frame.Frames;
 import domain.frame.NormalFrame;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BowlingGame {
-    private List<Frame> frames;
     private String playerName;
+    private Frames frames;
 
     public BowlingGame(String playerName) {
         this.playerName = playerName;
-        this.frames = new ArrayList<>();
+        this.frames = new Frames();
     }
-
-    public List<Frame> getFrames() {
+    
+    public Frames getFrames() {
         return frames;
     }
 
@@ -23,10 +21,10 @@ public class BowlingGame {
         return playerName;
     }
 
-    public List<Frame> play(int pinCount) {
-        Frame currentFrame = frames.isEmpty() ? new NormalFrame(pinCount) : frames.get(frames.size() - 1).bowl(pinCount);
-        if (!frames.contains(currentFrame)) {
-            frames.add(currentFrame);
+    public Frames play(int pin) {
+        Frame nowFrame = frames.isEmpty() ? new NormalFrame(pin) : frames.getLast().bowl(pin);
+        if (!frames.contains(nowFrame)) {
+            frames.add(nowFrame);
         }
         return frames;
     }
@@ -36,7 +34,7 @@ public class BowlingGame {
             return true;
         }
 
-        Frame lastFrame = frames.get(frames.size() - 1);
+        Frame lastFrame = frames.getLast();
         return !lastFrame.isFinalFrame() || !lastFrame.isComplete();
     }
 }

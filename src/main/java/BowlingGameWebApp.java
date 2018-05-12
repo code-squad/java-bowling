@@ -28,7 +28,7 @@ public class BowlingGameWebApp {
             Map<String, Object> model = new HashMap<>();
             model.put("bowlingGames", bowlingGames);
             model.put("player", bowlingGames.get(playerIndex).getPlayerName());
-            model.put("currentFrameNumber", getCurrentFrameNumber());
+            model.put("nowFrameNumber", bowlingGames.get(playerIndex).getFrames().getNextFrameNumber());
             return render(model, "/play.html");
         });
 
@@ -38,13 +38,9 @@ public class BowlingGameWebApp {
             Map<String, Object> model = new HashMap<>();
             model.put("bowlingGames", bowlingGames);
             model.put("player", getNextPlayer());
-            model.put("currentFrameNumber", getCurrentFrameNumber());
+            model.put("nowFrameNumber", bowlingGames.get(playerIndex).getFrames().getNextFrameNumber());
             return render(model, "/play.html");
         });
-    }
-
-    private static int getCurrentFrameNumber() {
-        return bowlingGames.get(playerIndex).getFrames().size() + 1;
     }
 
     private static String getNextPlayer() {
