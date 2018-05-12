@@ -1,15 +1,31 @@
 package domain;
 
+import domain.pin.Pins;
+import domain.status.*;
+
 public class Score {
 	private int score;
 	private int canScoreCount;
 	
-	private Score(int score, int canScoreCount) {
+	public Score(int score, int canScoreCount) {
 		this.score = score;
 		this.canScoreCount = canScoreCount;
 	}
 	
-	public static Score ofMiss(int score) {
+	public static Score ofStatus(Status status, Pins pins) {
+		if (status.ofInstance(Strike.class)) {
+			return ofStrike();
+		}
+		if (status.ofInstance(Spare.class)) {
+			return ofSpare();
+		}
+		if (status.ofInstance(Gutter.class, None.class)) {
+			return new Score(pins.sum(), 1);
+		}
+		return ofNone(pins.sum());
+	}
+	
+	public static Score ofNone(int score) {
 		return new Score(score, 0);
 	}
 	
@@ -27,6 +43,10 @@ public class Score {
 		}
 		
 		return score;
+	}
+	
+	public Score next(int pin) {
+		return new Score(score + pin, canScoreCount - 1);
 	}
 	
 	public boolean canScore() {

@@ -1,5 +1,6 @@
 package domain.frame;
 
+import domain.Score;
 import domain.status.*;
 
 public class NormalFrame extends Frame {
@@ -17,58 +18,21 @@ public class NormalFrame extends Frame {
 	}
 	
 	@Override
-	public boolean getScoreFlag() {
-		Status nowStatus = getStatus();
-		
-		if (!isComplete()) {
-			return false;
+	public Score score() {
+		Score score = Score.ofStatus(getStatus(), getPins());
+		if(!score.canScore() && hasNextFrame()) {
+			return getNextFrame().scoreWith(score);
 		}
-		
-		if (!nowStatus.ofInstance(Strike.class, Spare.class)) {
-			return true;
-		}
-		
-		if (nowStatus.ofInstance(Spare.class)) {
-			return hasNextFrame();
-		}
-		
-		if (!hasNextFrame()) {
-			return false;
-		}
-
-		if (!getNextFrame().getStatus().ofInstance(Strike.class)) {
-			return getNextFrame().isComplete();
-		}
-
-		return getNextFrame().hasNextFrame();
+		return score;
 	}
-
+	
 	@Override
-	public int getScore() {
-		if (!getScoreFlag()) {
-			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
+	protected Score scoreWith(Score beforeScore) {
+		Score score = getPins().scoreWith(beforeScore);
+		if(hasNextFrame() && !score.canScore()) {
+			return getNextFrame().scoreWith(score);
 		}
-
-		int baseScore = getPins().sum();
-		Status nowStatus = getStatus();
-
-		if (!nowStatus.ofInstance(Strike.class)
-				&& !nowStatus.ofInstance(Spare.class)) {
-			return baseScore;
-		}
-
-		if (nowStatus.ofInstance(Spare.class)) {
-			return baseScore
-					+ getNextFrame().getPins().getFirst().getPin();
-		}
-
-		if (!getNextFrame().getStatus().ofInstance(Strike.class)) {
-			return baseScore
-					+ getNextFrame().getPins().sum();
-		}
-
-		return baseScore
-				+ getNextFrame().getPins().sum()
-				+ getNextFrame().getNextFrame().getPins().getFirst().getPin();
+		
+		return score;
 	}
 }

@@ -1,5 +1,6 @@
 package domain.frame;
 
+import domain.Score;
 import domain.status.Spare;
 import domain.status.Strike;
 
@@ -19,15 +20,16 @@ public class FinalFrame extends Frame {
 	}
 	
 	@Override
-	public boolean getScoreFlag() {
-		return isComplete();
-	}
-
-	@Override
-	public int getScore() {
-		if (!getScoreFlag()) {
-			throw new IllegalStateException(getFrameNumber() + "프레임은 점수를 구할 수 없는 상태입니다.");
+	public Score score() {
+		if(isComplete()) {
+			return Score.ofNone(getPins().sum());
 		}
-		return getPins().sum();
+		
+		return Score.ofStatus(getStatus(), getPins());
+	}
+	
+	@Override
+	protected Score scoreWith(Score beforeScore) {
+		return getPins().scoreWith(beforeScore);
 	}
 }

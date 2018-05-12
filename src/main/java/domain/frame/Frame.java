@@ -1,8 +1,11 @@
 package domain.frame;
 
+import domain.Score;
 import domain.pin.Pin;
 import domain.pin.Pins;
+import domain.status.Spare;
 import domain.status.Status;
+import domain.status.Strike;
 
 import java.util.stream.Collectors;
 
@@ -25,6 +28,10 @@ public abstract class Frame {
 	
 	public boolean hasNextFrame() {
 		return nextFrame != null;
+	}
+	
+	public Pins getPins() {
+		return pins;
 	}
 	
 	public int getFrameNumber() {
@@ -61,18 +68,13 @@ public abstract class Frame {
 		return nextFrame = new FinalFrame(firstPin);
 	}
 
-	public Pins getPins() {
-	    return pins;
-    }
-	
-	public abstract boolean getScoreFlag();
-
-	public abstract int getScore();
-	
 	public String displayStatus() {
 		return pins.stream()
 				.map(Pin::getStatus)
 				.map(Status::display)
 				.collect(Collectors.joining("|"));
 	}
+	
+	public abstract Score score();
+	protected abstract Score scoreWith(Score score);
 }

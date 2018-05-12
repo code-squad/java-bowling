@@ -1,5 +1,6 @@
 package domain.pin;
 
+import domain.Score;
 import domain.status.Status;
 
 import java.util.*;
@@ -46,5 +47,15 @@ public class Pins {
 	
 	public Pin getFirst() {
 		return pins.get(0);
+	}
+	
+	public Score scoreWith(Score beforeScore) {
+		Score tempScore = beforeScore;
+		Iterator iterator = pins.iterator();
+		while (iterator.hasNext() && !tempScore.canScore()) {
+			Pin pin = (Pin) iterator.next();
+			tempScore = tempScore.next(pin.getPin());
+		}
+		return tempScore;
 	}
 }

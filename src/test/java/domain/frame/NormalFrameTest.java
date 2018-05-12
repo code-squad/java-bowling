@@ -7,6 +7,7 @@ import domain.status.Strike;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 
 public class NormalFrameTest {
 	@Test(expected = IllegalArgumentException.class)
@@ -50,49 +51,22 @@ public class NormalFrameTest {
 	}
 	
 	@Test
-	public void canScore테스트() {
-		assertThat(new NormalFrame(10).getScoreFlag()).isEqualTo(false);
-		assertThat(new NormalFrame(1).bowl(9).getScoreFlag()).isEqualTo(false);
-		assertThat(new NormalFrame(1).getScoreFlag()).isEqualTo(false);
-		assertThat(new NormalFrame(2).bowl(5).getScoreFlag()).isEqualTo(true);
-		assertThat(new NormalFrame(0).getScoreFlag()).isEqualTo(false);
-		assertThat(new NormalFrame(0).bowl(0).getScoreFlag()).isEqualTo(true);
-		
-		Frame frame = new NormalFrame(10);
-		frame.bowl(2);
-		assertThat(frame.getScoreFlag()).isEqualTo(false);
-		frame.bowl(2).bowl(8);
-		assertThat(frame.getScoreFlag()).isEqualTo(true);
-		
-		frame = new NormalFrame(8).bowl(2);
-		frame.bowl(10);
-		assertThat(frame.getScoreFlag()).isEqualTo(true);
-
-		frame = new NormalFrame(10);
-		frame.bowl(10);
-		assertThat(frame.getScoreFlag()).isEqualTo(false);
-		frame.bowl(10).bowl(10);
-		assertThat(frame.getScoreFlag()).isEqualTo(true);
-		frame.bowl(10).bowl(2);
-		assertThat(frame.getScoreFlag()).isEqualTo(true);
-	}
-	
-	@Test
 	public void score테스트() {
 		NormalFrame frame = new NormalFrame(10);
 		frame.bowl(2).bowl(3);
-		assertThat(frame.getScore()).isEqualTo(15);
+		assertThat(frame.score().getScore()).isEqualTo(15);
 		frame.bowl(10).bowl(10).bowl(10);
-		assertThat(frame.getScore()).isEqualTo(30);
+		assertThat(frame.score().getScore()).isEqualTo(30);
 		frame.bowl(10).bowl(1).bowl(9);
-		assertThat(frame.getScore()).isEqualTo(21);
+		assertThat(frame.score().getScore()).isEqualTo(21);
 
 		frame = new NormalFrame(1);
+		assertFalse(frame.score().canScore());
 		frame.bowl(9).bowl(1).bowl(2);
-		assertThat(frame.getScore()).isEqualTo(11);
+		assertThat(frame.score().getScore()).isEqualTo(11);
 
 		frame = new NormalFrame(1);
 		frame.bowl(8).bowl(1).bowl(2);
-		assertThat(frame.getScore()).isEqualTo(9);
+		assertThat(frame.score().getScore()).isEqualTo(9);
 	}
 }
